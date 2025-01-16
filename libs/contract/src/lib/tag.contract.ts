@@ -6,7 +6,7 @@ import { statusSchema } from './enum.contract';
 export const tagResSchema = z.object({
   id: z.string(),
   title: z.string(),
-  created_at: z.date(),
+  creteAt: z.date(),
   status: statusSchema,
 });
 
