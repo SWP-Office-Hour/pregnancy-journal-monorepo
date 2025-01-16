@@ -6,7 +6,7 @@ export const reminderSchema = z.object({
   // type: reminderTypeSchema,
   title: z.string(),
   content: z.string(),
-  remind_date: z.date(),
+  remindDate: z.date(),
   // status: reminderStatusSchema,
   created_at: z.date(),
   updated_at: z.date(),
