@@ -13,8 +13,8 @@ export enum UserStatus {
 }
 
 // Tạo Zod schema cho role và status
-export const UserRoleSchema = z.nativeEnum(UserRole);
-export const StatusEnumSchema = z.nativeEnum(UserStatus);
+export const userRoleSchema = z.nativeEnum(UserRole);
+export const userStatusEnumSchema = z.nativeEnum(UserStatus);
 
 // Định nghĩa Status trạng thái enum
 export enum Status {

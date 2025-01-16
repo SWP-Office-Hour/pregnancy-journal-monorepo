@@ -8,7 +8,7 @@ const blogResSchema = z.object({
   id: z.string(),
   title: z.string(),
   content: z.string(),
-  create_at: z.date(),
+  createAt: z.date(),
   status: statusSchema,
   media: z.array(mediaResSchema),
   tags: z.array(tagResSchema),

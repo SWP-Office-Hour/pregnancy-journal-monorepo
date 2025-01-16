@@ -1,5 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { statusSchema, userRoleSchema, userStatusEnumSchema } from './enum.contract';
+import { tagResSchema } from './tag.contract';
 
 const c = initContract();
 
@@ -57,6 +59,22 @@ export type TokenRequest = z.infer<typeof tokenSchema>;
 export type AuthResponse = z.infer<typeof authResponseSchema>;
 export type RefreshTokenRequest = z.infer<typeof refreshTokenReqSchema>;
 
+//User
+
+//User zod schema
+const userResSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  email: z.string(),
+  createAt: z.date(),
+  role: userRoleSchema,
+  status: userStatusEnumSchema,
+  tags: z.array(tagResSchema),
+});
+
+//User get all zod schema
+const userGetAllResSchema = z.array(userResSchema);
+
 // Contract
 export const authContract = c.router({
   register: {
@@ -97,3 +115,5 @@ export const authContract = c.router({
     },
   },
 });
+
+export const userContract = c.router({});
