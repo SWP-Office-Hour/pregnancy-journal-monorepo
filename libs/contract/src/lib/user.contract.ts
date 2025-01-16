@@ -1,24 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
-export enum UserRole {
-  ADMIN,
-  MEMBER,
-}
-
-// Định nghĩa Status enum
-export enum UserStatus {
-  ACTIVE = 1,
-  BANNED = 2,
-}
-
-// Tạo Zod schema cho role và status
-export const UserRoleSchema = z.nativeEnum(UserRole);
-export const StatusEnumSchema = z.nativeEnum(UserStatus);
-
-// Tạo schema cho việc transform số sang role
-
-
 const c = initContract();
 
 // Schemas
