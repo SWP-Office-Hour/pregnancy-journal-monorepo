@@ -70,7 +70,8 @@
       "plugin": "@nx-tools/nx-container",
       "options": {
         "defaultEngine": "docker",
-        "defaultRegistry": "registry.digitalocean.com/office-hour"
+        "defaultRegistry": "registry.digitalocean.com/office-hour",
+        "push": true
       }
     },
     {

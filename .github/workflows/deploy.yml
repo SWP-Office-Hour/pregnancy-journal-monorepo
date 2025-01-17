@@ -30,8 +30,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-
-
       - name: Cache node modules of entire Monorepo
         id: cache-npm
         uses: actions/cache@v4
@@ -79,11 +77,12 @@ jobs:
       - name: 'Build images'
         run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=container
 
-      - name: Build and push Docker image
-        if: github.event_name == 'push'
-        id: push
-        uses: docker/build-push-action@v6.5.0
-        with:
-          context: .
-          push: true
-          tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
+#      - name: Build and push Docker image
+#        if: github.event_name == 'push'
+#        id: push
+#        uses: docker/build-push-action@v6.5.0
+#        with:
+#          context: .
+#          file: ./apps/be-nestjs-app/Dockerfile
+#          push: true
+#          tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest

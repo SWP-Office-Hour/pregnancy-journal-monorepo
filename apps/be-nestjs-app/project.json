@@ -5,13 +5,6 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "docker": {
-      "executor": "@nx-tools/nx-container:build",
-      "options": {
-        "push": true,
-        "tag": "registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest"
-      }
-    },
     "build": {
       "executor": "nx:run-commands",
       "options": {
