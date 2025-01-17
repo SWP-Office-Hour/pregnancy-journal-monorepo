@@ -5,6 +5,15 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "docker": {
+      "executor": "@nx-tools/nx-container:build",
+      "options": {
+        "push": true,
+        "tags": ["user/app:latest"],
+        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour"],
+        "cache-to": ["type=registry,ref=registry.digitalocean.com/office-hour,mode=max"]
+      }
+    },
     "build": {
       "executor": "nx:run-commands",
       "options": {
@@ -23,7 +32,7 @@
       "dependsOn": ["build"],
       "options": {
         "buildTarget": "be-nestjs-app:build",
-        "runBuildTargetDependencies": false
+        "runBuildTargetDependencies": true
       },
       "configurations": {
         "development": {
