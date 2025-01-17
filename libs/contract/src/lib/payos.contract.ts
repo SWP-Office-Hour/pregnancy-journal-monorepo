@@ -1,42 +1,20 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { payStatusSchema } from './enum.contract';
 
 const c = initContract();
 
-const TransactionSchema = z.object({
-  reference: z.string(),
-  amount: z.number(),
-  accountNumber: z.string(),
-  description: z.string(),
-  transactionDateTime: z.string(),
-  virtualAccountName: z.string().nullable(),
-  virtualAccountNumber: z.string().nullable(),
-  counterAccountBankId: z.string().nullable(),
-  counterAccountBankName: z.string().nullable(),
-  counterAccountName: z.string().nullable(),
-  counterAccountNumber: z.string().nullable(),
-});
-
-const PaymentLinkSchema = z.object({
+const payosReqSchema = z.object({
   id: z.string(),
-  orderCode: z.number(),
-  amount: z.number(),
-  amountPaid: z.number(),
-  amountRemaining: z.number(),
-  status: z.string(),
-  createdAt: z.string(),
-  transactions: z.array(TransactionSchema),
-  cancellationReason: z.string().nullable(),
-  canceledAt: z.string().nullable(),
-});
-
-const payosCreateReqSchema = z.object({
-  orderCode: z.number(),
   amount: z.number(),
   description: z.string(),
+  membershipId: z.string(),
+  status: payStatusSchema,
+  userId: z.string(),
+  createdAt: z.date(),
 });
 
-const payosCreateResSchema = z.object({
+const payosResSchema = z.object({
   bin: z.string(),
   checkoutUrl: z.string(),
   accountNumber: z.string(),
@@ -47,19 +25,35 @@ const payosCreateResSchema = z.object({
   qrCode: z.string(),
 });
 
-export type PayosCreate = z.infer<typeof payosCreateResSchema>;
-export type PayosCreateResponse = z.infer<typeof payosCreateResSchema>;
-export type PayosCreateRequest = z.infer<typeof payosCreateReqSchema>;
-export type Transaction = z.infer<typeof TransactionSchema>;
+export type PayosCreateResponse = z.infer<typeof payosResSchema>;
+export type PayosCreateRequest = z.infer<typeof payosReqSchema>;
 
 export const payosContract = c.router({
   create: {
     method: 'POST',
     path: '/payos',
-    body: payosCreateReqSchema,
+    body: payosReqSchema,
     responses: {
-      200: payosCreateResSchema,
+      200: payosResSchema,
       404: z.object({ message: z.string() }),
-    }
+    },
+  },
+  getAll: {
+    method: 'GET',
+    path: '/payos',
+    responses: {
+      200: z.array(payosResSchema),
+    },
+  },
+  getOne: {
+    method: 'GET',
+    path: '/payos/:id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    responses: {
+      200: payosResSchema,
+      404: z.object({ message: z.string() }),
+    },
   },
 });

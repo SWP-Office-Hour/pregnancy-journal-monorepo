@@ -9,7 +9,21 @@ import { AppModule } from './app/app.module';
 import { generateOpenApi } from '@ts-rest/open-api';
 import { SwaggerModule } from '@nestjs/swagger';
 import { SocketIoAdapter } from './socket-io.adapter';
-
+import {
+  authContract,
+  blogContract,
+  dashboardContract,
+  hospitalContract,
+  mediaContract,
+  membershipContract,
+  metricContract,
+  noteContract,
+  payosContract,
+  pregnancyContract,
+  reminderContract,
+  tagContract,
+  userContract,
+} from '@pregnancy-journal-monorepo/contract';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,8 +31,19 @@ async function bootstrap() {
   //tạo swagger và contract
   const apiDocument = generateOpenApi(
     {
-      // user: userContract,
-
+      auth: authContract,
+      user: userContract,
+      pay: payosContract,
+      tag: tagContract,
+      metric: metricContract,
+      dashboard: dashboardContract,
+      pregnancy: pregnancyContract,
+      blog: blogContract,
+      note: noteContract,
+      reminder: reminderContract,
+      hospital: hospitalContract,
+      membership: membershipContract,
+      media: mediaContract,
     },
     {
       info: {
@@ -40,7 +65,14 @@ async function bootstrap() {
           bearerAuth: [],
         },
       ],
-      servers: [{ url: `${process.env.HOST_URL}` }],
+      servers: [
+        // {
+        //   url: process.env.HOST_URL,
+        // },
+        {
+          url: 'http://localhost:3000',
+        },
+      ],
     }
   );
 
@@ -48,6 +80,8 @@ async function bootstrap() {
   app.useWebSocketAdapter(new SocketIoAdapter(app));
 
   const globalPrefix = 'api';
+
+  Logger.log('hi from ' + process.env.HOST_URL);
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   await app.listen(port);
