@@ -32,7 +32,7 @@ jobs:
 
       - name: Cache node modules of entire Monorepo
         id: cache-npm
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         env:
           cache-name: cache-node-modules
         with:
@@ -50,7 +50,7 @@ jobs:
         run: npm list
 
       - name: Install dependencies without break package-lock
-        run: npm ci --legacy-peer-deps
+        run: npm i --legacy-peer-deps
 
       - run: npx cypress install
 
@@ -71,7 +71,7 @@ jobs:
            password: ${{ secrets.DIOCEAN_AC }}
 
       - id: string
-        uses: ASzc/change-string-case-action@v2
+        uses: ASzc/change-string-case-action@v6
         with:
           string: ${{ github.repository }}
 
