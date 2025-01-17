@@ -28,8 +28,8 @@ export const metricResSchema = z.object({
   title: z.string(),
   measure: z.string(),
   bound: z.array(boundSchema),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
+  upper_bound_msg: z.string(),
+  lower_bound_msg: z.string(),
   tags: z.array(tagResSchema),
   status: statusSchema,
 });
@@ -38,8 +38,8 @@ export const metricUserResSchema = z.object({
   id: z.string(),
   title: z.string(),
   measure: z.string(),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
+  upper_bound_msg: z.string(),
+  lower_bound_msg: z.string(),
   bound: boundSchema,
 });
 
