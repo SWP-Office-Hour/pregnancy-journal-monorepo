@@ -4,8 +4,9 @@
   tuiForm="m"
   [formGroup]="loginForm"
   [style.max-width.rem]="32"
+  (ngSubmit)="loginNormal()"
 >
-  <img ngSrc="logo_name_bgt.png" alt="logo" />
+  <img ngSrc="./images/logo_name_bgt.png" alt="logo" width="32" height="32" [priority]="NgOptimizedImage"/>
   <header tuiHeader>
     <h1 tuiTitle>Đăng nhập</h1>
   </header>
@@ -30,13 +31,15 @@
   </div>
 
   <tui-textfield>
-    <label tuiLabel>Email</label>
-    <input placeholder="Type your email" tuiTextfield type="email" />
+    <label tuiLabel>Email
+      <input placeholder="Type your email" tuiTextfield type="email" formControlName="email" />
+    </label>
   </tui-textfield>
 
   <tui-textfield>
-    <label tuiLabel>Password</label>
-    <input placeholder="Type your password" tuiTextfield type="password" />
+    <label tuiLabel>Password
+      <input placeholder="Type your password" tuiTextfield type="password" formControlName="password" />
+    </label>
     <tui-icon tuiPassword />
   </tui-textfield>
   <footer>
