@@ -1,10 +1,9 @@
-import { TuiRoot } from "@taiga-ui/core";
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { TuiRoot } from '@taiga-ui/core';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule, TuiRoot],
+  imports: [RouterModule, TuiRoot],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',

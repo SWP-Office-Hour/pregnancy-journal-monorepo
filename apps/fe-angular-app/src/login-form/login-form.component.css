@@ -3,7 +3,7 @@
   display: block;
   justify-content: center;
   align-items: center;
-  margin-top: 30pxa;
+  margin-top: 24px;
   width: 100%;
 }
 
@@ -18,7 +18,7 @@
   font-weight: 600;
   border: none;
   border-radius: 8px;
-  padding: 12px 25px;
+  padding: 4px 25px 3px 25px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -34,11 +34,9 @@
 
 /* Icon Google */
 .google-icon {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   display: inline;
-  margin-right: 12px;
-  margin-bottom: 4px;
 }
 
 /* Văn bản */
@@ -80,4 +78,7 @@
   .or {
     font-size: 12px;
   }
+}
+.logo{
+  margin: 24px 0;
 }
