@@ -8,9 +8,9 @@ const membershipResContract = z.object({
   title: z.string(),
   price: z.number(),
   description: z.string(),
-  createAt: z.date(),
+  created_at: z.date(),
   status: statusSchema,
-  expiredInDay: membershipDaySchema,
+  expired_in_day: membershipDaySchema,
 });
 
 const membershipGetAllResContract = z.array(membershipResContract);

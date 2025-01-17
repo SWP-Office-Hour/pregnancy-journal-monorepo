@@ -15,9 +15,9 @@ const pregnancyResSchema = z.array(
     {
       id: z.string(),
       week: z.number(),
-      expectedBirthDate: z.date(),
-      nextVisitDate: z.date(),
-      visitDoctorDate: z.date(),
+      expected_birth_date: z.date(),
+      next_visit_date: z.date(),
+      visit_doctor_date: z.date(),
       hospital: z.string(),
       data: z.array(metricValueSchema),
     }

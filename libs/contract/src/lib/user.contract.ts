@@ -8,7 +8,7 @@ const c = initContract();
 // Schemas
 const registerSchema = z
   .object({
-    fullName: z.string().min(1, 'Name is required'),
+    fullname: z.string().min(1, 'Name is required'),
     email: z.string().min(1, 'Email is required'),
     password: z
       .string()
@@ -66,7 +66,7 @@ const userResSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string(),
-  createAt: z.date(),
+  created_at: z.date(),
   role: userRoleSchema,
   status: userStatusEnumSchema,
   tags: z.array(tagResSchema),
