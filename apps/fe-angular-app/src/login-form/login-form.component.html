@@ -5,16 +5,14 @@
   [formGroup]="loginForm"
   [style.max-width.rem]="32"
 >
-  <img src="logo_name_bgt.png" alt="logo" />
+  <img ngSrc="logo_name_bgt.png" alt="logo" />
   <header tuiHeader>
     <h1 tuiTitle>Đăng nhập</h1>
   </header>
 
-  //Start Login Google
   <div class="login-button">
     <button
       id="google"
-      mat-raised-button
       class="google-login-button"
       (click)="signInWithGoogle()"
     >
@@ -25,20 +23,19 @@
       />
     </button>
   </div>
-
   <div class="or">
     <div class="bar"></div>
     <p>or</p>
     <div class="bar"></div>
   </div>
-  //End Login Google
 
   <tui-textfield>
     <label tuiLabel>Email</label>
     <input placeholder="Type your email" tuiTextfield type="email" />
   </tui-textfield>
+
   <tui-textfield>
-    <label tuiLabel>Password*</label>
+    <label tuiLabel>Password</label>
     <input placeholder="Type your password" tuiTextfield type="password" />
     <tui-icon tuiPassword />
   </tui-textfield>
