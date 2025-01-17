@@ -4,7 +4,7 @@ import { reminderTypeSchema, statusSchema } from './enum.contract';
 
 export const reminderResSchema = z.object({
   id: z.string(),
-  type: reminderTypeSchema,
+  // type: reminderTypeSchema,
   title: z.string(),
   content: z.string(),
   remindDate: z.date(),

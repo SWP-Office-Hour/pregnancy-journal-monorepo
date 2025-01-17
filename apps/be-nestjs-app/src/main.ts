@@ -9,6 +9,7 @@ import { AppModule } from './app/app.module';
 import { generateOpenApi } from '@ts-rest/open-api';
 import { SwaggerModule } from '@nestjs/swagger';
 import { SocketIoAdapter } from './socket-io.adapter';
+
 import {
   authContract,
   blogContract,

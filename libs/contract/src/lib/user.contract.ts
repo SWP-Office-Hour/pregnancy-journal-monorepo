@@ -5,6 +5,7 @@ import {
   userRoleSchema,
   userStatusEnumSchema,
 } from './enum.contract';
+
 import { tagResSchema } from './tag.contract';
 
 const c = initContract();
@@ -12,7 +13,7 @@ const c = initContract();
 // Schemas
 const registerSchema = z
   .object({
-    fullName: z.string().min(1, 'Name is required'),
+    fullname: z.string().min(1, 'Name is required'),
     email: z.string().min(1, 'Email is required'),
     password: z
       .string()
@@ -65,6 +66,7 @@ export type RefreshTokenRequest = z.infer<typeof refreshTokenReqSchema>;
 
 //User
 //User response
+
 //User zod schema
 const userResSchema = z.object({
   id: z.string(),
@@ -79,7 +81,7 @@ const userResSchema = z.object({
   ward: z.string(),
   address: z.string(),
   role: userRoleSchema,
-  createAt: z.date(),
+  createdAt: z.date(),
   status: userStatusEnumSchema,
   tags: z.array(tagResSchema),
 });
@@ -90,7 +92,7 @@ const userGetAllResSchema = z.array(
     id: z.string(),
     name: z.string(),
     email: z.string(),
-    createAt: z.date(),
+    createdAt: z.date(),
     role: userRoleSchema,
     status: userStatusEnumSchema,
     tags: z.array(tagResSchema),

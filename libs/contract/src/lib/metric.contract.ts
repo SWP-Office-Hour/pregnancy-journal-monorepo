@@ -4,6 +4,7 @@ import { tagResSchema } from './tag.contract';
 import { statusSchema } from './enum.contract';
 
 export const boundSchema = z.object({
+
   id: z.string(),
   week: z.number(),
   lower: z.number(),
