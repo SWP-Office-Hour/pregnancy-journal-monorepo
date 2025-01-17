@@ -10,8 +10,8 @@
       "options": {
         "push": true,
         "tags": ["user/app:latest"],
-        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour"],
-        "cache-to": ["type=registry,ref=registry.digitalocean.com/office-hour,mode=max"]
+        "cache-from": ["type=registry,ref=user/app:buildcache"],
+        "cache-to": ["type=registry,ref=user/app:buildcache,mode=max"]
       }
     },
     "build": {
