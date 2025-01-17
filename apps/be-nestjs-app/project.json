@@ -11,6 +11,7 @@
       "options": {
         "engine": "docker",
         "tags": ["office-hour/api:dev"],
+        "push": true,
         "load": true,
         "defaultRegistry": "registry.digitalocean.com",
         "metadata": {
