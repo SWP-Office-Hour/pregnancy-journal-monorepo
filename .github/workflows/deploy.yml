@@ -30,6 +30,8 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      - run: npx cypress install
+
       - name: Cache node modules of entire Monorepo
         id: cache-npm
         uses: actions/cache@v4
@@ -52,7 +54,7 @@ jobs:
       - name: Install dependencies without break package-lock
         run: npm i --legacy-peer-deps
 
-      - run: npx cypress install
+
 
       - uses: nrwl/nx-set-shas@v4
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
