@@ -1,3 +1,4 @@
+[![DEPLOY FROM MAIN](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/deploy.yml/badge.svg)](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/deploy.yml)
 # PregnancyJournal
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
