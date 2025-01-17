@@ -11,7 +11,7 @@
         "push": true,
         "tag": ["registry.digitalocean.com/office-hour/app:latest"],
         "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest"],
-        "cache-to": ["type=inline"]
+        "cache-to": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest", "mode=max"]
       }
     },
     "build": {
