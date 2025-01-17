@@ -5,13 +5,18 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "docker": {
+    "container": {
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "tags": ["office-hour/api:dev"],
-        "load": true
+        "load": true,
+        "defaultRegistry": "registry.digitalocean.com",
+        "metadata": {
+          "images": ["registry.digitalocean.com/office-hour/api"],
+          "tags": ["dev"]
+        }
       },
       "configurations": {
         "ci": {
