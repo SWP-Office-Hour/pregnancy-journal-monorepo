@@ -24,3 +24,37 @@ const dashboardRevenueResSchema = z.array(
   })
 );
 
+const c = initContract();
+
+export const dashboardContract = c.router({
+  getDashboard: {
+    method: 'GET',
+    path: '/admin/dashboard',
+    responses: {
+      200: dashboardResSchema,
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
+  getUserDashboard: {
+    method: 'GET',
+    path: '/admin/user',
+    responses: {
+      200: dashboardUserResSchema,
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
+  getRevenueDashboard: {
+    method: 'GET',
+    path: '/admin/revenue',
+    responses: {
+      200: dashboardRevenueResSchema,
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
+});
