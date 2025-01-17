@@ -9,9 +9,7 @@
       "executor": "@nx-tools/nx-container:build",
       "options": {
         "push": true,
-        "tag": ["registry.digitalocean.com/office-hour/app:latest"],
-        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest"],
-        "cache-to": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest,mode=max"]
+        "tag": ["registry.digitalocean.com/office-hour/app:latest"]
       }
     },
     "build": {
