@@ -7,9 +7,9 @@ const membershipResContract = z.object({
   title: z.string(),
   price: z.number(),
   description: z.string(),
-  created_at: z.date(),
+  createAt: z.date(),
   status: statusSchema,
-  expired_in_day: membershipDaySchema,
+  expiredInDay: membershipDaySchema,
 });
 
 const membershipCreateReqContract = z.object({
