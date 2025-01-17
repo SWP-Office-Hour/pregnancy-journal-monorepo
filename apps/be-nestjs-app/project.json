@@ -7,12 +7,27 @@
   "targets": {
     "docker": {
       "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
       "options": {
-        "push": true,
-        "metadata": {
-          "tag": ["registry.digitalocean.com/office-hour/app:latest"],
-          "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest"],
-          "cache-to": ["type=inline"]
+        "engine": "docker",
+        "tags": ["office-hour/api:dev"],
+        "load": true
+      },
+      "configurations": {
+        "ci": {
+          "load": false,
+          "push": true,
+          "quiet": true,
+          "metadata": {
+            "images": ["registry.digitalocean.com/office-hour/api"],
+            "tags": [
+              "type=schedule",
+              "type=ref,event=branch",
+              "type=ref,event=tag",
+              "type=ref,event=pr",
+              "type=sha,prefix=sha-"
+            ]
+          }
         }
       }
     },
