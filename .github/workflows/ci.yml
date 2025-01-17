@@ -72,8 +72,8 @@ jobs:
         uses: docker/login-action@v3.3.0
         with:
            registry: registry.digitalocean.com/office-hour
-           username: ${{ secrets.ThanhTNV }}
-           password: ${{ secrets.GH_NxCloud }}
+           username: ${{ secrets.DIOCEAN_USERNAME }}
+           password: ${{ secrets.DIOCEAN_AC }}
 
       - id: string
         uses: ASzc/change-string-case-action@v2
