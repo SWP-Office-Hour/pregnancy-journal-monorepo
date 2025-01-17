@@ -5,7 +5,7 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "container": {
+    "docker": {
       "executor": "@nx-tools/nx-container:build",
       "dependsOn": ["build"],
       "options": {
