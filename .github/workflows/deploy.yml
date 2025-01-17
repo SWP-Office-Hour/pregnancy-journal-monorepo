@@ -69,13 +69,13 @@ jobs:
           username: ${{ secrets.DIOCEAN_USERNAME }}
           password: ${{ secrets.DIOCEAN_AC }}
 
-      - id: string
-        uses: ASzc/change-string-case-action@v6
-        with:
-          string: ${{ github.repository }}
+#      - id: string
+#        uses: ASzc/change-string-case-action@v6
+#        with:
+#          string: ${{ github.repository }}
 
       - name: 'Build images'
-        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=container
+        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=docker
 
 #      - name: Build and push Docker image
 #        if: github.event_name == 'push'
