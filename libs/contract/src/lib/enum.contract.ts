@@ -30,3 +30,21 @@ export enum membershipDay {
 
 export const statusSchema = z.nativeEnum(Status);
 export const membershipDaySchema = z.nativeEnum(membershipDay);
+
+// Định nghĩa ReminderType enum
+export enum ReminderType {
+  BIRTHDAY,
+  EVENT,
+  MEETING,
+}
+
+export const reminderTypeSchema = z.nativeEnum(ReminderType);
+
+// Định nghĩa PayStatus enum
+export enum PayStatus {
+  PENDING,
+  SUCCESS,
+  FAILED,
+}
+
+export const payStatusSchema = z.nativeEnum(PayStatus);

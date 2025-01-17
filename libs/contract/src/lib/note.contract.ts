@@ -2,65 +2,69 @@ import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
 import { statusSchema } from './enum.contract';
 
-export const tagResSchema = z.object({
+export const noteResSchema = z.object({
   id: z.string(),
   title: z.string(),
-  createAt: z.date(),
+  content: z.string(),
+  date: z.date(),
   status: statusSchema,
+  created_at: z.date(),
 });
 
-export const tagCreateReqSchema = z.object({
+const noteCreateReqSchema = z.object({
   title: z.string(),
+  content: z.string(),
+  date: z.date(),
   status: statusSchema,
 });
-
-export const tagUpdateReqSchema = z.object({
+const noteUpdateReqSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
+  content: z.string().optional(),
+  date: z.date().optional(),
   status: statusSchema.optional(),
 });
 
-const tagGetAllResSchema = z.array(tagResSchema);
+export type Note = z.infer<typeof noteResSchema>;
 
-export type Tag = z.infer<typeof tagResSchema>;
 const c = initContract();
 
-export const tagContract = c.router({
+export const noteContract = c.router({
   getAll: {
     method: 'GET',
-    path: '/tags',
+    path: '/note',
     responses: {
-      200: tagGetAllResSchema,
+      200: z.array(noteResSchema),
       404: z.object({ message: z.string() }),
     },
   },
   getOne: {
     method: 'GET',
-    path: '/tags/:id',
+    path: '/note/:id',
     responses: {
-      200: tagResSchema,
+      200: noteResSchema,
       404: z.object({ message: z.string() }),
     },
   },
   create: {
     method: 'POST',
-    path: '/tags',
-    body: tagCreateReqSchema,
+    path: '/note',
+    body: noteCreateReqSchema,
     responses: {
-      201: tagResSchema,
+      201: noteResSchema,
     },
   },
   update: {
     method: 'PATCH',
-    path: '/tags/:id',
-    body: tagUpdateReqSchema,
+    path: '/note/:id',
+    body: noteUpdateReqSchema,
     responses: {
-      200: tagResSchema,
+      200: noteResSchema,
     },
   },
   delete: {
     method: 'DELETE',
-    path: '/tags/:id',
+    path: '/note/:id',
     pathParams: z.object({
       id: z.string(),
     }),
