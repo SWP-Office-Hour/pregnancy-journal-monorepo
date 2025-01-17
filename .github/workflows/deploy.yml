@@ -71,22 +71,22 @@ jobs:
           username: ${{ secrets.DIOCEAN_USERNAME }}
           password: ${{ secrets.DIOCEAN_AC }}
 
+      - id: string
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.repository }}
+
       - name: 'Build images'
-        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=docker --parallel=2
+        run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --base=$NX_BASE --head=$NX_HEAD --target=docker
 
-      #      - run: npx nx affected -t container
 
-      # - id: string
-      #   uses: ASzc/change-string-case-action@v6
-      #   with:
-      #     string: ${{ github.repository }}
-
-      # - name: Build and push Docker image
-      #   if: github.event_name == 'push'
-      #   id: push
-      #   uses: docker/build-push-action@v6.5.0
-      #   with:
-      #     context: .
-      #     file: ./apps/be-nestjs-app/Dockerfile
-      #     push: true
-      #     tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
+#
+#       - name: Build and push Docker image
+#         if: github.event_name == 'push'
+#         id: push
+#         uses: docker/build-push-action@v6.5.0
+#         with:
+#           context: .
+#           file: ./apps/be-nestjs-app/Dockerfile
+#           push: true
+#           tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest

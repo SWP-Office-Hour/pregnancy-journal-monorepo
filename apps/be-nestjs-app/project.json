@@ -9,7 +9,7 @@
       "executor": "@nx-tools/nx-container:build",
       "options": {
         "push": true,
-        "tag": ["registry.digitalocean.com/office-hour/app:latest"]
+        "tag": "registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest"
       }
     },
     "build": {
