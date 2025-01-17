@@ -1,6 +1,11 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import { statusSchema, userRoleSchema, userStatusEnumSchema } from './enum.contract';
+import {
+  statusSchema,
+  userRoleSchema,
+  userStatusEnumSchema,
+} from './enum.contract';
+
 import { tagResSchema } from './tag.contract';
 
 const c = initContract();
@@ -60,20 +65,57 @@ export type AuthResponse = z.infer<typeof authResponseSchema>;
 export type RefreshTokenRequest = z.infer<typeof refreshTokenReqSchema>;
 
 //User
+//User response
 
 //User zod schema
 const userResSchema = z.object({
   id: z.string(),
   name: z.string(),
   email: z.string(),
-  created_at: z.date(),
+  lastOvulationDate: z.date(),
+  expectedBirthDate: z.date(),
+  membershipId: z.string(),
+  phone: z.string(),
+  province: z.string(),
+  district: z.string(),
+  ward: z.string(),
+  address: z.string(),
   role: userRoleSchema,
+  createdAt: z.date(),
   status: userStatusEnumSchema,
   tags: z.array(tagResSchema),
 });
 
 //User get all zod schema
-const userGetAllResSchema = z.array(userResSchema);
+const userGetAllResSchema = z.array(
+  z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    createdAt: z.date(),
+    role: userRoleSchema,
+    status: userStatusEnumSchema,
+    tags: z.array(tagResSchema),
+  })
+);
+
+//User request schema
+//User update request schema
+const userUpdateReqSchema = z.object({
+  id: z.string(),
+  name: z.string().optional(),
+  lastOvulationDate: z.date().optional(),
+  expectedBirthDate: z.date().optional(),
+  membershipId: z.string().optional(),
+  phone: z.string().optional(),
+  province: z.string().optional(),
+  district: z.string().optional(),
+  ward: z.string().optional(),
+  address: z.string().optional(),
+  role: userRoleSchema.optional(),
+  status: userStatusEnumSchema.optional(),
+  tags: z.array(tagResSchema).optional(),
+});
 
 // Contract
 export const authContract = c.router({
@@ -116,4 +158,42 @@ export const authContract = c.router({
   },
 });
 
-export const userContract = c.router({});
+export const userContract = c.router({
+  getAll: {
+    method: 'GET',
+    path: '/users',
+    responses: {
+      200: userGetAllResSchema,
+      // 404: object({ message: string() }),
+    },
+  },
+  getOne: {
+    method: 'GET',
+    path: '/users/:id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    responses: {
+      200: userResSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+  create: {
+    method: 'POST',
+    path: '/users',
+    body: registerSchema,
+    responses: {
+      200: userResSchema,
+      // 404: object({ message: string() }),
+    },
+  },
+  update: {
+    method: 'PATCH',
+    path: '/users',
+    body: userUpdateReqSchema,
+    responses: {
+      200: userResSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+});
