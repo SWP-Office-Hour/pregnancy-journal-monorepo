@@ -1,33 +1,19 @@
-import { AsyncPipe, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import {
-  TuiAppearance,
-  TuiButton,
-  TuiError,
-  TuiIcon,
-  TuiNotification,
-  TuiTextfield,
-  TuiTitle,
-} from '@taiga-ui/core';
-
 import { AuthGoogleService } from '../services/auth-google.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AsyncPipe, NgIf, NgOptimizedImage } from '@angular/common';
+import { TuiAppearance, TuiButton, TuiError, TuiIcon, TuiNotification, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { TuiFieldErrorPipe, TuiPassword, TuiSegmented, TuiSwitch, TuiTooltip } from '@taiga-ui/kit';
 
 @Component({
-  selector: 'formLogin',
+  selector: 'app-google-button',
   standalone: true,
-  exportAs: 'FormLoginComponent',
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
     AsyncPipe,
     NgIf,
-    ReactiveFormsModule,
     TuiAppearance,
     TuiButton,
     TuiCardLarge,
@@ -43,17 +29,19 @@ import { TuiFieldErrorPipe, TuiPassword, TuiSegmented, TuiSwitch, TuiTooltip } f
     TuiTitle,
     TuiTooltip,
     TuiPassword,
+    NgOptimizedImage,
   ],
-  templateUrl: './form-login.component.html',
+  templateUrl: './login-form.component.html',
+  styleUrl: './login-form.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class LoginFormComponent {
-  // protected readonly form = new FormGroup({
-  //   email: new FormControl('', [Validators.required, Validators.email]),
-  //   password: new FormControl('', [Validators.required]),
-  // });
-  private authService = inject(AuthGoogleService);
+export class LoginFormComponent {
+  protected readonly form = new FormGroup({
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+  });
 
+  private authService = inject(AuthGoogleService);
   signInWithGoogle() {
     this.authService.login();
   }
