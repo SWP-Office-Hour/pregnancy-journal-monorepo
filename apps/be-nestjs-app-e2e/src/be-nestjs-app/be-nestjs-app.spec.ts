@@ -1,5 +1,6 @@
 import { INestApplication } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { AppModule } from '../../../be-nestjs-app/src/app/app.module';
 import request from 'supertest';
 
