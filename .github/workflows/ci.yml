@@ -5,7 +5,10 @@ on:
     branches:
       - main
   pull_request:
-
+    types:
+      - edited
+      - opened
+      - reopened
 permissions:
   contents: read
   packages: write
@@ -64,25 +67,25 @@ jobs:
       - run: npx nx affected -t lint test build e2e
 
       ### Deploy by image
-      # - name: Log in to the Container registry
-      #   if: github.event_name == 'push'
-      #   uses: docker/login-action@v3.3.0
-      #   with:
-      #     registry: registry.digitalocean.com/office-hour
-      #     username: ${{ secrets.ThanhTNV }}
-      #     password: ${{ secrets.GH_NxCloud }}
+      - name: Log in to the Container registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3.3.0
+        with:
+           registry: registry.digitalocean.com/office-hour
+           username: ${{ secrets.ThanhTNV }}
+           password: ${{ secrets.GH_NxCloud }}
 
-      # - id: string
-      #   uses: ASzc/change-string-case-action@v2
-      #   with:
-      #     string: ${{ github.repository }}
+      - id: string
+        uses: ASzc/change-string-case-action@v2
+        with:
+          string: ${{ github.repository }}
 
-      # - name: Build and push Docker image
-      #   if: github.event_name == 'push'
-      #   id: push
-      #   uses: docker/build-push-action@v6.5.0
-      #   with:
-      #     context: .
-      #     file: ./apps/be-nestjs-app/Dockerfile
-      #     push: true
-      #     tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
+      - name: Build and push Docker image
+        if: github.event_name == 'push'
+        id: push
+        uses: docker/build-push-action@v6.5.0
+        with:
+           context: .
+           file: ./apps/be-nestjs-app/Dockerfile
+           push: true
+           tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
