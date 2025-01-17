@@ -1,19 +1,48 @@
+<form
+  tuiAppearance="floating"
+  tuiCardLarge
+  tuiForm="m"
+  [formGroup]="loginForm"
+  [style.max-width.rem]="32"
 >
-<img src="logo_name_bgt.png" alt="logo" />
-<header tuiHeader>
-  <h1 tuiTitle>Đăng nhập</h1>
-</header>
-<tui-textfield>
-  <label tuiLabel>Email</label>
-  <input placeholder="Type your email" tuiTextfield type="email" />
-</tui-textfield>
-<tui-textfield>
-  <label tuiLabel>Password*</label>
-  <input placeholder="Type your password" tuiTextfield type="password" />
-  <tui-icon tuiPassword />
-</tui-textfield>
-<footer>
-  <button tuiButton type="submit">Login</button>
-</footer>
-<google-button id="google"></google-button>
+  <img src="logo_name_bgt.png" alt="logo" />
+  <header tuiHeader>
+    <h1 tuiTitle>Đăng nhập</h1>
+  </header>
+
+  //Start Login Google
+  <div class="login-button">
+    <button
+      id="google"
+      mat-raised-button
+      class="google-login-button"
+      (click)="signInWithGoogle()"
+    >
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+        alt="Google"
+        class="google-icon"
+      />
+    </button>
+  </div>
+
+  <div class="or">
+    <div class="bar"></div>
+    <p>or</p>
+    <div class="bar"></div>
+  </div>
+  //End Login Google
+
+  <tui-textfield>
+    <label tuiLabel>Email</label>
+    <input placeholder="Type your email" tuiTextfield type="email" />
+  </tui-textfield>
+  <tui-textfield>
+    <label tuiLabel>Password*</label>
+    <input placeholder="Type your password" tuiTextfield type="password" />
+    <tui-icon tuiPassword />
+  </tui-textfield>
+  <footer>
+    <button tuiButton type="submit">Login</button>
+  </footer>
 </form>
