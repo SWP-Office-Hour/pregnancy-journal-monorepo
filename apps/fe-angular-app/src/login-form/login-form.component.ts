@@ -15,15 +15,10 @@ import {
   TuiTextfield,
   TuiTitle,
 } from '@taiga-ui/core';
-import {
-  TuiFieldErrorPipe,
-  TuiSegmented,
-  TuiSwitch,
-  TuiTooltip,
-  TuiPassword,
-} from '@taiga-ui/npm i @taiga-ui/{cdk,core,kit,icons}';
-import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
+
 import { AuthGoogleService } from '../services/auth-google.service';
+import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
+import { TuiFieldErrorPipe, TuiPassword, TuiSegmented, TuiSwitch, TuiTooltip } from '@taiga-ui/kit';
 
 @Component({
   selector: 'formLogin',
