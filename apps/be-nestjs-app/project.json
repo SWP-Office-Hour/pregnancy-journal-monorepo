@@ -8,9 +8,9 @@
     "docker": {
       "executor": "@nx-tools/nx-container:build",
       "options": {
-        "tag": ["be:latest"],
         "push": true,
-        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour/be:latest"],
+        "tag": ["registry.digitalocean.com/office-hour/app:latest"],
+        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour/app:latest"],
         "cache-to": ["type=inline"]
       }
     },
