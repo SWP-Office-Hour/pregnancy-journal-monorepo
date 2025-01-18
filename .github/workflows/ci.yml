@@ -1,11 +1,15 @@
 name: CI ON MAIN
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     types:
       - edited
       - opened
       - reopened
+
 permissions:
   contents: read
   packages: write
@@ -34,12 +38,12 @@ jobs:
 
       - name: Cache node modules of entire Monorepo
         id: cache-npm
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
           # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ./node_modules
+          path: ~/.npm
           key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-build-${{ env.cache-name }}-
@@ -58,8 +62,31 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
       # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-#      - run: npx nx-cloud record -- echo Hello World
+      - run: npx nx-cloud record -- echo Hello World
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
       - run: npx nx affected -t lint test build e2e
 
+      ### Deploy by image
+      # - name: Log in to the Container registry
+      #   if: github.event_name == 'push'
+      #   uses: docker/login-action@v3.3.0
+      #   with:
+      #     registry: registry.digitalocean.com/office-hour
+      #     username: ${{ secrets.ThanhTNV }}
+      #     password: ${{ secrets.GH_NxCloud }}
+
+      # - id: string
+      #   uses: ASzc/change-string-case-action@v2
+      #   with:
+      #     string: ${{ github.repository }}
+
+      # - name: Build and push Docker image
+      #   if: github.event_name == 'push'
+      #   id: push
+      #   uses: docker/build-push-action@v6.5.0
+      #   with:
+      #     context: .
+      #     file: ./apps/be-nestjs-app/Dockerfile
+      #     push: true
+      #     tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
