@@ -67,13 +67,6 @@
       }
     },
     {
-      "plugin": "@nx-tools/nx-container",
-      "options": {
-        "defaultEngine": "docker",
-        "defaultRegistry": "registry.digitalocean.com/office-hour"
-      }
-    },
-    {
       "plugin": "@nx/webpack/plugin",
       "options": {
         "buildTargetName": "build",
