@@ -60,22 +60,22 @@ jobs:
 
       - uses: nrwl/nx-set-shas@v4
 
-      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --target=container
+#      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --target=container
 
 
 
         ### Deploy by image
-#      - id: string
-#        uses: ASzc/change-string-case-action@v6
-#        with:
-#          string: ${{ github.repository }}
+      - id: string
+        uses: ASzc/change-string-case-action@v6
+        with:
+          string: ${{ github.repository }}
 
-#      - name: Build and push Docker image
-#        if: github.event_name == 'push'
-#        id: push
-#        uses: docker/build-push-action@v6.5.0
-#        with:
-#          context: .
-#          file: ./apps/be-nestjs-app/Dockerfile
-#          push: true
-#          tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
+      - name: Build and push Docker image
+        if: github.event_name == 'push'
+        id: push
+        uses: docker/build-push-action@v6.5.0
+        with:
+          context: .
+          file: ./apps/be-nestjs-app/Dockerfile
+          push: true
+          tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
