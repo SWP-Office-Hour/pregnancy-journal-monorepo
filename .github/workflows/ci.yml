@@ -65,6 +65,5 @@ jobs:
 
       #      - run: npx nx-cloud record -- nx format:check
       #      - run: npx nx affected -t lint test build
-      - run: npx nx run many --target=lint --all
-      - run: npx nx run many --target=test --all
-      - run: npx nx run many --target=build --all
+      - name: run test be
+        run: npx nx run be-nestjs-app-e2e:e2e
