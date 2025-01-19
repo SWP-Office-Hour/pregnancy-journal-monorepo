@@ -66,11 +66,8 @@ async function bootstrap() {
         },
       ],
       servers: [
-        // {
-        //   url: process.env.HOST_URL,
-        // },
         {
-          url: 'http://localhost:3000',
+          url: process.env.HOST_URL,
         },
       ],
     }
@@ -86,7 +83,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
+    `🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`
   );
 }
 
