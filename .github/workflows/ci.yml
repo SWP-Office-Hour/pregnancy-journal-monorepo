@@ -66,4 +66,7 @@ jobs:
       #      - run: npx nx-cloud record -- nx format:check
       #      - run: npx nx affected -t lint test build
       - name: run test be
-        run: npx nx run be-nestjs-app-e2e:e2e
+        run: |
+          npx nx run contract:build
+          npx nx run be-nestjs-app:build
+          npx nx run be-nestjs-app-e2e:e2e
