@@ -1,20 +1,31 @@
-name: Continuous Integration
+name: Continuous Delivery not Continuous Deployment
 
 on:
-  pull_request:
-    types: [ synchronize, opened, reopened, edited ]
+  push:
+    branches: [ main ]
 
 permissions: read-all
 
 env:
   HUSKY: 0
 jobs:
-  main:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: registry.digitalocean.com/office-hour
+          username: ${{ secrets.DIOCEAN_USERNAME }}
+          password: ${{ secrets.DIOCEAN_AC }}
+
 
       - uses: actions/setup-node@v4
         with:
@@ -43,14 +54,24 @@ jobs:
       - name: Install dependencies without break package-lock
         run: npm i --legacy-peer-deps
 
-      #      - run: npx cypress install
-
       - uses: nrwl/nx-set-shas@v4
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      #      - run: npx nx-cloud record -- echo Hello World
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      # When you enable task distribution, run the e2e-ci task instead of e2e
-      #      - run: npx nx affected -t lint test build e2e
 
-      - run: nx format:check
-      - run: nx affected -t lint test build
+      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} nx affected --target=container
+
+
+
+        ### Deploy by image
+#      - id: string
+#        uses: ASzc/change-string-case-action@v6
+#        with:
+#          string: ${{ github.repository }}
+
+#      - name: Build and push Docker image
+#        if: github.event_name == 'push'
+#        id: push
+#        uses: docker/build-push-action@v6.5.0
+#        with:
+#          context: .
+#          file: ./apps/be-nestjs-app/Dockerfile
+#          push: true
+#          tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest

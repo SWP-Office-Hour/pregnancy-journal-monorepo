@@ -2,7 +2,9 @@
   "name": "@pregnancy-journal/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "husky"
+  },
   "private": true,
   "prisma": {
     "schema": "apps/be-nestjs-app/prisma/schema.prisma"
@@ -49,6 +51,8 @@
     "@angular/cli": "~19.0.0",
     "@angular/compiler-cli": "~19.0.0",
     "@angular/language-service": "~19.0.0",
+    "@commitlint/cli": "^19.6.1",
+    "@commitlint/config-conventional": "^19.6.0",
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
@@ -76,12 +80,14 @@
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-cypress": "^3.5.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "jest-preset-angular": "~14.4.0",
     "nx": "20.3.1",
-    "prettier": "^2.6.2",
+    "prettier": "^3.4.2",
+    "prettier-plugin-sh": "^0.14.0",
     "supertest": "^7.0.0",
     "ts-jest": "^29.1.0",
     "ts-node": "10.9.1",
