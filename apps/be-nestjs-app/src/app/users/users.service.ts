@@ -141,6 +141,8 @@ export class UsersService {
         ward: data.ward,
         address: data.address,
         role: UserRole.MEMBER,
+        lastOvulationDate: new Date(data.last_ovulation_date),
+        expectedBirthDate: new Date(data.expected_birth_date),
       }),
     });
     // const email_verify_token = await this.signEmailToken({

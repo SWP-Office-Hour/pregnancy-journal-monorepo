@@ -1,8 +1,4 @@
-import {
-  RegisterRequest,
-  UserRole,
-  UserStatus,
-} from '@pregnancy-journal-monorepo/contract';
+import { UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
 
 interface User {
   id?: string;
@@ -27,8 +23,8 @@ export class UserEntity {
   name: string;
   email: string;
   password: string;
-  lastOvulationDate?: Date;
-  expectedBirthDate?: Date;
+  last_ovulation_date?: Date;
+  expected_birth_date?: Date;
   phone: string;
   province: string;
   district: string;
@@ -45,8 +41,8 @@ export class UserEntity {
     this.phone = userData.phone;
     this.password = userData.password;
     this.email = userData.email;
-    this.lastOvulationDate = userData.lastOvulationDate;
-    this.expectedBirthDate = userData.expectedBirthDate;
+    this.last_ovulation_date = userData.lastOvulationDate;
+    this.expected_birth_date = userData.expectedBirthDate;
     this.province = userData.province;
     this.district = userData.district;
     this.ward = userData.ward;
