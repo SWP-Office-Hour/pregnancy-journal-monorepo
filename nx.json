@@ -87,7 +87,6 @@
     "bucket": "office-hour-object-storage",
     "endpoint": "https://office-hour-object-storage.sgp1.digitaloceanspaces.com",
     "forcePathStyle": true,
-    "accessKeyId": "abc1234",
-    "secretAccessKey": "4321cba"
+    "region": "sgp1"
   }
 }
