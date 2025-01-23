@@ -9,6 +9,5 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './login-page.component.css',
 })
 export class LoginPageComponent {
-
   protected readonly NgOptimizedImage = NgOptimizedImage;
 }

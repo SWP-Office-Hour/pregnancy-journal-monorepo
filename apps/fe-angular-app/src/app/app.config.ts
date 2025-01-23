@@ -19,6 +19,6 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
 
     provideAnimationsAsync(),
-    NG_EVENT_PLUGINS
+    NG_EVENT_PLUGINS,
   ],
 };

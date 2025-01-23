@@ -5,6 +5,5 @@ import { Injectable, signal } from '@angular/core';
 export class UsersService {
   profile = signal<any>(null);
 
-    login(){
-    }
-  }
+  login() {}
+}

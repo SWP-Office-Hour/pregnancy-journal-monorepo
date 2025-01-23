@@ -1,0 +1,150 @@
+name: CD
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  id-token: write
+  contents: read
+  actions: read
+env:
+  HUSKY: 0
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  NX_POWERPACK_LICENSE: ${{ secrets.NX_POWERPACK_LICENSE }}
+jobs:
+  main-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - uses: BetaHuhn/do-spaces-action@v2
+        with:
+          access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+          space_name: ${{ secrets.SPACE_NAME }}
+          space_region: ${{ secrets.SPACE_REGION }}
+          source: custom-cache
+
+      - name: Cache node modules of entire Monorepo
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: List the state of node modules
+        continue-on-error: true
+        run: npm list
+      - name: Install dependencies without break package-lock
+        run: npm i --legacy-peer-deps
+
+      - uses: nrwl/nx-set-shas@v4
+        with:
+          workflow-id: 'cd.yml'
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
+
+      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
+      # When you enable task distribution, run the e2e-ci task instead of e2e
+      #      - run: npx cypress install
+      #      - run: npx nx affected -t lint test build e2e
+
+      #      - id: nx-format-check
+      #        run: npx nx format:check
+      - id: nx-affected
+        run: npx nx affected -t lint test build --base=main --head=HEAD
+
+      - if: ${{ steps.nx-affected.outcome == 'failure' }}
+        run: exit 1
+
+  deploment:
+    needs: [main-ci]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        if: github.event_name == 'push'
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: registry.digitalocean.com/office-hour
+          username: ${{ secrets.DIOCEAN_USERNAME }}
+          password: ${{ secrets.DIOCEAN_AC }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - uses: BetaHuhn/do-spaces-action@v2
+        with:
+          access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+          space_name: ${{ secrets.SPACE_NAME }}
+          space_region: ${{ secrets.SPACE_REGION }}
+          source: custom-cache
+
+      - name: Cache node modules of entire Monorepo
+        id: cache-npm
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # npm cache files are stored in `~/.npm` on Linux/macOS
+          path: ./node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+        name: List the state of node modules
+        continue-on-error: true
+        run: npm list
+      - name: Install dependencies without break package-lock
+        run: npm i --legacy-peer-deps
+
+      - uses: nrwl/nx-set-shas@v4
+        with:
+          workflow-id: 'cd.yml'
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
+
+      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected --target=container
+
+      #   ## Deploy by image
+      # - id: string
+      #   uses: ASzc/change-string-case-action@v6
+      #   with:
+      #     string: ${{ github.repository }}
+
+      # - name: Build and push Docker image
+      #   if: github.event_name == 'push'
+      #   id: push
+      #   uses: docker/build-push-action@v6.5.0
+      #   with:
+      #     context: .
+      #     file: ./apps/be-nestjs-app/Dockerfile
+      #     push: true
+      #     tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest

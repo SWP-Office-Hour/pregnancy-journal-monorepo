@@ -19,7 +19,9 @@
   border: none;
   border-radius: 8px;
   padding: 4px 25px 3px 25px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: all 0.3s ease;
   width: 100%;
@@ -28,7 +30,9 @@
 /* Hiệu ứng hover */
 .google-login-button:hover {
   /* background: linear-gradient(145deg, #474242, #302c2c); */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
   transform: scale(1.05); /* Tăng kích thước nhẹ */
 }
 
@@ -41,7 +45,7 @@
 
 /* Văn bản */
 .google-login-button span {
-  font-family: "Arial", sans-serif;
+  font-family: 'Arial', sans-serif;
   letter-spacing: 0.5px;
   color: white;
 }
@@ -79,6 +83,6 @@
     font-size: 12px;
   }
 }
-.logo{
+.logo {
   margin: 24px 0;
 }

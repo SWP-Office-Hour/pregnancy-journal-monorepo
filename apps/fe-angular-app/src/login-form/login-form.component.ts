@@ -41,7 +41,7 @@ export class LoginFormComponent {
   signInWithGoogle() {
     this.authService.login();
   }
-  loginNormal(){
+  loginNormal() {
     this.userService.login();
   }
 }

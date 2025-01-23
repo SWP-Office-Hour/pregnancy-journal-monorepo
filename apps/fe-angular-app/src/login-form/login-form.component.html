@@ -1,46 +1,49 @@
+<form
+  class="p-12 bg-white mx-auto rounded-3xl w-96"
+  tuiAppearance="floating"
+  tuiCardLarge
+  tuiForm="m"
+  [formGroup]="loginForm"
+  (ngSubmit)="loginNormal()"
+>
+  <img
+    class="logo"
+    ngSrc="images/logo_name_bgt.png"
+    alt="logo"
+    width="200"
+    height="200"
+    [priority]="NgOptimizedImage"
+  />
+  <header tuiHeader>
+    <h1 tuiTitle>Đăng nhập</h1>
+  </header>
 
-<form class="p-12 bg-white mx-auto rounded-3xl w-96"
-    tuiAppearance="floating"
-    tuiCardLarge
-    tuiForm="m"
-    [formGroup]="loginForm"
-    (ngSubmit)="loginNormal()"
-  >
-    <img class="logo" ngSrc="images/logo_name_bgt.png" alt="logo" width="200" height="200" [priority]="NgOptimizedImage"/>
-    <header tuiHeader>
-      <h1 tuiTitle>Đăng nhập</h1>
-    </header>
+  <div class="login-button">
+    <button id="google" class="google-login-button" (click)="signInWithGoogle()">
+      <img
+        src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
+        alt="Google"
+        class="google-icon"
+      />
+    </button>
+  </div>
+  <div class="or">
+    <div class="bar"></div>
+    <p>hoặc</p>
+    <div class="bar"></div>
+  </div>
 
-    <div class="login-button">
-      <button
-        id="google"
-        class="google-login-button"
-        (click)="signInWithGoogle()"
-      >
-        <img
-          src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-512.png"
-          alt="Google"
-          class="google-icon"
-        />
-      </button>
-    </div>
-    <div class="or">
-      <div class="bar"></div>
-      <p>hoặc</p>
-      <div class="bar"></div>
-    </div>
+  <tui-textfield>
+    <label tuiLabel>Email</label>
+    <input placeholder="Type your email" tuiTextfield type="email" formControlName="email" />
+  </tui-textfield>
 
-    <tui-textfield>
-      <label tuiLabel>Email</label>
-      <input placeholder="Type your email" tuiTextfield type="email" formControlName="email" />
-    </tui-textfield>
-
-    <tui-textfield>
-      <label tuiLabel>Password</label>
-      <input placeholder="Type your password" tuiTextfield type="password" formControlName="password" />
-      <tui-icon tuiPassword />
-    </tui-textfield>
-    <footer class="flex justify-center">
-      <button appearance="accent" tuiButton type="submit">Login</button>
-    </footer>
+  <tui-textfield>
+    <label tuiLabel>Password</label>
+    <input placeholder="Type your password" tuiTextfield type="password" formControlName="password" />
+    <tui-icon tuiPassword />
+  </tui-textfield>
+  <footer class="flex justify-center">
+    <button appearance="accent" tuiButton type="submit">Login</button>
+  </footer>
 </form>

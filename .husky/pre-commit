@@ -1,0 +1,2 @@
+npx nx format:check
+npx nx format:write
