@@ -7,7 +7,7 @@ import { JwtPayload } from './jwt.interface';
 export class JwtUtilsService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService,
+    private readonly configService: ConfigService
   ) {}
 
   signToken({

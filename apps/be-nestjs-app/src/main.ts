@@ -66,6 +66,9 @@ async function bootstrap() {
         },
       ],
       servers: [
+        // {
+        //   url: process.env.HOST_URL,
+        // },
         {
           url: process.env.HOST_URL,
         },
@@ -78,8 +81,6 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
 
-  Logger.log('hi from ' + process.env.HOST_URL);
-  app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(

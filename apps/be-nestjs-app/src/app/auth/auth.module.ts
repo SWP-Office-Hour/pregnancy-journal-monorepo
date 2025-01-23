@@ -7,6 +7,7 @@ import {
   RoleAuthGuard,
 } from './auth.guard';
 import { JwtUtilsModule } from '../utils/jwt/jwtUtils.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [JwtUtilsModule],
@@ -16,6 +17,7 @@ import { JwtUtilsModule } from '../utils/jwt/jwtUtils.module';
     EmailVerifyTokenAuthGuard,
     RefreshTokenAuthGuard,
     IsLoggin,
+    ConfigModule,
   ],
 })
 export class AuthModule {}

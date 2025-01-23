@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Post,
   Req,
   UnauthorizedException,
   UseGuards,
@@ -29,6 +31,12 @@ export class UsersController {
   async handleLogin(@Body() body: LoginRequest) {
     return tsRestHandler(authContract.login, async () => {
       const users = await this.usersService.login(body);
+      console.log('users', users);
+      if (!users) {
+        throw new UnauthorizedException(
+          'Phone number or password is incorrect'
+        );
+      }
       return { status: 200, body: users };
     });
   }

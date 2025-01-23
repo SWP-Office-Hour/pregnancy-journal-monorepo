@@ -1,11 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import {
-  statusSchema,
-  userRoleSchema,
-  UserStatus,
-  userStatusEnumSchema,
-} from './enum.contract';
+import { userRoleSchema, userStatusEnumSchema } from './enum.contract';
 import { tagResSchema } from './tag.contract';
 
 const c = initContract();
@@ -15,20 +10,25 @@ const registerSchema = z
   .object({
     name: z.string().min(1, 'Name is required'),
     email: z.string().min(1, 'Email is required'),
-    password: z
-      .string()
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character'
-      ),
+    password: z.string().regex(
+      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      /[\s\S]*/,
+      'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character'
+    ),
     confirm_password: z.string(),
-    last_ovulation_date: z.date(),
-    expected_birth_date: z.date(),
+    last_ovulation_date: z.preprocess(
+      (value) => (typeof value === 'string' ? new Date(value) : value),
+      z.date()
+    ),
+    expected_birth_date: z.preprocess(
+      (value) => (typeof value === 'string' ? new Date(value) : value),
+      z.date()
+    ),
     phone: z.string().min(1, 'Phone is required'),
     province: z.string().min(1, 'Province is required'),
     district: z.string().min(1, 'District is required'),
     ward: z.string().min(1, 'Ward is required'),
-    address: z.string().min(1, 'Address is required')
+    address: z.string().min(1, 'Address is required'),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Passwords don't match",

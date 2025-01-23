@@ -189,8 +189,10 @@ model user {
   created_at          DateTime    @db.Date
   updated_at          DateTime    @db.Date
   role                Int
+  comment             comment[]
   note                note[]
   payment             payment[]
+  post                post[]
   pregnancy           pregnancy[]
   reminder            reminder[]
   token               token[]
@@ -209,4 +211,31 @@ model user_tag {
 
   @@index([tag_id], map: "FK_User_Tag_user_id_Tag_id")
   @@index([user_id], map: "FK_User_Tag_user_id_User_id")
+}
+
+model comment {
+  id         String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  content    String    @db.VarChar(1000)
+  post_id    String?   @db.Char(36)
+  user_id    String?   @db.Char(36)
+  created_at DateTime? @db.Date
+  updated_at DateTime? @db.Date
+  post       post?     @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_1")
+  user       user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
+
+  @@index([post_id], map: "post_id")
+  @@index([user_id], map: "user_id")
+}
+
+model post {
+  id         String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  title      String    @db.VarChar(255)
+  content    String    @db.VarChar(1000)
+  user_id    String?   @db.Char(36)
+  created_at DateTime? @db.Date
+  updated_at DateTime? @db.Date
+  comment    comment[]
+  user       user?     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "post_ibfk_1")
+
+  @@index([user_id], map: "user_id")
 }

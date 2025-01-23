@@ -10,8 +10,11 @@ import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { RequestWithJWT } from 'express';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
+import {
+  UserRole,
+  RefreshTokenRequest,
+} from '@pregnancy-journal-monorepo/contract';
 import { ROLES_KEY } from '../utils/decorators/role.decorator';
-import { TokenRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
 
 @Injectable()
 export class AccessTokenAuthGuard implements CanActivate {
@@ -75,7 +78,7 @@ export class RefreshTokenAuthGuard implements CanActivate {
 
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest();
-    const token = (request.body as TokenRequest).refresh_token;
+    const token = (request.body as RefreshTokenRequest).refresh_token;
     if (!token) {
       throw new UnauthorizedException('User authentication required');
     }

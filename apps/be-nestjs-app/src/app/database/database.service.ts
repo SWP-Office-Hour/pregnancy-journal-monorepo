@@ -5,11 +5,11 @@ import { PrismaClient } from '@prisma/client';
 export class DatabaseService {
   private readonly prisma = new PrismaClient();
 
-  get User() {
-    return this.prisma.user;
-  }
-
   get Token() {
     return this.prisma.token;
+  }
+
+  get User() {
+    return this.prisma.user;
   }
 }

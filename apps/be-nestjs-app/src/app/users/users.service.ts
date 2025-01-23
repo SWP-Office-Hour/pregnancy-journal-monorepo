@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { UserEntity } from './models/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../database/database.service';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
@@ -8,7 +9,6 @@ import {
   RegisterRequest,
   UserRole,
 } from '@pregnancy-journal-monorepo/contract';
-import { UserEntity } from './models/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -50,6 +50,42 @@ export class UsersService {
     });
   }
 
+  signEmailToken({ user_id, role }: { user_id: string; role: UserRole }) {
+    return this.jwtUtilsService.signToken({
+      payload: { user_id, role },
+      options: {
+        expiresIn: this.configService.get<string>('JWT_EMAIL_TOKEN_EXPIRES_IN'),
+      },
+      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
+    });
+  }
+
+  //
+  // async checkEmail(email: string): Promise<UserEntity> {
+  //   const result = await this.databaseService.User.findUnique({
+  //     where: {
+  //       email,
+  //     },
+  //   });
+  //   return result;
+  // }
+
+  // async checkEmailVerifyToken({
+  //   email_verify_token,
+  //   user_id,
+  // }: {
+  //   email_verify_token: string;
+  //   user_id: string;
+  // }) {
+  //   const result = await this.databaseService.User.findUnique({
+  //     where: {
+  //       id: user_id,
+  //       email_verify_token,
+  //     },
+  //   });
+  //   return Boolean(result);
+  // }
+
   async checkPhone(phone: string): Promise<UserEntity> {
     const result = await this.databaseService.User.findFirst({
       where: {
@@ -69,7 +105,7 @@ export class UsersService {
   }) {
     const result = await this.databaseService.Token.findFirst({
       where: {
-        refresh_token,
+        refresh_token: refresh_token,
         user_id,
       },
     });
@@ -79,6 +115,15 @@ export class UsersService {
     return result.id;
   }
 
+  // async checkVerifyStatus(user_id: string) {
+  //   const result = await this.databaseService.User.findUnique({
+  //     where: {
+  //       id: user_id,
+  //     },
+  //   });
+  //   return result.verify_status;
+  // }
+
   async users(): Promise<UserEntity[]> {
     const result = await this.databaseService.User.findMany();
     return result;
@@ -87,26 +132,41 @@ export class UsersService {
   async register(data: RegisterRequest) {
     const result = await this.databaseService.User.create({
       data: new UserEntity({
+        name: data.name,
         email: data.email,
         password: data.password,
-        name: data.name,
         phone: data.phone,
-        district: data.district,
         province: data.province,
+        district: data.district,
         ward: data.ward,
         address: data.address,
+        role: UserRole.MEMBER,
       }),
     });
-
+    // const email_verify_token = await this.signEmailToken({
+    //   user_id: result.id,
+    //   role: UserRole.USER,
+    // });
+    //send email verify token to user email
+    // console.log(
+    //   `http://localhost:3000/users/email-verify?email_verify_token=${email_verify_token}`,
+    // );
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken({ user_id: result.id, role: result.role }),
       this.signRefreshToken({ user_id: result.id, role: result.role }),
     ]);
     await this.databaseService.Token.create({
-      data: new TokenDto({
-        refresh_token: refresh_token,
-        user_id: result.id,
-      }),
+      data: {
+        ...new TokenDto({
+          refresh_token: refresh_token,
+          user_id: result.id,
+        }),
+        user: {
+          connect: {
+            id: result.id,
+          },
+        },
+      },
     });
     //create access token and refresh token then return
     return { access_token, refresh_token };
@@ -127,16 +187,42 @@ export class UsersService {
       this.signAccessToken({ user_id: user.id, role: user.role }),
       this.signRefreshToken({ user_id: user.id, role: user.role }),
     ]);
-
     await this.databaseService.Token.create({
-      data: new TokenDto({
-        refresh_token: refresh_token,
-        user_id: user.id,
-      }),
+      data: {
+        ...new TokenDto({
+          refresh_token: refresh_token,
+          user_id: user.id,
+        }),
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
+      },
     });
     //create access token and refresh token then return
     return { access_token, refresh_token };
   }
+
+  // async emailVerify({
+  //   email_verify_token,
+  //   user_id,
+  // }: {
+  //   email_verify_token: string;
+  //   user_id: string;
+  // }) {
+  //   await this.databaseService.User.update({
+  //     where: {
+  //       id: user_id,
+  //       email_verify_token,
+  //     },
+  //     data: {
+  //       verify_status: UserVerifyStatus.VERIFIED,
+  //       email_verify_token: '',
+  //       updated_at: new Date(),
+  //     },
+  //   });
+  // }
 
   async logout(refresh_token_id: string) {
     await this.databaseService.Token.delete({
@@ -153,11 +239,6 @@ export class UsersService {
     refresh_token_id: string;
     user_id: string;
   }) {
-    const user = await this.databaseService.User.findUnique({
-      where: {
-        id: user_id,
-      },
-    });
     //get old refresh token expire time
     const old_refresh_token = await this.databaseService.Token.findUnique({
       where: {
@@ -172,7 +253,7 @@ export class UsersService {
     });
     //create new access token and refresh token
     const [access_token, refresh_token] = await Promise.all([
-      this.signAccessToken({ user_id, role: user.role }),
+      this.signAccessToken({ user_id, role: UserRole.MEMBER }),
       this.signRefreshToken({
         user_id,
         role: UserRole.MEMBER,
