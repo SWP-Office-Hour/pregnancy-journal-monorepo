@@ -1,5 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { StreamableFile } from '@nestjs/common';
 
 const c = initContract();
 
@@ -24,10 +25,7 @@ export const fileContract = c.router({
     method: 'GET',
     path: '/file/:filename',
     responses: {
-      200: z.object({
-        message: z.string(),
-        path: z.string(),
-      }),
+      200: z.string(),
       400: z.object({
         message: z.string(),
       }),

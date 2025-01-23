@@ -24,6 +24,8 @@ import {
   tagContract,
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
+import express from 'express';
+import { join } from 'path';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -82,6 +84,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
 
   const port = process.env.PORT || 3000;
+  // app.use('/uploads', express.static(join(__dirname, '..', 'images')));
   await app.listen(port);
   Logger.log(
     `🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`
