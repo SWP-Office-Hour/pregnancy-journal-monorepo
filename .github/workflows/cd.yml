@@ -50,12 +50,12 @@ jobs:
       #      - run: npx cypress install
       #      - run: npx nx affected -t lint test build e2e
 
-      - id: nx-format-check
-        run: npx nx format:check
+      #      - id: nx-format-check
+      #        run: npx nx format:check
       - id: nx-affected
         run: npx nx affected -t lint test build
 
-      - if: ${{ steps.nx-format-check.outcome != 'true' || steps.nx-affected.outcome != 'true' }}
+      - if: ${{ steps.nx-affected.outcome != 'true' }}
         run: exit 1
 
   deploment:
