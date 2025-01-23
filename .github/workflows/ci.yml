@@ -1,15 +1,15 @@
-name: Continuous Integration
+name: CI
 
 on:
   pull_request:
-    types: [ synchronize, opened, reopened, edited ]
+    types: [synchronize, opened, reopened, edited]
 
 permissions: read-all
 
 env:
   HUSKY: 0
 jobs:
-  main:
+  main-ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,14 +43,17 @@ jobs:
       - name: Install dependencies without break package-lock
         run: npm i --legacy-peer-deps
 
-      #      - run: npx cypress install
-
       - uses: nrwl/nx-set-shas@v4
-      # Prepend any command with "nx-cloud record --" to record its logs to Nx Cloud
-      #      - run: npx nx-cloud record -- echo Hello World
+
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
+      #      - run: npx cypress install
       #      - run: npx nx affected -t lint test build e2e
 
-      - run: nx format:check
-      - run: nx affected -t lint test build
+      - id: nx-format-check
+        run: npx nx format:check
+      - id: nx-affected
+        run: npx nx affected -t lint test build
+
+      - if: ${{ steps.nx-format-check.outcome != 'true' || steps.nx-affected.outcome != 'true' }}
+        run: exit 1
