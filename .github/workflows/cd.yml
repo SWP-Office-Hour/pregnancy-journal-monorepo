@@ -58,7 +58,7 @@ jobs:
         continue-on-error: true
         run: npm list
       - name: Install dependencies without break package-lock
-        run: npm i --legacy-peer-deps
+        run: npm i
 
       # - uses: nrwl/nx-set-shas@v4
       #   with:
@@ -133,7 +133,7 @@ jobs:
         continue-on-error: true
         run: npm list
       - name: Install dependencies without break package-lock
-        run: npm i --legacy-peer-deps
+        run: npm i
 
       # - uses: nrwl/nx-set-shas@v4
       #   with:
