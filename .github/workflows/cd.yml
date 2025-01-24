@@ -25,21 +25,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      # - uses: BetaHuhn/do-spaces-action@v2
-      #   with:
-      #     access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-      #     secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
-      #     space_name: ${{ secrets.SPACE_NAME }}
-      #     space_region: ${{ secrets.SPACE_REGION }}
-      #     source: custom-cache
-
-      # - name: 'Configure AWS Credentials'
-      #   uses: aws-actions/configure-aws-credentials@v4.0.2
-      #   with:
-      #     aws-access-key-id: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-      #     aws-secret-access-key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
-      #     aws-region: ${{ secrets.SPACE_REGION }}
-
       - name: Cache node modules of entire Monorepo
         id: cache-npm
         uses: actions/cache@v4
@@ -107,14 +92,6 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      # - uses: BetaHuhn/do-spaces-action@v2
-      #   with:
-      #     access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-      #     secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
-      #     space_name: ${{ secrets.SPACE_NAME }}
-      #     space_region: ${{ secrets.SPACE_REGION }}
-      #     source: custom-cache
-
       - name: Cache node modules of entire Monorepo
         id: cache-npm
         uses: actions/cache@v4
@@ -143,29 +120,7 @@ jobs:
       #     echo "BASE: ${{ env.NX_BASE }}"
       #     echo "HEAD: ${{ env.NX_HEAD }}"
 
-      # - run: |
-      #     echo "GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}"
-      #     echo "HEAD: ${{ env.NX_HEAD }}"
-
-      - run: npx nx affected -t container --base=origin/main~1 --head=origin/main --verbose
+      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected -t container --base=origin/main~1 --head=origin/main --verbose
         env:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      #   ## Deploy by image
-      # - id: string
-      #   uses: ASzc/change-string-case-action@v6
-      #   with:
-      #     string: ${{ github.repository }}
-
-      # - name: Build and push Docker image
-      #   if: github.event_name == 'push'
-      #   id: push
-      #   uses: docker/build-push-action@v6.5.0
-      #   with:
-      #     context: .
-      #     file: ./apps/be-nestjs-app/Dockerfile
-      #     push: true
-      #     tags: registry.digitalocean.com/office-hour/${{ steps.string.outputs.lowercase }}:latest
