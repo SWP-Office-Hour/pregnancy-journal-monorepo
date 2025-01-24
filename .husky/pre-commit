@@ -1,2 +1,3 @@
 npx nx format:check
 npx nx format:write
+npx nx run-many -t lint

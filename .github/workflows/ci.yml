@@ -71,8 +71,8 @@ jobs:
       - id: nx-affected
         run: npx nx affected -t lint test build --base=origin/main --head=$PR_BRANCH_NAME
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - if: ${{ steps.nx-affected.outcome == 'failure' }}
         run: exit 1

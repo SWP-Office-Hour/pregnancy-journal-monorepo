@@ -77,8 +77,8 @@ jobs:
       - id: nx-affected
         run: npx nx affected -t lint test build --base=origin/main~1 --head=origin/main
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ steps.nx-affected.outcome == 'failure' }}
@@ -150,8 +150,8 @@ jobs:
       - run: npx nx affected -t container --base=origin/main~1 --head=origin/main --verbose
         env:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       #   ## Deploy by image
