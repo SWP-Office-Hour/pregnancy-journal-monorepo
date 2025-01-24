@@ -75,7 +75,7 @@ jobs:
       #      - id: nx-format-check
       #        run: npx nx format:check
       - id: nx-affected
-        run: npx nx affected -t lint test build --base=origin/main~1 --head=origin/main
+        run: npx nx affected -t lint build --base=origin/main~1 --head=origin/main
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

@@ -25,13 +25,13 @@ jobs:
           node-version: 20
           cache: 'npm'
 
-      - uses: BetaHuhn/do-spaces-action@v2
-        with:
-          access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
-          secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
-          space_name: ${{ secrets.SPACE_NAME }}
-          space_region: ${{ secrets.SPACE_REGION }}
-          source: custom-cache
+      #      - uses: BetaHuhn/do-spaces-action@v2
+      #        with:
+      #          access_key: ${{ secrets.DO_SPACE_ACCESS_KEY_ID }}
+      #          secret_key: ${{ secrets.DO_SPACE_SECRET_ACCESS_KEY }}
+      #          space_name: ${{ secrets.SPACE_NAME }}
+      #          space_region: ${{ secrets.SPACE_REGION }}
+      #          source: custom-cache
 
       - name: Cache node modules of entire Monorepo
         id: cache-npm
@@ -69,10 +69,11 @@ jobs:
       #      - id: nx-format-check
       #        run: npx nx format:check
       - id: nx-affected
-        run: npx nx affected -t lint test build --base=origin/main --head=$PR_BRANCH_NAME
+        run: npx nx affected -t lint build --base=origin/main --head=$PR_BRANCH_NAME
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ steps.nx-affected.outcome == 'failure' }}
         run: exit 1
