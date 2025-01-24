@@ -42,6 +42,6 @@ export class LoginFormComponent {
     this.authService.login();
   }
   loginNormal() {
-    this.userService.login();
+    // this.userService.login();
   }
 }

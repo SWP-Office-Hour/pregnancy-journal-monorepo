@@ -1,3 +1,4 @@
 npx nx format:check
 npx nx format:write
 npx nx run-many -t lint
+npx nx affected -t lint build --base=origin/main --head=HEAD
