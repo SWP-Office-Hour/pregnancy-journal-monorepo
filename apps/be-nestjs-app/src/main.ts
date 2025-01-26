@@ -70,7 +70,7 @@ async function bootstrap() {
         //   url: process.env.HOST_URL,
         // },
         {
-          url: 'http://localhost:3000',
+          url: process.env.HOST_URL,
         },
       ],
     },
@@ -81,12 +81,9 @@ async function bootstrap() {
 
   const globalPrefix = 'api';
 
-  Logger.log('hi from ' + process.env.HOST_URL);
-  app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
-  console.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`); //test
+  Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
 }
 
 bootstrap();

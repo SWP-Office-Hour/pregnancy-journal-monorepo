@@ -94,6 +94,10 @@
         "port": 4200,
         "spa": true
       }
+    },
+    "cloudflare-deploy": {
+      "dependsOn": ["build"],
+      "command": "npx wrangler pages deploy dist/apps/fe-angular-app"
     }
   }
 }
