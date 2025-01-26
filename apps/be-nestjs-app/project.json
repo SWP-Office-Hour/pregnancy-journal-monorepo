@@ -6,14 +6,16 @@
   "tags": [],
   "targets": {
     "container": {
-      "cache": true,
       "executor": "@nx-tools/nx-container:build",
+      "cache": true,
       "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,
+        "defaultRegistry": "registry.digitalocean.com/office-hour/",
         "tags": ["registry.digitalocean.com/office-hour/api:latest"],
-        "defaultRegistry": "registry.digitalocean.com/office-hour"
+        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache",
+        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max"
       }
     },
     "build": {
