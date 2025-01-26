@@ -8,9 +8,10 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     UsersModule,
     ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: '.env',
-  })],
+      isGlobal: true,
+      envFilePath: '.env',
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

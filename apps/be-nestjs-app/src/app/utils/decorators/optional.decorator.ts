@@ -1,9 +1,6 @@
 import { IsOptional, ValidateIf, ValidationOptions } from 'class-validator';
 
-export function IsOptionalNonNullable(data?: {
-  nullable: boolean;
-  validationOptions?: ValidationOptions;
-}) {
+export function IsOptionalNonNullable(data?: { nullable: boolean; validationOptions?: ValidationOptions }) {
   const { nullable = false, validationOptions = undefined } = data || {};
 
   if (nullable) {

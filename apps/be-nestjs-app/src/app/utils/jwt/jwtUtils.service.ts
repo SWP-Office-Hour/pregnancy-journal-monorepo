@@ -7,7 +7,7 @@ import { JwtPayload } from './jwt.interface';
 export class JwtUtilsService {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   signToken({
@@ -29,17 +29,10 @@ export class JwtUtilsService {
     return this.jwtService.verify<JwtPayload>(token, { secret });
   }
 
-  generateNewRefreshTokenExpiry({
-    created_at,
-    old_expires_in,
-  }: {
-    created_at: Date;
-    old_expires_in: string;
-  }) {
+  generateNewRefreshTokenExpiry({ created_at, old_expires_in }: { created_at: Date; old_expires_in: string }) {
     const created_time = created_at.getTime();
     const now = new Date().getTime();
-    const expiresIn =
-      Number(old_expires_in.replace('d', '')) * 24 * 60 * 60 * 1000;
+    const expiresIn = Number(old_expires_in.replace('d', '')) * 24 * 60 * 60 * 1000;
     const newExpiresIn = ((created_time + expiresIn - now) / 1000).toFixed(0);
     return `${newExpiresIn}s`;
   }

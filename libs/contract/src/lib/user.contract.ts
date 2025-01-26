@@ -13,7 +13,7 @@ const registerSchema = z
     password: z.string().regex(
       // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
       /[\s\S]*/,
-      'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character'
+      'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character',
     ),
     confirm_password: z.string(),
     last_ovulation_date: z.string().date(),
@@ -96,7 +96,7 @@ const userGetAllResSchema = z.array(
     role: userRoleSchema,
     status: userStatusEnumSchema,
     tags: z.array(tagResSchema),
-  })
+  }),
 );
 
 //User request schema

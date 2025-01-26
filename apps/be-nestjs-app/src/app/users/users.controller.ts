@@ -1,25 +1,8 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  UnauthorizedException,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import {
-  authContract,
-  LoginRequest,
-  RegisterRequest,
-  TokenRequest,
-} from '@pregnancy-journal-monorepo/contract';
-import {
-  AccessTokenAuthGuard,
-  RefreshTokenAuthGuard,
-  RoleAuthGuard,
-} from '../auth/auth.guard';
+import { authContract, LoginRequest, RegisterRequest, TokenRequest } from '@pregnancy-journal-monorepo/contract';
+import { AccessTokenAuthGuard, RefreshTokenAuthGuard, RoleAuthGuard } from '../auth/auth.guard';
 import { RequestWithJWT } from 'express';
 
 @Controller()
@@ -33,9 +16,7 @@ export class UsersController {
       const users = await this.usersService.login(body);
       console.log('users', users);
       if (!users) {
-        throw new UnauthorizedException(
-          'Phone number or password is incorrect'
-        );
+        throw new UnauthorizedException('Phone number or password is incorrect');
       }
       return { status: 200, body: users };
     });
@@ -80,10 +61,7 @@ export class UsersController {
 
   @UseGuards(RefreshTokenAuthGuard)
   @TsRestHandler(authContract.refreshToken)
-  async handleRefreshToken(
-    @Body() body: TokenRequest,
-    @Req() req: RequestWithJWT
-  ) {
+  async handleRefreshToken(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(authContract.refreshToken, async () => {
       const { user_id } = req.decoded_refresh_token;
       const { refresh_token } = body;

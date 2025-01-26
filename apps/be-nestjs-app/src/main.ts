@@ -73,7 +73,7 @@ async function bootstrap() {
           url: process.env.HOST_URL,
         },
       ],
-    }
+    },
   );
 
   SwaggerModule.setup('api', app, apiDocument);
@@ -83,9 +83,7 @@ async function bootstrap() {
 
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`
-  );
+  Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
 }
 
 bootstrap();
