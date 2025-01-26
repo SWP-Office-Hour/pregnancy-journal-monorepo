@@ -13,6 +13,9 @@ env:
   HUSKY: 0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NX_POWERPACK_LICENSE: ${{ secrets.NX_POWERPACK_LICENSE }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   main-ci:
     runs-on: ubuntu-latest
@@ -124,13 +127,21 @@ jobs:
 
       - id: run-affected
         run: npx nx show projects --affected
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: |
           echo "${{ steps.run-affected.outputs }}"
 
       - id: fe-angular-deploy-flag
         if: contains( ${{ steps.run-affected.outputs }}, 'fe-angular')
-        run: npx nx run fe-angular-app:build
+        run: npx nx run fe-angular-app:build:production --prod
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: ${{ steps.fe-angular-deploy-flag.outcome == 'success' }}
         name: Publish
