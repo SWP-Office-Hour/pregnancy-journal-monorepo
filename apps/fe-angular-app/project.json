@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "cache": true,
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/fe-angular-app",
@@ -93,6 +94,10 @@
         "port": 4200,
         "spa": true
       }
+    },
+    "cloudflare-deploy": {
+      "dependsOn": ["build"],
+      "command": "npx wrangler pages deploy dist/apps/fe-angular-app"
     }
   }
 }

@@ -10,7 +10,7 @@ import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { RequestWithJWT } from 'express';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
-import { UserRole, RefreshTokenRequest } from '@pregnancy-journal-monorepo/contract';
+import { RefreshTokenRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
 import { ROLES_KEY } from '../utils/decorators/role.decorator';
 
 @Injectable()

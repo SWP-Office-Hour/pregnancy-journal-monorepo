@@ -2,16 +2,20 @@ name: CD
 
 on:
   push:
-    branches: [main]
+    branches: [main, testci]
 
 permissions:
   id-token: write
   contents: read
   actions: read
+  deployments: write
 env:
   HUSKY: 0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NX_POWERPACK_LICENSE: ${{ secrets.NX_POWERPACK_LICENSE }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   main-ci:
     runs-on: ubuntu-latest
@@ -45,12 +49,11 @@ jobs:
       - name: Install dependencies without break package-lock
         run: npm i
 
-      # - uses: nrwl/nx-set-shas@v4
-      #   with:
-      #     workflow-id: 'cd.yml'
-      # - run: |
-      #     echo "BASE: ${{ env.NX_BASE }}"
-      #     echo "HEAD: ${{ env.NX_HEAD }}"
+      - uses: nrwl/nx-set-shas@v4
+
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
 
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
@@ -60,7 +63,7 @@ jobs:
       #      - id: nx-format-check
       #        run: npx nx format:check
       - id: nx-affected
-        run: npx nx affected -t lint build --base=origin/main~1 --head=origin/main
+        run: npx nx affected -t lint build
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -68,7 +71,7 @@ jobs:
 
       - if: ${{ steps.nx-affected.outcome == 'failure' }}
         run: exit 1
-  ########################################################################################
+  ###################################################################################################
   deploment:
     needs: [main-ci]
     runs-on: ubuntu-latest
@@ -77,25 +80,19 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: docker/setup-buildx-action@v3
-
-      - name: Log in to the Container registry
-        if: github.event_name == 'push'
-        uses: docker/login-action@v3.3.0
-        with:
-          registry: registry.digitalocean.com/office-hour
-          username: ${{ secrets.DIOCEAN_USERNAME }}
-          password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'npm'
+
+      - uses: docker/setup-buildx-action@v3
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: registry.digitalocean.com/office-hour/
+          username: ${{ secrets.DIOCEAN_USERNAME }}
+          password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Cache node modules of entire Monorepo
         id: cache-npm
@@ -117,15 +114,121 @@ jobs:
       - name: Install dependencies without break package-lock
         run: npm i
 
-      # - uses: nrwl/nx-set-shas@v4
-      #   with:
-      #     workflow-id: 'cd.yml'
-      #     main-branch-name: 'main'
-      # - run: |
-      #     echo "BASE: ${{ env.NX_BASE }}"
-      #     echo "HEAD: ${{ env.NX_HEAD }}"
+      - uses: nrwl/nx-set-shas@v4
 
-      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected -t container --base=origin/main~1 --head=origin/main --verbose
+      - run: |
+          echo "BASE: ${{ env.NX_BASE }}"
+          echo "HEAD: ${{ env.NX_HEAD }}"
+
+      - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected -t container --verbose
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - id: run-affected
+        run: npx nx show projects --affected
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - run: |
+          echo "${{ steps.run-affected.outputs }}"
+
+      - id: fe-angular-deploy-flag
+        if: contains( ${{ steps.run-affected.outputs }}, 'fe-angular')
+        run: npx nx run fe-angular-app:build:production --prod
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - if: ${{ steps.fe-angular-deploy-flag.outcome == 'success' }}
+        name: Publish
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: pregnancy-journal-monorepo # e.g. 'my-project'
+          directory: dist/apps/fe-angular-app # e.g. 'dist'
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      ############################ TESTING AT LOCAL ######################################################
+
+      # - name: Install doctl
+      #   uses: digitalocean/action-doctl@v2
+      #   with:
+      #     token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      # - id: build_be
+      #   run: npx nx run be-nestjs-app:build
+      #   env:
+      #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # # - if: ${{ steps.build_be =='be-nestjs-app' }}
+      # - name: Build and push Docker image
+      #   id: push
+      #   uses: docker/build-push-action@v6.13.0
+      #   with:
+      #     context: .
+      #     file: ./apps/be-nestjs-app/Dockerfile
+      #     push: true
+      #     tags: registry.digitalocean.com/office-hour/api:latest
+      #     cache-from: type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache
+      #     cache-to: type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max
+
+  ############################ TESTING WORKFLOW ######################################################
+  # test:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+
+  #     - uses: actions/setup-node@v4
+  #       with:
+  #         node-version: lts/*
+  #         cache: 'npm'
+
+  #     - name: Cache node modules of entire Monorepo
+  #       id: cache-npm
+  #       uses: actions/cache@v4
+  #       env:
+  #         cache-name: cache-node-modules
+  #       with:
+  #         # npm cache files are stored in `~/.npm` on Linux/macOS
+  #         path: ./node_modules
+  #         key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-build-${{ env.cache-name }}-
+  #           ${{ runner.os }}-build-
+  #           ${{ runner.os }}-
+  #     - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
+  #       name: List the state of node modules
+  #       continue-on-error: true
+  #       run: npm list
+  #     - name: Install dependencies without break package-lock
+  #       run: npm i
+
+  #     # - uses: nrwl/nx-set-shas@v4
+
+  #     - run: |
+  #         echo "BASE: ${{ env.NX_BASE }}"
+  #         echo "HEAD: ${{ env.NX_HEAD }}"
+
+  #     # - run: INPUT_GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} npx nx affected -t container --verbose
+  #     #   env:
+  #     #     AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #     #     AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  #     - id: run-affected
+  #       run: npx nx show projects --affected
+
+  #     - run: |
+  #         echo "${{ steps.run-affected.outputs }}"
+
+  #     - id: fe-angular-deploy-flag
+  #       if: contains( ${{ steps.run-affected.outputs }}, 'fe-angular')
+  #       run: npx nx run fe-angular-app:build

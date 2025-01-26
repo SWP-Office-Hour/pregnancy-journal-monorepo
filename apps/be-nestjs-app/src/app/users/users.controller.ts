@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { authContract, LoginRequest, RegisterRequest, TokenRequest } from '@pregnancy-journal-monorepo/contract';
-import { AccessTokenAuthGuard, RefreshTokenAuthGuard, RoleAuthGuard } from '../auth/auth.guard';
+import { AccessTokenAuthGuard, RefreshTokenAuthGuard } from '../auth/auth.guard';
 import { RequestWithJWT } from 'express';
 
 @Controller()
