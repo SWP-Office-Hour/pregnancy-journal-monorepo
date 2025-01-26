@@ -83,7 +83,12 @@ jobs:
         with:
           registry: registry.digitalocean.com/office-hour
           username: ${{ secrets.DIOCEAN_USERNAME }}
-          password: ${{ secrets.DIOCEAN_AC }}
+          password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - uses: actions/setup-node@v4
         with:
