@@ -1,1 +1,1 @@
-npm run commitlint
+commitlint --edit $1

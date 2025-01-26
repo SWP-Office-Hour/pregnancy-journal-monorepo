@@ -1,4 +1,3 @@
-
 import { Module } from '@nestjs/common';
 import { PayosService } from './payos.service';
 import { PayosController } from './payos.controller';
@@ -8,5 +7,3 @@ import { PayosController } from './payos.controller';
   providers: [PayosService],
 })
 export class PayosModule {}
-
-
