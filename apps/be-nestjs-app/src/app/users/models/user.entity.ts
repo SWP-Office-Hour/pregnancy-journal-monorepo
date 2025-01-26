@@ -1,8 +1,4 @@
-import {
-  RegisterRequest,
-  UserRole,
-  UserStatus,
-} from '@pregnancy-journal-monorepo/contract';
+import { UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
 
 interface User {
   id?: string;

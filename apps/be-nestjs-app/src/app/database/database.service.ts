@@ -12,4 +12,36 @@ export class DatabaseService {
   get User() {
     return this.prisma.user;
   }
+
+  get MemberShip() {
+    return this.prisma.membership;
+  }
+
+  get Reminder() {
+    return this.prisma.reminder;
+  }
+
+  get Tag() {
+    return this.prisma.tag;
+  }
+
+  get Note() {
+    return this.prisma.note;
+  }
+
+  get Bound() {
+    return this.prisma.bound;
+  }
+
+  get Comment() {
+    return this.prisma.comment;
+  }
+
+  get Hospital() {
+    return this.prisma.hospital;
+  }
+
+  get Metric() {
+    return this.prisma.metric;
+  }
 }

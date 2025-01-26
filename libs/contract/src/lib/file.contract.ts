@@ -31,6 +31,18 @@ export const fileContract = c.router({
       }),
     },
   },
+  getLink: {
+    method: 'GET',
+    path: 'file/link/:filename',
+    responses: {
+      200: z.object({
+        link: z.string(),
+      }),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
   deleteFile: {
     method: 'DELETE',
     path: '/file/:filename',

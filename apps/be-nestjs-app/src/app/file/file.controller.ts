@@ -80,4 +80,21 @@ export class FileController {
       }
     });
   }
+
+  @TsRestHandler(fileContract.getLink)
+  handleGetLink(@Param('filename') filename: string) {
+    return tsRestHandler(fileContract.getLink, async () => {
+      try {
+        const link = await this.fileService.createPresignedUrlWithClient();
+        return {
+          status: 200 as const,
+          body: {
+            link,
+          },
+        };
+      } catch (error) {
+        throw new NotFoundException('File not found');
+      }
+    });
+  }
 }

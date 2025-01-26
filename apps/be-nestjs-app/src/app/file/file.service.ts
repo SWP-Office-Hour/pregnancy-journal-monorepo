@@ -4,12 +4,17 @@ import { Upload } from '@aws-sdk/lib-storage';
 import {
   DeleteObjectCommand,
   GetObjectCommand,
+  PutObjectCommand,
   S3Client,
 } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 import { unlink, access } from 'fs/promises';
 import { join } from 'path';
 import { IncomingMessage } from 'http';
+import {
+  getSignedUrl,
+  S3RequestPresigner,
+} from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
 export class FileService {
@@ -100,6 +105,15 @@ export class FileService {
       throw error;
     }
   }
+
+  createPresignedUrlWithClient = () => {
+    const bucket = this.configService.get('CLOUDFLARE_BUCKET');
+    const key = this.configService.get('CLOUDFLARE_SECRET');
+
+    const client = new S3Client({ region: 'auto' });
+    const command = new PutObjectCommand({ Bucket: bucket, Key: key });
+    return getSignedUrl(client, command, { expiresIn: 3600 });
+  };
 
   async getFilePath(filename: string) {
     const filepath = await this.downloadFile(filename);
