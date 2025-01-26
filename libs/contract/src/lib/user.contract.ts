@@ -1,10 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import {
-  statusSchema,
-  userRoleSchema,
-  userStatusEnumSchema,
-} from './enum.contract';
+import { userRoleSchema, userStatusEnumSchema } from './enum.contract';
 import { tagResSchema } from './tag.contract';
 
 const c = initContract();
@@ -12,15 +8,21 @@ const c = initContract();
 // Schemas
 const registerSchema = z
   .object({
-    fullName: z.string().min(1, 'Name is required'),
+    name: z.string().min(1, 'Name is required'),
     email: z.string().min(1, 'Email is required'),
-    password: z
-      .string()
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character'
-      ),
+    password: z.string().regex(
+      // /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+      /[\s\S]*/,
+      'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character',
+    ),
     confirm_password: z.string(),
+    last_ovulation_date: z.string().date(),
+    expected_birth_date: z.string().date(),
+    phone: z.string().min(1, 'Phone is required'),
+    province: z.string().min(1, 'Province is required'),
+    district: z.string().min(1, 'District is required'),
+    ward: z.string().min(1, 'Ward is required'),
+    address: z.string().min(1, 'Address is required'),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Passwords don't match",
@@ -94,7 +96,7 @@ const userGetAllResSchema = z.array(
     role: userRoleSchema,
     status: userStatusEnumSchema,
     tags: z.array(tagResSchema),
-  })
+  }),
 );
 
 //User request schema
