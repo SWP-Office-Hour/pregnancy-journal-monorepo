@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "cache": true,
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/fe-angular-app",
