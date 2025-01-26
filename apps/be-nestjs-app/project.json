@@ -5,17 +5,20 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "docker": {
+    "container": {
+      "cache": true,
       "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
       "options": {
+        "engine": "docker",
         "push": true,
-        "tags": ["user/app:latest"],
-        "cache-from": ["type=registry,ref=registry.digitalocean.com/office-hour"],
-        "cache-to": ["type=registry,ref=registry.digitalocean.com/office-hour,mode=max"]
+        "tags": ["registry.digitalocean.com/office-hour/api:latest"],
+        "defaultRegistry": "registry.digitalocean.com/office-hour"
       }
     },
     "build": {
       "executor": "nx:run-commands",
+      "cache": true,
       "options": {
         "command": "webpack-cli build",
         "args": ["node-env=production"]

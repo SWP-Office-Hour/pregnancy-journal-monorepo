@@ -1,5 +1,6 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "cacheDirectory": "custom-cache/",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
@@ -15,9 +16,8 @@
       "!{projectRoot}/**/*.cy.[jt]s?(x)",
       "!{projectRoot}/cypress.config.[jt]s"
     ],
-    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml"]
+    "sharedGlobals": ["{workspaceRoot}/.github/workflows/ci.yml", "{workspaceRoot}/.github/workflows/cd.yml"]
   },
-  "nxCloudId": "678700865251991962dbd506",
   "targetDefaults": {
     "@angular-devkit/build-angular:browser": {
       "cache": true,
@@ -52,6 +52,9 @@
   },
   "plugins": [
     {
+      "plugin": "@nx-tools/nx-container"
+    },
+    {
       "plugin": "@nx/cypress/plugin",
       "options": {
         "targetName": "e2e",
@@ -64,13 +67,6 @@
       "plugin": "@nx/eslint/plugin",
       "options": {
         "targetName": "lint"
-      }
-    },
-    {
-      "plugin": "@nx-tools/nx-container",
-      "options": {
-        "defaultEngine": "docker",
-        "defaultRegistry": "registry.digitalocean.com/office-hour"
       }
     },
     {
@@ -88,6 +84,15 @@
       "linter": "eslint",
       "style": "css",
       "unitTestRunner": "jest"
+    },
+    "@nx/angular:component": {
+      "style": "css"
     }
+  },
+  "s3": {
+    "bucket": "office-hour-object-storage",
+    "endpoint": "https://office-hour-object-storage.sgp1.digitaloceanspaces.com",
+    "forcePathStyle": true,
+    "region": "sgp1"
   }
 }

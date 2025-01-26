@@ -8,6 +8,7 @@
   "targets": {
     "build": {
       "executor": "@angular-devkit/build-angular:browser",
+      "cache": true,
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/fe-angular-app",
@@ -19,9 +20,19 @@
           {
             "glob": "**/*",
             "input": "apps/fe-angular-app/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/@taiga-ui/icons/src",
+            "output": "assets/taiga-ui/icons"
           }
         ],
-        "styles": ["apps/fe-angular-app/src/styles.css"],
+        "styles": [
+          "@taiga-ui/core/styles/taiga-ui-theme.less",
+          "@taiga-ui/core/styles/taiga-ui-fonts.less",
+          "@taiga-ui/addon-mobile/styles/taiga-ui-mobile.less",
+          "apps/fe-angular-app/src/styles.css"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -68,9 +79,6 @@
       "options": {
         "buildTarget": "fe-angular-app:build"
       }
-    },
-    "lint": {
-      "executor": "@nx/eslint:lint"
     },
     "test": {
       "executor": "@nx/jest:jest",

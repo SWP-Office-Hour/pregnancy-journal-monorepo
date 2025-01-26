@@ -7,7 +7,6 @@ COPY dist/apps/be-nestjs-app/package*.json ./
 COPY apps/be-nestjs-app/prisma/schema.prisma ./prisma/
 RUN npm install --omit=dev
 
-
 # Production image, copy all the files and run nest
 FROM docker.io/node:lts-alpine AS runner
 RUN apk add --no-cache dumb-init
