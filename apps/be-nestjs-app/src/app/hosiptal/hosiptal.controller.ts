@@ -1,34 +1,29 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { HosiptalService } from './hosiptal.service';
-import { CreateHosiptalDto } from './dto/create-hosiptal.dto';
-import { UpdateHosiptalDto } from './dto/update-hosiptal.dto';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { hospitalContract } from '@pregnancy-journal-monorepo/contract';
 
-@Controller('hosiptal')
+@Controller()
 export class HosiptalController {
-  constructor(private readonly hosiptalService: HosiptalService) {}
-
-  @Post()
-  create(@Body() createHosiptalDto: CreateHosiptalDto) {
-    return this.hosiptalService.create(createHosiptalDto);
+  constructor(private readonly hosiptalService: HosiptalService) {
   }
 
-  @Get()
-  findAll() {
-    return this.hosiptalService.findAll();
+  @TsRestHandler(hospitalContract.getAll)
+  handleFindAllHosiptals() {
+    return tsRestHandler(hospitalContract.getAll, async () => {
+      const hosiptals = await this.hosiptalService.findAll();
+      return { status: 200, body: hosiptals };
+    });
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.hosiptalService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateHosiptalDto: UpdateHosiptalDto) {
-    return this.hosiptalService.update(+id, updateHosiptalDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.hosiptalService.remove(+id);
+  @TsRestHandler(hospitalContract.getOne)
+  handleFindOneHosiptals(@Param('id') id: string) {
+    return tsRestHandler(hospitalContract.getOne, async () => {
+      const hosiptal = await this.hosiptalService.findOne(id);
+      if (!hosiptal) {
+        throw new NotFoundException('Hospital not found');
+      }
+      return { status: 200, body: hosiptal };
+    });
   }
 }

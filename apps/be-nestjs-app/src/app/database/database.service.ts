@@ -29,10 +29,6 @@ export class DatabaseService {
     return this.prisma.note;
   }
 
-  get Bound() {
-    return this.prisma.bound;
-  }
-
   get Comment() {
     return this.prisma.comment;
   }
