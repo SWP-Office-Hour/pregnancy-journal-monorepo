@@ -7,37 +7,20 @@
   "targets": {
     "container": {
       "executor": "@nx-tools/nx-container:build",
+      "cache": true,
       "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,
-        "load": true,
-        "defaultRegistry": "registry.digitalocean.com",
-        "metadata": {
-          "images": ["registry.digitalocean.com/office-hour/api"],
-          "tags": ["latest"]
-        }
-      },
-      "configurations": {
-        "ci": {
-          "load": false,
-          "push": true,
-          "quiet": true,
-          "metadata": {
-            "images": ["registry.digitalocean.com/office-hour/api"],
-            "tags": [
-              "type=schedule",
-              "type=ref,event=branch",
-              "type=ref,event=tag",
-              "type=ref,event=pr",
-              "type=sha,prefix=sha-"
-            ]
-          }
-        }
+        "defaultRegistry": "registry.digitalocean.com/office-hour/",
+        "tags": ["registry.digitalocean.com/office-hour/api:latest"],
+        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache",
+        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max"
       }
     },
     "build": {
       "executor": "nx:run-commands",
+      "cache": true,
       "options": {
         "command": "webpack-cli build",
         "args": ["node-env=production"]
