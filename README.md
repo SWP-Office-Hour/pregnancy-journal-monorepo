@@ -1,4 +1,4 @@
-[![DEPLOY FROM MAIN](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/deploy.yml/badge.svg)](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/deploy.yml)
+[![CD](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml/badge.svg)](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml)
 
 # PregnancyJournal
 
