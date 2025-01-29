@@ -10,17 +10,14 @@ import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { RequestWithJWT } from 'express';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
-import {
-  UserRole,
-  RefreshTokenRequest,
-} from '@pregnancy-journal-monorepo/contract';
+import { UserRole, RefreshTokenRequest } from '@pregnancy-journal-monorepo/contract';
 import { ROLES_KEY } from '../utils/decorators/role.decorator';
 
 @Injectable()
 export class AccessTokenAuthGuard implements CanActivate {
   constructor(
     private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -47,7 +44,7 @@ export class AccessTokenAuthGuard implements CanActivate {
 export class EmailVerifyTokenAuthGuard implements CanActivate {
   constructor(
     private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -73,7 +70,7 @@ export class EmailVerifyTokenAuthGuard implements CanActivate {
 export class RefreshTokenAuthGuard implements CanActivate {
   constructor(
     private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {
@@ -107,10 +104,10 @@ export class RoleAuthGuard implements CanActivate {
   constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(
-      ROLES_KEY,
-      [context.getHandler(), context.getClass()]
-    );
+    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(ROLES_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
     if (!requiredRoles) {
       return true;
     }
@@ -131,7 +128,7 @@ export class RoleAuthGuard implements CanActivate {
 export class IsLoggin implements CanActivate {
   constructor(
     private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   canActivate(context: ExecutionContext): boolean {

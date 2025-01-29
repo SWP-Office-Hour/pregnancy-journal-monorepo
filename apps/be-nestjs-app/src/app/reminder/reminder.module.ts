@@ -5,7 +5,6 @@ import { DatabaseService } from '../database/database.service';
 
 @Module({
   controllers: [ReminderController],
-  providers: [ReminderService, DatabaseService]
+  providers: [ReminderService, DatabaseService],
 })
-export class ReminderModule {
-}
+export class ReminderModule {}

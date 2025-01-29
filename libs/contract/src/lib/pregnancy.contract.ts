@@ -1,13 +1,13 @@
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { metricUserResSchema } from './metric.contract';
+import { metricResSchema } from './metric.contract';
 
 export const metricValueSchema = z.array(
   z.object({
     id: z.string(),
     value: z.number(),
-    metric: metricUserResSchema,
-  })
+    metric: metricResSchema,
+  }),
 );
 
 const pregnancyResSchema = z.array(
@@ -19,7 +19,7 @@ const pregnancyResSchema = z.array(
     visitDoctorDate: z.date(),
     hospital: z.string(),
     data: z.array(metricValueSchema),
-  })
+  }),
 );
 
 const c = initContract();

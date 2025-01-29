@@ -9,7 +9,7 @@ export const reminderResSchema = z.object({
   content: z.string(),
   remindDate: z.date(),
   status: statusSchema,
-  created_at: z.date()
+  created_at: z.date(),
 });
 
 export const reminderCreateReqSchema = z.object({
@@ -18,7 +18,7 @@ export const reminderCreateReqSchema = z.object({
   content: z.string(),
   remindDate: z.string().date(),
   status: statusSchema,
-  user_id: z.string()
+  user_id: z.string(),
 });
 
 export const reminderUpdateReqSchema = z.object({
@@ -28,7 +28,7 @@ export const reminderUpdateReqSchema = z.object({
   content: z.string().optional(),
   remindDate: z.string().date().optional(),
   status: statusSchema.optional(),
-  user_id: z.string().optional()
+  user_id: z.string().optional(),
 });
 
 export type Reminder = z.infer<typeof reminderResSchema>;
@@ -43,43 +43,43 @@ export const reminderContract = c.router({
     path: '/reminders',
     responses: {
       200: z.array(reminderResSchema),
-      404: z.object({ message: z.string() })
-    }
+      404: z.object({ message: z.string() }),
+    },
   },
   getOne: {
     method: 'GET',
     path: '/reminders/:id',
     responses: {
       200: reminderResSchema,
-      404: z.object({ message: z.string() })
-    }
+      404: z.object({ message: z.string() }),
+    },
   },
   create: {
     method: 'POST',
     path: '/reminders',
     body: reminderCreateReqSchema,
     responses: {
-      201: reminderResSchema
-    }
+      201: reminderResSchema,
+    },
   },
   update: {
     method: 'PATCH',
     path: '/reminders',
     body: reminderUpdateReqSchema,
     responses: {
-      200: reminderResSchema
-    }
+      200: reminderResSchema,
+    },
   },
   delete: {
     method: 'DELETE',
     path: '/reminders/:id',
     pathParams: z.object({
-      id: z.string()
+      id: z.string(),
     }),
     responses: {
       204: z.object({
-        message: z.string()
-      })
-    }
-  }
+        message: z.string(),
+      }),
+    },
+  },
 });

@@ -5,8 +5,7 @@ import { hospitalContract } from '@pregnancy-journal-monorepo/contract';
 
 @Controller()
 export class HosiptalController {
-  constructor(private readonly hosiptalService: HosiptalService) {
-  }
+  constructor(private readonly hosiptalService: HosiptalService) {}
 
   @TsRestHandler(hospitalContract.getAll)
   handleFindAllHosiptals() {

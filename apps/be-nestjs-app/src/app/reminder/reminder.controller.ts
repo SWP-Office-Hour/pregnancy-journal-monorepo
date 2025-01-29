@@ -3,11 +3,9 @@ import { ReminderService } from './reminder.service';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { reminderContract, ReminderCreateReq, ReminderUpdateReq } from '@pregnancy-journal-monorepo/contract';
 
-
 @Controller()
 export class ReminderController {
-  constructor(private readonly reminderService: ReminderService) {
-  }
+  constructor(private readonly reminderService: ReminderService) {}
 
   @TsRestHandler(reminderContract.create)
   handleCreate(@Body() body: ReminderCreateReq) {

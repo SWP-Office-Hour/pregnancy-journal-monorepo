@@ -62,7 +62,7 @@ export const membershipContract = c.router({
   },
   update: {
     method: 'PATCH',
-    path: '/memberships/:id',
+    path: '/memberships',
     body: membershipUpdateReqContract,
     responses: {
       200: membershipResContract,

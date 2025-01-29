@@ -4,47 +4,31 @@ import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../database/database.service';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
-import {
-  LoginRequest,
-  RegisterRequest,
-  UserRole,
-} from '@pregnancy-journal-monorepo/contract';
+import { LoginRequest, RegisterRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
 
 @Injectable()
 export class UsersService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService
+    private readonly configService: ConfigService,
   ) {}
 
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
       options: {
-        expiresIn: this.configService.get<string>(
-          'JWT_ACCESS_TOKEN_EXPIRES_IN'
-        ),
+        expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRES_IN'),
       },
       secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
     });
   }
 
-  signRefreshToken({
-    user_id,
-    role,
-    expiresIn,
-  }: {
-    user_id: string;
-    role: UserRole;
-    expiresIn?: string;
-  }) {
+  signRefreshToken({ user_id, role, expiresIn }: { user_id: string; role: UserRole; expiresIn?: string }) {
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
       options: {
-        expiresIn:
-          expiresIn ||
-          this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
+        expiresIn: expiresIn || this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
       },
       secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
     });
@@ -96,13 +80,7 @@ export class UsersService {
     return result;
   }
 
-  async checkRefreshToken({
-    user_id,
-    refresh_token,
-  }: {
-    user_id: string;
-    refresh_token: string;
-  }) {
+  async checkRefreshToken({ user_id, refresh_token }: { user_id: string; refresh_token: string }) {
     const result = await this.databaseService.Token.findFirst({
       where: {
         refresh_token: refresh_token,
@@ -232,13 +210,7 @@ export class UsersService {
     });
   }
 
-  async refreshToken({
-    refresh_token_id,
-    user_id,
-  }: {
-    refresh_token_id: string;
-    user_id: string;
-  }) {
+  async refreshToken({ refresh_token_id, user_id }: { refresh_token_id: string; user_id: string }) {
     //get old refresh token expire time
     const old_refresh_token = await this.databaseService.Token.findUnique({
       where: {
@@ -247,9 +219,7 @@ export class UsersService {
     });
     const newExpiresIn = this.jwtUtilsService.generateNewRefreshTokenExpiry({
       created_at: old_refresh_token.created_at,
-      old_expires_in: this.configService.get<string>(
-        'JWT_REFRESH_TOKEN_EXPIRES_IN'
-      ),
+      old_expires_in: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
     });
     //create new access token and refresh token
     const [access_token, refresh_token] = await Promise.all([

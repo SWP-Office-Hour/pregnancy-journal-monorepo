@@ -1,20 +1,12 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { createReadStream, constants, mkdirSync, createWriteStream } from 'fs';
 import { Upload } from '@aws-sdk/lib-storage';
-import {
-  DeleteObjectCommand,
-  GetObjectCommand,
-  PutObjectCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { DeleteObjectCommand, GetObjectCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { ConfigService } from '@nestjs/config';
 import { unlink, access } from 'fs/promises';
 import { join } from 'path';
 import { IncomingMessage } from 'http';
-import {
-  getSignedUrl,
-  S3RequestPresigner,
-} from '@aws-sdk/s3-request-presigner';
+import { getSignedUrl, S3RequestPresigner } from '@aws-sdk/s3-request-presigner';
 
 @Injectable()
 export class FileService {

@@ -1,24 +1,93 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { MetricCreateReq, MetricUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { DatabaseService } from '../database/database.service';
+import { StandardService } from '../standard/standard.service';
+import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class MetricService {
-  // create(createMetricDto: CreateMetricDto) {
-  //   return 'This action adds a new metric';
-  // }
-  //
-  // findAll() {
-  //   return `This action returns all metric`;
-  // }
-  //
-  // findOne(id: number) {
-  //   return `This action returns a #${id} metric`;
-  // }
-  //
-  // update(id: number, updateMetricDto: UpdateMetricDto) {
-  //   return `This action updates a #${id} metric`;
-  // }
-  //
-  // remove(id: number) {
-  //   return `This action removes a #${id} metric`;
-  // }
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly standardService: StandardService,
+  ) {}
+
+  async create(createMetricDto: MetricCreateReq) {
+    return this.databaseService.Metric.create({
+      data: {
+        title: createMetricDto.title,
+        measurement_unit: createMetricDto.measurementUnit,
+        status: createMetricDto.status,
+        required: createMetricDto.required,
+        upperbound_msg: createMetricDto.upperBoundMsg,
+        lowerbound_msg: createMetricDto.lowerBoundMsg,
+        standard: {
+          createMany: {
+            data: createMetricDto.standard.map((bound) => {
+              return {
+                week: bound.week,
+                upperbound: bound.upperbound,
+                lowerbound: bound.lowerbound,
+                who_standard_value: bound.whoStandardValue,
+              };
+            }),
+          },
+        },
+      },
+    });
+  }
+
+  findAll() {
+    return this.databaseService.Metric.findMany();
+  }
+
+  findOne(id: string) {
+    const cur = this.databaseService.Metric.findUnique({
+      where: {
+        id: id,
+      },
+      include: {
+        standard: true,
+        visit_record_metric: true,
+      },
+    });
+    if (!cur) {
+      throw new NotFoundException('Metric not found');
+    }
+    return cur;
+  }
+
+  update(updateMetricDto: MetricUpdateReq) {
+    const cur = this.findOne(updateMetricDto.id);
+    if (!cur) {
+      throw new NotFoundException('Metric not found');
+    }
+    return this.databaseService.Metric.update({
+      where: {
+        id: updateMetricDto.id,
+      },
+      data: updateMetricDto,
+    });
+  }
+
+  remove(id: string) {
+    const cur = this.findOne(id);
+    if (!cur) {
+      throw new NotFoundException('Metric not found');
+    }
+
+    const deleteStandard = this.databaseService.Standard.deleteMany({
+      where: {
+        metric_id: id,
+      },
+    });
+
+    const deleteMetric = this.databaseService.Metric.delete({
+      where: {
+        id: id,
+      },
+    });
+
+    const prima = new PrismaClient();
+    return prima.$transaction([deleteStandard, deleteMetric]);
+  }
 }

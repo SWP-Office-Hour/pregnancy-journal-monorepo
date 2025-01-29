@@ -1,4 +1,4 @@
-import { Bound } from '../../bound/entities/bound.entity';
+import { Standard } from '../../standard/entities/standard.entity';
 
 export interface MetricDTO {
   id: string;
@@ -8,7 +8,7 @@ export interface MetricDTO {
   required: boolean;
   upperBoundMsg: string;
   lowerBoundMsg: string;
-  bounds?: Bound[];
+  bounds?: Standard[];
 }
 
 export class Metric {
@@ -19,7 +19,7 @@ export class Metric {
   required: boolean;
   upperBoundMsg: string;
   lowerBoundMsg: string;
-  bounds: Bound[];
+  bounds: Standard[];
 
   constructor(metric: MetricDTO) {
     this.id = metric.id;

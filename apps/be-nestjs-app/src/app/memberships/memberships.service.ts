@@ -1,9 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
-import {
-  membershipCreateReq,
-  membershipUpdateReq,
-} from '@pregnancy-journal-monorepo/contract';
+import { membershipCreateReq, membershipUpdateReq } from '@pregnancy-journal-monorepo/contract';
 
 @Injectable()
 export class MembershipsService {
@@ -39,27 +36,11 @@ export class MembershipsService {
     if (!cur) {
       throw new Error('Membership not found');
     }
-
-    const updateData = {
-      title: updateMembershipDto.title,
-      description: updateMembershipDto.description,
-      status: updateMembershipDto.status,
-      price: updateMembershipDto.price,
-      updated_at: new Date(),
-    };
-
-    // Xóa các trường có giá trị null hoặc rỗng
-    Object.keys(updateData).forEach((key) => {
-      if (updateData[key] === null || updateData[key] === '') {
-        delete updateData[key];
-      }
-    });
-
     return this.databaseService.MemberShip.update({
       where: {
         id: updateMembershipDto.id,
       },
-      data: updateData,
+      data: updateMembershipDto,
     });
   }
 

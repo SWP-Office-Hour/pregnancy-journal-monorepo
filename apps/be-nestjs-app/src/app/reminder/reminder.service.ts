@@ -4,10 +4,7 @@ import { ReminderCreateReq, ReminderUpdateReq } from '@pregnancy-journal-monorep
 
 @Injectable()
 export class ReminderService {
-  constructor(
-    private readonly databaseService: DatabaseService
-  ) {
-  }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   create(createReminderDto: ReminderCreateReq) {
     return this.databaseService.Reminder.create({
@@ -19,10 +16,10 @@ export class ReminderService {
         remind_date: new Date(createReminderDto.remindDate),
         user: {
           connect: {
-            id: createReminderDto.user_id
-          }
-        }
-      }
+            id: createReminderDto.user_id,
+          },
+        },
+      },
     });
   }
 
@@ -33,8 +30,8 @@ export class ReminderService {
   findOne(id: string) {
     const result = this.databaseService.Reminder.findUnique({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
     if (!result) {
       throw new NotFoundException('Reminder not found');
@@ -48,33 +45,12 @@ export class ReminderService {
       throw new NotFoundException('Reminder not found');
     }
 
-    const updateData = {
-      title: updateReminderDto.title,
-      content: updateReminderDto.content,
-      status: updateReminderDto.status,
-      type: updateReminderDto.type,
-      remind_date: updateReminderDto.remindDate,
-      user: {
-        connect: {
-          id: updateReminderDto.user_id
-        }
-      }
-    };
-
-    // Xóa các trường có giá trị null hoặc rỗng
-    Object.keys(updateData).forEach((key) => {
-      if (updateData[key] === null || updateData[key] === '') {
-        delete updateData[key];
-      }
-    });
-
     return this.databaseService.Reminder.update({
       where: {
-        id: updateReminderDto.id
+        id: updateReminderDto.id,
       },
-      data: updateData
+      data: updateReminderDto,
     });
-
   }
 
   remove(id: string) {
@@ -84,8 +60,8 @@ export class ReminderService {
     }
     return this.databaseService.Reminder.delete({
       where: {
-        id: id
-      }
+        id: id,
+      },
     });
   }
 }

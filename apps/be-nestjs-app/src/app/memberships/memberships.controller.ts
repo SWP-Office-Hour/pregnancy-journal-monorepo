@@ -1,10 +1,7 @@
 import { MembershipsService } from './memberships.service';
 import { Body, Controller, Param } from '@nestjs/common';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
-import {
-  membershipContract,
-  membershipCreateReq,
-} from '@pregnancy-journal-monorepo/contract';
+import { membershipContract, membershipCreateReq } from '@pregnancy-journal-monorepo/contract';
 
 @Controller()
 export class MembershipsController {

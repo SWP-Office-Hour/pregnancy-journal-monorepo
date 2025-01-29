@@ -1,34 +1,49 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Body, Controller, Param } from '@nestjs/common';
 import { TagService } from './tag.service';
-import { CreateTagDto } from './dto/create-tag.dto';
-import { UpdateTagDto } from './dto/update-tag.dto';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { tagContract, TagCreateReq, TagUpdateReq } from '@pregnancy-journal-monorepo/contract';
 
-@Controller('tag')
+@Controller()
 export class TagController {
   constructor(private readonly tagService: TagService) {}
 
-  @Post()
-  create(@Body() createTagDto: CreateTagDto) {
-    return this.tagService.create(createTagDto);
+  @TsRestHandler(tagContract.create)
+  handleCreate(@Body() createTagDto: TagCreateReq) {
+    return tsRestHandler(tagContract.create, async () => {
+      const result = await this.tagService.create(createTagDto);
+      return { status: 200, body: result };
+    });
   }
 
-  @Get()
-  findAll() {
-    return this.tagService.findAll();
+  @TsRestHandler(tagContract.getAll)
+  handleGetAll() {
+    return tsRestHandler(tagContract.getAll, async () => {
+      const result = await this.tagService.findAll();
+      return { status: 200, body: result };
+    });
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.tagService.findOne(+id);
+  @TsRestHandler(tagContract.getOne)
+  handleGetOne(@Param('id') id: string) {
+    return tsRestHandler(tagContract.getOne, async () => {
+      const result = await this.tagService.findOne(id);
+      return { status: 200, body: result };
+    });
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTagDto: UpdateTagDto) {
-    return this.tagService.update(+id, updateTagDto);
+  @TsRestHandler(tagContract.update)
+  handleUpdate(@Body() updateTagDto: TagUpdateReq) {
+    return tsRestHandler(tagContract.update, async () => {
+      const result = await this.tagService.update(updateTagDto);
+      return { status: 200, body: result };
+    });
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.tagService.remove(+id);
+  @TsRestHandler(tagContract.delete)
+  handleDelete(@Param('id') id: string) {
+    return tsRestHandler(tagContract.delete, async () => {
+      const result = await this.tagService.remove(id);
+      return { status: 200, body: result };
+    });
   }
 }

@@ -5,7 +5,6 @@ import { DatabaseService } from '../database/database.service';
 
 @Module({
   controllers: [HosiptalController],
-  providers: [HosiptalService, DatabaseService]
+  providers: [HosiptalService, DatabaseService],
 })
-export class HosiptalModule {
-}
+export class HosiptalModule {}

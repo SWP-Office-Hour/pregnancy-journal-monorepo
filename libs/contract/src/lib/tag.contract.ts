@@ -23,6 +23,8 @@ export const tagUpdateReqSchema = z.object({
 const tagGetAllResSchema = z.array(tagResSchema);
 
 export type Tag = z.infer<typeof tagResSchema>;
+export type TagCreateReq = z.infer<typeof tagCreateReqSchema>;
+export type TagUpdateReq = z.infer<typeof tagUpdateReqSchema>;
 const c = initContract();
 
 export const tagContract = c.router({
@@ -52,7 +54,7 @@ export const tagContract = c.router({
   },
   update: {
     method: 'PATCH',
-    path: '/tags/:id',
+    path: '/tags',
     body: tagUpdateReqSchema,
     responses: {
       200: tagResSchema,

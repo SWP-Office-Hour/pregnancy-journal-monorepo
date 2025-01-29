@@ -3,73 +3,69 @@ import { initContract } from '@ts-rest/core';
 import { tagResSchema } from './tag.contract';
 import { statusSchema } from './enum.contract';
 
-export const boundSchema = z.object({
+export const standardSchema = z.object({
   id: z.string(),
   week: z.number(),
-  lower: z.number(),
-  upper: z.number(),
+  lowerbound: z.number(),
+  upperbound: z.number(),
+  whoStandardValue: z.number(),
 });
 
-export const boundCreateReqSchema = z.object({
+export const standardCreateReqSchema = z.object({
   week: z.number(),
-  lower: z.number(),
-  upper: z.number(),
+  lowerbound: z.number(),
+  upperbound: z.number(),
+  whoStandardValue: z.number(),
 });
 
-export const boundUpdateReqSchema = z.object({
+export const standardUpdateReqSchema = z.object({
   id: z.string(),
   week: z.number().optional(),
-  lower: z.number().optional(),
-  upper: z.number().optional(),
+  lowerbound: z.number(),
+  upperbound: z.number(),
+  whoStandardValue: z.number().optional(),
 });
 
 export const metricResSchema = z.object({
   id: z.string(),
   title: z.string(),
   measure: z.string(),
-  bound: z.array(boundSchema),
+  standard: z.array(standardSchema),
   upperBoundMsg: z.string(),
   lowerBoundMsg: z.string(),
   tags: z.array(tagResSchema),
   status: statusSchema,
 });
 
-export const metricUserResSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  measure: z.string(),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
-  bound: boundSchema,
-});
-
 const metricUserCreateReqSchema = z.object({
   title: z.string(),
-  measure: z.string(),
-  bound: boundSchema,
+  measurementUnit: z.string(),
+  standard: z.array(standardCreateReqSchema.optional()).optional(),
   upperBoundMsg: z.string(),
   lowerBoundMsg: z.string(),
-  tags: z.array(z.string()),
+  required: z.boolean(),
   status: statusSchema,
 });
 
 const metricUserUpdateReqSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
-  measure: z.string().optional(),
-  bound: boundSchema.optional(),
+  measurementUnit: z.string().optional(),
   upperBoundMsg: z.string().optional(),
   lowerBoundMsg: z.string().optional(),
-  tags: z.array(z.string()).optional(),
+  required: z.boolean().optional(),
   status: statusSchema.optional(),
 });
 
+export type MetricRes = z.infer<typeof metricResSchema>;
+export type MetricCreateReq = z.infer<typeof metricUserCreateReqSchema>;
+export type MetricUpdateReq = z.infer<typeof metricUserUpdateReqSchema>;
 const c = initContract();
 
 export const metricContract = c.router({
   getAll: {
     method: 'GET',
-    path: '/metric',
+    path: '/metrics',
     responses: {
       200: z.array(metricResSchema),
       404: z.object({ message: z.string() }),
@@ -77,7 +73,7 @@ export const metricContract = c.router({
   },
   getOne: {
     method: 'GET',
-    path: '/metric/:id',
+    path: '/metrics/:id',
     responses: {
       200: metricResSchema,
       404: z.object({ message: z.string() }),
@@ -85,15 +81,15 @@ export const metricContract = c.router({
   },
   create: {
     method: 'POST',
-    path: '/metric',
+    path: '/metrics',
     body: metricUserCreateReqSchema,
     responses: {
-      201: metricResSchema,
+      200: metricResSchema,
     },
   },
   update: {
     method: 'PATCH',
-    path: '/metric/:id',
+    path: '/metrics',
     body: metricUserUpdateReqSchema,
     responses: {
       200: metricResSchema,
@@ -101,37 +97,12 @@ export const metricContract = c.router({
   },
   delete: {
     method: 'DELETE',
-    path: '/metric/:id',
+    path: '/metrics/:id',
     pathParams: z.object({
       id: z.string(),
     }),
     responses: {
       204: z.object({}),
-    },
-  },
-  createBound: {
-    method: 'POST',
-    path: '/metric/bound',
-    body: boundCreateReqSchema,
-    responses: {
-      201: boundSchema,
-    },
-  },
-  getAllBound: {
-    method: 'GET',
-    path: '/metric/bound',
-    responses: {
-      200: z.array(boundSchema),
-      404: z.object({ message: z.string() }),
-    },
-  },
-  updateBound: {
-    method: 'PATCH',
-    path: '/metric/bound',
-    body: boundUpdateReqSchema,
-    responses: {
-      200: boundSchema,
-      404: z.object({ message: z.string() }),
     },
   },
 });

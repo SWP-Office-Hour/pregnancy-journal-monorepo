@@ -16,9 +16,7 @@ export class UsersController {
       const users = await this.usersService.login(body);
       console.log('users', users);
       if (!users) {
-        throw new UnauthorizedException(
-          'Phone number or password is incorrect'
-        );
+        throw new UnauthorizedException('Phone number or password is incorrect');
       }
       return { status: 200, body: users };
     });
@@ -63,10 +61,7 @@ export class UsersController {
 
   @UseGuards(RefreshTokenAuthGuard)
   @TsRestHandler(authContract.refreshToken)
-  async handleRefreshToken(
-    @Body() body: TokenRequest,
-    @Req() req: RequestWithJWT
-  ) {
+  async handleRefreshToken(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(authContract.refreshToken, async () => {
       const { user_id } = req.decoded_refresh_token;
       const { refresh_token } = body;

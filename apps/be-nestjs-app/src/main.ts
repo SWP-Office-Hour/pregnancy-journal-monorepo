@@ -75,7 +75,7 @@ async function bootstrap() {
           url: process.env.HOST_URL,
         },
       ],
-    }
+    },
   );
 
   SwaggerModule.setup('api', app, apiDocument);
@@ -86,9 +86,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3000;
   // app.use('/uploads', express.static(join(__dirname, '..', 'images')));
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`
-  );
+  Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
 }
 
 bootstrap();
