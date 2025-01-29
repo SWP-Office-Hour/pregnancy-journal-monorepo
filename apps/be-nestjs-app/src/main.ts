@@ -66,9 +66,9 @@ async function bootstrap() {
         },
       ],
       servers: [
-        // {
-        //   url: process.env.HOST_URL,
-        // },
+        {
+          url: `http://localhost:3000`,
+        },
         {
           url: process.env.HOST_URL,
         },
@@ -79,7 +79,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, apiDocument);
   app.useWebSocketAdapter(new SocketIoAdapter(app));
   app.enableCors({
-    origin: process.env.FE_PAGE_URL,
+    origin: process.env.FE_PAGE_URL || 'http://localhost:4200',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: [
       'DNT',
