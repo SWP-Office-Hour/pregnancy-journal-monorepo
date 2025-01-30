@@ -60,6 +60,11 @@
   font-size: 14px;
 }
 
+.question {
+  color: #666;
+  font-size: 14px;
+}
+
 .or .bar {
   flex-grow: 1;
   height: 1px;
