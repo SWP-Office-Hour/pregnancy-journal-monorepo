@@ -7,7 +7,7 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:browser",
+      "executor": "@nx/angular:browser-esbuild",
       "cache": true,
       "outputs": ["{options.outputPath}"],
       "options": {
@@ -16,6 +16,7 @@
         "main": "apps/fe-angular-app/src/main.ts",
         "polyfills": ["zone.js"],
         "tsConfig": "apps/fe-angular-app/tsconfig.app.json",
+        "plugins": ["apps/fe-angular-app/plugins/env-var-plugin.js"],
         "assets": [
           {
             "glob": "**/*",
@@ -63,7 +64,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@nx/angular:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "fe-angular-app:build:production"
