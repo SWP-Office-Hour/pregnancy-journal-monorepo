@@ -1,0 +1,96 @@
+/* Tổng thể */
+.login-button {
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+/* Nút đăng nhập */
+.google-login-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  padding: 4px 25px 3px 25px;
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.2),
+    0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+/* Hiệu ứng hover */
+.google-login-button:hover {
+  /* background: linear-gradient(145deg, #474242, #302c2c); */
+  box-shadow:
+    0 6px 12px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05); /* Tăng kích thước nhẹ */
+}
+
+/* Icon Google */
+.google-icon {
+  width: 36px;
+  height: 36px;
+  display: inline;
+}
+
+/* Văn bản */
+.google-login-button span {
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 0.5px;
+  color: white;
+}
+
+/* Divider Styles */
+.or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+.question {
+  color: #666;
+  font-size: 14px;
+}
+
+.or .bar {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #ccc;
+  margin: 0 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .google-login-button {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  .google-login-button img {
+    height: 20px;
+    width: 20px;
+  }
+
+  .or {
+    font-size: 12px;
+  }
+}
+.logo {
+  margin: 24px 0;
+}
+.form {
+  width: 100%;
+}
