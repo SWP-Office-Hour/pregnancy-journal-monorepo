@@ -1,0 +1,4 @@
+[advice]
+	forceDeleteBranch = false
+[include]
+	path = .gitconfig

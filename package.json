@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky"
+    "prepare": "husky && git config --local include.path .gitconfig"
   },
   "private": true,
   "prisma": {
