@@ -5,7 +5,7 @@ export const authConfig: AuthConfig = {
 
   redirectUri: window.location.origin + '/dashboard',
 
-  clientId: '616565294967-s4tirlkflct55vu4imbn8c3cli3c3lks.apps.googleusercontent.com',
+  clientId: process.env.MY_GOOGLE_CONSOLE_CLIENT_ID,
 
   scope: 'openid profile email',
 
