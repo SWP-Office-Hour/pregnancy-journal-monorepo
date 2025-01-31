@@ -24,7 +24,6 @@ import {
   tagContract,
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
-import { dopplerSdk } from '@pregnancy-journal/doppler-sdk';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -97,12 +96,7 @@ async function bootstrap() {
   });
 
   const globalPrefix = 'api';
-  const secret = await dopplerSdk({
-    accessToken: process.env.DOPPLER_ACCESS_TOKEN,
-    config: `prd`,
-    secret: `HOST_URL`,
-  });
-  Logger.log(`Testing dopper sdk ${secret}`);
+
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
