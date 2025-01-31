@@ -97,14 +97,14 @@ async function bootstrap() {
   });
 
   const globalPrefix = 'api';
-  const secret = await dopplerSdk({
+  const HOST_URL = await dopplerSdk({
     accessToken: process.env.DOPPLER_ACCESS_TOKEN,
     secret: `HOST_URL`,
   });
-  Logger.log(`Testing dopper sdk ${secret}`);
+  Logger.log(`Testing dopper sdk ${HOST_URL}`);
   const port = process.env.PORT || 3000;
   await app.listen(port);
-  Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
+  Logger.log(`🚀 Application is running on: ${HOST_URL}${globalPrefix}`);
 }
 
 bootstrap();
