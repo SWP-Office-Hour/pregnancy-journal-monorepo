@@ -16,4 +16,8 @@ export class DatabaseService {
   get MemberShip() {
     return this.prisma.membership;
   }
+
+  get Reminder() {
+    return this.prisma.reminder;
+  }
 }

@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import { MembershipsModule } from './memberships/memberships.module';
+import { ReminderModule } from './reminder/reminder.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { MembershipsModule } from './memberships/memberships.module';
       envFilePath: '.env',
     }),
     MembershipsModule,
+    ReminderModule,
   ],
   controllers: [AppController],
   providers: [AppService],
