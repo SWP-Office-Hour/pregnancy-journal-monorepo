@@ -99,6 +99,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   const secret = await dopplerSdk({
     accessToken: process.env.DOPPLER_ACCESS_TOKEN,
+    config: `prd`,
     secret: `HOST_URL`,
   });
   Logger.log(`Testing dopper sdk ${secret}`);
