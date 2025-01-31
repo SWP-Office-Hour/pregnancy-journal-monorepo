@@ -1,13 +1,13 @@
-import DopplerSDK, { SecretsGetResponse } from '@dopplerhq/node-sdk';
+import DopplerSDK from '@dopplerhq/node-sdk';
 
-export function dopplerSdk({
+export async function dopplerSdk({
   accessToken,
-  config,
+  config = `prd`,
   secret,
 }: {
   accessToken: string;
-  config: string;
+  config: 'prd' | 'stg' | 'dev';
   secret: string;
-}): Promise<SecretsGetResponse> {
-  return new DopplerSDK({ accessToken }).secrets.get('swp-office-hour', config, secret);
+}) {
+  return (await new DopplerSDK({ accessToken }).secrets.get('swp-office-hour', config, secret)).value!.raw;
 }
