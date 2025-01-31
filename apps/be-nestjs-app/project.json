@@ -5,6 +5,12 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "secrets": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "doppler secrets download --no-file --format env > .env"
+      }
+    },
     "prisma": {
       "executor": "nx:run-commands",
       "cache": true,
@@ -35,7 +41,7 @@
       },
       "configurations": {
         "development": {
-          "args": ["node-env=development"]
+          "args": ["node-env=development | doppler secrets download --no-file --format env > .env"]
         }
       }
     },
