@@ -1,0 +1,18 @@
+pull_request_rules:
+  - name: Automatic rebase when CI passes and reviews approve
+    conditions:
+      - base = main
+      - '#commits-behind >= 1'
+      - '#approved-reviews-by >= 1'
+      - check-success = CI # replace "CI" with the name of your CI status check
+    actions:
+      merge:
+        method: rebase
+        commit_message_template: '{{ head }} (#{{ number }})'
+
+  - name: delete head branch after merge but not if other PRs depend on it
+    conditions:
+      - merged
+    actions:
+      delete_head_branch:
+        force: false
