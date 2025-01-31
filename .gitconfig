@@ -2,3 +2,5 @@
 	forceDeleteBranch = false
 [include]
 	path = .gitconfig
+[pull]
+	rebase = true
