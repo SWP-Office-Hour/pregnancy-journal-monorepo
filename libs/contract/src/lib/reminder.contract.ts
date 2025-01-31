@@ -16,19 +16,24 @@ export const reminderCreateReqSchema = z.object({
   type: reminderTypeSchema,
   title: z.string(),
   content: z.string(),
-  remindDate: z.date(),
+  remindDate: z.string().date(),
   status: statusSchema,
+  user_id: z.string(),
 });
 
 export const reminderUpdateReqSchema = z.object({
+  id: z.string(),
   type: reminderTypeSchema.optional(),
   title: z.string().optional(),
   content: z.string().optional(),
-  remindDate: z.date().optional(),
+  remindDate: z.string().date().optional(),
   status: statusSchema.optional(),
+  user_id: z.string().optional(),
 });
 
 export type Reminder = z.infer<typeof reminderResSchema>;
+export type ReminderCreateReq = z.infer<typeof reminderCreateReqSchema>;
+export type ReminderUpdateReq = z.infer<typeof reminderUpdateReqSchema>;
 
 const c = initContract();
 
@@ -59,7 +64,7 @@ export const reminderContract = c.router({
   },
   update: {
     method: 'PATCH',
-    path: '/reminders/:id',
+    path: '/reminders',
     body: reminderUpdateReqSchema,
     responses: {
       200: reminderResSchema,
