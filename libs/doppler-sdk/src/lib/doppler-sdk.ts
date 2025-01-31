@@ -6,7 +6,7 @@ export async function dopplerSdk({
   secret,
 }: {
   accessToken: string;
-  config: 'prd' | 'stg' | 'dev';
+  config?: 'prd' | 'stg' | 'dev';
   secret: string;
 }) {
   return (await new DopplerSDK({ accessToken }).secrets.get('swp-office-hour', config, secret)).value!.raw;
