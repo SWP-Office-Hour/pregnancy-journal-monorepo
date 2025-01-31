@@ -5,6 +5,13 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "prisma": {
+      "executor": "nx:run-commands",
+      "cache": true,
+      "options": {
+        "command": "npx prisma generate"
+      }
+    },
     "container": {
       "executor": "@nx-tools/nx-container:build",
       "cache": true,
@@ -21,6 +28,7 @@
     "build": {
       "executor": "nx:run-commands",
       "cache": true,
+      "dependsOn": ["prisma"],
       "options": {
         "command": "webpack-cli build",
         "args": ["node-env=production"]
