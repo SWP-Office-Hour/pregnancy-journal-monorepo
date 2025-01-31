@@ -29,6 +29,10 @@ const membershipUpdateReqContract = z.object({
   expiredInDay: membershipDaySchema,
 });
 
+export type membershipCreateReq = z.infer<typeof membershipCreateReqContract>;
+export type membershipUpdateReq = z.infer<typeof membershipUpdateReqContract>;
+export type membershipRes = z.infer<typeof membershipResContract>;
+
 const c = initContract();
 
 export const membershipContract = c.router({
@@ -58,7 +62,7 @@ export const membershipContract = c.router({
   },
   update: {
     method: 'PATCH',
-    path: '/memberships/:id',
+    path: '/memberships',
     body: membershipUpdateReqContract,
     responses: {
       200: membershipResContract,

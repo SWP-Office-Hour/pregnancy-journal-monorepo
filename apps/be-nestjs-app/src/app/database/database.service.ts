@@ -12,4 +12,8 @@ export class DatabaseService {
   get User() {
     return this.prisma.user;
   }
+
+  get MemberShip() {
+    return this.prisma.membership;
+  }
 }
