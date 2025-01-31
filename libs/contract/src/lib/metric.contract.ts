@@ -3,6 +3,8 @@ import { initContract } from '@ts-rest/core';
 import { tagResSchema } from './tag.contract';
 import { statusSchema } from './enum.contract';
 
+export type metricRes = z.infer<typeof metricResSchema>;
+
 export const boundSchema = z.object({
   id: z.string(),
   week: z.number(),
@@ -23,16 +25,18 @@ export const boundUpdateReqSchema = z.object({
   upper: z.number().optional(),
 });
 
-export const metricResSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  measure: z.string(),
-  bound: z.array(boundSchema),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
-  tags: z.array(tagResSchema),
-  status: statusSchema,
-});
+export const metricResSchema = z.array(
+  z.object({
+    id: z.string(),
+    title: z.string(),
+    measure: z.string(),
+    bound: z.array(boundSchema).optional(),
+    upperBoundMsg: z.string(),
+    lowerBoundMsg: z.string(),
+    tags: z.array(tagResSchema).optional(),
+    status: statusSchema,
+  }),
+);
 
 export const metricUserResSchema = z.object({
   id: z.string(),
@@ -70,8 +74,11 @@ export const metricContract = c.router({
   getAll: {
     method: 'GET',
     path: '/metric',
+    query: z.object({
+      depth: z.number().optional().default(0),
+    }),
     responses: {
-      200: z.array(metricResSchema),
+      200: metricResSchema,
       404: z.object({ message: z.string() }),
     },
   },

@@ -1,0 +1,14 @@
+<form [formGroup]="pregnancyForm" [style.max-width.rem]="35" tuiForm="l">
+  <header tuiHeader>
+    <h3 tuiTitle>
+      A header
+      <span tuiSubtitle>Form with large controls</span>
+    </h3>
+  </header>
+
+  <tui-input-date formControlName="visitDate">
+    <label tuiLabel>Visit date</label>
+    <input placeholder="Placeholder" tuiTextfieldLegacy />
+  </tui-input-date>
+  <tui-error [error]="[] | tuiFieldError | async" formControlName="dateValue" />
+</form>
