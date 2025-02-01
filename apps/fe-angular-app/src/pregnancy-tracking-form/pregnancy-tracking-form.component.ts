@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingService } from '../services/pregnancy-tracking.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiDay } from '@taiga-ui/cdk';
 import { TuiError } from '@taiga-ui/core';
