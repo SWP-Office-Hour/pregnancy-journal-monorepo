@@ -1,11 +1,12 @@
 import { AuthConfig } from 'angular-oauth2-oidc';
+import { environment } from '../../environments/environment';
 
 export const authConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
 
   redirectUri: window.location.origin + '/dashboard',
 
-  clientId: process.env['MY_ORG_API_URL_GOOGLE_CONSOLE_CLIENT_ID'],
+  clientId: environment.clientId,
 
   scope: 'openid profile email',
 
