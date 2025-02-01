@@ -9,6 +9,7 @@
     "build": {
       "executor": "@nx/angular:browser-esbuild",
       "cache": true,
+      "defaultConfiguration": "production",
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/fe-angular-app",
@@ -58,13 +59,23 @@
           "vendorChunk": true,
           "extractLicenses": false,
           "sourceMap": true,
-          "namedChunks": true
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-angular-app/src/environments/environment.ts",
+              "with": "apps/fe-angular-app/src/environments/environment.development.ts"
+            }
+          ]
         }
-      },
-      "defaultConfiguration": "production"
+      }
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "host": "localhost",
+        "port": 4200
+      },
       "configurations": {
         "production": {
           "buildTarget": "fe-angular-app:build:production"
@@ -72,8 +83,7 @@
         "development": {
           "buildTarget": "fe-angular-app:build:development"
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
