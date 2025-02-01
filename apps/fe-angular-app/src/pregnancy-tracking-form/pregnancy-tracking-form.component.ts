@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { AsyncPipe, CommonModule } from '@angular/common';
 import { PregnancyTrackingService } from '../services/pregnancy-tracking.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TuiButton, TuiError, TuiLabel, TuiTextfield, TuiTitle } from '@taiga-ui/core';
+import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike, TuiInputNumber } from '@taiga-ui/kit';
+import { TuiForm } from '@taiga-ui/layout';
+import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiDay } from '@taiga-ui/cdk';
-import { TuiError } from '@taiga-ui/core';
-import { TuiFieldErrorPipe } from '@taiga-ui/kit';
-import { TuiForm, TuiHeader } from '@taiga-ui/layout';
-import { TuiInputDateModule } from '@taiga-ui/legacy';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -17,8 +17,17 @@ import { TuiInputDateModule } from '@taiga-ui/legacy';
     TuiError,
     TuiFieldErrorPipe,
     TuiForm,
-    TuiHeader,
     TuiInputDateModule,
+    TuiInputModule,
+    TuiInputNumber,
+    TuiSelectModule,
+    TuiLabel,
+    TuiTextfield,
+    TuiTitle,
+    TuiButton,
+    TuiDataListWrapper,
+    AsyncPipe,
+    ReactiveFormsModule,
   ],
   templateUrl: './pregnancy-tracking-form.component.html',
   styleUrl: './pregnancy-tracking-form.component.css',
@@ -26,7 +35,6 @@ import { TuiInputDateModule } from '@taiga-ui/legacy';
 export class PregnancyTrackingFormComponent {
   pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
   metrics = this.pregnancyService.getMetricsForUsers();
-  protected persons = ['Option 1', 'Option 2'];
   protected pregnancyForm = new FormGroup({});
   protected hospitals = this.pregnancyService.getHospitalList();
 
@@ -53,6 +61,7 @@ export class PregnancyTrackingFormComponent {
       new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
     );
     this.pregnancyForm.addControl('week', new FormControl(32));
+    this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
   }
 
   formControls() {
