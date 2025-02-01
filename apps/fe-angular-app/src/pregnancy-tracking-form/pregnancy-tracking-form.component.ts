@@ -49,7 +49,7 @@ export class PregnancyTrackingFormComponent {
     }
     this.pregnancyForm.addControl('hospital', new FormControl(this.hospitals[0]));
     this.pregnancyForm.addControl(
-      'visitDate',
+      'visitDoctorDate',
       new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
     );
     this.pregnancyForm.addControl(

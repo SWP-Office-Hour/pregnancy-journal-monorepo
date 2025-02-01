@@ -1,20 +1,55 @@
-<form [formGroup]="pregnancyForm" [style.max-width.rem]="35" tuiForm="l">
-  <tui-input-date formControlName="expectedBirthDate">
-    <label tuiLabel>Ngày dự sinh</label>
-    <input placeholder="Placeholder" tuiTextfieldLegacy />
-  </tui-input-date>
-  <tui-error [error]="[] | tuiFieldError | async" formControlName="expectedBirthDate" />
-  <tui-input-date formControlName="nextVisitDate">
-    <label tuiLabel>Ngày tái khám</label>
-    <input placeholder="Placeholder" tuiTextfieldLegacy />
-  </tui-input-date>
-  <tui-error [error]="[] | tuiFieldError | async" formControlName="nextVisitDate" />
+<form [formGroup]="pregnancyForm" class="max-w-2xl mx-auto p-4" tuiForm="l">
+  <div class="flex flex-wrap -mx-2">
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-input-date formControlName="expectedBirthDate">
+        <label tuiLabel>Ngày dự sinh</label>
+        <input placeholder="Placeholder" tuiTextfieldLegacy />
+      </tui-input-date>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="expectedBirthDate" />
+    </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-input-date formControlName="nextVisitDate">
+        <label tuiLabel>Ngày tái khám</label>
+        <input placeholder="Placeholder" tuiTextfieldLegacy />
+      </tui-input-date>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="nextVisitDate" />
+    </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-textfield>
+        <label tuiLabel>Cân nặng</label>
 
-  <!--  //select field-->
-  <tui-select formControlName="hospital">
-    <label tuiLabel>Bệnh viện</label>
-    <input placeholder="Bệnh viện" tuiTextfieldLegacy />
-    <tui-data-list-wrapper *tuiDataList [items]="hospitals" />
-  </tui-select>
-  <tui-error [error]="[] | tuiFieldError | async" formControlName="hospital" />
+        <input tuiInputNumber formControlName="weight" />
+      </tui-textfield>
+
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="weight" />
+    </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-textfield>
+        <label tuiLabel>Chiều cao</label>
+
+        <input tuiInputNumber formControlName="height" />
+      </tui-textfield>
+
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="height" />
+    </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-select formControlName="hospital">
+        <label tuiLabel>Bệnh viện</label>
+        <input placeholder="Bệnh viện" tuiTextfieldLegacy />
+        <tui-data-list-wrapper *tuiDataList [items]="hospitals" />
+      </tui-select>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="hospital" />
+    </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <tui-input-date formControlName="visitDoctorDate">
+        <label tuiLabel>Ngày khám bác sĩ</label>
+        <input placeholder="Placeholder" tuiTextfieldLegacy />
+      </tui-input-date>
+      <tui-error [error]="[] | tuiFieldError | async" formControlName="visitDoctorDate" />
+    </div>
+  </div>
+  <footer class="flex justify-end space-x-2 mt-4">
+    <button tuiButton type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+    <button appearance="flat" tuiButton type="button" class="bg-gray-500 text-white px-4 py-2 rounded">Cancel</button>
+  </footer>
 </form>

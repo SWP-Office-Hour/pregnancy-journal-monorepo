@@ -50,7 +50,7 @@ export const pregnancyData: pregnancyResponse = [
 export const metrics: metricRes = [
   {
     id: '1',
-    title: 'Cân nặng',
+    title: 'weight',
     measure: 'kg',
     bound: [],
     upperBoundMsg: 'Cân nặng quá cao',
@@ -60,7 +60,7 @@ export const metrics: metricRes = [
   },
   {
     id: '2',
-    title: 'Chiều cao',
+    title: 'height',
     measure: 'cm',
     bound: [],
     upperBoundMsg: 'Chiều cao quá cao',
