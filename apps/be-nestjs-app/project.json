@@ -13,14 +13,12 @@
     },
     "prisma": {
       "executor": "nx:run-commands",
-      "cache": true,
       "options": {
         "command": "npx prisma generate"
       }
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "cache": true,
       "dependsOn": ["build"],
       "options": {
         "engine": "docker",
