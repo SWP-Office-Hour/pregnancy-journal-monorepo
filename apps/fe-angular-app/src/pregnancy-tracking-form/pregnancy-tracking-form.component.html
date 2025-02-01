@@ -47,6 +47,9 @@
       </tui-input-date>
       <tui-error [error]="[] | tuiFieldError | async" formControlName="visitDoctorDate" />
     </div>
+    <div class="w-full md:w-1/2 px-2 mb-8">
+      <app-file-upload></app-file-upload>
+    </div>
   </div>
   <footer class="flex justify-end space-x-2 mt-4">
     <button tuiButton type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>

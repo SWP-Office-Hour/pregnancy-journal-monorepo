@@ -7,6 +7,7 @@ import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike, TuiInputNumber } fr
 import { TuiForm } from '@taiga-ui/layout';
 import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiDay } from '@taiga-ui/cdk';
+import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-upload.component';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -28,6 +29,7 @@ import { TuiDay } from '@taiga-ui/cdk';
     TuiDataListWrapper,
     AsyncPipe,
     ReactiveFormsModule,
+    FileUploadComponent,
   ],
   templateUrl: './pregnancy-tracking-form.component.html',
   styleUrl: './pregnancy-tracking-form.component.css',

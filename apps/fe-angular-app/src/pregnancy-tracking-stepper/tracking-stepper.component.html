@@ -1,0 +1,12 @@
+<tui-pagination
+  [content]="test"
+  [length]="9"
+  [activePadding]="3"
+  [sidePadding]="1"
+  [index]="currentPage"
+  size="l"
+  (indexChange)="goToPage($event)"
+/>
+<ng-template #test let-index>
+  {{ nth_times[index] }}
+</ng-template>
