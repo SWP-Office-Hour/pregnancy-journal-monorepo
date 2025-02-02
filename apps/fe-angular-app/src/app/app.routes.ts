@@ -1,11 +1,13 @@
 import { Routes } from '@angular/router';
-import { LoginPageComponent } from './components/login-page/login-page.component';
-// import { DashboardComponent } from './components/dashboard/dashboard.component';
-import { SignupComponentComponent } from './components/signup/signup.component';
+import { SignupComponentComponent } from './signup/signup.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
+import { LoginComponent } from './login/login.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
-  { path: 'login', component: LoginPageComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponentComponent },
-  // { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'pregnancy-tracking', component: PregnancyTrackingComponent },
 ];

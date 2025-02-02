@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { PregnancyTrackingService } from '../services/pregnancy-tracking.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
 import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike } from '@taiga-ui/kit';
 import { TuiForm } from '@taiga-ui/layout';
 import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiDay } from '@taiga-ui/cdk';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
