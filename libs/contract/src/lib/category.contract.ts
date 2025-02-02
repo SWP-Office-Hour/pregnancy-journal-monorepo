@@ -28,7 +28,7 @@ const c = initContract();
 export const categoryContract = c.router({
   create: {
     method: 'POST',
-    path: '/categorys',
+    path: '/categories',
     body: CategoryCreateReqSchema,
     responses: {
       201: CategoryResSchema,
@@ -37,7 +37,7 @@ export const categoryContract = c.router({
 
   getAll: {
     method: 'GET',
-    path: '/categorys',
+    path: '/categories',
     responses: {
       200: z.array(CategoryResSchema),
       404: z.object({ message: z.string() }),
@@ -46,7 +46,7 @@ export const categoryContract = c.router({
 
   getOne: {
     method: 'GET',
-    path: '/categorys/:id',
+    path: '/categories/:id',
     responses: {
       200: CategoryResSchema,
       404: z.object({ message: z.string() }),
@@ -55,7 +55,7 @@ export const categoryContract = c.router({
 
   update: {
     method: 'PATCH',
-    path: '/categorys',
+    path: '/categories',
     body: CategoryUpdateReqSchema,
     responses: {
       200: CategoryResSchema,
@@ -64,7 +64,7 @@ export const categoryContract = c.router({
 
   delete: {
     method: 'DELETE',
-    path: '/categorys/:id',
+    path: '/categories/:id',
     responses: {
       200: CategoryResSchema,
     },
