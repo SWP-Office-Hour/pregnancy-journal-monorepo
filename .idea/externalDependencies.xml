@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExternalDependencies">
+    <plugin id="AngularJS" />
+    <plugin id="Git4Idea" />
+    <plugin id="com.chylex.intellij.inspectionlens" />
+    <plugin id="com.github.dinbtechit.jetbrainsnestjs" />
+    <plugin id="com.github.yunabraska.githubworkflowplugin" />
+    <plugin id="dev.nx.console" />
+    <plugin id="intellij.prettierJS" />
+    <plugin id="org.editorconfig.editorconfigjetbrains" />
+    <plugin id="org.intellij.prisma" />
+    <plugin id="org.jetbrains.plugins.github" />
+    <plugin id="org.jetbrains.settingsRepository" />
+    <plugin id="zielu.gittoolbox" />
+  </component>
+</project>
