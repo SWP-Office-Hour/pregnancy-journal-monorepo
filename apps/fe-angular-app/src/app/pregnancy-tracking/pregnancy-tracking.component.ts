@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiInputDateModule, TuiInputModule, TuiInputTimeModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiDay } from '@taiga-ui/cdk';
-import { PregnancyTrackingFormComponent } from '../../pregnancy-tracking-form/pregnancy-tracking-form.component';
+import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
 
 @Component({
   selector: 'app-pregnancy-tracking',

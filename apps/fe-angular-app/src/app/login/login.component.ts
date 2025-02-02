@@ -1,14 +1,14 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AuthGoogleService } from '../../services/auth-google.service';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { TuiAppearance, TuiButton, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
-import { TuiPassword, TuiTooltip } from '@taiga-ui/kit';
-import { UsersService } from '../../services/users.service';
+import { TuiPassword } from '@taiga-ui/kit';
+import { AuthGoogleService } from '../services/auth-google.service';
+import { UsersService } from '../services/users.service';
 
 @Component({
-  selector: 'app-signup.component',
+  selector: 'app-login',
   imports: [
     FormsModule,
     ReactiveFormsModule,
@@ -20,14 +20,13 @@ import { UsersService } from '../../services/users.service';
     TuiIcon,
     TuiTextfield,
     TuiTitle,
-    TuiTooltip,
     TuiPassword,
     NgOptimizedImage,
   ],
-  templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css',
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css',
 })
-export class SignupComponentComponent {
+export class LoginComponent {
   protected readonly loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
@@ -39,7 +38,7 @@ export class SignupComponentComponent {
   signInWithGoogle() {
     this.authService.login();
   }
-  signup() {
+  loginNormal() {
     // this.userService.login();
   }
 }
