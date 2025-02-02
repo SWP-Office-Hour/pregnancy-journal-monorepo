@@ -24,12 +24,13 @@ node_modules
 *.sublime-workspace
 
 # IDEs - Jetbrains - MY MODIFICATIONS
+.idea/*
 !.idea/codeStyles/*
 !.idea/externalDependencies.xml
 !.idea/prettier.xml
 !.idea/vcs.xml
 !.idea/jsonSchemas.xml
-.idea/*
+!.idea/git_toolbox_prj.xml
 
 # IDE - VSCode
 .vscode/*
