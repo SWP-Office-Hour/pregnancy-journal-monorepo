@@ -20,4 +20,8 @@ export class DatabaseService {
   get Reminder() {
     return this.prisma.reminder;
   }
+
+  get Category() {
+    return this.prisma.category;
+  }
 }

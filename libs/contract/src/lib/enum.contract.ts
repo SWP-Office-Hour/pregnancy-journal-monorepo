@@ -9,7 +9,7 @@ export enum UserRole {
 // Định nghĩa Status enum
 export enum UserStatus {
   ACTIVE = 1,
-  BANNED = 2,
+  BANNED = 0,
 }
 
 // Tạo Zod schema cho role và status

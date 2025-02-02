@@ -1,10 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from './models/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../database/database.service';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
-import { LoginRequest, RegisterRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
+import {
+  LoginRequest,
+  RegisterRequest,
+  UserCreateRequest,
+  UserRole,
+  UserUpdateRequest,
+} from '@pregnancy-journal-monorepo/contract';
 
 @Injectable()
 export class UsersService {
@@ -243,5 +249,51 @@ export class UsersService {
     });
 
     return { access_token, refresh_token };
+  }
+
+  create(data: UserCreateRequest) {
+    return this.databaseService.User.create({
+      data: {
+        ...data,
+        email: data.email,
+        password: data.password,
+        name: data.name,
+        phone: data.phone,
+        province: data.province,
+        district: data.district,
+        ward: data.ward,
+        address: data.address,
+        role: data.role,
+        status: data.status,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
+    });
+  }
+
+  getUserById(id: string) {
+    const user = this.databaseService.User.findUnique({
+      where: {
+        id,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return user;
+  }
+
+  async updateUser(updateUser: UserUpdateRequest) {
+    await this.getUserById(updateUser.id);
+
+    return this.databaseService.User.update({
+      where: {
+        id: updateUser.id,
+      },
+      data: {
+        ...updateUser,
+        updated_at: new Date(),
+      },
+    });
   }
 }

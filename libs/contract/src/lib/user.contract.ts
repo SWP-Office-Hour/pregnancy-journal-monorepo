@@ -100,9 +100,27 @@ const userGetAllResSchema = z.array(
 );
 
 //User request schema
+//User create request schema
+const userCreateReqSchema = z.object({
+  name: z.string(),
+  email: z.string(),
+  password: z.string(),
+  lastOvulationDate: z.date().optional(),
+  expectedBirthDate: z.date().optional(),
+  membershipId: z.string().optional(),
+  phone: z.string(),
+  province: z.string(),
+  district: z.string(),
+  ward: z.string(),
+  address: z.string(),
+  role: userRoleSchema,
+  status: userStatusEnumSchema,
+});
+
 //User update request schema
 const userUpdateReqSchema = z.object({
   id: z.string(),
+  email: z.string().optional(),
   name: z.string().optional(),
   lastOvulationDate: z.date().optional(),
   expectedBirthDate: z.date().optional(),
@@ -114,8 +132,10 @@ const userUpdateReqSchema = z.object({
   address: z.string().optional(),
   role: userRoleSchema.optional(),
   status: userStatusEnumSchema.optional(),
-  tags: z.array(tagResSchema).optional(),
 });
+
+export type UserCreateRequest = z.infer<typeof userCreateReqSchema>;
+export type UserUpdateRequest = z.infer<typeof userUpdateReqSchema>;
 
 // Contract
 export const authContract = c.router({
@@ -181,7 +201,7 @@ export const userContract = c.router({
   create: {
     method: 'POST',
     path: '/users',
-    body: registerSchema,
+    body: userCreateReqSchema,
     responses: {
       200: userResSchema,
       // 404: object({ message: string() }),

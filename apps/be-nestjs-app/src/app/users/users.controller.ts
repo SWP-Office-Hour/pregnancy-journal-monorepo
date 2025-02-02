@@ -1,7 +1,15 @@
-import { Body, Controller, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { authContract, LoginRequest, RegisterRequest, TokenRequest } from '@pregnancy-journal-monorepo/contract';
+import {
+  authContract,
+  LoginRequest,
+  RegisterRequest,
+  TokenRequest,
+  userContract,
+  UserCreateRequest,
+  UserUpdateRequest,
+} from '@pregnancy-journal-monorepo/contract';
 import { AccessTokenAuthGuard, RefreshTokenAuthGuard } from '../auth/auth.guard';
 import { RequestWithJWT } from 'express';
 
@@ -76,6 +84,38 @@ export class UsersController {
         refresh_token_id,
         user_id,
       });
+      return { status: 200, body: users };
+    });
+  }
+
+  @TsRestHandler(userContract.create)
+  async handleCreate(@Body() body: UserCreateRequest) {
+    return tsRestHandler(userContract.create, async () => {
+      const users = await this.usersService.create(body);
+      return { status: 200, body: users };
+    });
+  }
+
+  @TsRestHandler(userContract.getAll)
+  handleGetAll() {
+    return tsRestHandler(userContract.getAll, async () => {
+      const users = await this.usersService.users();
+      return { status: 200, body: users };
+    });
+  }
+
+  @TsRestHandler(userContract.getOne)
+  async handleGetOne(@Param('id') id: string) {
+    return tsRestHandler(userContract.getOne, async () => {
+      const users = await this.usersService.getUserById(id);
+      return { status: 200, body: users };
+    });
+  }
+
+  @TsRestHandler(userContract.update)
+  async handleUpdate(@Body() body: UserUpdateRequest) {
+    return tsRestHandler(userContract.update, async () => {
+      const users = await this.usersService.updateUser(body);
       return { status: 200, body: users };
     });
   }
