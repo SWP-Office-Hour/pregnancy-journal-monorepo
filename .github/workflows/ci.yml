@@ -3,15 +3,21 @@ name: CI
 on:
   pull_request:
     types: [synchronize, opened, reopened, edited]
+  push:
+    branches: [main, testci]
 
 permissions:
   id-token: write
   contents: read
   actions: read
+
 env:
   HUSKY: 0
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   NX_POWERPACK_LICENSE: ${{ secrets.NX_POWERPACK_LICENSE }}
+  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
 jobs:
   main-ci:
     runs-on: ubuntu-latest
@@ -38,15 +44,19 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
+
       - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
         name: List the state of node modules
         continue-on-error: true
         run: npm list
-      - name: Install dependencies without break package-lock
+
+      - name: Install dependencies
         run: npm i
 
       - uses: nrwl/nx-set-shas@v4
-      - run: |
+
+      - name: Echo NX_BASE and NX_HEAD
+        run: |
           echo "BASE: ${{ env.NX_BASE }}"
           echo "HEAD: ${{ env.NX_HEAD }}"
 
