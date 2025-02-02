@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { AuthGoogleService } from '../services/auth-google.service';
+import { AuthGoogleService } from '../../services/auth-google.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgOptimizedImage } from '@angular/common';
 import { TuiAppearance, TuiButton, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
-import { TuiPassword, TuiTooltip } from '@taiga-ui/kit';
-import { UsersService } from '../services/users.service';
+import { TuiPassword } from '@taiga-ui/kit';
+import { UsersService } from '../../services/users.service';
 
 @Component({
   selector: 'app-login-form',
@@ -21,9 +21,8 @@ import { UsersService } from '../services/users.service';
     TuiIcon,
     TuiTextfield,
     TuiTitle,
-    TuiTooltip,
     TuiPassword,
-    NgOptimizedImage,
+    NgOptimizedImage
   ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',

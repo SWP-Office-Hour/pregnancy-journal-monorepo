@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { PregnancyTrackingFormComponent } from '../../pregnancy-tracking-form/pregnancy-tracking-form.component';
-import { TrackingStepperComponent } from '../../pregnancy-tracking-stepper/tracking-stepper.component';
+import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
+import { TrackingStepperComponent } from './pregnancy-tracking-stepper/tracking-stepper.component';
 
 @Component({
   selector: 'app-pregnancy-tracking',

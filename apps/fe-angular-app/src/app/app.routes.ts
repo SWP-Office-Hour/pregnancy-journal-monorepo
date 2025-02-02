@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
+import { LoginPageComponent } from './login/login-page/login-page.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
 

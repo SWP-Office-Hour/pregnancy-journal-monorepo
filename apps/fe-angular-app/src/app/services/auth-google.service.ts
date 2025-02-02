@@ -1,8 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 
 import { Router } from '@angular/router';
 
-import { AuthConfig, OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 import { authConfig } from './auth-config';
 
@@ -10,11 +10,9 @@ import { authConfig } from './auth-config';
   providedIn: 'root',
 })
 export class AuthGoogleService {
-  private oAuthService = inject(OAuthService);
-
-  private router = inject(Router);
-
   profile = signal<any>(null);
+  private oAuthService = inject(OAuthService);
+  private router = inject(Router);
 
   constructor() {
     this.initConfiguration();

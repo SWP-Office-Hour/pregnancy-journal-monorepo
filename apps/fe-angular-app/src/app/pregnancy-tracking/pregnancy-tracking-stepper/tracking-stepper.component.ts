@@ -14,11 +14,11 @@ export class TrackingStepperComponent {
 
   protected currentPage = 0;
 
-  goToPage(page: number): void {
-    console.log('goToPage', page);
-  }
-
   constructor() {
     this.currentPage = this.nth_times.length - 1;
+  }
+
+  goToPage(page: number): void {
+    console.log('goToPage', page);
   }
 }

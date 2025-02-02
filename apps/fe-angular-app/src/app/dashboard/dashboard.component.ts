@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { AuthGoogleService } from '../../services/auth-google.service';
+import { AuthGoogleService } from '../services/auth-google.service';
 
 const MODULES = [CommonModule];
 
@@ -20,10 +20,8 @@ const MODULES = [CommonModule];
 })
 export class DashboardComponent {
   private authService = inject(AuthGoogleService);
-
-  private router = inject(Router);
-
   profile = this.authService.profile;
+  private router = inject(Router);
 
   logOut() {
     this.authService.logout();

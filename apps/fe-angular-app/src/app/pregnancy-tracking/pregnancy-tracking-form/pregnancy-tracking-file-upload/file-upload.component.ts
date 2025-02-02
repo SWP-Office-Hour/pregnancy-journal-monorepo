@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AsyncPipe, CommonModule, NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiFileLike, TuiFiles } from '@taiga-ui/kit';
-import { async, finalize, map, Observable, of, Subject, timer } from 'rxjs';
+import { map, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-file-upload',
