@@ -24,4 +24,8 @@ export class DatabaseService {
   get Category() {
     return this.prisma.category;
   }
+
+  get Tag() {
+    return this.prisma.tag;
+  }
 }
