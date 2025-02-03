@@ -10,6 +10,20 @@ export const metricValueSchema = z.array(
   }),
 );
 
+const pregnancyUpdateReqSchema = z.object({
+  id: z.string(),
+  week: z.number().optional(),
+  expectedBirthDate: z.date().optional(),
+  nextVisitDate: z.date().optional(),
+  visitDoctorDate: z.date().optional(),
+  hospital: z.string().optional(),
+  data: metricValueSchema.optional(),
+});
+
+export type PregnancyUpdateRequest = z.infer<typeof pregnancyUpdateReqSchema>;
+
+export type pregnancyResponse = z.infer<typeof pregnancyResSchema>;
+
 const pregnancyResSchema = z.array(
   z.object({
     id: z.string(),
@@ -18,7 +32,7 @@ const pregnancyResSchema = z.array(
     nextVisitDate: z.date(),
     visitDoctorDate: z.date(),
     hospital: z.string(),
-    data: z.array(metricValueSchema),
+    data: metricValueSchema,
   }),
 );
 

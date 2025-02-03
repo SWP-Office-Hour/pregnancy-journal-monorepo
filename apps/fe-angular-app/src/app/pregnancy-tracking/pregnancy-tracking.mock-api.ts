@@ -1,4 +1,4 @@
-import { metricRes, pregnancyResponse } from '@pregnancy-journal-monorepo/contract';
+import { MetricRes, pregnancyResponse, Status } from '@pregnancy-journal-monorepo/contract';
 
 export const pregnancyData: pregnancyResponse = [
   {
@@ -13,17 +13,22 @@ export const pregnancyData: pregnancyResponse = [
         id: 'string',
         value: 70,
         metric: {
+          status: 1,
           id: '1',
           title: 'Cân nặng',
           measure: 'kg',
           upperBoundMsg: 'Cân nặng quá cao',
           lowerBoundMsg: 'Cân nặng quá thấp',
-          bound: {
-            id: '1',
-            week: 10,
-            lower: 2,
-            upper: 4,
-          },
+          standard: [
+            {
+              id: '1',
+              week: 10,
+              lowerbound: 2,
+              upperbound: 4,
+              whoStandardValue: 5,
+            },
+          ],
+          tags: [],
         },
       },
       {
@@ -35,38 +40,59 @@ export const pregnancyData: pregnancyResponse = [
           measure: 'cm',
           upperBoundMsg: 'Chiều cao quá cao',
           lowerBoundMsg: 'Chiều cao quá thấp',
-          bound: {
-            id: '1',
-            week: 10,
-            lower: 2,
-            upper: 4,
-          },
+          standard: [
+            {
+              id: '1',
+              week: 10,
+              lowerbound: 2,
+              upperbound: 4,
+              whoStandardValue: 5,
+            },
+          ],
+          status: 1,
+          tags: [],
         },
       },
     ],
   },
 ];
 
-export const metrics: metricRes = [
+export const metrics: MetricRes[] = [
   {
     id: '1',
-    title: 'Cân nặng',
-    measure: 'kg',
-    bound: [],
-    upperBoundMsg: 'Cân nặng quá cao',
-    lowerBoundMsg: 'Cân nặng quá thấp',
-    tags: [],
     status: 1,
+    tags: [],
+    measure: 'kg',
+    lowerBoundMsg: 'Cân nặng quá thấp',
+    upperBoundMsg: 'Cân nặng quá cao',
+    standard: [
+      {
+        id: '1',
+        week: 10,
+        lowerbound: 2,
+        upperbound: 6,
+        whoStandardValue: 5,
+      },
+    ],
+    title: 'Cân nặng',
   },
   {
     id: '2',
-    title: 'Chiều cao',
-    measure: 'cm',
-    bound: [],
-    upperBoundMsg: 'Chiều cao quá cao',
-    lowerBoundMsg: 'Chiều cao quá thấp',
-    tags: [],
     status: 1,
+    tags: [],
+    measure: 'cm',
+    lowerBoundMsg: 'Chiều cao quá thấp',
+    upperBoundMsg: 'Chiều cao quá cao',
+    standard: [
+      {
+        id: '1',
+        week: 10,
+        lowerbound: 2,
+        upperbound: 6,
+        whoStandardValue: 5,
+      },
+    ],
+    title: 'Chiều cao',
   },
 ];
 
