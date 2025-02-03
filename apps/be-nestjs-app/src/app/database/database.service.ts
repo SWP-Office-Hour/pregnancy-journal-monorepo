@@ -32,4 +32,8 @@ export class DatabaseService {
   get Standard() {
     return this.prisma.standard;
   }
+
+  get Metric() {
+    return this.prisma.metric;
+  }
 }
