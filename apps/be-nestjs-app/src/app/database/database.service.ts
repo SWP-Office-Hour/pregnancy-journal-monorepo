@@ -28,4 +28,8 @@ export class DatabaseService {
   get Tag() {
     return this.prisma.tag;
   }
+
+  get Standard() {
+    return this.prisma.standard;
+  }
 }
