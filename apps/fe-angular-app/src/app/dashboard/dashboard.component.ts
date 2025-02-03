@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { AuthGoogleService } from '../../services/auth-google.service';
+import { AuthGoogleService } from '../services/auth-google.service';
 
 const MODULES = [CommonModule];
 
