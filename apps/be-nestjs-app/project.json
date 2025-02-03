@@ -13,28 +13,26 @@
           "command": "doppler secrets download --config dev --no-file --format env > .env.development"
         },
         "production": {
-          "command": "doppler secrets download --config prd --no-file --format env > .env.production"
+          "command": "echo Doppler inject to production"
         }
       }
     },
     "prisma": {
       "executor": "nx:run-commands",
       "defaultConfiguration": "production",
-      "dependsOn": ["secrets"],
+      "dependsOn": ["^secrets"],
       "configurations": {
         "development": {
-          "command": "npx prisma generate",
-          "envFile": ".env.development"
+          "command": "npx prisma generate"
         },
         "production": {
-          "command": "npx prisma generate",
-          "envFile": ".env.production"
+          "command": "npx prisma generate"
         }
       }
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
+      "dependsOn": ["build:production"],
       "options": {
         "engine": "docker",
         "push": true,
@@ -48,7 +46,7 @@
       "executor": "nx:run-commands",
       "defaultConfiguration": "production",
       "cache": true,
-      "dependsOn": ["prisma"],
+      "dependsOn": ["^prisma"],
       "options": {
         "command": "webpack-cli build"
       },
@@ -57,14 +55,15 @@
           "args": ["node-env=production"]
         },
         "development": {
-          "args": ["node-env=development"]
+          "args": ["node-env=development"],
+          "envFile": ".env.development"
         }
       }
     },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["build"],
+      "dependsOn": ["^build"],
       "options": {
         "buildTarget": "be-nestjs-app:build",
         "runBuildTargetDependencies": true
