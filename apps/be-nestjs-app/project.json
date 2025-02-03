@@ -5,7 +5,7 @@
   "projectType": "application",
   "tags": [],
   "targets": {
-    "secrets": {
+    "doppler": {
       "executor": "nx:run-commands",
       "defaultConfiguration": "production",
       "configurations": {
@@ -20,7 +20,7 @@
     "prisma": {
       "executor": "nx:run-commands",
       "defaultConfiguration": "production",
-      "dependsOn": ["^secrets"],
+      "dependsOn": ["doppler"],
       "configurations": {
         "development": {
           "command": "npx prisma generate"
@@ -32,7 +32,7 @@
     },
     "container": {
       "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build:production"],
+      "dependsOn": ["build"],
       "options": {
         "engine": "docker",
         "push": true,
@@ -46,7 +46,7 @@
       "executor": "nx:run-commands",
       "defaultConfiguration": "production",
       "cache": true,
-      "dependsOn": ["^prisma"],
+      "dependsOn": ["prisma"],
       "options": {
         "command": "webpack-cli build"
       },
@@ -63,7 +63,7 @@
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
-      "dependsOn": ["^build"],
+      "dependsOn": ["build"],
       "options": {
         "buildTarget": "be-nestjs-app:build",
         "runBuildTargetDependencies": true
