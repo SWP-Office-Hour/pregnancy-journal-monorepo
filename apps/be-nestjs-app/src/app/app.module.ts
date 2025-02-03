@@ -6,6 +6,7 @@ import { ConfigModule } from '@nestjs/config';
 import { MembershipsModule } from './memberships/memberships.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
+import { HospitalModule } from './hosiptal/hospitalModule';
 import { MetricModule } from './metric/metric.module';
 
 @Module({
@@ -19,6 +20,7 @@ import { MetricModule } from './metric/metric.module';
     ReminderModule,
     TagModule,
     MetricModule,
+    HospitalModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -36,4 +36,8 @@ export class DatabaseService {
   get Metric() {
     return this.prisma.metric;
   }
+
+  get Hospital() {
+    return this.prisma.hospital;
+  }
 }
