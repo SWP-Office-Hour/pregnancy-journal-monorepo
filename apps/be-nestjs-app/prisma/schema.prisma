@@ -175,7 +175,7 @@ model post {
 }
 
 model category {
-  id     String @id @db.Char(36)
+  id     String @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title  String @db.VarChar(1000)
   status Int
   blog   blog[]
@@ -197,7 +197,7 @@ model payment_history {
 }
 
 model reaction {
-  id      String @id @db.Char(36)
+  id      String @id @default(dbgenerated("(uuid())")) @db.Char(36)
   user_id String @db.Char(36)
   post_id String @db.Char(36)
   post    post   @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reaction_post_id_Post_id")
