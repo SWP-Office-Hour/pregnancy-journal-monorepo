@@ -12,6 +12,7 @@ import { SocketIoAdapter } from './socket-io.adapter';
 import {
   authContract,
   blogContract,
+  categoryContract,
   dashboardContract,
   hospitalContract,
   mediaContract,
@@ -44,6 +45,7 @@ async function bootstrap() {
       hospital: hospitalContract,
       membership: membershipContract,
       media: mediaContract,
+      category: categoryContract,
     },
     {
       info: {
