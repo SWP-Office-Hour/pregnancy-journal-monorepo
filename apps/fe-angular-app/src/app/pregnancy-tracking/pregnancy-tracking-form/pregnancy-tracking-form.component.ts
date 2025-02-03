@@ -8,6 +8,7 @@ import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/l
 import { TuiDay } from '@taiga-ui/cdk';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -35,9 +36,10 @@ import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-uplo
 })
 export class PregnancyTrackingFormComponent {
   pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
-  metrics = this.pregnancyService.getMetricsForUsers();
+  protected metrics = this.pregnancyService.getMetrics();
   protected pregnancyForm = new FormGroup({});
   protected hospitals = this.pregnancyService.getHospitalList();
+  protected hospitalNames = this.hospitals.pipe(map((hospitals) => hospitals.map(({ name }) => name)));
 
   constructor() {
     this.initForm();
@@ -45,10 +47,14 @@ export class PregnancyTrackingFormComponent {
 
   initForm() {
     const date = new Date();
-    for (const metric of this.metrics) {
-      this.pregnancyForm.addControl(metric.title, new FormControl(0));
-    }
-    this.pregnancyForm.addControl('hospital', new FormControl(this.hospitals[0]));
+    this.metrics.subscribe((metrics) => {
+      for (const metric of metrics) {
+        this.pregnancyForm.addControl(metric.title, new FormControl(0));
+      }
+    });
+    this.hospitals.subscribe((hospitals) => {
+      this.pregnancyForm.addControl('hospital', new FormControl(hospitals[0].name));
+    });
     this.pregnancyForm.addControl(
       'visitDoctorDate',
       new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
@@ -65,11 +71,9 @@ export class PregnancyTrackingFormComponent {
     this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
   }
 
-  formControls() {
-    return new Array(this.pregnancyForm.controls);
-  }
-
   submitForm() {
     //
   }
+
+  protected readonly map = map;
 }

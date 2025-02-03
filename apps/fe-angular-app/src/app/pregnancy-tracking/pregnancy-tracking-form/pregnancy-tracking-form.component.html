@@ -14,14 +14,17 @@
       </tui-input-date>
       <tui-error [error]="[] | tuiFieldError | async" formControlName="nextVisitDate" />
     </div>
-    <div class="w-full md:w-1/2 px-2 mb-8">
-      <tui-select formControlName="hospital">
-        <label tuiLabel>Bệnh viện</label>
-        <input placeholder="Bệnh viện" tuiTextfieldLegacy />
-        <tui-data-list-wrapper *tuiDataList [items]="hospitals" />
-      </tui-select>
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="hospital" />
-    </div>
+
+    @if (hospitals | async) {
+      <div class="w-full md:w-1/2 px-2 mb-8">
+        <tui-select formControlName="hospital">
+          <label tuiLabel>Bệnh viện</label>
+          <input placeholder="Bệnh viện" tuiTextfieldLegacy />
+          <tui-data-list-wrapper *tuiDataList [items]="hospitalNames | async" />
+        </tui-select>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="hospital" />
+      </div>
+    }
     <div class="w-full md:w-1/2 px-2 mb-8">
       <tui-input-date formControlName="visitDoctorDate">
         <label tuiLabel>Ngày khám bác sĩ</label>
@@ -29,24 +32,17 @@
       </tui-input-date>
       <tui-error [error]="[] | tuiFieldError | async" formControlName="visitDoctorDate" />
     </div>
-    <div class="w-full md:w-1/2 px-2 mb-8">
-      <tui-textfield>
-        <label tuiLabel>Cân nặng</label>
+    @for (metric of metrics | async; track $index) {
+      <div class="w-full md:w-1/2 px-2 mb-8">
+        <tui-textfield>
+          <label tuiLabel>{{ metric.title }}</label>
 
-        <input tuiInputNumber formControlName="weight" />
-      </tui-textfield>
+          <input tuiInputNumber formControlName="{{ metric.title }}" />
+        </tui-textfield>
 
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="weight" />
-    </div>
-    <div class="w-full md:w-1/2 px-2 mb-8">
-      <tui-textfield>
-        <label tuiLabel>Chiều cao</label>
-
-        <input tuiInputNumber formControlName="weight" />
-      </tui-textfield>
-
-      <tui-error [error]="[] | tuiFieldError | async" formControlName="weight" />
-    </div>
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="{{ metric.title }}" />
+      </div>
+    }
     <div class="w-full md:w-1/2 px-2 mb-8">
       <app-file-upload></app-file-upload>
     </div>

@@ -1,9 +1,14 @@
 import { Injectable } from '@angular/core';
-import { MetricRes, pregnancyResponse, PregnancyUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { Hospital, MetricRes, pregnancyResponse, PregnancyUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { hospitals, metrics, pregnancyData } from './pregnancy-tracking.mock-api';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
+  private readonly url = environment.apiUrl;
+  constructor(private httpClient: HttpClient) {}
+
   protected pregnancyData: pregnancyResponse = pregnancyData;
   protected metrics: MetricRes[] = metrics;
   protected hospitals: string[] = hospitals;
@@ -16,11 +21,11 @@ export class PregnancyTrackingService {
     return this.pregnancyData;
   }
 
-  getMetricsForUsers() {
-    return this.metrics;
+  getMetrics() {
+    return this.httpClient.get<MetricRes[]>(`${this.url}metrics`);
   }
 
   getHospitalList() {
-    return this.hospitals;
+    return this.httpClient.get<Hospital[]>(`${this.url}hospitals`);
   }
 }
