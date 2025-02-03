@@ -1,12 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
-import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike } from '@taiga-ui/kit';
+import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike, TuiInputNumber } from '@taiga-ui/kit';
 import { TuiForm } from '@taiga-ui/layout';
 import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
 import { TuiDay } from '@taiga-ui/cdk';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -25,6 +26,9 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     TuiDataListWrapper,
     AsyncPipe,
     ReactiveFormsModule,
+    TuiButton,
+    TuiInputNumber,
+    FileUploadComponent,
   ],
   templateUrl: './pregnancy-tracking-form.component.html',
   styleUrl: './pregnancy-tracking-form.component.css',
@@ -46,7 +50,7 @@ export class PregnancyTrackingFormComponent {
     }
     this.pregnancyForm.addControl('hospital', new FormControl(this.hospitals[0]));
     this.pregnancyForm.addControl(
-      'visitDate',
+      'visitDoctorDate',
       new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
     );
     this.pregnancyForm.addControl(
