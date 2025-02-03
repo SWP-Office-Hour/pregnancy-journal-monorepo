@@ -71,7 +71,6 @@
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
-      "dependsOn": ["secrets"],
       "defaultConfiguration": "development",
       "options": {
         "host": "localhost",
