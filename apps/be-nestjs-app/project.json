@@ -10,36 +10,21 @@
       "defaultConfiguration": "production",
       "configurations": {
         "development": {
-          "command": "doppler secrets download --config dev --no-file --format env > .env.development"
+          "command": "doppler secrets download --config dev --no-file --format env > .env.serve.development"
         },
         "production": {
           "command": "echo Doppler inject to production"
+        },
+        "staging": {
+          "command": "doppler secrets download --config stg --no-file --format env > .env.serve.staging"
         }
       }
     },
     "prisma": {
       "executor": "nx:run-commands",
-      "defaultConfiguration": "production",
       "dependsOn": ["doppler"],
-      "configurations": {
-        "development": {
-          "command": "npx prisma generate"
-        },
-        "production": {
-          "command": "npx prisma generate"
-        }
-      }
-    },
-    "container": {
-      "executor": "@nx-tools/nx-container:build",
-      "dependsOn": ["build"],
       "options": {
-        "engine": "docker",
-        "push": true,
-        "defaultRegistry": "registry.digitalocean.com/office-hour/",
-        "tags": ["registry.digitalocean.com/office-hour/api:latest"],
-        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache",
-        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max"
+        "command": "npx prisma generate"
       }
     },
     "build": {
@@ -55,8 +40,10 @@
           "args": ["node-env=production"]
         },
         "development": {
-          "args": ["node-env=development"],
-          "envFile": ".env.development"
+          "args": ["node-env=development"]
+        },
+        "staging": {
+          "args": ["node-env=staging"]
         }
       }
     },
@@ -74,12 +61,27 @@
         },
         "production": {
           "buildTarget": "be-nestjs-app:build:production"
+        },
+        "staging": {
+          "buildTarget": "be-nestjs-app:build:staging"
         }
       }
     },
     "test": {
       "options": {
         "passWithNoTests": true
+      }
+    },
+    "container": {
+      "executor": "@nx-tools/nx-container:build",
+      "dependsOn": ["build"],
+      "options": {
+        "engine": "docker",
+        "push": true,
+        "defaultRegistry": "registry.digitalocean.com/office-hour/",
+        "tags": ["registry.digitalocean.com/office-hour/api:latest"],
+        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache",
+        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max"
       }
     }
   }
