@@ -8,8 +8,8 @@
   "targets": {
     "build": {
       "executor": "@nx/angular:browser-esbuild",
-      "cache": true,
       "defaultConfiguration": "production",
+      "cache": true,
       "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/fe-angular-app",
@@ -71,17 +71,18 @@
     },
     "serve": {
       "executor": "@nx/angular:dev-server",
+      "dependsOn": ["secrets"],
       "defaultConfiguration": "development",
       "options": {
         "host": "localhost",
         "port": 4200
       },
       "configurations": {
-        "production": {
-          "buildTarget": "fe-angular-app:build:production"
-        },
         "development": {
           "buildTarget": "fe-angular-app:build:development"
+        },
+        "production": {
+          "buildTarget": "fe-angular-app:build:production"
         }
       }
     },

@@ -7,14 +7,29 @@
   "targets": {
     "secrets": {
       "executor": "nx:run-commands",
-      "options": {
-        "command": "doppler secrets download --no-file --format env > .env"
+      "defaultConfiguration": "production",
+      "configurations": {
+        "development": {
+          "command": "doppler secrets download --config dev --no-file --format env > .env.development"
+        },
+        "production": {
+          "command": "doppler secrets download --config prd --no-file --format env > .env.production"
+        }
       }
     },
     "prisma": {
       "executor": "nx:run-commands",
-      "options": {
-        "command": "npx prisma generate"
+      "defaultConfiguration": "production",
+      "dependsOn": ["secrets"],
+      "configurations": {
+        "development": {
+          "command": "npx prisma generate",
+          "envFile": ".env.development"
+        },
+        "production": {
+          "command": "npx prisma generate",
+          "envFile": ".env.production"
+        }
       }
     },
     "container": {
@@ -31,15 +46,18 @@
     },
     "build": {
       "executor": "nx:run-commands",
+      "defaultConfiguration": "production",
       "cache": true,
       "dependsOn": ["prisma"],
       "options": {
-        "command": "webpack-cli build",
-        "args": ["node-env=production"]
+        "command": "webpack-cli build"
       },
       "configurations": {
+        "production": {
+          "args": ["node-env=production"]
+        },
         "development": {
-          "args": ["node-env=development | doppler secrets download --no-file --format env > .env"]
+          "args": ["node-env=development"]
         }
       }
     },
