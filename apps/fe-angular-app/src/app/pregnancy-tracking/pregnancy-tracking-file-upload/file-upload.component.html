@@ -12,7 +12,7 @@
 
   <tui-file (remove)="removeFile()" *ngIf="loadedFiles$ | async as file" [file]="file" />
 
-  <tui-file (remove)="removeFile()" *ngIf="failedFiles$ | async as file" [file]="file" state="error" />
+  <!--  <tui-file (remove)="removeFile()" *ngIf="failedFiles$ | async as file" [file]="file" state="error" />-->
 
-  <tui-file (remove)="removeFile()" *ngIf="loadingFiles$ | async as file" [file]="file" state="loading" />
+  <!--  <tui-file (remove)="removeFile()" *ngIf="loadingFiles$ | async as file" [file]="file" state="loading" />-->
 </tui-files>

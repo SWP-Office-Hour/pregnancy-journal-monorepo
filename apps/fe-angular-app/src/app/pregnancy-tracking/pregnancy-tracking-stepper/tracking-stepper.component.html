@@ -1,0 +1,14 @@
+<div class="mb-1">
+  <tui-pagination
+    [content]="step"
+    [length]="Length"
+    [activePadding]="3"
+    [sidePadding]="1"
+    [index]="currentPage"
+    size="l"
+    (indexChange)="goToPage($event)"
+  />
+  <ng-template #step let-index>
+    {{ nth_times[index] }}
+  </ng-template>
+</div>

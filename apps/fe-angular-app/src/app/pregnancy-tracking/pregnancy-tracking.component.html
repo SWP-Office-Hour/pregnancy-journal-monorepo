@@ -1,51 +1,9 @@
-<!--<tui-stepper [activeItemIndex]="3">-->
-<!--  <button stepState="pass" tuiStep type="button">Finished step</button>-->
-<!--  <button tuiStep type="button">Simple step</button>-->
-<!--  <button stepState="error" tuiStep type="button">Error step</button>-->
-<!--  <button disabled tuiStep type="button">Disabled step</button>-->
-<!--  <button icon="@tui.clock" tuiStep type="button">Step with an icon</button>-->
-<!--</tui-stepper>-->
-<!--<form (submit)="submitForm()" [formGroup]="testForm" [style.max-width.rem]="35" tuiForm="l">-->
-<!--  <header tuiHeader>-->
-<!--    <h3 tuiTitle>-->
-<!--      A header-->
-<!--      <span tuiSubtitle>Form with large controls</span>-->
-<!--    </h3>-->
-<!--  </header>-->
-
-<!--  &lt;!&ndash;  //text field&ndash;&gt;-->
-<!--  <tui-input formControlName="textValue">-->
-<!--    <label tuiLabel>Text field</label>-->
-<!--    <input placeholder="Field placeholder" tuiTextfieldLegacy />-->
-<!--  </tui-input>-->
-<!--  <tui-error [error]="[] | tuiFieldError | async" formControlName="textValue" />-->
-
-<!--  &lt;!&ndash;  //text area&ndash;&gt;-->
-<!--  <tui-textfield>-->
-<!--    <label tuiLabel>Number field</label>-->
-<!--    <input formControlName="numberValue" tuiInputNumber />-->
-<!--  </tui-textfield>-->
-<!--  <tui-error [error]="[] | tuiFieldError | async" formControlName="numberValue" />-->
-
-<!--  &lt;!&ndash;  //date field&ndash;&gt;-->
-<!--  <tui-input-date formControlName="dateValue">-->
-<!--    <label tuiLabel>Input date</label>-->
-<!--    <input placeholder="Placeholder" tuiTextfieldLegacy />-->
-<!--  </tui-input-date>-->
-<!--  <tui-error [error]="[] | tuiFieldError | async" formControlName="dateValue" />-->
-
-<!--  &lt;!&ndash;  //select field&ndash;&gt;-->
-<!--  <tui-select formControlName="selectionValue">-->
-<!--    <label tuiLabel>Selection Field</label>-->
-<!--    <input placeholder="Choose your selection" tuiTextfieldLegacy />-->
-<!--    <tui-data-list-wrapper *tuiDataList [items]="persons" />-->
-<!--  </tui-select>-->
-<!--  <tui-error [error]="[] | tuiFieldError | async" formControlName="selectionValue" />-->
-
-<!--  <footer>-->
-<!--    <button tuiButton type="submit">Submit</button>-->
-<!--    <button appearance="flat" tuiButton type="button">Cancel</button>-->
-<!--  </footer>-->
-<!--</form>-->
-
+<div class="my-5">
+  <div tuiHeader="xxl">
+    <div tuiTitle>
+      <span class="w-fit mx-auto">Theo dõi sức khỏe thai kỳ</span>
+    </div>
+  </div>
+</div>
+<app-tracking-stepper></app-tracking-stepper>
 <app-pregnancy-tracking-form></app-pregnancy-tracking-form>

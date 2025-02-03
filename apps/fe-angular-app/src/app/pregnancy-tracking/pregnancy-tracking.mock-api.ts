@@ -15,7 +15,7 @@ export const pregnancyData: pregnancyResponse = [
         metric: {
           status: 1,
           id: '1',
-          title: 'Cân nặng',
+          title: 'weight',
           measure: 'kg',
           upperBoundMsg: 'Cân nặng quá cao',
           lowerBoundMsg: 'Cân nặng quá thấp',
@@ -36,7 +36,7 @@ export const pregnancyData: pregnancyResponse = [
         value: 70,
         metric: {
           id: '1',
-          title: 'Chiều cao',
+          title: 'height',
           measure: 'cm',
           upperBoundMsg: 'Chiều cao quá cao',
           lowerBoundMsg: 'Chiều cao quá thấp',
