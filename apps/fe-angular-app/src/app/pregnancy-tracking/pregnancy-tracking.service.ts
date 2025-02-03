@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
-import { metricRes, pregnancyResponse, pregnancyUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { MetricRes, pregnancyResponse, PregnancyUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { hospitals, metrics, pregnancyData } from './pregnancy-tracking.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
   protected pregnancyData: pregnancyResponse = pregnancyData;
-  protected metrics: metricRes = metrics;
+  protected metrics: MetricRes[] = metrics;
   protected hospitals: string[] = hospitals;
 
-  updateData(data: pregnancyUpdateRequest) {
+  updateData(data: PregnancyUpdateRequest) {
     console.log(data);
   }
 
