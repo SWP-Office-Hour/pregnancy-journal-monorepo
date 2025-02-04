@@ -5,157 +5,133 @@ import { assign, cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class NotificationsMockApi {
-    private _notifications: any = notificationsData;
+  private _notifications: any = notificationsData;
 
-    /**
-     * Constructor
-     */
-    constructor(private _fuseMockApiService: FuseMockApiService) {
-        // Register Mock API handlers
-        this.registerHandlers();
-    }
+  /**
+   * Constructor
+   */
+  constructor(private _fuseMockApiService: FuseMockApiService) {
+    // Register Mock API handlers
+    this.registerHandlers();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Register Mock API handlers
+   */
+  registerHandlers(): void {
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notifications - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/common/notifications').reply(() => [200, cloneDeep(this._notifications)]);
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
+    // @ Notifications - POST
     // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/common/notifications').reply(({ request }) => {
+      // Get the notification
+      const newNotification = cloneDeep(request.body.notification);
 
-    /**
-     * Register Mock API handlers
-     */
-    registerHandlers(): void {
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notifications - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/common/notifications')
-            .reply(() => [200, cloneDeep(this._notifications)]);
+      // Generate a new GUID
+      newNotification.id = FuseMockApiUtils.guid();
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notifications - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/common/notifications')
-            .reply(({ request }) => {
-                // Get the notification
-                const newNotification = cloneDeep(request.body.notification);
+      // Unshift the new notification
+      this._notifications.unshift(newNotification);
 
-                // Generate a new GUID
-                newNotification.id = FuseMockApiUtils.guid();
+      // Return the response
+      return [200, newNotification];
+    });
 
-                // Unshift the new notification
-                this._notifications.unshift(newNotification);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notifications - PATCH
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPatch('api/common/notifications').reply(({ request }) => {
+      // Get the id and notification
+      const id = request.body.id;
+      const notification = cloneDeep(request.body.notification);
 
-                // Return the response
-                return [200, newNotification];
-            });
+      // Prepare the updated notification
+      let updatedNotification = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notifications - PATCH
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPatch('api/common/notifications')
-            .reply(({ request }) => {
-                // Get the id and notification
-                const id = request.body.id;
-                const notification = cloneDeep(request.body.notification);
+      // Find the notification and update it
+      this._notifications.forEach((item: any, index: number, notifications: any[]) => {
+        if (item.id === id) {
+          // Update the notification
+          notifications[index] = assign({}, notifications[index], notification);
 
-                // Prepare the updated notification
-                let updatedNotification = null;
+          // Store the updated notification
+          updatedNotification = notifications[index];
+        }
+      });
 
-                // Find the notification and update it
-                this._notifications.forEach(
-                    (item: any, index: number, notifications: any[]) => {
-                        if (item.id === id) {
-                            // Update the notification
-                            notifications[index] = assign(
-                                {},
-                                notifications[index],
-                                notification
-                            );
+      // Return the response
+      return [200, updatedNotification];
+    });
 
-                            // Store the updated notification
-                            updatedNotification = notifications[index];
-                        }
-                    }
-                );
+    // -----------------------------------------------------------------------------------------------------
+    // @ Notifications - DELETE
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onDelete('api/common/notifications').reply(({ request }) => {
+      // Get the id
+      const id = request.params.get('id');
 
-                // Return the response
-                return [200, updatedNotification];
-            });
+      // Prepare the deleted notification
+      let deletedNotification = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Notifications - DELETE
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onDelete('api/common/notifications')
-            .reply(({ request }) => {
-                // Get the id
-                const id = request.params.get('id');
+      // Find the notification
+      const index = this._notifications.findIndex((item: any) => item.id === id);
 
-                // Prepare the deleted notification
-                let deletedNotification = null;
+      // Store the deleted notification
+      deletedNotification = cloneDeep(this._notifications[index]);
 
-                // Find the notification
-                const index = this._notifications.findIndex(
-                    (item: any) => item.id === id
-                );
+      // Delete the notification
+      this._notifications.splice(index, 1);
 
-                // Store the deleted notification
-                deletedNotification = cloneDeep(this._notifications[index]);
+      // Return the response
+      return [200, deletedNotification];
+    });
 
-                // Delete the notification
-                this._notifications.splice(index, 1);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Mark all as read - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/common/notifications/mark-all-as-read').reply(() => {
+      // Go through all notifications
+      this._notifications.forEach((item: any, index: number, notifications: any[]) => {
+        // Mark it as read
+        notifications[index].read = true;
+        notifications[index].seen = true;
+      });
 
-                // Return the response
-                return [200, deletedNotification];
-            });
+      // Return the response
+      return [200, true];
+    });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Mark all as read - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/common/notifications/mark-all-as-read')
-            .reply(() => {
-                // Go through all notifications
-                this._notifications.forEach(
-                    (item: any, index: number, notifications: any[]) => {
-                        // Mark it as read
-                        notifications[index].read = true;
-                        notifications[index].seen = true;
-                    }
-                );
+    // -----------------------------------------------------------------------------------------------------
+    // @ Toggle read status - POST
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/common/notifications/toggle-read-status').reply(({ request }) => {
+      // Get the notification
+      const notification = cloneDeep(request.body.notification);
 
-                // Return the response
-                return [200, true];
-            });
+      // Prepare the updated notification
+      let updatedNotification = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Toggle read status - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/common/notifications/toggle-read-status')
-            .reply(({ request }) => {
-                // Get the notification
-                const notification = cloneDeep(request.body.notification);
+      // Find the notification and update it
+      this._notifications.forEach((item: any, index: number, notifications: any[]) => {
+        if (item.id === notification.id) {
+          // Update the notification
+          notifications[index].read = notification.read;
 
-                // Prepare the updated notification
-                let updatedNotification = null;
+          // Store the updated notification
+          updatedNotification = notifications[index];
+        }
+      });
 
-                // Find the notification and update it
-                this._notifications.forEach(
-                    (item: any, index: number, notifications: any[]) => {
-                        if (item.id === notification.id) {
-                            // Update the notification
-                            notifications[index].read = notification.read;
-
-                            // Store the updated notification
-                            updatedNotification = notifications[index];
-                        }
-                    }
-                );
-
-                // Return the response
-                return [200, updatedNotification];
-            });
-    }
+      // Return the response
+      return [200, updatedNotification];
+    });
+  }
 }

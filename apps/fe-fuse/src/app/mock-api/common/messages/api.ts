@@ -5,157 +5,133 @@ import { assign, cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class MessagesMockApi {
-    private _messages: any = messagesData;
+  private _messages: any = messagesData;
 
-    /**
-     * Constructor
-     */
-    constructor(private _fuseMockApiService: FuseMockApiService) {
-        // Register Mock API handlers
-        this.registerHandlers();
-    }
+  /**
+   * Constructor
+   */
+  constructor(private _fuseMockApiService: FuseMockApiService) {
+    // Register Mock API handlers
+    this.registerHandlers();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Register Mock API handlers
+   */
+  registerHandlers(): void {
+    // -----------------------------------------------------------------------------------------------------
+    // @ Messages - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/common/messages').reply(() => [200, cloneDeep(this._messages)]);
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
+    // @ Messages - POST
     // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/common/messages').reply(({ request }) => {
+      // Get the message
+      const newMessage = cloneDeep(request.body.message);
 
-    /**
-     * Register Mock API handlers
-     */
-    registerHandlers(): void {
-        // -----------------------------------------------------------------------------------------------------
-        // @ Messages - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/common/messages')
-            .reply(() => [200, cloneDeep(this._messages)]);
+      // Generate a new GUID
+      newMessage.id = FuseMockApiUtils.guid();
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Messages - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/common/messages')
-            .reply(({ request }) => {
-                // Get the message
-                const newMessage = cloneDeep(request.body.message);
+      // Unshift the new message
+      this._messages.unshift(newMessage);
 
-                // Generate a new GUID
-                newMessage.id = FuseMockApiUtils.guid();
+      // Return the response
+      return [200, newMessage];
+    });
 
-                // Unshift the new message
-                this._messages.unshift(newMessage);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Messages - PATCH
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPatch('api/common/messages').reply(({ request }) => {
+      // Get the id and message
+      const id = request.body.id;
+      const message = cloneDeep(request.body.message);
 
-                // Return the response
-                return [200, newMessage];
-            });
+      // Prepare the updated message
+      let updatedMessage = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Messages - PATCH
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPatch('api/common/messages')
-            .reply(({ request }) => {
-                // Get the id and message
-                const id = request.body.id;
-                const message = cloneDeep(request.body.message);
+      // Find the message and update it
+      this._messages.forEach((item: any, index: number, messages: any[]) => {
+        if (item.id === id) {
+          // Update the message
+          messages[index] = assign({}, messages[index], message);
 
-                // Prepare the updated message
-                let updatedMessage = null;
+          // Store the updated message
+          updatedMessage = messages[index];
+        }
+      });
 
-                // Find the message and update it
-                this._messages.forEach(
-                    (item: any, index: number, messages: any[]) => {
-                        if (item.id === id) {
-                            // Update the message
-                            messages[index] = assign(
-                                {},
-                                messages[index],
-                                message
-                            );
+      // Return the response
+      return [200, updatedMessage];
+    });
 
-                            // Store the updated message
-                            updatedMessage = messages[index];
-                        }
-                    }
-                );
+    // -----------------------------------------------------------------------------------------------------
+    // @ Messages - DELETE
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onDelete('api/common/messages').reply(({ request }) => {
+      // Get the id
+      const id = request.params.get('id');
 
-                // Return the response
-                return [200, updatedMessage];
-            });
+      // Prepare the deleted message
+      let deletedMessage = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Messages - DELETE
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onDelete('api/common/messages')
-            .reply(({ request }) => {
-                // Get the id
-                const id = request.params.get('id');
+      // Find the message
+      const index = this._messages.findIndex((item: any) => item.id === id);
 
-                // Prepare the deleted message
-                let deletedMessage = null;
+      // Store the deleted message
+      deletedMessage = cloneDeep(this._messages[index]);
 
-                // Find the message
-                const index = this._messages.findIndex(
-                    (item: any) => item.id === id
-                );
+      // Delete the message
+      this._messages.splice(index, 1);
 
-                // Store the deleted message
-                deletedMessage = cloneDeep(this._messages[index]);
+      // Return the response
+      return [200, deletedMessage];
+    });
 
-                // Delete the message
-                this._messages.splice(index, 1);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Mark all as read - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/common/messages/mark-all-as-read').reply(() => {
+      // Go through all messages
+      this._messages.forEach((item: any, index: number, messages: any[]) => {
+        // Mark it as read
+        messages[index].read = true;
+        messages[index].seen = true;
+      });
 
-                // Return the response
-                return [200, deletedMessage];
-            });
+      // Return the response
+      return [200, true];
+    });
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Mark all as read - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/common/messages/mark-all-as-read')
-            .reply(() => {
-                // Go through all messages
-                this._messages.forEach(
-                    (item: any, index: number, messages: any[]) => {
-                        // Mark it as read
-                        messages[index].read = true;
-                        messages[index].seen = true;
-                    }
-                );
+    // -----------------------------------------------------------------------------------------------------
+    // @ Toggle read status - POST
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPost('api/common/messages/toggle-read-status').reply(({ request }) => {
+      // Get the message
+      const message = cloneDeep(request.body.message);
 
-                // Return the response
-                return [200, true];
-            });
+      // Prepare the updated message
+      let updatedMessage = null;
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Toggle read status - POST
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPost('api/common/messages/toggle-read-status')
-            .reply(({ request }) => {
-                // Get the message
-                const message = cloneDeep(request.body.message);
+      // Find the message and update it
+      this._messages.forEach((item: any, index: number, messages: any[]) => {
+        if (item.id === message.id) {
+          // Update the message
+          messages[index].read = message.read;
 
-                // Prepare the updated message
-                let updatedMessage = null;
+          // Store the updated message
+          updatedMessage = messages[index];
+        }
+      });
 
-                // Find the message and update it
-                this._messages.forEach(
-                    (item: any, index: number, messages: any[]) => {
-                        if (item.id === message.id) {
-                            // Update the message
-                            messages[index].read = message.read;
-
-                            // Store the updated message
-                            updatedMessage = messages[index];
-                        }
-                    }
-                );
-
-                // Return the response
-                return [200, updatedMessage];
-            });
-    }
+      // Return the response
+      return [200, updatedMessage];
+    });
+  }
 }

@@ -5,52 +5,52 @@ import { map, Observable, ReplaySubject, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
-    private _httpClient = inject(HttpClient);
-    private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
+  private _httpClient = inject(HttpClient);
+  private _user: ReplaySubject<User> = new ReplaySubject<User>(1);
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Setter & getter for user
-     *
-     * @param value
-     */
-    set user(value: User) {
-        // Store the value
-        this._user.next(value);
-    }
+  /**
+   * Setter & getter for user
+   *
+   * @param value
+   */
+  set user(value: User) {
+    // Store the value
+    this._user.next(value);
+  }
 
-    get user$(): Observable<User> {
-        return this._user.asObservable();
-    }
+  get user$(): Observable<User> {
+    return this._user.asObservable();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Get the current signed-in user data
-     */
-    get(): Observable<User> {
-        return this._httpClient.get<User>('api/common/user').pipe(
-            tap((user) => {
-                this._user.next(user);
-            })
-        );
-    }
+  /**
+   * Get the current signed-in user data
+   */
+  get(): Observable<User> {
+    return this._httpClient.get<User>('api/common/user').pipe(
+      tap((user) => {
+        this._user.next(user);
+      }),
+    );
+  }
 
-    /**
-     * Update the user
-     *
-     * @param user
-     */
-    update(user: User): Observable<any> {
-        return this._httpClient.patch<User>('api/common/user', { user }).pipe(
-            map((response) => {
-                this._user.next(response);
-            })
-        );
-    }
+  /**
+   * Update the user
+   *
+   * @param user
+   */
+  update(user: User): Observable<any> {
+    return this._httpClient.patch<User>('api/common/user', { user }).pipe(
+      map((response) => {
+        this._user.next(response);
+      }),
+    );
+  }
 }
