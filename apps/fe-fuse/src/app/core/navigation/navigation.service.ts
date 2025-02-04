@@ -5,33 +5,32 @@ import { Observable, ReplaySubject, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class NavigationService {
-    private _httpClient = inject(HttpClient);
-    private _navigation: ReplaySubject<Navigation> =
-        new ReplaySubject<Navigation>(1);
+  private _httpClient = inject(HttpClient);
+  private _navigation: ReplaySubject<Navigation> = new ReplaySubject<Navigation>(1);
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Getter for navigation
-     */
-    get navigation$(): Observable<Navigation> {
-        return this._navigation.asObservable();
-    }
+  /**
+   * Getter for navigation
+   */
+  get navigation$(): Observable<Navigation> {
+    return this._navigation.asObservable();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Get all navigation data
-     */
-    get(): Observable<Navigation> {
-        return this._httpClient.get<Navigation>('api/common/navigation').pipe(
-            tap((navigation) => {
-                this._navigation.next(navigation);
-            })
-        );
-    }
+  /**
+   * Get all navigation data
+   */
+  get(): Observable<Navigation> {
+    return this._httpClient.get<Navigation>('api/common/navigation').pipe(
+      tap((navigation) => {
+        this._navigation.next(navigation);
+      }),
+    );
+  }
 }

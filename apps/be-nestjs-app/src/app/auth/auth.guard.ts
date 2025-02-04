@@ -8,10 +8,10 @@ import {
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
-import { RequestWithJWT } from 'express';
-import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 import { RefreshTokenRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
+import { RequestWithJWT } from 'express';
 import { ROLES_KEY } from '../utils/decorators/role.decorator';
+import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 
 @Injectable()
 export class AccessTokenAuthGuard implements CanActivate {
@@ -54,11 +54,11 @@ export class EmailVerifyTokenAuthGuard implements CanActivate {
       throw new UnauthorizedException('User authentication required');
     }
     try {
-      const decoded_email_verify = this.jwtUtilsService.verifyToken({
-        token,
-        secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
-      });
-      request.decoded_email_verify = decoded_email_verify;
+      // const decoded_email_verify = this.jwtUtilsService.verifyToken({
+      //   token: token,
+      //   secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
+      // });
+      // request.decoded_email_verify = decoded_email_verify;
       return true;
     } catch (e) {
       throw new UnprocessableEntityException(e.message);

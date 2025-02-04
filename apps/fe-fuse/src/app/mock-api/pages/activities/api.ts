@@ -5,29 +5,27 @@ import { cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class ActivitiesMockApi {
-    private _activities: any = activitiesData;
+  private _activities: any = activitiesData;
 
-    /**
-     * Constructor
-     */
-    constructor(private _fuseMockApiService: FuseMockApiService) {
-        // Register Mock API handlers
-        this.registerHandlers();
-    }
+  /**
+   * Constructor
+   */
+  constructor(private _fuseMockApiService: FuseMockApiService) {
+    // Register Mock API handlers
+    this.registerHandlers();
+  }
 
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Register Mock API handlers
+   */
+  registerHandlers(): void {
     // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
+    // @ Activities - GET
     // -----------------------------------------------------------------------------------------------------
-
-    /**
-     * Register Mock API handlers
-     */
-    registerHandlers(): void {
-        // -----------------------------------------------------------------------------------------------------
-        // @ Activities - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/pages/activities')
-            .reply(() => [200, cloneDeep(this._activities)]);
-    }
+    this._fuseMockApiService.onGet('api/pages/activities').reply(() => [200, cloneDeep(this._activities)]);
+  }
 }
