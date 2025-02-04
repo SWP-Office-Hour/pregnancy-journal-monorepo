@@ -1,6 +1,7 @@
-import { Component, output, signal } from '@angular/core';
-import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TuiFileLike, TuiFiles } from '@taiga-ui/kit';
+import { Component, inject } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { TuiFiles } from '@taiga-ui/kit';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -9,29 +10,21 @@ import { TuiFileLike, TuiFiles } from '@taiga-ui/kit';
   styleUrl: './file-upload.component.css',
 })
 export class FileUploadComponent {
-  uploadFiles = output<TuiFileLike[]>();
-  uploadFilesSrc = output<string[]>();
+  protected readonly control = new FormControl<File[]>([]);
 
-  currFile = signal<TuiFileLike | null>(null);
+  private readonly pregnancyService = inject(PregnancyTrackingService);
 
-  protected imgSrcListSignal = signal<string[]>([]);
-
-  protected filesSignal = signal<TuiFileLike[]>([]);
-  protected readonly control = new FormControl<TuiFileLike | null>(null, [Validators.required]);
-
-  protected onFileChange(): void {
+  protected onFileChange(event: Event): void {
     const reader = new FileReader();
-    this.control.valueChanges.subscribe((file) => {
-      if (file !== this.currFile()) {
-        this.filesSignal().push(file!);
-        reader.readAsDataURL(file as File);
-        reader.onload = () => {
-          this.imgSrcListSignal().push(reader.result as string);
-        };
-        this.currFile.set(file);
-        this.uploadFiles.emit(this.filesSignal());
-        this.uploadFilesSrc.emit(this.imgSrcListSignal());
-      }
-    });
+    const file = (event.target as HTMLInputElement).files![0];
+    if (file) {
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.pregnancyService.addImage({
+          id: new Date().getTime().toString(),
+          mediaUrl: reader.result as string,
+        });
+      };
+    }
   }
 }
