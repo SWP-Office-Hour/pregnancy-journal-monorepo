@@ -1,0 +1,55 @@
+<div
+  class="header top-0 z-50 sticky w-full p-0 box-border mx-auto flex justify-between"
+  style="box-shadow: inset 0 -1px rgba(0, 0, 0, 0.24)"
+>
+  <div class="header__block flex h-full gap-2.5">
+    <img
+      class="header__logo self-center"
+      ngSrc="images/logo_name_bgt.png"
+      alt="logo"
+      width="100"
+      height="100"
+      [priority]="NgOptimizedImage"
+    />
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="header__tabs self-end grow text-xl">
+      <button iconStart="" tuiTab type="button" (click)="onClick('Trang chủ')">Trang chủ</button>
+      <button iconStart="" tuiTab type="button" (click)="onClick('Khám sức khỏe')">Khám sức khỏe</button>
+      <button iconStart="" tuiTab type="button" (click)="onClick('Thống kê')">Thống kê</button>
+      <button iconStart="" tuiTab type="button" (click)="onClick('Lịch trình')">Lịch trình</button>
+      <button iconStart="" tuiTab type="button" (click)="onClick('Tin tức')">Tin tức</button>
+      <button iconStart="" tuiTab type="button" (click)="onClick('Cài đặt')">Cài đặt</button>
+    </tui-tabs>
+  </div>
+  <div class="header__block flex items-center gap-2.5">
+    <search tuiSearch>
+      <form [formGroup]="form" (ngSubmit)="search()">
+        <fieldset>
+          <tui-textfield iconStart="@tui.search">
+            <label tuiLabel>Search</label>
+            <input placeholder="Search" tuiTextfield formControlName="search" />
+          </tui-textfield>
+        </fieldset>
+      </form>
+    </search>
+    <div class="actions">
+      <tui-badged-content>
+        <tui-badge-notification size="s" tuiSlot="top"> 99 </tui-badge-notification>
+        <button
+          appearance="secondary-destructive"
+          iconStart="@tui.bell-ring"
+          size="xs"
+          tuiIconButton
+          type="button"
+          [style.border-radius.%]="100"
+        >
+          Notication
+        </button>
+      </tui-badged-content>
+    </div>
+
+    <tui-badged-content [style.--tui-radius.%]="50">
+      <tui-icon appearance="accent" icon="@tui.chevron-down" size="m" tuiBadge tuiSlot="bottom" />
+      <tui-avatar [src]="'https://avatars.githubusercontent.com/u/11832552' | tuiFallbackSrc: '@tui.user' | async" />
+    </tui-badged-content>
+  </div>
+</div>
