@@ -1,17 +1,14 @@
-<div
-  class="header top-0 z-50 sticky w-full p-0 box-border mx-auto flex justify-between"
-  style="box-shadow: inset 0 -1px rgba(0, 0, 0, 0.24)"
->
-  <div class="header__block flex h-full gap-2.5">
+<div class="header top-0 z-50 sticky w-4/5 p-0 box-border mx-auto flex justify-between" style="height: 90px">
+  <div class="header__block flex h-full gap-6 items-center">
     <img
-      class="header__logo self-center"
+      class="header__logo"
       ngSrc="images/logo_name_bgt.png"
       alt="logo"
       width="100"
       height="100"
       [priority]="NgOptimizedImage"
     />
-    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="header__tabs self-end grow text-xl">
+    <tui-tabs [(activeItemIndex)]="activeItemIndex" class="header__tabs">
       <button iconStart="" tuiTab type="button" (click)="onClick('Trang chủ')">Trang chủ</button>
       <button iconStart="" tuiTab type="button" (click)="onClick('Khám sức khỏe')">Khám sức khỏe</button>
       <button iconStart="" tuiTab type="button" (click)="onClick('Thống kê')">Thống kê</button>
@@ -20,8 +17,8 @@
       <button iconStart="" tuiTab type="button" (click)="onClick('Cài đặt')">Cài đặt</button>
     </tui-tabs>
   </div>
-  <div class="header__block flex items-center gap-2.5">
-    <search tuiSearch>
+  <div class="header__block flex items-center gap-6">
+    <search tuiSearch class="header__search w-96">
       <form [formGroup]="form" (ngSubmit)="search()">
         <fieldset>
           <tui-textfield iconStart="@tui.search">
@@ -33,11 +30,11 @@
     </search>
     <div class="actions">
       <tui-badged-content>
-        <tui-badge-notification size="s" tuiSlot="top"> 99 </tui-badge-notification>
+        <tui-badge-notification size="s" tuiSlot="top"> 3 </tui-badge-notification>
         <button
-          appearance="secondary-destructive"
+          appearance="secondary-grayscale"
           iconStart="@tui.bell-ring"
-          size="xs"
+          size="m"
           tuiIconButton
           type="button"
           [style.border-radius.%]="100"
@@ -48,7 +45,7 @@
     </div>
 
     <tui-badged-content [style.--tui-radius.%]="50">
-      <tui-icon appearance="accent" icon="@tui.chevron-down" size="m" tuiBadge tuiSlot="bottom" />
+      <tui-icon appearance="secondary-grayscale" icon="@tui.chevron-down" size="m" tuiBadge tuiSlot="bottom" />
       <tui-avatar [src]="'https://avatars.githubusercontent.com/u/11832552' | tuiFallbackSrc: '@tui.user' | async" />
     </tui-badged-content>
   </div>

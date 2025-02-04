@@ -24,7 +24,7 @@ import { TuiAlertService, TuiButton, TuiFallbackSrcPipe, TuiIcon, TuiTextfield }
     TuiIcon,
     TuiBadge,
   ],
-  selector: 'app-header.component',
+  selector: 'app-header',
   styleUrl: './header.component.less',
   templateUrl: './header.component.html',
 })
