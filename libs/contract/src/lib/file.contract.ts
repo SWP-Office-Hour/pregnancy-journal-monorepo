@@ -5,22 +5,22 @@ import { StreamableFile } from '@nestjs/common';
 const c = initContract();
 
 export const fileContract = c.router({
-  // updateFile: {
-  //   method: 'POST',
-  //   path: '/file',
-  //   contentType: 'multipart/form-data', // <- Only difference
-  //   body: c.type<{ thumbnail: File }>(), // <- Use File type in here
-  //   responses: {
-  //     200: z.object({
-  //       message: z.string(),
-  //       name: z.string(),
-  //       // path: z.string(),
-  //     }),
-  //     400: z.object({
-  //       message: z.string(),
-  //     }),
-  //   },
-  // },
+  updateFile: {
+    method: 'POST',
+    path: '/file',
+    contentType: 'multipart/form-data', // <- Only difference
+    body: c.type<{ thumbnail: File }>(), // <- Use File type in here
+    responses: {
+      200: z.object({
+        message: z.string(),
+        name: z.string(),
+        url: z.string(),
+      }),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
   // getFile: {
   //   method: 'GET',
   //   path: '/file/:filename',
@@ -33,7 +33,7 @@ export const fileContract = c.router({
   // },
   getLink: {
     method: 'GET',
-    path: '/file/link/:filename',
+    path: '/file/:filename',
     responses: {
       200: z.object({
         link: z.string(),
@@ -43,16 +43,16 @@ export const fileContract = c.router({
       }),
     },
   },
-  // deleteFile: {
-  //   method: 'DELETE',
-  //   path: '/file/:filename',
-  //   responses: {
-  //     200: z.object({
-  //       message: z.string(),
-  //     }),
-  //     400: z.object({
-  //       message: z.string(),
-  //     }),
-  //   },
-  // },
+  deleteFile: {
+    method: 'DELETE',
+    path: '/file/:filename',
+    responses: {
+      200: z.object({
+        message: z.string(),
+      }),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
 });
