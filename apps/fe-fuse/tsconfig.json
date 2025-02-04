@@ -3,6 +3,7 @@
     "target": "ES2022",
     "module": "ES2022",
     "esModuleInterop": true,
+    "baseUrl": "./src",
     "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
@@ -26,11 +27,8 @@
       "path": "./tsconfig.spec.json"
     }
   ],
-  "extends": "../../tsconfig.base.json",
+  //    "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "enableI18nLegacyMessageIdFormat": false
   }
 }

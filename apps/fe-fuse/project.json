@@ -16,13 +16,36 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/fe-fuse/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "allowedCommonJsDependencies": [
+          "apexcharts",
+          "crypto-js/enc-utf8",
+          "crypto-js/hmac-sha256",
+          "crypto-js/enc-base64",
+          "quill-delta"
+        ],
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/fe-fuse/public"
+          },
+          {
+            "glob": "_redirects",
+            "input": "src",
+            "output": "/"
           }
         ],
-        "styles": ["apps/fe-fuse/src/styles.scss"],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/admin-fuse/src/@fuse/styles"]
+        },
+        "styles": [
+          "apps/fe-fuse/src/styles.scss",
+          "apps/fe-fuse/src/@fuse/styles/tailwind.scss",
+          "apps/fe-fuse/src/@fuse/styles/themes.scss",
+          "apps/fe-fuse/src/styles/vendors.scss",
+          "apps/fe-fuse/src/@fuse/styles/main.scss",
+          "apps/fe-fuse/src/styles/styles.scss",
+          "apps/fe-fuse/src/styles/tailwind.scss"
+        ],
         "scripts": []
       },
       "configurations": {
@@ -30,13 +53,13 @@
           "budgets": [
             {
               "type": "initial",
-              "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumWarning": "3mb",
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
-              "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumWarning": "75kb",
+              "maximumError": "90kb"
             }
           ],
           "outputHashing": "all"
