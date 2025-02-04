@@ -101,7 +101,11 @@ export class RefreshTokenAuthGuard implements CanActivate {
 
 @Injectable()
 export class RoleAuthGuard implements CanActivate {
-  constructor(private reflector: Reflector) {}
+  constructor(
+    private reflector: Reflector,
+    private readonly jwtUtilsService: JwtUtilsService,
+    private readonly configService: ConfigService,
+  ) {}
 
   canActivate(context: ExecutionContext): boolean {
     const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(ROLES_KEY, [
@@ -111,16 +115,24 @@ export class RoleAuthGuard implements CanActivate {
     if (!requiredRoles) {
       return true;
     }
-    const request = context.switchToHttp().getRequest<RequestWithJWT>();
-    const user = request.decoded_authorization;
-    if (!user) {
-      throw new UnauthorizedException('User authentication required');
+    try {
+      const request = context.switchToHttp().getRequest<RequestWithJWT>();
+      const token = request.headers.authorization?.split(' ')[1];
+      const decoded_authorization = this.jwtUtilsService.verifyToken({
+        token,
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
+      });
+      if (!decoded_authorization) {
+        throw new UnauthorizedException('User role authentication required');
+      }
+      const isAllowed = requiredRoles.includes(decoded_authorization.role);
+      if (!isAllowed) {
+        throw new ForbiddenException("You don't have permission to access");
+      }
+      return isAllowed;
+    } catch (e) {
+      throw new UnauthorizedException(e.message);
     }
-    const isAllowed = requiredRoles.includes(user.role);
-    if (!isAllowed) {
-      throw new ForbiddenException("You don't have permission to access");
-    }
-    return isAllowed;
   }
 }
 
