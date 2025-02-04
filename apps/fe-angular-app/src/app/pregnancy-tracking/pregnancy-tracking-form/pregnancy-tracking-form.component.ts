@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
@@ -49,7 +49,7 @@ export class PregnancyTrackingFormComponent {
     const date = new Date();
     this.metrics.subscribe((metrics) => {
       for (const metric of metrics) {
-        this.pregnancyForm.addControl(metric.title, new FormControl(0));
+        this.pregnancyForm.addControl(metric.id, new FormControl(0));
       }
     });
     this.hospitals.subscribe((hospitals) => {
@@ -71,9 +71,7 @@ export class PregnancyTrackingFormComponent {
     this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
   }
 
-  submitForm() {
-    //
+  checkFile(file: TuiFileLike) {
+    console.log(file);
   }
-
-  protected readonly map = map;
 }
