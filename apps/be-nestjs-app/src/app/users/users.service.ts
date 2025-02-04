@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
 import { UserEntity } from './models/user.entity';
 import { ConfigService } from '@nestjs/config';
 import { DatabaseService } from '../database/database.service';
@@ -76,10 +76,10 @@ export class UsersService {
   //   return Boolean(result);
   // }
 
-  async checkPhone(phone: string): Promise<UserEntity> {
+  async checkEmail(email: string): Promise<UserEntity> {
     const result = await this.databaseService.User.findFirst({
       where: {
-        phone,
+        email,
       },
     });
 
@@ -114,6 +114,7 @@ export class UsersService {
   }
 
   async register(data: RegisterRequest) {
+    //check if email already exists
     const result = await this.databaseService.User.create({
       data: new UserEntity({
         name: data.name,
@@ -251,7 +252,7 @@ export class UsersService {
     return { access_token, refresh_token };
   }
 
-  create(data: UserCreateRequest) {
+  async create(data: UserCreateRequest) {
     return this.databaseService.User.create({
       data: {
         ...data,

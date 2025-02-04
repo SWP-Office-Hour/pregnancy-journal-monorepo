@@ -2,8 +2,8 @@ import { z } from 'zod';
 
 // Định nghĩa Role enum
 export enum UserRole {
-  ADMIN,
-  MEMBER,
+  ADMIN = 0,
+  MEMBER = 1,
 }
 
 // Định nghĩa Status enum

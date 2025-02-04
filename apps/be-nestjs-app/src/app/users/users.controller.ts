@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, ConflictException, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import {
@@ -8,10 +8,12 @@ import {
   TokenRequest,
   userContract,
   UserCreateRequest,
+  UserRole,
   UserUpdateRequest,
 } from '@pregnancy-journal-monorepo/contract';
-import { AccessTokenAuthGuard, RefreshTokenAuthGuard } from '../auth/auth.guard';
+import { AccessTokenAuthGuard, RefreshTokenAuthGuard, RoleAuthGuard } from '../auth/auth.guard';
 import { RequestWithJWT } from 'express';
+import { Roles } from '../utils/decorators/role.decorator';
 
 @Controller()
 export class UsersController {
@@ -22,7 +24,6 @@ export class UsersController {
   async handleLogin(@Body() body: LoginRequest) {
     return tsRestHandler(authContract.login, async () => {
       const users = await this.usersService.login(body);
-      console.log('users', users);
       if (!users) {
         throw new UnauthorizedException('Phone number or password is incorrect');
       }
@@ -33,8 +34,8 @@ export class UsersController {
   @TsRestHandler(authContract.register)
   async handleRegister(@Body() body: RegisterRequest) {
     return tsRestHandler(authContract.register, async () => {
-      const phone = await this.usersService.checkPhone(body.phone);
-      if (!phone) {
+      const email = await this.usersService.checkEmail(body.email);
+      if (!email) {
         const users = await this.usersService.register(body);
         return { status: 200, body: users };
       } else {
@@ -90,12 +91,19 @@ export class UsersController {
 
   @TsRestHandler(userContract.create)
   async handleCreate(@Body() body: UserCreateRequest) {
+    //check if email already exists
+    const user = await this.usersService.checkEmail(body.email);
+    if (user) {
+      throw new ConflictException('Email already exists');
+    }
     return tsRestHandler(userContract.create, async () => {
       const users = await this.usersService.create(body);
       return { status: 200, body: users };
     });
   }
 
+  // @Roles(UserRole.ADMIN)
+  // @UseGuards(RoleAuthGuard, AccessTokenAuthGuard)
   @TsRestHandler(userContract.getAll)
   handleGetAll() {
     return tsRestHandler(userContract.getAll, async () => {
