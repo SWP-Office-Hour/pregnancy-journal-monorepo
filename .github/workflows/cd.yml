@@ -21,36 +21,61 @@ jobs:
   main-ci:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Check pnpm standalone
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/setup-pnpm/node_modules/.bin/pnpm
+          key: ${{ runner.os }}-pnpm-standalone
+          restore-keys: |
+            ${{ runner.os }}-pnpm-standalone
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+          standalone: false
+
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
-      - name: Cache node modules of entire Monorepo
-        id: cache-npm
+      # - name: which pnpm
+      #   shell: bash
+      #   run: |
+      #     which pnpm
+      #   env:
+      #     TEST_TEST: ${{ steps.pnpmahihi.outputs.bin_dest }}
+
+      # - name: echo echo $PNPM_HOME
+      #   shell: bash
+      #   run: |
+      #     echo $PNPM_HOME
+
+      # - name: echo pnpm store directory
+      #   shell: bash
+      #   run: |
+      #     pnpm store path
+
+      # - name: Get pnpm store directory
+      #   shell: bash
+      #   run: |
+      #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm node_module cache
         uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ./node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: /home/runner/setup-pnpm/node_modules/.bin/store/v3
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm i
+        run: pnpm install --frozen-lockfile
 
       - uses: nrwl/nx-set-shas@v4
 
@@ -81,37 +106,61 @@ jobs:
     needs: [main-ci]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Check pnpm standalone
+        uses: actions/cache@v4
+        with:
+          path: /home/runner/setup-pnpm/node_modules/.bin/pnpm
+          key: ${{ runner.os }}-pnpm-standalone
+          restore-keys: |
+            ${{ runner.os }}-pnpm-standalone
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9
+          run_install: false
+          standalone: false
+
+      - name: Install node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
-      - name: Cache node modules of entire Monorepo
-        id: cache-npm
+      # - name: which pnpm
+      #   shell: bash
+      #   run: |
+      #     which pnpm
+      #   env:
+      #     TEST_TEST: ${{ steps.pnpmahihi.outputs.bin_dest }}
+
+      # - name: echo echo $PNPM_HOME
+      #   shell: bash
+      #   run: |
+      #     echo $PNPM_HOME
+
+      # - name: echo pnpm store directory
+      #   shell: bash
+      #   run: |
+      #     pnpm store path
+
+      # - name: Get pnpm store directory
+      #   shell: bash
+      #   run: |
+      #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+
+      - name: Setup pnpm node_module cache
         uses: actions/cache@v4
-        env:
-          cache-name: cache-node-modules
         with:
-          # npm cache files are stored in `~/.npm` on Linux/macOS
-          path: ./node_modules
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          path: /home/runner/setup-pnpm/node_modules/.bin/store/v3
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
-
-      - if: ${{ steps.cache-npm.outputs.cache-hit != 'true' }}
-        name: List the state of node modules
-        continue-on-error: true
-        run: npm list
+            ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: npm i
-
+        run: pnpm install --frozen-lockfile
       - uses: nrwl/nx-set-shas@v4
 
       - name: Echo NX_BASE and NX_HEAD
@@ -148,7 +197,7 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
       - id: fe-angular-deploy-flag
-        if: contains(steps.run-affected.outputs.rs,'"fe-angular-app"')
+        if: contains(steps.run-affected.outputs.rs,'"fe-fuse"')
         run: npx nx run fe-angular-app:build:production
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
