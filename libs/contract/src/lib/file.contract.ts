@@ -33,7 +33,7 @@ export const fileContract = c.router({
   // },
   getLink: {
     method: 'GET',
-    path: 'file/link/:filename',
+    path: '/file/link/:filename',
     responses: {
       200: z.object({
         link: z.string(),
