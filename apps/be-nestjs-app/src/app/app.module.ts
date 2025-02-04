@@ -10,6 +10,7 @@ import { HospitalModule } from './hosiptal/hospitalModule';
 import { MetricModule } from './metric/metric.module';
 import { CategorysModule } from './categorys/categorys.module';
 import { BlogsModule } from './blogs/blogs.module';
+import { FileModule } from './file/file.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { BlogsModule } from './blogs/blogs.module';
     HospitalModule,
     CategorysModule,
     BlogsModule,
+    FileModule,
   ],
   controllers: [AppController],
   providers: [AppService],
