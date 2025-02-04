@@ -1,18 +1,18 @@
-<label *ngIf="!control.value" tuiInputFiles>
-  <input [formControl]="control" accept="image/*" tuiInputFiles />
+<label tuiInputFiles>
+  <input [formControl]="control" accept="image/*" tuiInputFiles (change)="onFileChange()" />
 </label>
 
-<tui-files class="tui-space_top-1">
-  <tui-file
-    (remove)="removeFile()"
-    *ngIf="control.value | tuiFileRejected: { accept: 'image/*' } | async as file"
-    [file]="file"
-    state="error"
-  />
+<!--<tui-files class="tui-space_top-1">-->
+<!--  <tui-file-->
+<!--    (remove)="removeFile()"-->
+<!--    *ngIf="control.value | tuiFileRejected: { accept: 'image/*', maxFileSize: 1024 * 1024 * 3 } | async as file"-->
+<!--    [file]="file"-->
+<!--    state="error"-->
+<!--  />-->
+<!--  <tui-file (remove)="removeFile()" *ngIf="loadedFiles$ | async as file" [file]="file" />-->
 
-  <tui-file (remove)="removeFile()" *ngIf="loadedFiles$ | async as file" [file]="file" />
+<!--  <tui-file (remove)="removeFile()" *ngIf="failedFiles$ | async as file" [file]="file" state="error" />-->
 
-  <!--  <tui-file (remove)="removeFile()" *ngIf="failedFiles$ | async as file" [file]="file" state="error" />-->
-
-  <!--  <tui-file (remove)="removeFile()" *ngIf="loadingFiles$ | async as file" [file]="file" state="loading" />-->
-</tui-files>
+<!--  <tui-file (remove)="removeFile()" *ngIf="loadingFiles$ | async as file" [file]="file" state="loading" />-->
+<!--</tui-files>-->
+<div #imgPreview class="flex flex-wrap -mx-2"></div>

@@ -37,14 +37,14 @@
         <tui-textfield>
           <label tuiLabel>{{ metric.title }}</label>
 
-          <input tuiInputNumber formControlName="{{ metric.title }}" />
+          <input tuiInputNumber formControlName="{{ metric.id }}" />
         </tui-textfield>
 
-        <tui-error [error]="[] | tuiFieldError | async" formControlName="{{ metric.title }}" />
+        <tui-error [error]="[] | tuiFieldError | async" formControlName="{{ metric.id }}" />
       </div>
     }
     <div class="w-full md:w-1/2 px-2 mb-8">
-      <app-file-upload></app-file-upload>
+      <app-file-upload (uploadFiles)="checkFile($event)"></app-file-upload>
     </div>
   </div>
   <footer class="flex justify-end space-x-2 mt-4">
