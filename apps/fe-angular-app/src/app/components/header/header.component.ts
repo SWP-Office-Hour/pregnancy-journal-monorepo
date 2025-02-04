@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, Injectable } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject, Injectable } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
 import { TuiAvatar, TuiBadge, TuiBadgedContent, TuiBadgeNotification, TuiChevron, TuiTabs } from '@taiga-ui/kit';
 import { TuiSearch } from '@taiga-ui/layout';
@@ -46,5 +46,13 @@ export class HeaderComponentComponent {
 
   search() {
     alert(this.form.value.search);
+  }
+  //test scroll
+  isScrolled = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    // Kiểm tra scroll position
+    this.isScrolled = window.scrollY > 50;
   }
 }
