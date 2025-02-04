@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TuiPagination } from '@taiga-ui/kit';
 
@@ -10,6 +10,7 @@ import { TuiPagination } from '@taiga-ui/kit';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackingStepperComponent {
+  pageChange = output<number>();
   protected readonly nth_times = ['1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
   protected currentPage = 0;
@@ -24,5 +25,6 @@ export class TrackingStepperComponent {
 
   goToPage(page: number): void {
     console.log('goToPage', page);
+    this.pageChange.emit(page);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
@@ -38,8 +38,8 @@ import { ImagePreviewComponent } from '../image-preview/image-preview.component'
 })
 export class PregnancyTrackingFormComponent {
   pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
-  protected imgSrcListSignal = signal<string[]>([]);
-  protected filesSignal = signal<TuiFileLike[]>([]);
+
+  protected imgSrcListSignal = this.pregnancyService.MediaSrc;
   protected metrics = this.pregnancyService.getMetrics();
   protected pregnancyForm = new FormGroup({});
   protected hospitals = this.pregnancyService.getHospitalList();
@@ -73,13 +73,5 @@ export class PregnancyTrackingFormComponent {
     );
     this.pregnancyForm.addControl('week', new FormControl(32));
     this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
-  }
-
-  uploadFiles(file: TuiFileLike[]) {
-    this.filesSignal.set(file);
-  }
-
-  uploadFilesSrc(file: string[]) {
-    this.imgSrcListSignal.set(file);
   }
 }
