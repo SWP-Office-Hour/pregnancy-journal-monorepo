@@ -3,6 +3,7 @@ import { SignupComponentComponent } from './signup/signup.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
 import { LoginComponent } from './login/login.component';
+import { TaigaDashboardComponent } from './dashboard/taiga-dashboard/taiga-dashboard.component';
 import { HeaderComponentComponent } from './components/header/header.component';
 
 export const routes: Routes = [
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'signup', component: SignupComponentComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'pregnancy-tracking', component: PregnancyTrackingComponent },
+  { path: 'example-taiga-dashboard', component: TaigaDashboardComponent },
   { path: 'header', component: HeaderComponentComponent },
 ];

@@ -5,6 +5,7 @@
 .env.*
 *.env.*
 custom-cache/**/*
+custom-cache/**
 !custom-cache/.gitkeep
 # compiled output
 dist
