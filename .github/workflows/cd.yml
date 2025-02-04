@@ -44,28 +44,6 @@ jobs:
         with:
           node-version: 20
 
-      # - name: which pnpm
-      #   shell: bash
-      #   run: |
-      #     which pnpm
-      #   env:
-      #     TEST_TEST: ${{ steps.pnpmahihi.outputs.bin_dest }}
-
-      # - name: echo echo $PNPM_HOME
-      #   shell: bash
-      #   run: |
-      #     echo $PNPM_HOME
-
-      # - name: echo pnpm store directory
-      #   shell: bash
-      #   run: |
-      #     pnpm store path
-
-      # - name: Get pnpm store directory
-      #   shell: bash
-      #   run: |
-      #     echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
-
       - name: Setup pnpm node_module cache
         uses: actions/cache@v4
         with:
