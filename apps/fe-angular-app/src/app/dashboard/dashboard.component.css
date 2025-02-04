@@ -1,0 +1,11 @@
+.left {
+  margin-right: 2rem;
+  min-inline-size: 10rem;
+  inline-size: 10rem;
+}
+
+.light {
+  background: var(--tui-background-base);
+  border-radius: 0.25rem;
+  color: var(--tui-text-primary);
+}
