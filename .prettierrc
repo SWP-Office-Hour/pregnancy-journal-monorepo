@@ -1,4 +1,4 @@
 {
   "singleQuote": true,
-  "plugins": ["prettier-plugin-sh", "prettier-plugin-prisma"]
+  "plugins": ["prettier-plugin-sh", "prettier-plugin-prisma","prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
 }

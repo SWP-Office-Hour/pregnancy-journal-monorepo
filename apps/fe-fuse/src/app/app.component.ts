@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  imports: [NxWelcomeComponent, RouterModule],
-  selector: 'app-root',
-  template: `<app-nx-welcome></app-nx-welcome> <router-outlet></router-outlet>`,
-  styles: ``,
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: true,
+    imports: [RouterOutlet],
 })
 export class AppComponent {
-  title = 'fe-fuse';
+    /**
+     * Constructor
+     */
+    constructor() {}
 }
