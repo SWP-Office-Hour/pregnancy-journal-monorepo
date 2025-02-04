@@ -1,4 +1,4 @@
-import { MetricRes, pregnancyResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { MetricRes, pregnancyResponse } from '@pregnancy-journal-monorepo/contract';
 
 export const pregnancyData: pregnancyResponse = [
   {

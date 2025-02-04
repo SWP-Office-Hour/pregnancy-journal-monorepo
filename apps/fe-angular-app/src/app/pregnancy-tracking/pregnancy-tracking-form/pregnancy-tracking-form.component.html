@@ -49,7 +49,7 @@
   </div>
   <div class="flex flex-wrap">
     @for (src of imgSrcListSignal(); track $index) {
-      <app-image-preview [imgSrc]="src" (close)="removeImgSrc($event)"></app-image-preview>
+      <app-image-preview [imgSrc]="src"></app-image-preview>
     }
   </div>
   <footer class="flex justify-end space-x-2 mt-4">

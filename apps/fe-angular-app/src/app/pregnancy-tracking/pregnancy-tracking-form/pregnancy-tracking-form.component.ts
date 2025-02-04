@@ -82,8 +82,4 @@ export class PregnancyTrackingFormComponent {
   uploadFilesSrc(file: string[]) {
     this.imgSrcListSignal.set(file);
   }
-
-  removeImgSrc(event: any) {
-    console.log(event);
-  }
 }
