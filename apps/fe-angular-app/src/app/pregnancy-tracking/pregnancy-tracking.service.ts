@@ -6,12 +6,12 @@ import { environment } from '../../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
-  private readonly url = environment.apiUrl;
-  constructor(private httpClient: HttpClient) {}
-
   protected pregnancyData: pregnancyResponse = pregnancyData;
   protected metrics: MetricRes[] = metrics;
   protected hospitals: string[] = hospitals;
+  private readonly url = environment.apiUrl;
+
+  constructor(private httpClient: HttpClient) {}
 
   updateData(data: PregnancyUpdateRequest) {
     console.log(data);

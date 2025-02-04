@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
@@ -9,6 +9,7 @@ import { TuiDay } from '@taiga-ui/cdk';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
 import { map } from 'rxjs';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -30,12 +31,15 @@ import { map } from 'rxjs';
     TuiButton,
     TuiInputNumber,
     FileUploadComponent,
+    ImagePreviewComponent,
   ],
   templateUrl: './pregnancy-tracking-form.component.html',
   styleUrl: './pregnancy-tracking-form.component.css',
 })
 export class PregnancyTrackingFormComponent {
   pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
+  protected imgSrcListSignal = signal<string[]>([]);
+  protected filesSignal = signal<TuiFileLike[]>([]);
   protected metrics = this.pregnancyService.getMetrics();
   protected pregnancyForm = new FormGroup({});
   protected hospitals = this.pregnancyService.getHospitalList();
@@ -71,7 +75,15 @@ export class PregnancyTrackingFormComponent {
     this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
   }
 
-  checkFile(file: TuiFileLike) {
-    console.log(file);
+  uploadFiles(file: TuiFileLike[]) {
+    this.filesSignal.set(file);
+  }
+
+  uploadFilesSrc(file: string[]) {
+    this.imgSrcListSignal.set(file);
+  }
+
+  removeImgSrc(event: any) {
+    console.log(event);
   }
 }
