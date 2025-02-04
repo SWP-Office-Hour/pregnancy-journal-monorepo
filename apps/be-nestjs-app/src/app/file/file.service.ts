@@ -7,6 +7,7 @@ import { unlink, access } from 'fs/promises';
 import { join } from 'path';
 import { IncomingMessage } from 'http';
 import { getSignedUrl, S3RequestPresigner } from '@aws-sdk/s3-request-presigner';
+import { Express } from 'express';
 
 @Injectable()
 export class FileService {
@@ -24,14 +25,14 @@ export class FileService {
     });
   }
 
-  async uploadToR2(filePath: string, filename: string) {
+  async uploadToR2(file: Express.Multer.File, filename: string) {
     try {
       const upload = new Upload({
         client: this.s3Client,
         params: {
           Bucket: this.configService.get('CLOUDFLARE_BUCKET'),
           Key: filename,
-          Body: createReadStream(filePath),
+          Body: createReadStream(file.path),
         },
       });
       await upload.done();
@@ -126,7 +127,7 @@ export class FileService {
   }
 
   async createPresignedUrl(filename: string) {
-    const command = new PutObjectCommand({
+    const command = new GetObjectCommand({
       Bucket: this.configService.get('CLOUDFLARE_BUCKET'),
       Key: filename,
     });

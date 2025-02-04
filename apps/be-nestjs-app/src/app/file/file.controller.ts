@@ -19,32 +19,36 @@ import { fileContract } from '@pregnancy-journal-monorepo/contract';
 export class FileController {
   constructor(private readonly fileService: FileService) {}
 
-  // @TsRestHandler(fileContract.updateFile)
-  // @UseInterceptors(FileInterceptor('file'))
-  // handleUpdateFile(@UploadedFile() file: Express.Multer.File) {
-  //   return tsRestHandler(fileContract.updateFile, async () => {
-  //     if (!file) {
-  //       throw new BadRequestException('No file uploaded');
-  //     }
-  //     const uniqueName = Date.now() + '-' + file.originalname;
-  //     try {
-  //       await this.fileService.uploadToR2(file.path, uniqueName);
-  //       await unlink(file.path); //xóa file tạm sau khi upload
-  //       return {
-  //         status: 200 as const,
-  //         body: {
-  //           message: 'File uploaded successfully',
-  //           name: uniqueName,
-  //         },
-  //       };
-  //     } catch (error) {
-  //       if (file.path) {
-  //         await unlink(file.path); // Xóa file tạm nếu upload thất bại
-  //       }
-  //       throw new BadRequestException('Could not upload file');
-  //     }
-  //   });
-  // }
+  @TsRestHandler(fileContract.updateFile)
+  @UseInterceptors(FileInterceptor('file'))
+  handleUpdateFile(@UploadedFile() file: Express.Multer.File) {
+    return tsRestHandler(fileContract.updateFile, async () => {
+      if (!file) {
+        throw new BadRequestException('No file uploaded');
+      }
+      const uniqueName = Date.now() + '-' + file.originalname;
+      try {
+        await this.fileService.uploadToR2(file, uniqueName);
+        await unlink(file.path);
+        //xóa file tạm sau khi upload
+
+        const url = await this.fileService.createPresignedUrl(uniqueName);
+        return {
+          status: 200 as const,
+          body: {
+            message: 'File uploaded successfully',
+            name: uniqueName,
+            url: url,
+          },
+        };
+      } catch (error) {
+        if (file.path) {
+          await unlink(file.path); // Xóa file tạm nếu upload thất bại
+        }
+        throw new BadRequestException('Could not upload file');
+      }
+    });
+  }
 
   // @TsRestHandler(fileContract.getFile)
   // handleGetFile(@Param('filename') filename: string, @Res() res) {
@@ -60,26 +64,26 @@ export class FileController {
   //     }
   //   });
   // }
-  //
-  // @TsRestHandler(fileContract.deleteFile)
-  // handleDeleteFile(@Param('filename') filename: string) {
-  //   return tsRestHandler(fileContract.deleteFile, async () => {
-  //     try {
-  //       await this.fileService.deleteFile(filename);
-  //
-  //       //xóa ở thư mục images
-  //       await unlink(join(__dirname, '..', '..', 'images', filename));
-  //       return {
-  //         status: 200 as const,
-  //         body: {
-  //           message: 'File deleted successfully',
-  //         },
-  //       };
-  //     } catch (error) {
-  //       throw new NotFoundException('File not found');
-  //     }
-  //   });
-  // }
+
+  @TsRestHandler(fileContract.deleteFile)
+  handleDeleteFile(@Param('filename') filename: string) {
+    return tsRestHandler(fileContract.deleteFile, async () => {
+      try {
+        await this.fileService.deleteFile(filename);
+
+        //xóa ở thư mục images
+        // await unlink(join(__dirname, '..', '..', 'images', filename));
+        return {
+          status: 200 as const,
+          body: {
+            message: 'File deleted successfully',
+          },
+        };
+      } catch (error) {
+        throw new NotFoundException('File not found');
+      }
+    });
+  }
 
   @TsRestHandler(fileContract.getLink)
   handleGetLink(@Param('filename') filename: string) {
