@@ -44,8 +44,13 @@
       </div>
     }
     <div class="w-full md:w-1/2 px-2 mb-8">
-      <app-file-upload (uploadFiles)="checkFile($event)"></app-file-upload>
+      <app-file-upload (uploadFiles)="uploadFiles($event)" (uploadFilesSrc)="uploadFilesSrc($event)"></app-file-upload>
     </div>
+  </div>
+  <div class="flex flex-wrap">
+    @for (src of imgSrcListSignal(); track $index) {
+      <app-image-preview [imgSrc]="src" (close)="removeImgSrc($event)"></app-image-preview>
+    }
   </div>
   <footer class="flex justify-end space-x-2 mt-4">
     <button tuiButton type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
