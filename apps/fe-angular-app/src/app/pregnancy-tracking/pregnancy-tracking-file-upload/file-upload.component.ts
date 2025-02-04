@@ -1,4 +1,4 @@
-import { Component, ElementRef, output, signal, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiFileLike, TuiFiles } from '@taiga-ui/kit';
 
@@ -18,10 +18,6 @@ export class FileUploadComponent {
 
   protected filesSignal = signal<TuiFileLike[]>([]);
   protected readonly control = new FormControl<TuiFileLike | null>(null, [Validators.required]);
-
-  protected removeFile(): void {
-    //
-  }
 
   protected onFileChange(): void {
     const reader = new FileReader();
