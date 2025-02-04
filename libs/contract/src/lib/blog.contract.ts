@@ -2,36 +2,42 @@ import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
 import { statusSchema } from './enum.contract';
 import { mediaResSchema } from './media.contract';
-import { tagResSchema } from './tag.contract';
+import { tagCreateReqSchema, tagResSchema } from './tag.contract';
+import { categoryContract, categoryResSchema } from './category.contract';
 
 const blogResSchema = z.object({
   id: z.string(),
   title: z.string(),
-  content: z.string(),
+  author: z.string(),
+  summary: z.string(),
+  content_url: z.string(),
   create_at: z.date(),
-  status: statusSchema,
-  media: z.array(mediaResSchema),
   tags: z.array(tagResSchema),
+  category: categoryResSchema,
 });
 
 export const blogCreateReqSchema = z.object({
   title: z.string(),
-  content: z.string(),
-  status: statusSchema,
-  media: z.array(z.string()),
-  tags: z.array(z.string()),
+  author: z.string(),
+  summary: z.string(),
+  content_url: z.string(),
+  tags_id: z.array(z.string().optional()).optional(),
+  category_id: z.string(),
 });
 
 export const blogUpdateReqSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
-  content: z.string().optional(),
-  status: statusSchema.optional(),
-  media: z.array(z.string()).optional(),
-  tags: z.array(z.string()).optional(),
+  author: z.string().optional(),
+  summary: z.string().optional(),
+  content_url: z.string().optional(),
+  tags_id: z.array(z.string().optional()).optional(),
+  category_id: z.string().optional(),
 });
 
 export type Blog = z.infer<typeof blogResSchema>;
+export type BlogCreateReq = z.infer<typeof blogCreateReqSchema>;
+export type BlogUpdateReq = z.infer<typeof blogUpdateReqSchema>;
 
 const c = initContract();
 
@@ -39,8 +45,16 @@ export const blogContract = c.router({
   getAll: {
     method: 'GET',
     path: '/blogs',
+    query: z.object({
+      limit: z.coerce.number().default(10),
+      page: z.coerce.number().default(1),
+    }),
+
     responses: {
-      200: z.array(blogResSchema),
+      200: z.object({
+        blogs: z.array(blogResSchema),
+        total_page: z.number(),
+      }),
       404: z.object({ message: z.string() }),
     },
   },
@@ -62,7 +76,7 @@ export const blogContract = c.router({
   },
   update: {
     method: 'PATCH',
-    path: '/blogs/:id',
+    path: '/blogs',
     body: blogUpdateReqSchema,
     responses: {
       200: blogResSchema,

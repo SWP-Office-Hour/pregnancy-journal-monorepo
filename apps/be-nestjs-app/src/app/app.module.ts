@@ -8,6 +8,8 @@ import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
 import { HospitalModule } from './hosiptal/hospitalModule';
 import { MetricModule } from './metric/metric.module';
+import { CategorysModule } from './categorys/categorys.module';
+import { BlogsModule } from './blogs/blogs.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { MetricModule } from './metric/metric.module';
     TagModule,
     MetricModule,
     HospitalModule,
+    CategorysModule,
+    BlogsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

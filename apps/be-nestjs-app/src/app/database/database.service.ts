@@ -40,4 +40,12 @@ export class DatabaseService {
   get Hospital() {
     return this.prisma.hospital;
   }
+
+  get Blog() {
+    return this.prisma.blog;
+  }
+
+  get BlogOnTag() {
+    return this.prisma.blog_tag;
+  }
 }
