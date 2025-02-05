@@ -85,13 +85,13 @@ jobs:
 
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
-      #      - run: npx cypress install
-      #      - run: npx nx affected -t lint test build e2e
+      #      - run: pnpm dlx cypress install
+      #      - run: pnpm dlx nx affected -t lint test build e2e
 
       #      - id: nx-format-check
-      #        run: npx nx format:check
+      #        run: pnpm dlx nx format:check
       - id: nx-affected
-        run: npx nx affected -t lint build
+        run: pnpm dlx nx affected -t lint build
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
