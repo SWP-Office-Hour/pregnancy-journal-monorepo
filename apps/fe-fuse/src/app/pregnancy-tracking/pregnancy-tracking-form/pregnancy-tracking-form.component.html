@@ -1,0 +1,81 @@
+<form [formGroup]="pregnancyForm" class="mx-auto max-w-2xl p-4">
+  <div class="-mx-2 flex flex-wrap">
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Ngày dự sinh</mat-label>
+        <input matInput [matDatepicker]="expectedBirthDate" formControlName="expectedBirthDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="expectedBirthDate"></mat-datepicker-toggle>
+        <mat-datepicker #expectedBirthDate>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Ngày tái khám</mat-label>
+        <input matInput [matDatepicker]="nextVisitDate" formControlName="nextVisitDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="nextVisitDate"></mat-datepicker-toggle>
+        <mat-datepicker #nextVisitDate>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Chọn bệnh viện</mat-label>
+        <mat-select formControlName="hospital">
+          <mat-option value="" disabled="true">Chọn bệnh viện</mat-option>
+          @for (hospital of hospitals | async; track $index) {
+            <mat-option value="{{ hospital.id }}">{{ hospital.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Ngày khám bác sĩ</mat-label>
+        <input matInput [matDatepicker]="visitDoctorDate" formControlName="visitDoctorDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="visitDoctorDate"></mat-datepicker-toggle>
+        <mat-datepicker #visitDoctorDate>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Cân nặng</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="weight" />
+        <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Chiều cao</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="height" />
+        <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
+      </mat-form-field>
+    </div>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <app-file-upload></app-file-upload>
+    </div>
+  </div>
+  <div class="flex flex-wrap">
+    @for (src of imgSrcListSignal(); track $index) {
+      <app-image-preview [imgObj]="src"></app-image-preview>
+    }
+  </div>
+  <footer class="mt-4 flex justify-end space-x-2">
+    <button mat-flat-button type="submit">Lưu</button>
+    <button mat-stroked-button type="reset">Hủy</button>
+  </footer>
+</form>
