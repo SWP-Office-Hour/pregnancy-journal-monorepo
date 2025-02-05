@@ -15,7 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@pregnancy-journal-monorepo/contract": ["libs/contract/src/index.ts"]
+      "@pregnancy-journal-monorepo/contract": ["./libs/contract/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
