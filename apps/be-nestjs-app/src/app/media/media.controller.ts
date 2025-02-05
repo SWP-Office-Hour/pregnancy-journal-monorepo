@@ -3,6 +3,7 @@ import {
   Controller,
   NotFoundException,
   Param,
+  Query,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -19,11 +20,12 @@ export class MediaController {
 
   @TsRestHandler(mediaContract.updateFile)
   @UseInterceptors(FileInterceptor('file'))
-  handleUpdateFile(@UploadedFile() file: Express.Multer.File) {
+  handleUpdateFile(@UploadedFile() file: Express.Multer.File, @Query() data: { post_id?: string; record_id?: string }) {
     return tsRestHandler(mediaContract.updateFile, async () => {
       if (!file) {
         throw new BadRequestException('No file uploaded');
       }
+
       const uniqueName = Date.now() + '-' + file.originalname;
       try {
         await this.fileService.uploadToR2(file, uniqueName);

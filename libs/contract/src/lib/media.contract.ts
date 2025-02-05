@@ -2,7 +2,6 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
 type UpdateFileBody = {
-  thumbnail: File;
   additionData: {
     post_id: string;
     record_id: string;
@@ -16,7 +15,11 @@ export const mediaContract = c.router({
     method: 'POST',
     path: '/media',
     contentType: 'multipart/form-data',
-    body: c.type<UpdateFileBody>(),
+    query: z.object({
+      post_id: z.string().optional(),
+      record_id: z.string().optional(),
+    }),
+    body: c.type<{ thumbnail: File }>(),
     responses: {
       200: z.object({
         message: z.string(),
