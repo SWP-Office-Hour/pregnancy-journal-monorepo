@@ -14,9 +14,8 @@ import {
   blogContract,
   categoryContract,
   dashboardContract,
-  fileContract,
-  hospitalContract,
   mediaContract,
+  hospitalContract,
   membershipContract,
   metricContract,
   noteContract,
@@ -47,7 +46,6 @@ async function bootstrap() {
       membership: membershipContract,
       media: mediaContract,
       category: categoryContract,
-      image: fileContract,
     },
     {
       info: {

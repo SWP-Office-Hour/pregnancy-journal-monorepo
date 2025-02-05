@@ -1,31 +1,52 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { z } from 'zod';
+import { StreamableFile } from '@nestjs/common';
 
-export const mediaResSchema = z.object({
-  id: z.string(),
-  url: z.string(),
-});
+type UpdateFileBody = {
+  thumbnail: File;
+  additionData: {
+    post_id: string;
+    record_id: string;
+  };
+};
 
 const c = initContract();
 
 export const mediaContract = c.router({
   updateFile: {
     method: 'POST',
-    path: '/file',
-    contentType: 'multipart/form-data', // <- Only difference
-    body: c.type<{ thumbnail: File }>(), // <- Use File type in here
+    path: '/media',
+    contentType: 'multipart/form-data',
+    body: c.type<UpdateFileBody>(),
     responses: {
-      200: mediaResSchema,
+      200: z.object({
+        message: z.string(),
+        name: z.string(),
+        url: z.string(),
+      }),
       400: z.object({
         message: z.string(),
       }),
     },
   },
-  getFile: {
+
+  // getFile: {
+  //   method: 'GET',
+  //   path: '/media/:filename',
+  //   responses: {
+  //     200: z.string(),
+  //     400: z.object({
+  //       message: z.string(),
+  //     }),
+  //   },
+  // },
+  getLink: {
     method: 'GET',
-    path: '/file/:filename',
+    path: '/media/:filename',
     responses: {
-      200: mediaResSchema,
+      200: z.object({
+        link: z.string(),
+      }),
       400: z.object({
         message: z.string(),
       }),
@@ -33,7 +54,7 @@ export const mediaContract = c.router({
   },
   deleteFile: {
     method: 'DELETE',
-    path: '/file/:filename',
+    path: '/media/:filename',
     responses: {
       200: z.object({
         message: z.string(),

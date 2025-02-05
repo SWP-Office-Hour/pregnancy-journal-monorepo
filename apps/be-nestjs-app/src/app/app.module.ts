@@ -11,6 +11,7 @@ import { MetricModule } from './metric/metric.module';
 import { CategorysModule } from './categorys/categorys.module';
 import { BlogsModule } from './blogs/blogs.module';
 import { FileModule } from './file/file.module';
+import { MediaModule } from './media/media.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { FileModule } from './file/file.module';
     CategorysModule,
     BlogsModule,
     FileModule,
+    MediaModule,
   ],
   controllers: [AppController],
   providers: [AppService],

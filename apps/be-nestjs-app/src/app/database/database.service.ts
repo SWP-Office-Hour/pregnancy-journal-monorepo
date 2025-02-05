@@ -48,4 +48,8 @@ export class DatabaseService {
   get BlogOnTag() {
     return this.prisma.blog_tag;
   }
+
+  get Media() {
+    return this.prisma.media;
+  }
 }
