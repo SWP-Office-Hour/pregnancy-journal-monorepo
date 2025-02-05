@@ -139,7 +139,7 @@ jobs:
 
       - id: fe-angular-deploy-flag
         if: contains(steps.run-affected.outputs.rs,'"fe-fuse"')
-        run: pnpm exec nx run fe-angular-app:build:production
+        run: pnpm exec nx run fe-fuse:build:production
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -152,7 +152,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           projectName: pregnancy-journal-monorepo # e.g. 'my-project'
-          directory: dist/apps/fe-angular-app # e.g. 'dist'
+          directory: dist/apps/fe-fuse/browser # e.g. 'dist'
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
 
       ############################ TESTING AT LOCAL ######################################################
