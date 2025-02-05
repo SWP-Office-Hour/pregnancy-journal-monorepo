@@ -1,7 +1,5 @@
 import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { statusSchema } from './enum.contract';
-import { mediaResSchema } from './media.contract';
 import { tagCreateReqSchema, tagResSchema } from './tag.contract';
 import { categoryContract, categoryResSchema } from './category.contract';
 

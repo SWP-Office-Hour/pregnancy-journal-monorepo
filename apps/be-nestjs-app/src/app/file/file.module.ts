@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { FileService } from './file.service';
-import { FileController } from './file.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 
@@ -16,7 +15,6 @@ import { diskStorage } from 'multer';
       }),
     }),
   ],
-  controllers: [FileController],
   providers: [FileService],
 })
 export class FileModule {}
