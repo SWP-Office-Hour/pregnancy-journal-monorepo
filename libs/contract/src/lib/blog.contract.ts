@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { tagCreateReqSchema, tagResSchema } from './tag.contract';
-import { categoryContract, categoryResSchema } from './category.contract';
+import { z } from 'zod';
+import { categoryResSchema } from './category.contract';
+import { tagResSchema } from './tag.contract';
 
 const blogResSchema = z.object({
   id: z.string(),
