@@ -1,6 +1,5 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import { StreamableFile } from '@nestjs/common';
 
 type UpdateFileBody = {
   thumbnail: File;

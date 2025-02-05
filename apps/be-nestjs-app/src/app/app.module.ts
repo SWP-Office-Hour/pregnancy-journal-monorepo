@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { ConfigModule } from '@nestjs/config';
+import { BlogsModule } from './blogs/blogs.module';
+import { CategorysModule } from './categorys/categorys.module';
+import { FileModule } from './file/file.module';
+import { HospitalModule } from './hosiptal/hospitalModule';
+import { MediaModule } from './media/media.module';
 import { MembershipsModule } from './memberships/memberships.module';
+import { MetricModule } from './metric/metric.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
-import { HospitalModule } from './hosiptal/hospitalModule';
-import { MetricModule } from './metric/metric.module';
-import { CategorysModule } from './categorys/categorys.module';
-import { BlogsModule } from './blogs/blogs.module';
-import { FileModule } from './file/file.module';
-import { MediaModule } from './media/media.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [

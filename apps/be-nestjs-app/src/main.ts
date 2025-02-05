@@ -5,17 +5,14 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app/app.module';
-import { generateOpenApi } from '@ts-rest/open-api';
 import { SwaggerModule } from '@nestjs/swagger';
-import { SocketIoAdapter } from './socket-io.adapter';
 import {
   authContract,
   blogContract,
   categoryContract,
   dashboardContract,
-  mediaContract,
   hospitalContract,
+  mediaContract,
   membershipContract,
   metricContract,
   noteContract,
@@ -25,6 +22,9 @@ import {
   tagContract,
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
+import { generateOpenApi } from '@ts-rest/open-api';
+import { AppModule } from './app/app.module';
+import { SocketIoAdapter } from './socket-io.adapter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

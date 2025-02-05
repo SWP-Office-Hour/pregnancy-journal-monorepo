@@ -1,20 +1,20 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { JwtUtilsModule } from '../utils/jwt/jwtUtils.module';
 import {
   AccessTokenAuthGuard,
-  EmailVerifyTokenAuthGuard,
+  // EmailVerifyTokenAuthGuard,
   IsLoggin,
   RefreshTokenAuthGuard,
   RoleAuthGuard,
 } from './auth.guard';
-import { JwtUtilsModule } from '../utils/jwt/jwtUtils.module';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [JwtUtilsModule],
   providers: [
     AccessTokenAuthGuard,
     RoleAuthGuard,
-    EmailVerifyTokenAuthGuard,
+    // EmailVerifyTokenAuthGuard,
     RefreshTokenAuthGuard,
     IsLoggin,
     ConfigModule,
