@@ -1,0 +1,14 @@
+<mat-card class="p-auto h-56 w-56 rounded-lg" appearance="outlined" (click)="openDialog()">
+  <img
+    ngSrc="{{ imgObj.mediaUrl }}"
+    class="overflow-hidden rounded-lg hover:cursor-pointer"
+    alt="image"
+    width="12rem"
+    height="12rem"
+  />
+</mat-card>
+
+<!--<ng-template let-observer [tuiDialogOptions]="{ label: 'Xem ảnh', size: 's' }" [(tuiDialog)]="open">-->
+<!--  <img [src]="imgObj.mediaUrl" class="overflow-hidden rounded-lg" alt="image" /> <br />-->
+<!--  <button tuiButton size="s" appearance="outline-destructive" (click)="deleteImage()">Xóa ảnh</button>-->
+<!--</ng-template>-->

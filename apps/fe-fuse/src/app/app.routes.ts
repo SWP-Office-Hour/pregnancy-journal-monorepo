@@ -3,6 +3,8 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { PregnancyTrackingFormComponent } from './pregnancy-tracking/pregnancy-tracking-form/pregnancy-tracking-form.component'; // @formatter:off
+import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -77,5 +79,15 @@ export const appRoutes: Route[] = [
       initialData: initialDataResolver,
     },
     children: [{ path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes') }],
+  },
+  {
+    path: 'pregnancy-tracking',
+    component: PregnancyTrackingComponent,
+    children: [
+      {
+        path: ':recordId',
+        component: PregnancyTrackingFormComponent,
+      },
+    ],
   },
 ];
