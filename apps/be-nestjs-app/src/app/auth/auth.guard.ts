@@ -4,7 +4,6 @@ import {
   ForbiddenException,
   Injectable,
   UnauthorizedException,
-  UnprocessableEntityException,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
@@ -40,31 +39,31 @@ export class AccessTokenAuthGuard implements CanActivate {
   }
 }
 
-@Injectable()
-export class EmailVerifyTokenAuthGuard implements CanActivate {
-  constructor(
-    private readonly jwtUtilsService: JwtUtilsService,
-    private readonly configService: ConfigService,
-  ) {}
-
-  canActivate(context: ExecutionContext): boolean {
-    const request = context.switchToHttp().getRequest<RequestWithJWT>();
-    const token = request.query.email_verify_token;
-    if (!token) {
-      throw new UnauthorizedException('User authentication required');
-    }
-    try {
-      // const decoded_email_verify = this.jwtUtilsService.verifyToken({
-      //   token: token,
-      //   secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
-      // });
-      // request.decoded_email_verify = decoded_email_verify;
-      return true;
-    } catch (e) {
-      throw new UnprocessableEntityException(e.message);
-    }
-  }
-}
+// @Injectable()
+// export class EmailVerifyTokenAuthGuard implements CanActivate {
+//   constructor(
+//     private readonly jwtUtilsService: JwtUtilsService,
+//     private readonly configService: ConfigService,
+//   ) {}
+//
+//   canActivate(context: ExecutionContext): boolean {
+//     const request = context.switchToHttp().getRequest<RequestWithJWT>();
+//     const token = request.query.email_verify_token;
+//     if (!token) {
+//       throw new UnauthorizedException('User authentication required');
+//     }
+//     try {
+//       const decoded_email_verify = this.jwtUtilsService.verifyToken({
+//         token: token,
+//         secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
+//       });
+//       request.decoded_email_verify = decoded_email_verify;
+//       return true;
+//     } catch (e) {
+//       throw new UnprocessableEntityException(e.message);
+//     }
+//   }
+// }
 
 @Injectable()
 export class RefreshTokenAuthGuard implements CanActivate {
