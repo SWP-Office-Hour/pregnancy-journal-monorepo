@@ -9,7 +9,6 @@ export type pregnancyDatatype = {
   visitDoctorDate: Date;
   hospital: HospitalType;
   data: {
-    id: string;
     value: number;
     metric_id: string;
     metric_title: string;
@@ -40,7 +39,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123114',
         value: 70,
         status: 1,
         metric_id: '1',
@@ -55,9 +53,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123115',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -85,7 +82,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123116',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -100,9 +96,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123117',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -129,7 +124,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123118',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -144,9 +138,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123119',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -173,7 +166,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123120',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -188,9 +180,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123121',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -217,7 +208,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123122',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -232,9 +222,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123123',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -261,7 +250,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123124',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -276,9 +264,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123125',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -305,7 +292,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123126',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -320,9 +306,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123127',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -349,7 +334,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123128',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -364,9 +348,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123129',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -393,7 +376,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123130',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -408,9 +390,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123131',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
@@ -437,7 +418,6 @@ export const pregnancyData: pregnancyDatatype[] = [
     },
     data: [
       {
-        id: '123132',
         value: 70,
         metric_id: '1',
         metric_title: 'Cân nặng',
@@ -452,9 +432,8 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
       {
-        id: '123133',
         value: 70,
-        metric_id: '1',
+        metric_id: '2',
         metric_title: 'Chiều cao',
         metric_measure: 'cm',
         metric_upperBoundMsg: 'Chiều cao quá cao',
