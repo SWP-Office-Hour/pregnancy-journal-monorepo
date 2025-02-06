@@ -1,5 +1,5 @@
-import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, WritableSignal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -18,7 +18,6 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AsyncPipe,
     ReactiveFormsModule,
     FileUploadComponent,
     ImagePreviewComponent,
@@ -35,22 +34,79 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 export class PregnancyTrackingFormComponent implements OnInit {
   pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
   @Input() pregnancyTrackingData!: WritableSignal<pregnancyDatatype>;
+
   protected imgSrcListSignal = this.pregnancyService.MediaSrc;
   protected metrics = this.pregnancyService.getMetrics();
 
-  protected pregnancyForm = new FormGroup({
-    visitDoctorDate: new FormControl(new Date()),
-    nextVisitDate: new FormControl(new Date()),
-    expectedBirthDate: new FormControl(new Date()),
-    hospital: new FormControl(''),
-    week: new FormControl(0),
-    height: new FormControl(0),
-    weight: new FormControl(0),
-  });
+  protected pregnancyForm: FormGroup;
+  protected formControls = signal<
+    {
+      controlLabel: string;
+      controlName: string;
+      controlType: 'Number' | 'Select' | 'Date';
+      selectItems?: any[];
+    }[]
+  >([]);
+  //
   protected hospitals = this.pregnancyService.getHospitalList();
   protected pregnancyData = this.pregnancyService.recordSelected;
 
   ngOnInit() {
-    console.log(this.pregnancyData());
+    this.initForm();
+    this.setValueByPregnancyData();
+  }
+
+  initForm() {
+    this.pregnancyForm = new FormGroup({});
+    this.addControlToForm('visitDoctorDate', new Date(), 'Date', 'Ngày đi khám bác sĩ');
+    this.addControlToForm('nextVisitDate', new Date(), 'Date', 'Ngày đi khám tiếp theo');
+    this.addControlToForm('expectedBirthDate', new Date(), 'Date', 'Ngày dự sinh');
+    this.hospitals.subscribe((hospitals) => {
+      this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
+    });
+    this.addControlToForm('week', 0, 'Number', 'Tuần thai');
+    this.metrics.subscribe((metrics) => {
+      metrics.forEach((metric) => {
+        this.addControlToForm(metric.id, 0, 'Number', metric.title);
+      });
+    });
+  }
+
+  addControlToForm(
+    controlName: string,
+    controlValue: any,
+    controlType: 'Number' | 'Select' | 'Date',
+    controlLabel: string,
+    selectItems?: any[],
+  ) {
+    switch (controlType) {
+      case 'Number':
+        this.pregnancyForm.addControl(controlName, new FormControl(controlValue || 0));
+        break;
+      case 'Select':
+        this.pregnancyForm.addControl(controlName, new FormControl(controlValue || ''));
+        break;
+      case 'Date':
+        this.pregnancyForm.addControl(controlName, new FormControl(controlValue || new Date()));
+        break;
+    }
+    this.formControls().push({ controlLabel, controlName, controlType, selectItems });
+  }
+
+  setValueByPregnancyData() {
+    this.formControls().forEach((control) => {
+      if (Object.getOwnPropertyNames(this.pregnancyData()).includes(control.controlName)) {
+        if (control.controlType === 'Select') {
+          this.pregnancyForm.get(control.controlName).setValue(this.pregnancyData()[control.controlName].id);
+        } else {
+          this.pregnancyForm.get(control.controlName).setValue(this.pregnancyData()[control.controlName]);
+        }
+      }
+      if (this.pregnancyData().data.some((metric) => metric.metric_id == control.controlName)) {
+        this.pregnancyForm
+          .get(control.controlName)
+          .setValue(this.pregnancyData().data.find((metric) => metric.metric_id == control.controlName).value);
+      }
+    });
   }
 }
