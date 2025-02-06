@@ -1,12 +1,15 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
-type UpdateFileBody = {
-  additionData: {
-    post_id: string;
-    record_id: string;
-  };
-};
+const mediaResSchema = z.object({
+  id: z.string(),
+  url: z.string(),
+  created_at: z.date(),
+  post_id: z.string().optional(),
+  visit_record_id: z.string().optional(),
+});
+
+export type MediaRes = z.infer<typeof mediaResSchema>;
 
 const c = initContract();
 
@@ -21,11 +24,7 @@ export const mediaContract = c.router({
     }),
     body: c.type<{ thumbnail: File }>(),
     responses: {
-      200: z.object({
-        message: z.string(),
-        name: z.string(),
-        url: z.string(),
-      }),
+      200: mediaResSchema,
       400: z.object({
         message: z.string(),
       }),
@@ -44,11 +43,9 @@ export const mediaContract = c.router({
   // },
   getLink: {
     method: 'GET',
-    path: '/media/:filename',
+    path: '/media/:id',
     responses: {
-      200: z.object({
-        link: z.string(),
-      }),
+      200: mediaResSchema,
       400: z.object({
         message: z.string(),
       }),
@@ -56,7 +53,7 @@ export const mediaContract = c.router({
   },
   deleteFile: {
     method: 'DELETE',
-    path: '/media/:filename',
+    path: '/media/:id',
     responses: {
       200: z.object({
         message: z.string(),
