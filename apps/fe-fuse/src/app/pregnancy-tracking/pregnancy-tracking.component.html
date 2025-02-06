@@ -2,6 +2,7 @@
   <div class="my-5 text-center">
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
+
   <app-pregnancy-record-select></app-pregnancy-record-select>
-  <app-pregnancy-tracking-form [pregnancyTrackingData]="pregnancyData"></app-pregnancy-tracking-form>
+  <app-pregnancy-tracking-form [data]="$pregnancyDataById()"></app-pregnancy-tracking-form>
 </div>

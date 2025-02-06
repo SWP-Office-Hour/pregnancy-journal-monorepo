@@ -1,7 +1,7 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyTrackingService } from '../../pregnancy-tracking.service';
+import { PregnancyTrackingSignalService } from '../../../pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-dialog-img',
@@ -11,7 +11,7 @@ import { PregnancyTrackingService } from '../../pregnancy-tracking.service';
 })
 export class DialogImgComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { imgObj: { id: string; mediaUrl: string } }) {}
-  private pregnancyTrackingService: PregnancyTrackingService = inject(PregnancyTrackingService);
+  private pregnancyTrackingService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
 
   deleteImage() {
     if (this.data.imgObj.id) {

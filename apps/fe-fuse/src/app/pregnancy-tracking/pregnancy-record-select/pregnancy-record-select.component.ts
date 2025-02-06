@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { PregnancyTrackingPagingComponent } from '../pregnancy-tracking-paging/pregnancy-tracking-paging.component';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
+import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging/pregnancy-tracking-paging.component';
 
 @Component({
   selector: 'app-pregnancy-record-select',
@@ -11,11 +11,15 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
   styleUrl: './pregnancy-record-select.component.css',
 })
 export class PregnancyRecordSelectComponent {
-  protected pregnancyService = inject(PregnancyTrackingService);
-  records = this.pregnancyService.recordSelecting;
-  selectedRecord = this.pregnancyService.recordSelected;
+  protected signalService = inject(PregnancyTrackingSignalService);
+  $records = computed(() =>
+    this.signalService
+      .PregnancyData()
+      .slice(this.signalService.currentPage * 5, this.signalService.currentPage * 5 + 5),
+  );
+  $selectedRecord = this.signalService.PregnancyDataById;
 
   selectRecord({ value }: MatRadioChange) {
-    this.pregnancyService.selectRecord(value);
+    this.signalService.selectRecord(value);
   }
 }
