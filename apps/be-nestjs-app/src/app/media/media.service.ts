@@ -5,11 +5,26 @@ import { DatabaseService } from '../database/database.service';
 export class MediaService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(media_url: string) {
+  createWithPostId({ media_url, post_id }: { media_url: string; post_id: string }) {
     return this.databaseService.Media.create({
       data: {
         media_url: media_url,
         created_at: new Date(),
+        post: {
+          connect: { id: post_id },
+        },
+      },
+    });
+  }
+
+  createWithRecordId({ media_url, record_id }: { media_url: string; record_id: string }) {
+    return this.databaseService.Media.create({
+      data: {
+        media_url: media_url,
+        created_at: new Date(),
+        visit_record: {
+          connect: { id: record_id },
+        },
       },
     });
   }
