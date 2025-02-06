@@ -1,6 +1,6 @@
 <mat-paginator
-  [length]="this.pregnancyService.recordPagesLength()"
-  [pageSize]="this.pregnancyService.recordSelecting().length"
+  [length]="this.pregnancyService.PregnancyData().length"
+  [pageSize]="5"
   aria-label="Select page"
   (page)="changePage($event)"
   [pageIndex]="pageIndex"

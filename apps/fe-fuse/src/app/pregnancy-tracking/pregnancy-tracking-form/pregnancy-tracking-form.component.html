@@ -1,4 +1,4 @@
-<form [formGroup]="pregnancyForm" class="mx-auto max-w-2xl p-4">
+<form [formGroup]="pregnancyForm" class="mx-auto max-w-2xl p-4" (submit)="submitForm()">
   <div class="-mx-2 flex flex-wrap">
     @for (control of formControls(); track $index) {
       <div class="mb-8 w-full px-2 md:w-1/2">
@@ -22,9 +22,9 @@
             </mat-form-field>
           }
           @case ('Date') {
-            <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+            <mat-form-field class="input-full-width">
               <mat-label>{{ control.controlLabel }}</mat-label>
-              <input matInput [matDatepicker]="date_control" formControlName="{{ control.controlName }}" />
+              <input matInput [matDatepicker]="date_control" formControlName="{{ control.controlName }}" readonly />
               <mat-datepicker-toggle matIconSuffix [for]="date_control"></mat-datepicker-toggle>
               <mat-datepicker #date_control>
                 <mat-datepicker-actions>
@@ -37,10 +37,16 @@
         }
       </div>
     }
-
-    <div class="mb-8 w-full px-2 md:w-1/2">
-      <app-file-upload></app-file-upload>
-    </div>
+  </div>
+  <div class="flex">
+    <mat-form-field class="flex-auto">
+      <input matInput [matDatepicker]="picker2" [placeholder]="'Choose a date'" />
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+    </mat-form-field>
+  </div>
+  <div class="mb-8 w-full px-2 md:w-1/2">
+    <app-file-upload></app-file-upload>
   </div>
   <div class="flex flex-wrap">
     @for (src of imgSrcListSignal(); track $index) {

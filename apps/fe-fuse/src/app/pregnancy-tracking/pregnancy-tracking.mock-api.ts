@@ -68,6 +68,16 @@ export const pregnancyData: pregnancyDatatype[] = [
         tags: [],
       },
     ],
+    media: [
+      {
+        id: '1',
+        mediaUrl: 'https://picsum.photos/200/300',
+      },
+      {
+        id: '2',
+        mediaUrl: 'https://picsum.photos/200/300',
+      },
+    ],
   },
   {
     id: '2',
@@ -150,6 +160,16 @@ export const pregnancyData: pregnancyDatatype[] = [
         whoStandardValue: 5,
         status: 1,
         tags: [],
+      },
+    ],
+    media: [
+      {
+        id: '1',
+        mediaUrl: 'https://picsum.photos/200/300',
+      },
+      {
+        id: '2',
+        mediaUrl: 'https://picsum.photos/200/300',
       },
     ],
   },
@@ -530,6 +550,10 @@ export const hospitals = [
 export type mediaType = {
   id: string;
   mediaUrl: string;
+};
+
+export const pregnancyDataObservableById = (id: string) => {
+  return of(pregnancyData.find((data) => data.id === id));
 };
 
 export const pregnancyDataObservable = () => {

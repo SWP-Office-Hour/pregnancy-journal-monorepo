@@ -1,7 +1,7 @@
 <div style="display: flex; flex-direction: column; align-items: center">
   <mat-radio-group aria-label="Select record" (change)="selectRecord($event)">
-    @for (record of records(); track $index) {
-      <mat-radio-button value="{{ record.id }}" [checked]="selectedRecord().id == record.id">
+    @for (record of $records(); track $index) {
+      <mat-radio-button value="{{ record.id }}" [checked]="$selectedRecord().id == record.id">
         {{ record.week }}
       </mat-radio-button>
     }

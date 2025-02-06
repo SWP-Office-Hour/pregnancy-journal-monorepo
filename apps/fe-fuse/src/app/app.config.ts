@@ -3,9 +3,15 @@ import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
+import {
+  PreloadAllModules,
+  provideRouter,
+  withComponentInputBinding,
+  withInMemoryScrolling,
+  withPreloading,
+} from '@angular/router';
 import { provideFuse } from '@fuse';
-import { TranslocoService, provideTransloco } from '@ngneat/transloco';
+import { provideTransloco, TranslocoService } from '@ngneat/transloco';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
@@ -21,6 +27,7 @@ export const appConfig: ApplicationConfig = {
       appRoutes,
       withPreloading(PreloadAllModules),
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
+      withComponentInputBinding(),
     ),
 
     // Material Date Adapter
