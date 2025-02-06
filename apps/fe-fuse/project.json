@@ -35,7 +35,7 @@
           }
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/admin-fuse/src/@fuse/styles"]
+          "includePaths": ["apps/fe-fuse/src/@fuse/styles", "apps/fe-fuse/src"]
         },
         "styles": [
           "apps/fe-fuse/src/styles.scss",
