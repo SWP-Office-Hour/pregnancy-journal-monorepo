@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingSignalService } from '../../pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-pregnancy-tracking-paging',
@@ -10,7 +10,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
   styleUrl: './pregnancy-tracking-paging.component.css',
 })
 export class PregnancyTrackingPagingComponent {
-  pregnancyService = inject(PregnancyTrackingService);
+  pregnancyService = inject(PregnancyTrackingSignalService);
   pageIndex = this.pregnancyService.currentPage;
 
   changePage({ pageIndex }) {

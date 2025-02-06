@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingSignalService } from '../../pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-file-upload',
@@ -13,7 +13,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 export class FileUploadComponent {
   protected readonly control = new FormControl<File[]>([]);
 
-  private readonly pregnancyService = inject(PregnancyTrackingService);
+  private readonly pregnancyService = inject(PregnancyTrackingSignalService);
 
   protected onFileChange(event: Event): void {
     const reader = new FileReader();

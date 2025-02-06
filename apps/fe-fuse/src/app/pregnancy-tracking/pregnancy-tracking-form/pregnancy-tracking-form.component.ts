@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -7,10 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ImagePreviewComponent } from '../image-preview/image-preview.component';
-import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
+import { PregnancyTrackingApiService } from '../pregnancy-tracking.api.service';
 import { pregnancyDatatype } from '../pregnancy-tracking.mock-api';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
+import { ImagePreviewComponent } from './image-preview/image-preview.component';
+import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-upload.component';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -32,12 +33,10 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
   styleUrl: './pregnancy-tracking-form.component.css',
 })
 export class PregnancyTrackingFormComponent implements OnInit {
-  pregnancyService: PregnancyTrackingService = inject(PregnancyTrackingService);
-  @Input() pregnancyTrackingData!: WritableSignal<pregnancyDatatype>;
-
-  protected imgSrcListSignal = this.pregnancyService.MediaSrc;
-  protected metrics = this.pregnancyService.getMetrics();
-
+  signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
+  apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
+  @Input() data: pregnancyDatatype;
+  protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
   protected formControls = signal<
     {
@@ -47,13 +46,12 @@ export class PregnancyTrackingFormComponent implements OnInit {
       selectItems?: any[];
     }[]
   >([]);
-  //
-  protected hospitals = this.pregnancyService.getHospitalList();
-  protected pregnancyData = this.pregnancyService.recordSelected;
 
   ngOnInit() {
     this.initForm();
-    this.setValueByPregnancyData();
+    if (this.data) {
+      this.setFormByData(this.data);
+    }
   }
 
   initForm() {
@@ -61,11 +59,11 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.addControlToForm('visitDoctorDate', new Date(), 'Date', 'Ngày đi khám bác sĩ');
     this.addControlToForm('nextVisitDate', new Date(), 'Date', 'Ngày đi khám tiếp theo');
     this.addControlToForm('expectedBirthDate', new Date(), 'Date', 'Ngày dự sinh');
-    this.hospitals.subscribe((hospitals) => {
+    this.apiService.getHospitalList().subscribe((hospitals) => {
       this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
     });
     this.addControlToForm('week', 0, 'Number', 'Tuần thai');
-    this.metrics.subscribe((metrics) => {
+    this.apiService.getMetrics().subscribe((metrics) => {
       metrics.forEach((metric) => {
         this.addControlToForm(metric.id, 0, 'Number', metric.title);
       });
@@ -93,20 +91,24 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.formControls().push({ controlLabel, controlName, controlType, selectItems });
   }
 
-  setValueByPregnancyData() {
+  setFormByData(pregnancyData: pregnancyDatatype) {
     this.formControls().forEach((control) => {
-      if (Object.getOwnPropertyNames(this.pregnancyData()).includes(control.controlName)) {
-        if (control.controlType === 'Select') {
-          this.pregnancyForm.get(control.controlName).setValue(this.pregnancyData()[control.controlName].id);
+      if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
+        if (control.controlType != 'Select') {
+          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName]);
         } else {
-          this.pregnancyForm.get(control.controlName).setValue(this.pregnancyData()[control.controlName]);
+          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName].id);
         }
       }
-      if (this.pregnancyData().data.some((metric) => metric.metric_id == control.controlName)) {
+      if (pregnancyData.data.find((d) => d.metric_id === control.controlName)) {
         this.pregnancyForm
           .get(control.controlName)
-          .setValue(this.pregnancyData().data.find((metric) => metric.metric_id == control.controlName).value);
+          .setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
       }
     });
+  }
+
+  submitForm() {
+    this.signalService.submit(this.pregnancyForm.value);
   }
 }
