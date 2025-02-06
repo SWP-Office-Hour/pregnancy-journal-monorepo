@@ -124,8 +124,7 @@ model user {
   id                  String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
   email               String            @db.VarChar(255)
   password            String            @db.VarChar(255)
-  last_ovulation_date DateTime?         @db.Date
-  expected_birth_date DateTime?         @db.Date
+  expected_birth_date DateTime          @db.Date
   name                String            @db.VarChar(255)
   phone               String            @db.VarChar(255)
   province            String            @db.VarChar(255)
@@ -222,9 +221,8 @@ model standard {
 model visit_record {
   id                     String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
   week                   Int
-  expected_birth_date    DateTime              @db.Date
   next_visit_doctor_date DateTime?             @db.Date
-  visit_doctor_date      Int
+  visit_doctor_date      DateTime              @db.Date
   hospital_id            String                @db.Char(36)
   created_at             DateTime              @db.Date
   user_id                String                @db.Char(36)
