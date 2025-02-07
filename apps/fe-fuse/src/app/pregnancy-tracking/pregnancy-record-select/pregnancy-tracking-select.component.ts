@@ -7,10 +7,11 @@ import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging/pr
 @Component({
   selector: 'app-pregnancy-record-select',
   imports: [CommonModule, MatRadioModule, PregnancyTrackingPagingComponent],
-  templateUrl: './pregnancy-record-select.component.html',
-  styleUrl: './pregnancy-record-select.component.css',
+  templateUrl: './pregnancy-tracking-select.component.html',
+  styleUrl: './pregnancy-tracking-select.component.css',
+  standalone: true,
 })
-export class PregnancyRecordSelectComponent {
+export class PregnancyTrackingSelectComponent {
   protected signalService = inject(PregnancyTrackingSignalService);
   $records = computed(() =>
     this.signalService

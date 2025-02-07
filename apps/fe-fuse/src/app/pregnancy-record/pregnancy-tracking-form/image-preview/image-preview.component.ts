@@ -3,7 +3,7 @@ import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyTrackingSignalService } from '../../pregnancy-tracking.signal.service';
+import { PregnancyRecordSignalService } from '../../pregnancy-record.signal.service';
 import { DialogImgComponent } from './dialog-img/dialog-img.component';
 
 @Component({
@@ -17,7 +17,7 @@ export class ImagePreviewComponent {
   @Input() imgObj!: { id: string; mediaUrl: string };
   protected open = false;
   private dialog = inject(MatDialog);
-  private pregnancyTrackingService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
+  private pregnancyTrackingService: PregnancyRecordSignalService = inject(PregnancyRecordSignalService);
 
   openDialog() {
     this.dialog.open(DialogImgComponent, {

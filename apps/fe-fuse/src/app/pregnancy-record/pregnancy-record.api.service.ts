@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import {
   hospitalsObservable,
   metricsObservable,
-  pregnancyDataObservable,
-  pregnancyDataObservableById,
   pregnancyDatatype,
 } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
-export class PregnancyTrackingApiService {
+export class PregnancyRecordApiService {
   constructor() {}
 
   getMetrics() {
@@ -17,14 +15,6 @@ export class PregnancyTrackingApiService {
 
   getHospitalList() {
     return hospitalsObservable();
-  }
-
-  getPregnancyData() {
-    return pregnancyDataObservable();
-  }
-
-  getPregnancyDataById(id: string) {
-    return pregnancyDataObservableById(id);
   }
 
   submitPregnancyData(data: pregnancyDatatype) {

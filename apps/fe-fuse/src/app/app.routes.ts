@@ -4,7 +4,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { PregnancyRecordComponent } from './pregnancy-record/pregnancy-record.component';
-import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
+import { pregnancyTrackingRoutes } from './pregnancy-tracking/pregnancy-tracking.routes';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -80,33 +80,8 @@ export const appRoutes: Route[] = [
     },
     children: [{ path: 'example', loadChildren: () => import('app/modules/admin/example/example.routes') }],
   },
-  {
-    path: 'pregnancy-tracking',
-    pathMatch: 'full',
-    redirectTo: 'pregnancy-tracking/1',
-  },
-  {
-    path: 'pregnancy-tracking/:id',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    component: LayoutComponent,
-    data: {
-      layout: 'empty',
-    },
-    resolve: {
-      initialData: initialDataResolver,
-    },
-    children: [
-      {
-        path: '',
-        loadComponent: () => PregnancyTrackingComponent,
-      },
-    ],
-  },
-  {
-    path: 'test',
-    component: PregnancyRecordComponent,
-  },
+
+  // Customer routes
   {
     path: '',
     canActivate: [AuthGuard],
@@ -116,13 +91,10 @@ export const appRoutes: Route[] = [
       initialData: initialDataResolver,
     },
     children: [
+      { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
       {
-        path: 'ui',
-        children: [
-          // Forms
-          { path: 'forms', loadChildren: () => import('app/modules/admin/ui/forms/forms.routes') },
-          { path: 'test', loadComponent: () => PregnancyRecordComponent },
-        ],
+        path: 'record',
+        component: PregnancyRecordComponent,
       },
     ],
   },

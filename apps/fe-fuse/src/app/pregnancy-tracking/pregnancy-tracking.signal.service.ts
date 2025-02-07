@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
 import { Router } from '@angular/router';
+import { mediaType, pregnancyDatatype } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingApiService } from './pregnancy-tracking.api.service';
-import { mediaType, pregnancyDatatype } from './pregnancy-tracking.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingSignalService {
@@ -38,7 +38,7 @@ export class PregnancyTrackingSignalService {
   selectRecord(id: string) {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['pregnancy-tracking', id]));
+      .then(() => this.router.navigate(['tracking/view', id]));
   }
 
   changePage(pageIndex: number) {

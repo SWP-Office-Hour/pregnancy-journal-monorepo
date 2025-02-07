@@ -1,0 +1,2 @@
+<button type="button" mat-raised-button (click)="fileInput.click()">Choose File</button>
+<input accept="image/*" type="file" [formControl]="control" (change)="onFileChange($event)" hidden #fileInput />
