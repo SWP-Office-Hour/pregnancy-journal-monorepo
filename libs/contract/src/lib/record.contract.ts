@@ -1,15 +1,26 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { statusSchema } from './enum.contract';
 import { hospitalResSchema } from './hospital.contract';
+import { mediaResSchema } from './media.contract';
 import { metricResSchema } from './metric.contract';
 import { tagResSchema } from './tag.contract';
 
 export const recordMetricSchema = z.array(
   z.object({
-    id: z.string(),
     value: z.number(),
     metric: metricResSchema,
-    tag: tagResSchema.optional(),
+    metric_id: z.string(),
+    metric_title: z.string(),
+    metric_measure: z.string(),
+    metric_upperBoundMsg: z.string(),
+    metric_lowerBoundMsg: z.string(),
+    standard_lowerbound: z.number(),
+    standard_upperbound: z.number(),
+    standard_week: z.number(),
+    whoStandardValue: z.number(),
+    tags: z.array(tagResSchema),
+    status: statusSchema,
   }),
 );
 
@@ -44,6 +55,7 @@ const recordResSchema = z.array(
     hospital: hospitalResSchema,
     user_id: z.string(),
     data: z.array(metricResSchema),
+    media: z.array(mediaResSchema),
   }),
 );
 
