@@ -1,16 +1,17 @@
-import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
-import { UserEntity } from './models/user.entity';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { DatabaseService } from '../database/database.service';
-import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
-import { TokenDto } from '../utils/jwt/jwt.dto';
 import {
   LoginRequest,
   RegisterRequest,
+  Status,
   UserCreateRequest,
   UserRole,
   UserUpdateRequest,
 } from '@pregnancy-journal-monorepo/contract';
+import { DatabaseService } from '../database/database.service';
+import { TokenDto } from '../utils/jwt/jwt.dto';
+import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
+import { UserEntity } from './models/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -116,7 +117,7 @@ export class UsersService {
   async register(data: RegisterRequest) {
     //check if email already exists
     const result = await this.databaseService.User.create({
-      data: new UserEntity({
+      data: {
         name: data.name,
         email: data.email,
         password: data.password,
@@ -126,9 +127,11 @@ export class UsersService {
         ward: data.ward,
         address: data.address,
         role: UserRole.MEMBER,
-        lastOvulationDate: new Date(data.last_ovulation_date),
-        expectedBirthDate: new Date(data.expected_birth_date),
-      }),
+        expected_birth_date: data.expected_birth_date,
+        status: Status.ACTIVE,
+        created_at: new Date(),
+        updated_at: new Date(),
+      },
     });
     // const email_verify_token = await this.signEmailToken({
     //   user_id: result.id,
@@ -252,24 +255,25 @@ export class UsersService {
     return { access_token, refresh_token };
   }
 
-  async create(data: UserCreateRequest) {
-    return this.databaseService.User.create({
+  async create(userCreateRequest: UserCreateRequest) {
+    const user = await this.databaseService.User.create({
       data: {
-        ...data,
-        email: data.email,
-        password: data.password,
-        name: data.name,
-        phone: data.phone,
-        province: data.province,
-        district: data.district,
-        ward: data.ward,
-        address: data.address,
-        role: data.role,
-        status: data.status,
+        name: userCreateRequest.name,
+        email: userCreateRequest.email,
+        password: userCreateRequest.password,
+        phone: userCreateRequest.phone,
+        province: userCreateRequest.province,
+        district: userCreateRequest.district,
+        ward: userCreateRequest.ward,
+        address: userCreateRequest.address,
+        role: userCreateRequest.role,
+        status: userCreateRequest.status,
+        expected_birth_date: new Date(userCreateRequest.expected_birth_date),
         created_at: new Date(),
         updated_at: new Date(),
       },
     });
+    return user;
   }
 
   getUserById(id: string) {
