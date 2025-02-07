@@ -9,9 +9,9 @@ export type Themes = { id: string; name: string }[];
  * object.
  */
 export interface FuseConfig {
-  layout: string;
-  scheme: Scheme;
-  screens: Screens;
-  theme: Theme;
-  themes: Themes;
+    layout: string;
+    scheme: Scheme;
+    screens: Screens;
+    theme: Theme;
+    themes: Themes;
 }

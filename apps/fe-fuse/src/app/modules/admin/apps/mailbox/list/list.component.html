@@ -1,0 +1,205 @@
+<div class="bg-card relative flex w-full flex-auto dark:bg-transparent">
+    <!-- Mails list -->
+    @if (mails && mails.length > 0) {
+        <div
+            class="relative z-10 flex w-full min-w-0 flex-auto flex-col border-r lg:min-w-90 lg:max-w-90"
+        >
+            <!-- Header -->
+            <div
+                class="relative flex h-16 flex-0 items-center justify-between border-b bg-gray-50 px-4 dark:bg-transparent"
+            >
+                <div class="flex items-center">
+                    <!-- Sidebar toggle button -->
+                    <button
+                        mat-icon-button
+                        (click)="mailboxComponent.drawer.toggle()"
+                    >
+                        <mat-icon
+                            [svgIcon]="'heroicons_outline:bars-3'"
+                        ></mat-icon>
+                    </button>
+                    <!-- Category name -->
+                    <div class="ml-2 font-semibold uppercase">
+                        {{ category.name }}
+                    </div>
+                </div>
+
+                <!-- Pagination -->
+                <div class="flex items-center">
+                    <!-- Info -->
+                    <div class="mr-3 flex items-center text-md font-medium">
+                        <span>{{ pagination.startIndex + 1 }}</span>
+                        <span class="text-secondary mx-1">-</span>
+                        <span>{{ pagination.endIndex + 1 }}</span>
+                        <span class="text-secondary mx-1">of</span>
+                        <span>{{ pagination.totalResults }}</span>
+                    </div>
+                    <!-- Previous page button -->
+                    <a
+                        class="h-8 min-h-8 w-8"
+                        mat-icon-button
+                        [disabled]="pagination.currentPage === 1"
+                        [routerLink]="[
+                            '../' +
+                                (pagination.currentPage > 1
+                                    ? pagination.currentPage - 1
+                                    : 1),
+                        ]"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:chevron-left'"
+                        ></mat-icon>
+                    </a>
+                    <!-- Next page button-->
+                    <a
+                        class="h-8 min-h-8 w-8"
+                        mat-icon-button
+                        [disabled]="
+                            pagination.currentPage === pagination.lastPage
+                        "
+                        [routerLink]="[
+                            '../' +
+                                (pagination.currentPage < pagination.lastPage
+                                    ? pagination.currentPage + 1
+                                    : pagination.lastPage),
+                        ]"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:chevron-right'"
+                        ></mat-icon>
+                    </a>
+                </div>
+
+                <!-- Loading bar -->
+                @if (mailsLoading) {
+                    <mat-progress-bar
+                        class="absolute inset-x-0 bottom-0 h-0.5"
+                        [mode]="'indeterminate'"
+                    ></mat-progress-bar>
+                }
+            </div>
+
+            <!-- Mail list -->
+            <div class="overflow-y-auto" #mailList>
+                <!-- Item loop -->
+                @for (mail of mails; track trackByFn(i, mail); let i = $index) {
+                    <!-- Item -->
+                    <a
+                        class="relative flex border-t hover:bg-hover first:border-0"
+                        [routerLink]="[mail.id]"
+                        (click)="onMailSelected(mail)"
+                    >
+                        <!-- Item content -->
+                        <div
+                            class="flex w-full flex-col items-start justify-start border-l-4 border-transparent py-6 pl-5 pr-4"
+                            [ngClass]="{
+                                'border-primary': mail.unread,
+                                'bg-primary-50 dark:bg-black dark:bg-opacity-5':
+                                    selectedMail && selectedMail.id === mail.id,
+                            }"
+                        >
+                            <!-- Info -->
+                            <div class="flex w-full items-center">
+                                <!-- Sender name -->
+                                <div class="mr-2 truncate font-semibold">
+                                    {{ mail.from.contact.split('<')[0].trim() }}
+                                </div>
+                                <!-- Important indicator -->
+                                @if (mail.important) {
+                                    <mat-icon
+                                        class="mr-3 text-red-500 icon-size-4 dark:text-red-600"
+                                        [svgIcon]="
+                                            'heroicons_solid:exclamation-circle'
+                                        "
+                                    ></mat-icon>
+                                }
+                                <!-- Date -->
+                                <div
+                                    class="text-hint ml-auto whitespace-nowrap text-right text-md"
+                                >
+                                    {{ mail.date | date: 'LLL dd' }}
+                                </div>
+                            </div>
+
+                            <!-- Subject -->
+                            <div class="mt-1 flex w-full items-center">
+                                <span class="truncate leading-4">{{
+                                    mail.subject
+                                }}</span>
+                                <!-- Indicators -->
+                                @if (
+                                    (mail.attachments &&
+                                        mail.attachments.length > 0) ||
+                                    mail.starred
+                                ) {
+                                    <div class="ml-auto flex pl-2">
+                                        <!-- Attachments -->
+                                        @if (
+                                            mail.attachments &&
+                                            mail.attachments.length > 0
+                                        ) {
+                                            <mat-icon
+                                                class="flex justify-center icon-size-4"
+                                                [svgIcon]="
+                                                    'heroicons_solid:paper-clip'
+                                                "
+                                            ></mat-icon>
+                                        }
+                                        <!-- Starred -->
+                                        @if (mail.starred) {
+                                            <mat-icon
+                                                class="ml-1 flex justify-center text-orange-500 icon-size-4 dark:text-orange-400"
+                                                [svgIcon]="
+                                                    'heroicons_solid:star'
+                                                "
+                                            ></mat-icon>
+                                        }
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Excerpt -->
+                            <div
+                                class="text-secondary mt-2 line-clamp-2 leading-normal"
+                            >
+                                {{ mail.content }}...
+                            </div>
+                        </div>
+                    </a>
+                }
+            </div>
+        </div>
+    } @else {
+        <div
+            class="z-100 absolute inset-0 flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent"
+        >
+            <mat-icon
+                class="icon-size-24"
+                [svgIcon]="'heroicons_outline:envelope'"
+            ></mat-icon>
+            <div
+                class="text-secondary mt-4 text-2xl font-semibold tracking-tight"
+            >
+                There are no e-mails
+            </div>
+        </div>
+    }
+
+    <!-- No mails template -->
+
+    <!-- Mail details -->
+    @if (mails && mails.length > 0) {
+        <div
+            class="flex-auto"
+            [ngClass]="{
+                'absolute inset-0 z-20 flex lg:static lg:inset-auto':
+                    selectedMail && selectedMail.id,
+                'hidden lg:flex': !selectedMail || !selectedMail.id,
+            }"
+        >
+            <router-outlet></router-outlet>
+        </div>
+    }
+</div>

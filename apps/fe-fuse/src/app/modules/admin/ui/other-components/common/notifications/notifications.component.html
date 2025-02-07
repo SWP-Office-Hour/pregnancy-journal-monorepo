@@ -1,0 +1,204 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >Documentation</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Other Components</a>
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <span class="text-secondary ml-1">Common</span>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Notifications
+                </h2>
+            </div>
+        </div>
+        <button
+            class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0"
+            mat-icon-button
+            (click)="toggleDrawer()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
+        <p>
+            This component can be used to show latest notifications in a custom
+            made panel. These notifications can be either system wide or
+            applications that sent to the currently logged in user from other
+            users.
+        </p>
+        <p>It has some basic features including</p>
+        <ul>
+            <li>marking all notification as read</li>
+            <li>marking individual notifications as read</li>
+            <li>removing individual notifications from the list</li>
+        </ul>
+
+        <h2>Usage</h2>
+        <textarea fuse-highlight lang="html">
+            <notifications></notifications>
+        </textarea>
+
+        <h2>Notification</h2>
+        <textarea fuse-highlight lang="typescript">
+            export interface Notification
+            {
+                id: string;
+                icon?: string;
+                image?: string;
+                title?: string;
+                description?: string;
+                time: string;
+                link?: string;
+                useRouter?: boolean;
+                read: boolean;
+            }
+        </textarea>
+        <div class="bg-card mt-2 rounded px-6 py-3 shadow">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>id</div>
+                        </td>
+                        <td>Unique id of the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>icon</div>
+                        </td>
+                        <td>Icon name for the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>image</div>
+                        </td>
+                        <td>Image for the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>title</div>
+                        </td>
+                        <td>Title of the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>description</div>
+                        </td>
+                        <td>Description of the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>time</div>
+                        </td>
+                        <td>
+                            String representation of the time of the
+                            notification (like ISO string).
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>link</div>
+                        </td>
+                        <td>Link of the notification.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>useRouter</div>
+                        </td>
+                        <td>Whether to use the Router to parse the link.</td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>read</div>
+                        </td>
+                        <td>Whether the notification marked as read.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Notifications Service</h2>
+        <p>
+            The <code>NotificationsService</code> can be used to control the
+            notifications outside of the
+            <strong>Notifications</strong> component. This is particularly
+            useful to control the notifications from other components for
+            actions like creating, updating or deleting them.
+        </p>
+
+        <h3>Methods</h3>
+        <p>
+            Here's the list of all available methods from
+            <code>NotificationsService</code>:
+        </p>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                notifications$: Observable&lt;Notification[]&gt;
+            </div>
+            <div class="p-6">Getter for notifications.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                getAll(): Observable&lt;Notification[]&gt;
+            </div>
+            <div class="p-6">Get all notifications from the server.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                create(notification: Notification):
+                Observable&lt;Notification&gt;
+            </div>
+            <div class="p-6">Create a new notification on the server.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                update(id: string, notification: Notification):
+                Observable&lt;Notification&gt;
+            </div>
+            <div class="p-6">Update the notification on the server.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                delete(id: string): Observable&lt;boolean&gt;
+            </div>
+            <div class="p-6">Delete the notification on the server.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                markAllAsRead(): Observable&lt;boolean&gt;
+            </div>
+            <div class="p-6">Mark all notifications as read.</div>
+        </div>
+    </div>
+</div>

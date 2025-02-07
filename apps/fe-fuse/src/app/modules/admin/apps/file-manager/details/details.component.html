@@ -1,0 +1,102 @@
+<div class="flex flex-auto flex-col p-6 md:p-8">
+    <!-- Close button -->
+    <div class="flex items-center justify-end">
+        <a mat-icon-button [routerLink]="['../../']">
+            <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </a>
+    </div>
+
+    <!-- Preview -->
+    <div class="mt-8 aspect-[9/6]">
+        <div
+            class="flex h-full items-center justify-center rounded-lg border bg-gray-50 dark:bg-card"
+        >
+            @if (item.type === 'folder') {
+                <mat-icon
+                    class="text-hint icon-size-24"
+                    [svgIcon]="'heroicons_outline:folder'"
+                ></mat-icon>
+            }
+            @if (item.type !== 'folder') {
+                <mat-icon
+                    class="text-hint icon-size-24"
+                    [svgIcon]="'heroicons_outline:document'"
+                ></mat-icon>
+            }
+        </div>
+    </div>
+
+    <!-- Name & Type -->
+    <div class="mt-8 flex flex-col items-start">
+        <div class="text-xl font-medium">{{ item.name }}</div>
+        <div
+            class="mt-1 rounded px-1.5 text-sm font-semibold leading-5 text-white"
+            [class.bg-indigo-600]="item.type === 'folder'"
+            [class.bg-red-600]="item.type === 'PDF'"
+            [class.bg-blue-600]="item.type === 'DOC'"
+            [class.bg-green-600]="item.type === 'XLS'"
+            [class.bg-gray-600]="item.type === 'TXT'"
+            [class.bg-amber-600]="item.type === 'JPG'"
+        >
+            {{ item.type.toUpperCase() }}
+        </div>
+    </div>
+
+    <!-- Information -->
+    <div class="mt-8 text-lg font-medium">Information</div>
+    <div class="mt-4 flex flex-col divide-y border-b border-t font-medium">
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary">Created By</div>
+            <div>{{ item.createdBy }}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary">Created At</div>
+            <div>{{ item.createdAt }}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary">Modified At</div>
+            <div>{{ item.modifiedAt }}</div>
+        </div>
+        <div class="flex items-center justify-between py-3">
+            <div class="text-secondary">Size</div>
+            <div>{{ item.size }}</div>
+        </div>
+        @if (item.contents) {
+            <div class="flex items-center justify-between py-3">
+                <div class="text-secondary">Contents</div>
+                <div>{{ item.contents }}</div>
+            </div>
+        }
+    </div>
+
+    <!-- Description -->
+    <div class="mt-8 flex items-center justify-between">
+        <div class="text-lg font-medium">Description</div>
+        <button mat-icon-button>
+            <mat-icon
+                class="icon-size-5"
+                [svgIcon]="'heroicons_solid:pencil'"
+            ></mat-icon>
+        </button>
+    </div>
+    <div class="mt-2 flex border-t">
+        <div class="py-3">
+            @if (item.description) {
+                <div>{{ item.description }}</div>
+            }
+            @if (!item.description) {
+                <div class="text-secondary italic">
+                    Click here to add a description
+                </div>
+            }
+        </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="mt-8 grid w-full grid-cols-2 gap-4">
+        <button class="flex-auto" mat-flat-button [color]="'primary'">
+            Download
+        </button>
+        <button class="flex-auto" mat-stroked-button>Delete</button>
+    </div>
+</div>

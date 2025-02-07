@@ -5,78 +5,87 @@ import { cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class FileManagerMockApi {
-  private _items: any[] = itemsData;
+    private _items: any[] = itemsData;
 
-  /**
-   * Constructor
-   */
-  constructor(private _fuseMockApiService: FuseMockApiService) {
-    // Register Mock API handlers
-    this.registerHandlers();
-  }
+    /**
+     * Constructor
+     */
+    constructor(private _fuseMockApiService: FuseMockApiService) {
+        // Register Mock API handlers
+        this.registerHandlers();
+    }
 
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Register Mock API handlers
-   */
-  registerHandlers(): void {
     // -----------------------------------------------------------------------------------------------------
-    // @ Items - GET
+    // @ Public methods
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onGet('api/apps/file-manager').reply(({ request }) => {
-      // Clone the items
-      let items = cloneDeep(this._items);
 
-      // See if the folder id exist
-      const folderId = request.params.get('folderId') === 'null' ? null : request.params.get('folderId');
+    /**
+     * Register Mock API handlers
+     */
+    registerHandlers(): void {
+        // -----------------------------------------------------------------------------------------------------
+        // @ Items - GET
+        // -----------------------------------------------------------------------------------------------------
+        this._fuseMockApiService
+            .onGet('api/apps/file-manager')
+            .reply(({ request }) => {
+                // Clone the items
+                let items = cloneDeep(this._items);
 
-      // Filter the items by folder id. If folder id is null,
-      // that means we want to root items which have folder id
-      // of null
-      items = items.filter((item) => item.folderId === folderId);
+                // See if the folder id exist
+                const folderId =
+                    request.params.get('folderId') === 'null'
+                        ? null
+                        : request.params.get('folderId');
 
-      // Separate the items by folders and files
-      const folders = items.filter((item) => item.type === 'folder');
-      const files = items.filter((item) => item.type !== 'folder');
+                // Filter the items by folder id. If folder id is null,
+                // that means we want to root items which have folder id
+                // of null
+                items = items.filter((item) => item.folderId === folderId);
 
-      // Sort the folders and files alphabetically by filename
-      folders.sort((a, b) => a.name.localeCompare(b.name));
-      files.sort((a, b) => a.name.localeCompare(b.name));
+                // Separate the items by folders and files
+                const folders = items.filter((item) => item.type === 'folder');
+                const files = items.filter((item) => item.type !== 'folder');
 
-      // Figure out the path and attach it to the response
-      // Prepare the empty paths array
-      const pathItems = cloneDeep(this._items);
-      const path = [];
+                // Sort the folders and files alphabetically by filename
+                folders.sort((a, b) => a.name.localeCompare(b.name));
+                files.sort((a, b) => a.name.localeCompare(b.name));
 
-      // Prepare the current folder
-      let currentFolder = null;
+                // Figure out the path and attach it to the response
+                // Prepare the empty paths array
+                const pathItems = cloneDeep(this._items);
+                const path = [];
 
-      // Get the current folder and add it as the first entry
-      if (folderId) {
-        currentFolder = pathItems.find((item) => item.id === folderId);
-        path.push(currentFolder);
-      }
+                // Prepare the current folder
+                let currentFolder = null;
 
-      // Start traversing and storing the folders as a path array
-      // until we hit null on the folder id
-      while (currentFolder?.folderId) {
-        currentFolder = pathItems.find((item) => item.id === currentFolder.folderId);
-        if (currentFolder) {
-          path.unshift(currentFolder);
-        }
-      }
+                // Get the current folder and add it as the first entry
+                if (folderId) {
+                    currentFolder = pathItems.find(
+                        (item) => item.id === folderId
+                    );
+                    path.push(currentFolder);
+                }
 
-      return [
-        200,
-        {
-          folders,
-          files,
-          path,
-        },
-      ];
-    });
-  }
+                // Start traversing and storing the folders as a path array
+                // until we hit null on the folder id
+                while (currentFolder?.folderId) {
+                    currentFolder = pathItems.find(
+                        (item) => item.id === currentFolder.folderId
+                    );
+                    if (currentFolder) {
+                        path.unshift(currentFolder);
+                    }
+                }
+
+                return [
+                    200,
+                    {
+                        folders,
+                        files,
+                        path,
+                    },
+                ];
+            });
+    }
 }

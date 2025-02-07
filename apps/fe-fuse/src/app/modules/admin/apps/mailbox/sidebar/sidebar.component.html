@@ -1,0 +1,27 @@
+<div class="flex w-full flex-auto flex-col">
+    <!-- Title -->
+    <div
+        class="mx-6 mb-8 mt-10 text-4xl font-extrabold leading-none tracking-tight"
+    >
+        Mailbox
+    </div>
+
+    <!-- Compose button -->
+    <button
+        class="mx-6"
+        mat-flat-button
+        [color]="'primary'"
+        (click)="openComposeDialog()"
+    >
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2">Compose</span>
+    </button>
+
+    <!-- Navigation -->
+    <fuse-vertical-navigation
+        [navigation]="menuData"
+        [inner]="true"
+        [mode]="'side'"
+        [opened]="true"
+    ></fuse-vertical-navigation>
+</div>

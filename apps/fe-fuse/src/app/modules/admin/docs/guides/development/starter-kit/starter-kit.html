@@ -1,0 +1,62 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >Documentation</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Guides</a>
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <span class="text-secondary ml-1">Development</span>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Starter Kit
+                </h2>
+            </div>
+        </div>
+        <button
+            class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0"
+            mat-icon-button
+            (click)="toggleDrawer()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
+        <p>
+            Starter kit is the bare minimum version of the Fuse. All the Demo
+            applications and pages are stripped from it and includes only the
+            essential components and modules for you to start building your app.
+        </p>
+        <p>
+            It's <strong>strongly recommended</strong> that you build your app
+            on top of the <strong>Starter kit</strong> rather then the
+            <em>Demo</em>. Demo includes lots of sample content and some of them
+            would never be used together (like multiple Pricing page designs,
+            multiple Auth page designs etc.) which can slow down your app a lot
+            more than usual.
+        </p>
+    </div>
+</div>

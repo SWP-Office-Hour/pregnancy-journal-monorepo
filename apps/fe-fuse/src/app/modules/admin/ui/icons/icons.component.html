@@ -1,0 +1,101 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >User Interface</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Icons</a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    @if (icons$ | async; as icons) {
+                        <h1>{{ icons.name }}</h1>
+                    }
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="prose prose-sm max-w-5xl">
+            <h2>Usage</h2>
+            @if (filteredIcons$ | async; as icons) {
+                <textarea
+                    fuse-highlight
+                    lang="html"
+                    [code]="
+                        '<mat-icon svgIcon=&#34;' +
+                        calcSvgIconAttr() +
+                        '&#34;></mat-icon>'
+                    "
+                ></textarea>
+            }
+
+            <h2>Icons</h2>
+            <div class="xs:flex-col my-6 flex">
+                <mat-form-field class="flex-auto">
+                    <mat-label>Search an icon</mat-label>
+                    <input
+                        matInput
+                        [attr.autocomplete]="'off'"
+                        (input)="filterIcons($event)"
+                    />
+                </mat-form-field>
+                <mat-form-field class="xs:ml-0 ml-8 min-w-40">
+                    <mat-label>Icon size</mat-label>
+                    <mat-select [(ngModel)]="iconSize">
+                        <mat-option [value]="'icon-size-4'">16</mat-option>
+                        <mat-option [value]="'icon-size-5'">20</mat-option>
+                        <mat-option [value]="'icon-size-6'">24</mat-option>
+                        <mat-option [value]="'icon-size-8'">32</mat-option>
+                        <mat-option [value]="'icon-size-10'">40</mat-option>
+                        <mat-option [value]="'icon-size-12'">48</mat-option>
+                        <mat-option [value]="'icon-size-16'">64</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="-mx-4 flex flex-wrap">
+                @if (filteredIcons$ | async; as icons) {
+                    @for (icon of icons.list; track icon) {
+                        <div
+                            class="bg-card m-4 flex max-h-30 min-h-30 min-w-36 max-w-36 cursor-pointer flex-col items-center justify-center rounded border-2 p-4"
+                            [class.border-primary]="selectedIcon[1] === icon"
+                            (click)="selectIcon(icons.namespace, icon)"
+                        >
+                            <div class="mb-3 flex items-center justify-center">
+                                <mat-icon
+                                    [ngClass]="iconSize"
+                                    [svgIcon]="icons.namespace + ':' + icon"
+                                ></mat-icon>
+                            </div>
+
+                            <div
+                                class="text-secondary break-all text-center text-sm"
+                            >
+                                {{ icon }}
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,153 @@
+<div class="flex min-w-0 flex-auto flex-col items-center sm:justify-center">
+    <div
+        class="w-full px-4 py-8 sm:bg-card sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow"
+    >
+        <div class="mx-auto w-full max-w-80 sm:mx-0 sm:w-80">
+            <!-- Logo -->
+            <div class="w-12">
+                <img src="images/logo/logo.svg" />
+            </div>
+
+            <!-- Title -->
+            <div
+                class="mt-8 text-4xl font-extrabold leading-tight tracking-tight"
+            >
+                Sign up
+            </div>
+            <div class="mt-0.5 flex items-baseline font-medium">
+                <div>Already have an account?</div>
+                <a
+                    class="ml-1 text-primary-500 hover:underline"
+                    [routerLink]="['/pages/authentication/sign-in']"
+                    >Sign in
+                </a>
+            </div>
+
+            <!-- Alert -->
+            @if (showAlert) {
+                <fuse-alert
+                    class="mt-8"
+                    [appearance]="'outline'"
+                    [showIcon]="false"
+                    [type]="alert.type"
+                    [@shake]="alert.type === 'error'"
+                >
+                    {{ alert.message }}
+                </fuse-alert>
+            }
+
+            <!-- Sign Up form -->
+            <form class="mt-8" [formGroup]="signUpForm">
+                <!-- Name field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Full name</mat-label>
+                    <input id="name" matInput [formControlName]="'name'" />
+                    @if (signUpForm.get('name').hasError('required')) {
+                        <mat-error> Full name is required </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Email field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Email address</mat-label>
+                    <input id="email" matInput [formControlName]="'email'" />
+                    @if (signUpForm.get('email').hasError('required')) {
+                        <mat-error> Email address is required </mat-error>
+                    }
+                    @if (signUpForm.get('email').hasError('email')) {
+                        <mat-error>
+                            Please enter a valid email address
+                        </mat-error>
+                    }
+                </mat-form-field>
+
+                <!-- Password field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Password</mat-label>
+                    <input
+                        id="password"
+                        matInput
+                        type="password"
+                        [formControlName]="'password'"
+                        #passwordField
+                    />
+                    <button
+                        mat-icon-button
+                        type="button"
+                        (click)="
+                            passwordField.type === 'password'
+                                ? (passwordField.type = 'text')
+                                : (passwordField.type = 'password')
+                        "
+                        matSuffix
+                    >
+                        @if (passwordField.type === 'password') {
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:eye'"
+                            ></mat-icon>
+                        }
+                        @if (passwordField.type === 'text') {
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:eye-slash'"
+                            ></mat-icon>
+                        }
+                    </button>
+                    <mat-error> Password is required </mat-error>
+                </mat-form-field>
+
+                <!-- Company field -->
+                <mat-form-field class="w-full">
+                    <mat-label>Company</mat-label>
+                    <input
+                        id="company-confirm"
+                        matInput
+                        [formControlName]="'company'"
+                    />
+                </mat-form-field>
+
+                <!-- ToS and PP -->
+                <div class="mt-1.5 inline-flex w-full items-end">
+                    <mat-checkbox
+                        class="-ml-2"
+                        [color]="'primary'"
+                        [formControlName]="'agreements'"
+                    >
+                        <span>I agree with</span>
+                        <a
+                            class="ml-1 text-primary-500 hover:underline"
+                            [routerLink]="['./']"
+                            >Terms
+                        </a>
+                        <span>and</span>
+                        <a
+                            class="ml-1 text-primary-500 hover:underline"
+                            [routerLink]="['./']"
+                            >Privacy Policy
+                        </a>
+                    </mat-checkbox>
+                </div>
+
+                <!-- Submit button -->
+                <button
+                    class="fuse-mat-button-large mt-6 w-full"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="signUpForm.disabled"
+                    (click)="signUp()"
+                >
+                    @if (!signUpForm.disabled) {
+                        <span> Create your free account </span>
+                    }
+                    @if (signUpForm.disabled) {
+                        <mat-progress-spinner
+                            [diameter]="24"
+                            [mode]="'indeterminate'"
+                        ></mat-progress-spinner>
+                    }
+                </button>
+            </form>
+        </div>
+    </div>
+</div>

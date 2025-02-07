@@ -1,0 +1,84 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >Documentation</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Guides</a>
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <span class="text-secondary ml-1">Development</span>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Updating
+                </h2>
+            </div>
+        </div>
+        <button
+            class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0"
+            mat-icon-button
+            (click)="toggleDrawer()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
+        <p>
+            Since Fuse is built as a <em>Starter kit</em> and an
+            <em>Admin template</em>, there is no easy or a set way of updating
+            it like a normal library. Though it's completely up to you to keep
+            the Fuse updated, there are two key points that might help you with
+            the task:
+        </p>
+        <ul>
+            <li>
+                <p>
+                    Do <strong>NOT</strong> touch the
+                    <strong>&#64;fuse</strong> folder unless you absolutely have
+                    to. Keeping that folder intact is the key to have easier
+                    upgrades.
+                </p>
+            </li>
+            <li>
+                <p>
+                    Fork the original Fuse repo from its Github and build on top
+                    of that. That way, you can merge the changes from the origin
+                    repo as updates released.
+                </p>
+            </li>
+        </ul>
+        <p>
+            If you follow these two rules, it will make the updating process a
+            little bit more easier.
+        </p>
+        <p>
+            The best way of updating Fuse is to compare the latest version with
+            your version using Github's compare feature. After that, you can
+            either manually patch your setup or merge (and resolve conflicts)
+            through Github. Every release is tagged and available under the
+            <strong>Releases</strong> tab of Fuse's Github repo.
+        </p>
+    </div>
+</div>

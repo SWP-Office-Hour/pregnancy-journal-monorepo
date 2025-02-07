@@ -1,0 +1,229 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >Documentation</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Fuse Components</a>
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <span class="text-secondary ml-1">Directives</span>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Scrollbar
+                </h2>
+            </div>
+        </div>
+        <button
+            class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0"
+            mat-icon-button
+            (click)="toggleDrawer()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
+        <p>
+            <strong>fuseScrollbar</strong> is a wrapper directive for
+            <a
+                href="https://github.com/mdbootstrap/perfect-scrollbar"
+                rel="noreferrer"
+                target="_blank"
+                >Perfect Scrollbar
+            </a>
+            plugin.
+        </p>
+        <p><strong>Exported as: </strong><code>fuseScrollbar</code></p>
+
+        <h2>Module</h2>
+        <textarea fuse-highlight lang="typescript">
+            import { FuseScrollbarModule } from '@fuse/directives/scrollbar';
+        </textarea>
+
+        <h2>Usage</h2>
+        <p>Here's the basic usage of the <code>fuseScrollbar</code>:</p>
+        <textarea fuse-highlight lang="html">
+            <div fuseScrollbar
+                 [fuseScrollbarOptions]="{wheelPropagation: false, suppressScrollX: true}">
+                A very long content to add scrollbars.
+            </div>
+        </textarea>
+
+        <h2>Properties</h2>
+        <div class="bg-card rounded px-6 py-3 shadow">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>&#64;Input()</div>
+                            <div>fuseScrollbar: boolean</div>
+                        </td>
+                        <td>
+                            Whether to enable or disable the custom scrollbars.
+                        </td>
+                        <td>
+                            <code class="whitespace-nowrap">''</code>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-secondary font-mono text-md">
+                            <div>&#64;Input()</div>
+                            <div>fuseScrollbarOptions: any</div>
+                        </td>
+                        <td>Perfect Scrollbar options</td>
+                        <td>
+                            <code class="whitespace-nowrap">{{ '{}' }}</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h2>Methods</h2>
+        <p>
+            It's possible to access the methods of this directive using a
+            <em>&#64;ViewChild</em> or <em>&#64;ViewChildren</em>:
+        </p>
+        <textarea fuse-highlight lang="html">
+            <!-- Content #1 with custom scrollbar -->
+            <div fuseScrollbar>
+                A very long content to add scrollbars.
+            </div>
+
+            <!-- Content #2 with custom scrollbar -->
+            <div fuseScrollbar>
+                Another long content to add scrollbars.
+            </div>
+        </textarea>
+
+        <textarea fuse-highlight lang="typescript">
+            import { FuseScrollbarDirective } from '@fuse/directives/scrollbar/scrollbar.directive';
+
+            @ViewChildren(FuseScrollbarDirective)
+            private _fuseScrollbarDirectives: QueryList<FuseScrollbarDirective>
+
+            ngAfterViewInit(): void
+            {
+                // Iterate through the directives and update all of them
+                fuseScrollbarDirectives.forEach((fuseScrollbarDirective) => {
+                    fuseScrollbarDirective.update();
+                });
+            }
+        </textarea>
+
+        <p>Here's the list of all available methods:</p>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                update(): void
+            </div>
+            <div class="p-6">Updates the scrollbar.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                destroy(): void
+            </div>
+            <div class="p-6">Destroy the custom scrollbar instance.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                geometry(prefix: string = 'scroll'): ScrollbarGeometry
+            </div>
+            <div class="p-6">
+                Returns the geometry of the scrollable element (scrollLeft,
+                scrollTop, scrollHeight, scrollWidth etc.)
+            </div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                position(absolute: boolean = false): ScrollbarPosition
+            </div>
+            <div class="p-6">
+                Returns the position of the scrollable element (scrollLeft,
+                scrollTop)
+            </div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollTo(x: number, y?: number, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to given position.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToX(x: number, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to given position on X axis.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToY(y: number, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to given position on Y axis.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToTop(offset: number = 0, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to top.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToBottom(offset: number = 0, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to bottom.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToLeft(offset: number = 0, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to left.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToRight(offset: number = 0, speed?: number): void
+            </div>
+            <div class="p-6">Scrolls to right.</div>
+        </div>
+        <div class="bg-card mt-4 rounded shadow">
+            <div class="text-secondary border-b px-6 py-3 font-mono">
+                scrollToElement(qs: string, offset: number = 0, ignoreVisible:
+                boolean = false, speed?: number): void
+            </div>
+            <div class="p-6">
+                Scrolls to found element based on the given
+                <strong>QuerySelector</strong>. If <code>ignoreVisible</code> is
+                <strong>true</strong> then scroll won't be triggered if the
+                element is already inside the current viewport.
+            </div>
+        </div>
+    </div>
+</div>

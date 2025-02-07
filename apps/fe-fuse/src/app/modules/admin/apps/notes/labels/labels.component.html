@@ -1,0 +1,56 @@
+<div class="flex w-80 min-w-80 flex-auto flex-col p-2 md:p-4">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+        <div class="text-2xl font-semibold">Edit labels</div>
+        <button matDialogClose mat-icon-button>
+            <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+    </div>
+    <!-- New label -->
+    <mat-form-field class="fuse-mat-dense mt-8 w-full">
+        <input
+            name="new-label"
+            [autocomplete]="'off'"
+            [placeholder]="'Create new label'"
+            matInput
+            #newLabelInput
+        />
+        <button
+            [class.invisible]="newLabelInput.value.trim() === ''"
+            mat-icon-button
+            (click)="addLabel(newLabelInput.value); newLabelInput.value = ''"
+            matSuffix
+        >
+            <mat-icon
+                class="icon-size-5"
+                [svgIcon]="'heroicons_solid:check-circle'"
+            ></mat-icon>
+        </button>
+    </mat-form-field>
+    <!-- Labels -->
+    <div class="mt-4 flex flex-col">
+        @if (labels$ | async; as labels) {
+            @for (label of labels; track trackByFn($index, label)) {
+                <mat-form-field class="fuse-mat-dense w-full">
+                    <button
+                        mat-icon-button
+                        matPrefix
+                        (click)="deleteLabel(label.id)"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:trash'"
+                        ></mat-icon>
+                    </button>
+                    <input
+                        [autocomplete]="'off'"
+                        [(ngModel)]="label.title"
+                        (input)="updateLabel(label)"
+                        required
+                        matInput
+                    />
+                </mat-form-field>
+            }
+        }
+    </div>
+</div>

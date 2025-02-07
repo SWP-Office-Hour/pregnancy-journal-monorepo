@@ -1,0 +1,48 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Main -->
+    <div class="flex flex-col items-center p-6 sm:p-10">
+        <div class="flex w-full max-w-4xl flex-col">
+            <div class="-ml-4 sm:mt-8">
+                <a mat-button [routerLink]="['../']" [color]="'primary'">
+                    <mat-icon
+                        [svgIcon]="'heroicons_outline:arrow-long-left'"
+                    ></mat-icon>
+                    <span class="ml-2">Back to Help Center</span>
+                </a>
+            </div>
+            <div
+                class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl"
+            >
+                Frequently Asked Questions
+            </div>
+            @for (
+                faqCategory of faqCategories;
+                track trackByFn($index, faqCategory)
+            ) {
+                <div
+                    class="mt-12 text-3xl font-bold leading-tight tracking-tight sm:mt-16"
+                >
+                    {{ faqCategory.title }}
+                </div>
+                <mat-accordion class="mt-8 max-w-4xl">
+                    @for (
+                        faq of faqCategory.faqs;
+                        track trackByFn($index, faq)
+                    ) {
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header
+                                [collapsedHeight]="'56px'"
+                            >
+                                <mat-panel-title
+                                    class="font-medium leading-tight"
+                                    >{{ faq.question }}</mat-panel-title
+                                >
+                            </mat-expansion-panel-header>
+                            {{ faq.answer }}
+                        </mat-expansion-panel>
+                    }
+                </mat-accordion>
+            }
+        </div>
+    </div>
+</div>

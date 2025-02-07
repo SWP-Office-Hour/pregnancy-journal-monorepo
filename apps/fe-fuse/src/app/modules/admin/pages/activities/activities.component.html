@@ -1,0 +1,171 @@
+<div class="relative flex min-w-0 flex-auto flex-col overflow-hidden">
+    <!-- Main -->
+    <div class="flex flex-auto flex-col px-6 py-10 sm:px-16 sm:pb-20 sm:pt-18">
+        <!-- Activity feed -->
+        <div class="w-full max-w-3xl">
+            <!-- Title -->
+            <div class="text-4xl font-extrabold leading-none tracking-tight">
+                All Activities
+            </div>
+            <div class="text-secondary mt-1.5 text-lg">
+                Application wide activities are listed here as individual items,
+                starting with the most recent.
+            </div>
+
+            @if (activities$ | async; as activities) {
+                @if (activities.length) {
+                    <div class="mt-8">
+                        <ol>
+                            <!-- Activities -->
+                            @for (
+                                activity of activities;
+                                track trackByFn(i, activity);
+                                let i = $index;
+                                let first = $first;
+                                let last = $last
+                            ) {
+                                <!-- Date separator -->
+                                @if (
+                                    first ||
+                                    !isSameDay(
+                                        activity.date,
+                                        activities[i - 1].date
+                                    )
+                                ) {
+                                    <li class="relative flex py-7">
+                                        <div
+                                            class="relative rounded-full bg-primary px-8 py-2 text-md font-medium leading-5 text-on-primary"
+                                        >
+                                            {{
+                                                getRelativeFormat(activity.date)
+                                                    | titlecase
+                                            }}
+                                        </div>
+                                    </li>
+                                }
+
+                                <!-- Activity -->
+                                <li class="relative flex py-7">
+                                    <!-- Line -->
+                                    @if (
+                                        !last &&
+                                        isSameDay(
+                                            activity.date,
+                                            activities[i + 1].date
+                                        )
+                                    ) {
+                                        <div
+                                            class="absolute left-5 top-7 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-600"
+                                        ></div>
+                                    }
+
+                                    <div class="relative flex flex-auto">
+                                        <!-- Icon -->
+                                        @if (activity.icon && !activity.image) {
+                                            <div
+                                                class="mr-4 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-400"
+                                            >
+                                                <mat-icon
+                                                    class="text-white icon-size-5"
+                                                    [svgIcon]="activity.icon"
+                                                >
+                                                </mat-icon>
+                                            </div>
+                                        }
+
+                                        <!-- Image -->
+                                        @if (activity.image) {
+                                            <img
+                                                class="mr-4 h-10 w-10 shrink-0 overflow-hidden rounded-full object-cover object-center"
+                                                [src]="activity.image"
+                                                [alt]="'Activity image'"
+                                            />
+                                        }
+
+                                        <!-- Content -->
+                                        <div
+                                            class="flex flex-auto flex-col items-start"
+                                        >
+                                            <!-- Description -->
+                                            @if (activity.description) {
+                                                <div
+                                                    [innerHTML]="
+                                                        activity.description
+                                                    "
+                                                ></div>
+                                            }
+                                            <div
+                                                class="mt-2 flex flex-col text-md leading-5 sm:mt-1 sm:flex-row sm:items-center sm:space-x-2"
+                                            >
+                                                <!-- Date -->
+                                                <div class="text-secondary">
+                                                    {{
+                                                        activity.date
+                                                            | date
+                                                                : 'MMM dd, h:mm a'
+                                                    }}
+                                                </div>
+                                                <!-- Linked content -->
+                                                @if (activity.linkedContent) {
+                                                    <div
+                                                        class="hidden sm:block"
+                                                    >
+                                                        &bull;
+                                                    </div>
+                                                    <!-- Internal link -->
+                                                    @if (activity.useRouter) {
+                                                        <a
+                                                            class="cursor-pointer text-primary"
+                                                            [routerLink]="
+                                                                activity.link
+                                                            "
+                                                        >
+                                                            {{
+                                                                activity.linkedContent
+                                                            }}
+                                                        </a>
+                                                    }
+                                                    <!-- External link -->
+                                                    @if (!activity.useRouter) {
+                                                        <a
+                                                            class="cursor-pointer text-primary"
+                                                            [href]="
+                                                                activity.link
+                                                            "
+                                                            target="_blank"
+                                                        >
+                                                            {{
+                                                                activity.linkedContent
+                                                            }}
+                                                        </a>
+                                                    }
+                                                }
+                                            </div>
+                                            <!-- Extra content -->
+                                            @if (activity.extraContent) {
+                                                <div
+                                                    class="mt-4 rounded-lg bg-gray-200 px-5 py-4 dark:bg-gray-800"
+                                                    [innerHTML]="
+                                                        activity.extraContent
+                                                    "
+                                                ></div>
+                                            }
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        </ol>
+                    </div>
+                } @else {
+                    There are is activity at the moment...
+                }
+            } @else {
+                Loading...
+            }
+
+            <!-- Loading template -->
+
+            <!-- No Activity template -->
+        </div>
+    </div>
+</div>

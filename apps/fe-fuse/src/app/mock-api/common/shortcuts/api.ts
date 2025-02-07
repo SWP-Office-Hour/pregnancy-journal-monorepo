@@ -5,93 +5,109 @@ import { assign, cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class ShortcutsMockApi {
-  private _shortcuts: any = shortcutsData;
+    private _shortcuts: any = shortcutsData;
 
-  /**
-   * Constructor
-   */
-  constructor(private _fuseMockApiService: FuseMockApiService) {
-    // Register Mock API handlers
-    this.registerHandlers();
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Register Mock API handlers
-   */
-  registerHandlers(): void {
-    // -----------------------------------------------------------------------------------------------------
-    // @ Shortcuts - GET
-    // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onGet('api/common/shortcuts').reply(() => [200, cloneDeep(this._shortcuts)]);
+    /**
+     * Constructor
+     */
+    constructor(private _fuseMockApiService: FuseMockApiService) {
+        // Register Mock API handlers
+        this.registerHandlers();
+    }
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Shortcuts - POST
+    // @ Public methods
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onPost('api/common/shortcuts').reply(({ request }) => {
-      // Get the shortcut
-      const newShortcut = cloneDeep(request.body.shortcut);
 
-      // Generate a new GUID
-      newShortcut.id = FuseMockApiUtils.guid();
+    /**
+     * Register Mock API handlers
+     */
+    registerHandlers(): void {
+        // -----------------------------------------------------------------------------------------------------
+        // @ Shortcuts - GET
+        // -----------------------------------------------------------------------------------------------------
+        this._fuseMockApiService
+            .onGet('api/common/shortcuts')
+            .reply(() => [200, cloneDeep(this._shortcuts)]);
 
-      // Unshift the new shortcut
-      this._shortcuts.unshift(newShortcut);
+        // -----------------------------------------------------------------------------------------------------
+        // @ Shortcuts - POST
+        // -----------------------------------------------------------------------------------------------------
+        this._fuseMockApiService
+            .onPost('api/common/shortcuts')
+            .reply(({ request }) => {
+                // Get the shortcut
+                const newShortcut = cloneDeep(request.body.shortcut);
 
-      // Return the response
-      return [200, newShortcut];
-    });
+                // Generate a new GUID
+                newShortcut.id = FuseMockApiUtils.guid();
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Shortcuts - PATCH
-    // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onPatch('api/common/shortcuts').reply(({ request }) => {
-      // Get the id and shortcut
-      const id = request.body.id;
-      const shortcut = cloneDeep(request.body.shortcut);
+                // Unshift the new shortcut
+                this._shortcuts.unshift(newShortcut);
 
-      // Prepare the updated shortcut
-      let updatedShortcut = null;
+                // Return the response
+                return [200, newShortcut];
+            });
 
-      // Find the shortcut and update it
-      this._shortcuts.forEach((item: any, index: number, shortcuts: any[]) => {
-        if (item.id === id) {
-          // Update the shortcut
-          shortcuts[index] = assign({}, shortcuts[index], shortcut);
+        // -----------------------------------------------------------------------------------------------------
+        // @ Shortcuts - PATCH
+        // -----------------------------------------------------------------------------------------------------
+        this._fuseMockApiService
+            .onPatch('api/common/shortcuts')
+            .reply(({ request }) => {
+                // Get the id and shortcut
+                const id = request.body.id;
+                const shortcut = cloneDeep(request.body.shortcut);
 
-          // Store the updated shortcut
-          updatedShortcut = shortcuts[index];
-        }
-      });
+                // Prepare the updated shortcut
+                let updatedShortcut = null;
 
-      // Return the response
-      return [200, updatedShortcut];
-    });
+                // Find the shortcut and update it
+                this._shortcuts.forEach(
+                    (item: any, index: number, shortcuts: any[]) => {
+                        if (item.id === id) {
+                            // Update the shortcut
+                            shortcuts[index] = assign(
+                                {},
+                                shortcuts[index],
+                                shortcut
+                            );
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Shortcuts - DELETE
-    // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onDelete('api/common/shortcuts').reply(({ request }) => {
-      // Get the id
-      const id = request.params.get('id');
+                            // Store the updated shortcut
+                            updatedShortcut = shortcuts[index];
+                        }
+                    }
+                );
 
-      // Prepare the deleted shortcut
-      let deletedShortcut = null;
+                // Return the response
+                return [200, updatedShortcut];
+            });
 
-      // Find the shortcut
-      const index = this._shortcuts.findIndex((item: any) => item.id === id);
+        // -----------------------------------------------------------------------------------------------------
+        // @ Shortcuts - DELETE
+        // -----------------------------------------------------------------------------------------------------
+        this._fuseMockApiService
+            .onDelete('api/common/shortcuts')
+            .reply(({ request }) => {
+                // Get the id
+                const id = request.params.get('id');
 
-      // Store the deleted shortcut
-      deletedShortcut = cloneDeep(this._shortcuts[index]);
+                // Prepare the deleted shortcut
+                let deletedShortcut = null;
 
-      // Delete the shortcut
-      this._shortcuts.splice(index, 1);
+                // Find the shortcut
+                const index = this._shortcuts.findIndex(
+                    (item: any) => item.id === id
+                );
 
-      // Return the response
-      return [200, deletedShortcut];
-    });
-  }
+                // Store the deleted shortcut
+                deletedShortcut = cloneDeep(this._shortcuts[index]);
+
+                // Delete the shortcut
+                this._shortcuts.splice(index, 1);
+
+                // Return the response
+                return [200, deletedShortcut];
+            });
+    }
 }

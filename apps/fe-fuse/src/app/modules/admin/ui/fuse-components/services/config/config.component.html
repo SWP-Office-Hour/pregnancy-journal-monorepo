@@ -1,0 +1,159 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >Documentation</a
+                    >
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <a class="ml-1 text-primary-500">Fuse Components</a>
+                </div>
+                <div class="ml-1 flex items-center whitespace-nowrap">
+                    <mat-icon
+                        class="text-secondary icon-size-5"
+                        [svgIcon]="'heroicons_mini:chevron-right'"
+                    ></mat-icon>
+                    <span class="text-secondary ml-1">Services</span>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Config
+                </h2>
+            </div>
+        </div>
+        <button
+            class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0"
+            mat-icon-button
+            (click)="toggleDrawer()"
+        >
+            <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+        </button>
+    </div>
+
+    <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
+        <p>
+            <strong>FuseConfigService</strong> is a singleton service to store
+            and access an application wide configuration object. It can be used
+            to store any kind of data and can be accessed from anywhere within
+            your application.
+        </p>
+
+        <h2>Module</h2>
+        <textarea fuse-highlight lang="typescript">
+            import { FuseConfigModule } from '@fuse/services/config';
+        </textarea>
+
+        <h2>Default configuration</h2>
+        <p>
+            By default, the application wide configuration is stored in
+            <code>src/app.config.ts</code> file and it includes the
+            <strong>layout style</strong> as well as the
+            <strong>color theme</strong> configurations:
+        </p>
+        <textarea fuse-highlight lang="typescript">
+            provideFuse({
+                ...
+                fuse   : {
+                    layout : 'classy',
+                    scheme : 'light',
+                    screens: {
+                        sm: '600px',
+                        md: '960px',
+                        lg: '1280px',
+                        xl: '1440px',
+                    },
+                    theme  : 'theme-default',
+                    themes : [{
+                        id  : 'theme-default',
+                        name: 'Default',
+                    },
+                    {
+                        id  : 'theme-brand',
+                        name: 'Brand',
+                    },
+                    {
+                        id  : 'theme-teal',
+                        name: 'Teal',
+                    },
+                    {
+                        id  : 'theme-rose',
+                        name: 'Rose',
+                    },
+                    {
+                        id  : 'theme-purple',
+                        name: 'Purple',
+                    },
+                    {
+                        id  : 'theme-amber',
+                        name: 'Amber',
+                    }],
+                },
+            }),
+        </textarea>
+        <p>
+            The default configuration is supplied to the
+            <strong>FuseConfigService</strong> automatically:
+        </p>
+
+        <h2>Methods</h2>
+        <p>
+            To set a configuration use <code>config</code> setter on
+            <strong>FuseConfigService</strong>. The setter will intelligently
+            merge the configuration by replacing only the given options if they
+            exist while preserving others. If the supplied option does not exist
+            on the configuration, it will be added:
+        </p>
+        <textarea fuse-highlight lang="typescript">
+            import { FuseConfigService } from '@fuse/services/config';
+
+            private _fuseConfigService = inject(FuseConfigService);
+
+            /**
+             * Constructor
+             */
+            constructor()
+            {
+                this._fuseConfigService.config = {layout: 'classy'};
+            }
+        </textarea>
+        <p>
+            To get the configuration use <code>config$</code> getter on
+            <strong>FuseConfigService</strong> which returns an
+            <code>Observable</code> of the configuration object:
+        </p>
+        <textarea fuse-highlight lang="typescript">
+            import { FuseConfigService } from '@fuse/services/config';
+            import { AppConfig } from 'app/core/config/app.config';
+
+            private _fuseConfigService = inject(FuseConfigService);
+
+            config: AppConfig;
+
+            /**
+             * Constructor
+             */
+            constructor()
+            {
+                this._fuseConfigService.config$
+                    .pipe(takeUntil(this._unsubscribeAll))
+                    .subscribe((config: AppConfig) => {
+                        this.config = config;
+                    }
+            });
+        </textarea>
+    </div>
+</div>

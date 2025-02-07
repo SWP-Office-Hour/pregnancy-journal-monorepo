@@ -1,0 +1,108 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <div>
+                    <a class="whitespace-nowrap text-primary-500"
+                        >User Interface</a
+                    >
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Angular Material Components
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+            <a
+                mat-flat-button
+                href="https://material.angular.io/components/categories"
+                target="_blank"
+                rel="noreferrer"
+                [color]="'primary'"
+            >
+                <mat-icon
+                    class="icon-size-4"
+                    [svgIcon]="'heroicons_mini:arrow-top-right-on-square'"
+                ></mat-icon>
+                <span class="ml-2">Official docs</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="prose prose-sm max-w-4xl">
+            <p>
+                Fuse uses
+                <a
+                    class="link"
+                    href="https://material.angular.io/components/categories"
+                    rel="noreferrer"
+                    target="_blank"
+                    >Angular Material
+                </a>
+                as its primary user interface library. It offers form controls,
+                buttons, tabs, sidebars, icons, modals, tooltips, data tables
+                and many more well tested and widely used components.
+            </p>
+            <p>
+                Even though Fuse doesn't follow Google's Material design
+                specifications, Angular Material is one of the best Angular
+                component libraries out there and since it's developed and
+                maintained by Google itself, it offers the best compatibility
+                and support for Angular.
+            </p>
+            <p>Fuse is 100% compatible with all Angular Material components.</p>
+
+            <h2>Component examples and API documentation</h2>
+            <p>
+                Following, you can find links to the official documentation.
+                Click on the component you want to learn more about and it will
+                redirect you to the related section of the official
+                documentation.
+            </p>
+        </div>
+
+        <div
+            class="mt-8 grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        >
+            @for (component of components; track component) {
+                <a
+                    class="bg-card flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-200 ease-in-out hover:shadow-xl"
+                    [href]="
+                        'https://material.angular.io/components/' + component.id
+                    "
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    <img
+                        class="w-full border-b object-cover"
+                        [src]="
+                            'images/ui/angular-material/scenes/' +
+                            component.id +
+                            '.scene.png'
+                        "
+                    />
+                    <div class="px-5 py-4">
+                        <div class="text-xl font-semibold">
+                            {{ component.name }}
+                        </div>
+                        <div class="text-secondary mt-1">
+                            {{ component.summary }}
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
