@@ -9,7 +9,7 @@ export * from './lib/membership.contract';
 export * from './lib/metric.contract';
 export * from './lib/note.contract';
 export * from './lib/payos.contract';
-export * from './lib/pregnancy.contract';
+export * from './lib/record.contract';
 export * from './lib/reminder.contract';
 export * from './lib/tag.contract';
 export * from './lib/user.contract';

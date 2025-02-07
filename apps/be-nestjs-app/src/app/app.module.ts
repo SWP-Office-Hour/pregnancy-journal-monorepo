@@ -12,6 +12,7 @@ import { MetricModule } from './metric/metric.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
 import { UsersModule } from './users/users.module';
+import { RecordModule } from './record/record.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UsersModule } from './users/users.module';
     BlogsModule,
     FileModule,
     MediaModule,
+    RecordModule,
   ],
   controllers: [AppController],
   providers: [AppService],
