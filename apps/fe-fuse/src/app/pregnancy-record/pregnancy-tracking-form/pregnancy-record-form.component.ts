@@ -8,8 +8,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { pregnancyDatatype } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
-import { PregnancyTrackingApiService } from '../pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
+import { PregnancyRecordApiService } from '../pregnancy-record.api.service';
+import { PregnancyRecordSignalService } from '../pregnancy-record.signal.service';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
 import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-upload.component';
 
@@ -30,12 +30,12 @@ import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-uploa
     MatIconModule,
     MatSelectModule,
   ],
-  templateUrl: './pregnancy-tracking-form.component.html',
-  styleUrl: './pregnancy-tracking-form.component.css',
+  templateUrl: './pregnancy-record-form.component.html',
+  styleUrl: './pregnancy-record-form.component.css',
 })
-export class PregnancyTrackingFormComponent implements OnInit {
-  signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
-  apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
+export class PregnancyRecordFormComponent implements OnInit {
+  signalService: PregnancyRecordSignalService = inject(PregnancyRecordSignalService);
+  apiService: PregnancyRecordApiService = inject(PregnancyRecordApiService);
   @Input() data: pregnancyDatatype;
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
@@ -50,9 +50,6 @@ export class PregnancyTrackingFormComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    if (this.data) {
-      this.setFormByData(this.data);
-    }
   }
 
   initForm() {
@@ -90,23 +87,6 @@ export class PregnancyTrackingFormComponent implements OnInit {
         break;
     }
     this.formControls().push({ controlLabel, controlName, controlType, selectItems });
-  }
-
-  setFormByData(pregnancyData: pregnancyDatatype) {
-    this.formControls().forEach((control) => {
-      if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
-        if (control.controlType != 'Select') {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName]);
-        } else {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName].id);
-        }
-      }
-      if (pregnancyData.data.find((d) => d.metric_id === control.controlName)) {
-        this.pregnancyForm
-          .get(control.controlName)
-          .setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
-      }
-    });
   }
 
   submitForm() {

@@ -25,6 +25,17 @@ export class AuthService {
     return localStorage.getItem('accessToken') ?? '';
   }
 
+  /**
+   * Setter & getter for refresh token
+   */
+  set refreshToken(token: string) {
+    localStorage.setItem('refreshToken', token);
+  }
+
+  get refreshToken(): string {
+    return localStorage.getItem('refreshToken') ?? '';
+  }
+
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
   // -----------------------------------------------------------------------------------------------------
@@ -62,6 +73,7 @@ export class AuthService {
       switchMap((response: any) => {
         // Store the access token in the local storage
         this.accessToken = response.accessToken;
+        this.refreshToken = response.refreshToken;
 
         // Set the authenticated flag to true
         this._authenticated = true;
@@ -99,6 +111,7 @@ export class AuthService {
           // piece of code can replace the token with the refreshed one.
           if (response.accessToken) {
             this.accessToken = response.accessToken;
+            this.refreshToken = response.refreshToken;
           }
 
           // Set the authenticated flag to true
@@ -119,6 +132,7 @@ export class AuthService {
   signOut(): Observable<any> {
     // Remove the access token from the local storage
     localStorage.removeItem('accessToken');
+    localStorage.removeItem('refreshToken');
 
     // Set the authenticated flag to false
     this._authenticated = false;

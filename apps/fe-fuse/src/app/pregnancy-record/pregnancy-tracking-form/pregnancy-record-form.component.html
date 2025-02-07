@@ -1,0 +1,57 @@
+<form
+  [formGroup]="pregnancyForm"
+  class="bg-card mt-3 flex flex-col overflow-hidden rounded-2xl p-8 shadow"
+  (submit)="submitForm()"
+>
+  <div class="-mx-2 flex flex-wrap">
+    @for (control of formControls(); track $index) {
+      <div class="mb-8 w-full px-2 md:w-1/2">
+        @switch (control.controlType) {
+          @case ('Number') {
+            <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+              <mat-label>{{ control.controlLabel }}</mat-label>
+              <input matInput placeholder="Placeholder" formControlName="{{ control.controlName }}" />
+              <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
+            </mat-form-field>
+          }
+          @case ('Select') {
+            <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+              <mat-label>{{ control.controlLabel }}</mat-label>
+              <mat-select formControlName="{{ control.controlName }}">
+                <mat-option value="" disabled="true">Chọn {{ control.controlLabel }}</mat-option>
+                @for (item of control.selectItems; track $index) {
+                  <mat-option value="{{ item.id }}">{{ item.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+          }
+          @case ('Date') {
+            <mat-form-field class="input-full-width">
+              <mat-label>{{ control.controlLabel }}</mat-label>
+              <input matInput [matDatepicker]="date_control" formControlName="{{ control.controlName }}" readonly />
+              <mat-datepicker-toggle matIconSuffix [for]="date_control"></mat-datepicker-toggle>
+              <mat-datepicker #date_control>
+                <mat-datepicker-actions>
+                  <button mat-button matDatepickerCancel>Cancel</button>
+                  <button mat-raised-button matDatepickerApply>Apply</button>
+                </mat-datepicker-actions>
+              </mat-datepicker>
+            </mat-form-field>
+          }
+        }
+      </div>
+    }
+  </div>
+  <div class="mb-8 w-full px-2 md:w-1/2">
+    <app-file-upload></app-file-upload>
+  </div>
+  <div class="flex flex-wrap">
+    @for (src of imgSrcListSignal(); track $index) {
+      <app-image-preview [imgObj]="src"></app-image-preview>
+    }
+  </div>
+  <footer class="mt-4 flex justify-end space-x-2">
+    <button mat-flat-button type="submit">Lưu</button>
+    <button mat-stroked-button type="reset">Hủy</button>
+  </footer>
+</form>
