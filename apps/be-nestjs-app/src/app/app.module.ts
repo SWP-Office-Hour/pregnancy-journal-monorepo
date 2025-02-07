@@ -13,7 +13,6 @@ import { RecordModule } from './record/record.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
 import { UsersModule } from './users/users.module';
-import { RecordModule } from './record/record.module';
 
 @Module({
   imports: [
