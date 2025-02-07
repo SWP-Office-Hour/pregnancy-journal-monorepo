@@ -28,6 +28,7 @@
 //   },
 //   {
 //     files: ['**/*.html'],
+//     ignores: ['@fuse/**/*'],
 //     // Override or add rules here
 //     rules: {},
 //   },
