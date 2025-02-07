@@ -1,12 +1,9 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
-const mediaResSchema = z.object({
+export const mediaResSchema = z.object({
   id: z.string(),
   url: z.string(),
-  created_at: z.date(),
-  post_id: z.string().optional(),
-  visit_record_id: z.string().optional(),
 });
 
 export type MediaRes = z.infer<typeof mediaResSchema>;
