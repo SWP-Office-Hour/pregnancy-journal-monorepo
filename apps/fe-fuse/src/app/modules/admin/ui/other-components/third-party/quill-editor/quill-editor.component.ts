@@ -4,26 +4,26 @@ import { MatIconModule } from '@angular/material/icon';
 import { OtherComponentsComponent } from 'app/modules/admin/ui/other-components/other-components.component';
 
 @Component({
-    selector: 'quill-editor',
-    templateUrl: './quill-editor.component.html',
-    standalone: true,
-    imports: [MatIconModule, MatButtonModule],
+  selector: 'quill-editor',
+  templateUrl: './quill-editor.component.html',
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule],
 })
 export class QuillEditorComponent {
-    /**
-     * Constructor
-     */
-    constructor(private _otherComponentsComponent: OtherComponentsComponent) {}
+  /**
+   * Constructor
+   */
+  constructor(private _otherComponentsComponent: OtherComponentsComponent) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Toggle the drawer
-     */
-    toggleDrawer(): void {
-        // Toggle the drawer
-        this._otherComponentsComponent.matDrawer.toggle();
-    }
+  /**
+   * Toggle the drawer
+   */
+  toggleDrawer(): void {
+    // Toggle the drawer
+    this._otherComponentsComponent.matDrawer.toggle();
+  }
 }

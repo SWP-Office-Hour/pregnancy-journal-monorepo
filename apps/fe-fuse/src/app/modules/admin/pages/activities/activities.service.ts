@@ -5,37 +5,37 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ActivitiesService {
-    // Private
-    private _activities: BehaviorSubject<any> = new BehaviorSubject(null);
+  // Private
+  private _activities: BehaviorSubject<any> = new BehaviorSubject(null);
 
-    /**
-     * Constructor
-     */
-    constructor(private _httpClient: HttpClient) {}
+  /**
+   * Constructor
+   */
+  constructor(private _httpClient: HttpClient) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Getter for activities
-     */
-    get activities(): Observable<any> {
-        return this._activities.asObservable();
-    }
+  /**
+   * Getter for activities
+   */
+  get activities(): Observable<any> {
+    return this._activities.asObservable();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Get activities
-     */
-    getActivities(): Observable<any> {
-        return this._httpClient.get<Activity[]>('api/pages/activities').pipe(
-            tap((response: Activity[]) => {
-                this._activities.next(response);
-            })
-        );
-    }
+  /**
+   * Get activities
+   */
+  getActivities(): Observable<any> {
+    return this._httpClient.get<Activity[]>('api/pages/activities').pipe(
+      tap((response: Activity[]) => {
+        this._activities.next(response);
+      }),
+    );
+  }
 }

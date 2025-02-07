@@ -7,61 +7,59 @@ import { GuideCategory } from 'app/modules/admin/apps/help-center/help-center.ty
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'help-center-guides-category',
-    templateUrl: './category.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [MatButtonModule, RouterLink, MatIconModule],
+  selector: 'help-center-guides-category',
+  templateUrl: './category.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [MatButtonModule, RouterLink, MatIconModule],
 })
 export class HelpCenterGuidesCategoryComponent implements OnInit, OnDestroy {
-    guideCategory: GuideCategory;
-    private _unsubscribeAll: Subject<any> = new Subject();
+  guideCategory: GuideCategory;
+  private _unsubscribeAll: Subject<any> = new Subject();
 
-    /**
-     * Constructor
-     */
-    constructor(
-        private _activatedRoute: ActivatedRoute,
-        private _helpCenterService: HelpCenterService,
-        private _router: Router
-    ) {}
+  /**
+   * Constructor
+   */
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _helpCenterService: HelpCenterService,
+    private _router: Router,
+  ) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Get the Guides
-        this._helpCenterService.guides$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((guideCategories) => {
-                this.guideCategory = guideCategories[0];
-            });
-    }
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Get the Guides
+    this._helpCenterService.guides$.pipe(takeUntil(this._unsubscribeAll)).subscribe((guideCategories) => {
+      this.guideCategory = guideCategories[0];
+    });
+  }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
-    }
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
-    trackByFn(index: number, item: any): any {
-        return item.id || index;
-    }
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
 }

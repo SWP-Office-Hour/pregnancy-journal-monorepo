@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {
-    FormsModule,
-    ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
-    Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -15,55 +9,55 @@ import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 
 @Component({
-    selector: 'forgot-password-fullscreen',
-    templateUrl: './forgot-password.component.html',
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
-    standalone: true,
-    imports: [
-        FuseAlertComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatProgressSpinnerModule,
-        RouterLink,
-    ],
+  selector: 'forgot-password-fullscreen',
+  templateUrl: './forgot-password.component.html',
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [
+    FuseAlertComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatProgressSpinnerModule,
+    RouterLink,
+  ],
 })
 export class ForgotPasswordFullscreenComponent implements OnInit {
-    alert: { type: FuseAlertType; message: string } = {
-        type: 'success',
-        message: '',
-    };
-    forgotPasswordForm: UntypedFormGroup;
-    showAlert: boolean = false;
+  alert: { type: FuseAlertType; message: string } = {
+    type: 'success',
+    message: '',
+  };
+  forgotPasswordForm: UntypedFormGroup;
+  showAlert: boolean = false;
 
-    /**
-     * Constructor
-     */
-    constructor(private _formBuilder: UntypedFormBuilder) {}
+  /**
+   * Constructor
+   */
+  constructor(private _formBuilder: UntypedFormBuilder) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Create the form
-        this.forgotPasswordForm = this._formBuilder.group({
-            email: ['', [Validators.required, Validators.email]],
-        });
-    }
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Create the form
+    this.forgotPasswordForm = this._formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Send the reset link
-     */
-    sendResetLink(): void {}
+  /**
+   * Send the reset link
+   */
+  sendResetLink(): void {}
 }

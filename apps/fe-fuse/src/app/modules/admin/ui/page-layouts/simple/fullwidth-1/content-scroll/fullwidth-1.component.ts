@@ -5,15 +5,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'simple-fullwidth-1-content-scroll',
-    templateUrl: './fullwidth-1.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [MatIconModule, RouterLink, MatButtonModule, CdkScrollable],
+  selector: 'simple-fullwidth-1-content-scroll',
+  templateUrl: './fullwidth-1.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [MatIconModule, RouterLink, MatButtonModule, CdkScrollable],
 })
 export class SimpleFullwidth1ContentScrollComponent {
-    /**
-     * Constructor
-     */
-    constructor() {}
+  /**
+   * Constructor
+   */
+  constructor() {}
 }

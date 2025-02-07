@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
 import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -21,143 +21,135 @@ import { ProfileComponent } from 'app/modules/admin/apps/chat/profile/profile.co
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'chat-chats',
-    templateUrl: './chats.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        MatSidenavModule,
-        NewChatComponent,
-        ProfileComponent,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatFormFieldModule,
-        MatInputModule,
-        NgClass,
-        RouterLink,
-        RouterOutlet,
-    ],
+  selector: 'chat-chats',
+  templateUrl: './chats.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatSidenavModule,
+    NewChatComponent,
+    ProfileComponent,
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgClass,
+    RouterLink,
+    RouterOutlet,
+  ],
 })
 export class ChatsComponent implements OnInit, OnDestroy {
-    chats: Chat[];
-    drawerComponent: 'profile' | 'new-chat';
-    drawerOpened: boolean = false;
-    filteredChats: Chat[];
-    profile: Profile;
-    selectedChat: Chat;
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+  chats: Chat[];
+  drawerComponent: 'profile' | 'new-chat';
+  drawerOpened: boolean = false;
+  filteredChats: Chat[];
+  profile: Profile;
+  selectedChat: Chat;
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    /**
-     * Constructor
-     */
-    constructor(
-        private _chatService: ChatService,
-        private _changeDetectorRef: ChangeDetectorRef
-    ) {}
+  /**
+   * Constructor
+   */
+  constructor(
+    private _chatService: ChatService,
+    private _changeDetectorRef: ChangeDetectorRef,
+  ) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Chats
-        this._chatService.chats$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((chats: Chat[]) => {
-                this.chats = this.filteredChats = chats;
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Chats
+    this._chatService.chats$.pipe(takeUntil(this._unsubscribeAll)).subscribe((chats: Chat[]) => {
+      this.chats = this.filteredChats = chats;
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
-        // Profile
-        this._chatService.profile$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((profile: Profile) => {
-                this.profile = profile;
+    // Profile
+    this._chatService.profile$.pipe(takeUntil(this._unsubscribeAll)).subscribe((profile: Profile) => {
+      this.profile = profile;
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
-        // Selected chat
-        this._chatService.chat$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((chat: Chat) => {
-                this.selectedChat = chat;
+    // Selected chat
+    this._chatService.chat$.pipe(takeUntil(this._unsubscribeAll)).subscribe((chat: Chat) => {
+      this.selectedChat = chat;
 
-                // Mark for check
-                this._changeDetectorRef.markForCheck();
-            });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+
+    // Reset the chat
+    this._chatService.resetChat();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Filter the chats
+   *
+   * @param query
+   */
+  filterChats(query: string): void {
+    // Reset the filter
+    if (!query) {
+      this.filteredChats = this.chats;
+      return;
     }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
+    this.filteredChats = this.chats.filter((chat) => chat.contact.name.toLowerCase().includes(query.toLowerCase()));
+  }
 
-        // Reset the chat
-        this._chatService.resetChat();
-    }
+  /**
+   * Open the new chat sidebar
+   */
+  openNewChat(): void {
+    this.drawerComponent = 'new-chat';
+    this.drawerOpened = true;
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
 
-    /**
-     * Filter the chats
-     *
-     * @param query
-     */
-    filterChats(query: string): void {
-        // Reset the filter
-        if (!query) {
-            this.filteredChats = this.chats;
-            return;
-        }
+  /**
+   * Open the profile sidebar
+   */
+  openProfile(): void {
+    this.drawerComponent = 'profile';
+    this.drawerOpened = true;
 
-        this.filteredChats = this.chats.filter((chat) =>
-            chat.contact.name.toLowerCase().includes(query.toLowerCase())
-        );
-    }
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
+  }
 
-    /**
-     * Open the new chat sidebar
-     */
-    openNewChat(): void {
-        this.drawerComponent = 'new-chat';
-        this.drawerOpened = true;
-
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-    }
-
-    /**
-     * Open the profile sidebar
-     */
-    openProfile(): void {
-        this.drawerComponent = 'profile';
-        this.drawerOpened = true;
-
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-    }
-
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
-    trackByFn(index: number, item: any): any {
-        return item.id || index;
-    }
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
 }

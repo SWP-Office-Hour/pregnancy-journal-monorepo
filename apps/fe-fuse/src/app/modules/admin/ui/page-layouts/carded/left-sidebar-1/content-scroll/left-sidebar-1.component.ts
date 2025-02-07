@@ -7,22 +7,15 @@ import { RouterLink } from '@angular/router';
 import { DemoSidebarComponent } from 'app/modules/admin/ui/page-layouts/common/demo-sidebar/demo-sidebar.component';
 
 @Component({
-    selector: 'carded-left-sidebar-1-content-scroll',
-    templateUrl: './left-sidebar-1.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        MatSidenavModule,
-        DemoSidebarComponent,
-        MatIconModule,
-        RouterLink,
-        MatButtonModule,
-        CdkScrollable,
-    ],
+  selector: 'carded-left-sidebar-1-content-scroll',
+  templateUrl: './left-sidebar-1.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [MatSidenavModule, DemoSidebarComponent, MatIconModule, RouterLink, MatButtonModule, CdkScrollable],
 })
 export class CardedLeftSidebar1ContentScrollComponent {
-    /**
-     * Constructor
-     */
-    constructor() {}
+  /**
+   * Constructor
+   */
+  constructor() {}
 }

@@ -1,27 +1,27 @@
 export interface Category {
-    id?: string;
-    title?: string;
-    slug?: string;
+  id?: string;
+  title?: string;
+  slug?: string;
 }
 
 export interface Course {
-    id?: string;
+  id?: string;
+  title?: string;
+  slug?: string;
+  description?: string;
+  category?: string;
+  duration?: number;
+  steps?: {
+    order?: number;
     title?: string;
-    slug?: string;
-    description?: string;
-    category?: string;
-    duration?: number;
-    steps?: {
-        order?: number;
-        title?: string;
-        subtitle?: string;
-        content?: string;
-    }[];
-    totalSteps?: number;
-    updatedAt?: number;
-    featured?: boolean;
-    progress?: {
-        currentStep?: number;
-        completed?: number;
-    };
+    subtitle?: string;
+    content?: string;
+  }[];
+  totalSteps?: number;
+  updatedAt?: number;
+  featured?: boolean;
+  progress?: {
+    currentStep?: number;
+    completed?: number;
+  };
 }

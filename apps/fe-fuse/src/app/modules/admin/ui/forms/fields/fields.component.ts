@@ -1,13 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
-import {
-    FormControl,
-    FormsModule,
-    ReactiveFormsModule,
-    UntypedFormBuilder,
-    Validators,
-} from '@angular/forms';
+import { FormControl, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatChipsModule } from '@angular/material/chips';
@@ -19,54 +13,46 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 @Component({
-    selector: 'forms-fields',
-    templateUrl: './fields.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        MatIconModule,
-        FormsModule,
-        MatFormFieldModule,
-        NgClass,
-        MatInputModule,
-        TextFieldModule,
-        ReactiveFormsModule,
-        MatButtonToggleModule,
-        MatButtonModule,
-        MatSelectModule,
-        MatOptionModule,
-        MatChipsModule,
-        MatDatepickerModule,
-    ],
+  selector: 'forms-fields',
+  templateUrl: './fields.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [
+    MatIconModule,
+    FormsModule,
+    MatFormFieldModule,
+    NgClass,
+    MatInputModule,
+    TextFieldModule,
+    ReactiveFormsModule,
+    MatButtonToggleModule,
+    MatButtonModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatDatepickerModule,
+  ],
 })
 export class FormsFieldsComponent {
-    formFieldHelpers: string[] = [''];
-    fixedSubscriptInput: FormControl = new FormControl('', [
-        Validators.required,
-    ]);
-    dynamicSubscriptInput: FormControl = new FormControl('', [
-        Validators.required,
-    ]);
-    fixedSubscriptInputWithHint: FormControl = new FormControl('', [
-        Validators.required,
-    ]);
-    dynamicSubscriptInputWithHint: FormControl = new FormControl('', [
-        Validators.required,
-    ]);
+  formFieldHelpers: string[] = [''];
+  fixedSubscriptInput: FormControl = new FormControl('', [Validators.required]);
+  dynamicSubscriptInput: FormControl = new FormControl('', [Validators.required]);
+  fixedSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
+  dynamicSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
 
-    /**
-     * Constructor
-     */
-    constructor(private _formBuilder: UntypedFormBuilder) {}
+  /**
+   * Constructor
+   */
+  constructor(private _formBuilder: UntypedFormBuilder) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Get the form field helpers as string
-     */
-    getFormFieldHelpersAsString(): string {
-        return this.formFieldHelpers.join(' ');
-    }
+  /**
+   * Get the form field helpers as string
+   */
+  getFormFieldHelpersAsString(): string {
+    return this.formFieldHelpers.join(' ');
+  }
 }

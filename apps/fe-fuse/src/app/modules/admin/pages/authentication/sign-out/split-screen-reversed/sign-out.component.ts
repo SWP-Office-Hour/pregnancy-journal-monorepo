@@ -5,25 +5,25 @@ import { fuseAnimations } from '@fuse/animations';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
-    selector: 'sign-out-split-screen-reversed',
-    templateUrl: './sign-out.component.html',
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
-    standalone: true,
-    imports: [RouterLink, I18nPluralPipe],
+  selector: 'sign-out-split-screen-reversed',
+  templateUrl: './sign-out.component.html',
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [RouterLink, I18nPluralPipe],
 })
 export class SignOutSplitScreenReversedComponent {
-    countdown: number = 5;
-    countdownMapping: any = {
-        '=1': '# second',
-        other: '# seconds',
-    };
+  countdown: number = 5;
+  countdownMapping: any = {
+    '=1': '# second',
+    other: '# seconds',
+  };
 
-    /**
-     * Constructor
-     */
-    constructor(
-        private _authService: AuthService,
-        private _router: Router
-    ) {}
+  /**
+   * Constructor
+   */
+  constructor(
+    private _authService: AuthService,
+    private _router: Router,
+  ) {}
 }

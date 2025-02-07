@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {
-    FormsModule,
-    ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
-    Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -18,62 +12,62 @@ import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
 
 @Component({
-    selector: 'sign-in-split-screen-reversed',
-    templateUrl: './sign-in.component.html',
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
-    standalone: true,
-    imports: [
-        RouterLink,
-        FuseAlertComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatCheckboxModule,
-        MatProgressSpinnerModule,
-    ],
+  selector: 'sign-in-split-screen-reversed',
+  templateUrl: './sign-in.component.html',
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [
+    RouterLink,
+    FuseAlertComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+  ],
 })
 export class SignInSplitScreenReversedComponent implements OnInit {
-    alert: { type: FuseAlertType; message: string } = {
-        type: 'success',
-        message: '',
-    };
-    signInForm: UntypedFormGroup;
-    showAlert: boolean = false;
+  alert: { type: FuseAlertType; message: string } = {
+    type: 'success',
+    message: '',
+  };
+  signInForm: UntypedFormGroup;
+  showAlert: boolean = false;
 
-    /**
-     * Constructor
-     */
-    constructor(
-        private _authService: AuthService,
-        private _formBuilder: UntypedFormBuilder
-    ) {}
+  /**
+   * Constructor
+   */
+  constructor(
+    private _authService: AuthService,
+    private _formBuilder: UntypedFormBuilder,
+  ) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Create the form
-        this.signInForm = this._formBuilder.group({
-            email: ['', [Validators.required, Validators.email]],
-            password: ['', Validators.required],
-            rememberMe: [''],
-        });
-    }
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Create the form
+    this.signInForm = this._formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      rememberMe: [''],
+    });
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Sign in
-     */
-    signIn(): void {}
+  /**
+   * Sign in
+   */
+  signIn(): void {}
 }

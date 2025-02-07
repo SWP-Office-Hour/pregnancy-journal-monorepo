@@ -19,138 +19,138 @@ import { SplashScreenComponent } from 'app/modules/admin/ui/fuse-components/serv
 import { MustMatchComponent } from 'app/modules/admin/ui/fuse-components/validators/must-match/must-match.component';
 
 export default [
-    {
+  {
+    path: '',
+    component: FuseComponentsComponent,
+    children: [
+      {
         path: '',
-        component: FuseComponentsComponent,
+        pathMatch: 'full',
+        redirectTo: 'libraries/mock-api',
+      },
+      {
+        path: 'libraries',
         children: [
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'libraries/mock-api',
-            },
-            {
-                path: 'libraries',
-                children: [
-                    {
-                        path: 'mock-api',
-                        component: MockApiComponent,
-                    },
-                ],
-            },
-            {
-                path: 'components',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'alert',
-                    },
-                    {
-                        path: 'alert',
-                        component: AlertComponent,
-                    },
-                    {
-                        path: 'card',
-                        component: CardComponent,
-                    },
-                    {
-                        path: 'drawer',
-                        component: DrawerComponent,
-                    },
-                    {
-                        path: 'fullscreen',
-                        component: FullscreenComponent,
-                    },
-                    {
-                        path: 'highlight',
-                        component: HighlightComponent,
-                    },
-                    {
-                        path: 'loading-bar',
-                        component: LoadingBarComponent,
-                    },
-                    {
-                        path: 'masonry',
-                        component: MasonryComponent,
-                    },
-                    {
-                        path: 'navigation',
-                        component: NavigationComponent,
-                    },
-                ],
-            },
-            {
-                path: 'directives',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'scrollbar',
-                    },
-                    {
-                        path: 'scrollbar',
-                        component: ScrollbarComponent,
-                    },
-                    {
-                        path: 'scroll-reset',
-                        component: ScrollResetComponent,
-                    },
-                ],
-            },
-            {
-                path: 'services',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'config',
-                    },
-                    {
-                        path: 'config',
-                        component: ConfigComponent,
-                    },
-                    {
-                        path: 'confirmation',
-                        component: ConfirmationComponent,
-                    },
-                    {
-                        path: 'splash-screen',
-                        component: SplashScreenComponent,
-                    },
-                    {
-                        path: 'media-watcher',
-                        component: MediaWatcherComponent,
-                    },
-                ],
-            },
-            {
-                path: 'pipes',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'find-by-key',
-                    },
-                    {
-                        path: 'find-by-key',
-                        component: FindByKeyComponent,
-                    },
-                ],
-            },
-            {
-                path: 'validators',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'must-match',
-                    },
-                    {
-                        path: 'must-match',
-                        component: MustMatchComponent,
-                    },
-                ],
-            },
+          {
+            path: 'mock-api',
+            component: MockApiComponent,
+          },
         ],
-    },
+      },
+      {
+        path: 'components',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'alert',
+          },
+          {
+            path: 'alert',
+            component: AlertComponent,
+          },
+          {
+            path: 'card',
+            component: CardComponent,
+          },
+          {
+            path: 'drawer',
+            component: DrawerComponent,
+          },
+          {
+            path: 'fullscreen',
+            component: FullscreenComponent,
+          },
+          {
+            path: 'highlight',
+            component: HighlightComponent,
+          },
+          {
+            path: 'loading-bar',
+            component: LoadingBarComponent,
+          },
+          {
+            path: 'masonry',
+            component: MasonryComponent,
+          },
+          {
+            path: 'navigation',
+            component: NavigationComponent,
+          },
+        ],
+      },
+      {
+        path: 'directives',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'scrollbar',
+          },
+          {
+            path: 'scrollbar',
+            component: ScrollbarComponent,
+          },
+          {
+            path: 'scroll-reset',
+            component: ScrollResetComponent,
+          },
+        ],
+      },
+      {
+        path: 'services',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'config',
+          },
+          {
+            path: 'config',
+            component: ConfigComponent,
+          },
+          {
+            path: 'confirmation',
+            component: ConfirmationComponent,
+          },
+          {
+            path: 'splash-screen',
+            component: SplashScreenComponent,
+          },
+          {
+            path: 'media-watcher',
+            component: MediaWatcherComponent,
+          },
+        ],
+      },
+      {
+        path: 'pipes',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'find-by-key',
+          },
+          {
+            path: 'find-by-key',
+            component: FindByKeyComponent,
+          },
+        ],
+      },
+      {
+        path: 'validators',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'must-match',
+          },
+          {
+            path: 'must-match',
+            component: MustMatchComponent,
+          },
+        ],
+      },
+    ],
+  },
 ] as Routes;

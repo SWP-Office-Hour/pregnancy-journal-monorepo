@@ -1,12 +1,12 @@
 import { CurrencyPipe, DatePipe, NgClass } from '@angular/common';
 import {
-    AfterViewInit,
-    ChangeDetectionStrategy,
-    Component,
-    OnDestroy,
-    OnInit,
-    ViewChild,
-    ViewEncapsulation,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -20,155 +20,144 @@ import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 
 @Component({
-    selector: 'finance',
-    templateUrl: './finance.component.html',
-    encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: true,
-    imports: [
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatDividerModule,
-        NgApexchartsModule,
-        MatTableModule,
-        MatSortModule,
-        NgClass,
-        MatProgressBarModule,
-        CurrencyPipe,
-        DatePipe,
-    ],
+  selector: 'finance',
+  templateUrl: './finance.component.html',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    NgApexchartsModule,
+    MatTableModule,
+    MatSortModule,
+    NgClass,
+    MatProgressBarModule,
+    CurrencyPipe,
+    DatePipe,
+  ],
 })
 export class FinanceComponent implements OnInit, AfterViewInit, OnDestroy {
-    @ViewChild('recentTransactionsTable', { read: MatSort })
-    recentTransactionsTableMatSort: MatSort;
+  @ViewChild('recentTransactionsTable', { read: MatSort })
+  recentTransactionsTableMatSort: MatSort;
 
-    data: any;
-    accountBalanceOptions: ApexOptions;
-    recentTransactionsDataSource: MatTableDataSource<any> =
-        new MatTableDataSource();
-    recentTransactionsTableColumns: string[] = [
-        'transactionId',
-        'date',
-        'name',
-        'amount',
-        'status',
-    ];
-    private _unsubscribeAll: Subject<any> = new Subject<any>();
+  data: any;
+  accountBalanceOptions: ApexOptions;
+  recentTransactionsDataSource: MatTableDataSource<any> = new MatTableDataSource();
+  recentTransactionsTableColumns: string[] = ['transactionId', 'date', 'name', 'amount', 'status'];
+  private _unsubscribeAll: Subject<any> = new Subject<any>();
 
-    /**
-     * Constructor
-     */
-    constructor(private _financeService: FinanceService) {}
+  /**
+   * Constructor
+   */
+  constructor(private _financeService: FinanceService) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Get the data
-        this._financeService.data$
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((data) => {
-                // Store the data
-                this.data = data;
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Get the data
+    this._financeService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
+      // Store the data
+      this.data = data;
 
-                // Store the table data
-                this.recentTransactionsDataSource.data =
-                    data.recentTransactions;
+      // Store the table data
+      this.recentTransactionsDataSource.data = data.recentTransactions;
 
-                // Prepare the chart data
-                this._prepareChartData();
-            });
-    }
+      // Prepare the chart data
+      this._prepareChartData();
+    });
+  }
 
-    /**
-     * After view init
-     */
-    ngAfterViewInit(): void {
-        // Make the data source sortable
-        this.recentTransactionsDataSource.sort =
-            this.recentTransactionsTableMatSort;
-    }
+  /**
+   * After view init
+   */
+  ngAfterViewInit(): void {
+    // Make the data source sortable
+    this.recentTransactionsDataSource.sort = this.recentTransactionsTableMatSort;
+  }
 
-    /**
-     * On destroy
-     */
-    ngOnDestroy(): void {
-        // Unsubscribe from all subscriptions
-        this._unsubscribeAll.next(null);
-        this._unsubscribeAll.complete();
-    }
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Track by function for ngFor loops
-     *
-     * @param index
-     * @param item
-     */
-    trackByFn(index: number, item: any): any {
-        return item.id || index;
-    }
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
+  trackByFn(index: number, item: any): any {
+    return item.id || index;
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Private methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Prepare the chart data from the data
-     *
-     * @private
-     */
-    private _prepareChartData(): void {
-        // Account balance
-        this.accountBalanceOptions = {
-            chart: {
-                animations: {
-                    speed: 400,
-                    animateGradually: {
-                        enabled: false,
-                    },
-                },
-                fontFamily: 'inherit',
-                foreColor: 'inherit',
-                width: '100%',
-                height: '100%',
-                type: 'area',
-                sparkline: {
-                    enabled: true,
-                },
-            },
-            colors: ['#A3BFFA', '#667EEA'],
-            fill: {
-                colors: ['#CED9FB', '#AECDFD'],
-                opacity: 0.5,
-                type: 'solid',
-            },
-            series: this.data.accountBalance.series,
-            stroke: {
-                curve: 'straight',
-                width: 2,
-            },
-            tooltip: {
-                followCursor: true,
-                theme: 'dark',
-                x: {
-                    format: 'MMM dd, yyyy',
-                },
-                y: {
-                    formatter: (value): string => value + '%',
-                },
-            },
-            xaxis: {
-                type: 'datetime',
-            },
-        };
-    }
+  /**
+   * Prepare the chart data from the data
+   *
+   * @private
+   */
+  private _prepareChartData(): void {
+    // Account balance
+    this.accountBalanceOptions = {
+      chart: {
+        animations: {
+          speed: 400,
+          animateGradually: {
+            enabled: false,
+          },
+        },
+        fontFamily: 'inherit',
+        foreColor: 'inherit',
+        width: '100%',
+        height: '100%',
+        type: 'area',
+        sparkline: {
+          enabled: true,
+        },
+      },
+      colors: ['#A3BFFA', '#667EEA'],
+      fill: {
+        colors: ['#CED9FB', '#AECDFD'],
+        opacity: 0.5,
+        type: 'solid',
+      },
+      series: this.data.accountBalance.series,
+      stroke: {
+        curve: 'straight',
+        width: 2,
+      },
+      tooltip: {
+        followCursor: true,
+        theme: 'dark',
+        x: {
+          format: 'MMM dd, yyyy',
+        },
+        y: {
+          formatter: (value): string => value + '%',
+        },
+      },
+      xaxis: {
+        type: 'datetime',
+      },
+    };
+  }
 }

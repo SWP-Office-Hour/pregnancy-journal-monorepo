@@ -1,160 +1,147 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api';
 import {
-    chats as chatsData,
-    contacts as contactsData,
-    messages as messagesData,
-    profile as profileData,
+  chats as chatsData,
+  contacts as contactsData,
+  messages as messagesData,
+  profile as profileData,
 } from 'app/mock-api/apps/chat/data';
 import { assign, cloneDeep, omit } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
 export class ChatMockApi {
-    private _chats: any[] = chatsData;
-    private _contacts: any[] = contactsData;
-    private _messages: any[] = messagesData;
-    private _profile: any = profileData;
+  private _chats: any[] = chatsData;
+  private _contacts: any[] = contactsData;
+  private _messages: any[] = messagesData;
+  private _profile: any = profileData;
 
-    /**
-     * Constructor
-     */
-    constructor(private _fuseMockApiService: FuseMockApiService) {
-        // Register Mock API handlers
-        this.registerHandlers();
+  /**
+   * Constructor
+   */
+  constructor(private _fuseMockApiService: FuseMockApiService) {
+    // Register Mock API handlers
+    this.registerHandlers();
 
-        // Modify the chats array to attach certain data to it
-        this._chats = this._chats.map((chat) => ({
-            ...chat,
-            // Get the actual contact object from the id and attach it to the chat
-            contact: this._contacts.find(
-                (contact) => contact.id === chat.contactId
-            ),
-            // Since we use same set of messages on all chats, we assign them here.
-            messages: this._messages.map((message) => ({
-                ...message,
-                chatId: chat.id,
-                contactId:
-                    message.contactId === 'me'
-                        ? this._profile.id
-                        : chat.contactId,
-                isMine: message.contactId === 'me',
-            })),
-        }));
-    }
+    // Modify the chats array to attach certain data to it
+    this._chats = this._chats.map((chat) => ({
+      ...chat,
+      // Get the actual contact object from the id and attach it to the chat
+      contact: this._contacts.find((contact) => contact.id === chat.contactId),
+      // Since we use same set of messages on all chats, we assign them here.
+      messages: this._messages.map((message) => ({
+        ...message,
+        chatId: chat.id,
+        contactId: message.contactId === 'me' ? this._profile.id : chat.contactId,
+        isMine: message.contactId === 'me',
+      })),
+    }));
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Register Mock API handlers
+   */
+  registerHandlers(): void {
+    // -----------------------------------------------------------------------------------------------------
+    // @ Chats - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/chat/chats').reply(() => {
+      // Clone the chats
+      const chats = cloneDeep(this._chats);
+
+      // Return the response
+      return [200, chats];
+    });
 
     // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
+    // @ Chat - GET
     // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/chat/chat').reply(({ request }) => {
+      // Get the chat id
+      const id = request.params.get('id');
 
-    /**
-     * Register Mock API handlers
-     */
-    registerHandlers(): void {
-        // -----------------------------------------------------------------------------------------------------
-        // @ Chats - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService.onGet('api/apps/chat/chats').reply(() => {
-            // Clone the chats
-            const chats = cloneDeep(this._chats);
+      // Clone the chats
+      const chats = cloneDeep(this._chats);
 
-            // Return the response
-            return [200, chats];
-        });
+      // Find the chat we need
+      const chat = chats.find((item) => item.id === id);
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Chat - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/apps/chat/chat')
-            .reply(({ request }) => {
-                // Get the chat id
-                const id = request.params.get('id');
+      // Return the response
+      return [200, chat];
+    });
 
-                // Clone the chats
-                const chats = cloneDeep(this._chats);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Chat - PATCH
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onPatch('api/apps/chat/chat').reply(({ request }) => {
+      // Get the id and chat
+      const id = request.body.id;
+      const chat = cloneDeep(request.body.chat);
 
-                // Find the chat we need
-                const chat = chats.find((item) => item.id === id);
+      // Prepare the updated chat
+      let updatedChat = null;
 
-                // Return the response
-                return [200, chat];
-            });
+      // Find the chat and update it
+      this._chats.forEach((item, index, chats) => {
+        if (item.id === id) {
+          // Update the chat
+          chats[index] = assign({}, chats[index], chat);
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Chat - PATCH
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onPatch('api/apps/chat/chat')
-            .reply(({ request }) => {
-                // Get the id and chat
-                const id = request.body.id;
-                const chat = cloneDeep(request.body.chat);
+          // Store the updated chat
+          updatedChat = chats[index];
+        }
+      });
 
-                // Prepare the updated chat
-                let updatedChat = null;
+      // Return the response
+      return [200, updatedChat];
+    });
 
-                // Find the chat and update it
-                this._chats.forEach((item, index, chats) => {
-                    if (item.id === id) {
-                        // Update the chat
-                        chats[index] = assign({}, chats[index], chat);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Contacts - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/chat/contacts').reply(() => {
+      // Clone the contacts
+      let contacts = cloneDeep(this._contacts);
 
-                        // Store the updated chat
-                        updatedChat = chats[index];
-                    }
-                });
+      // Sort the contacts by the name field by default
+      contacts.sort((a, b) => a.name.localeCompare(b.name));
 
-                // Return the response
-                return [200, updatedChat];
-            });
+      // Omit details and attachments from contacts
+      contacts = contacts.map((contact) => omit(contact, ['details', 'attachments']));
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Contacts - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService.onGet('api/apps/chat/contacts').reply(() => {
-            // Clone the contacts
-            let contacts = cloneDeep(this._contacts);
+      // Return the response
+      return [200, contacts];
+    });
 
-            // Sort the contacts by the name field by default
-            contacts.sort((a, b) => a.name.localeCompare(b.name));
+    // -----------------------------------------------------------------------------------------------------
+    // @ Contact Details - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/chat/contact').reply(({ request }) => {
+      // Get the contact id
+      const id = request.params.get('id');
 
-            // Omit details and attachments from contacts
-            contacts = contacts.map((contact) =>
-                omit(contact, ['details', 'attachments'])
-            );
+      // Clone the contacts
+      const contacts = cloneDeep(this._contacts);
 
-            // Return the response
-            return [200, contacts];
-        });
+      // Find the contact
+      const contact = contacts.find((item) => item.id === id);
 
-        // -----------------------------------------------------------------------------------------------------
-        // @ Contact Details - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService
-            .onGet('api/apps/chat/contact')
-            .reply(({ request }) => {
-                // Get the contact id
-                const id = request.params.get('id');
+      // Return the response
+      return [200, contact];
+    });
 
-                // Clone the contacts
-                const contacts = cloneDeep(this._contacts);
+    // -----------------------------------------------------------------------------------------------------
+    // @ Profile - GET
+    // -----------------------------------------------------------------------------------------------------
+    this._fuseMockApiService.onGet('api/apps/chat/profile').reply(() => {
+      // Clone the profile
+      const profile = cloneDeep(this._profile);
 
-                // Find the contact
-                const contact = contacts.find((item) => item.id === id);
-
-                // Return the response
-                return [200, contact];
-            });
-
-        // -----------------------------------------------------------------------------------------------------
-        // @ Profile - GET
-        // -----------------------------------------------------------------------------------------------------
-        this._fuseMockApiService.onGet('api/apps/chat/profile').reply(() => {
-            // Clone the profile
-            const profile = cloneDeep(this._profile);
-
-            // Return the response
-            return [200, profile];
-        });
-    }
+      // Return the response
+      return [200, profile];
+    });
+  }
 }

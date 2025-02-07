@@ -1,11 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import {
-    FormsModule,
-    ReactiveFormsModule,
-    UntypedFormBuilder,
-    UntypedFormGroup,
-    Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,65 +11,62 @@ import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { FuseValidators } from '@fuse/validators';
 
 @Component({
-    selector: 'reset-password-split-screen',
-    templateUrl: './reset-password.component.html',
-    encapsulation: ViewEncapsulation.None,
-    animations: fuseAnimations,
-    standalone: true,
-    imports: [
-        FuseAlertComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        MatProgressSpinnerModule,
-        RouterLink,
-    ],
+  selector: 'reset-password-split-screen',
+  templateUrl: './reset-password.component.html',
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [
+    FuseAlertComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+    RouterLink,
+  ],
 })
 export class ResetPasswordSplitScreenComponent implements OnInit {
-    alert: { type: FuseAlertType; message: string } = {
-        type: 'success',
-        message: '',
-    };
-    resetPasswordForm: UntypedFormGroup;
-    showAlert: boolean = false;
+  alert: { type: FuseAlertType; message: string } = {
+    type: 'success',
+    message: '',
+  };
+  resetPasswordForm: UntypedFormGroup;
+  showAlert: boolean = false;
 
-    /**
-     * Constructor
-     */
-    constructor(private _formBuilder: UntypedFormBuilder) {}
+  /**
+   * Constructor
+   */
+  constructor(private _formBuilder: UntypedFormBuilder) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Lifecycle hooks
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * On init
-     */
-    ngOnInit(): void {
-        // Create the form
-        this.resetPasswordForm = this._formBuilder.group(
-            {
-                password: ['', Validators.required],
-                passwordConfirm: ['', Validators.required],
-            },
-            {
-                validators: FuseValidators.mustMatch(
-                    'password',
-                    'passwordConfirm'
-                ),
-            }
-        );
-    }
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Create the form
+    this.resetPasswordForm = this._formBuilder.group(
+      {
+        password: ['', Validators.required],
+        passwordConfirm: ['', Validators.required],
+      },
+      {
+        validators: FuseValidators.mustMatch('password', 'passwordConfirm'),
+      },
+    );
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Reset password
-     */
-    resetPassword(): void {}
+  /**
+   * Reset password
+   */
+  resetPassword(): void {}
 }

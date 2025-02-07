@@ -5,37 +5,37 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class FuseConfigService {
-    private _config = new BehaviorSubject(inject(FUSE_CONFIG));
+  private _config = new BehaviorSubject(inject(FUSE_CONFIG));
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Accessors
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Accessors
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Setter & getter for config
-     */
-    set config(value: any) {
-        // Merge the new config over to the current config
-        const config = merge({}, this._config.getValue(), value);
+  /**
+   * Setter & getter for config
+   */
+  set config(value: any) {
+    // Merge the new config over to the current config
+    const config = merge({}, this._config.getValue(), value);
 
-        // Execute the observable
-        this._config.next(config);
-    }
+    // Execute the observable
+    this._config.next(config);
+  }
 
-    // eslint-disable-next-line @typescript-eslint/member-ordering
-    get config$(): Observable<any> {
-        return this._config.asObservable();
-    }
+  // eslint-disable-next-line @typescript-eslint/member-ordering
+  get config$(): Observable<any> {
+    return this._config.asObservable();
+  }
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Resets the config to the default
-     */
-    reset(): void {
-        // Set the config
-        this._config.next(this.config);
-    }
+  /**
+   * Resets the config to the default
+   */
+  reset(): void {
+    // Set the config
+    this._config.next(this.config);
+  }
 }

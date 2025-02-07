@@ -5,26 +5,26 @@ import { FuseHighlightComponent } from '@fuse/components/highlight';
 import { OtherComponentsComponent } from 'app/modules/admin/ui/other-components/other-components.component';
 
 @Component({
-    selector: 'languages',
-    templateUrl: './languages.component.html',
-    standalone: true,
-    imports: [MatIconModule, MatButtonModule, FuseHighlightComponent],
+  selector: 'languages',
+  templateUrl: './languages.component.html',
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule, FuseHighlightComponent],
 })
 export class LanguagesComponent {
-    /**
-     * Constructor
-     */
-    constructor(private _otherComponentsComponent: OtherComponentsComponent) {}
+  /**
+   * Constructor
+   */
+  constructor(private _otherComponentsComponent: OtherComponentsComponent) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Toggle the drawer
-     */
-    toggleDrawer(): void {
-        // Toggle the drawer
-        this._otherComponentsComponent.matDrawer.toggle();
-    }
+  /**
+   * Toggle the drawer
+   */
+  toggleDrawer(): void {
+    // Toggle the drawer
+    this._otherComponentsComponent.matDrawer.toggle();
+  }
 }

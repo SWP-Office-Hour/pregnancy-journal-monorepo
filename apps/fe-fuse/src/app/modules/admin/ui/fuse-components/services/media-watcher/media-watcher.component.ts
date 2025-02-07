@@ -5,26 +5,26 @@ import { FuseHighlightComponent } from '@fuse/components/highlight';
 import { FuseComponentsComponent } from 'app/modules/admin/ui/fuse-components/fuse-components.component';
 
 @Component({
-    selector: 'media-watcher',
-    templateUrl: './media-watcher.component.html',
-    standalone: true,
-    imports: [MatIconModule, MatButtonModule, FuseHighlightComponent],
+  selector: 'media-watcher',
+  templateUrl: './media-watcher.component.html',
+  standalone: true,
+  imports: [MatIconModule, MatButtonModule, FuseHighlightComponent],
 })
 export class MediaWatcherComponent {
-    /**
-     * Constructor
-     */
-    constructor(private _fuseComponentsComponent: FuseComponentsComponent) {}
+  /**
+   * Constructor
+   */
+  constructor(private _fuseComponentsComponent: FuseComponentsComponent) {}
 
-    // -----------------------------------------------------------------------------------------------------
-    // @ Public methods
-    // -----------------------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
 
-    /**
-     * Toggle the drawer
-     */
-    toggleDrawer(): void {
-        // Toggle the drawer
-        this._fuseComponentsComponent.matDrawer.toggle();
-    }
+  /**
+   * Toggle the drawer
+   */
+  toggleDrawer(): void {
+    // Toggle the drawer
+    this._fuseComponentsComponent.matDrawer.toggle();
+  }
 }

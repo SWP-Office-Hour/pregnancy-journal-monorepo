@@ -4,11 +4,11 @@ import { CryptoComponent } from 'app/modules/admin/dashboards/crypto/crypto.comp
 import { CryptoService } from 'app/modules/admin/dashboards/crypto/crypto.service';
 
 export default [
-    {
-        path: '',
-        component: CryptoComponent,
-        resolve: {
-            data: () => inject(CryptoService).getData(),
-        },
+  {
+    path: '',
+    component: CryptoComponent,
+    resolve: {
+      data: () => inject(CryptoService).getData(),
     },
+  },
 ] as Routes;

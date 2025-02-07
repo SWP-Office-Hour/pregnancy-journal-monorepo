@@ -12,75 +12,75 @@ import { ApexChartsComponent } from 'app/modules/admin/ui/other-components/third
 import { QuillEditorComponent } from 'app/modules/admin/ui/other-components/third-party/quill-editor/quill-editor.component';
 
 export default [
-    {
+  {
+    path: '',
+    component: OtherComponentsComponent,
+    children: [
+      {
         path: '',
-        component: OtherComponentsComponent,
+        pathMatch: 'full',
+        redirectTo: 'common/overview',
+      },
+      {
+        path: 'common',
         children: [
-            {
-                path: '',
-                pathMatch: 'full',
-                redirectTo: 'common/overview',
-            },
-            {
-                path: 'common',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'overview',
-                    },
-                    {
-                        path: 'overview',
-                        component: OverviewComponent,
-                    },
-                    {
-                        path: 'languages',
-                        component: LanguagesComponent,
-                    },
-                    {
-                        path: 'messages',
-                        component: MessagesComponent,
-                    },
-                    {
-                        path: 'notifications',
-                        component: NotificationsComponent,
-                    },
-                    {
-                        path: 'search',
-                        component: SearchComponent,
-                    },
-                    {
-                        path: 'quick-chat',
-                        component: QuickChatComponent,
-                    },
-                    {
-                        path: 'shortcuts',
-                        component: ShortcutsComponent,
-                    },
-                    {
-                        path: 'user',
-                        component: UserComponent,
-                    },
-                ],
-            },
-            {
-                path: 'third-party',
-                children: [
-                    {
-                        path: '',
-                        pathMatch: 'full',
-                        redirectTo: 'apex-charts',
-                    },
-                    {
-                        path: 'apex-charts',
-                        component: ApexChartsComponent,
-                    },
-                    {
-                        path: 'quill-editor',
-                        component: QuillEditorComponent,
-                    },
-                ],
-            },
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'overview',
+          },
+          {
+            path: 'overview',
+            component: OverviewComponent,
+          },
+          {
+            path: 'languages',
+            component: LanguagesComponent,
+          },
+          {
+            path: 'messages',
+            component: MessagesComponent,
+          },
+          {
+            path: 'notifications',
+            component: NotificationsComponent,
+          },
+          {
+            path: 'search',
+            component: SearchComponent,
+          },
+          {
+            path: 'quick-chat',
+            component: QuickChatComponent,
+          },
+          {
+            path: 'shortcuts',
+            component: ShortcutsComponent,
+          },
+          {
+            path: 'user',
+            component: UserComponent,
+          },
         ],
-    },
+      },
+      {
+        path: 'third-party',
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'apex-charts',
+          },
+          {
+            path: 'apex-charts',
+            component: ApexChartsComponent,
+          },
+          {
+            path: 'quill-editor',
+            component: QuillEditorComponent,
+          },
+        ],
+      },
+    ],
+  },
 ] as Routes;

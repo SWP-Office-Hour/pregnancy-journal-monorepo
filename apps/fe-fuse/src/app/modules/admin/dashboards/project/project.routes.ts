@@ -4,11 +4,11 @@ import { ProjectComponent } from 'app/modules/admin/dashboards/project/project.c
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
 
 export default [
-    {
-        path: '',
-        component: ProjectComponent,
-        resolve: {
-            data: () => inject(ProjectService).getData(),
-        },
+  {
+    path: '',
+    component: ProjectComponent,
+    resolve: {
+      data: () => inject(ProjectService).getData(),
     },
+  },
 ] as Routes;

@@ -6,21 +6,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { RouterLink } from '@angular/router';
 
 @Component({
-    selector: 'simple-fullwidth-2-content-scroll',
-    templateUrl: './fullwidth-2.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: true,
-    imports: [
-        MatIconModule,
-        RouterLink,
-        MatButtonModule,
-        CdkScrollable,
-        MatTabsModule,
-    ],
+  selector: 'simple-fullwidth-2-content-scroll',
+  templateUrl: './fullwidth-2.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [MatIconModule, RouterLink, MatButtonModule, CdkScrollable, MatTabsModule],
 })
 export class SimpleFullwidth2ContentScrollComponent {
-    /**
-     * Constructor
-     */
-    constructor() {}
+  /**
+   * Constructor
+   */
+  constructor() {}
 }
