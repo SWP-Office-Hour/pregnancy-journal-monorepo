@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { PregnancyRecordComponent } from './pregnancy-record/pregnancy-record.component';
 import { PregnancyTrackingComponent } from './pregnancy-tracking/pregnancy-tracking.component';
 
 // @formatter:off
@@ -86,6 +87,43 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'pregnancy-tracking/:id',
-    component: PregnancyTrackingComponent,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    data: {
+      layout: 'empty',
+    },
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: '',
+        loadComponent: () => PregnancyTrackingComponent,
+      },
+    ],
+  },
+  {
+    path: 'test',
+    component: PregnancyRecordComponent,
+  },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    component: LayoutComponent,
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    children: [
+      {
+        path: 'ui',
+        children: [
+          // Forms
+          { path: 'forms', loadChildren: () => import('app/modules/admin/ui/forms/forms.routes') },
+          { path: 'test', loadComponent: () => PregnancyRecordComponent },
+        ],
+      },
+    ],
   },
 ];
