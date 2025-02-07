@@ -8,6 +8,7 @@ import { PregnancyTrackingSignalService } from '../../pregnancy-tracking.signal.
   imports: [CommonModule, MatPaginatorModule],
   templateUrl: './pregnancy-tracking-paging.component.html',
   styleUrl: './pregnancy-tracking-paging.component.css',
+  standalone: true,
 })
 export class PregnancyTrackingPagingComponent {
   pregnancyService = inject(PregnancyTrackingSignalService);

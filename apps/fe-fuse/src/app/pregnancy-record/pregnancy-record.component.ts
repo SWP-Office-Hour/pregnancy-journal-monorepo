@@ -1,24 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { FormsFieldsComponent } from '../modules/admin/ui/forms/fields/fields.component';
+import { PregnancyRecordFormComponent } from './pregnancy-tracking-form/pregnancy-record-form.component';
 
 @Component({
   selector: 'app-pregnancy-record',
   standalone: true,
-  imports: [
-    CommonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatDatepickerModule,
-    MatSelectModule,
-    FormsFieldsComponent,
-  ],
+  imports: [CommonModule, PregnancyRecordFormComponent],
   templateUrl: './pregnancy-record.component.html',
+  styleUrl: './pregnancy-record.component.css',
 })
 export class PregnancyRecordComponent {}
