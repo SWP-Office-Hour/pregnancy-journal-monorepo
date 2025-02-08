@@ -24,8 +24,16 @@ export class PregnancyTrackingComponent {
   }
 
   @Input()
-  set id(id: string) {
-    this.signalService.PregnancyDataById.set(this.signalService.PregnancyData().find((data) => data.id === id));
-    this.signalService.MediaSrc.set(this.signalService.PregnancyDataById().media || []);
+  set id(id: number) {
+    if (id > this.signalService.PregnancyData().length || id < 0) {
+      this.signalService.selectRecord(this.signalService.PregnancyData().length - 1);
+    } else {
+      this.signalService.PregnancyDataById.set(
+        this.signalService.PregnancyData()[id]
+          ? this.signalService.PregnancyData()[id]
+          : this.signalService.PregnancyData()[length - 1],
+      );
+      this.signalService.MediaSrc.set(this.signalService.PregnancyDataById().media || []);
+    }
   }
 }

@@ -13,6 +13,7 @@ import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging/pr
 })
 export class PregnancyTrackingSelectComponent {
   protected signalService = inject(PregnancyTrackingSignalService);
+  protected currentPageIndex = this.signalService.currentPage;
   $records = computed(() =>
     this.signalService
       .PregnancyData()
