@@ -87,4 +87,19 @@ export class MetricService {
     const prima = new PrismaClient();
     return prima.$transaction([deleteStandard, deleteMetric]);
   }
+
+  async findByMetricIdAndWeek({ metricId, week }: { metricId: string; week: number }) {
+    return await this.databaseService.Metric.findFirst({
+      where: {
+        id: metricId,
+      },
+      include: {
+        standard: {
+          where: {
+            week: week,
+          },
+        },
+      },
+    });
+  }
 }

@@ -52,4 +52,12 @@ export class DatabaseService {
   get Media() {
     return this.prisma.media;
   }
+
+  get Record() {
+    return this.prisma.visit_record;
+  }
+
+  get RecordMetric() {
+    return this.prisma.visit_record_metric;
+  }
 }
