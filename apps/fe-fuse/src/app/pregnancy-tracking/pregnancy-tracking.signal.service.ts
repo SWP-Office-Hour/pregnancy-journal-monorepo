@@ -35,7 +35,7 @@ export class PregnancyTrackingSignalService {
     return this.mediaSrc;
   }
 
-  selectRecord(id: string) {
+  selectRecord(id: number) {
     this.router
       .navigateByUrl('/', { skipLocationChange: true })
       .then(() => this.router.navigate(['tracking/view', id]));
@@ -43,8 +43,8 @@ export class PregnancyTrackingSignalService {
 
   changePage(pageIndex: number) {
     this.currentPage = pageIndex;
-    const currRecordIndex = pageIndex * 5 + 1;
-    this.selectRecord(this.PregnancyData()[currRecordIndex].id);
+    const currRecordIndex = pageIndex * 5;
+    this.selectRecord(currRecordIndex);
   }
 
   deleteImage(id: string) {
