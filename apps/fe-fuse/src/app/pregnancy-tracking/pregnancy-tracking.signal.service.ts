@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
 import { Router } from '@angular/router';
-import { mediaType, pregnancyDatatype } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { mediaType, pregnancyGetRes } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingApiService } from './pregnancy-tracking.api.service';
 
 @Injectable({ providedIn: 'root' })
@@ -12,10 +12,12 @@ export class PregnancyTrackingSignalService {
   private router = inject(Router);
   private apiService = inject(PregnancyTrackingApiService);
   //handling pregnancy data
-  private $pregnancyData = signal<pregnancyDatatype[]>([]);
+  private $pregnancyData = signal<pregnancyGetRes[]>([]);
 
-  private $currentDataByPage = computed(() => this.$pregnancyData().slice(this.currentPage * 5, this.currentPage * 5 + 5));
-  private $pregnancyDataById = signal<pregnancyDatatype | null>(null);
+  private $currentDataByPage = computed(() =>
+    this.$pregnancyData().slice(this.currentPage * 5, this.currentPage * 5 + 5),
+  );
+  private $pregnancyDataById = signal<pregnancyGetRes | null>(null);
   //handling the media files
   private mediaSrc = signal<mediaType[]>([]);
 
@@ -34,7 +36,9 @@ export class PregnancyTrackingSignalService {
   }
 
   selectRecord(id: number) {
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => this.router.navigate(['tracking/view', id]));
+    this.router
+      .navigateByUrl('/', { skipLocationChange: true })
+      .then(() => this.router.navigate(['tracking/view', id]));
   }
 
   changePage(pageIndex: number) {
@@ -57,6 +61,7 @@ export class PregnancyTrackingSignalService {
       ...pregnancy_data,
       media: this.mediaSrc(),
     };
-    this.apiService.submitPregnancyData(data);
+    console.log(data);
+    return this.apiService.submitPregnancyData(data);
   }
 }

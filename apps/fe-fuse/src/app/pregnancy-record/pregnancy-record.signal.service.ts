@@ -1,14 +1,11 @@
 import { inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
-import { mediaType, pregnancyDatatype } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { mediaType } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyRecordApiService } from './pregnancy-record.api.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordSignalService {
-  // handling pagination
   private apiService = inject(PregnancyRecordApiService);
-  //handling pregnancy data
-  private $pregnancyDataById = signal<pregnancyDatatype | null>(null);
   //handling the media files
   private mediaSrc = signal<mediaType[]>([]);
 
@@ -28,7 +25,6 @@ export class PregnancyRecordSignalService {
 
   submit(pregnancy_data: any) {
     const data = {
-      id: this.$pregnancyDataById().id,
       ...pregnancy_data,
       media: this.mediaSrc(),
     };
