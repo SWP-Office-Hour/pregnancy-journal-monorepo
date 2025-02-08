@@ -16,8 +16,7 @@ export const notifications = [
   {
     id: '6e3e97e5-effc-4fb7-b730-52a151f0b641',
     image: 'images/avatars/male-04.jpg',
-    description:
-      '<strong>Leo Gill</strong> added you to <em>Top Secret Project</em> group and assigned you as a <em>Project Manager</em>',
+    description: '<strong>Leo Gill</strong> added you to <em>Top Secret Project</em> group and assigned you as a <em>Project Manager</em>',
     time: now.minus({ minute: 50 }).toISO(), // 50 minutes ago
     read: true,
     link: '/dashboards/project',
@@ -75,8 +74,7 @@ export const notifications = [
     id: '8f8e1bf9-4661-4939-9e43-390957b60f42',
     icon: 'heroicons_mini:star',
     title: 'Daily challenges',
-    description:
-      'Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days',
+    description: 'Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days',
     time: now.minus({ day: 3 }).toISO(), // 3 days ago
     read: true,
     link: '/dashboards/project',

@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
-import { TrackingStepperComponent } from './pregnancy-tracking-stepper/tracking-stepper.component';
 import { TuiTitle } from '@taiga-ui/core';
 import { TuiHeader } from '@taiga-ui/layout';
+import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
+import { TrackingStepperComponent } from './pregnancy-tracking-stepper/tracking-stepper.component';
 import { PregnancyTrackingService } from './pregnancy-tracking.service';
 
 @Component({

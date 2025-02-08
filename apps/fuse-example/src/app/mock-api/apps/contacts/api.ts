@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService, FuseMockApiUtils } from '@fuse/lib/mock-api';
-import {
-  contacts as contactsData,
-  countries as countriesData,
-  tags as tagsData,
-} from 'app/mock-api/apps/contacts/data';
+import { contacts as contactsData, countries as countriesData, tags as tagsData } from 'app/mock-api/apps/contacts/data';
 import { assign, cloneDeep } from 'lodash-es';
 import { from, map } from 'rxjs';
 
@@ -57,9 +53,7 @@ export class ContactsMockApi {
       // If the query exists...
       if (query) {
         // Filter the contacts
-        contacts = contacts.filter(
-          (contact) => contact.name && contact.name.toLowerCase().includes(query.toLowerCase()),
-        );
+        contacts = contacts.filter((contact) => contact.name && contact.name.toLowerCase().includes(query.toLowerCase()));
       }
 
       // Sort the contacts by the name field by default

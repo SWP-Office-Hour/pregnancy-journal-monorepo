@@ -1,13 +1,7 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
   <mat-drawer-container class="h-full flex-auto">
     <!-- Drawer -->
-    <mat-drawer
-      class="w-90 dark:bg-gray-900"
-      [autoFocus]="false"
-      [mode]="drawerMode"
-      [opened]="drawerOpened"
-      #matDrawer
-    >
+    <mat-drawer class="w-90 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
       <div class="flex flex-col items-start border-b p-8">
         <!-- Back to courses -->
         <a class="text-primary inline-flex items-center leading-6 hover:underline" [routerLink]="['..']">
@@ -60,8 +54,7 @@
                 <div
                   class="bg-card flex-0 dark:bg-default flex h-8 w-8 items-center justify-center rounded-full ring-2 ring-inset"
                   [ngClass]="{
-                    'bg-primary text-on-primary group-hover:bg-primary-800 dark:bg-primary ring-transparent':
-                      step.order < currentStep,
+                    'bg-primary text-on-primary group-hover:bg-primary-800 dark:bg-primary ring-transparent': step.order < currentStep,
                     'ring-primary': step.order === currentStep,
                     'ring-gray-300 group-hover:ring-gray-400 dark:ring-gray-600': step.order > currentStep,
                   }"
@@ -101,9 +94,7 @@
     <!-- Drawer content -->
     <mat-drawer-content class="flex flex-col overflow-hidden">
       <!-- Header -->
-      <div
-        class="bg-card flex-0 flex items-center border-b py-2 pl-4 pr-6 sm:py-4 md:pl-6 md:pr-8 lg:hidden lg:border-b-0 dark:bg-transparent"
-      >
+      <div class="bg-card flex-0 flex items-center border-b py-2 pl-4 pr-6 sm:py-4 md:pl-6 md:pr-8 lg:hidden lg:border-b-0 dark:bg-transparent">
         <!-- Title & Actions -->
         <a mat-icon-button [routerLink]="['..']">
           <mat-icon [svgIcon]="'heroicons_outline:arrow-small-left'"></mat-icon>
@@ -112,10 +103,7 @@
           {{ course.title }}
         </h2>
       </div>
-      <mat-progress-bar
-        class="flex-0 hidden h-0.5 w-full lg:block"
-        [value]="(100 * (currentStep + 1)) / course.totalSteps"
-      ></mat-progress-bar>
+      <mat-progress-bar class="flex-0 hidden h-0.5 w-full lg:block" [value]="(100 * (currentStep + 1)) / course.totalSteps"></mat-progress-bar>
 
       <!-- Main -->
       <div class="flex-auto overflow-y-auto" cdkScrollable>
@@ -167,10 +155,7 @@
           <span class="text-hint mx-0.5">/</span>
           <span>{{ course.totalSteps }}</span>
         </div>
-        <mat-progress-bar
-          class="ml-6 flex-auto rounded-full"
-          [value]="(100 * (currentStep + 1)) / course.totalSteps"
-        ></mat-progress-bar>
+        <mat-progress-bar class="ml-6 flex-auto rounded-full" [value]="(100 * (currentStep + 1)) / course.totalSteps"></mat-progress-bar>
         <button class="ml-4" mat-icon-button (click)="goToPreviousStep()">
           <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
         </button>

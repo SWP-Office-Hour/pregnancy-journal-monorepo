@@ -1,7 +1,7 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { ReminderService } from './reminder.service';
-import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { reminderContract, ReminderCreateReq, ReminderUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { ReminderService } from './reminder.service';
 
 @Controller()
 export class ReminderController {

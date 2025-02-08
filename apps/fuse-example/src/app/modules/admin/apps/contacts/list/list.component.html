@@ -1,14 +1,7 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
   <mat-drawer-container class="bg-card h-full flex-auto dark:bg-transparent" (backdropClick)="onBackdropClicked()">
     <!-- Drawer -->
-    <mat-drawer
-      class="md:w-160 w-full dark:bg-gray-900"
-      [mode]="drawerMode"
-      [opened]="false"
-      [position]="'end'"
-      [disableClose]="true"
-      #matDrawer
-    >
+    <mat-drawer class="md:w-160 w-full dark:bg-gray-900" [mode]="drawerMode" [opened]="false" [position]="'end'" [disableClose]="true" #matDrawer>
       <router-outlet></router-outlet>
     </mat-drawer>
 
@@ -42,12 +35,7 @@
             <div class="flex-auto">
               <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-50 w-full" subscriptSizing="dynamic">
                 <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
-                <input
-                  matInput
-                  [formControl]="searchInputControl"
-                  [autocomplete]="'off'"
-                  [placeholder]="'Search contacts'"
-                />
+                <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search contacts'" />
               </mat-form-field>
             </div>
             <!-- Add contact button -->
@@ -103,9 +91,7 @@
                 </a>
               }
             } @else {
-              <div class="border-t p-8 text-center text-4xl font-semibold tracking-tight sm:p-16">
-                There are no contacts!
-              </div>
+              <div class="border-t p-8 text-center text-4xl font-semibold tracking-tight sm:p-16">There are no contacts!</div>
             }
           }
 

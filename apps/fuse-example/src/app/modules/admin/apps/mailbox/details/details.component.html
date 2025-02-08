@@ -16,12 +16,7 @@
         <mat-menu #toggleLabelMenu="matMenu">
           @for (label of labels; track trackByFn($index, label)) {
             <div mat-menu-item (click)="toggleLabel(label)" matRipple>
-              <mat-checkbox
-                class="pointer-events-none"
-                [color]="'primary'"
-                [checked]="mail.labels.includes(label.id)"
-                [disableRipple]="true"
-              >
+              <mat-checkbox class="pointer-events-none" [color]="'primary'" [checked]="mail.labels.includes(label.id)" [disableRipple]="true">
                 {{ label.title }}
               </mat-checkbox>
             </div>
@@ -99,10 +94,7 @@
         @if (mail.labels && mail.labels.length > 0) {
           <div class="-mx-1 flex flex-wrap items-center justify-start">
             @for (label of mail.labels | fuseFindByKey: 'id' : labels; track label) {
-              <div
-                class="m-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-sm font-medium"
-                [ngClass]="labelColors[label.color].combined"
-              >
+              <div class="m-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-sm font-medium" [ngClass]="labelColors[label.color].combined">
                 {{ label.title }}
               </div>
             }
@@ -112,14 +104,9 @@
     </div>
 
     <!-- Threads -->
-    <div
-      class="flex flex-auto shrink-0 flex-col bg-gray-100 p-3 lg:shrink lg:overflow-y-auto dark:bg-transparent"
-      fuseScrollReset
-    >
+    <div class="flex flex-auto shrink-0 flex-col bg-gray-100 p-3 lg:shrink lg:overflow-y-auto dark:bg-transparent" fuseScrollReset>
       <!-- Thread -->
-      <div
-        class="bg-card flex-0 flex w-full flex-col overflow-hidden rounded-2xl shadow dark:bg-black dark:bg-opacity-10"
-      >
+      <div class="bg-card flex-0 flex w-full flex-col overflow-hidden rounded-2xl shadow dark:bg-black dark:bg-opacity-10">
         <div class="flex flex-col px-6 py-8">
           <!-- Header -->
           <div class="flex w-full items-center">
@@ -151,20 +138,13 @@
                 }
 
                 <!-- Info details panel button -->
-                <button
-                  class="ml-1 h-5 min-h-5 w-5"
-                  mat-icon-button
-                  (click)="openInfoDetailsPanel()"
-                  #infoDetailsPanelOrigin
-                >
+                <button class="ml-1 h-5 min-h-5 w-5" mat-icon-button (click)="openInfoDetailsPanel()" #infoDetailsPanelOrigin>
                   <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
                 </button>
 
                 <!-- Info details panel -->
                 <ng-template #infoDetailsPanel>
-                  <div
-                    class="bg-card max-w-160 text-md flex w-full flex-col space-y-1.5 overflow-auto rounded border px-6 py-4 shadow-md"
-                  >
+                  <div class="bg-card max-w-160 text-md flex w-full flex-col space-y-1.5 overflow-auto rounded border px-6 py-4 shadow-md">
                     <!-- From -->
                     <div class="flex">
                       <div class="min-w-14 text-right font-medium">from:</div>
@@ -235,10 +215,7 @@
                   <div class="m-3 flex items-center">
                     <!-- Preview -->
                     @if (attachment.type.startsWith('image/')) {
-                      <img
-                        class="h-10 w-10 overflow-hidden rounded-md"
-                        [src]="'images/apps/mailbox/' + attachment.preview"
-                      />
+                      <img class="h-10 w-10 overflow-hidden rounded-md" [src]="'images/apps/mailbox/' + attachment.preview" />
                     }
                     @if (attachment.type.startsWith('application/')) {
                       <div class="bg-primary-100 flex h-10 w-10 items-center justify-center overflow-hidden rounded-md">
@@ -281,11 +258,7 @@
               </button>
               <!-- Forward -->
               <button class="m-2" mat-stroked-button [color]="'primary'" (click)="forward()">
-                <mat-icon
-                  class="icon-size-5"
-                  [color]="'primary'"
-                  [svgIcon]="'heroicons_solid:chevron-double-right'"
-                ></mat-icon>
+                <mat-icon class="icon-size-5" [color]="'primary'" [svgIcon]="'heroicons_solid:chevron-double-right'"></mat-icon>
                 <span class="ml-2">Forward</span>
               </button>
             </div>

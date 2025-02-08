@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Query } from '@nestjs/common';
-import { BlogsService } from './blogs.service';
 import { blogContract, BlogCreateReq, BlogUpdateReq } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { BlogsService } from './blogs.service';
 
 @Controller()
 export class BlogsController {

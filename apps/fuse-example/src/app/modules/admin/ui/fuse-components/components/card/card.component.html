@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -29,10 +27,7 @@
   </div>
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
-    <p>
-      <strong>fuse-card</strong> is a basic card component to show any kind of information or content with features like
-      flipping and expanding.
-    </p>
+    <p><strong>fuse-card</strong> is a basic card component to show any kind of information or content with features like flipping and expanding.</p>
     <p><strong>Exported as: </strong><code>fuseCard</code></p>
 
     <h2>Module</h2>
@@ -87,8 +82,8 @@
     <h2>Usage</h2>
     <p>
       Just wrap the content or the information with
-      <code>fuse-card</code> to show them within the card. <strong>fuse-card</strong> doesn't apply any kind of style to
-      its content to make customization simpler:
+      <code>fuse-card</code> to show them within the card. <strong>fuse-card</strong> doesn't apply any kind of style to its content to make
+      customization simpler:
     </p>
 
     <div class="example-viewer">
@@ -120,8 +115,8 @@
 
     <h3>Expandable</h3>
     <p>
-      Expandable <strong>fuse-card</strong> holds an extra content or information hidden in its expandable area which
-      can be toggled by accessing the component itself via a template reference:
+      Expandable <strong>fuse-card</strong> holds an extra content or information hidden in its expandable area which can be toggled by accessing the
+      component itself via a template reference:
     </p>
 
     <div class="example-viewer">
@@ -136,16 +131,9 @@
               <div class="mx-auto max-w-80">
                 <fuse-card class="flex flex-col px-8 py-6 pb-4" #fuseCard>
                   <div class="text-lg font-bold">Title of the card</div>
-                  <div class="mt-2">
-                    A paragraph, an image, a form or simply anything can go here to create the content of the card.
-                  </div>
+                  <div class="mt-2">A paragraph, an image, a form or simply anything can go here to create the content of the card.</div>
                   <div class="-mx-3 mt-3">
-                    <button
-                      class="px-3"
-                      mat-button
-                      [color]="'primary'"
-                      (click)="fuseCard.expanded = !fuseCard.expanded"
-                    >
+                    <button class="px-3" mat-button [color]="'primary'" (click)="fuseCard.expanded = !fuseCard.expanded">
                       <span class="mr-1">Details</span>
                       @if (!fuseCard.expanded) {
                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-down'"></mat-icon>
@@ -208,10 +196,10 @@
 
     <h3>Flippable</h3>
     <p>
-      Flippable card holds content or information on both sides and can be flipped by accessing the component itself via
-      a template reference. The only limitation with this type of cards is that the
-      <em>back</em> of the card will share the same height as the <em>front</em> of the card. If the <em>back</em> side
-      has more content, scrollbar will appear.
+      Flippable card holds content or information on both sides and can be flipped by accessing the component itself via a template reference. The
+      only limitation with this type of cards is that the
+      <em>back</em> of the card will share the same height as the <em>front</em> of the card. If the <em>back</em> side has more content, scrollbar
+      will appear.
     </p>
 
     <div class="example-viewer">
@@ -229,9 +217,7 @@
                   <ng-container fuseCardFront>
                     <div class="flex flex-col px-8 py-6 pb-3">
                       <div class="text-lg font-bold">Title of the card</div>
-                      <div class="mt-2">
-                        A paragraph, an image, a form or simply anything can go here to create the content of the card.
-                      </div>
+                      <div class="mt-2">A paragraph, an image, a form or simply anything can go here to create the content of the card.</div>
                       <div class="-mx-3 mt-3 self-end">
                         <button mat-icon-button [color]="'primary'" (click)="fuseCard.face = 'back'">
                           <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:arrow-right'"></mat-icon>
@@ -250,8 +236,8 @@
                       </div>
                       <p class="text-secondary">This is the back of the card and holds an extra information!</p>
                       <p class="text-secondary">
-                        Also, the <em>back</em> side of the card holds more information than the <em>front</em> of the
-                        card which causes scrollbars to appear.
+                        Also, the <em>back</em> side of the card holds more information than the <em>front</em> of the card which causes scrollbars to
+                        appear.
                       </p>
                     </div>
                   </ng-container>

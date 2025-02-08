@@ -8,9 +8,8 @@ describe('TaigaDashboardComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaigaDashboardComponent]
-    })
-    .compileComponents();
+      imports: [TaigaDashboardComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(TaigaDashboardComponent);
     component = fixture.componentInstance;

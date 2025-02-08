@@ -339,9 +339,7 @@ export class FuseDrawerComponent implements OnChanges, OnInit, OnDestroy {
     }
 
     // Create the leave animation and attach it to the player
-    this._player = this._animationBuilder
-      .build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0 }))])
-      .create(this._overlay);
+    this._player = this._animationBuilder.build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0 }))]).create(this._overlay);
 
     // Play the animation
     this._player.play();

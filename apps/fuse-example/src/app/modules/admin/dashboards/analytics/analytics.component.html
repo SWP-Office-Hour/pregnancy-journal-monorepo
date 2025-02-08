@@ -4,9 +4,7 @@
     <div class="flex w-full items-center justify-between">
       <div>
         <div class="text-3xl font-semibold leading-8 tracking-tight">Analytics dashboard</div>
-        <div class="text-secondary font-medium tracking-tight">
-          Monitor metrics, check reports and review performance
-        </div>
+        <div class="text-secondary font-medium tracking-tight">Monitor metrics, check reports and review performance</div>
       </div>
       <div class="ml-6 flex items-center">
         <button class="hidden sm:inline-flex" mat-stroked-button>
@@ -45,12 +43,8 @@
               value="this-year"
               #visitorsYearSelector="matButtonToggleGroup"
             >
-              <mat-button-toggle class="overflow-hidden rounded-full border-none px-1.5 font-medium" value="last-year"
-                >Last Year
-              </mat-button-toggle>
-              <mat-button-toggle class="overflow-hidden rounded-full border-none px-1.5 font-medium" value="this-year"
-                >This Year
-              </mat-button-toggle>
+              <mat-button-toggle class="overflow-hidden rounded-full border-none px-1.5 font-medium" value="last-year">Last Year </mat-button-toggle>
+              <mat-button-toggle class="overflow-hidden rounded-full border-none px-1.5 font-medium" value="this-year">This Year </mat-button-toggle>
             </mat-button-toggle-group>
             <div class="sm:hidden">
               <button mat-icon-button [matMenuTriggerFor]="visitorsMenu">
@@ -249,9 +243,7 @@
               ></mat-icon>
             </div>
             <div class="mt-2 flex items-start">
-              <div class="text-4xl font-bold leading-none tracking-tight">
-                {{ data.visitorsVsPageViews.averageRatio | number: '1.0-0' }}%
-              </div>
+              <div class="text-4xl font-bold leading-none tracking-tight">{{ data.visitorsVsPageViews.averageRatio | number: '1.0-0' }}%</div>
               <div class="ml-2 flex items-center">
                 <mat-icon class="icon-size-5 text-red-500" [svgIcon]="'heroicons_solid:arrow-down-circle'"></mat-icon>
                 <div class="text-md ml-1 font-medium text-red-500">13.1%</div>
@@ -264,15 +256,11 @@
               <mat-icon
                 class="text-hint icon-size-4 ml-1.5"
                 [svgIcon]="'heroicons_mini:information-circle'"
-                [matTooltip]="
-                  'Predicted Ratio is calculated by using historical ratio, current trends and your goal targets.'
-                "
+                [matTooltip]="'Predicted Ratio is calculated by using historical ratio, current trends and your goal targets.'"
               ></mat-icon>
             </div>
             <div class="mt-2 flex items-start">
-              <div class="text-4xl font-bold leading-none tracking-tight">
-                {{ data.visitorsVsPageViews.predictedRatio | number: '1.0-0' }}%
-              </div>
+              <div class="text-4xl font-bold leading-none tracking-tight">{{ data.visitorsVsPageViews.predictedRatio | number: '1.0-0' }}%</div>
               <div class="ml-2 flex items-center">
                 <mat-icon class="icon-size-5 text-green-500" [svgIcon]="'heroicons_solid:arrow-up-circle'"></mat-icon>
                 <div class="text-md ml-1 font-medium text-green-500">22.2%</div>
@@ -336,10 +324,7 @@
             @for (dataset of data.newVsReturning.series; track dataset; let i = $index) {
               <div class="grid grid-cols-3 py-3">
                 <div class="flex items-center">
-                  <div
-                    class="flex-0 h-2 w-2 rounded-full"
-                    [style.backgroundColor]="chartNewVsReturning.colors[i]"
-                  ></div>
+                  <div class="flex-0 h-2 w-2 rounded-full" [style.backgroundColor]="chartNewVsReturning.colors[i]"></div>
                   <div class="ml-3 truncate">
                     {{ data.newVsReturning.labels[i] }}
                   </div>

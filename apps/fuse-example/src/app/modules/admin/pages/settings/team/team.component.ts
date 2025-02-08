@@ -13,15 +13,7 @@ import { MatSelectModule } from '@angular/material/select';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    MatSelectModule,
-    MatOptionModule,
-    TitleCasePipe,
-  ],
+  imports: [MatFormFieldModule, MatIconModule, MatInputModule, MatButtonModule, MatSelectModule, MatOptionModule, TitleCasePipe],
 })
 export class SettingsTeamComponent implements OnInit {
   members: any[];

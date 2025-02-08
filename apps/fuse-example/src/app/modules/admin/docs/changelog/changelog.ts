@@ -108,10 +108,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Changed',
-          list: [
-            '(Dependencies) Updated Angular & Angular Material to v15.1.1',
-            '(Dependencies) Updated various other packages',
-          ],
+          list: ['(Dependencies) Updated Angular & Angular Material to v15.1.1', '(Dependencies) Updated various other packages'],
         },
         {
           type: 'Fixed',
@@ -190,9 +187,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Breaking',
-          list: [
-            '(dependencies) Replaced moment.js with luxon, big thanks to @steveschmitt (https://github.com/steveschmitt) for the PR',
-          ],
+          list: ['(dependencies) Replaced moment.js with luxon, big thanks to @steveschmitt (https://github.com/steveschmitt) for the PR'],
         },
         {
           type: 'Changed',
@@ -220,10 +215,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Changed',
-          list: [
-            '(dependencies) Updated Angular & Angular Material to v14.1.3',
-            '(dependencies) Updated various other packages',
-          ],
+          list: ['(dependencies) Updated Angular & Angular Material to v14.1.3', '(dependencies) Updated various other packages'],
         },
         {
           type: 'Fixed',
@@ -249,10 +241,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Changed',
-          list: [
-            '(dependencies) Updated Angular & Angular Material to v14.1.0',
-            '(dependencies) Updated various other packages',
-          ],
+          list: ['(dependencies) Updated Angular & Angular Material to v14.1.0', '(dependencies) Updated various other packages'],
         },
         {
           type: 'Fixed',
@@ -433,9 +422,7 @@ export class ChangelogComponent {
         },
         {
           type: 'Fixed',
-          list: [
-            '(@fuse/drawer) Final opacity of the overlay is not permanent due to player being destroyed right after the animation',
-          ],
+          list: ['(@fuse/drawer) Final opacity of the overlay is not permanent due to player being destroyed right after the animation'],
         },
       ],
     },
@@ -720,10 +707,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Added',
-          list: [
-            '(apps/notes) New Notes app',
-            '(fuse/masonry) Added a component for creating fast Masonry-like layouts',
-          ],
+          list: ['(apps/notes) New Notes app', '(fuse/masonry) Added a component for creating fast Masonry-like layouts'],
         },
         {
           type: 'Changed',
@@ -742,10 +726,7 @@ export class ChangelogComponent {
       changes: [
         {
           type: 'Added',
-          list: [
-            '(apps/chat) New and improvement version of Chat app',
-            '(fuse/fullscreen) Added fullscreen toggle component',
-          ],
+          list: ['(apps/chat) New and improvement version of Chat app', '(fuse/fullscreen) Added fullscreen toggle component'],
         },
         {
           type: 'Changed',

@@ -190,8 +190,7 @@ export const messages = [
     id: 'd6f29648-c85c-4dfb-a6ff-6b7ebc40c993',
     chatId: '',
     contactId: 'me',
-    value:
-      'Then this virus thing happened and just after a week we moved in, they decided the whole department will be working remotely.',
+    value: 'Then this virus thing happened and just after a week we moved in, they decided the whole department will be working remotely.',
     createdAt: now
       .minus({ week: 1 })
       .set({
@@ -204,8 +203,7 @@ export const messages = [
     id: '5329c20d-6754-47ec-af8c-660c72be3528',
     chatId: '',
     contactId: 'me',
-    value:
-      "And then we decided to move back our first location because, you know, everything was already setup so that's the third time.",
+    value: "And then we decided to move back our first location because, you know, everything was already setup so that's the third time.",
     createdAt: now
       .minus({ week: 1 })
       .set({

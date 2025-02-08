@@ -11,14 +11,7 @@ import { FuseComponentsComponent } from 'app/modules/admin/ui/fuse-components/fu
   selector: 'drawer',
   templateUrl: './drawer.component.html',
   standalone: true,
-  imports: [
-    MatIconModule,
-    MatButtonModule,
-    FuseAlertComponent,
-    FuseHighlightComponent,
-    MatTabsModule,
-    FuseDrawerComponent,
-  ],
+  imports: [MatIconModule, MatButtonModule, FuseAlertComponent, FuseHighlightComponent, MatTabsModule, FuseDrawerComponent],
 })
 export class DrawerComponent {
   drawerMode: FuseDrawerMode;

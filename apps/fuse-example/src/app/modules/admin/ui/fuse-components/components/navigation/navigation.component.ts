@@ -4,11 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FuseAlertComponent } from '@fuse/components/alert';
 import { FuseHighlightComponent } from '@fuse/components/highlight';
-import {
-  FuseNavigationItem,
-  FuseNavigationService,
-  FuseVerticalNavigationComponent,
-} from '@fuse/components/navigation';
+import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { FuseComponentsComponent } from 'app/modules/admin/ui/fuse-components/fuse-components.component';
 
 @Component({

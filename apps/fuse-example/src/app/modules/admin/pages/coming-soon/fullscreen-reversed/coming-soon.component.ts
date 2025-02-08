@@ -1,12 +1,5 @@
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import {
-  FormsModule,
-  NgForm,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -21,15 +14,7 @@ import { AuthService } from 'app/core/auth/auth.service';
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
   standalone: true,
-  imports: [
-    FuseAlertComponent,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatProgressSpinnerModule,
-  ],
+  imports: [FuseAlertComponent, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatProgressSpinnerModule],
 })
 export class ComingSoonFullscreenReversedComponent implements OnInit {
   @ViewChild('comingSoonNgForm') comingSoonNgForm: NgForm;

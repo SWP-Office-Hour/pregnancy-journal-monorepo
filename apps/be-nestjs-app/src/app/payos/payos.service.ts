@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import PayOS from '@payos/node';
 import { CheckoutRequestType } from '@payos/node/lib/type';
-import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class PayosService {

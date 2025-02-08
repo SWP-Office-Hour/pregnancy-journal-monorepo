@@ -1,6 +1,4 @@
 import { Body, ConflictException, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import {
   authContract,
   LoginRequest,
@@ -8,12 +6,12 @@ import {
   TokenRequest,
   userContract,
   UserCreateRequest,
-  UserRole,
   UserUpdateRequest,
 } from '@pregnancy-journal-monorepo/contract';
-import { AccessTokenAuthGuard, RefreshTokenAuthGuard, RoleAuthGuard } from '../auth/auth.guard';
+import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
-import { Roles } from '../utils/decorators/role.decorator';
+import { AccessTokenAuthGuard, RefreshTokenAuthGuard } from '../auth/auth.guard';
+import { UsersService } from './users.service';
 
 @Controller()
 export class UsersController {

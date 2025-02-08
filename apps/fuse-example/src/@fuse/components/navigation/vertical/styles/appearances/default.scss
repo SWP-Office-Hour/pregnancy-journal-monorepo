@@ -497,9 +497,7 @@ fuse-vertical-navigation-collapsable-item {
       }
 
       /* Hover state */
-      &:not(.fuse-vertical-navigation-item-active-forced):not(.fuse-vertical-navigation-item-active):not(
-          .fuse-vertical-navigation-item-disabled
-        ) {
+      &:not(.fuse-vertical-navigation-item-active-forced):not(.fuse-vertical-navigation-item-active):not(.fuse-vertical-navigation-item-disabled) {
         &:hover {
           @apply dark:bg-opacity-12 bg-gray-800 bg-opacity-5 dark:bg-white;
 

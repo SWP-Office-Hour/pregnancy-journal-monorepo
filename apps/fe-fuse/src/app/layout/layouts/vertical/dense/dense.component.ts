@@ -80,15 +80,13 @@ export class DenseLayoutComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Check if the screen is small
-        this.isScreenSmall = !matchingAliases.includes('md');
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Check if the screen is small
+      this.isScreenSmall = !matchingAliases.includes('md');
 
-        // Change the navigation appearance
-        this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
-      });
+      // Change the navigation appearance
+      this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
+    });
   }
 
   /**

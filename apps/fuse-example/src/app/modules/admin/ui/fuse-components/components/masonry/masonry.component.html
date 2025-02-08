@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-masonry</strong> is a basic Masonry layout component to show items in Masonry grid layout. Since it
-      doesn't use any other third party library or complex calculations to keep everything smooth and fast;
+      <strong>fuse-masonry</strong> is a basic Masonry layout component to show items in Masonry grid layout. Since it doesn't use any other third
+      party library or complex calculations to keep everything smooth and fast;
     </p>
     <ul>
       <li>It does NOT work with elements with different widths</li>
@@ -99,8 +97,8 @@
 
     <h2>Usage</h2>
     <p>
-      <strong>fuse-masonry</strong> doesn't provide a default template or styling to the items. You can think of it as a
-      helper function but in a component form:
+      <strong>fuse-masonry</strong> doesn't provide a default template or styling to the items. You can think of it as a helper function but in a
+      component form:
     </p>
 
     <div class="example-viewer">
@@ -113,12 +111,7 @@
           <ng-template matTabContent>
             <div class="bg-gray-100 p-4">
               <div class="mx-auto max-w-80">
-                <fuse-masonry
-                  class="-mx-2"
-                  [items]="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
-                  [columns]="4"
-                  [columnsTemplate]="columnsTemplate"
-                >
+                <fuse-masonry class="-mx-2" [items]="[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]" [columns]="4" [columnsTemplate]="columnsTemplate">
                 </fuse-masonry>
                 <ng-template #columnsTemplate let-columns>
                   @for (column of columns; track column) {
@@ -170,8 +163,8 @@
 
     <h3>Responsive</h3>
     <p>
-      <strong>fuse-masonry</strong> doesn't provide a way of changing the column count depending on breakpoints but this
-      can easily be handled by combining <code>fuse-masonry</code> with <code>FuseMediaWatcherService</code>:
+      <strong>fuse-masonry</strong> doesn't provide a way of changing the column count depending on breakpoints but this can easily be handled by
+      combining <code>fuse-masonry</code> with <code>FuseMediaWatcherService</code>:
     </p>
 
     <div class="example-viewer">

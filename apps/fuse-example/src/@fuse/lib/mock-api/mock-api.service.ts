@@ -65,9 +65,7 @@ export class FuseMockApiService {
       }
 
       // Compare
-      const matches = handlerUrlParts.every(
-        (handlerUrlPart, index) => handlerUrlPart === urlParts[index] || handlerUrlPart.startsWith(':'),
-      );
+      const matches = handlerUrlParts.every((handlerUrlPart, index) => handlerUrlPart === urlParts[index] || handlerUrlPart.startsWith(':'));
 
       // If there is a match...
       if (matches) {

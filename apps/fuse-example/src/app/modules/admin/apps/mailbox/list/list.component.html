@@ -39,9 +39,7 @@
             class="h-8 min-h-8 w-8"
             mat-icon-button
             [disabled]="pagination.currentPage === pagination.lastPage"
-            [routerLink]="[
-              '../' + (pagination.currentPage < pagination.lastPage ? pagination.currentPage + 1 : pagination.lastPage),
-            ]"
+            [routerLink]="['../' + (pagination.currentPage < pagination.lastPage ? pagination.currentPage + 1 : pagination.lastPage)]"
           >
             <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
           </a>
@@ -58,11 +56,7 @@
         <!-- Item loop -->
         @for (mail of mails; track trackByFn(i, mail); let i = $index) {
           <!-- Item -->
-          <a
-            class="hover:bg-hover relative flex border-t first:border-0"
-            [routerLink]="[mail.id]"
-            (click)="onMailSelected(mail)"
-          >
+          <a class="hover:bg-hover relative flex border-t first:border-0" [routerLink]="[mail.id]" (click)="onMailSelected(mail)">
             <!-- Item content -->
             <div
               class="flex w-full flex-col items-start justify-start border-l-4 border-transparent py-6 pl-5 pr-4"
@@ -79,10 +73,7 @@
                 </div>
                 <!-- Important indicator -->
                 @if (mail.important) {
-                  <mat-icon
-                    class="icon-size-4 mr-3 text-red-500 dark:text-red-600"
-                    [svgIcon]="'heroicons_solid:exclamation-circle'"
-                  ></mat-icon>
+                  <mat-icon class="icon-size-4 mr-3 text-red-500 dark:text-red-600" [svgIcon]="'heroicons_solid:exclamation-circle'"></mat-icon>
                 }
                 <!-- Date -->
                 <div class="text-hint text-md ml-auto whitespace-nowrap text-right">
@@ -98,10 +89,7 @@
                   <div class="ml-auto flex pl-2">
                     <!-- Attachments -->
                     @if (mail.attachments && mail.attachments.length > 0) {
-                      <mat-icon
-                        class="icon-size-4 flex justify-center"
-                        [svgIcon]="'heroicons_solid:paper-clip'"
-                      ></mat-icon>
+                      <mat-icon class="icon-size-4 flex justify-center" [svgIcon]="'heroicons_solid:paper-clip'"></mat-icon>
                     }
                     <!-- Starred -->
                     @if (mail.starred) {
@@ -122,9 +110,7 @@
       </div>
     </div>
   } @else {
-    <div
-      class="z-100 absolute inset-0 flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent"
-    >
+    <div class="z-100 absolute inset-0 flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
       <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:envelope'"></mat-icon>
       <div class="text-secondary mt-4 text-2xl font-semibold tracking-tight">There are no e-mails</div>
     </div>

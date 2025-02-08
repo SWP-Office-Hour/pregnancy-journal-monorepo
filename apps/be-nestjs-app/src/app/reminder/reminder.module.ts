@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ReminderService } from './reminder.service';
-import { ReminderController } from './reminder.controller';
 import { DatabaseService } from '../database/database.service';
+import { ReminderController } from './reminder.controller';
+import { ReminderService } from './reminder.service';
 
 @Module({
   controllers: [ReminderController],

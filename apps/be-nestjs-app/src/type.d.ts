@@ -1,6 +1,5 @@
-import { JwtPayload } from './auth/auth.interface';
 import { Request } from 'express';
-import { UserRole } from '@pregnancy-journal-monorepo/contract';
+import { JwtPayload } from './auth/auth.interface';
 // Declare the type of the user object
 
 declare module 'express' {

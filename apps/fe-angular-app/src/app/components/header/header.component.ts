@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, HostListener, inject, Injectable } from '@angular/core';
 import { AsyncPipe, NgOptimizedImage } from '@angular/common';
-import { TuiAvatar, TuiBadge, TuiBadgedContent, TuiBadgeNotification, TuiChevron, TuiTabs } from '@taiga-ui/kit';
-import { TuiSearch } from '@taiga-ui/layout';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, HostListener, inject, Injectable } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TuiAlertService, TuiButton, TuiFallbackSrcPipe, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import { TuiAvatar, TuiBadge, TuiBadgedContent, TuiBadgeNotification, TuiTabs } from '@taiga-ui/kit';
+import { TuiSearch } from '@taiga-ui/layout';
 
 @Injectable({ providedIn: 'root' })
 @Component({

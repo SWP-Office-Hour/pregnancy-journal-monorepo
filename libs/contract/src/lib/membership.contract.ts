@@ -1,6 +1,6 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { statusSchema, membershipDaySchema } from './enum.contract';
+import { z } from 'zod';
+import { membershipDaySchema, statusSchema } from './enum.contract';
 
 const membershipResContract = z.object({
   id: z.string(),

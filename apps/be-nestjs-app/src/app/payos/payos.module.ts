@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { PayosService } from './payos.service';
 import { PayosController } from './payos.controller';
+import { PayosService } from './payos.service';
 
 @Module({
   controllers: [PayosController],

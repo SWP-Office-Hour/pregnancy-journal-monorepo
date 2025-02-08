@@ -39,8 +39,7 @@
               <div
                 class="relative flex cursor-pointer items-center rounded-full px-4 py-2 font-medium"
                 [ngClass]="{
-                  'text-primary dark:text-primary-400 bg-gray-200 dark:bg-gray-700':
-                    'label:' + label.id === filterStatus,
+                  'text-primary dark:text-primary-400 bg-gray-200 dark:bg-gray-700': 'label:' + label.id === filterStatus,
                   'text-hint hover:bg-hover': 'label:' + label.id !== filterStatus,
                 }"
                 (click)="filterByLabel(label.id)"
@@ -76,18 +75,9 @@
             <button class="-ml-2 flex lg:hidden" mat-icon-button (click)="drawer.toggle()">
               <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
             </button>
-            <mat-form-field
-              class="fuse-mat-rounded fuse-mat-dense ml-4 flex-auto lg:ml-0"
-              [subscriptSizing]="'dynamic'"
-            >
+            <mat-form-field class="fuse-mat-rounded fuse-mat-dense ml-4 flex-auto lg:ml-0" [subscriptSizing]="'dynamic'">
               <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'" matPrefix></mat-icon>
-              <input
-                matInput
-                [autocomplete]="'off'"
-                [placeholder]="'Search notes'"
-                (input)="filterByQuery(searchInput.value)"
-                #searchInput
-              />
+              <input matInput [autocomplete]="'off'" [placeholder]="'Search notes'" (input)="filterByQuery(searchInput.value)" #searchInput />
             </mat-form-field>
           </div>
           <!-- New note -->
@@ -101,12 +91,7 @@
         @if (notes$ | async; as notes) {
           @if (notes.length) {
             <!-- Masonry layout -->
-            <fuse-masonry
-              class="-mx-2 mt-8"
-              [items]="notes"
-              [columns]="masonryColumns"
-              [columnsTemplate]="columnsTemplate"
-            >
+            <fuse-masonry class="-mx-2 mt-8" [items]="notes" [columns]="masonryColumns" [columnsTemplate]="columnsTemplate">
               <!-- Columns template -->
               <ng-template #columnsTemplate let-columns>
                 <!-- Columns -->
@@ -115,10 +100,7 @@
                   <div class="flex-1 space-y-4 px-2">
                     @for (note of column.items; track trackByFn($index, note)) {
                       <!-- Note -->
-                      <div
-                        class="bg-card flex cursor-pointer flex-col overflow-hidden rounded-2xl shadow"
-                        (click)="openNoteDialog(note)"
-                      >
+                      <div class="bg-card flex cursor-pointer flex-col overflow-hidden rounded-2xl shadow" (click)="openNoteDialog(note)">
                         <!-- Image -->
                         @if (note.image) {
                           <img class="w-full object-cover" [src]="note.image" />
@@ -147,10 +129,7 @@
                                     </div>
                                   }
                                   @if (task.completed) {
-                                    <mat-icon
-                                      class="text-hint icon-size-5"
-                                      [svgIcon]="'heroicons_solid:check-circle'"
-                                    ></mat-icon>
+                                    <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
                                   }
                                   <div
                                     class="ml-1.5 leading-5"

@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -16,9 +14,7 @@
       </div>
       <!-- Title -->
       <div class="mt-2">
-        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
-          Form Wizards
-        </h2>
+        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">Form Wizards</h2>
       </div>
     </div>
   </div>
@@ -29,21 +25,16 @@
       <div class="prose prose-sm max-w-3xl">
         <p>
           Form wizard examples in this page uses
-          <code>mat-horizontal-stepper</code> and <code>mat-vertical-stepper</code> components from Angular Material.
-          You can get more information about them over here:
-          <a
-            class="link"
-            href="https://material.angular.io/components/stepper/overview"
-            rel="noreferrer"
-            target="_blank"
+          <code>mat-horizontal-stepper</code> and <code>mat-vertical-stepper</code> components from Angular Material. You can get more information
+          about them over here:
+          <a class="link" href="https://material.angular.io/components/stepper/overview" rel="noreferrer" target="_blank"
             >https://material.angular.io/components/stepper/overview
           </a>
           .
         </p>
         <p>
-          We prepared couple examples to get you started. You are not limited with these examples, there are lots of
-          options to steppers and you can configure them to have different behaviors. Take a look at the official guide
-          to learn more about them.
+          We prepared couple examples to get you started. You are not limited with these examples, there are lots of options to steppers and you can
+          configure them to have different behaviors. Take a look at the official guide to learn more about them.
         </p>
       </div>
 
@@ -52,11 +43,7 @@
 
       <form class="bg-card overflow-hidden rounded p-4 shadow" [formGroup]="horizontalStepperForm">
         <mat-horizontal-stepper [linear]="true" #horizontalStepper>
-          <mat-step
-            [formGroupName]="'step1'"
-            [stepControl]="horizontalStepperForm.get('step1')"
-            #horizontalStepperStep1
-          >
+          <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')" #horizontalStepperStep1>
             <ng-template matStepLabel>Basic information</ng-template>
             <p class="my-6 font-medium">Fill in your basic information to let us know your preferences</p>
             <div class="flex">
@@ -97,11 +84,7 @@
             </div>
           </mat-step>
 
-          <mat-step
-            [formGroupName]="'step2'"
-            [stepControl]="horizontalStepperForm.get('step2')"
-            #horizontalStepperStep2
-          >
+          <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')" #horizontalStepperStep2>
             <ng-template matStepLabel>Profile</ng-template>
             <p class="my-6 font-medium">People here will get to know you with this information</p>
             <div class="gt-xs:flex-row flex flex-col">
@@ -127,9 +110,7 @@
               </mat-form-field>
             </div>
             <div class="flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
               <button
                 class="px-8"
                 mat-flat-button
@@ -145,19 +126,13 @@
 
           <mat-step [formGroupName]="'step3'" [stepControl]="horizontalStepperForm.get('step3')">
             <ng-template matStepLabel>Notifications</ng-template>
-            <p class="my-6 font-medium">
-              We'll always let you know about important changes, but you pick what else you want to hear about.
-            </p>
+            <p class="my-6 font-medium">We'll always let you know about important changes, but you pick what else you want to hear about.</p>
             <div class="gt-sm:flex-row flex flex-col">
               <div class="flex flex-col">
                 <span class="mb-2 font-medium">By Email</span>
                 <div class="flex flex-col" [formGroupName]="'byEmail'">
-                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'companyNews'">
-                    Company News
-                  </mat-checkbox>
-                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'featuredProducts'">
-                    Featured Products
-                  </mat-checkbox>
+                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'companyNews'"> Company News </mat-checkbox>
+                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'featuredProducts'"> Featured Products </mat-checkbox>
                   <mat-checkbox [color]="'primary'" [formControlName]="'messages'"> Messages </mat-checkbox>
                 </div>
               </div>
@@ -171,25 +146,17 @@
               </div>
             </div>
             <div class="mt-8 flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
               <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>Next</button>
             </div>
           </mat-step>
 
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p class="my-6 font-medium">
-              Thank you for completing our form! You can reset the form if you would like to change your information.
-            </p>
+            <p class="my-6 font-medium">Thank you for completing our form! You can reset the form if you would like to change your information.</p>
             <div class="mt-8 flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="horizontalStepper.reset()">
-                Reset
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="horizontalStepper.reset()">Reset</button>
             </div>
           </mat-step>
         </mat-horizontal-stepper>
@@ -267,9 +234,7 @@
               </mat-form-field>
             </div>
             <div class="flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
               <button
                 class="px-8"
                 mat-flat-button
@@ -285,19 +250,13 @@
 
           <mat-step [formGroupName]="'step3'" [stepControl]="verticalStepperForm.get('step3')">
             <ng-template matStepLabel>Notifications</ng-template>
-            <p class="my-6 font-medium">
-              We'll always let you know about important changes, but you pick what else you want to hear about.
-            </p>
+            <p class="my-6 font-medium">We'll always let you know about important changes, but you pick what else you want to hear about.</p>
             <div class="gt-sm:flex-row flex flex-col">
               <div class="flex flex-col">
                 <span class="mb-2 font-medium">By Email</span>
                 <div class="flex flex-col" [formGroupName]="'byEmail'">
-                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'companyNews'">
-                    Company News
-                  </mat-checkbox>
-                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'featuredProducts'">
-                    Featured Products
-                  </mat-checkbox>
+                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'companyNews'"> Company News </mat-checkbox>
+                  <mat-checkbox class="mb-1" [color]="'primary'" [formControlName]="'featuredProducts'"> Featured Products </mat-checkbox>
                   <mat-checkbox [color]="'primary'" [formControlName]="'messages'"> Messages </mat-checkbox>
                 </div>
               </div>
@@ -311,25 +270,17 @@
               </div>
             </div>
             <div class="mt-8 flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
               <button class="px-8" mat-flat-button [color]="'primary'" type="button" matStepperNext>Next</button>
             </div>
           </mat-step>
 
           <mat-step>
             <ng-template matStepLabel>Done</ng-template>
-            <p class="my-6 font-medium">
-              Thank you for completing our form! You can reset the form if you would like to change your information.
-            </p>
+            <p class="my-6 font-medium">Thank you for completing our form! You can reset the form if you would like to change your information.</p>
             <div class="mt-8 flex justify-end">
-              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>
-                Back
-              </button>
-              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="verticalStepper.reset()">
-                Reset
-              </button>
+              <button class="mr-2 px-8" mat-flat-button [color]="'accent'" type="button" matStepperPrevious>Back</button>
+              <button class="px-8" mat-flat-button [color]="'primary'" type="reset" (click)="verticalStepper.reset()">Reset</button>
             </div>
           </mat-step>
         </mat-vertical-stepper>

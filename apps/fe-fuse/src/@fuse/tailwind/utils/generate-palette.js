@@ -34,9 +34,7 @@ const generatePalette = (config) => {
   // assign the values
   if (_.isPlainObject(config)) {
     if (!chroma.valid(config[500])) {
-      throw new Error(
-        'You must have a 500 hue in your palette configuration! Make sure the main color of your palette is marked as 500.',
-      );
+      throw new Error('You must have a 500 hue in your palette configuration! Make sure the main color of your palette is marked as 500.');
     }
 
     // Remove everything that is not a hue/color entry

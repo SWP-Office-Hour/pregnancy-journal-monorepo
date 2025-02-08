@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,18 +28,17 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-navigation</strong> is a set of components for creating navigations from data. It has two different
-      variations; <strong>fuse-vertical-navigation</strong> for creating vertical and
-      <strong>fuse-horizontal-navigation</strong> for creating horizontal navigations.
+      <strong>fuse-navigation</strong> is a set of components for creating navigations from data. It has two different variations;
+      <strong>fuse-vertical-navigation</strong> for creating vertical and <strong>fuse-horizontal-navigation</strong> for creating horizontal
+      navigations.
     </p>
     <p>
-      The <em>vertical</em> navigation comes with built-in drawer that can be programmed in various ways to show the
-      navigation in different styles and to control the mobile behavior.
+      The <em>vertical</em> navigation comes with built-in drawer that can be programmed in various ways to show the navigation in different styles
+      and to control the mobile behavior.
     </p>
     <p>
-      <strong>fuse-navigation</strong> also provides a service which can be used to store navigation data as well as
-      accessing navigation items with their ids from the navigation data. It's a utility service, you don't have to use
-      it to make <strong>fuse-navigation</strong> work.
+      <strong>fuse-navigation</strong> also provides a service which can be used to store navigation data as well as accessing navigation items with
+      their ids from the navigation data. It's a utility service, you don't have to use it to make <strong>fuse-navigation</strong> work.
     </p>
     <p>
       <strong>Exported as: </strong><code>fuseVerticalNavigation</code> and
@@ -49,8 +46,8 @@
     </p>
 
     <fuse-alert [appearance]="'border'" [type]="'info'">
-      fuse-navigation designed to work with data and it must be supplied in certain format. If you want to create a
-      navigation from an HTML structure, this component is not for you.
+      fuse-navigation designed to work with data and it must be supplied in certain format. If you want to create a navigation from an HTML structure,
+      this component is not for you.
     </fuse-alert>
 
     <h2>Module</h2>
@@ -62,8 +59,7 @@
 
     <h2>Navigation item</h2>
     <p>
-      This is the interface of the <em>Navigation item</em>. Both <em>vertical</em> and <em>horizontal</em> navigation
-      items use the same interface:
+      This is the interface of the <em>Navigation item</em>. Both <em>vertical</em> and <em>horizontal</em> navigation items use the same interface:
     </p>
     <textarea fuse-highlight lang="typescript">
             export interface FuseNavigationItem
@@ -127,8 +123,8 @@
               <div>id</div>
             </td>
             <td>
-              Unique id of the navigation item. It's important to supply navigation items with ids if you want to access
-              and modify them after generating the navigation.
+              Unique id of the navigation item. It's important to supply navigation items with ids if you want to access and modify them after
+              generating the navigation.
             </td>
           </tr>
           <tr>
@@ -180,10 +176,7 @@
             <td class="text-secondary text-md font-mono">
               <div>link</div>
             </td>
-            <td>
-              String representation of the item link. It can be either a <em>router</em> link or a normal, outgoing
-              link.
-            </td>
+            <td>String representation of the item link. It can be either a <em>router</em> link or a normal, outgoing link.</td>
           </tr>
           <tr>
             <td class="text-secondary text-md font-mono">
@@ -214,8 +207,8 @@
               <div>externalLink</div>
             </td>
             <td>
-              Whether the supplied link should be parsed as an external link. It must be <strong>true</strong> if you
-              supply a normal, outgoing link in the <strong>link</strong> property.
+              Whether the supplied link should be parsed as an external link. It must be <strong>true</strong> if you supply a normal, outgoing link
+              in the <strong>link</strong> property.
             </td>
           </tr>
           <tr>
@@ -235,8 +228,8 @@
               <div>isActiveMatchOptions</div>
             </td>
             <td>
-              Sets the <em>isActiveMatchOptions</em> object on the <em>[routerLinkActiveOptions]</em>. If provided,
-              <em>exactMatch</em> option will be ignored.
+              Sets the <em>isActiveMatchOptions</em> object on the <em>[routerLinkActiveOptions]</em>. If provided, <em>exactMatch</em> option will be
+              ignored.
               <a href="https://angular.io/api/router/IsActiveMatchOptions" target="_blank" rel="noreferrer"
                 >https://angular.io/api/router/IsActiveMatchOptions
               </a>
@@ -247,8 +240,8 @@
               <div>function</div>
             </td>
             <td>
-              A function to run on navigation item click. It gets one parameter which is the navigation item. Supplying
-              function will <strong>NOT</strong>
+              A function to run on navigation item click. It gets one parameter which is the navigation item. Supplying function will
+              <strong>NOT</strong>
               override the link functionality of the navigation item, they will run in parallel.
             </td>
           </tr>
@@ -257,8 +250,7 @@
               <div>classes</div>
             </td>
             <td>
-              Custom class names for the navigation item's specific parts. Multiple class names can be added by
-              separating them with whitespace:
+              Custom class names for the navigation item's specific parts. Multiple class names can be added by separating them with whitespace:
               <code>'class1 class2 class3'</code>
             </td>
           </tr>
@@ -291,8 +283,8 @@
               <div>meta</div>
             </td>
             <td>
-              An object to hold custom data for the navigation item. It can be used for anything such as storing the
-              access role and authorization of the navigation item.
+              An object to hold custom data for the navigation item. It can be used for anything such as storing the access role and authorization of
+              the navigation item.
             </td>
           </tr>
         </tbody>
@@ -333,10 +325,7 @@
               <div>&#64;Input()</div>
               <div>appearance: FuseVerticalNavigationAppearance</div>
             </td>
-            <td>
-              Appearance of the navigation and its drawer. This is a string type and can be used to override the style
-              of the navigation.
-            </td>
+            <td>Appearance of the navigation and its drawer. This is a string type and can be used to override the style of the navigation.</td>
             <td>
               <code class="whitespace-nowrap">classic</code>
             </td>
@@ -346,10 +335,7 @@
               <div>&#64;Input()</div>
               <div>autoCollapse: boolean</div>
             </td>
-            <td>
-              Whether expanding an expandable navigation item should close other expanded items excluding the active
-              menu item's parent.
-            </td>
+            <td>Whether expanding an expandable navigation item should close other expanded items excluding the active menu item's parent.</td>
             <td>
               <code class="whitespace-nowrap">true</code>
             </td>
@@ -360,8 +346,8 @@
               <div>inner: boolean</div>
             </td>
             <td>
-              Whether the inner mode is active. This mode allows using navigation without its drawer. Suitable for using
-              it inside <strong>mat-sidenav</strong> or <strong>mat-drawer</strong>.
+              Whether the inner mode is active. This mode allows using navigation without its drawer. Suitable for using it inside
+              <strong>mat-sidenav</strong> or <strong>mat-drawer</strong>.
             </td>
             <td>
               <code class="whitespace-nowrap">false</code>
@@ -373,8 +359,8 @@
               <div>mode: FuseVerticalNavigationMode</div>
             </td>
             <td>
-              <strong>over</strong> mode can be used to place the drawer on top of the content and
-              <strong>side</strong> mode can be used to push the content and place the drawer next to it.
+              <strong>over</strong> mode can be used to place the drawer on top of the content and <strong>side</strong> mode can be used to push the
+              content and place the drawer next to it.
             </td>
             <td>
               <code class="whitespace-nowrap">side</code>
@@ -467,8 +453,8 @@
 
     <h3>Custom content hooks</h3>
     <p>
-      Since the entire navigation will be created from the supplied navigation data, it's only possible to attach custom
-      content inside the navigation drawer using custom content hooks. There are four of these hooks;
+      Since the entire navigation will be created from the supplied navigation data, it's only possible to attach custom content inside the navigation
+      drawer using custom content hooks. There are four of these hooks;
     </p>
     <div class="bg-card mt-4 rounded px-6 py-3 shadow">
       <table>
@@ -604,9 +590,8 @@
 
     <h2>Accessing navigation items</h2>
     <p>
-      The <code>FuseNavigationService</code> provides couple helper methods to access navigation items from the
-      navigation data using their ids. This is especially useful if you want to change something from any item like
-      updating its badge title, hiding or disabling it.
+      The <code>FuseNavigationService</code> provides couple helper methods to access navigation items from the navigation data using their ids. This
+      is especially useful if you want to change something from any item like updating its badge title, hiding or disabling it.
     </p>
     <div class="example-viewer">
       <div class="title">
@@ -616,11 +601,7 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <button
-              mat-flat-button
-              [color]="'primary'"
-              (click)="getNavItem('documentation.changelog', 'mainNavigation')"
-            >
+            <button mat-flat-button [color]="'primary'" (click)="getNavItem('documentation.changelog', 'mainNavigation')">
               Get the Changelog item (See browser console)
             </button>
           </ng-template>
@@ -684,11 +665,7 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <button
-              mat-flat-button
-              [color]="'primary'"
-              (click)="updateBadgeTitle('documentation.changelog', 'mainNavigation', '9.9.99')"
-            >
+            <button mat-flat-button [color]="'primary'" (click)="updateBadgeTitle('documentation.changelog', 'mainNavigation', '9.9.99')">
               Update the 'Changelog' badge title
             </button>
           </ng-template>
@@ -747,11 +724,7 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <button
-              mat-flat-button
-              [color]="'primary'"
-              (click)="toggleDisabled('documentation.changelog', 'mainNavigation')"
-            >
+            <button mat-flat-button [color]="'primary'" (click)="toggleDisabled('documentation.changelog', 'mainNavigation')">
               Toggle the disabled status of 'Changelog' item
             </button>
           </ng-template>
@@ -804,10 +777,9 @@
 
     <h2>Swapping entire navigation</h2>
     <p>
-      Sometimes it's best to use more than one set of data and swap between them to provide correct navigation. An
-      example use case would be user roles. Different roles may require access to different areas and rather than
-      showing/hiding individual navigation items, it's best to swap the entire navigation data to show a personalized
-      navigation for that role.
+      Sometimes it's best to use more than one set of data and swap between them to provide correct navigation. An example use case would be user
+      roles. Different roles may require access to different areas and rather than showing/hiding individual navigation items, it's best to swap the
+      entire navigation data to show a personalized navigation for that role.
     </p>
     <div class="example-viewer">
       <div class="title">

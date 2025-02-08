@@ -37,11 +37,7 @@ export interface PageLayoutsOverviewData {
             {{ overview.description }}
           </div>
           <div class="mt-6 md:mt-8">
-            <mat-button-toggle-group
-              class="-m-2 flex flex-wrap items-center"
-              name="options"
-              [(ngModel)]="overview.selectedOption"
-            >
+            <mat-button-toggle-group class="-m-2 flex flex-wrap items-center" name="options" [(ngModel)]="overview.selectedOption">
               @for (option of overview.availableOptions; track option) {
                 <mat-button-toggle
                   class="m-2 font-medium"
@@ -61,9 +57,7 @@ export interface PageLayoutsOverviewData {
         @if (overview.options[overview.selectedOption]; as selectedOption) {
           <div>
             <!-- Preview -->
-            <div
-              class="h-192 relative z-20 mt-10 overflow-auto rounded-2xl shadow-xl ring-1 ring-gray-300 dark:ring-gray-700"
-            >
+            <div class="h-192 relative z-20 mt-10 overflow-auto rounded-2xl shadow-xl ring-1 ring-gray-300 dark:ring-gray-700">
               <div class="flex min-h-full flex-auto">
                 <!-- Navigation -->
                 <div

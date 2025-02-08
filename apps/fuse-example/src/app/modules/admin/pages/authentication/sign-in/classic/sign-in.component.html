@@ -15,13 +15,7 @@
 
       <!-- Alert -->
       @if (showAlert) {
-        <fuse-alert
-          class="mt-8"
-          [appearance]="'outline'"
-          [showIcon]="false"
-          [type]="alert.type"
-          [@shake]="alert.type === 'error'"
-        >
+        <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
           {{ alert.message }}
         </fuse-alert>
       }
@@ -47,9 +41,7 @@
           <button
             mat-icon-button
             type="button"
-            (click)="
-              passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
-            "
+            (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
             matSuffix
           >
             @if (passwordField.type === 'password') {
@@ -65,19 +57,11 @@
         <!-- Actions -->
         <div class="mt-1.5 inline-flex w-full items-center justify-between">
           <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Remember me </mat-checkbox>
-          <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']"
-            >Forgot password?
-          </a>
+          <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']">Forgot password? </a>
         </div>
 
         <!-- Submit button -->
-        <button
-          class="fuse-mat-button-large mt-6 w-full"
-          mat-flat-button
-          [color]="'primary'"
-          [disabled]="signInForm.disabled"
-          (click)="signIn()"
-        >
+        <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
           @if (!signInForm.disabled) {
             <span> Sign in </span>
           }

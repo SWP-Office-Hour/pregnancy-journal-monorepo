@@ -1,12 +1,5 @@
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import {
-  APP_INITIALIZER,
-  ENVIRONMENT_INITIALIZER,
-  EnvironmentProviders,
-  Provider,
-  importProvidersFrom,
-  inject,
-} from '@angular/core';
+import { APP_INITIALIZER, ENVIRONMENT_INITIALIZER, EnvironmentProviders, Provider, importProvidersFrom, inject } from '@angular/core';
 import { MATERIAL_SANITY_CHECKS } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';

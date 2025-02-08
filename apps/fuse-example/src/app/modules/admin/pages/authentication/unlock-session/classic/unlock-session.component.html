@@ -12,13 +12,7 @@
 
       <!-- Alert -->
       @if (showAlert) {
-        <fuse-alert
-          class="mt-8"
-          [appearance]="'outline'"
-          [showIcon]="false"
-          [type]="alert.type"
-          [@shake]="alert.type === 'error'"
-        >
+        <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
           {{ alert.message }}
         </fuse-alert>
       }
@@ -38,9 +32,7 @@
           <button
             mat-icon-button
             type="button"
-            (click)="
-              passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
-            "
+            (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
             matSuffix
           >
             @if (passwordField.type === 'password') {

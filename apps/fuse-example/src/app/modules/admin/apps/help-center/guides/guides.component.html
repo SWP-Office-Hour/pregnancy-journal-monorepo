@@ -17,10 +17,7 @@
               {{ guideCategory.title }}
             </a>
             @for (guide of guideCategory.guides; track trackByFn($index, guide)) {
-              <a
-                class="text-primary-500 mt-3 font-medium hover:underline"
-                [routerLink]="[guideCategory.slug, guide.slug]"
-              >
+              <a class="text-primary-500 mt-3 font-medium hover:underline" [routerLink]="[guideCategory.slug, guide.slug]">
                 {{ guide.title }}
               </a>
             }

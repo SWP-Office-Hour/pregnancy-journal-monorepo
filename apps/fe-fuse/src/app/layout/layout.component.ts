@@ -71,10 +71,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
     // Set the theme and scheme based on the configuration
     combineLatest([
       this._fuseConfigService.config$,
-      this._fuseMediaWatcherService.onMediaQueryChange$([
-        '(prefers-color-scheme: dark)',
-        '(prefers-color-scheme: light)',
-      ]),
+      this._fuseMediaWatcherService.onMediaQueryChange$(['(prefers-color-scheme: dark)', '(prefers-color-scheme: light)']),
     ])
       .pipe(
         takeUntil(this._unsubscribeAll),

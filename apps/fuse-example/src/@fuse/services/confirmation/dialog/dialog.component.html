@@ -46,9 +46,7 @@
 
   <!-- Actions -->
   @if (data.actions.confirm.show || data.actions.cancel.show) {
-    <div
-      class="flex items-center justify-center space-x-3 bg-gray-50 px-6 py-4 sm:justify-end dark:bg-black dark:bg-opacity-10"
-    >
+    <div class="flex items-center justify-center space-x-3 bg-gray-50 px-6 py-4 sm:justify-end dark:bg-black dark:bg-opacity-10">
       <!-- Cancel -->
       @if (data.actions.cancel.show) {
         <button mat-stroked-button [matDialogClose]="'cancelled'">

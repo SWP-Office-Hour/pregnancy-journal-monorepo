@@ -1,9 +1,9 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgOptimizedImage } from '@angular/common';
 import { TuiAppearance, TuiButton, TuiIcon, TuiTextfield, TuiTitle } from '@taiga-ui/core';
-import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { TuiPassword } from '@taiga-ui/kit';
+import { TuiCardLarge, TuiForm, TuiHeader } from '@taiga-ui/layout';
 import { AuthGoogleService } from '../services/auth-google.service';
 import { UsersService } from '../services/users.service';
 

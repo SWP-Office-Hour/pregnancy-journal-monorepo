@@ -36,9 +36,7 @@ export class ECommerceInventoryMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Categories - GET
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService
-      .onGet('api/apps/ecommerce/inventory/categories')
-      .reply(() => [200, cloneDeep(this._categories)]);
+    this._fuseMockApiService.onGet('api/apps/ecommerce/inventory/categories').reply(() => [200, cloneDeep(this._categories)]);
 
     // -----------------------------------------------------------------------------------------------------
     // @ Brands - GET
@@ -73,9 +71,7 @@ export class ECommerceInventoryMockApi {
       // If search exists...
       if (search) {
         // Filter the products
-        products = products.filter(
-          (contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase()),
-        );
+        products = products.filter((contact) => contact.name && contact.name.toLowerCase().includes(search.toLowerCase()));
       }
 
       // Paginate - Start

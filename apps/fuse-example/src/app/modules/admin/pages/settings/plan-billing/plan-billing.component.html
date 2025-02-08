@@ -13,11 +13,7 @@
           Changing the plan will take effect immediately. You will be charged for the rest of the current month.
         </fuse-alert>
       </div>
-      <mat-radio-group
-        class="pointer-events-none invisible absolute h-0 w-0"
-        [formControlName]="'plan'"
-        #planRadioGroup="matRadioGroup"
-      >
+      <mat-radio-group class="pointer-events-none invisible absolute h-0 w-0" [formControlName]="'plan'" #planRadioGroup="matRadioGroup">
         @for (plan of plans; track trackByFn($index, plan)) {
           <mat-radio-button [value]="plan.value"></mat-radio-button>
         }
@@ -31,10 +27,7 @@
           (click)="planRadioGroup.value = plan.value"
         >
           @if (planRadioGroup.value === plan.value) {
-            <mat-icon
-              class="text-primary icon-size-7 absolute right-0 top-0 mr-3 mt-3"
-              [svgIcon]="'heroicons_solid:check-circle'"
-            ></mat-icon>
+            <mat-icon class="text-primary icon-size-7 absolute right-0 top-0 mr-3 mt-3" [svgIcon]="'heroicons_solid:check-circle'"></mat-icon>
           }
           <div class="font-semibold">{{ plan.label }}</div>
           <div class="text-secondary mt-1 whitespace-normal">
@@ -55,9 +48,7 @@
     <!-- Section -->
     <div class="w-full">
       <div class="text-xl">Payment Details</div>
-      <div class="text-secondary">
-        Update your billing information. Make sure to set your location correctly as it could affect your tax rates.
-      </div>
+      <div class="text-secondary">Update your billing information. Make sure to set your location correctly as it could affect your tax rates.</div>
     </div>
     <div class="mt-8 grid w-full grid-cols-4 gap-6">
       <!-- Card holder -->

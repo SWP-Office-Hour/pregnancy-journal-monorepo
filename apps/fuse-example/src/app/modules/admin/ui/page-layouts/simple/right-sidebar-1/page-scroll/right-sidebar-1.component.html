@@ -1,14 +1,7 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-y-auto" cdkScrollable>
   <mat-drawer-container class="flex-auto overflow-visible">
     <!-- Drawer -->
-    <mat-drawer
-      class="w-72 dark:bg-gray-900"
-      [autoFocus]="false"
-      [mode]="drawerMode"
-      [opened]="drawerOpened"
-      [position]="'end'"
-      #matDrawer
-    >
+    <mat-drawer class="w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" [position]="'end'" #matDrawer>
       <!-- Demo sidebar -->
       <demo-sidebar></demo-sidebar>
     </mat-drawer>

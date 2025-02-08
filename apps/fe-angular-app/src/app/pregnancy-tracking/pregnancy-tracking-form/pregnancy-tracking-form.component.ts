@@ -1,15 +1,15 @@
-import { Component, inject } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { TuiDay } from '@taiga-ui/cdk';
 import { TuiButton, TuiError, TuiLabel, TuiTextfield } from '@taiga-ui/core';
 import { TuiDataListWrapper, TuiFieldErrorPipe, TuiFileLike, TuiInputNumber } from '@taiga-ui/kit';
 import { TuiForm } from '@taiga-ui/layout';
 import { TuiInputDateModule, TuiInputModule, TuiSelectModule } from '@taiga-ui/legacy';
-import { TuiDay } from '@taiga-ui/cdk';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
-import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
 import { map } from 'rxjs';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
+import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -59,18 +59,9 @@ export class PregnancyTrackingFormComponent {
     this.hospitals.subscribe((hospitals) => {
       this.pregnancyForm.addControl('hospital', new FormControl(hospitals[0].name));
     });
-    this.pregnancyForm.addControl(
-      'visitDoctorDate',
-      new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
-    );
-    this.pregnancyForm.addControl(
-      'nextVisitDate',
-      new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
-    );
-    this.pregnancyForm.addControl(
-      'expectedBirthDate',
-      new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())),
-    );
+    this.pregnancyForm.addControl('visitDoctorDate', new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())));
+    this.pregnancyForm.addControl('nextVisitDate', new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())));
+    this.pregnancyForm.addControl('expectedBirthDate', new FormControl(new TuiDay(date.getFullYear(), date.getMonth(), date.getDate())));
     this.pregnancyForm.addControl('week', new FormControl(32));
     this.pregnancyForm.addControl('file', new FormControl<TuiFileLike | null>(null, Validators.required));
   }

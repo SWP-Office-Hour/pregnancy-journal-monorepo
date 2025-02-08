@@ -2,18 +2,8 @@ import { KeyValuePipe, NgForOf, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { tuiAsPortal, TuiPortals, TuiRepeatTimes } from '@taiga-ui/cdk';
-import {
-  TuiAppearance,
-  TuiButton,
-  TuiDataList,
-  TuiDropdown,
-  TuiDropdownService,
-  TuiIcon,
-  TuiLink,
-  TuiTextfield,
-  TuiTitle,
-} from '@taiga-ui/core';
+import { tuiAsPortal, TuiRepeatTimes } from '@taiga-ui/cdk';
+import { TuiAppearance, TuiButton, TuiDataList, TuiDropdown, TuiDropdownService, TuiIcon, TuiLink, TuiTextfield, TuiTitle } from '@taiga-ui/core';
 import {
   TuiAvatar,
   TuiBadge,

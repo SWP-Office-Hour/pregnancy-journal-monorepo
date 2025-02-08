@@ -14,14 +14,7 @@ import { finalize } from 'rxjs';
   selector: 'loading-bar',
   templateUrl: './loading-bar.component.html',
   standalone: true,
-  imports: [
-    MatIconModule,
-    MatButtonModule,
-    FuseHighlightComponent,
-    MatTabsModule,
-    MatSlideToggleModule,
-    MatSliderModule,
-  ],
+  imports: [MatIconModule, MatButtonModule, FuseHighlightComponent, MatTabsModule, MatSlideToggleModule, MatSliderModule],
 })
 export class LoadingBarComponent {
   apiCallStatus: string = '-';

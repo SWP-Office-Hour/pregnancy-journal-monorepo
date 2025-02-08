@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@pregnancy-journal-monorepo/be-nestjs-app": ["apps/be-nestjs-app/src/app/app.module"],
       "@pregnancy-journal-monorepo/contract": ["./libs/contract/src/index.ts"]
     }
   },

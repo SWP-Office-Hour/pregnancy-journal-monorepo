@@ -1,13 +1,5 @@
 import { NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
@@ -96,21 +88,19 @@ export class SettingsComponent implements OnInit, OnDestroy {
     ];
 
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode and drawerOpened
-        if (matchingAliases.includes('lg')) {
-          this.drawerMode = 'side';
-          this.drawerOpened = true;
-        } else {
-          this.drawerMode = 'over';
-          this.drawerOpened = false;
-        }
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode and drawerOpened
+      if (matchingAliases.includes('lg')) {
+        this.drawerMode = 'side';
+        this.drawerOpened = true;
+      } else {
+        this.drawerMode = 'over';
+        this.drawerOpened = false;
+      }
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   /**

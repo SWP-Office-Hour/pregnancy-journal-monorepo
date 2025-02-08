@@ -68,13 +68,7 @@ export class PregnancyRecordFormComponent implements OnInit {
     });
   }
 
-  addControlToForm(
-    controlName: string,
-    controlValue: any,
-    controlType: 'Number' | 'Select' | 'Date',
-    controlLabel: string,
-    selectItems?: any[],
-  ) {
+  addControlToForm(controlName: string, controlValue: any, controlType: 'Number' | 'Select' | 'Date', controlLabel: string, selectItems?: any[]) {
     switch (controlType) {
       case 'Number':
         this.pregnancyForm.addControl(controlName, new FormControl(controlValue || 0));

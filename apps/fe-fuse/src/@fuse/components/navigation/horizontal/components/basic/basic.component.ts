@@ -46,9 +46,7 @@ export class FuseHorizontalNavigationBasicItemComponent implements OnInit, OnDes
     // "isActiveMatchOptions" or the equivalent form of
     // item's "exactMatch" option
     this.isActiveMatchOptions =
-      (this.item.isActiveMatchOptions ?? this.item.exactMatch)
-        ? this._fuseUtilsService.exactMatchOptions
-        : this._fuseUtilsService.subsetMatchOptions;
+      (this.item.isActiveMatchOptions ?? this.item.exactMatch) ? this._fuseUtilsService.exactMatchOptions : this._fuseUtilsService.subsetMatchOptions;
 
     // Get the parent navigation component
     this._fuseHorizontalNavigationComponent = this._fuseNavigationService.getComponent(this.name);

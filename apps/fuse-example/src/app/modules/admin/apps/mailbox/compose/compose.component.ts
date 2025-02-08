@@ -12,15 +12,7 @@ import { QuillEditorComponent } from 'ngx-quill';
   templateUrl: './compose.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    QuillEditorComponent,
-  ],
+  imports: [MatButtonModule, MatIconModule, FormsModule, ReactiveFormsModule, MatFormFieldModule, MatInputModule, QuillEditorComponent],
 })
 export class MailboxComposeComponent implements OnInit {
   composeForm: UntypedFormGroup;

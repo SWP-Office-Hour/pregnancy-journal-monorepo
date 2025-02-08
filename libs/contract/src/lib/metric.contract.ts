@@ -1,7 +1,7 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
-import { tagResSchema } from './tag.contract';
+import { z } from 'zod';
 import { statusSchema } from './enum.contract';
+import { tagResSchema } from './tag.contract';
 
 export const standardSchema = z.object({
   id: z.string(),

@@ -1,12 +1,5 @@
 import { inject } from '@angular/core';
-import {
-  ActivatedRouteSnapshot,
-  Router,
-  RouterStateSnapshot,
-  Routes,
-  UrlMatchResult,
-  UrlSegment,
-} from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, Routes, UrlMatchResult, UrlSegment } from '@angular/router';
 import { MailboxDetailsComponent } from 'app/modules/admin/apps/mailbox/details/details.component';
 import { MailboxEmptyDetailsComponent } from 'app/modules/admin/apps/mailbox/empty-details/empty-details.component';
 import { MailboxListComponent } from 'app/modules/admin/apps/mailbox/list/list.component';

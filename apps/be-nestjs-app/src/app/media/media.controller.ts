@@ -1,12 +1,4 @@
-import {
-  BadRequestException,
-  Controller,
-  NotFoundException,
-  Param,
-  Query,
-  UploadedFile,
-  UseInterceptors,
-} from '@nestjs/common';
+import { BadRequestException, Controller, NotFoundException, Param, Query, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { mediaContract, MediaRes } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
@@ -24,10 +16,7 @@ export class MediaController {
 
   @TsRestHandler(mediaContract.updateFile)
   @UseInterceptors(FileInterceptor('file'))
-  handleUpdateFile(
-    @UploadedFile() file: Express.Multer.File,
-    @Query() { post_id, record_id }: { post_id?: string; record_id?: string },
-  ) {
+  handleUpdateFile(@UploadedFile() file: Express.Multer.File, @Query() { post_id, record_id }: { post_id?: string; record_id?: string }) {
     return tsRestHandler(mediaContract.updateFile, async () => {
       if (!post_id && !record_id) {
         throw new BadRequestException('No post_id or record_id provided');

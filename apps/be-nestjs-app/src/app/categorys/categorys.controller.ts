@@ -1,7 +1,7 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { CategorysService } from './categorys.service';
-import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { categoryContract, CategoryCreateReq } from '@pregnancy-journal-monorepo/contract';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { CategorysService } from './categorys.service';
 
 @Controller()
 export class CategorysController {

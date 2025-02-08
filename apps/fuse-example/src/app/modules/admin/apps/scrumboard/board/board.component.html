@@ -1,8 +1,6 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <!-- Title -->
     <div class="min-w-0 flex-1">
       <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
@@ -25,13 +23,7 @@
   <!-- Main -->
   <div class="flex-auto overflow-y-auto p-6 sm:p-8 sm:pt-4" cdkScrollable>
     <!-- Lists -->
-    <div
-      class="flex"
-      cdkDropList
-      [cdkDropListData]="board.lists"
-      [cdkDropListOrientation]="'horizontal'"
-      (cdkDropListDropped)="listDropped($event)"
-    >
+    <div class="flex" cdkDropList [cdkDropListData]="board.lists" [cdkDropListOrientation]="'horizontal'" (cdkDropListDropped)="listDropped($event)">
       <!-- Group all cdkDropList's after this point together so that the cards can be transferred between lists -->
       <div class="flex items-start" cdkDropListGroup>
         <!-- List -->
@@ -74,13 +66,7 @@
 
             <!-- Cards -->
             <div class="bg-opacity-12 mt-2 rounded-xl bg-gray-400 dark:border dark:bg-transparent">
-              <div
-                [id]="list.id"
-                class="p-3 pb-0"
-                cdkDropList
-                [cdkDropListData]="list.cards"
-                (cdkDropListDropped)="cardDropped($event)"
-              >
+              <div [id]="list.id" class="p-3 pb-0" cdkDropList [cdkDropListData]="list.cards" (cdkDropListDropped)="cardDropped($event)">
                 <!-- Card -->
                 @for (card of list.cards; track trackByFn($index, card)) {
                   <a
@@ -131,20 +117,14 @@
               </div>
 
               <!-- New card -->
-              <scrumboard-board-add-card
-                (saved)="addCard(list, $event)"
-                [buttonTitle]="list.cards.length ? 'Add another card' : 'Add a card'"
-              >
+              <scrumboard-board-add-card (saved)="addCard(list, $event)" [buttonTitle]="list.cards.length ? 'Add another card' : 'Add a card'">
               </scrumboard-board-add-card>
             </div>
           </div>
         }
 
         <!-- New list -->
-        <scrumboard-board-add-list
-          (saved)="addList($event)"
-          [buttonTitle]="board.lists.length ? 'Add another list' : 'Add a list'"
-        >
+        <scrumboard-board-add-list (saved)="addList($event)" [buttonTitle]="board.lists.length ? 'Add another list' : 'Add a list'">
         </scrumboard-board-add-list>
       </div>
     </div>

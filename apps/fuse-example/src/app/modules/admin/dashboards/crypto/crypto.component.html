@@ -24,9 +24,7 @@
                       'text-green-500': item.trend.dir === 'up',
                       'text-red-500': item.trend.dir === 'down',
                     }"
-                    [svgIcon]="
-                      item.trend.dir === 'up' ? 'heroicons_mini:arrow-long-up' : 'heroicons_mini:arrow-long-down'
-                    "
+                    [svgIcon]="item.trend.dir === 'up' ? 'heroicons_mini:arrow-long-up' : 'heroicons_mini:arrow-long-down'"
                   ></mat-icon>
                   <div
                     class="mb-px font-mono text-sm font-medium leading-none"
@@ -60,9 +58,7 @@
               <mat-label>Action</mat-label>
               <mat-icon
                 class="icon-size-5"
-                [svgIcon]="
-                  buySellSelect.value === 'buy' ? 'heroicons_solid:arrow-down-tray' : 'heroicons_solid:arrow-up-tray'
-                "
+                [svgIcon]="buySellSelect.value === 'buy' ? 'heroicons_solid:arrow-down-tray' : 'heroicons_solid:arrow-up-tray'"
                 matPrefix
               ></mat-icon>
               <mat-select [value]="'buy'" #buySellSelect="matSelect">
@@ -193,9 +189,7 @@
                   'text-green-500': data.btc.trend.dir === 'up',
                   'text-red-500': data.btc.trend.dir === 'down',
                 }"
-                [svgIcon]="
-                  data.btc.trend.dir === 'up' ? 'heroicons_mini:arrow-long-up' : 'heroicons_mini:arrow-long-down'
-                "
+                [svgIcon]="data.btc.trend.dir === 'up' ? 'heroicons_mini:arrow-long-up' : 'heroicons_mini:arrow-long-down'"
               ></mat-icon>
               <div
                 class="mb-px font-mono text-lg font-medium leading-none"
@@ -211,9 +205,7 @@
           <div class="my-3 hidden items-center sm:flex">
             <div class="rounded-l-xl border border-r-0 p-4 leading-none">
               <div class="text-secondary text-sm font-medium">Market Cap</div>
-              <div class="mt-2 font-mono text-xl">
-                {{ data.btc.marketCap / 1000000000 | number: '1.0-2' | currency }}B
-              </div>
+              <div class="mt-2 font-mono text-xl">{{ data.btc.marketCap / 1000000000 | number: '1.0-2' | currency }}B</div>
             </div>
             <div class="border border-r-0 p-4 leading-none">
               <div class="text-secondary text-sm font-medium">Volume</div>

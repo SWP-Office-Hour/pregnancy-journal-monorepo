@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MetricCreateReq, MetricUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { PrismaClient } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
 import { StandardService } from '../standard/standard.service';
-import { PrismaClient } from '@prisma/client';
 
 @Injectable()
 export class MetricService {

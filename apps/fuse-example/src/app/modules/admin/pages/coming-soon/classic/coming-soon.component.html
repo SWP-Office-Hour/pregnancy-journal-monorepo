@@ -8,19 +8,11 @@
 
       <!-- Title -->
       <div class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">Almost there!</div>
-      <div class="mt-0.5">
-        Do you want to be notified when we are ready? Register below so we can notify you about the launch!
-      </div>
+      <div class="mt-0.5">Do you want to be notified when we are ready? Register below so we can notify you about the launch!</div>
 
       <!-- Alert -->
       @if (showAlert) {
-        <fuse-alert
-          class="mt-8"
-          [appearance]="'outline'"
-          [showIcon]="false"
-          [type]="alert.type"
-          [@shake]="alert.type === 'error'"
-        >
+        <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
           {{ alert.message }}
         </fuse-alert>
       }
@@ -58,8 +50,7 @@
 
         <!-- Form footer -->
         <div class="text-secondary text-md mt-8 font-medium">
-          This isn't a newsletter subscription. We will send one email to you when we launch and then you will be
-          removed from the list.
+          This isn't a newsletter subscription. We will send one email to you when we launch and then you will be removed from the list.
         </div>
       </form>
     </div>

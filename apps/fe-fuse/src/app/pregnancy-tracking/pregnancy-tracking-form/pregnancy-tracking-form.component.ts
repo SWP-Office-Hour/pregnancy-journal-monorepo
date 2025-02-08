@@ -71,13 +71,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     });
   }
 
-  addControlToForm(
-    controlName: string,
-    controlValue: any,
-    controlType: 'Number' | 'Select' | 'Date',
-    controlLabel: string,
-    selectItems?: any[],
-  ) {
+  addControlToForm(controlName: string, controlValue: any, controlType: 'Number' | 'Select' | 'Date', controlLabel: string, selectItems?: any[]) {
     switch (controlType) {
       case 'Number':
         this.pregnancyForm.addControl(controlName, new FormControl(controlValue || 0));
@@ -102,9 +96,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
         }
       }
       if (pregnancyData.data.find((d) => d.metric_id === control.controlName)) {
-        this.pregnancyForm
-          .get(control.controlName)
-          .setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
+        this.pregnancyForm.get(control.controlName).setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
       }
     });
   }

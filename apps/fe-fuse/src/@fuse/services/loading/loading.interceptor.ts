@@ -3,10 +3,7 @@ import { inject } from '@angular/core';
 import { FuseLoadingService } from '@fuse/services/loading/loading.service';
 import { Observable, finalize, take } from 'rxjs';
 
-export const fuseLoadingInterceptor = (
-  req: HttpRequest<unknown>,
-  next: HttpHandlerFn,
-): Observable<HttpEvent<unknown>> => {
+export const fuseLoadingInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   const fuseLoadingService = inject(FuseLoadingService);
   let handleRequestsAutomatically = false;
 

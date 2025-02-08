@@ -11,11 +11,7 @@ export const boards = [
     description: 'Roadmap for the new project',
     icon: 'heroicons_outline:rectangle-group',
     lastActivity: now.startOf('day').minus({ day: 1 }).toISO(),
-    members: [
-      '9c510cf3-460d-4a8c-b3be-bcc3db578c08',
-      'baa88231-0ee6-4028-96d5-7f187e0f4cd5',
-      '18bb18f3-ea7d-4465-8913-e8c9adf6f568',
-    ],
+    members: ['9c510cf3-460d-4a8c-b3be-bcc3db578c08', 'baa88231-0ee6-4028-96d5-7f187e0f4cd5', '18bb18f3-ea7d-4465-8913-e8c9adf6f568'],
   },
   {
     id: '0168b519-3dab-4b46-b2ea-0e678e38a583',
@@ -75,8 +71,7 @@ export const cards = [
     boardId: '2c82225f-2a6c-45d3-b18a-1132712a4234',
     listId: 'a2df7786-519c-485a-a85f-c09a61cc5f37',
     position: 65536,
-    title:
-      'Example that showcase all of the available bits on the card with a fairly long title compared to other cards',
+    title: 'Example that showcase all of the available bits on the card with a fairly long title compared to other cards',
     description:
       'Example that showcase all of the available bits on the card with a fairly long title compared to other cards. Example that showcase all of the available bits on the card with a fairly long title compared to other cards.',
     labels: [

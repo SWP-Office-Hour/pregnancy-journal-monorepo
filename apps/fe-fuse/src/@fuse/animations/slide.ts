@@ -233,13 +233,4 @@ const slideOutRight = trigger('slideOutRight', [
   }),
 ]);
 
-export {
-  slideInBottom,
-  slideInLeft,
-  slideInRight,
-  slideInTop,
-  slideOutBottom,
-  slideOutLeft,
-  slideOutRight,
-  slideOutTop,
-};
+export { slideInBottom, slideInLeft, slideInRight, slideInTop, slideOutBottom, slideOutLeft, slideOutRight, slideOutTop };

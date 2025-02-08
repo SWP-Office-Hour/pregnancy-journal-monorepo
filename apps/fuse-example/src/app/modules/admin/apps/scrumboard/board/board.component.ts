@@ -1,22 +1,7 @@
-import {
-  CdkDrag,
-  CdkDragDrop,
-  CdkDragHandle,
-  CdkDropList,
-  CdkDropListGroup,
-  moveItemInArray,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CdkScrollable } from '@angular/cdk/scrolling';
 import { DatePipe, NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -135,9 +120,7 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     // Create a new list model
     const list = new List({
       boardId: this.board.id,
-      position: this.board.lists.length
-        ? this.board.lists[this.board.lists.length - 1].position + this._positionStep
-        : this._positionStep,
+      position: this.board.lists.length ? this.board.lists[this.board.lists.length - 1].position + this._positionStep : this._positionStep,
       title: title,
     });
 
@@ -207,9 +190,7 @@ export class ScrumboardBoardComponent implements OnInit, OnDestroy {
     const card = new Card({
       boardId: this.board.id,
       listId: list.id,
-      position: list.cards.length
-        ? list.cards[list.cards.length - 1].position + this._positionStep
-        : this._positionStep,
+      position: list.cards.length ? list.cards[list.cards.length - 1].position + this._positionStep : this._positionStep,
       title: title,
     });
 

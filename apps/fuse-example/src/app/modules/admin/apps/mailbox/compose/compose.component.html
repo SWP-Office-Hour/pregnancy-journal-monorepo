@@ -15,17 +15,10 @@
       <input matInput [formControlName]="'to'" />
       <div class="copy-fields-toggles" matSuffix>
         @if (!copyFields.cc) {
-          <span class="cursor-pointer select-none text-sm font-medium hover:underline" (click)="showCopyField('cc')">
-            Cc
-          </span>
+          <span class="cursor-pointer select-none text-sm font-medium hover:underline" (click)="showCopyField('cc')"> Cc </span>
         }
         @if (!copyFields.bcc) {
-          <span
-            class="ml-2 cursor-pointer select-none text-sm font-medium hover:underline"
-            (click)="showCopyField('bcc')"
-          >
-            Bcc
-          </span>
+          <span class="ml-2 cursor-pointer select-none text-sm font-medium hover:underline" (click)="showCopyField('bcc')"> Bcc </span>
         }
       </div>
     </mat-form-field>

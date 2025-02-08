@@ -49,10 +49,7 @@ export default [
             component: HelpCenterGuidesGuideComponent,
             resolve: {
               guides: (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) =>
-                inject(HelpCenterService).getGuide(
-                  route.parent.paramMap.get('categorySlug'),
-                  route.paramMap.get('guideSlug'),
-                ),
+                inject(HelpCenterService).getGuide(route.parent.paramMap.get('categorySlug'), route.paramMap.get('guideSlug')),
             },
           },
         ],

@@ -5,9 +5,7 @@
 
 <!-- Shortcuts panel -->
 <ng-template #shortcutsPanel>
-  <div
-    class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden shadow-lg sm:static sm:inset-auto sm:rounded-2xl"
-  >
+  <div class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden shadow-lg sm:static sm:inset-auto sm:rounded-2xl">
     <!-- Header -->
     <div class="bg-primary text-on-primary flex shrink-0 items-center py-4 pl-6 pr-4">
       <div class="-ml-1 mr-3 sm:hidden">
@@ -105,14 +103,9 @@
               }
               <!-- Link content template -->
               <ng-template #linkContent>
-                <div
-                  class="relative mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
-                >
+                <div class="relative mb-3 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
                   @if (mode === 'modify') {
-                    <mat-icon
-                      class="icon-size-5 absolute z-20 opacity-0 group-hover:opacity-100"
-                      [svgIcon]="'heroicons_solid:pencil'"
-                    ></mat-icon>
+                    <mat-icon class="icon-size-5 absolute z-20 opacity-0 group-hover:opacity-100" [svgIcon]="'heroicons_solid:pencil'"></mat-icon>
                   }
                   <mat-icon
                     class="z-10"
@@ -136,18 +129,11 @@
         <!-- No shortcuts -->
         @if (!shortcuts || !shortcuts.length) {
           <div class="flex flex-auto flex-col items-center justify-center px-8 py-12 sm:justify-start">
-            <div
-              class="flex-0 bg-primary-100 dark:bg-primary-600 flex h-14 w-14 items-center justify-center rounded-full"
-            >
-              <mat-icon
-                class="text-primary-700 dark:text-primary-50"
-                [svgIcon]="'heroicons_outline:bookmark'"
-              ></mat-icon>
+            <div class="flex-0 bg-primary-100 dark:bg-primary-600 flex h-14 w-14 items-center justify-center rounded-full">
+              <mat-icon class="text-primary-700 dark:text-primary-50" [svgIcon]="'heroicons_outline:bookmark'"></mat-icon>
             </div>
             <div class="mt-5 text-2xl font-semibold tracking-tight">No shortcuts</div>
-            <div class="text-secondary text-md mt-1 w-full max-w-60 text-center">
-              When you have shortcuts, they will appear here.
-            </div>
+            <div class="text-secondary text-md mt-1 w-full max-w-60 text-center">When you have shortcuts, they will appear here.</div>
           </div>
         }
       }
@@ -171,9 +157,7 @@
             <mat-label>Link</mat-label>
             <input matInput [formControlName]="'link'" required />
           </mat-form-field>
-          <mat-slide-toggle [color]="'primary'" [formControlName]="'useRouter'">
-            Use router for the link
-          </mat-slide-toggle>
+          <mat-slide-toggle [color]="'primary'" [formControlName]="'useRouter'"> Use router for the link </mat-slide-toggle>
           <!-- Actions -->
           <div class="mt-4 flex items-center justify-end">
             @if (mode === 'edit') {

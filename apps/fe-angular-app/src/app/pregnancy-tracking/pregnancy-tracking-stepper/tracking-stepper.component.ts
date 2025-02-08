@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { TuiPagination } from '@taiga-ui/kit';
 
 @Component({

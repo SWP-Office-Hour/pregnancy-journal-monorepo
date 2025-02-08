@@ -1,13 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import {
-  LoginRequest,
-  RegisterRequest,
-  Status,
-  UserCreateRequest,
-  UserRole,
-  UserUpdateRequest,
-} from '@pregnancy-journal-monorepo/contract';
+import { LoginRequest, RegisterRequest, Status, UserCreateRequest, UserRole, UserUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';

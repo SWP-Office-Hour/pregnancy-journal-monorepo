@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-alert</strong> is a customizable component for displaying all kinds of alerts across your app. They
-      can be controlled from your components as well as from the <code>FuseAlertService</code>.
+      <strong>fuse-alert</strong> is a customizable component for displaying all kinds of alerts across your app. They can be controlled from your
+      components as well as from the <code>FuseAlertService</code>.
     </p>
     <p><strong>Exported as: </strong><code>fuseAlert</code></p>
 
@@ -721,9 +719,8 @@
 
     <h2>Icons</h2>
     <p>
-      The <strong>info</strong>, <strong>success</strong>, <strong>warning</strong> and <strong>error</strong> type
-      alert boxes have default icons and they are visible by default. If you wish to hide those icons, use the
-      <code>[showIcon]="false"</code> input.
+      The <strong>info</strong>, <strong>success</strong>, <strong>warning</strong> and <strong>error</strong> type alert boxes have default icons and
+      they are visible by default. If you wish to hide those icons, use the <code>[showIcon]="false"</code> input.
     </p>
 
     <div class="example-viewer">
@@ -734,9 +731,7 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <fuse-alert [appearance]="'soft'" [type]="'success'" [showIcon]="false">
-              Success alert with no icon
-            </fuse-alert>
+            <fuse-alert [appearance]="'soft'" [type]="'success'" [showIcon]="false"> Success alert with no icon </fuse-alert>
           </ng-template>
         </mat-tab>
 
@@ -757,8 +752,8 @@
     <h2>Custom icons</h2>
     <p>
       All alert boxes come with custom icon support. To use a custom icon, simply use
-      <code>fuseAlertIcon</code> attribute on an element you wish to use as the icon. If there is a default icon for the
-      alert box, custom icon will override it.
+      <code>fuseAlertIcon</code> attribute on an element you wish to use as the icon. If there is a default icon for the alert box, custom icon will
+      override it.
     </p>
 
     <div class="example-viewer">
@@ -796,10 +791,9 @@
     <h2>Dismissible alerts</h2>
     <p>
       Dismissible alerts can be removed from the view by clicking their
-      <strong>dismiss (x)</strong> button. In order to get the dismiss button visible, the
-      <code>[dismissed]</code> input must be explicitly set either to <code>true</code> or <code>false</code>. Setting
-      the <code>[dismissed]</code> input to <code>null</code> or simply removing it from the element will remove the
-      <strong>dismiss</strong> button.
+      <strong>dismiss (x)</strong> button. In order to get the dismiss button visible, the <code>[dismissed]</code> input must be explicitly set
+      either to <code>true</code> or <code>false</code>. Setting the <code>[dismissed]</code> input to <code>null</code> or simply removing it from
+      the element will remove the <strong>dismiss</strong> button.
     </p>
 
     <div class="example-viewer">
@@ -811,25 +805,13 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <fuse-alert
-              [appearance]="'soft'"
-              [dismissible]="true"
-              [dismissed]="false"
-              [name]="'alertBox1'"
-              [type]="'success'"
-            >
+            <fuse-alert [appearance]="'soft'" [dismissible]="true" [dismissed]="false" [name]="'alertBox1'" [type]="'success'">
               Your subscription model is successfully upgraded to the <b>Lifetime Pro</b>.
             </fuse-alert>
 
-            <fuse-alert
-              [appearance]="'soft'"
-              [dismissible]="true"
-              [dismissed]="false"
-              [name]="'alertBox2'"
-              [type]="'info'"
-            >
-              This one has a lot of text so you can see how the text is going to be displayed. Also this is a
-              dismissible alert box which can be dismissed by clicking the <b>dismiss</b> button.
+            <fuse-alert [appearance]="'soft'" [dismissible]="true" [dismissed]="false" [name]="'alertBox2'" [type]="'info'">
+              This one has a lot of text so you can see how the text is going to be displayed. Also this is a dismissible alert box which can be
+              dismissed by clicking the <b>dismiss</b> button.
             </fuse-alert>
           </ng-template>
         </mat-tab>
@@ -871,33 +853,17 @@
       <mat-tab-group [animationDuration]="'0ms'">
         <mat-tab label="Preview">
           <ng-template matTabContent>
-            <button class="mr-3" mat-flat-button [color]="'primary'" (click)="show('alertBox3'); show('alertBox4')">
-              Show alert boxes
-            </button>
+            <button class="mr-3" mat-flat-button [color]="'primary'" (click)="show('alertBox3'); show('alertBox4')">Show alert boxes</button>
 
-            <button mat-flat-button [color]="'primary'" (click)="dismiss('alertBox3'); dismiss('alertBox4')">
-              Dismiss alert boxes
-            </button>
+            <button mat-flat-button [color]="'primary'" (click)="dismiss('alertBox3'); dismiss('alertBox4')">Dismiss alert boxes</button>
 
-            <fuse-alert
-              [appearance]="'soft'"
-              [dismissible]="true"
-              [dismissed]="false"
-              [name]="'alertBox3'"
-              [type]="'success'"
-            >
+            <fuse-alert [appearance]="'soft'" [dismissible]="true" [dismissed]="false" [name]="'alertBox3'" [type]="'success'">
               Your subscription model is successfully upgraded to the <b>Lifetime Pro</b>.
             </fuse-alert>
 
-            <fuse-alert
-              [appearance]="'soft'"
-              [dismissible]="true"
-              [dismissed]="false"
-              [name]="'alertBox4'"
-              [type]="'info'"
-            >
-              This one has a lot of text so you can see how the text is going to be displayed. Also this is a
-              dismissible alert box which can be dismissed by clicking the <b>close</b> button.
+            <fuse-alert [appearance]="'soft'" [dismissible]="true" [dismissed]="false" [name]="'alertBox4'" [type]="'info'">
+              This one has a lot of text so you can see how the text is going to be displayed. Also this is a dismissible alert box which can be
+              dismissed by clicking the <b>close</b> button.
             </fuse-alert>
           </ng-template>
         </mat-tab>

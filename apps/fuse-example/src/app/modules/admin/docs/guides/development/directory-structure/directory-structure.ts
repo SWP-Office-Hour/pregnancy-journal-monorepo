@@ -66,13 +66,7 @@ export class DirectoryStructureComponent implements OnInit {
         children: [
           {
             name: 'core/',
-            children: [
-              { name: 'auth/' },
-              { name: 'icons/' },
-              { name: 'navigation/' },
-              { name: 'transloco/' },
-              { name: 'user/' },
-            ],
+            children: [{ name: 'auth/' }, { name: 'icons/' }, { name: 'navigation/' }, { name: 'transloco/' }, { name: 'user/' }],
           },
           {
             name: 'layout/',
@@ -86,14 +80,7 @@ export class DirectoryStructureComponent implements OnInit {
           },
           {
             name: 'mock-api/',
-            children: [
-              { name: 'apps/' },
-              { name: 'common/' },
-              { name: 'dashboards/' },
-              { name: 'pages/' },
-              { name: 'ui/' },
-              { name: 'index.ts' },
-            ],
+            children: [{ name: 'apps/' }, { name: 'common/' }, { name: 'dashboards/' }, { name: 'pages/' }, { name: 'ui/' }, { name: 'index.ts' }],
           },
           {
             name: 'modules/',

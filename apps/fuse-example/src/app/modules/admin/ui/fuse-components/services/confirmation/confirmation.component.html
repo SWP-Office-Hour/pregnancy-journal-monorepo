@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -20,9 +18,7 @@
       </div>
       <!-- Title -->
       <div class="mt-2">
-        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
-          Confirmation
-        </h2>
+        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">Confirmation</h2>
       </div>
     </div>
     <button class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0" mat-icon-button (click)="toggleDrawer()">
@@ -32,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>FuseConfirmationService</strong> is a singleton service for creating confirmation and information dialogs.
-      Internally it uses MatDialog to create and show the dialog.
+      <strong>FuseConfirmationService</strong> is a singleton service for creating confirmation and information dialogs. Internally it uses MatDialog
+      to create and show the dialog.
     </p>
 
     <h2>Module</h2>
@@ -155,8 +151,8 @@
             </td>
             <td>
               Sets the dismissible status of the confirmation dialog.<br />
-              If <code>false</code>, confirmation dialog cannot be closed by clicking on backdrop or pressing Escape
-              key. The close button on the top right corner also won't show up.
+              If <code>false</code>, confirmation dialog cannot be closed by clicking on backdrop or pressing Escape key. The close button on the top
+              right corner also won't show up.
             </td>
           </tr>
         </tbody>
@@ -173,9 +169,8 @@
 
     <h2>MatDialogRef</h2>
     <p>
-      Since <code>FuseConfirmationService</code> uses <em>MatDialog</em> behind the scenes, it returns a reference to
-      the created dialog. You can use all available methods from that reference such as <code>updateSize</code> and
-      <code>updatePosition</code> to further customize the dialog.
+      Since <code>FuseConfirmationService</code> uses <em>MatDialog</em> behind the scenes, it returns a reference to the created dialog. You can use
+      all available methods from that reference such as <code>updateSize</code> and <code>updatePosition</code> to further customize the dialog.
     </p>
     <p>
       See
@@ -221,8 +216,7 @@
               <div><code>undefined</code></div>
             </td>
             <td>
-              This is the result if the confirmation dismissed either using the close button, clicking on the backdrop
-              or pressing the Escape key.
+              This is the result if the confirmation dismissed either using the close button, clicking on the backdrop or pressing the Escape key.
             </td>
           </tr>
         </tbody>

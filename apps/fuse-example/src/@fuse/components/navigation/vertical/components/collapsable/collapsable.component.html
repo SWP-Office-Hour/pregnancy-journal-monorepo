@@ -11,11 +11,7 @@
   >
     <!-- Icon -->
     @if (item.icon) {
-      <mat-icon
-        class="fuse-vertical-navigation-item-icon"
-        [ngClass]="item.classes?.icon"
-        [svgIcon]="item.icon"
-      ></mat-icon>
+      <mat-icon class="fuse-vertical-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
     }
 
     <!-- Title & Subtitle -->
@@ -44,10 +40,7 @@
     }
 
     <!-- Arrow -->
-    <mat-icon
-      class="fuse-vertical-navigation-item-arrow icon-size-4"
-      [svgIcon]="'heroicons_solid:chevron-right'"
-    ></mat-icon>
+    <mat-icon class="fuse-vertical-navigation-item-arrow icon-size-4" [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
   </div>
 </div>
 

@@ -10,8 +10,7 @@
           <div class="font-medium leading-6">Communication</div>
           <div class="text-secondary text-md">Get news, announcements, and product updates.</div>
         </div>
-        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'communication'" #communication>
-        </mat-slide-toggle>
+        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'communication'" #communication> </mat-slide-toggle>
       </div>
       <!-- Security -->
       <div class="flex items-center justify-between">
@@ -19,8 +18,7 @@
           <div class="font-medium leading-6">Security</div>
           <div class="text-secondary text-md">Get important notifications about your account security.</div>
         </div>
-        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'security'" #securityToggle>
-        </mat-slide-toggle>
+        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'security'" #securityToggle> </mat-slide-toggle>
       </div>
       <!-- Meetups -->
       <div class="flex items-center justify-between">
@@ -28,8 +26,7 @@
           <div class="font-medium leading-6">Meetups</div>
           <div class="text-secondary text-md">Get an email when a Meetup is posted close to my location.</div>
         </div>
-        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'meetups'" #meetupsToggle>
-        </mat-slide-toggle>
+        <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'meetups'" #meetupsToggle> </mat-slide-toggle>
       </div>
     </div>
 
@@ -42,9 +39,7 @@
     <div class="mt-4 grid w-full grid-cols-1 gap-4">
       <!-- Comments -->
       <div class="flex items-center justify-between">
-        <div class="flex-auto cursor-pointer leading-6" (click)="comments.toggle()">
-          someone comments on one of my items
-        </div>
+        <div class="flex-auto cursor-pointer leading-6" (click)="comments.toggle()">someone comments on one of my items</div>
         <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'comments'" #comments> </mat-slide-toggle>
       </div>
       <!-- Mention -->
@@ -59,9 +54,7 @@
       </div>
       <!-- Inquiry -->
       <div class="flex items-center justify-between">
-        <div class="flex-auto cursor-pointer leading-6" (click)="inquiry.toggle()">
-          someone replies to my job posting
-        </div>
+        <div class="flex-auto cursor-pointer leading-6" (click)="inquiry.toggle()">someone replies to my job posting</div>
         <mat-slide-toggle class="ml-2" [color]="'primary'" [formControlName]="'inquiry'" #inquiry> </mat-slide-toggle>
       </div>
     </div>

@@ -82,8 +82,7 @@ export const overviews = {
         component: EmptyNormalScrollComponent,
       },
       pageScroll: {
-        description:
-          'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+        description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
         link: '/ui/page-layouts/empty/page-scroll',
         component: EmptyPageScrollComponent,
       },
@@ -92,8 +91,7 @@ export const overviews = {
   carded: {
     fullwidth: {
       title: 'Carded Fullwidth Layout',
-      description:
-        'Carded layout that spans the entire width of the content area with a dedicated header and 3 different scroll modes.',
+      description: 'Carded layout that spans the entire width of the content area with a dedicated header and 3 different scroll modes.',
       availableOptions: [
         {
           value: 'normalScroll',
@@ -116,14 +114,12 @@ export const overviews = {
           component: CardedFullwidthNormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/carded/fullwidth/page-scroll',
           component: CardedFullwidthPageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/carded/fullwidth/content-scroll',
           component: CardedFullwidthContentScrollComponent,
         },
@@ -154,14 +150,12 @@ export const overviews = {
           component: CardedLeftSidebar1NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/carded/left-sidebar-1/page-scroll',
           component: CardedLeftSidebar1PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/carded/left-sidebar-1/content-scroll',
           component: CardedLeftSidebar1ContentScrollComponent,
         },
@@ -192,14 +186,12 @@ export const overviews = {
           component: CardedLeftSidebar2NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/carded/left-sidebar-2/page-scroll',
           component: CardedLeftSidebar2PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/carded/left-sidebar-2/content-scroll',
           component: CardedLeftSidebar2ContentScrollComponent,
         },
@@ -230,14 +222,12 @@ export const overviews = {
           component: CardedRightSidebar1NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/carded/right-sidebar-1/page-scroll',
           component: CardedRightSidebar1PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/carded/right-sidebar-1/content-scroll',
           component: CardedRightSidebar1ContentScrollComponent,
         },
@@ -268,14 +258,12 @@ export const overviews = {
           component: CardedRightSidebar2NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/carded/right-sidebar-2/page-scroll',
           component: CardedRightSidebar2PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/carded/right-sidebar-2/content-scroll',
           component: CardedRightSidebar2ContentScrollComponent,
         },
@@ -285,8 +273,7 @@ export const overviews = {
   simple: {
     fullwidth1: {
       title: 'Fullwidth #1',
-      description:
-        'Layout that spans the entire width of the content area with a dedicated header and 3 different scroll modes.',
+      description: 'Layout that spans the entire width of the content area with a dedicated header and 3 different scroll modes.',
       availableOptions: [
         {
           value: 'normalScroll',
@@ -309,14 +296,12 @@ export const overviews = {
           component: SimpleFullwidth1NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/fullwidth-1/page-scroll',
           component: SimpleFullwidth1PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/fullwidth-1/content-scroll',
           component: SimpleFullwidth1ContentScrollComponent,
         },
@@ -324,8 +309,7 @@ export const overviews = {
     },
     fullwidth2: {
       title: 'Fullwidth #2',
-      description:
-        'Layout that spans the entire width of the content area with a dedicated header, tabs and 3 different scroll modes.',
+      description: 'Layout that spans the entire width of the content area with a dedicated header, tabs and 3 different scroll modes.',
       availableOptions: [
         {
           value: 'normalScroll',
@@ -348,14 +332,12 @@ export const overviews = {
           component: SimpleFullwidth2NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/fullwidth-2/page-scroll',
           component: SimpleFullwidth2PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/fullwidth-2/content-scroll',
           component: SimpleFullwidth2ContentScrollComponent,
         },
@@ -386,14 +368,12 @@ export const overviews = {
           component: SimpleLeftSidebar1NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/left-sidebar-1/page-scroll',
           component: SimpleLeftSidebar1PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/left-sidebar-1/content-scroll',
           component: SimpleLeftSidebar1ContentScrollComponent,
         },
@@ -428,20 +408,17 @@ export const overviews = {
           component: SimpleLeftSidebar2NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/left-sidebar-2/page-scroll',
           component: SimpleLeftSidebar2PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/left-sidebar-2/content-scroll',
           component: SimpleLeftSidebar2ContentScrollComponent,
         },
         innerScroll: {
-          description:
-            'Only the inner content area of the page scrolls making sidebar and everything else to stick into their positions.',
+          description: 'Only the inner content area of the page scrolls making sidebar and everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/left-sidebar-2/inner-scroll',
           component: SimpleLeftSidebar2InnerScrollComponent,
         },
@@ -472,14 +449,12 @@ export const overviews = {
           component: SimpleLeftSidebar3NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/left-sidebar-3/page-scroll',
           component: SimpleLeftSidebar3PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/left-sidebar-3/content-scroll',
           component: SimpleLeftSidebar3ScrollComponent,
         },
@@ -510,14 +485,12 @@ export const overviews = {
           component: SimpleRightSidebar1NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/right-sidebar-1/page-scroll',
           component: SimpleRightSidebar1PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/right-sidebar-1/content-scroll',
           component: SimpleRightSidebar1ContentScrollComponent,
         },
@@ -552,20 +525,17 @@ export const overviews = {
           component: SimpleRightSidebar2NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/right-sidebar-2/page-scroll',
           component: SimpleRightSidebar2PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/right-sidebar-2/content-scroll',
           component: SimpleRightSidebar2ContentScrollComponent,
         },
         innerScroll: {
-          description:
-            'Only the inner content area of the page scrolls making sidebar and everything else to stick into their positions.',
+          description: 'Only the inner content area of the page scrolls making sidebar and everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/right-sidebar-2/inner-scroll',
           component: SimpleRightSidebar2InnerScrollComponent,
         },
@@ -596,14 +566,12 @@ export const overviews = {
           component: SimpleRightSidebar3NormalScrollComponent,
         },
         pageScroll: {
-          description:
-            'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
+          description: 'Only the page area scrolls making the main toolbar and footer to stick to the top and bottom of the viewport respectively.',
           link: '/ui/page-layouts/simple/right-sidebar-3/page-scroll',
           component: SimpleRightSidebar3PageScrollComponent,
         },
         contentScroll: {
-          description:
-            'Only the content area of the page scrolls making everything else to stick into their positions.',
+          description: 'Only the content area of the page scrolls making everything else to stick into their positions.',
           link: '/ui/page-layouts/simple/right-sidebar-3/content-scroll',
           component: SimpleRightSidebar3ContentScrollComponent,
         },

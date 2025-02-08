@@ -176,11 +176,7 @@ export const tasks = [
     completed: false,
     dueDate: '2019-05-24T03:55:38.969Z',
     priority: 0,
-    tags: [
-      'c6058d0d-a4b0-4453-986a-9d249ec230b1',
-      '2b884143-419a-45ca-a7f6-48f99f4e7798',
-      '91658b8a-f382-4b0c-a53f-e9390351c2c5',
-    ],
+    tags: ['c6058d0d-a4b0-4453-986a-9d249ec230b1', '2b884143-419a-45ca-a7f6-48f99f4e7798', '91658b8a-f382-4b0c-a53f-e9390351c2c5'],
     assignedTo: '88a2a76c-0e6f-49da-b617-46d7c3b6e64d',
     subTasks: [
       {
@@ -433,11 +429,7 @@ export const tasks = [
     completed: true,
     dueDate: '2017-08-16T12:56:48.039Z',
     priority: 1,
-    tags: [
-      '51483dd3-cb98-4400-9128-4bd66b455807',
-      'd3ef4226-ef2c-43b0-a986-3e3e07f32799',
-      'a0bf42ca-c3a5-47be-8341-b9c0bb8ef270',
-    ],
+    tags: ['51483dd3-cb98-4400-9128-4bd66b455807', 'd3ef4226-ef2c-43b0-a986-3e3e07f32799', 'a0bf42ca-c3a5-47be-8341-b9c0bb8ef270'],
     assignedTo: '4d24cf48-a322-4d53-89cb-9140dfd5c6ba',
     subTasks: [
       {

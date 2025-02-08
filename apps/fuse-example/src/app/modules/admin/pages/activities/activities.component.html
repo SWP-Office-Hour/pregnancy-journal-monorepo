@@ -5,28 +5,18 @@
     <div class="w-full max-w-3xl">
       <!-- Title -->
       <div class="text-4xl font-extrabold leading-none tracking-tight">All Activities</div>
-      <div class="text-secondary mt-1.5 text-lg">
-        Application wide activities are listed here as individual items, starting with the most recent.
-      </div>
+      <div class="text-secondary mt-1.5 text-lg">Application wide activities are listed here as individual items, starting with the most recent.</div>
 
       @if (activities$ | async; as activities) {
         @if (activities.length) {
           <div class="mt-8">
             <ol>
               <!-- Activities -->
-              @for (
-                activity of activities;
-                track trackByFn(i, activity);
-                let i = $index;
-                let first = $first;
-                let last = $last
-              ) {
+              @for (activity of activities; track trackByFn(i, activity); let i = $index; let first = $first; let last = $last) {
                 <!-- Date separator -->
                 @if (first || !isSameDay(activity.date, activities[i - 1].date)) {
                   <li class="relative flex py-7">
-                    <div
-                      class="bg-primary text-md text-on-primary relative rounded-full px-8 py-2 font-medium leading-5"
-                    >
+                    <div class="bg-primary text-md text-on-primary relative rounded-full px-8 py-2 font-medium leading-5">
                       {{ getRelativeFormat(activity.date) | titlecase }}
                     </div>
                   </li>
@@ -62,9 +52,7 @@
                       @if (activity.description) {
                         <div [innerHTML]="activity.description"></div>
                       }
-                      <div
-                        class="text-md mt-2 flex flex-col leading-5 sm:mt-1 sm:flex-row sm:items-center sm:space-x-2"
-                      >
+                      <div class="text-md mt-2 flex flex-col leading-5 sm:mt-1 sm:flex-row sm:items-center sm:space-x-2">
                         <!-- Date -->
                         <div class="text-secondary">
                           {{ activity.date | date: 'MMM dd, h:mm a' }}
@@ -88,10 +76,7 @@
                       </div>
                       <!-- Extra content -->
                       @if (activity.extraContent) {
-                        <div
-                          class="mt-4 rounded-lg bg-gray-200 px-5 py-4 dark:bg-gray-800"
-                          [innerHTML]="activity.extraContent"
-                        ></div>
+                        <div class="mt-4 rounded-lg bg-gray-200 px-5 py-4 dark:bg-gray-800" [innerHTML]="activity.extraContent"></div>
                       }
                     </div>
                   </div>

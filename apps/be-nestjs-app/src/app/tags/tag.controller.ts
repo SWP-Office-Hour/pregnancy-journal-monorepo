@@ -1,7 +1,7 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { TagService } from './tag.service';
-import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { tagContract, TagCreateReq, TagUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { TagService } from './tag.service';
 
 @Controller()
 export class TagController {

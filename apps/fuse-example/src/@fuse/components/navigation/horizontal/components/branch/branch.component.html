@@ -26,29 +26,16 @@
 
       <!-- Branch: aside, collapsable, group -->
       @if (item.type === 'aside' || item.type === 'collapsable' || item.type === 'group') {
-        <div
-          class="fuse-horizontal-navigation-menu-item"
-          [disabled]="item.disabled"
-          [matMenuTriggerFor]="branch.matMenu"
-          mat-menu-item
-        >
+        <div class="fuse-horizontal-navigation-menu-item" [disabled]="item.disabled" [matMenuTriggerFor]="branch.matMenu" mat-menu-item>
           <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"></ng-container>
-          <fuse-horizontal-navigation-branch-item
-            [child]="true"
-            [item]="item"
-            [name]="name"
-            #branch
-          ></fuse-horizontal-navigation-branch-item>
+          <fuse-horizontal-navigation-branch-item [child]="true" [item]="item" [name]="name" #branch></fuse-horizontal-navigation-branch-item>
         </div>
       }
 
       <!-- Divider -->
       @if (item.type === 'divider') {
         <div class="fuse-horizontal-navigation-menu-item" mat-menu-item>
-          <fuse-horizontal-navigation-divider-item
-            [item]="item"
-            [name]="name"
-          ></fuse-horizontal-navigation-divider-item>
+          <fuse-horizontal-navigation-divider-item [item]="item" [name]="name"></fuse-horizontal-navigation-divider-item>
         </div>
       }
     }
@@ -72,11 +59,7 @@
     >
       <!-- Icon -->
       @if (item.icon) {
-        <mat-icon
-          class="fuse-horizontal-navigation-item-icon"
-          [ngClass]="item.classes?.icon"
-          [svgIcon]="item.icon"
-        ></mat-icon>
+        <mat-icon class="fuse-horizontal-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
       }
 
       <!-- Title & Subtitle -->

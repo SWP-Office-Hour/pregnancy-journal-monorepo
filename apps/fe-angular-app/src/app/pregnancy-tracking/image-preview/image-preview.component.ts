@@ -1,5 +1,5 @@
-import { Component, inject, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, inject, Input } from '@angular/core';
 import { TuiAppearance, TuiButton, TuiDialog } from '@taiga-ui/core';
 import { TuiCardLarge } from '@taiga-ui/layout';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';

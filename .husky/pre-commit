@@ -1,4 +1,4 @@
-pnpm nx format:write
 pnpm nx format:check
+pnpm nx format:write
 pnpm nx run-many -t lint
 pnpm nx affected -t lint build --base=origin/main --head=HEAD

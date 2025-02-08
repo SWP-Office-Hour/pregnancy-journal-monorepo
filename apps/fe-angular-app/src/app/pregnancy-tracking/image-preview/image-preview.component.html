@@ -1,10 +1,5 @@
-<div tuiAppearance="outline" tuiCardLarge class="h-52 w-52 p-auto">
-  <img
-    [src]="imgObj.mediaUrl"
-    class="h-48 w-48 overflow-hidden rounded-lg hover:cursor-pointer"
-    alt="image"
-    (mousedown)="showImage()"
-  />
+<div tuiAppearance="outline" tuiCardLarge class="p-auto h-52 w-52">
+  <img [src]="imgObj.mediaUrl" class="h-48 w-48 overflow-hidden rounded-lg hover:cursor-pointer" alt="image" (mousedown)="showImage()" />
 </div>
 
 <ng-template let-observer [tuiDialogOptions]="{ label: 'Xem ảnh', size: 's' }" [(tuiDialog)]="open">

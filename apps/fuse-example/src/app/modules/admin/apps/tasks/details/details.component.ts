@@ -447,9 +447,7 @@ export class TasksDetailsComponent implements OnInit, AfterViewInit, OnDestroy {
    * @param inputValue
    */
   shouldShowCreateTagButton(inputValue: string): boolean {
-    return !!!(
-      inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1
-    );
+    return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1);
   }
 
   /**

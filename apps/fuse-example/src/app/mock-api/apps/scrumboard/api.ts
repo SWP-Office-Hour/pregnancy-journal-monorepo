@@ -72,9 +72,7 @@ export class ScrumboardMockApi {
 
       // Attach the board cards into corresponding lists
       board.lists.forEach((list, index, array) => {
-        array[index].cards = cards
-          .filter((item) => item.boardId === id && item.listId === list.id)
-          .sort((a, b) => a.position - b.position);
+        array[index].cards = cards.filter((item) => item.boardId === id && item.listId === list.id).sort((a, b) => a.position - b.position);
       });
 
       // Attach the board labels
@@ -207,9 +205,7 @@ export class ScrumboardMockApi {
       });
 
       // Attach the labels of the card
-      updatedCard.labels = updatedCard.labels.map((cardLabelId) =>
-        this._labels.find((label) => label.id === cardLabelId),
-      );
+      updatedCard.labels = updatedCard.labels.map((cardLabelId) => this._labels.find((label) => label.id === cardLabelId));
 
       return [200, updatedCard];
     });
@@ -270,9 +266,7 @@ export class ScrumboardMockApi {
       this._cards.forEach((card) => {
         // Find this card's index within the cards array that comes with the request
         // and assign that index as the new position number for the card
-        card.position = cards.findIndex(
-          (item) => item.id === card.id && item.listId === card.listId && item.boardId === card.boardId,
-        );
+        card.position = cards.findIndex((item) => item.id === card.id && item.listId === card.listId && item.boardId === card.boardId);
       });
 
       // Clone the cards

@@ -4,10 +4,7 @@ import { FUSE_MOCK_API_DEFAULT_DELAY } from '@fuse/lib/mock-api/mock-api.constan
 import { FuseMockApiService } from '@fuse/lib/mock-api/mock-api.service';
 import { Observable, delay, of, switchMap, throwError } from 'rxjs';
 
-export const mockApiInterceptor = (
-  request: HttpRequest<unknown>,
-  next: HttpHandlerFn,
-): Observable<HttpEvent<unknown>> => {
+export const mockApiInterceptor = (request: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   const defaultDelay = inject(FUSE_MOCK_API_DEFAULT_DELAY);
   const fuseMockApiService = inject(FuseMockApiService);
 

@@ -1,13 +1,5 @@
 import { CurrencyPipe, DecimalPipe, NgClass, UpperCasePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatOptionModule } from '@angular/material/core';
@@ -72,21 +64,19 @@ export class CryptoComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode and drawerOpened if 'lg' breakpoint is active
-        if (matchingAliases.includes('lg')) {
-          this.drawerMode = 'side';
-          this.drawerOpened = true;
-        } else {
-          this.drawerMode = 'over';
-          this.drawerOpened = false;
-        }
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode and drawerOpened if 'lg' breakpoint is active
+      if (matchingAliases.includes('lg')) {
+        this.drawerMode = 'side';
+        this.drawerOpened = true;
+      } else {
+        this.drawerMode = 'over';
+        this.drawerOpened = false;
+      }
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
     // Get the data
     this._cryptoService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {

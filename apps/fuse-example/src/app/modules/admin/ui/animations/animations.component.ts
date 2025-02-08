@@ -14,14 +14,7 @@ import { FuseHighlightComponent } from '@fuse/components/highlight';
   animations: fuseAnimations,
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    FuseHighlightComponent,
-    MatButtonModule,
-    MatTabsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatOptionModule,
-  ],
+  imports: [FuseHighlightComponent, MatButtonModule, MatTabsModule, MatFormFieldModule, MatSelectModule, MatOptionModule],
 })
 export class AnimationsComponent {
   animationStates: any;
@@ -127,12 +120,7 @@ export class AnimationsComponent {
    * @param secondState
    * @param timeout
    */
-  toggleAnimationState(
-    animation: string,
-    firstState: string | boolean,
-    secondState: string | boolean,
-    timeout: number = 500,
-  ): void {
+  toggleAnimationState(animation: string, firstState: string | boolean, secondState: string | boolean, timeout: number = 500): void {
     // Split the animation
     const animationPath = animation.split('.');
 

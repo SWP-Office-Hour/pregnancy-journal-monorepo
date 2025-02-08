@@ -1,4 +1,5 @@
 {
+  "printWidth": 150,
   "singleQuote": true,
-  "plugins": ["prettier-plugin-sh", "prettier-plugin-prisma","prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
+  "plugins": ["prettier-plugin-sh", "prettier-plugin-prisma", "prettier-plugin-organize-imports", "prettier-plugin-tailwindcss"]
 }

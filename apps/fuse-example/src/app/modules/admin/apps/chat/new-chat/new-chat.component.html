@@ -12,16 +12,12 @@
       @for (contact of contacts; track trackByFn(i, contact); let i = $index) {
         <!-- Group -->
         @if (i === 0 || contact.name.charAt(0) !== contacts[i - 1].name.charAt(0)) {
-          <div
-            class="text-secondary sticky top-0 z-10 -mt-px border-b border-t bg-gray-100 px-6 py-1 font-medium uppercase md:px-8 dark:bg-gray-900"
-          >
+          <div class="text-secondary sticky top-0 z-10 -mt-px border-b border-t bg-gray-100 px-6 py-1 font-medium uppercase md:px-8 dark:bg-gray-900">
             {{ contact.name.charAt(0) }}
           </div>
         }
         <!-- Contact -->
-        <div
-          class="dark:hover:bg-hover z-20 flex cursor-pointer items-center border-b px-6 py-4 hover:bg-gray-100 md:px-8"
-        >
+        <div class="dark:hover:bg-hover z-20 flex cursor-pointer items-center border-b px-6 py-4 hover:bg-gray-100 md:px-8">
           <div class="flex-0 flex h-10 w-10 items-center justify-center overflow-hidden rounded-full">
             @if (contact.avatar) {
               <img class="h-full w-full object-cover" [src]="contact.avatar" alt="Contact avatar" />

@@ -16,15 +16,7 @@ import { Subject, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    MatButtonModule,
-    MatIconModule,
-    MatMenuModule,
-    MatButtonToggleModule,
-    NgApexchartsModule,
-    MatTooltipModule,
-    DecimalPipe,
-  ],
+  imports: [MatButtonModule, MatIconModule, MatMenuModule, MatButtonToggleModule, NgApexchartsModule, MatTooltipModule, DecimalPipe],
 })
 export class AnalyticsComponent implements OnInit, OnDestroy {
   chartVisitors: ApexOptions;

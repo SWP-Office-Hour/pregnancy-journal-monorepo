@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { z } from 'zod';
 
 export const hospitalResSchema = z.object({
   id: z.string(),

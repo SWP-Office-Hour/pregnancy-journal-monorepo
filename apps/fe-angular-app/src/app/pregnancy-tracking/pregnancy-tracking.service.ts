@@ -1,8 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Hospital, MetricRes, pregnancyResponse, PregnancyUpdateRequest } from '@pregnancy-journal-monorepo/contract';
-import { hospitals, metrics, pregnancyData } from './pregnancy-tracking.mock-api';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
+import { hospitals, metrics, pregnancyData } from './pregnancy-tracking.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {

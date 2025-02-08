@@ -1,12 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { FuseNavigationItem, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
@@ -130,21 +122,19 @@ export class OtherComponentsComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     // Subscribe to media query change
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode and drawerOpened
-        if (matchingAliases.includes('md')) {
-          this.drawerMode = 'side';
-          this.drawerOpened = true;
-        } else {
-          this.drawerMode = 'over';
-          this.drawerOpened = false;
-        }
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode and drawerOpened
+      if (matchingAliases.includes('md')) {
+        this.drawerMode = 'side';
+        this.drawerOpened = true;
+      } else {
+        this.drawerMode = 'over';
+        this.drawerOpened = false;
+      }
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   /**

@@ -1,15 +1,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass, TitleCasePipe } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  QueryList,
-  Renderer2,
-  ViewChildren,
-  ViewEncapsulation,
-} from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, QueryList, Renderer2, ViewChildren, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleChange, MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -60,18 +51,7 @@ export class CardsComponent implements AfterViewInit {
   @ViewChildren(FuseCardComponent, { read: ElementRef })
   private _fuseCards: QueryList<ElementRef>;
 
-  filters: string[] = [
-    'all',
-    'article',
-    'listing',
-    'list',
-    'info',
-    'shopping',
-    'pricing',
-    'testimonial',
-    'post',
-    'interactive',
-  ];
+  filters: string[] = ['all', 'article', 'listing', 'list', 'info', 'shopping', 'pricing', 'testimonial', 'post', 'interactive'];
   numberOfCards: any = {};
   selectedFilter: string = 'all';
 

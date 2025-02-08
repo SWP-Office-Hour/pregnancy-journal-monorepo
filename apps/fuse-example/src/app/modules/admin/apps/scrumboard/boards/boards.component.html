@@ -2,9 +2,7 @@
   <!-- Main -->
   <div class="flex flex-auto flex-col items-center p-6 sm:p-10">
     <!-- Title -->
-    <div class="mt-4 text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:mt-24 md:text-6xl">
-      Scrumboard Boards
-    </div>
+    <div class="mt-4 text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:mt-24 md:text-6xl">Scrumboard Boards</div>
 
     <!-- Boards -->
     <div class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 lg:grid-cols-4">
@@ -13,9 +11,7 @@
           class="bg-card flex w-56 flex-col items-start rounded-lg p-6 shadow transition-shadow duration-150 ease-in-out hover:shadow-xl"
           [routerLink]="[board.id]"
         >
-          <div
-            class="bg-primary-50 text-primary-700 dark:bg-primary dark:text-on-primary flex items-center justify-center rounded-full p-4"
-          >
+          <div class="bg-primary-50 text-primary-700 dark:bg-primary dark:text-on-primary flex items-center justify-center rounded-full p-4">
             <mat-icon class="text-current" [svgIcon]="board.icon"></mat-icon>
           </div>
           <!-- Title -->

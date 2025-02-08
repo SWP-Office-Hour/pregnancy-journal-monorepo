@@ -174,10 +174,7 @@ export class FuseScrollbarDirective implements OnChanges, OnInit, OnDestroy {
     if (!absolute && this._ps) {
       scrollbarPosition = new ScrollbarPosition(this._ps.reach.x || 0, this._ps.reach.y || 0);
     } else {
-      scrollbarPosition = new ScrollbarPosition(
-        this._elementRef.nativeElement.scrollLeft,
-        this._elementRef.nativeElement.scrollTop,
-      );
+      scrollbarPosition = new ScrollbarPosition(this._elementRef.nativeElement.scrollLeft, this._elementRef.nativeElement.scrollTop);
     }
 
     return scrollbarPosition;

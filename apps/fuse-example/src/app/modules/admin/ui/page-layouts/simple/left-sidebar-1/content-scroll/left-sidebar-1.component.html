@@ -1,13 +1,7 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
   <mat-drawer-container class="h-full flex-auto">
     <!-- Drawer -->
-    <mat-drawer
-      class="w-72 dark:bg-gray-900"
-      [autoFocus]="false"
-      [mode]="drawerMode"
-      [opened]="drawerOpened"
-      #matDrawer
-    >
+    <mat-drawer class="w-72 dark:bg-gray-900" [autoFocus]="false" [mode]="drawerMode" [opened]="drawerOpened" #matDrawer>
       <!-- Demo sidebar -->
       <demo-sidebar></demo-sidebar>
     </mat-drawer>

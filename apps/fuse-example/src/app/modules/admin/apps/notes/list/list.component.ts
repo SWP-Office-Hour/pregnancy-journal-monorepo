@@ -1,12 +1,5 @@
 import { AsyncPipe, NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRippleModule } from '@angular/material/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -104,8 +97,7 @@ export class NotesListComponent implements OnInit, OnDestroy {
         if (searchQuery) {
           searchQuery = searchQuery.trim().toLowerCase();
           filteredNotes = filteredNotes.filter(
-            (note) =>
-              note.title.toLowerCase().includes(searchQuery) || note.content.toLowerCase().includes(searchQuery),
+            (note) => note.title.toLowerCase().includes(searchQuery) || note.content.toLowerCase().includes(searchQuery),
           );
         }
 
@@ -129,38 +121,36 @@ export class NotesListComponent implements OnInit, OnDestroy {
     );
 
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode and drawerOpened if the given breakpoint is active
-        if (matchingAliases.includes('lg')) {
-          this.drawerMode = 'side';
-          this.drawerOpened = true;
-        } else {
-          this.drawerMode = 'over';
-          this.drawerOpened = false;
-        }
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode and drawerOpened if the given breakpoint is active
+      if (matchingAliases.includes('lg')) {
+        this.drawerMode = 'side';
+        this.drawerOpened = true;
+      } else {
+        this.drawerMode = 'over';
+        this.drawerOpened = false;
+      }
 
-        // Set the masonry columns
-        //
-        // This if block structured in a way so that only the
-        // biggest matching alias will be used to set the column
-        // count.
-        if (matchingAliases.includes('xl')) {
-          this.masonryColumns = 5;
-        } else if (matchingAliases.includes('lg')) {
-          this.masonryColumns = 4;
-        } else if (matchingAliases.includes('md')) {
-          this.masonryColumns = 3;
-        } else if (matchingAliases.includes('sm')) {
-          this.masonryColumns = 2;
-        } else {
-          this.masonryColumns = 1;
-        }
+      // Set the masonry columns
+      //
+      // This if block structured in a way so that only the
+      // biggest matching alias will be used to set the column
+      // count.
+      if (matchingAliases.includes('xl')) {
+        this.masonryColumns = 5;
+      } else if (matchingAliases.includes('lg')) {
+        this.masonryColumns = 4;
+      } else if (matchingAliases.includes('md')) {
+        this.masonryColumns = 3;
+      } else if (matchingAliases.includes('sm')) {
+        this.masonryColumns = 2;
+      } else {
+        this.masonryColumns = 1;
+      }
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
   }
 
   /**

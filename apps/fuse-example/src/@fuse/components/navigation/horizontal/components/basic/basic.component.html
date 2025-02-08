@@ -26,12 +26,7 @@
 
   <!-- Item with an external link -->
   @if (item.link && item.externalLink && !item.function && !item.disabled) {
-    <a
-      class="fuse-horizontal-navigation-item"
-      [href]="item.link"
-      [target]="item.target || '_self'"
-      [matTooltip]="item.tooltip || ''"
-    >
+    <a class="fuse-horizontal-navigation-item" [href]="item.link" [target]="item.target || '_self'" [matTooltip]="item.tooltip || ''">
       <ng-container *ngTemplateOutlet="itemTemplate"></ng-container>
     </a>
   }
@@ -110,11 +105,7 @@
 <ng-template #itemTemplate>
   <!-- Icon -->
   @if (item.icon) {
-    <mat-icon
-      class="fuse-horizontal-navigation-item-icon"
-      [ngClass]="item.classes?.icon"
-      [svgIcon]="item.icon"
-    ></mat-icon>
+    <mat-icon class="fuse-horizontal-navigation-item-icon" [ngClass]="item.classes?.icon" [svgIcon]="item.icon"></mat-icon>
   }
 
   <!-- Title & Subtitle -->

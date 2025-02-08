@@ -4,11 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
-import {
-  FuseHorizontalNavigationComponent,
-  FuseNavigationService,
-  FuseVerticalNavigationComponent,
-} from '@fuse/components/navigation';
+import { FuseHorizontalNavigationComponent, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
@@ -82,12 +78,10 @@ export class MaterialLayoutComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Check if the screen is small
-        this.isScreenSmall = !matchingAliases.includes('md');
-      });
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Check if the screen is small
+      this.isScreenSmall = !matchingAliases.includes('md');
+    });
   }
 
   /**

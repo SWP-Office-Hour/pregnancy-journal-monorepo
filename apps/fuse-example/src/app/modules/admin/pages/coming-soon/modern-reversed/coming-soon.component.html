@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col items-center sm:justify-center md:p-8">
   <div class="sm:bg-card flex overflow-hidden sm:rounded-2xl sm:shadow md:w-full md:max-w-6xl">
-    <div
-      class="relative hidden h-full flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 md:flex lg:px-28 dark:border-r"
-    >
+    <div class="relative hidden h-full flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 md:flex lg:px-28 dark:border-r">
       <!-- Background -->
       <!-- Rings -->
       <!-- prettier-ignore -->
@@ -31,8 +29,8 @@
           <div>our community</div>
         </div>
         <div class="mt-6 text-lg leading-6 tracking-tight text-gray-400">
-          Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules. Join us
-          and start building your application today.
+          Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules. Join us and start building your
+          application today.
         </div>
         <div class="mt-8 flex items-center">
           <div class="flex-0 flex items-center -space-x-1.5">
@@ -53,9 +51,7 @@
               src="images/avatars/male-16.jpg"
             />
           </div>
-          <div class="ml-4 font-medium tracking-tight text-gray-400">
-            More than 17k people joined us, it's your turn
-          </div>
+          <div class="ml-4 font-medium tracking-tight text-gray-400">More than 17k people joined us, it's your turn</div>
         </div>
       </div>
     </div>
@@ -68,19 +64,11 @@
 
         <!-- Title -->
         <div class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">Almost there!</div>
-        <div class="mt-0.5">
-          Do you want to be notified when we are ready? Register below so we can notify you about the launch!
-        </div>
+        <div class="mt-0.5">Do you want to be notified when we are ready? Register below so we can notify you about the launch!</div>
 
         <!-- Alert -->
         @if (showAlert) {
-          <fuse-alert
-            class="-mb-4 mt-8"
-            [appearance]="'outline'"
-            [showIcon]="false"
-            [type]="alert.type"
-            [@shake]="alert.type === 'error'"
-          >
+          <fuse-alert class="-mb-4 mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
             {{ alert.message }}
           </fuse-alert>
         }
@@ -118,8 +106,7 @@
 
           <!-- Form footer -->
           <div class="text-secondary text-md mt-8 font-medium">
-            This isn't a newsletter subscription. We will send one email to you when we launch and then you will be
-            removed from the list.
+            This isn't a newsletter subscription. We will send one email to you when we launch and then you will be removed from the list.
           </div>
         </form>
       </div>

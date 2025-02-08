@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -20,11 +18,7 @@
   <!-- Main -->
   <div class="flex-auto p-6 sm:p-10">
     <div class="mb-6 sm:mb-12">
-      <mat-button-toggle-group
-        class="-m-2 flex flex-wrap"
-        [(ngModel)]="selectedFilter"
-        (change)="onFilterChange($event)"
-      >
+      <mat-button-toggle-group class="-m-2 flex flex-wrap" [(ngModel)]="selectedFilter" (change)="onFilterChange($event)">
         @for (filter of filters; track filter) {
           <mat-button-toggle class="m-2" [value]="filter">
             <span class="text-secondary">{{ filter | titlecase }}</span>
@@ -40,9 +34,7 @@
         <img class="object-cover" src="images/cards/01-320x200.jpg" alt="Card cover image" />
         <div class="m-8">
           <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>
-          <div class="mt-4">
-            From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.
-          </div>
+          <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>
         </div>
       </fuse-card>
 
@@ -52,9 +44,7 @@
         <div class="m-8">
           <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>
           <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>
-          <div class="mt-4">
-            From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.
-          </div>
+          <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>
         </div>
       </fuse-card>
 
@@ -69,9 +59,7 @@
           <img class="object-cover" src="images/cards/03-320x200.jpg" alt="Card cover image" />
           <div class="m-8 mb-4">
             <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>
-            <div class="mt-4">
-              From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.
-            </div>
+            <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>
             <div class="-mx-3 mt-3">
               <button
                 class="px-3"
@@ -86,22 +74,18 @@
         </ng-container>
         <ng-container fuseCardBack>
           <div class="m-4 flex flex-auto flex-col">
-            <button
-              class="ml-1.5"
-              mat-icon-button
-              (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'"
-            >
+            <button class="ml-1.5" mat-icon-button (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">
               <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>
             </button>
             <div class="m-4 mt-3">
               <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>
               <div class="mt-4">
-                From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring
-                your own food and have a little picnic on top of the amazing grasslands.
+                From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a
+                little picnic on top of the amazing grasslands.
               </div>
               <div class="mt-4">
-                From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring
-                your own food and have a little picnic on top of the amazing grasslands.
+                From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a
+                little picnic on top of the amazing grasslands.
               </div>
             </div>
           </div>
@@ -114,9 +98,7 @@
         <div class="m-8 mb-4">
           <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>
           <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>
-          <div class="mt-4">
-            From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.
-          </div>
+          <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>
           <div class="-mx-3 mt-3">
             <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
           </div>
@@ -129,16 +111,9 @@
         <div class="m-8 mb-4">
           <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>
           <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>
-          <div class="mt-4">
-            From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.
-          </div>
+          <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>
           <div class="-mx-3 mt-3">
-            <button
-              class="px-3"
-              mat-button
-              [color]="'primary'"
-              (click)="expandableCard01.expanded = !expandableCard01.expanded"
-            >
+            <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">
               <span class="mr-1">Details</span>
               <mat-icon
                 class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"
@@ -230,9 +205,9 @@
         <div class="m-8 mb-4">
           <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>
           <div class="mt-4">
-            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can
-            bring your food and have a little picnic on top of the amazing grasslands. In winters you can still enjoy
-            them but with couple of inches snow on top of those grasslands.
+            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can bring your food and have a
+            little picnic on top of the amazing grasslands. In winters you can still enjoy them but with couple of inches snow on top of those
+            grasslands.
           </div>
           <div class="-mx-3 mt-3">
             <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
@@ -244,9 +219,9 @@
       <fuse-card class="filter-article flex w-full max-w-80 flex-col p-8">
         <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>
         <div class="mt-4">
-          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can
-          bring your food and have a little picnic on top of the amazing grasslands. In winters you can still enjoy them
-          but with couple of inches snow on top of those grasslands.
+          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can bring your food and have a
+          little picnic on top of the amazing grasslands. In winters you can still enjoy them but with couple of inches snow on top of those
+          grasslands.
         </div>
       </fuse-card>
 
@@ -255,9 +230,9 @@
         <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>
         <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>
         <div class="mt-4">
-          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can
-          bring your food and have a little picnic on top of the amazing grasslands. In winters you can still enjoy them
-          but with couple of inches snow on top of those grasslands.
+          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. In summers you can bring your food and have a
+          little picnic on top of the amazing grasslands. In winters you can still enjoy them but with couple of inches snow on top of those
+          grasslands.
         </div>
       </fuse-card>
 
@@ -270,9 +245,7 @@
             <div class="text-secondary text-md font-medium">Travel locations</div>
           </div>
         </div>
-        <div class="mt-6">
-          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy.
-        </div>
+        <div class="mt-6">From rocky mountains to crystal clear lakes, these are the places you must see and enjoy.</div>
         <div class="-mx-3 mt-3">
           <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
         </div>
@@ -287,9 +260,7 @@
           </div>
           <img class="w-20 rounded-lg object-cover" src="images/cards/13-160x160.jpg" alt="Card cover image" />
         </div>
-        <div class="mt-6">
-          From rocky mountains to crystal clear lakes, these are the places you must see and enjoy.
-        </div>
+        <div class="mt-6">From rocky mountains to crystal clear lakes, these are the places you must see and enjoy.</div>
         <div class="-mx-3 mt-3">
           <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
         </div>
@@ -304,8 +275,8 @@
           <div class="text-2xl font-semibold leading-tight">Mountain tops and clear lakes</div>
           <div class="text-secondary text-md mt-1 font-medium">Updated with 20 new locations</div>
           <div class="mt-4">
-            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your
-            own food and have a little picnic on top of the amazing grasslands.
+            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a little
+            picnic on top of the amazing grasslands.
           </div>
           <div class="-mx-3 mt-3">
             <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
@@ -319,19 +290,15 @@
           <div class="text-2xl font-semibold leading-tight">Mountain tops and clear lakes</div>
           <div class="text-secondary text-md mt-1 font-medium">Updated with 20 new locations</div>
           <div class="mt-4">
-            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your
-            own food and have a little picnic on top of the amazing grasslands.
+            From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a little
+            picnic on top of the amazing grasslands.
           </div>
           <div class="-mx-3 mt-3">
             <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>
           </div>
         </div>
         <div class="flex-0 w-80 md:w-64">
-          <img
-            class="order-1 h-full w-full object-cover md:order-2"
-            src="images/cards/12-512x512.jpg"
-            alt="Card cover image"
-          />
+          <img class="order-1 h-full w-full object-cover md:order-2" src="images/cards/12-512x512.jpg" alt="Card cover image" />
         </div>
       </fuse-card>
 
@@ -353,8 +320,8 @@
             <div class="text-secondary">98 reviews</div>
           </div>
           <div class="mt-6">
-            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-            from busy streets and never ending constructions.
+            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+            ending constructions.
           </div>
           <div class="-mx-3 mt-3 flex items-center">
             <a class="mr-1 px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Location </a>
@@ -379,8 +346,8 @@
           <div class="text-secondary">98 reviews</div>
         </div>
         <div class="mt-6">
-          Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-          from busy streets and never ending constructions.
+          Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+          ending constructions.
         </div>
         <div class="-mx-3 mt-3 flex items-center">
           <a class="mr-1 px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Location </a>
@@ -391,11 +358,7 @@
       <!-- Card #21 -->
       <fuse-card class="filter-listing md:max-w-160 flex w-full max-w-80 flex-col md:flex-row">
         <div class="flex-0 w-80 md:w-64">
-          <img
-            class="h-full w-full object-cover"
-            src="images/cards/coffee-shop-02-512x512.jpg"
-            alt="Card cover image"
-          />
+          <img class="h-full w-full object-cover" src="images/cards/coffee-shop-02-512x512.jpg" alt="Card cover image" />
         </div>
         <div class="m-8 mb-4 flex flex-auto flex-col">
           <div class="text-2xl font-semibold leading-tight">Puzzles Coffee Shop</div>
@@ -412,8 +375,8 @@
             <div class="text-secondary">98 reviews</div>
           </div>
           <div class="mt-6">
-            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-            from busy streets and never ending constructions.
+            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+            ending constructions.
           </div>
           <div class="-mx-3 mt-3 flex items-center">
             <a class="mr-1 px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Location </a>
@@ -461,11 +424,7 @@
           </div>
         </div>
         <div class="order-1 mb-8 w-full overflow-hidden rounded-lg md:order-2 md:mb-4 md:ml-6 md:w-40">
-          <img
-            class="h-full w-full object-cover"
-            src="images/cards/coffee-shop-03-320x320.jpg"
-            alt="Card cover image"
-          />
+          <img class="h-full w-full object-cover" src="images/cards/coffee-shop-03-320x320.jpg" alt="Card cover image" />
         </div>
       </fuse-card>
 
@@ -522,11 +481,7 @@
         </div>
         <div class="mt-5 flex flex-col">
           <div class="flex items-center">
-            <img
-              class="mr-4 h-14 w-14 rounded object-cover"
-              src="images/cards/coffee-shop-01-320x200.jpg"
-              alt="Card cover image"
-            />
+            <img class="mr-4 h-14 w-14 rounded object-cover" src="images/cards/coffee-shop-01-320x200.jpg" alt="Card cover image" />
             <div class="flex min-w-0 flex-col">
               <div class="font-medium leading-none">The Port Cafe</div>
               <div class="text-md mt-1 truncate leading-none">Best cafe of the downtown New York</div>
@@ -534,11 +489,7 @@
             </div>
           </div>
           <div class="mt-6 flex items-center">
-            <img
-              class="mr-4 h-14 w-14 rounded object-cover"
-              src="images/cards/coffee-shop-02-512x512.jpg"
-              alt="Card cover image"
-            />
+            <img class="mr-4 h-14 w-14 rounded object-cover" src="images/cards/coffee-shop-02-512x512.jpg" alt="Card cover image" />
             <div class="flex min-w-0 flex-col">
               <div class="font-medium leading-none">Design House LLC.</div>
               <div class="text-md mt-1 truncate leading-none">UI/UX, brand and product design</div>
@@ -546,11 +497,7 @@
             </div>
           </div>
           <div class="mt-6 flex items-center">
-            <img
-              class="mr-4 h-14 w-14 rounded object-cover"
-              src="images/cards/coffee-shop-03-320x320.jpg"
-              alt="Card cover image"
-            />
+            <img class="mr-4 h-14 w-14 rounded object-cover" src="images/cards/coffee-shop-03-320x320.jpg" alt="Card cover image" />
             <div class="flex min-w-0 flex-col">
               <div class="font-medium leading-none">Crax Laser Tag</div>
               <div class="text-md mt-1 truncate leading-none">30% off with group of 6 people</div>
@@ -558,11 +505,7 @@
             </div>
           </div>
           <div class="mt-6 flex items-center">
-            <img
-              class="mr-4 h-14 w-14 rounded object-cover"
-              src="images/cards/sneakers-01-320x200.jpg"
-              alt="Card cover image"
-            />
+            <img class="mr-4 h-14 w-14 rounded object-cover" src="images/cards/sneakers-01-320x200.jpg" alt="Card cover image" />
             <div class="flex min-w-0 flex-col">
               <div class="font-medium leading-none">Roadster Clothing Inc.</div>
               <div class="text-md mt-1 truncate leading-none">$25 off on orders $500 and over</div>
@@ -734,9 +677,7 @@
         </div>
         <div class="ml-4 mt-2 flex flex-col">
           <mat-checkbox class="my-1" [color]="'primary'" [checked]="true"> Refine basic elements </mat-checkbox>
-          <mat-checkbox class="my-1" [color]="'primary'" [checked]="true">
-            List all the re-usable elements
-          </mat-checkbox>
+          <mat-checkbox class="my-1" [color]="'primary'" [checked]="true"> List all the re-usable elements </mat-checkbox>
           <mat-checkbox class="my-1" [color]="'primary'"> Add standard form elements </mat-checkbox>
         </div>
       </fuse-card>
@@ -961,15 +902,10 @@
       <!-- Card #35 -->
       <fuse-card class="filter-info flex w-full max-w-80 flex-col items-center p-8">
         <div class="bg-primary-100 flex items-center justify-center rounded-full p-5 dark:bg-gray-600">
-          <mat-icon
-            class="text-primary-500 icon-size-10 dark:text-primary-300"
-            [svgIcon]="'heroicons_outline:information-circle'"
-          ></mat-icon>
+          <mat-icon class="text-primary-500 icon-size-10 dark:text-primary-300" [svgIcon]="'heroicons_outline:information-circle'"></mat-icon>
         </div>
         <div class="mt-6 text-center text-2xl font-semibold leading-tight">Support</div>
-        <div class="text-secondary mt-3 text-center">
-          Contact support to learn more about our products and get professional help
-        </div>
+        <div class="text-secondary mt-3 text-center">Contact support to learn more about our products and get professional help</div>
         <a class="mt-8 px-6" mat-flat-button [color]="'primary'" [routerLink]="['./']"> Contact Now </a>
       </fuse-card>
 
@@ -979,31 +915,11 @@
         <div class="mt-6 text-center text-2xl font-semibold leading-tight">Branding & Product Design</div>
         <div class="text-secondary mb-8 mt-1 text-center">Brand strategy, purpose, and product positioning</div>
         <div class="flex items-center">
-          <img
-            class="text-card ring-bg-card h-8 w-8 rounded-full ring-2"
-            src="images/avatars/female-02.jpg"
-            alt="Card cover image"
-          />
-          <img
-            class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2"
-            src="images/avatars/female-04.jpg"
-            alt="Card cover image"
-          />
-          <img
-            class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2"
-            src="images/avatars/male-09.jpg"
-            alt="Card cover image"
-          />
-          <img
-            class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2"
-            src="images/avatars/male-07.jpg"
-            alt="Card cover image"
-          />
-          <img
-            class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2"
-            src="images/avatars/female-12.jpg"
-            alt="Card cover image"
-          />
+          <img class="text-card ring-bg-card h-8 w-8 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+          <img class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+          <img class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+          <img class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
+          <img class="text-card ring-bg-card -ml-2 h-8 w-8 rounded-full ring-2" src="images/avatars/female-12.jpg" alt="Card cover image" />
         </div>
         <div class="text-secondary mt-2 text-sm font-medium">+13 more</div>
         <a class="mt-8 px-6" mat-flat-button [color]="'primary'" [routerLink]="['./']"> View Project </a>
@@ -1030,9 +946,7 @@
           </div>
         </div>
         <hr class="mb-8 mt-0 w-full border-t" />
-        <div class="text-secondary text-center">
-          I’m a friendly kitchen assistant who suffers from a severe phobia of buttons
-        </div>
+        <div class="text-secondary text-center">I’m a friendly kitchen assistant who suffers from a severe phobia of buttons</div>
         <a class="mt-4 px-6" mat-button [color]="'primary'" [routerLink]="['./']"> More about Brian </a>
       </fuse-card>
 
@@ -1088,26 +1002,10 @@
           <div class="flex items-center justify-between">
             <div class="text-secondary text-md mr-3 font-medium">4 mutual friends</div>
             <div class="flex items-center">
-              <img
-                class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-                src="images/avatars/female-02.jpg"
-                alt="Card cover image"
-              />
-              <img
-                class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-                src="images/avatars/female-04.jpg"
-                alt="Card cover image"
-              />
-              <img
-                class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-                src="images/avatars/male-09.jpg"
-                alt="Card cover image"
-              />
-              <img
-                class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-                src="images/avatars/male-07.jpg"
-                alt="Card cover image"
-              />
+              <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+              <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+              <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+              <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             </div>
           </div>
         </div>
@@ -1192,9 +1090,7 @@
       <!-- Card #48 -->
       <fuse-card class="filter-pricing max-w-100 w-full flex-col p-6 sm:px-10 sm:py-12">
         <div class="text-4xl font-bold leading-tight tracking-tight">Personal</div>
-        <div class="text-secondary mt-2 text-lg font-medium tracking-tight">
-          Perfect for an individual or a small team starting to get bigger
-        </div>
+        <div class="text-secondary mt-2 text-lg font-medium tracking-tight">Perfect for an individual or a small team starting to get bigger</div>
         <div class="bg-accent my-10 h-1 w-8 rounded"></div>
         <!-- Price -->
         <div class="flex items-baseline whitespace-nowrap">
@@ -1237,9 +1133,7 @@
       </fuse-card>
 
       <!-- Card #49 -->
-      <fuse-card
-        class="filter-pricing w-full max-w-80 flex-col items-center p-8 text-center sm:px-10 sm:py-12 lg:rounded-none lg:rounded-l"
-      >
+      <fuse-card class="filter-pricing w-full max-w-80 flex-col items-center p-8 text-center sm:px-10 sm:py-12 lg:rounded-none lg:rounded-l">
         <div class="text-4xl font-bold leading-tight tracking-tight">Personal</div>
         <!-- Price -->
         <div class="mt-8 flex items-baseline whitespace-nowrap">
@@ -1260,9 +1154,7 @@
           <div>Access to forums</div>
         </div>
         <!-- CTA -->
-        <button class="fuse-mat-button-large mt-10 w-full" mat-stroked-button [color]="'primary'">
-          Start your trial
-        </button>
+        <button class="fuse-mat-button-large mt-10 w-full" mat-stroked-button [color]="'primary'">Start your trial</button>
       </fuse-card>
 
       <!-- Card #50 -->
@@ -1270,8 +1162,8 @@
         <div class="p-6 sm:p-8 lg:p-10">
           <div class="text-3xl font-bold">Lifetime Membership</div>
           <div class="text-secondary mt-2 leading-relaxed">
-            Learn from like-minded individuals which are eager to make a living building stuff on the web. Pay once and
-            get lifetime access to the community.
+            Learn from like-minded individuals which are eager to make a living building stuff on the web. Pay once and get lifetime access to the
+            community.
           </div>
           <div class="mt-10 flex items-center">
             <div class="text-secondary font-medium">INCLUDED FEATURES</div>
@@ -1298,9 +1190,7 @@
           </div>
         </div>
         <!-- Price -->
-        <div
-          class="flex flex-col items-center bg-gray-100 p-8 lg:min-w-80 lg:px-10 lg:py-12 dark:bg-black dark:bg-opacity-10"
-        >
+        <div class="flex flex-col items-center bg-gray-100 p-8 lg:min-w-80 lg:px-10 lg:py-12 dark:bg-black dark:bg-opacity-10">
           <div class="flex items-center whitespace-nowrap">
             <div class="text-8xl font-extrabold tracking-tight">$599</div>
             <div class="text-secondary ml-2 text-2xl font-semibold">USD</div>
@@ -1321,10 +1211,7 @@
               <mat-icon class="icon-size-5 text-white text-opacity-50" [svgIcon]="'heroicons_solid:heart'"></mat-icon>
             </button>
             <button mat-icon-button>
-              <mat-icon
-                class="icon-size-5 text-white text-opacity-50"
-                [svgIcon]="'heroicons_solid:arrows-right-left'"
-              ></mat-icon>
+              <mat-icon class="icon-size-5 text-white text-opacity-50" [svgIcon]="'heroicons_solid:arrows-right-left'"></mat-icon>
             </button>
           </div>
           <img class="object-cover" src="images/cards/sneakers-01-320x200.jpg" alt="Card cover image" />
@@ -1393,8 +1280,7 @@
             <div class="mt-4 text-3xl font-semibold md:ml-6 md:mt-0">$240.00</div>
           </div>
           <div class="text-secondary text-md mt-6">
-            White sneakers are made of natural, biodegradable material. This feature alione makes them extremely nature
-            friendly.
+            White sneakers are made of natural, biodegradable material. This feature alione makes them extremely nature friendly.
           </div>
           <div class="text-md mt-6 flex items-center">
             <span class="text-secondary mr-3 whitespace-nowrap">Select a size:</span>
@@ -1424,8 +1310,8 @@
       <fuse-card class="filter-testimonial relative flex w-full max-w-80 flex-col p-8">
         <span class="text-primary absolute left-0 top-0 ml-8 mt-8 font-serif text-9xl leading-none">“</span>
         <div class="mt-4 text-lg italic leading-relaxed">
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Puzzles coffee shop is one of the finest coffee
-          shops in central downtown in New York. It's quiet; far away from busy streets and never ending constructions.
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Puzzles coffee shop is one of the finest coffee shops in central downtown in
+          New York. It's quiet; far away from busy streets and never ending constructions.
         </div>
         <div class="text-md text-primary mt-4 font-medium">&#8212; Melissa Morillo, Comtent</div>
       </fuse-card>
@@ -1433,8 +1319,8 @@
       <!-- Card #55 -->
       <fuse-card class="filter-testimonial flex w-full max-w-80 flex-col">
         <div class="p-8 text-lg italic leading-relaxed">
-          Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-          from busy streets and never ending constructions.
+          Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+          ending constructions.
         </div>
         <div class="bg-primary text-md text-on-primary mt-4 flex flex-col items-center px-8 py-6 font-medium">
           <span class="bg-card relative -mt-14 mb-4 rounded-full p-1">
@@ -1452,26 +1338,20 @@
         </div>
         <div class="m-8 flex flex-auto flex-col">
           <div class="text-lg italic leading-relaxed">
-            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-            from busy streets and never ending constructions.
+            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+            ending constructions.
           </div>
           <div class="text-md text-primary mt-4 font-medium">&#8212; Melissa Morillo, Comtent</div>
         </div>
       </fuse-card>
 
       <!-- Card #57 -->
-      <fuse-card
-        class="filter-testimonial md:max-w-160 flex w-full max-w-80 flex-col items-center justify-between p-8 md:flex-row"
-      >
-        <img
-          class="w-30 mb-8 h-full rounded-full object-cover md:mb-0 md:mr-8"
-          src="images/cards/avatar-400x400.jpg"
-          alt="Card cover image"
-        />
+      <fuse-card class="filter-testimonial md:max-w-160 flex w-full max-w-80 flex-col items-center justify-between p-8 md:flex-row">
+        <img class="w-30 mb-8 h-full rounded-full object-cover md:mb-0 md:mr-8" src="images/cards/avatar-400x400.jpg" alt="Card cover image" />
         <div class="flex flex-auto flex-col justify-center">
           <div class="text-lg italic leading-relaxed">
-            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away
-            from busy streets and never ending constructions.
+            Puzzles coffee shop is one of the finest coffee shops in central downtown in New York. It's quiet; far away from busy streets and never
+            ending constructions.
           </div>
           <div class="text-md text-primary mt-4 font-medium">&#8212; Melissa Morillo, Comtent</div>
         </div>
@@ -1482,11 +1362,7 @@
         <div class="text-xl font-semibold">Create Post</div>
         <div class="mt-8 flex flex-col items-start sm:flex-row">
           <div class="mb-6 flex items-center sm:mb-0">
-            <img
-              class="mr-4 h-12 w-12 min-w-12 rounded-full"
-              src="images/avatars/brian-hughes.jpg"
-              alt="Card cover image"
-            />
+            <img class="mr-4 h-12 w-12 min-w-12 rounded-full" src="images/avatars/brian-hughes.jpg" alt="Card cover image" />
             <div class="sm:hidden">Brian Hughes</div>
           </div>
           <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
@@ -1595,9 +1471,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="relative mb-4">
           <img class="h-80 object-cover" src="images/cards/14-640x480.jpg" alt="Card cover image" />
           <div
@@ -1625,26 +1499,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -1690,9 +1548,7 @@
               <div class="flex items-start">
                 <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-05.jpg" alt="Card cover image" />
                 <div class="mt-0.5 flex flex-col">
-                  <span>
-                    <b>Rutherford Brannan</b> Oh, I’m in.. Let’s arrange a trip for the next weekend if you want!
-                  </span>
+                  <span> <b>Rutherford Brannan</b> Oh, I’m in.. Let’s arrange a trip for the next weekend if you want! </span>
                   <div class="text-secondary mt-2 flex items-center text-sm">
                     <span class="mr-2 cursor-pointer hover:underline">Like</span>
                     <span class="mr-2 cursor-pointer hover:underline">Reply</span>
@@ -1730,9 +1586,8 @@
                 <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
                 <div class="mt-0.5 flex flex-col">
                   <span>
-                    <b>Alan Marti</b> The color of the sky doesn’t look natural at all, do you really think this is
-                    natural? I’d say Photoshop! Your trip isn't going to worth it since you won't be seeing this exact
-                    sky.
+                    <b>Alan Marti</b> The color of the sky doesn’t look natural at all, do you really think this is natural? I’d say Photoshop! Your
+                    trip isn't going to worth it since you won't be seeing this exact sky.
                   </span>
                   <div class="text-secondary mt-2 flex items-center text-sm">
                     <span class="mr-2 cursor-pointer hover:underline">Like</span>
@@ -1759,8 +1614,7 @@
                 <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
                 <div class="mt-0.5 flex flex-col">
                   <span>
-                    <b>Alan Marti</b> Caroline, I'm telling the truth, and if you cannot stand the truth, maybe we
-                    shouldn't be friends anymore...
+                    <b>Alan Marti</b> Caroline, I'm telling the truth, and if you cannot stand the truth, maybe we shouldn't be friends anymore...
                   </span>
                   <div class="text-secondary mt-2 flex items-center text-sm">
                     <span class="mr-2 cursor-pointer hover:underline">Like</span>
@@ -1785,10 +1639,7 @@
               <div class="ml-12 mt-8 flex items-start">
                 <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
                 <div class="mt-0.5 flex flex-col">
-                  <span>
-                    <b>Alan Marti</b> Sorry! I had a bad morning, let's talk about this in couple hours, I need to relax
-                    a bit :(
-                  </span>
+                  <span> <b>Alan Marti</b> Sorry! I had a bad morning, let's talk about this in couple hours, I need to relax a bit :( </span>
                   <div class="text-secondary mt-2 flex items-center text-sm">
                     <span class="mr-2 cursor-pointer hover:underline">Like</span>
                     <span class="mr-2 cursor-pointer hover:underline">Reply</span>
@@ -1865,9 +1716,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="mx-6 mb-4 flex sm:mx-8">
           <div class="flex h-80 pr-1">
             <img class="rounded object-cover" src="images/cards/15-640x480.jpg" alt="Card cover image" />
@@ -1893,26 +1742,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -1974,9 +1807,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="mx-6 mb-4 flex sm:mx-8">
           <div class="flex h-80 pr-1">
             <img class="rounded object-cover" src="images/cards/17-640x480.jpg" alt="Card cover image" />
@@ -2007,26 +1838,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2088,9 +1903,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="mx-6 mb-4 flex sm:mx-8">
           <div class="flex flex-col pr-1">
             <div class="flex h-40 pb-1">
@@ -2126,26 +1939,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2207,9 +2004,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="mx-6 mb-4 flex flex-col sm:mx-8">
           <div class="flex pb-1">
             <div class="flex h-60 pr-1">
@@ -2248,26 +2043,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2329,9 +2108,7 @@
             </button>
           </mat-menu>
         </div>
-        <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!
-        </div>
+        <div class="mx-6 mb-6 mt-2 sm:mx-8">Look at that sky! I so want to be there.. Can we arrange a trip? Is that a possibility? Please!!!</div>
         <div class="mx-6 mb-4 flex flex-col sm:mx-8">
           <div class="flex pb-1">
             <div class="flex h-60 pr-1">
@@ -2374,26 +2151,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2457,15 +2218,13 @@
         </div>
         <div class="m-6 sm:mx-8">
           <p>
-            We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little happy
-            sunlight shining through there. Let's build some happy little clouds up here. I was blessed with a very
-            steady hand; and it comes in very handy when you're doing these little delicate things. This is the fun
-            part.
+            We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little happy sunlight shining through there.
+            Let's build some happy little clouds up here. I was blessed with a very steady hand; and it comes in very handy when you're doing these
+            little delicate things. This is the fun part.
           </p>
           <p class="mt-4">
-            Isn't it great to do something you can't fail at? Little trees and bushes grow however makes them happy.
-            Trees get lonely too, so we'll give him a little friend. There are no mistakes. You can fix anything that
-            happens.
+            Isn't it great to do something you can't fail at? Little trees and bushes grow however makes them happy. Trees get lonely too, so we'll
+            give him a little friend. There are no mistakes. You can fix anything that happens.
           </p>
         </div>
         <div class="mx-3 flex items-center sm:mx-5">
@@ -2485,26 +2244,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2567,8 +2310,7 @@
           </mat-menu>
         </div>
         <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Hey!! I never saw this episode, it was amazing.. I think I’m going to buy myself a set and try his technique
-          at home!
+          Hey!! I never saw this episode, it was amazing.. I think I’m going to buy myself a set and try his technique at home!
         </div>
         <div class="mx-6 mb-4 sm:mx-8">
           <div class="flex overflow-hidden rounded border">
@@ -2578,8 +2320,8 @@
             <div class="m-4">
               <div class="text-lg font-medium">Rob Boss - Season 09 Episode 04</div>
               <div class="text-secondary mt-1">
-                We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little
-                happy sunlight shining through there.
+                We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little happy sunlight shining through
+                there.
               </div>
               <div class="text-hint mt-2 text-sm">example.com</div>
             </div>
@@ -2602,26 +2344,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2684,8 +2410,7 @@
           </mat-menu>
         </div>
         <div class="mx-6 mb-6 mt-2 sm:mx-8">
-          Hey!! I never saw this one, it was amazing.. I think I’m going to buy myself a set and try his technique at
-          home!
+          Hey!! I never saw this one, it was amazing.. I think I’m going to buy myself a set and try his technique at home!
         </div>
         <div class="mx-6 mb-4 sm:mx-8">
           <div class="flex flex-col overflow-hidden rounded border">
@@ -2695,8 +2420,8 @@
             <div class="m-4">
               <div class="text-lg font-medium">Take a look behind the scenes of Rob Boss episodes</div>
               <div class="text-secondary mt-1">
-                We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little
-                happy sunlight shining through there.
+                We'll put a happy little sky in here. We touch the canvas, the canvas takes what it wants. A little happy sunlight shining through
+                there.
               </div>
               <div class="text-hint mt-2 text-sm">example.com</div>
             </div>
@@ -2719,26 +2444,10 @@
         <hr class="mx-6 mb-6 mt-4 border-b sm:mx-8" />
         <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:mb-6 sm:flex-row sm:items-center">
           <div class="flex items-center">
-            <img
-              class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-02.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/female-04.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-09.jpg"
-              alt="Card cover image"
-            />
-            <img
-              class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2"
-              src="images/avatars/male-07.jpg"
-              alt="Card cover image"
-            />
+            <img class="text-card ring-bg-card m-0.5 h-6 w-6 rounded-full ring-2" src="images/avatars/female-02.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/female-04.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-09.jpg" alt="Card cover image" />
+            <img class="text-card ring-bg-card m-0.5 -ml-3 h-6 w-6 rounded-full ring-2" src="images/avatars/male-07.jpg" alt="Card cover image" />
             <div class="text-md ml-3 tracking-tight">You and 24 more liked this</div>
           </div>
           <div class="hidden flex-auto sm:flex"></div>
@@ -2755,13 +2464,7 @@
           <div class="flex items-start">
             <img class="mr-5 h-12 w-12 rounded-full" src="images/avatars/brian-hughes.jpg" alt="Card cover image" />
             <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
-              <textarea
-                class="my-2 leading-normal"
-                matInput
-                [placeholder]="'Write a comment...'"
-                cdkTextareaAutosize
-                [rows]="3"
-              ></textarea>
+              <textarea class="my-2 leading-normal" matInput [placeholder]="'Write a comment...'" cdkTextareaAutosize [rows]="3"></textarea>
             </mat-form-field>
           </div>
           <div class="-mr-3 ml-auto mt-3 flex items-center">
@@ -2782,9 +2485,7 @@
             <div class="flex items-start">
               <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-05.jpg" alt="Card cover image" />
               <div class="mt-0.5 flex flex-col">
-                <span>
-                  <b>Rutherford Brannan</b> Oh, I’m in.. Let’s arrange a trip for the next weekend if you want!
-                </span>
+                <span> <b>Rutherford Brannan</b> Oh, I’m in.. Let’s arrange a trip for the next weekend if you want! </span>
                 <div class="text-secondary mt-2 flex items-center text-sm">
                   <span class="mr-2 cursor-pointer hover:underline">Like</span>
                   <span class="mr-2 cursor-pointer hover:underline">Reply</span>
@@ -2822,9 +2523,8 @@
               <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
               <div class="mt-0.5 flex flex-col">
                 <span>
-                  <b>Alan Marti</b> The color of the sky doesn’t look natural at all, do you really think this is
-                  natural? I’d say Photoshop! Your trip isn't going to worth it since you won't be seeing this exact
-                  sky.
+                  <b>Alan Marti</b> The color of the sky doesn’t look natural at all, do you really think this is natural? I’d say Photoshop! Your
+                  trip isn't going to worth it since you won't be seeing this exact sky.
                 </span>
                 <div class="text-secondary mt-2 flex items-center text-sm">
                   <span class="mr-2 cursor-pointer hover:underline">Like</span>
@@ -2851,8 +2551,7 @@
               <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
               <div class="mt-0.5 flex flex-col">
                 <span>
-                  <b>Alan Marti</b> Caroline, I'm telling the truth, and if you cannot stand the truth, maybe we
-                  shouldn't be friends anymore...
+                  <b>Alan Marti</b> Caroline, I'm telling the truth, and if you cannot stand the truth, maybe we shouldn't be friends anymore...
                 </span>
                 <div class="text-secondary mt-2 flex items-center text-sm">
                   <span class="mr-2 cursor-pointer hover:underline">Like</span>
@@ -2877,10 +2576,7 @@
             <div class="ml-12 mt-8 flex items-start">
               <img class="mr-4 h-8 w-8 rounded-full" src="images/avatars/male-11.jpg" alt="Card cover image" />
               <div class="mt-0.5 flex flex-col">
-                <span>
-                  <b>Alan Marti</b> Sorry! I had a bad morning, let's talk about this in couple hours, I need to relax a
-                  bit :(
-                </span>
+                <span> <b>Alan Marti</b> Sorry! I had a bad morning, let's talk about this in couple hours, I need to relax a bit :( </span>
                 <div class="text-secondary mt-2 flex items-center text-sm">
                   <span class="mr-2 cursor-pointer hover:underline">Like</span>
                   <span class="mr-2 cursor-pointer hover:underline">Reply</span>

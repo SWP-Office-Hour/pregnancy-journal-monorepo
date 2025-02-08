@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
 import { CategoryCreateReq, CategoryUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { DatabaseService } from '../database/database.service';
 import { Category } from './entities/category.entity';
 
 @Injectable()

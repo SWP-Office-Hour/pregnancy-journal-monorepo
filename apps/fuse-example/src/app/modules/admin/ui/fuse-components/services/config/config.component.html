@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>FuseConfigService</strong> is a singleton service to store and access an application wide configuration
-      object. It can be used to store any kind of data and can be accessed from anywhere within your application.
+      <strong>FuseConfigService</strong> is a singleton service to store and access an application wide configuration object. It can be used to store
+      any kind of data and can be accessed from anywhere within your application.
     </p>
 
     <h2>Module</h2>
@@ -94,9 +92,9 @@
 
     <h2>Methods</h2>
     <p>
-      To set a configuration use <code>config</code> setter on <strong>FuseConfigService</strong>. The setter will
-      intelligently merge the configuration by replacing only the given options if they exist while preserving others.
-      If the supplied option does not exist on the configuration, it will be added:
+      To set a configuration use <code>config</code> setter on <strong>FuseConfigService</strong>. The setter will intelligently merge the
+      configuration by replacing only the given options if they exist while preserving others. If the supplied option does not exist on the
+      configuration, it will be added:
     </p>
     <textarea fuse-highlight lang="typescript">
             import { FuseConfigService } from '@fuse/services/config';
@@ -113,8 +111,8 @@
         </textarea
     >
     <p>
-      To get the configuration use <code>config$</code> getter on <strong>FuseConfigService</strong> which returns an
-      <code>Observable</code> of the configuration object:
+      To get the configuration use <code>config$</code> getter on <strong>FuseConfigService</strong> which returns an <code>Observable</code> of the
+      configuration object:
     </p>
     <textarea fuse-highlight lang="typescript">
             import { FuseConfigService } from '@fuse/services/config';

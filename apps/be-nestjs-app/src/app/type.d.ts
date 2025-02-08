@@ -1,5 +1,5 @@
-import { JwtPayload } from './auth/auth.interface';
 import { Request } from 'express';
+import { JwtPayload } from './auth/auth.interface';
 // Declare the type of the user object
 
 declare module 'express' {

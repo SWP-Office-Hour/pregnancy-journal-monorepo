@@ -110,10 +110,7 @@ export class FuseHighlightComponent implements OnChanges, AfterViewInit {
     }
 
     // Highlight and sanitize the code just in case
-    this.highlightedCode = this._domSanitizer.sanitize(
-      SecurityContext.HTML,
-      this._fuseHighlightService.highlight(this.code, this.lang),
-    );
+    this.highlightedCode = this._domSanitizer.sanitize(SecurityContext.HTML, this._fuseHighlightService.highlight(this.code, this.lang));
 
     // Return if the highlighted code is null
     if (this.highlightedCode === null) {

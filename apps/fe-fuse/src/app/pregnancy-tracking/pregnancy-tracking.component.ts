@@ -29,9 +29,7 @@ export class PregnancyTrackingComponent {
       this.signalService.selectRecord(this.signalService.PregnancyData().length - 1);
     } else {
       this.signalService.PregnancyDataById.set(
-        this.signalService.PregnancyData()[id]
-          ? this.signalService.PregnancyData()[id]
-          : this.signalService.PregnancyData()[length - 1],
+        this.signalService.PregnancyData()[id] ? this.signalService.PregnancyData()[id] : this.signalService.PregnancyData()[length - 1],
       );
       this.signalService.MediaSrc.set(this.signalService.PregnancyDataById().media || []);
     }

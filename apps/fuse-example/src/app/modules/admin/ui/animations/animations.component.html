@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -22,8 +20,7 @@
     <div class="prose prose-sm max-w-3xl">
       <p>
         Fuse provides set of ready-to-use animations for convenience. You can access them by importing the
-        <code>FuseAnimations</code> and set it as the <em>animations</em> property of the
-        <em>&#64;Component</em> metadata.
+        <code>FuseAnimations</code> and set it as the <em>animations</em> property of the <em>&#64;Component</em> metadata.
       </p>
 
       <h2>Module</h2>
@@ -54,12 +51,10 @@
       <p>This animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;expandCollapse]="state"</code> to the element and toggling the <code>state</code> between
-          the <code>'collapsed'</code> and <code>'expanded'</code> strings manually.
+          Adding <code>[&#64;expandCollapse]="state"</code> to the element and toggling the <code>state</code> between the
+          <code>'collapsed'</code> and <code>'expanded'</code> strings manually.
         </li>
-        <li>
-          Adding <code>&#64;expandCollapse</code> to the element and using <code>*ngIf</code> to toggle the element.
-        </li>
+        <li>Adding <code>&#64;expandCollapse</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
       <p>
         The animation can be disabled by setting the state to
@@ -141,8 +136,8 @@
       <p>This animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;shake]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>false</code> and <code>true</code> manually.
+          Adding <code>[&#64;shake]="state"</code> to the element and toggling the <code>state</code> between the <code>false</code> and
+          <code>true</code> manually.
         </li>
         <li>Adding <code>&#64;shake</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -155,9 +150,7 @@
         <div class="title">
           <h6>Shake</h6>
           <div class="controls">
-            <button mat-button [color]="'primary'" (click)="toggleAnimationState('shake.shake', false, true, 150)">
-              Toggle state
-            </button>
+            <button mat-button [color]="'primary'" (click)="toggleAnimationState('shake.shake', false, true, 150)">Toggle state</button>
 
             <button mat-button [color]="'primary'" (click)="toggleVisibilityState('shake.shake')">Toggle *ngIf</button>
           </div>
@@ -209,8 +202,8 @@
       <p><b>Fade In</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;fadeIn]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;fadeIn]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;fadeIn</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -235,9 +228,7 @@
           <div class="title">
             <h6>Fade In</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.in', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.in', 'void', '*')">Toggle state</button>
 
               <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.in')">Toggle *ngIf</button>
             </div>
@@ -289,9 +280,7 @@
           <div class="title">
             <h6>Fade In Top</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.top', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.top', 'void', '*')">Toggle state</button>
 
               <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.top')">Toggle *ngIf</button>
             </div>
@@ -343,13 +332,9 @@
           <div class="title">
             <h6>Fade In Bottom</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.bottom', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.bottom', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.bottom')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.bottom')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -399,13 +384,9 @@
           <div class="title">
             <h6>Fade In Left</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.left', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.left', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.left')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.left')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -455,13 +436,9 @@
           <div class="title">
             <h6>Fade In Right</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.right', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeIn.right', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.right')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeIn.right')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -512,8 +489,8 @@
       <p><b>Fade Out</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;fadeOut]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;fadeOut]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;fadeOut</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -538,13 +515,9 @@
           <div class="title">
             <h6>Fade Out</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.out', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.out', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.out')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.out')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -594,13 +567,9 @@
           <div class="title">
             <h6>Fade Out Top</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.top', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.top', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.top')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.top')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -650,13 +619,9 @@
           <div class="title">
             <h6>Fade Out Bottom</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.bottom', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.bottom', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.bottom')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.bottom')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -706,13 +671,9 @@
           <div class="title">
             <h6>Fade Out Left</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.left', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.left', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.left')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.left')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -762,13 +723,9 @@
           <div class="title">
             <h6>Fade Out Right</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.right', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('fadeOut.right', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.right')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('fadeOut.right')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -819,8 +776,8 @@
       <p><b>Slide In</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;slideIn]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;slideIn]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;slideIn</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -844,13 +801,9 @@
           <div class="title">
             <h6>Slide In Top</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.top', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.top', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.top')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.top')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -900,13 +853,9 @@
           <div class="title">
             <h6>Slide In Bottom</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.bottom', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.bottom', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.bottom')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.bottom')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -956,13 +905,9 @@
           <div class="title">
             <h6>Slide In Left</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.left', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.left', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.left')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.left')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1012,13 +957,9 @@
           <div class="title">
             <h6>Slide In Right</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.right', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideIn.right', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.right')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideIn.right')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1069,8 +1010,8 @@
       <p><b>Slide Out</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;slideOut]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;slideOut]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;slideOut</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -1094,13 +1035,9 @@
           <div class="title">
             <h6>Slide Out Top</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.top', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.top', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.top')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.top')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1150,13 +1087,9 @@
           <div class="title">
             <h6>Slide Out Bottom</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.bottom', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.bottom', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.bottom')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.bottom')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1206,13 +1139,9 @@
           <div class="title">
             <h6>Slide Out Left</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.left', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.left', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.left')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.left')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1262,13 +1191,9 @@
           <div class="title">
             <h6>Slide Out Right</h6>
             <div class="controls">
-              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.right', 'void', '*')">
-                Toggle state
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleAnimationState('slideOut.right', 'void', '*')">Toggle state</button>
 
-              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.right')">
-                Toggle *ngIf
-              </button>
+              <button mat-button [color]="'primary'" (click)="toggleVisibilityState('slideOut.right')">Toggle *ngIf</button>
             </div>
           </div>
 
@@ -1319,8 +1244,8 @@
       <p><b>Zoom In</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;zoomIn]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;zoomIn]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;zoomIn</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -1333,9 +1258,7 @@
         <div class="title">
           <h6>Zoom In</h6>
           <div class="controls">
-            <button mat-button [color]="'primary'" (click)="toggleAnimationState('zoomIn.in', 'void', '*')">
-              Toggle state
-            </button>
+            <button mat-button [color]="'primary'" (click)="toggleAnimationState('zoomIn.in', 'void', '*')">Toggle state</button>
 
             <button mat-button [color]="'primary'" (click)="toggleVisibilityState('zoomIn.in')">Toggle *ngIf</button>
           </div>
@@ -1387,8 +1310,8 @@
       <p><b>Zoom Out</b> animation can be triggered in two ways;</p>
       <ol>
         <li>
-          Adding <code>[&#64;zoomOut]="state"</code> to the element and toggling the <code>state</code> between the
-          <code>'void'</code> and <code>'*'</code> strings manually.
+          Adding <code>[&#64;zoomOut]="state"</code> to the element and toggling the <code>state</code> between the <code>'void'</code> and
+          <code>'*'</code> strings manually.
         </li>
         <li>Adding <code>&#64;zoomOut</code> to the element and using <code>*ngIf</code> to toggle the element.</li>
       </ol>
@@ -1401,9 +1324,7 @@
         <div class="title">
           <h6>Zoom Out</h6>
           <div class="controls">
-            <button mat-button [color]="'primary'" (click)="toggleAnimationState('zoomOut.out', 'void', '*')">
-              Toggle state
-            </button>
+            <button mat-button [color]="'primary'" (click)="toggleAnimationState('zoomOut.out', 'void', '*')">Toggle state</button>
 
             <button mat-button [color]="'primary'" (click)="toggleVisibilityState('zoomOut.out')">Toggle *ngIf</button>
           </div>

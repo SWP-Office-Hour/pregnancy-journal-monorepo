@@ -138,11 +138,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'c531bc01-8a9e-481b-adf8-95303a6938c5',
@@ -373,11 +369,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'b099a8e2-ffcc-4ae1-866d-8f8f6bd95ab3',
@@ -402,11 +394,7 @@ export const mails = [
     important: false,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '7bd21940-3388-479c-b1bc-3ebceb0472d8',
@@ -542,11 +530,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'e1291d1a-fba6-4b23-b259-dd7c9074e976',
@@ -602,8 +586,7 @@ export const mails = [
     to: 'me <hughes.brian@company.com>',
     cc: ['Graham Belltower <graham.belltower@company.com>', 'Julie T. <julie.t@company.com>'],
     date: new Date('Fri Nov 30 2018 09:14:15 GMT+0000 (UTC)').toISOString(),
-    subject:
-      'Exercitation amet laborum officia nulla nulla adipisicing mollit culpa eiusmod irure deserunt voluptate laborum',
+    subject: 'Exercitation amet laborum officia nulla nulla adipisicing mollit culpa eiusmod irure deserunt voluptate laborum',
     content:
       'Dear Brian,\n\nAd tempor veniam exercitation et occaecat do quis do cillum nulla mollit mollit nulla minim. Id sint do excepteur pariatur eu pariatur do sint ipsum ea. Enim in ex irure eu incididunt aliqua eu velit ipsum magna elit eu.\n\nCupidatat fugiat proident aliqua labore nostrud Lorem veniam tempor dolor exercitation. Aliqua magna pariatur exercitation voluptate do duis ea voluptate est culpa sint id. Irure labore esse adipisicing culpa ad velit consectetur. Sint mollit voluptate tempor exercitation fugiat consectetur cillum officia non dolor.\n\nIpsum amet esse duis duis est voluptate ipsum ipsum ipsum qui labore exercitation veniam. Proident sint incididunt ut sunt ut labore sunt ex. Ea enim velit qui elit non sit excepteur dolore eiusmod.\n\nKind Regards,\nBecky Cain',
     attachments: [
@@ -653,11 +636,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '4e881b4f-bf47-472f-a1fe-f787a66d37dd',
@@ -701,11 +680,7 @@ export const mails = [
     important: false,
     unread: false,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'eeccc250-8952-47e1-adff-31847289b4dd',
@@ -845,11 +820,7 @@ export const mails = [
     important: false,
     unread: true,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'affeecf6-e3c5-4377-8070-96f5ed9c6500',
@@ -1067,11 +1038,7 @@ export const mails = [
     important: true,
     unread: false,
     folder: '7c004a19-4506-48ef-93ab-f16381302e3b',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '0f22fedf-ea89-414e-91a4-0df0d9501ef2',
@@ -1296,11 +1263,7 @@ export const mails = [
     important: false,
     unread: true,
     folder: '1ee2ea29-9a1f-4c27-b4d2-5e465703b6a0',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'bd7ac4df-77fa-45da-8eaf-31303ba794c4',
@@ -1439,11 +1402,7 @@ export const mails = [
     important: false,
     unread: false,
     folder: '1ee2ea29-9a1f-4c27-b4d2-5e465703b6a0',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'b460fff2-8530-4464-8c44-744cd3de3bf8',
@@ -1463,11 +1422,7 @@ export const mails = [
     important: false,
     unread: true,
     folder: '1ee2ea29-9a1f-4c27-b4d2-5e465703b6a0',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '16c18231-82ea-403d-895a-2a4bc27b61ca',
@@ -1607,11 +1562,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '1ee2ea29-9a1f-4c27-b4d2-5e465703b6a0',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '18ba20d3-d7bc-4fc7-85dd-2db4db3196fe',
@@ -1773,11 +1724,7 @@ export const mails = [
     important: true,
     unread: false,
     folder: 'fbdc8e79-a0c4-4a27-bc98-9c81ee7a86e5',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'be1e969d-d52f-4824-83e5-c184b042b601',
@@ -1888,11 +1835,7 @@ export const mails = [
     important: true,
     unread: false,
     folder: '0197c436-2ef3-424d-b546-8b7f49186e15',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'f0f2d069-50a0-484f-a4a2-3a272fcb433b',
@@ -1931,11 +1874,7 @@ export const mails = [
     important: false,
     unread: false,
     folder: '0197c436-2ef3-424d-b546-8b7f49186e15',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '7335d11d-04b1-4250-817a-6fdf3e099239',
@@ -1955,11 +1894,7 @@ export const mails = [
     important: false,
     unread: false,
     folder: '0197c436-2ef3-424d-b546-8b7f49186e15',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'e9dd17ec-4fc3-424e-89e5-c58d9d235764',
@@ -2078,11 +2013,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '0197c436-2ef3-424d-b546-8b7f49186e15',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'a769720b-0c64-483c-925c-5d747c61bff4',
@@ -2121,11 +2052,7 @@ export const mails = [
     important: true,
     unread: true,
     folder: '2fa74637-d362-4fd2-9a88-f7195a88bdde',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: '5c5c4ba7-542b-46b0-b0ce-976f5189d72c',
@@ -2275,8 +2202,7 @@ export const mails = [
     to: 'me <hughes.brian@company.com>',
     cc: ['Graham Belltower <graham.belltower@company.com>', 'Julie T. <julie.t@company.com>'],
     date: new Date('Fri Jul 20 2018 05:22:32 GMT+0000 (UTC)').toISOString(),
-    subject:
-      'Amet ipsum voluptate voluptate dolore proident voluptate officia cillum adipisicing tempor tempor ad anim',
+    subject: 'Amet ipsum voluptate voluptate dolore proident voluptate officia cillum adipisicing tempor tempor ad anim',
     content:
       'Hey Brian,\n\nAliqua Lorem fugiat in fugiat commodo laborum sit mollit Lorem elit. Nulla incididunt sint nostrud magna labore elit quis ex. Ex dolore labore tempor cillum magna tempor est exercitation in proident. Dolor est esse consectetur veniam sint proident enim mollit.\n\nQui eiusmod laborum veniam officia quis nisi cillum dolor cupidatat magna. Quis exercitation excepteur incididunt duis laboris ex Lorem laborum excepteur adipisicing. Fugiat exercitation reprehenderit veniam minim occaecat. Excepteur fugiat irure magna aliquip ut amet quis fugiat consectetur ea. Commodo est fugiat ea et labore dolore ullamco nulla excepteur officia ea. Lorem sunt officia pariatur ullamco sunt commodo fugiat enim. Consectetur amet duis et deserunt elit pariatur eiusmod amet excepteur fugiat dolore aliqua eu.\n\nLabore velit ea non elit esse commodo fugiat. Culpa eiusmod consequat sint laboris. Irure proident non laboris duis nisi.\n\nBest Regards,\nEdwards Mcconnell',
     attachments: [],
@@ -2350,11 +2276,7 @@ export const mails = [
     important: false,
     unread: true,
     folder: '2fa74637-d362-4fd2-9a88-f7195a88bdde',
-    labels: [
-      'b167d3c4-f6ed-4ea6-9579-a12f95a9d76e',
-      '745cf30e-ca84-47a1-a553-b70eb630d8e7',
-      '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3',
-    ],
+    labels: ['b167d3c4-f6ed-4ea6-9579-a12f95a9d76e', '745cf30e-ca84-47a1-a553-b70eb630d8e7', '8b035cb5-65c0-4ab1-bb4c-43b0e442d1f3'],
   },
   {
     id: 'b48be636-410c-485a-9442-7de7ce807dc2',

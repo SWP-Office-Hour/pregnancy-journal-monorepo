@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,9 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-loading-bar</strong> is a small component to show the loading status at the top of the page. It can
-      be configured to the <strong>Auto Mode</strong> to show/hide automatically on each HTTP request. It can also be
-      toggled manually using its service.
+      <strong>fuse-loading-bar</strong> is a small component to show the loading status at the top of the page. It can be configured to the
+      <strong>Auto Mode</strong> to show/hide automatically on each HTTP request. It can also be toggled manually using its service.
     </p>
     <p><strong>Exported as: </strong><code>fuseLoadingBar</code></p>
 
@@ -44,8 +41,8 @@
 
     <h2>Usage</h2>
     <p>
-      Here's the basic usage of the <code>fuse-loading-bar</code>. We already placed the component to the layout
-      templates for you but you can always move it!
+      Here's the basic usage of the <code>fuse-loading-bar</code>. We already placed the component to the layout templates for you but you can always
+      move it!
     </p>
     <textarea fuse-highlight lang="html">
             &lt;fuse-loading-bar&gt;&lt;/fuse-loading-bar&gt;
@@ -90,14 +87,12 @@
     <div class="bg-card mt-4 rounded shadow">
       <div class="text-secondary border-b px-6 py-3 font-mono">setAutoMode(value: boolean): void;</div>
       <div class="p-6">
-        Sets the Auto Mode. In Auto mode, loading bar will show when there is an HTTP request and it will hide when all
-        HTTP requests are completed or failed.
+        Sets the Auto Mode. In Auto mode, loading bar will show when there is an HTTP request and it will hide when all HTTP requests are completed or
+        failed.
       </div>
     </div>
     <div class="bg-card mt-4 rounded shadow">
-      <div class="text-secondary border-b px-6 py-3 font-mono">
-        setMode(value: 'determinate' | 'indeterminate'): void;
-      </div>
+      <div class="text-secondary border-b px-6 py-3 font-mono">setMode(value: 'determinate' | 'indeterminate'): void;</div>
       <div class="p-6">
         Sets the mode of the underlying
         <code>MatProgressBar</code> component.
@@ -186,15 +181,11 @@
           <ng-template matTabContent>
             <div class="bg-gray-100 p-4">
               <div class="mx-auto flex max-w-80 flex-col items-center">
-                <mat-slide-toggle [checked]="true" [color]="'primary'" (change)="setAutoMode($event)">
-                  Auto Mode
-                </mat-slide-toggle>
+                <mat-slide-toggle [checked]="true" [color]="'primary'" (change)="setAutoMode($event)"> Auto Mode </mat-slide-toggle>
 
                 <div class="mb-6 w-24 border-b pt-6"></div>
 
-                <button mat-flat-button [color]="'primary'" (click)="makeAPICall()">
-                  Make an API call (2000ms delay)
-                </button>
+                <button mat-flat-button [color]="'primary'" (click)="makeAPICall()">Make an API call (2000ms delay)</button>
 
                 <div class="mt-2">API call status: {{ apiCallStatus }}</div>
               </div>
@@ -279,9 +270,7 @@
                   <button mat-flat-button [color]="'primary'" (click)="hideLoadingBar()">Hide loading bar</button>
                 </div>
 
-                <mat-slide-toggle [checked]="false" [color]="'primary'" (change)="toggleMode()">
-                  Toggle determinate mode
-                </mat-slide-toggle>
+                <mat-slide-toggle [checked]="false" [color]="'primary'" (change)="toggleMode()"> Toggle determinate mode </mat-slide-toggle>
 
                 <div>
                   Progress value

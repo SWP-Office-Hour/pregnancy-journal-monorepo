@@ -80,16 +80,7 @@ async function bootstrap() {
   app.enableCors({
     origin: process.env.FE_PAGE_URL || 'http://localhost:4200',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: [
-      'DNT',
-      'User-Agent',
-      'X-Requested-With',
-      'If-Modified-Since',
-      'Cache-Control',
-      'Content-Type',
-      'Range',
-      'Authorization',
-    ],
+    allowedHeaders: ['DNT', 'User-Agent', 'X-Requested-With', 'If-Modified-Since', 'Cache-Control', 'Content-Type', 'Range', 'Authorization'],
     exposedHeaders: ['Content-Length', 'Content-Range', 'Content-Type'],
     maxAge: 86400,
   });

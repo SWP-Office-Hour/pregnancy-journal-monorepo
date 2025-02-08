@@ -15,14 +15,7 @@ import {
   ViewContainerRef,
   ViewEncapsulation,
 } from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormArray,
-  UntypedFormBuilder,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -318,8 +311,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
         // Get the next/previous contact's id
         const currentContactIndex = this.contacts.findIndex((item) => item.id === id);
         const nextContactIndex = currentContactIndex + (currentContactIndex === this.contacts.length - 1 ? -1 : 1);
-        const nextContactId =
-          this.contacts.length === 1 && this.contacts[0].id === id ? null : this.contacts[nextContactIndex].id;
+        const nextContactId = this.contacts.length === 1 && this.contacts[0].id === id ? null : this.contacts[nextContactIndex].id;
 
         // Delete the contact
         this._contactsService.deleteContact(id).subscribe((isDeleted) => {
@@ -614,9 +606,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy {
    * @param inputValue
    */
   shouldShowCreateTagButton(inputValue: string): boolean {
-    return !!!(
-      inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1
-    );
+    return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1);
   }
 
   /**

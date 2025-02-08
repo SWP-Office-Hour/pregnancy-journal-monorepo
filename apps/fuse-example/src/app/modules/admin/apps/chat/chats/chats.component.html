@@ -1,12 +1,7 @@
 <div class="bg-card relative flex w-full flex-auto dark:bg-transparent">
   <mat-drawer-container class="h-full flex-auto" [hasBackdrop]="false">
     <!-- Drawer -->
-    <mat-drawer
-      class="sm:w-100 w-full lg:border-r lg:shadow-none dark:bg-gray-900"
-      [autoFocus]="false"
-      [(opened)]="drawerOpened"
-      #drawer
-    >
+    <mat-drawer class="sm:w-100 w-full lg:border-r lg:shadow-none dark:bg-gray-900" [autoFocus]="false" [(opened)]="drawerOpened" #drawer>
       <!-- New chat -->
       @if (drawerComponent === 'new-chat') {
         <chat-new-chat [drawer]="drawer"></chat-new-chat>
@@ -22,9 +17,7 @@
     <mat-drawer-content class="flex overflow-hidden">
       <!-- Chats list -->
       @if (chats && chats.length > 0) {
-        <div
-          class="bg-card lg:min-w-100 lg:max-w-100 relative flex w-full min-w-0 flex-auto flex-col dark:bg-transparent"
-        >
+        <div class="bg-card lg:min-w-100 lg:max-w-100 relative flex w-full min-w-0 flex-auto flex-col dark:bg-transparent">
           <!-- Header -->
           <div class="flex-0 flex flex-col border-b bg-gray-50 px-8 py-4 dark:bg-transparent">
             <div class="flex items-center">
@@ -113,11 +106,7 @@
                       ></div>
                     }
                     @if (chat.contact.avatar) {
-                      <img
-                        class="h-full w-full rounded-full object-cover"
-                        [src]="chat.contact.avatar"
-                        alt="Contact avatar"
-                      />
+                      <img class="h-full w-full rounded-full object-cover" [src]="chat.contact.avatar" alt="Contact avatar" />
                     }
                     @if (!chat.contact.avatar) {
                       <div
@@ -151,10 +140,7 @@
               }
             } @else {
               <div class="flex h-full flex-auto flex-col items-center justify-center">
-                <mat-icon
-                  class="icon-size-24"
-                  [svgIcon]="'heroicons_outline:chat-bubble-oval-left-ellipsis'"
-                ></mat-icon>
+                <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:chat-bubble-oval-left-ellipsis'"></mat-icon>
                 <div class="text-secondary mt-4 text-2xl font-semibold tracking-tight">No chats</div>
               </div>
             }

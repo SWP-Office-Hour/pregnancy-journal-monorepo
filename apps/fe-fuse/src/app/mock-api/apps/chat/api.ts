@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FuseMockApiService } from '@fuse/lib/mock-api';
-import {
-  chats as chatsData,
-  contacts as contactsData,
-  messages as messagesData,
-  profile as profileData,
-} from 'app/mock-api/apps/chat/data';
+import { chats as chatsData, contacts as contactsData, messages as messagesData, profile as profileData } from 'app/mock-api/apps/chat/data';
 import { assign, cloneDeep, omit } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })

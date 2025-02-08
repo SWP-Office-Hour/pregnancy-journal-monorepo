@@ -280,9 +280,7 @@ export class ScrumboardService {
       take(1),
       map((board) => {
         // Find the card
-        const card = board.lists
-          .find((list) => list.cards.some((item) => item.id === id))
-          .cards.find((item) => item.id === id);
+        const card = board.lists.find((list) => list.cards.some((item) => item.id === id)).cards.find((item) => item.id === id);
 
         // Update the card
         this._card.next(card);

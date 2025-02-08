@@ -14,9 +14,7 @@
 
 <!-- Notifications panel -->
 <ng-template #notificationsPanel>
-  <div
-    class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden shadow-lg sm:static sm:inset-auto sm:rounded-2xl"
-  >
+  <div class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden shadow-lg sm:static sm:inset-auto sm:rounded-2xl">
     <!-- Header -->
     <div class="bg-primary text-on-primary flex shrink-0 items-center py-4 pl-6 pr-4">
       <div class="-ml-1 mr-3 sm:hidden">
@@ -26,13 +24,7 @@
       </div>
       <div class="text-lg font-medium leading-10">Notifications</div>
       <div class="ml-auto">
-        <button
-          class="dark:text-white"
-          mat-icon-button
-          [matTooltip]="'Mark all as read'"
-          [disabled]="unreadCount === 0"
-          (click)="markAllAsRead()"
-        >
+        <button class="dark:text-white" mat-icon-button [matTooltip]="'Mark all as read'" [disabled]="unreadCount === 0" (click)="markAllAsRead()">
           <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:envelope-open'"></mat-icon>
         </button>
       </div>
@@ -42,10 +34,7 @@
     <div class="bg-card sm:max-h-120 relative flex flex-auto flex-col divide-y overflow-y-auto">
       <!-- Notifications -->
       @for (notification of notifications; track trackByFn($index, notification)) {
-        <div
-          class="group flex hover:bg-gray-50 dark:hover:bg-black dark:hover:bg-opacity-5"
-          [ngClass]="{ unread: !notification.read }"
-        >
+        <div class="group flex hover:bg-gray-50 dark:hover:bg-black dark:hover:bg-opacity-5" [ngClass]="{ unread: !notification.read }">
           <!-- Notification with a link -->
           @if (notification.link) {
             <!-- Normal links -->
@@ -102,9 +91,7 @@
         <ng-template #notificationContent>
           <!-- Icon -->
           @if (notification.icon && !notification.image) {
-            <div
-              class="mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700"
-            >
+            <div class="mr-4 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gray-100 dark:bg-gray-700">
               <mat-icon class="icon-size-5" [svgIcon]="notification.icon"> </mat-icon>
             </div>
           }
@@ -134,15 +121,11 @@
       <!-- No notifications -->
       @if (!notifications || !notifications.length) {
         <div class="flex flex-auto flex-col items-center justify-center px-8 py-12 sm:justify-start">
-          <div
-            class="flex-0 bg-primary-100 dark:bg-primary-600 flex h-14 w-14 items-center justify-center rounded-full"
-          >
+          <div class="flex-0 bg-primary-100 dark:bg-primary-600 flex h-14 w-14 items-center justify-center rounded-full">
             <mat-icon class="text-primary-700 dark:text-primary-50" [svgIcon]="'heroicons_outline:bell'"></mat-icon>
           </div>
           <div class="mt-5 text-2xl font-semibold tracking-tight">No notifications</div>
-          <div class="text-secondary text-md mt-1 w-full max-w-60 text-center">
-            When you have notifications, they will appear here.
-          </div>
+          <div class="text-secondary text-md mt-1 w-full max-w-60 text-center">When you have notifications, they will appear here.</div>
         </div>
       }
     </div>

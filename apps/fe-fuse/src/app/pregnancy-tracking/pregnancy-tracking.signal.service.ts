@@ -14,9 +14,7 @@ export class PregnancyTrackingSignalService {
   //handling pregnancy data
   private $pregnancyData = signal<pregnancyDatatype[]>([]);
 
-  private $currentDataByPage = computed(() =>
-    this.$pregnancyData().slice(this.currentPage * 5, this.currentPage * 5 + 5),
-  );
+  private $currentDataByPage = computed(() => this.$pregnancyData().slice(this.currentPage * 5, this.currentPage * 5 + 5));
   private $pregnancyDataById = signal<pregnancyDatatype | null>(null);
   //handling the media files
   private mediaSrc = signal<mediaType[]>([]);
@@ -36,9 +34,7 @@ export class PregnancyTrackingSignalService {
   }
 
   selectRecord(id: number) {
-    this.router
-      .navigateByUrl('/', { skipLocationChange: true })
-      .then(() => this.router.navigate(['tracking/view', id]));
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => this.router.navigate(['tracking/view', id]));
   }
 
   changePage(pageIndex: number) {

@@ -12,15 +12,13 @@
     <!-- Title -->
     <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
       <mat-label>Title</mat-label>
-      <textarea matInput [formControlName]="'title'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1">
-      </textarea>
+      <textarea matInput [formControlName]="'title'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1"> </textarea>
     </mat-form-field>
 
     <!-- Description -->
     <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
       <mat-label>Description</mat-label>
-      <textarea matInput [formControlName]="'description'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1">
-      </textarea>
+      <textarea matInput [formControlName]="'description'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1"> </textarea>
     </mat-form-field>
 
     <!-- Due date -->
@@ -44,10 +42,7 @@
             Not set
           }
         </span>
-        <mat-form-field
-          class="fuse-mat-dense pointer-events-none invisible absolute inset-0 -mt-2.5 opacity-0"
-          [subscriptSizing]="'dynamic'"
-        >
+        <mat-form-field class="fuse-mat-dense pointer-events-none invisible absolute inset-0 -mt-2.5 opacity-0" [subscriptSizing]="'dynamic'">
           <input matInput [formControlName]="'dueDate'" [matDatepicker]="dueDatePicker" />
           <mat-datepicker #dueDatePicker>
             <mat-datepicker-actions>

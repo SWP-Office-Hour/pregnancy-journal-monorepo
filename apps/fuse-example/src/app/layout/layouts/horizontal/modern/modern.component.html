@@ -36,11 +36,7 @@
         <img class="flex w-8 lg:hidden" src="images/logo/logo.svg" />
       </div>
       <!-- Horizontal navigation -->
-      <fuse-horizontal-navigation
-        class="mr-2"
-        [name]="'mainNavigation'"
-        [navigation]="navigation.horizontal"
-      ></fuse-horizontal-navigation>
+      <fuse-horizontal-navigation class="mr-2" [name]="'mainNavigation'" [navigation]="navigation.horizontal"></fuse-horizontal-navigation>
     }
     <!-- Navigation toggle button -->
     @if (isScreenSmall) {
@@ -73,9 +69,7 @@
   </div>
 
   <!-- Footer -->
-  <div
-    class="bg-card z-49 flex-0 relative flex h-14 w-full items-center border-t px-4 sm:h-20 md:px-6 dark:bg-transparent print:hidden"
-  >
+  <div class="bg-card z-49 flex-0 relative flex h-14 w-full items-center border-t px-4 sm:h-20 md:px-6 dark:bg-transparent print:hidden">
     <span class="text-secondary font-medium">Fuse &copy; {{ currentYear }}</span>
   </div>
 </div>

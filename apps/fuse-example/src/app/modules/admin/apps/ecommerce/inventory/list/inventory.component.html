@@ -51,16 +51,12 @@
                 <div class="inventory-grid grid items-center gap-4 border-b px-6 py-3 md:px-8">
                   <!-- Image -->
                   <div class="flex items-center">
-                    <div
-                      class="flex-0 relative mr-6 flex h-12 w-12 items-center justify-center overflow-hidden rounded border"
-                    >
+                    <div class="flex-0 relative mr-6 flex h-12 w-12 items-center justify-center overflow-hidden rounded border">
                       @if (product.thumbnail) {
                         <img class="w-8" [alt]="'Product thumbnail image'" [src]="product.thumbnail" />
                       }
                       @if (!product.thumbnail) {
-                        <div
-                          class="flex h-full w-full items-center justify-center text-center text-xs font-semibold uppercase leading-none"
-                        >
+                        <div class="flex h-full w-full items-center justify-center text-center text-xs font-semibold uppercase leading-none">
                           NO THUMB
                         </div>
                       }
@@ -119,27 +115,17 @@
 
                   <!-- Details button -->
                   <div>
-                    <button
-                      class="h-7 min-h-7 min-w-10 px-2 leading-6"
-                      mat-stroked-button
-                      (click)="toggleDetails(product.id)"
-                    >
+                    <button class="h-7 min-h-7 min-w-10 px-2 leading-6" mat-stroked-button (click)="toggleDetails(product.id)">
                       <mat-icon
                         class="icon-size-5"
-                        [svgIcon]="
-                          selectedProduct?.id === product.id
-                            ? 'heroicons_solid:chevron-up'
-                            : 'heroicons_solid:chevron-down'
-                        "
+                        [svgIcon]="selectedProduct?.id === product.id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"
                       ></mat-icon>
                     </button>
                   </div>
                 </div>
                 <div class="grid">
                   @if (selectedProduct?.id === product.id) {
-                    <ng-container
-                      *ngTemplateOutlet="rowDetailsTemplate; context: { $implicit: product }"
-                    ></ng-container>
+                    <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: { $implicit: product }"></ng-container>
                   }
                 </div>
               }
@@ -156,9 +142,7 @@
             [showFirstLastButtons]="true"
           ></mat-paginator>
         } @else {
-          <div class="border-t p-8 text-center text-4xl font-semibold tracking-tight sm:p-16">
-            There are no products!
-          </div>
+          <div class="border-t p-8 text-center text-4xl font-semibold tracking-tight sm:p-16">There are no products!</div>
         }
       }
 
@@ -175,9 +159,7 @@
                       @if (selectedProductForm.get('images').value.length) {
                         <img
                           class="h-full w-full object-cover"
-                          [src]="
-                            selectedProductForm.get('images').value[selectedProductForm.get('currentImageIndex').value]
-                          "
+                          [src]="selectedProductForm.get('images').value[selectedProductForm.get('currentImageIndex').value]"
                         />
                       } @else {
                         <span class="flex min-h-20 items-center text-lg font-semibold">NO IMAGE</span>
@@ -309,9 +291,7 @@
 
                     <!-- Tags -->
                     <span class="mb-px font-medium leading-tight">Tags</span>
-                    <div
-                      class="mt-1.5 overflow-hidden rounded-md border border-gray-300 shadow-sm dark:border-gray-500"
-                    >
+                    <div class="mt-1.5 overflow-hidden rounded-md border border-gray-300 shadow-sm dark:border-gray-500">
                       <!-- Header -->
                       <div class="-my-px flex items-center px-3 py-2">
                         <div class="flex min-w-0 flex-auto items-center">

@@ -190,9 +190,7 @@
         <form [formGroup]="contactForm">
           <!-- Avatar -->
           <div class="-mt-16 flex flex-auto items-end">
-            <div
-              class="ring-bg-card relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full ring-4"
-            >
+            <div class="ring-bg-card relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full ring-4">
               <!-- Upload / Remove avatar -->
               <div class="absolute inset-0 z-10 bg-black bg-opacity-50"></div>
               <div class="absolute inset-0 z-20 flex items-center justify-center">
@@ -238,11 +236,7 @@
           <div class="mt-8">
             <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
               <mat-label>Name</mat-label>
-              <mat-icon
-                matPrefix
-                class="icon-size-5 hidden sm:flex"
-                [svgIcon]="'heroicons_solid:user-circle'"
-              ></mat-icon>
+              <mat-icon matPrefix class="icon-size-5 hidden sm:flex" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
               <input matInput [formControlName]="'name'" [placeholder]="'Name'" [spellcheck]="false" />
             </mat-form-field>
           </div>
@@ -371,11 +365,7 @@
           <div class="mt-8">
             <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
               <mat-label>Company</mat-label>
-              <mat-icon
-                matPrefix
-                class="icon-size-5 hidden sm:flex"
-                [svgIcon]="'heroicons_solid:building-office-2'"
-              ></mat-icon>
+              <mat-icon matPrefix class="icon-size-5 hidden sm:flex" [svgIcon]="'heroicons_solid:building-office-2'"></mat-icon>
               <input matInput [formControlName]="'company'" [placeholder]="'Company'" />
             </mat-form-field>
           </div>
@@ -383,34 +373,16 @@
           <!-- Emails -->
           <div class="mt-8">
             <div class="space-y-4">
-              @for (
-                email of contactForm.get('emails')['controls'];
-                track trackByFn(i, email);
-                let i = $index;
-                let first = $first;
-                let last = $last
-              ) {
+              @for (email of contactForm.get('emails')['controls']; track trackByFn(i, email); let i = $index; let first = $first; let last = $last) {
                 <div class="flex">
                   <mat-form-field class="flex-auto" [subscriptSizing]="'dynamic'">
                     @if (first) {
                       <mat-label>Email</mat-label>
                     }
-                    <mat-icon
-                      matPrefix
-                      class="icon-size-5 hidden sm:flex"
-                      [svgIcon]="'heroicons_solid:envelope'"
-                    ></mat-icon>
-                    <input
-                      matInput
-                      [formControl]="email.get('email')"
-                      [placeholder]="'Email address'"
-                      [spellcheck]="false"
-                    />
+                    <mat-icon matPrefix class="icon-size-5 hidden sm:flex" [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
+                    <input matInput [formControl]="email.get('email')" [placeholder]="'Email address'" [spellcheck]="false" />
                   </mat-form-field>
-                  <mat-form-field
-                    class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40"
-                    [subscriptSizing]="'dynamic'"
-                  >
+                  <mat-form-field class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40" [subscriptSizing]="'dynamic'">
                     @if (first) {
                       <mat-label>Label</mat-label>
                     }
@@ -428,10 +400,7 @@
                 </div>
               }
             </div>
-            <div
-              class="group -ml-4 mt-2 inline-flex cursor-pointer items-center rounded px-4 py-2"
-              (click)="addEmailField()"
-            >
+            <div class="group -ml-4 mt-2 inline-flex cursor-pointer items-center rounded px-4 py-2" (click)="addEmailField()">
               <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
               <span class="text-secondary ml-2 font-medium group-hover:underline">Add an email address</span>
             </div>
@@ -462,9 +431,7 @@
                             [style.backgroundSize]="'24px 3876px'"
                             [style.backgroundPosition]="getCountryByIso(phoneNumber.get('country').value).flagImagePos"
                           ></span>
-                          <span class="text-default font-medium sm:mx-0.5">{{
-                            getCountryByIso(phoneNumber.get('country').value).code
-                          }}</span>
+                          <span class="text-default font-medium sm:mx-0.5">{{ getCountryByIso(phoneNumber.get('country').value).code }}</span>
                         </span>
                       </mat-select-trigger>
                       @for (country of countries; track trackByFn($index, country)) {
@@ -483,10 +450,7 @@
                       }
                     </mat-select>
                   </mat-form-field>
-                  <mat-form-field
-                    class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40"
-                    [subscriptSizing]="'dynamic'"
-                  >
+                  <mat-form-field class="ml-2 w-full max-w-24 flex-auto sm:ml-4 sm:max-w-40" [subscriptSizing]="'dynamic'">
                     @if (first) {
                       <mat-label>Label</mat-label>
                     }
@@ -496,12 +460,7 @@
                   <!-- Remove phone number -->
                   @if (!(first && last)) {
                     <div class="flex w-10 items-center pl-2" [ngClass]="{ 'mt-6': first }">
-                      <button
-                        class="h-8 min-h-8 w-8"
-                        mat-icon-button
-                        (click)="removePhoneNumberField(i)"
-                        matTooltip="Remove"
-                      >
+                      <button class="h-8 min-h-8 w-8" mat-icon-button (click)="removePhoneNumberField(i)" matTooltip="Remove">
                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
                       </button>
                     </div>
@@ -509,10 +468,7 @@
                 </div>
               }
             </div>
-            <div
-              class="group -ml-4 mt-2 inline-flex cursor-pointer items-center rounded px-4 py-2"
-              (click)="addPhoneNumberField()"
-            >
+            <div class="group -ml-4 mt-2 inline-flex cursor-pointer items-center rounded px-4 py-2" (click)="addPhoneNumberField()">
               <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
               <span class="text-secondary ml-2 font-medium group-hover:underline">Add a phone number</span>
             </div>
@@ -532,12 +488,7 @@
             <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
               <mat-label>Birthday</mat-label>
               <mat-icon matPrefix class="icon-size-5 hidden sm:flex" [svgIcon]="'heroicons_solid:cake'"></mat-icon>
-              <input
-                matInput
-                [matDatepicker]="birthdayDatepicker"
-                [formControlName]="'birthday'"
-                [placeholder]="'Birthday'"
-              />
+              <input matInput [matDatepicker]="birthdayDatepicker" [formControlName]="'birthday'" [placeholder]="'Birthday'" />
               <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker"> </mat-datepicker-toggle>
               <mat-datepicker #birthdayDatepicker></mat-datepicker>
             </mat-form-field>
@@ -547,39 +498,19 @@
           <div class="mt-8">
             <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
               <mat-label>Notes</mat-label>
-              <mat-icon
-                matPrefix
-                class="icon-size-5 hidden sm:flex"
-                [svgIcon]="'heroicons_solid:bars-3-bottom-left'"
-              ></mat-icon>
-              <textarea
-                matInput
-                [formControlName]="'notes'"
-                [placeholder]="'Notes'"
-                [rows]="5"
-                [spellcheck]="false"
-                cdkTextareaAutosize
-              ></textarea>
+              <mat-icon matPrefix class="icon-size-5 hidden sm:flex" [svgIcon]="'heroicons_solid:bars-3-bottom-left'"></mat-icon>
+              <textarea matInput [formControlName]="'notes'" [placeholder]="'Notes'" [rows]="5" [spellcheck]="false" cdkTextareaAutosize></textarea>
             </mat-form-field>
           </div>
 
           <!-- Actions -->
-          <div
-            class="-mx-6 mt-10 flex items-center border-t bg-gray-50 py-4 pl-1 pr-4 sm:-mx-12 sm:pl-7 sm:pr-12 dark:bg-transparent"
-          >
+          <div class="-mx-6 mt-10 flex items-center border-t bg-gray-50 py-4 pl-1 pr-4 sm:-mx-12 sm:pl-7 sm:pr-12 dark:bg-transparent">
             <!-- Delete -->
             <button mat-button [color]="'warn'" [matTooltip]="'Delete'" (click)="deleteContact()">Delete</button>
             <!-- Cancel -->
             <button class="ml-auto" mat-button [matTooltip]="'Cancel'" (click)="toggleEditMode(false)">Cancel</button>
             <!-- Save -->
-            <button
-              class="ml-2"
-              mat-flat-button
-              [color]="'primary'"
-              [disabled]="contactForm.invalid"
-              [matTooltip]="'Save'"
-              (click)="updateContact()"
-            >
+            <button class="ml-2" mat-flat-button [color]="'primary'" [disabled]="contactForm.invalid" [matTooltip]="'Save'" (click)="updateContact()">
               Save
             </button>
           </div>

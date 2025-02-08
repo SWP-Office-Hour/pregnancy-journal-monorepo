@@ -13,16 +13,11 @@
         </svg>
     <div class="relative z-10 flex flex-col items-center">
       <h2 class="text-xl font-semibold">HELP CENTER</h2>
-      <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">
-        How can we help you today?
-      </div>
+      <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">How can we help you today?</div>
       <div class="text-secondary mt-3 text-center tracking-tight sm:text-2xl">
         Search for a topic or question, check out our FAQs and guides, contact us for detailed support
       </div>
-      <mat-form-field
-        class="fuse-mat-rounded fuse-mat-bold sm:max-w-120 mt-10 w-full max-w-80 sm:mt-20"
-        [subscriptSizing]="'dynamic'"
-      >
+      <mat-form-field class="fuse-mat-rounded fuse-mat-bold sm:max-w-120 mt-10 w-full max-w-80 sm:mt-20" [subscriptSizing]="'dynamic'">
         <input matInput [placeholder]="'Enter a question, topic or keyword'" />
         <mat-icon matPrefix [svgIcon]="'heroicons_outline:magnifying-glass'"></mat-icon>
       </mat-form-field>
@@ -31,20 +26,14 @@
 
   <div class="flex flex-col items-center px-6 pb-6 sm:px-10 sm:pb-10">
     <!-- Cards -->
-    <div
-      class="-mt-16 grid w-full max-w-sm grid-cols-1 gap-y-8 sm:-mt-24 md:max-w-4xl md:grid-cols-3 md:gap-x-6 md:gap-y-0"
-    >
+    <div class="-mt-16 grid w-full max-w-sm grid-cols-1 gap-y-8 sm:-mt-24 md:max-w-4xl md:grid-cols-3 md:gap-x-6 md:gap-y-0">
       <!-- FAQs card -->
-      <div
-        class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg"
-      >
+      <div class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg">
         <div class="flex flex-auto flex-col items-center p-8 text-center">
           <div class="text-2xl font-semibold">FAQs</div>
           <div class="text-secondary mt-1 md:max-w-40">Frequently asked questions and answers</div>
         </div>
-        <div
-          class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent"
-        >
+        <div class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent">
           <a class="flex items-center" [routerLink]="['faqs']">
             <span class="absolute inset-0"></span>
             <span class="font-medium">Go to FAQs</span>
@@ -53,16 +42,12 @@
         </div>
       </div>
       <!-- Guides card -->
-      <div
-        class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg"
-      >
+      <div class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg">
         <div class="flex flex-auto flex-col items-center p-8 text-center">
           <div class="text-2xl font-semibold">Guides</div>
           <div class="text-secondary mt-1 md:max-w-40">Articles and resources to guide you</div>
         </div>
-        <div
-          class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent"
-        >
+        <div class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent">
           <a class="flex items-center" [routerLink]="['guides']">
             <span class="absolute inset-0"></span>
             <span class="font-medium">Check guides</span>
@@ -71,16 +56,12 @@
         </div>
       </div>
       <!-- Support card -->
-      <div
-        class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg"
-      >
+      <div class="bg-card relative flex flex-col overflow-hidden rounded-2xl shadow transition-shadow duration-150 ease-in-out hover:shadow-lg">
         <div class="flex flex-auto flex-col items-center p-8 text-center">
           <div class="text-2xl font-semibold">Support</div>
           <div class="text-secondary mt-1 md:max-w-40">Contact us for more detailed support</div>
         </div>
-        <div
-          class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent"
-        >
+        <div class="text-primary-500 dark:text-primary-400 flex items-center justify-center bg-gray-50 px-8 py-4 dark:border-t dark:bg-transparent">
           <a class="flex items-center" [routerLink]="['support']">
             <span class="absolute inset-0"></span>
             <span class="font-medium">Contact us</span>
@@ -90,12 +71,8 @@
       </div>
     </div>
     <!-- FAQs -->
-    <div class="mt-24 text-center text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">
-      Most frequently asked questions
-    </div>
-    <div class="text-secondary mt-2 text-center text-xl">
-      Here are the most frequently asked questions you may check before getting started
-    </div>
+    <div class="mt-24 text-center text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl">Most frequently asked questions</div>
+    <div class="text-secondary mt-2 text-center text-xl">Here are the most frequently asked questions you may check before getting started</div>
     <mat-accordion class="mt-12 max-w-4xl">
       @for (faq of faqCategory.faqs; track trackByFn($index, faq)) {
         <mat-expansion-panel>

@@ -14,11 +14,7 @@ import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging/pr
 export class PregnancyTrackingSelectComponent {
   protected signalService = inject(PregnancyTrackingSignalService);
   protected currentPageIndex = this.signalService.currentPage;
-  $records = computed(() =>
-    this.signalService
-      .PregnancyData()
-      .slice(this.signalService.currentPage * 5, this.signalService.currentPage * 5 + 5),
-  );
+  $records = computed(() => this.signalService.PregnancyData().slice(this.signalService.currentPage * 5, this.signalService.currentPage * 5 + 5));
   $selectedRecord = this.signalService.PregnancyDataById;
 
   selectRecord({ value }: MatRadioChange) {

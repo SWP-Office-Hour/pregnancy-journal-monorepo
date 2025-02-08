@@ -1,14 +1,7 @@
 <div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
   <mat-drawer-container class="bg-card h-full flex-auto dark:bg-transparent" (backdropClick)="onBackdropClicked()">
     <!-- Drawer -->
-    <mat-drawer
-      class="sm:w-100 w-full dark:bg-gray-900"
-      [mode]="drawerMode"
-      [opened]="false"
-      [position]="'end'"
-      [disableClose]="true"
-      #matDrawer
-    >
+    <mat-drawer class="sm:w-100 w-full dark:bg-gray-900" [mode]="drawerMode" [opened]="false" [position]="'end'" [disableClose]="true" #matDrawer>
       <router-outlet></router-outlet>
     </mat-drawer>
 
@@ -33,9 +26,7 @@
                   <div class="">/</div>
                   @for (path of items.path; track trackByFn($index, path); let last = $last) {
                     @if (!last) {
-                      <a class="text-primary cursor-pointer" [routerLink]="['/apps/file-manager/folders/', path.id]">{{
-                        path.name
-                      }}</a>
+                      <a class="text-primary cursor-pointer" [routerLink]="['/apps/file-manager/folders/', path.id]">{{ path.name }}</a>
                     }
                     @if (last) {
                       <div>{{ path.name }}</div>
@@ -76,17 +67,11 @@
                       >
                         <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:information-circle'"></mat-icon>
                       </a>
-                      <a
-                        class="absolute inset-0 z-10 flex cursor-pointer flex-col p-4"
-                        [routerLink]="['/apps/file-manager/folders/', folder.id]"
-                      >
+                      <a class="absolute inset-0 z-10 flex cursor-pointer flex-col p-4" [routerLink]="['/apps/file-manager/folders/', folder.id]">
                         <div class="aspect-[9/6]">
                           <div class="flex h-full items-center justify-center">
                             <!-- Icon -->
-                            <mat-icon
-                              class="text-hint icon-size-14 opacity-50"
-                              [svgIcon]="'heroicons_solid:folder'"
-                            ></mat-icon>
+                            <mat-icon class="text-hint icon-size-14 opacity-50" [svgIcon]="'heroicons_solid:folder'"></mat-icon>
                           </div>
                         </div>
                         <div class="flex flex-auto flex-col justify-center text-center text-sm font-medium">
@@ -112,18 +97,12 @@
                 <div class="font-medium">Files</div>
                 <div class="-m-2 mt-2 flex flex-wrap">
                   @for (file of items.files; track trackByFn($index, file)) {
-                    <a
-                      class="bg-card m-2 flex h-40 w-40 cursor-pointer flex-col rounded-2xl p-4 shadow"
-                      [routerLink]="['./details/', file.id]"
-                    >
+                    <a class="bg-card m-2 flex h-40 w-40 cursor-pointer flex-col rounded-2xl p-4 shadow" [routerLink]="['./details/', file.id]">
                       <div class="aspect-[9/6]">
                         <div class="flex h-full items-center justify-center">
                           <!-- Icons -->
                           <div class="relative">
-                            <mat-icon
-                              class="text-hint icon-size-14 opacity-50"
-                              [svgIcon]="'heroicons_solid:document'"
-                            ></mat-icon>
+                            <mat-icon class="text-hint icon-size-14 opacity-50" [svgIcon]="'heroicons_solid:document'"></mat-icon>
                             <div
                               class="absolute bottom-0 left-0 rounded px-1.5 text-sm font-semibold leading-5 text-white"
                               [class.bg-red-600]="file.type === 'PDF'"

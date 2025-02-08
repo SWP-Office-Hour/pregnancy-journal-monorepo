@@ -56,11 +56,7 @@
 
         <!-- Group -->
         @if (item.type === 'group') {
-          <fuse-vertical-navigation-group-item
-            [item]="item"
-            [name]="name"
-            [autoCollapse]="autoCollapse"
-          ></fuse-vertical-navigation-group-item>
+          <fuse-vertical-navigation-group-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-group-item>
         }
 
         <!-- Spacer -->
@@ -102,11 +98,7 @@
       @if ((item.hidden && !item.hidden(item)) || !item.hidden) {
         <!-- Aside -->
         @if (item.type === 'aside' && item.id === activeAsideItemId) {
-          <fuse-vertical-navigation-aside-item
-            [item]="item"
-            [name]="name"
-            [autoCollapse]="autoCollapse"
-          ></fuse-vertical-navigation-aside-item>
+          <fuse-vertical-navigation-aside-item [item]="item" [name]="name" [autoCollapse]="autoCollapse"></fuse-vertical-navigation-aside-item>
         }
       }
     }

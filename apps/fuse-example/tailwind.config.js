@@ -68,10 +68,7 @@ const themes = {
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [
-    join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html,scss}'),
-    ...createGlobPatternsForDependencies(__dirname),
-  ],
+  content: [join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html,scss}'), ...createGlobPatternsForDependencies(__dirname)],
   darkMode: 'class',
   important: true,
   theme: {

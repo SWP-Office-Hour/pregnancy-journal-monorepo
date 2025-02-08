@@ -1,14 +1,5 @@
 import { AsyncPipe, DOCUMENT, I18nPluralPipe, NgClass } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  Inject,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -126,19 +117,17 @@ export class ContactsListComponent implements OnInit, OnDestroy {
     });
 
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode if the given breakpoint is active
-        if (matchingAliases.includes('lg')) {
-          this.drawerMode = 'side';
-        } else {
-          this.drawerMode = 'over';
-        }
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode if the given breakpoint is active
+      if (matchingAliases.includes('lg')) {
+        this.drawerMode = 'side';
+      } else {
+        this.drawerMode = 'over';
+      }
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
     // Listen for shortcuts
     fromEvent(this._document, 'keydown')

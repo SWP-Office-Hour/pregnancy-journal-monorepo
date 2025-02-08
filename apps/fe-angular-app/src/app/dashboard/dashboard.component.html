@@ -36,7 +36,7 @@
 <!--</div>-->
 
 <div class="flex">
-  <aside class="h-96 light" [tuiNavigationAside]="expandedSignal()" tuiTheme="light">
+  <aside class="light h-96" [tuiNavigationAside]="expandedSignal()" tuiTheme="light">
     <button automation-id="hint" iconStart="@tui.heart" tuiAsideItem type="button">
       <span tuiFade>By default ellipsis is used but you can use fade too</span>
     </button>
@@ -45,12 +45,7 @@
     <button iconStart="@tui.plus" tuiAsideItem type="button">Add</button>
     <footer>
       <button iconStart="@tui.star" tuiAsideItem type="button">Favorites</button>
-      <button
-        tuiAsideItem
-        type="button"
-        [iconStart]="expandedSignal() ? '@tui.chevron-left' : '@tui.chevron-right'"
-        (click)="handleToggle()"
-      >
+      <button tuiAsideItem type="button" [iconStart]="expandedSignal() ? '@tui.chevron-left' : '@tui.chevron-right'" (click)="handleToggle()">
         {{ expandedSignal() ? 'Collapse' : 'Expand' }}
       </button>
     </footer>
@@ -80,13 +75,7 @@
       <button tuiButton type="button">Primary</button>
     </nav>
     <ng-container *tuiRepeatTimes="let index of 10">
-      <form
-        tuiAppearance="floating"
-        tuiCardLarge
-        tuiForm="m"
-        [style.grid-column]="'2 / span 7'"
-        [style.margin-top.rem]="1"
-      >
+      <form tuiAppearance="floating" tuiCardLarge tuiForm="m" [style.grid-column]="'2 / span 7'" [style.margin-top.rem]="1">
         <header tuiHeader>
           <h2 tuiTitle>
             Registration form

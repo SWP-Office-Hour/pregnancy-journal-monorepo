@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
 import { TagCreateReq, TagUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class TagService {

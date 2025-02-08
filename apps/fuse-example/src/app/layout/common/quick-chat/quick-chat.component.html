@@ -72,11 +72,7 @@
                   ></div>
                 }
                 @if (chat.contact.avatar) {
-                  <img
-                    class="h-full w-full rounded-full object-cover"
-                    [src]="chat.contact.avatar"
-                    alt="Contact avatar"
-                  />
+                  <img class="h-full w-full rounded-full object-cover" [src]="chat.contact.avatar" alt="Contact avatar" />
                 }
                 @if (!chat.contact.avatar) {
                   <div
@@ -96,13 +92,7 @@
         @if (chat) {
           <div class="flex flex-col-reverse overflow-y-auto overscroll-y-contain">
             <div class="flex flex-auto shrink flex-col p-6">
-              @for (
-                message of chat.messages;
-                track trackByFn(i, message);
-                let i = $index;
-                let first = $first;
-                let last = $last
-              ) {
+              @for (message of chat.messages; track trackByFn(i, message); let i = $index; let first = $first; let last = $last) {
                 <!-- Start of the day -->
                 @if (first || (chat.messages[i - 1].createdAt | date: 'd') !== (message.createdAt | date: 'd')) {
                   <div class="-mx-6 my-3 flex items-center justify-center">
@@ -146,12 +136,7 @@
                     <div class="min-w-4 leading-5" [innerHTML]="message.value"></div>
                   </div>
                   <!-- Time -->
-                  @if (
-                    first ||
-                    last ||
-                    chat.messages[i + 1].isMine !== message.isMine ||
-                    chat.messages[i + 1].createdAt !== message.createdAt
-                  ) {
+                  @if (first || last || chat.messages[i + 1].isMine !== message.isMine || chat.messages[i + 1].createdAt !== message.createdAt) {
                     <div
                       class="text-secondary my-0.5 text-sm font-medium"
                       [ngClass]="{

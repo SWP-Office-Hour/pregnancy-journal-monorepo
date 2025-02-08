@@ -71,15 +71,7 @@
     <button automation-id="hint" iconStart="@tui.heart" tuiAsideItem type="button">
       <span tuiFade>By default ellipsis is used but you can use fade too</span>
     </button>
-    <button
-      iconEnd="@tui.chevron-right"
-      iconStart="@tui.ellipsis"
-      tuiAsideItem
-      tuiDropdownHover
-      tuiDropdownOpen
-      type="button"
-      [tuiDropdown]="more"
-    >
+    <button iconEnd="@tui.chevron-right" iconStart="@tui.ellipsis" tuiAsideItem tuiDropdownHover tuiDropdownOpen type="button" [tuiDropdown]="more">
       More
       <ng-template #more let-close>
         <tui-data-list tuiDataListDropdownManager>
@@ -101,12 +93,7 @@
     <button iconStart="@tui.plus" tuiAsideItem type="button">Add</button>
     <footer>
       <button iconStart="@tui.star" tuiAsideItem type="button">Favorites</button>
-      <button
-        tuiAsideItem
-        type="button"
-        [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'"
-        (click)="handleToggle()"
-      >
+      <button tuiAsideItem type="button" [iconStart]="expanded() ? '@tui.chevron-left' : '@tui.chevron-right'" (click)="handleToggle()">
         {{ expanded() ? 'Collapse' : 'Expand' }}
       </button>
     </footer>
@@ -136,13 +123,7 @@
       <button tuiButton type="button">Primary</button>
     </nav>
     <ng-container *tuiRepeatTimes="let index of 10">
-      <form
-        tuiAppearance="floating"
-        tuiCardLarge
-        tuiForm="m"
-        [style.grid-column]="'2 / span 7'"
-        [style.margin-top.rem]="1"
-      >
+      <form tuiAppearance="floating" tuiCardLarge tuiForm="m" [style.grid-column]="'2 / span 7'" [style.margin-top.rem]="1">
         <header tuiHeader>
           <h2 tuiTitle>
             Registration form

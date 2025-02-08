@@ -80,8 +80,7 @@ export const activities = [
   {
     id: '8f8e1bf9-4661-4939-9e43-390957b60f42',
     icon: 'heroicons_solid:star',
-    description:
-      'Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days',
+    description: 'Your submission has been accepted and you are ready to sign-up for the final assigment which will be ready in 2 days',
     date: now.minus({ days: 3 }).toISO(), // 3 days ago
   },
   {

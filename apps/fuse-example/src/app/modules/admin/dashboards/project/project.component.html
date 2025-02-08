@@ -10,9 +10,7 @@
           </div>
           <div class="ml-4 flex min-w-0 flex-col">
             <ng-container *transloco="let t">
-              <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">
-                {{ t('welcome-back') }}, Brian!
-              </div>
+              <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">{{ t('welcome-back') }}, Brian!</div>
             </ng-container>
             <div class="flex items-center">
               <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
@@ -164,9 +162,7 @@
                 </div>
               </div>
               <!-- Github issues summary -->
-              <div
-                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4"
-              >
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
                   <div class="truncate text-lg font-medium leading-6 tracking-tight">Github Issues Summary</div>
                   <div class="mt-3 sm:ml-2 sm:mt-0">
@@ -262,9 +258,7 @@
                 </div>
               </div>
               <!-- Task distribution -->
-              <div
-                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2"
-              >
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
                   <div class="truncate text-lg font-medium leading-6 tracking-tight">Task Distribution</div>
                   <div class="mt-3 sm:ml-2 sm:mt-0">
@@ -305,9 +299,7 @@
                 </div>
               </div>
               <!-- Schedule -->
-              <div
-                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2"
-              >
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
                   <div class="truncate text-lg font-medium leading-6 tracking-tight">Schedule</div>
                   <div class="mt-3 sm:ml-2 sm:mt-0">
@@ -318,18 +310,13 @@
                   </div>
                 </div>
                 <div class="mt-2 flex flex-col divide-y">
-                  @for (
-                    scheduleItem of data.schedule[scheduleDaySelector.value];
-                    track trackByFn($index, scheduleItem)
-                  ) {
+                  @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {
                     <div class="flex flex-row items-center justify-between px-0.5 py-4">
                       <div class="flex flex-col">
                         <div class="font-medium">
                           {{ scheduleItem.title }}
                         </div>
-                        <div
-                          class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0"
-                        >
+                        <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">
                           @if (scheduleItem.time) {
                             <div class="flex items-center">
                               <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>
@@ -364,9 +351,7 @@
           <ng-template matTabContent>
             <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-6">
               <!-- Budget distribution -->
-              <div
-                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-3 lg:col-span-4"
-              >
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-3 lg:col-span-4">
                 <div class="truncate text-lg font-medium leading-6 tracking-tight">Budget Distribution</div>
                 <div class="flex flex-auto flex-col">
                   <apx-chart
@@ -407,10 +392,7 @@
                         {{ data.weeklyExpenses.amount | currency: 'USD' }}
                       </div>
                       <div class="flex items-center">
-                        <mat-icon
-                          class="icon-size-5 mr-1 text-green-500"
-                          [svgIcon]="'heroicons_solid:arrow-trending-down'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 mr-1 text-green-500" [svgIcon]="'heroicons_solid:arrow-trending-down'"></mat-icon>
                         <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">
                           <span class="text-green-500">2%</span>
                           below projected
@@ -452,10 +434,7 @@
                         {{ data.monthlyExpenses.amount | currency: 'USD' }}
                       </div>
                       <div class="flex items-center">
-                        <mat-icon
-                          class="icon-size-5 mr-1 text-red-500"
-                          [svgIcon]="'heroicons_solid:arrow-trending-up'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 mr-1 text-red-500" [svgIcon]="'heroicons_solid:arrow-trending-up'"></mat-icon>
                         <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">
                           <span class="text-red-500">4%</span>
                           above projected
@@ -497,10 +476,7 @@
                         {{ data.yearlyExpenses.amount | currency: 'USD' }}
                       </div>
                       <div class="flex items-center">
-                        <mat-icon
-                          class="icon-size-5 mr-1 text-red-500"
-                          [svgIcon]="'heroicons_solid:arrow-trending-up'"
-                        ></mat-icon>
+                        <mat-icon class="icon-size-5 mr-1 text-red-500" [svgIcon]="'heroicons_solid:arrow-trending-up'"></mat-icon>
                         <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">
                           <span class="text-red-500">3%</span>
                           above projected
@@ -644,17 +620,11 @@
                   </div>
                   <!-- Email & Phone -->
                   <div class="flex w-full items-center divide-x border-t">
-                    <a
-                      class="hover:bg-hover flex flex-auto items-center justify-center py-4"
-                      [href]="'mailto:' + member.email"
-                    >
+                    <a class="hover:bg-hover flex flex-auto items-center justify-center py-4" [href]="'mailto:' + member.email">
                       <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:envelope'"></mat-icon>
                       <span class="ml-2">Email</span>
                     </a>
-                    <a
-                      class="hover:bg-hover flex flex-auto items-center justify-center py-4"
-                      [href]="'tel:' + member.phone"
-                    >
+                    <a class="hover:bg-hover flex flex-auto items-center justify-center py-4" [href]="'tel:' + member.phone">
                       <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:phone'"></mat-icon>
                       <span class="ml-2">Call</span>
                     </a>

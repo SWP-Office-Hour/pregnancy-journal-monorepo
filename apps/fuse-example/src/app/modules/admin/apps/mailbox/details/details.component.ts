@@ -1,16 +1,7 @@
 import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { TemplatePortal } from '@angular/cdk/portal';
 import { DatePipe, DecimalPipe, NgClass, NgPlural, NgPluralCase } from '@angular/common';
-import {
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  TemplateRef,
-  ViewChild,
-  ViewContainerRef,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, TemplateRef, ViewChild, ViewContainerRef, ViewEncapsulation } from '@angular/core';
 import { MatButton, MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRippleModule } from '@angular/material/core';
@@ -180,10 +171,7 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy {
     // If the label was deleted...
     if (deleted) {
       // If the current activated route has a label parameter and it equals to the one we are removing...
-      if (
-        this._activatedRoute.snapshot.paramMap.get('label') &&
-        this._activatedRoute.snapshot.paramMap.get('label') === label.slug
-      ) {
+      if (this._activatedRoute.snapshot.paramMap.get('label') && this._activatedRoute.snapshot.paramMap.get('label') === label.slug) {
         // Navigate to the parent
         this._router.navigate(['./'], {
           relativeTo: this._activatedRoute.parent,
@@ -205,10 +193,7 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy {
     // If the important was removed...
     if (!this.mail.important) {
       // If the current activated route has a filter parameter and it equals to the 'important'...
-      if (
-        this._activatedRoute.snapshot.paramMap.get('filter') &&
-        this._activatedRoute.snapshot.paramMap.get('filter') === 'important'
-      ) {
+      if (this._activatedRoute.snapshot.paramMap.get('filter') && this._activatedRoute.snapshot.paramMap.get('filter') === 'important') {
         // Navigate to the parent
         this._router.navigate(['./'], {
           relativeTo: this._activatedRoute.parent,
@@ -230,10 +215,7 @@ export class MailboxDetailsComponent implements OnInit, OnDestroy {
     // If the star was removed...
     if (!this.mail.starred) {
       // If the current activated route has a filter parameter and it equals to the 'starred'...
-      if (
-        this._activatedRoute.snapshot.paramMap.get('filter') &&
-        this._activatedRoute.snapshot.paramMap.get('filter') === 'starred'
-      ) {
+      if (this._activatedRoute.snapshot.paramMap.get('filter') && this._activatedRoute.snapshot.paramMap.get('filter') === 'starred') {
         // Navigate to the parent
         this._router.navigate(['./'], {
           relativeTo: this._activatedRoute.parent,

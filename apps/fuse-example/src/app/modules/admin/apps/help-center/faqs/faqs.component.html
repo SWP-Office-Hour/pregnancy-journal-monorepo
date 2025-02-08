@@ -8,9 +8,7 @@
           <span class="ml-2">Back to Help Center</span>
         </a>
       </div>
-      <div class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">
-        Frequently Asked Questions
-      </div>
+      <div class="mt-2 text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">Frequently Asked Questions</div>
       @for (faqCategory of faqCategories; track trackByFn($index, faqCategory)) {
         <div class="mt-12 text-3xl font-bold leading-tight tracking-tight sm:mt-16">
           {{ faqCategory.title }}

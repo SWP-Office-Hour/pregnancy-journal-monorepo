@@ -54,8 +54,7 @@ export class ConfirmationDialogComponent implements OnInit {
     // Build the config form
     this.configForm = this._formBuilder.group({
       title: 'Remove contact',
-      message:
-        'Are you sure you want to remove this contact permanently? <span class="font-medium">This action cannot be undone!</span>',
+      message: 'Are you sure you want to remove this contact permanently? <span class="font-medium">This action cannot be undone!</span>',
       icon: this._formBuilder.group({
         show: true,
         name: 'heroicons_outline:exclamation-triangle',

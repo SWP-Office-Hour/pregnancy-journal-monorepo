@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      This component can be used to show shortcuts to applications, pages or external sources. It can be controlled by
-      the user and any changes will be persisted to the backend if setup correctly.
+      This component can be used to show shortcuts to applications, pages or external sources. It can be controlled by the user and any changes will
+      be persisted to the backend if setup correctly.
     </p>
 
     <h2>Usage</h2>
@@ -104,9 +102,8 @@
 
     <h2>Shortcuts Service</h2>
     <p>
-      The <code>ShortcutsService</code> can be used to control the shortcuts outside of the
-      <strong>Shortcuts</strong> component. This is particularly useful to control the shortcuts from other components
-      for actions like creating, updating or deleting them.
+      The <code>ShortcutsService</code> can be used to control the shortcuts outside of the <strong>Shortcuts</strong> component. This is particularly
+      useful to control the shortcuts from other components for actions like creating, updating or deleting them.
     </p>
 
     <h3>Methods</h3>
@@ -123,15 +120,11 @@
       <div class="p-6">Get all shortcuts from the server.</div>
     </div>
     <div class="bg-card mt-4 rounded shadow">
-      <div class="text-secondary border-b px-6 py-3 font-mono">
-        create(shortcut: Shortcut): Observable&lt;Shortcut&gt;
-      </div>
+      <div class="text-secondary border-b px-6 py-3 font-mono">create(shortcut: Shortcut): Observable&lt;Shortcut&gt;</div>
       <div class="p-6">Create a new shortcut on the server.</div>
     </div>
     <div class="bg-card mt-4 rounded shadow">
-      <div class="text-secondary border-b px-6 py-3 font-mono">
-        update(id: string, shortcut: Shortcut): Observable&lt;Shortcut&gt;
-      </div>
+      <div class="text-secondary border-b px-6 py-3 font-mono">update(id: string, shortcut: Shortcut): Observable&lt;Shortcut&gt;</div>
       <div class="p-6">Update the shortcut on the server.</div>
     </div>
     <div class="bg-card mt-4 rounded shadow">

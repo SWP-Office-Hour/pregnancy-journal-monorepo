@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,15 +28,13 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-drawer</strong> is a simple drawer component that can be programmed in various ways. The main
-      difference between Angular Material's <strong>mat-drawer</strong> component is that the
-      <strong>fuse-drawer</strong> can be placed anywhere on the DOM and it doesn't have to wrap the content like
-      <strong>mat-drawer</strong>.
+      <strong>fuse-drawer</strong> is a simple drawer component that can be programmed in various ways. The main difference between Angular Material's
+      <strong>mat-drawer</strong> component is that the <strong>fuse-drawer</strong> can be placed anywhere on the DOM and it doesn't have to wrap the
+      content like <strong>mat-drawer</strong>.
     </p>
     <fuse-alert [appearance]="'border'" [type]="'info'">
-      Since fuse-drawer works with <em>absolute</em> positioning by default, the parent of the drawer must have
-      <code>position: relative</code> and <code>overflow-x: hidden</code> properties otherwise the drawer won't be able
-      to work correctly.
+      Since fuse-drawer works with <em>absolute</em> positioning by default, the parent of the drawer must have <code>position: relative</code> and
+      <code>overflow-x: hidden</code> properties otherwise the drawer won't be able to work correctly.
     </fuse-alert>
     <p><strong>Exported as: </strong><code>fuseDrawer</code></p>
 
@@ -92,8 +88,8 @@
               <div>mode: FuseDrawerMode</div>
             </td>
             <td>
-              <strong>over</strong> mode can be used to place the drawer on top of the content and
-              <strong>side</strong> mode can be used to push the content and place the drawer next to it.
+              <strong>over</strong> mode can be used to place the drawer on top of the content and <strong>side</strong> mode can be used to push the
+              content and place the drawer next to it.
             </td>
             <td>
               <code class="whitespace-nowrap">side</code>
@@ -187,8 +183,7 @@
 
     <h2>Service</h2>
     <p>
-      The <code>FuseDrawerService</code> can be used to remotely accessing to drawers using their
-      <strong>name</strong> properties to control them:
+      The <code>FuseDrawerService</code> can be used to remotely accessing to drawers using their <strong>name</strong> properties to control them:
     </p>
     <div class="example-viewer">
       <div class="title">
@@ -200,17 +195,10 @@
           <ng-template matTabContent>
             <button mat-flat-button [color]="'primary'" (click)="toggleDrawerMode()">Toggle drawer mode</button>
 
-            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="toggleDrawerOpen()">
-              Toggle drawer open
-            </button>
+            <button class="ml-4" mat-flat-button [color]="'primary'" (click)="toggleDrawerOpen()">Toggle drawer open</button>
 
             <div class="relative mt-8 flex min-h-80 overflow-hidden border">
-              <fuse-drawer
-                [name]="'leftDrawer'"
-                [opened]="drawerOpened"
-                [mode]="drawerMode"
-                (openedChanged)="drawerOpenedChanged($event)"
-              >
+              <fuse-drawer [name]="'leftDrawer'" [opened]="drawerOpened" [mode]="drawerMode" (openedChanged)="drawerOpenedChanged($event)">
                 <div class="p-4">
                   Left drawer
                   <div>Current mode: {{ drawerMode }}</div>

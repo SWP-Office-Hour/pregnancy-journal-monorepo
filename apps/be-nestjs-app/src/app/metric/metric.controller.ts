@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { MetricService } from './metric.service';
-import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { Body, Controller, Param } from '@nestjs/common';
 import { metricContract, MetricCreateReq } from '@pregnancy-journal-monorepo/contract';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { MetricService } from './metric.service';
 
 @Controller()
 export class MetricController {

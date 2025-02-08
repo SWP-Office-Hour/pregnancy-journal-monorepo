@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
-import { HospitalService } from './hospital.service';
-import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { Controller, NotFoundException, Param } from '@nestjs/common';
 import { hospitalContract } from '@pregnancy-journal-monorepo/contract';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { HospitalService } from './hospital.service';
 
 @Controller()
 export class HospitalController {

@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { z } from 'zod';
 import { reminderTypeSchema, statusSchema } from './enum.contract';
 
 export const reminderResSchema = z.object({

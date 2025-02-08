@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { z } from 'zod';
 import { metricResSchema } from './metric.contract';
 
 export const metricValueSchema = z.array(

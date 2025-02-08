@@ -45,9 +45,7 @@ const theming = plugin.withOptions(
        * merging them with the provided "default" so, we can have a complete
        * set of color palettes for each user theme.
        */
-      const userThemes = _.fromPairs(
-        _.map(options.themes, (theme, themeName) => [themeName, _.defaults({}, theme, options.themes['default'])]),
-      );
+      const userThemes = _.fromPairs(_.map(options.themes, (theme, themeName) => [themeName, _.defaults({}, theme, options.themes['default'])]));
 
       /**
        * Normalize the themes and assign it to the themes object. This will
@@ -69,10 +67,7 @@ const theming = plugin.withOptions(
                 {
                   ...palette,
                   contrast: _.fromPairs(
-                    _.map(generateContrasts(palette), (color, hue) => [
-                      hue,
-                      _.get(userThemes[themeName], [`on-${paletteName}`, hue]) || color,
-                    ]),
+                    _.map(generateContrasts(palette), (color, hue) => [hue, _.get(userThemes[themeName], [`on-${paletteName}`, hue]) || color]),
                   ),
                 },
               ]),
@@ -138,12 +133,7 @@ const theming = plugin.withOptions(
                           [e(paletteName), palette],
                           [
                             `on-${e(paletteName)}`,
-                            _.fromPairs(
-                              _.map(generateContrasts(palette), (color, hue) => [
-                                hue,
-                                _.get(theme, [`on-${paletteName}`, hue]) || color,
-                              ]),
-                            ),
+                            _.fromPairs(_.map(generateContrasts(palette), (color, hue) => [hue, _.get(theme, [`on-${paletteName}`, hue]) || color])),
                           ],
                         ]),
                       ),

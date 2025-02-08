@@ -33,18 +33,16 @@ export class SimpleRightSidebar2NormalScrollComponent implements OnInit, OnDestr
    */
   ngOnInit(): void {
     // Subscribe to media changes
-    this._fuseMediaWatcherService.onMediaChange$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe(({ matchingAliases }) => {
-        // Set the drawerMode and drawerOpened
-        if (matchingAliases.includes('lg')) {
-          this.drawerMode = 'side';
-          this.drawerOpened = true;
-        } else {
-          this.drawerMode = 'over';
-          this.drawerOpened = false;
-        }
-      });
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) => {
+      // Set the drawerMode and drawerOpened
+      if (matchingAliases.includes('lg')) {
+        this.drawerMode = 'side';
+        this.drawerOpened = true;
+      } else {
+        this.drawerMode = 'over';
+        this.drawerOpened = false;
+      }
+    });
   }
 
   /**

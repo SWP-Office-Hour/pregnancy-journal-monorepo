@@ -1,13 +1,13 @@
-<form [formGroup]="pregnancyForm" class="max-w-2xl mx-auto p-4" tuiForm="l">
-  <div class="flex flex-wrap -mx-2">
-    <div class="w-full md:w-1/2 px-2 mb-8">
+<form [formGroup]="pregnancyForm" class="mx-auto max-w-2xl p-4" tuiForm="l">
+  <div class="-mx-2 flex flex-wrap">
+    <div class="mb-8 w-full px-2 md:w-1/2">
       <tui-input-date formControlName="expectedBirthDate">
         <label tuiLabel>Ngày dự sinh</label>
         <input placeholder="Placeholder" tuiTextfieldLegacy />
       </tui-input-date>
       <tui-error [error]="[] | tuiFieldError | async" formControlName="expectedBirthDate" />
     </div>
-    <div class="w-full md:w-1/2 px-2 mb-8">
+    <div class="mb-8 w-full px-2 md:w-1/2">
       <tui-input-date formControlName="nextVisitDate">
         <label tuiLabel>Ngày tái khám</label>
         <input placeholder="Placeholder" tuiTextfieldLegacy />
@@ -16,7 +16,7 @@
     </div>
 
     @if (hospitals | async) {
-      <div class="w-full md:w-1/2 px-2 mb-8">
+      <div class="mb-8 w-full px-2 md:w-1/2">
         <tui-select formControlName="hospital">
           <label tuiLabel>Bệnh viện</label>
           <input placeholder="Bệnh viện" tuiTextfieldLegacy />
@@ -25,7 +25,7 @@
         <tui-error [error]="[] | tuiFieldError | async" formControlName="hospital" />
       </div>
     }
-    <div class="w-full md:w-1/2 px-2 mb-8">
+    <div class="mb-8 w-full px-2 md:w-1/2">
       <tui-input-date formControlName="visitDoctorDate">
         <label tuiLabel>Ngày khám bác sĩ</label>
         <input placeholder="Placeholder" tuiTextfieldLegacy />
@@ -33,7 +33,7 @@
       <tui-error [error]="[] | tuiFieldError | async" formControlName="visitDoctorDate" />
     </div>
     @for (metric of metrics | async; track $index) {
-      <div class="w-full md:w-1/2 px-2 mb-8">
+      <div class="mb-8 w-full px-2 md:w-1/2">
         <tui-textfield>
           <label tuiLabel>{{ metric.title }}</label>
 
@@ -43,7 +43,7 @@
         <tui-error [error]="[] | tuiFieldError | async" formControlName="{{ metric.id }}" />
       </div>
     }
-    <div class="w-full md:w-1/2 px-2 mb-8">
+    <div class="mb-8 w-full px-2 md:w-1/2">
       <app-file-upload></app-file-upload>
     </div>
   </div>
@@ -52,7 +52,7 @@
       <app-image-preview [imgObj]="src"></app-image-preview>
     }
   </div>
-  <footer class="flex justify-end space-x-2 mt-4">
+  <footer class="mt-4 flex justify-end space-x-2">
     <button tuiButton type="submit" appearance="primary">Submit</button>
     <button appearance="outline" tuiButton type="button">Cancel</button>
   </footer>

@@ -164,11 +164,7 @@ export class NotesService {
   createNote(note: Note): Observable<Note> {
     return this._httpClient
       .post<Note>('api/apps/notes', { note })
-      .pipe(
-        switchMap((response) =>
-          this.getNotes().pipe(switchMap(() => this.getNoteById(response.id).pipe(map(() => response)))),
-        ),
-      );
+      .pipe(switchMap((response) => this.getNotes().pipe(switchMap(() => this.getNoteById(response.id).pipe(map(() => response))))));
   }
 
   /**

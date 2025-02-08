@@ -1,5 +1,5 @@
-import { z } from 'zod';
 import { initContract } from '@ts-rest/core';
+import { z } from 'zod';
 
 const dashboardResSchema = z.object({
   date: z.date(),
@@ -13,7 +13,7 @@ const dashboardUserResSchema = z.array(
   z.object({
     date: z.date(),
     totalUser: z.number(),
-  })
+  }),
 );
 
 const dashboardRevenueResSchema = z.array(
@@ -21,7 +21,7 @@ const dashboardRevenueResSchema = z.array(
     date: z.date(),
     avgRevenue: z.number(),
     currency: z.string(),
-  })
+  }),
 );
 
 const c = initContract();

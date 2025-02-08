@@ -1,15 +1,6 @@
-<div
-  class="header top-0 z-50 sticky w-3/5 py-2 px-7 bg-blue-400 mt-4 p-0 box-border mx-auto flex justify-between rounded-full"
->
-  <div class="header__block flex h-full gap-6 items-center">
-    <img
-      class="header__logo"
-      ngSrc="images/logo_name_bgt.png"
-      alt="logo"
-      width="80"
-      height="80"
-      [priority]="NgOptimizedImage"
-    />
+<div class="header sticky top-0 z-50 mx-auto mt-4 box-border flex w-3/5 justify-between rounded-full bg-blue-400 p-0 px-7 py-2">
+  <div class="header__block flex h-full items-center gap-6">
+    <img class="header__logo" ngSrc="images/logo_name_bgt.png" alt="logo" width="80" height="80" [priority]="NgOptimizedImage" />
     <tui-tabs [(activeItemIndex)]="activeItemIndex" class="header__tabs" size="m">
       <button iconStart="" tuiTab type="button" (click)="onClick('Trang chủ')">Trang chủ</button>
       <button iconStart="" tuiTab type="button" (click)="onClick('Khám sức khỏe')">Khám sức khỏe</button>
@@ -33,14 +24,7 @@
     <div class="actions">
       <tui-badged-content>
         <tui-badge-notification size="s" tuiSlot="top"> 3 </tui-badge-notification>
-        <button
-          appearance="secondary-grayscale"
-          iconStart="@tui.bell-ring"
-          size="s"
-          tuiIconButton
-          type="button"
-          [style.border-radius.%]="100"
-        >
+        <button appearance="secondary-grayscale" iconStart="@tui.bell-ring" size="s" tuiIconButton type="button" [style.border-radius.%]="100">
           Notication
         </button>
       </tui-badged-content>
@@ -48,10 +32,7 @@
 
     <tui-badged-content [style.--tui-radius.%]="50">
       <tui-icon appearance="secondary-grayscale" icon="@tui.chevron-down" size="s" tuiBadge tuiSlot="bottom" />
-      <tui-avatar
-        size="m"
-        [src]="'https://avatars.githubusercontent.com/u/11832552' | tuiFallbackSrc: '@tui.user' | async"
-      />
+      <tui-avatar size="m" [src]="'https://avatars.githubusercontent.com/u/11832552' | tuiFallbackSrc: '@tui.user' | async" />
     </tui-badged-content>
   </div>
 </div>

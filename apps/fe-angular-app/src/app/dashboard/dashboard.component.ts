@@ -2,13 +2,13 @@ import { CommonModule } from '@angular/common';
 
 import { Component, inject, signal } from '@angular/core';
 
-import { Router } from '@angular/router';
-import { AuthGoogleService } from '../services/auth-google.service';
-import { TuiBadge, TuiBreadcrumbs, TuiFade, TuiTab, TuiTabsVertical } from '@taiga-ui/kit';
-import { TuiAppearance, TuiButton, TuiTextfieldComponent, TuiTextfieldDirective, TuiTitle } from '@taiga-ui/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TuiAsideComponent, TuiCardLarge, TuiForm, TuiHeader, TuiNavigation } from '@taiga-ui/layout';
+import { Router } from '@angular/router';
 import { TuiItem, TuiRepeatTimes } from '@taiga-ui/cdk';
+import { TuiAppearance, TuiButton, TuiTextfieldComponent, TuiTextfieldDirective, TuiTitle } from '@taiga-ui/core';
+import { TuiBadge, TuiBreadcrumbs, TuiFade, TuiTab, TuiTabsVertical } from '@taiga-ui/kit';
+import { TuiAsideComponent, TuiCardLarge, TuiForm, TuiHeader, TuiNavigation } from '@taiga-ui/layout';
+import { AuthGoogleService } from '../services/auth-google.service';
 
 const MODULES = [CommonModule];
 

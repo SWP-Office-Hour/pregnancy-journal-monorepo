@@ -16,13 +16,7 @@
 
         <!-- Alert -->
         @if (showAlert) {
-          <fuse-alert
-            class="-mb-4 mt-8"
-            [appearance]="'outline'"
-            [showIcon]="false"
-            [type]="alert.type"
-            [@shake]="alert.type === 'error'"
-          >
+          <fuse-alert class="-mb-4 mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
             {{ alert.message }}
           </fuse-alert>
         }
@@ -48,9 +42,7 @@
             <button
               mat-icon-button
               type="button"
-              (click)="
-                passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')
-              "
+              (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
               matSuffix
             >
               @if (passwordField.type === 'password') {
@@ -65,22 +57,12 @@
 
           <!-- Actions -->
           <div class="mt-1.5 inline-flex w-full items-center justify-between">
-            <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'">
-              Remember me
-            </mat-checkbox>
-            <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']"
-              >Forgot password?
-            </a>
+            <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Remember me </mat-checkbox>
+            <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']">Forgot password? </a>
           </div>
 
           <!-- Submit button -->
-          <button
-            class="fuse-mat-button-large mt-6 w-full"
-            mat-flat-button
-            [color]="'primary'"
-            [disabled]="signInForm.disabled"
-            (click)="signIn()"
-          >
+          <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
             @if (!signInForm.disabled) {
               <span> Sign in </span>
             }
@@ -111,9 +93,7 @@
         </form>
       </div>
     </div>
-    <div
-      class="relative hidden h-full flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 md:flex lg:px-28 dark:border-l"
-    >
+    <div class="relative hidden h-full flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 md:flex lg:px-28 dark:border-l">
       <!-- Background -->
       <!-- Rings -->
       <!-- prettier-ignore -->
@@ -142,8 +122,8 @@
           <div>our community</div>
         </div>
         <div class="mt-6 text-lg leading-6 tracking-tight text-gray-400">
-          Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules. Join us
-          and start building your application today.
+          Fuse helps developers to build organized and well coded dashboards full of beautiful and rich modules. Join us and start building your
+          application today.
         </div>
         <div class="mt-8 flex items-center">
           <div class="flex-0 flex items-center -space-x-1.5">
@@ -164,9 +144,7 @@
               src="images/avatars/male-16.jpg"
             />
           </div>
-          <div class="ml-4 font-medium tracking-tight text-gray-400">
-            More than 17k people joined us, it's your turn
-          </div>
+          <div class="ml-4 font-medium tracking-tight text-gray-400">More than 17k people joined us, it's your turn</div>
         </div>
       </div>
     </div>

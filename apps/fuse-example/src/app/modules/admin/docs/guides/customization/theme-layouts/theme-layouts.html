@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -20,9 +18,7 @@
       </div>
       <!-- Title -->
       <div class="mt-2">
-        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
-          Theme Layouts
-        </h2>
+        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">Theme Layouts</h2>
       </div>
     </div>
     <button class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0" mat-icon-button (click)="toggleDrawer()">
@@ -32,13 +28,13 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      As previously mentioned, Fuse comes with variety of different layouts. These layouts are on the theme level,
-      meaning that when changed, they can completely alter the look of your app.
+      As previously mentioned, Fuse comes with variety of different layouts. These layouts are on the theme level, meaning that when changed, they can
+      completely alter the look of your app.
     </p>
     <p>
       By default, layouts are applied automatically via the
-      <code>LayoutComponent</code>. The default layout is set by the <code>app.config.ts</code> file from
-      <strong>src/app/</strong> directory and it's available via <code>FuseConfigService</code>.
+      <code>LayoutComponent</code>. The default layout is set by the <code>app.config.ts</code> file from <strong>src/app/</strong> directory and it's
+      available via <code>FuseConfigService</code>.
     </p>
     <fuse-alert [appearance]="'border'" [type]="'info'">
       More detailed information about <code>FuseConfigService</code> can be found in the
@@ -46,17 +42,13 @@
       section of this documentation.
     </fuse-alert>
     <p>
-      After the default layout is read and set from the configuration service, <code>LayoutComponent</code> will also
-      read the current route tree, walk through it starting from the root all the way to the current route and look for
-      the <strong>layout</strong> key-value from the <em>data</em> object. If found,
+      After the default layout is read and set from the configuration service, <code>LayoutComponent</code> will also read the current route tree,
+      walk through it starting from the root all the way to the current route and look for the <strong>layout</strong> key-value from the
+      <em>data</em> object. If found,
       <code>LayoutComponent</code>
-      will switch to that layout. This is particularly useful if you want to have different layouts for different
-      portions of your app.
+      will switch to that layout. This is particularly useful if you want to have different layouts for different portions of your app.
     </p>
-    <p>
-      Here's an example from <code>app.routing.ts</code> file that loads the <code>EmptyLayout</code> for
-      <b>authentication</b> pages:
-    </p>
+    <p>Here's an example from <code>app.routing.ts</code> file that loads the <code>EmptyLayout</code> for <b>authentication</b> pages:</p>
     <textarea fuse-highlight lang="typescript">
             // Auth routes (guest)
             {
@@ -89,9 +81,8 @@
     >
     <h2>LayoutComponent</h2>
     <p>
-      The <code>LayoutComponent</code> plays an important part for managing important things such as the
-      <b>current layout</b> and the <b>color theme</b>. Because of it, removing the <code>LayoutComponent</code> and
-      using the individual layouts by themselves is not possible.
+      The <code>LayoutComponent</code> plays an important part for managing important things such as the <b>current layout</b> and the
+      <b>color theme</b>. Because of it, removing the <code>LayoutComponent</code> and using the individual layouts by themselves is not possible.
     </p>
   </div>
 </div>

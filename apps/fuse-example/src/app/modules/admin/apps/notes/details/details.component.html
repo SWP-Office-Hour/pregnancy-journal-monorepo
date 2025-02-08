@@ -14,22 +14,11 @@
     <div class="m-4">
       <!-- Title -->
       <div>
-        <input
-          class="w-full p-2 text-2xl"
-          [placeholder]="'Title'"
-          [(ngModel)]="note.title"
-          (input)="updateNoteDetails(note)"
-        />
+        <input class="w-full p-2 text-2xl" [placeholder]="'Title'" [(ngModel)]="note.title" (input)="updateNoteDetails(note)" />
       </div>
       <!-- Note -->
       <div class="flex w-full px-2 py-5">
-        <textarea
-          class="w-full"
-          [placeholder]="'Note'"
-          [(ngModel)]="note.content"
-          (input)="updateNoteDetails(note)"
-          cdkTextareaAutosize
-        ></textarea>
+        <textarea class="w-full" [placeholder]="'Note'" [(ngModel)]="note.content" (input)="updateNoteDetails(note)" cdkTextareaAutosize></textarea>
       </div>
       <!-- Tasks -->
       @if (note.tasks) {
@@ -92,14 +81,7 @@
       @if (!note.id) {
         <div class="mt-4 flex items-center justify-end">
           <!-- Save -->
-          <button
-            mat-flat-button
-            [color]="'primary'"
-            [disabled]="!note.title && !note.content"
-            (click)="createNote(note)"
-          >
-            Save
-          </button>
+          <button mat-flat-button [color]="'primary'" [disabled]="!note.title && !note.content" (click)="createNote(note)">Save</button>
         </div>
       }
       <!-- Edit Actions -->

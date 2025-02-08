@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -12,9 +10,7 @@
       </div>
       <!-- Title -->
       <div class="mt-2">
-        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
-          Advanced Search
-        </h2>
+        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">Advanced Search</h2>
       </div>
     </div>
   </div>
@@ -28,22 +24,19 @@
           <code>routerLink</code> directive and its <code>queryParams</code> input.
         </p>
         <p>
-          Fill the form, hit the <strong>Search</strong> button and then observe the address bar of your browser. If you
-          reload the page with the parameters, you will see that the form will be populated automatically. We also added
-          an output window so you can observe the query parameters object.
+          Fill the form, hit the <strong>Search</strong> button and then observe the address bar of your browser. If you reload the page with the
+          parameters, you will see that the form will be populated automatically. We also added an output window so you can observe the query
+          parameters object.
         </p>
         <p>
           This method can be used for implementing
-          <em>Advanced search</em> mechanics as well as <em>Filtering</em> similar to the products filtering that you
-          can find in most eCommerce websites.
+          <em>Advanced search</em> mechanics as well as <em>Filtering</em> similar to the products filtering that you can find in most eCommerce
+          websites.
         </p>
       </div>
 
       <!-- Advanced search form -->
-      <form
-        class="bg-card mt-8 flex w-full max-w-3xl flex-col items-start space-y-8 overflow-hidden rounded-2xl p-8 shadow"
-        [formGroup]="searchForm"
-      >
+      <form class="bg-card mt-8 flex w-full max-w-3xl flex-col items-start space-y-8 overflow-hidden rounded-2xl p-8 shadow" [formGroup]="searchForm">
         <!-- Keywords -->
         <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
           <mat-label>Keywords</mat-label>

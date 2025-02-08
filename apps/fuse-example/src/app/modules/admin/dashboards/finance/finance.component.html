@@ -39,10 +39,7 @@
         <!-- Previous statement -->
         <div class="bg-card relative flex flex-auto flex-col overflow-hidden rounded-2xl p-6 pb-3 pr-3 shadow">
           <div class="absolute bottom-0 right-0 -m-6 h-24 w-24">
-            <mat-icon
-              class="icon-size-24 text-green-500 opacity-25 dark:text-green-400"
-              [svgIcon]="'heroicons_outline:check-circle'"
-            ></mat-icon>
+            <mat-icon class="icon-size-24 text-green-500 opacity-25 dark:text-green-400" [svgIcon]="'heroicons_outline:check-circle'"></mat-icon>
           </div>
           <div class="flex items-center">
             <div class="flex flex-col">
@@ -112,10 +109,7 @@
         <!-- Current statement -->
         <div class="bg-card relative flex flex-auto flex-col overflow-hidden rounded-2xl p-6 pb-3 pr-3 shadow">
           <div class="absolute bottom-0 right-0 -m-6 h-24 w-24">
-            <mat-icon
-              class="icon-size-24 text-red-500 opacity-25 dark:text-red-400"
-              [svgIcon]="'heroicons_outline:exclamation-circle'"
-            ></mat-icon>
+            <mat-icon class="icon-size-24 text-red-500 opacity-25 dark:text-red-400" [svgIcon]="'heroicons_outline:exclamation-circle'"></mat-icon>
           </div>
           <div class="flex items-center">
             <div class="flex flex-col">
@@ -195,11 +189,7 @@
               <div class="text-secondary font-medium">Monthly balance growth and avg. monthly income</div>
             </div>
             <div class="ml-2">
-              <button
-                class="bg-hover h-6 min-h-6 rounded-full px-2"
-                mat-button
-                [matMenuTriggerFor]="accountBalanceMenu"
-              >
+              <button class="bg-hover h-6 min-h-6 rounded-full px-2" mat-button [matMenuTriggerFor]="accountBalanceMenu">
                 <span class="text-secondary text-sm font-medium">12 months</span>
               </button>
               <mat-menu #accountBalanceMenu="matMenu">
@@ -302,8 +292,7 @@
                   class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-bold uppercase tracking-wide"
                   [ngClass]="{
                     'bg-red-200 text-red-800 dark:bg-red-600 dark:text-red-50': transaction.status === 'pending',
-                    'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50':
-                      transaction.status === 'completed',
+                    'bg-green-200 text-green-800 dark:bg-green-600 dark:text-green-50': transaction.status === 'completed',
                   }"
                 >
                   <span class="whitespace-nowrap leading-relaxed">{{ transaction.status }}</span>
@@ -357,15 +346,12 @@
           </div>
         </div>
         <div class="mt-6">
-          Last month; you had <strong>223</strong> expense transactions, <strong>12</strong> savings entries and
-          <strong>4</strong> bills.
+          Last month; you had <strong>223</strong> expense transactions, <strong>12</strong> savings entries and <strong>4</strong> bills.
         </div>
         <div class="my-8 space-y-8">
           <div class="flex flex-col">
             <div class="flex items-center">
-              <div
-                class="flex h-14 w-14 items-center justify-center rounded bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50"
-              >
+              <div class="flex h-14 w-14 items-center justify-center rounded bg-red-100 text-red-800 dark:bg-red-600 dark:text-red-50">
                 <mat-icon class="text-current" [svgIcon]="'heroicons_outline:credit-card'"></mat-icon>
               </div>
               <div class="ml-4 flex-auto leading-none">
@@ -382,18 +368,13 @@
               </div>
               <div class="min-w-18 ml-6 mt-auto flex items-end justify-end">
                 <div class="text-lg leading-none">2.6%</div>
-                <mat-icon
-                  class="icon-size-4 ml-1 text-green-600"
-                  [svgIcon]="'heroicons_mini:arrow-long-down'"
-                ></mat-icon>
+                <mat-icon class="icon-size-4 ml-1 text-green-600" [svgIcon]="'heroicons_mini:arrow-long-down'"></mat-icon>
               </div>
             </div>
           </div>
           <div class="flex flex-col">
             <div class="flex items-center">
-              <div
-                class="flex h-14 w-14 items-center justify-center rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-600 dark:text-indigo-50"
-              >
+              <div class="flex h-14 w-14 items-center justify-center rounded bg-indigo-100 text-indigo-800 dark:bg-indigo-600 dark:text-indigo-50">
                 <mat-icon class="text-current" [svgIcon]="'heroicons_outline:banknotes'"></mat-icon>
               </div>
               <div class="ml-4 flex-auto leading-none">
@@ -415,9 +396,7 @@
           </div>
           <div class="flex flex-col">
             <div class="flex items-center">
-              <div
-                class="flex h-14 w-14 items-center justify-center rounded bg-teal-100 text-teal-800 dark:bg-teal-600 dark:text-teal-50"
-              >
+              <div class="flex h-14 w-14 items-center justify-center rounded bg-teal-100 text-teal-800 dark:bg-teal-600 dark:text-teal-50">
                 <mat-icon class="text-current" [svgIcon]="'heroicons_outline:light-bulb'"></mat-icon>
               </div>
               <div class="ml-4 flex-auto leading-none">

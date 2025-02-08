@@ -80,15 +80,9 @@ export class AdvancedSearchComponent implements OnInit, OnDestroy {
         {
           keywords: queryParams?.keywords ?? this.searchFormDefaults.keywords,
           type: queryParams?.type ?? this.searchFormDefaults.type,
-          isTrashed: queryParams?.isTrashed
-            ? coerceBooleanProperty(queryParams?.isTrashed)
-            : this.searchFormDefaults.isTrashed,
-          isArchived: queryParams?.isArchived
-            ? coerceBooleanProperty(queryParams?.isArchived)
-            : this.searchFormDefaults.isArchived,
-          isStarred: queryParams?.isStarred
-            ? coerceBooleanProperty(queryParams?.isStarred)
-            : this.searchFormDefaults.isStarred,
+          isTrashed: queryParams?.isTrashed ? coerceBooleanProperty(queryParams?.isTrashed) : this.searchFormDefaults.isTrashed,
+          isArchived: queryParams?.isArchived ? coerceBooleanProperty(queryParams?.isArchived) : this.searchFormDefaults.isArchived,
+          isStarred: queryParams?.isStarred ? coerceBooleanProperty(queryParams?.isStarred) : this.searchFormDefaults.isStarred,
         },
         { emitEvent: false },
       );

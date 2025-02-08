@@ -307,15 +307,4 @@ const fadeOutRight = trigger('fadeOutRight', [
   }),
 ]);
 
-export {
-  fadeIn,
-  fadeInBottom,
-  fadeInLeft,
-  fadeInRight,
-  fadeInTop,
-  fadeOut,
-  fadeOutBottom,
-  fadeOutLeft,
-  fadeOutRight,
-  fadeOutTop,
-};
+export { fadeIn, fadeInBottom, fadeInLeft, fadeInRight, fadeInTop, fadeOut, fadeOutBottom, fadeOutLeft, fadeOutRight, fadeOutTop };

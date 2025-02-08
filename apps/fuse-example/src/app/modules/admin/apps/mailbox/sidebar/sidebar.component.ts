@@ -2,11 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import {
-  FuseNavigationItem,
-  FuseNavigationService,
-  FuseVerticalNavigationComponent,
-} from '@fuse/components/navigation';
+import { FuseNavigationItem, FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { MailboxComposeComponent } from 'app/modules/admin/apps/mailbox/compose/compose.component';
 import { labelColorDefs } from 'app/modules/admin/apps/mailbox/mailbox.constants';
 import { MailboxService } from 'app/modules/admin/apps/mailbox/mailbox.service';
@@ -257,8 +253,7 @@ export class MailboxSidebarComponent implements OnInit, OnDestroy {
     const inboxFolder = this.folders.find((folder) => folder.slug === 'inbox');
 
     // Get the component -> navigation data -> item
-    const mainNavigationComponent =
-      this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
+    const mainNavigationComponent = this._fuseNavigationService.getComponent<FuseVerticalNavigationComponent>('mainNavigation');
 
     // If the main navigation component exists...
     if (mainNavigationComponent) {

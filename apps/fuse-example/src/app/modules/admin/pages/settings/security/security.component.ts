@@ -12,15 +12,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    FormsModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-  ],
+  imports: [FormsModule, ReactiveFormsModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSlideToggleModule, MatButtonModule],
 })
 export class SettingsSecurityComponent implements OnInit {
   securityForm: UntypedFormGroup;

@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -91,8 +89,8 @@
         </textarea
     >
     <p>
-      Normally, you would <em>join</em> these two data together in the backend before sending it to the frontend so you
-      can access tags of a task right from the task itself:
+      Normally, you would <em>join</em> these two data together in the backend before sending it to the frontend so you can access tags of a task
+      right from the task itself:
     </p>
     <textarea fuse-highlight lang="typescript">
             const tasksWithTags = [
@@ -148,9 +146,9 @@
         </textarea
     >
     <p>
-      But, let's say you cannot <em>join</em> them. You have no access to the backend app or you cannot make any changes
-      to it and you have to work with what you have. In this case, you can use the <code>fuseFindByKey</code> pipe to
-      get the tags of a task without joining the two data using javascript:
+      But, let's say you cannot <em>join</em> them. You have no access to the backend app or you cannot make any changes to it and you have to work
+      with what you have. In this case, you can use the <code>fuseFindByKey</code> pipe to get the tags of a task without joining the two data using
+      javascript:
     </p>
     <textarea fuse-highlight lang="html">
             <!-- Iterate through the tasks -->
@@ -168,9 +166,8 @@
     >
     <p>The above code will iterate through the tasks, and for each task, it will also iterate the task's tags.</p>
     <p>
-      <code>task.tags</code> array normally holds the <em>ids</em> of the assigned tags. But using
-      <code>fuseFindByKey</code> pipe, we can use those <em>ids</em> to extract the actual tag object from the
-      <em>tags</em> array.
+      <code>task.tags</code> array normally holds the <em>ids</em> of the assigned tags. But using <code>fuseFindByKey</code> pipe, we can use those
+      <em>ids</em> to extract the actual tag object from the <em>tags</em> array.
     </p>
   </div>
 </div>

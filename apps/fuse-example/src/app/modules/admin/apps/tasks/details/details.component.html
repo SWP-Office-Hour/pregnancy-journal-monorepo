@@ -111,11 +111,7 @@
                 <!-- Tags -->
                 @if (!tagsEditMode) {
                   @for (tag of filteredTags; track trackByFn($index, tag)) {
-                    <div
-                      class="hover:bg-hover flex h-10 min-h-10 cursor-pointer items-center pl-1 pr-4"
-                      (click)="toggleTaskTag(tag)"
-                      matRipple
-                    >
+                    <div class="hover:bg-hover flex h-10 min-h-10 cursor-pointer items-center pl-1 pr-4" (click)="toggleTaskTag(tag)" matRipple>
                       <mat-checkbox
                         class="pointer-events-none flex h-10 min-h-10 items-center"
                         [checked]="task.tags.includes(tag.id)"
@@ -202,10 +198,7 @@
           <button [ngClass]="{ 'bg-hover': task.priority === 0 }" mat-menu-item (click)="setTaskPriority(0)">
             <span class="min-w-30 inline-flex w-full items-center justify-between leading-5">
               <span class="font-medium">Low</span>
-              <mat-icon
-                class="icon-size-4 mr-0 text-green-600 dark:text-green-500"
-                [svgIcon]="'heroicons_mini:arrow-long-down'"
-              ></mat-icon>
+              <mat-icon class="icon-size-4 mr-0 text-green-600 dark:text-green-500" [svgIcon]="'heroicons_mini:arrow-long-down'"></mat-icon>
             </span>
           </button>
 
@@ -213,10 +206,7 @@
           <button [ngClass]="{ 'bg-hover': task.priority === 1 }" mat-menu-item (click)="setTaskPriority(1)">
             <span class="min-w-30 inline-flex w-full items-center justify-between leading-5">
               <span class="font-medium">Normal</span>
-              <mat-icon
-                class="icon-size-4 mr-0 text-gray-600 dark:text-gray-500"
-                [svgIcon]="'heroicons_solid:minus'"
-              ></mat-icon>
+              <mat-icon class="icon-size-4 mr-0 text-gray-600 dark:text-gray-500" [svgIcon]="'heroicons_solid:minus'"></mat-icon>
             </span>
           </button>
 
@@ -224,10 +214,7 @@
           <button [ngClass]="{ 'bg-hover': task.priority === 2 }" mat-menu-item (click)="setTaskPriority(2)">
             <span class="min-w-30 inline-flex w-full items-center justify-between leading-5">
               <span class="font-medium">High</span>
-              <mat-icon
-                class="icon-size-4 mr-0 text-red-600 dark:text-red-500"
-                [svgIcon]="'heroicons_mini:arrow-long-up'"
-              ></mat-icon>
+              <mat-icon class="icon-size-4 mr-0 text-red-600 dark:text-red-500" [svgIcon]="'heroicons_mini:arrow-long-up'"></mat-icon>
             </span>
           </button>
         </mat-menu>
@@ -254,10 +241,7 @@
               Not set
             }
           </span>
-          <mat-form-field
-            class="fuse-mat-dense pointer-events-none invisible absolute inset-0 -mt-2.5 opacity-0"
-            [subscriptSizing]="'dynamic'"
-          >
+          <mat-form-field class="fuse-mat-dense pointer-events-none invisible absolute inset-0 -mt-2.5 opacity-0" [subscriptSizing]="'dynamic'">
             <input matInput [formControlName]="'dueDate'" [matDatepicker]="dueDatePicker" />
             <mat-datepicker #dueDatePicker>
               <mat-datepicker-actions>

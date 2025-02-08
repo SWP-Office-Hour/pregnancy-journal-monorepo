@@ -89,14 +89,11 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
   @Input() position: FuseVerticalNavigationPosition = 'left';
   @Input() transparentOverlay: boolean = false;
   @Output()
-  readonly appearanceChanged: EventEmitter<FuseVerticalNavigationAppearance> =
-    new EventEmitter<FuseVerticalNavigationAppearance>();
-  @Output() readonly modeChanged: EventEmitter<FuseVerticalNavigationMode> =
-    new EventEmitter<FuseVerticalNavigationMode>();
+  readonly appearanceChanged: EventEmitter<FuseVerticalNavigationAppearance> = new EventEmitter<FuseVerticalNavigationAppearance>();
+  @Output() readonly modeChanged: EventEmitter<FuseVerticalNavigationMode> = new EventEmitter<FuseVerticalNavigationMode>();
   @Output() readonly openedChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output()
-  readonly positionChanged: EventEmitter<FuseVerticalNavigationPosition> =
-    new EventEmitter<FuseVerticalNavigationPosition>();
+  readonly positionChanged: EventEmitter<FuseVerticalNavigationPosition> = new EventEmitter<FuseVerticalNavigationPosition>();
   @ViewChild('navigationContent') private _navigationContentEl: ElementRef;
 
   activeAsideItemId: string | null = null;
@@ -380,9 +377,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
       // perfect scrollbar activated on it...
       if (!this._navigationContentEl.nativeElement.classList.contains('ps')) {
         // Find the active item
-        const activeItem = this._navigationContentEl.nativeElement.querySelector(
-          '.fuse-vertical-navigation-item-active',
-        );
+        const activeItem = this._navigationContentEl.nativeElement.querySelector('.fuse-vertical-navigation-item-active');
 
         // If the active item exists, scroll it into view
         if (activeItem) {
@@ -602,9 +597,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
     this._scrollStrategy.enable();
 
     // Create the enter animation and attach it to the player
-    this._player = this._animationBuilder
-      .build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 1 }))])
-      .create(this._overlay);
+    this._player = this._animationBuilder.build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 1 }))]).create(this._overlay);
 
     // Play the animation
     this._player.play();
@@ -624,9 +617,7 @@ export class FuseVerticalNavigationComponent implements OnChanges, OnInit, After
     }
 
     // Create the leave animation and attach it to the player
-    this._player = this._animationBuilder
-      .build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0 }))])
-      .create(this._overlay);
+    this._player = this._animationBuilder.build([animate('300ms cubic-bezier(0.25, 0.8, 0.25, 1)', style({ opacity: 0 }))]).create(this._overlay);
 
     // Play the animation
     this._player.play();

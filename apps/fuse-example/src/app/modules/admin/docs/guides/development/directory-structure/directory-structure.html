@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -20,9 +18,7 @@
       </div>
       <!-- Title -->
       <div class="mt-2">
-        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">
-          Directory Structure
-        </h2>
+        <h2 class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl">Directory Structure</h2>
       </div>
     </div>
     <button class="order-first -ml-3 mb-2 sm:order-last sm:mb-0 sm:ml-0" mat-icon-button (click)="toggleDrawer()">
@@ -32,13 +28,13 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <fuse-alert [appearance]="'border'" [type]="'info'">
-      Fuse's directory structure might look overwhelming and intimidating at first, but following this page and giving a
-      bit time to understand it before jumping right into code will help immensely.
+      Fuse's directory structure might look overwhelming and intimidating at first, but following this page and giving a bit time to understand it
+      before jumping right into code will help immensely.
     </fuse-alert>
     <p>
-      Fuse built around the idea of multi-purpose and multi-layout. You can think of Fuse as a <em>Starter kit</em> and
-      a <em>guide</em> rather than just a simple template. The purpose of Fuse is not only provide a pre-made styles for
-      visual elements but is also be a guide to follow while building an app.
+      Fuse built around the idea of multi-purpose and multi-layout. You can think of Fuse as a <em>Starter kit</em> and a <em>guide</em> rather than
+      just a simple template. The purpose of Fuse is not only provide a pre-made styles for visual elements but is also be a guide to follow while
+      building an app.
     </p>
     <p>
       It's more of an answer to the questions like
@@ -75,22 +71,20 @@
 
     <h2>/src/&#64;fuse/</h2>
     <p>
-      This is the core directory of the Fuse. It includes components, directives, services, pipes, custom validators,
-      animations, base styles and much more.
+      This is the core directory of the Fuse. It includes components, directives, services, pipes, custom validators, animations, base styles and much
+      more.
     </p>
     <p>
-      Modifications on this directory is <strong>NOT</strong> recommended. Since majority of changes happen within this
-      directory on updates, any modifications to this directory and its content will make the updating process complex
-      and time consuming.
+      Modifications on this directory is <strong>NOT</strong> recommended. Since majority of changes happen within this directory on updates, any
+      modifications to this directory and its content will make the updating process complex and time consuming.
     </p>
 
     <h2>src/app/</h2>
     <p>This directory contains all application related codes. This is where you put your code.</p>
     <p>
       Fuse provides a sensible default directory structure within the
-      <strong>app</strong> directory. You can of course completely remove everything from it and design your own
-      structure but the provided structure is designed to handle applications from <em>small</em> to
-      <em>enterprise</em> grade:
+      <strong>app</strong> directory. You can of course completely remove everything from it and design your own structure but the provided structure
+      is designed to handle applications from <em>small</em> to <em>enterprise</em> grade:
     </p>
     <div class="bg-card mt-6 rounded p-6 pl-3 shadow">
       <mat-tree [dataSource]="appTree.dataSource" [treeControl]="appTree.treeControl">
@@ -117,10 +111,8 @@
 
     <h3>src/app/core/</h3>
     <p>
-      This directory is designed to contain your application's core; Singleton services, default configurations, default
-      states and likes. It's
-      <strong>NOT</strong> recommended to put any components, directives, pipes or simply anything has a template or
-      related to templates in here.
+      This directory is designed to contain your application's core; Singleton services, default configurations, default states and likes. It's
+      <strong>NOT</strong> recommended to put any components, directives, pipes or simply anything has a template or related to templates in here.
     </p>
     <p>Example files that can go into this directory includes, but not limited to:</p>
     <ul>
@@ -150,20 +142,20 @@
 
     <h3>src/app/mock-api/</h3>
     <p>
-      This directory is designed to contain data services for custom made MockAPI library. Detailed information about
-      this directory and the MockAPI library can be found in the
+      This directory is designed to contain data services for custom made MockAPI library. Detailed information about this directory and the MockAPI
+      library can be found in the
       <a [routerLink]="['/ui/fuse-components/libraries/mock-api']">Fuse Components > Libraries > MockAPI</a>
       section of this documentation.
     </p>
 
     <h3>src/app/layout/</h3>
     <p>
-      This directory designed to contain everything related to the layout of your app. By default, Fuse provides variety
-      of different layout options for you to use.
+      This directory designed to contain everything related to the layout of your app. By default, Fuse provides variety of different layout options
+      for you to use.
     </p>
     <p>
-      The <code>LayoutComponent</code> is an entry component and it provides an easy way of switching between different
-      layouts. More information about how the <code>LayoutComponent</code> works can be found in the
+      The <code>LayoutComponent</code> is an entry component and it provides an easy way of switching between different layouts. More information
+      about how the <code>LayoutComponent</code> works can be found in the
       <a [routerLink]="['../../customization/theme-layouts']">Customization > Theme layouts</a>
       section of this documentation.
     </p>
@@ -176,8 +168,8 @@
       <li>User Menu</li>
     </ul>
     <p>
-      These components are being used across different layouts, so if you use multiple layouts and want to create a
-      component, directive or a pipe for using within your layouts, you can put them inside the
+      These components are being used across different layouts, so if you use multiple layouts and want to create a component, directive or a pipe for
+      using within your layouts, you can put them inside the
       <strong>common</strong> folder.
     </p>
 
@@ -185,8 +177,7 @@
     <p>This directory is designed to contain your application's feature modules.</p>
     <p>
       For example; Authentication related pages such as Sign In, Sign Up, Lost Password and etc. can be grouped into
-      <strong>auth/</strong> directory while your main admin components and modules grouped into
-      <strong>admin/</strong> directory.
+      <strong>auth/</strong> directory while your main admin components and modules grouped into <strong>admin/</strong> directory.
     </p>
     <p>
       If you use SSR (Server Side Rendering) you can even include your
@@ -207,17 +198,14 @@
       <li>
         <p><strong>vendors.scss</strong></p>
         <p>
-          This file is designed to import 3rd party library css/scss files into the project. Any style here can be
-          overridden by
-          <em>styles.scss</em> file allowing you to overwrite/modify 3rd party library styles and make them visually
-          compatible with your app.
+          This file is designed to import 3rd party library css/scss files into the project. Any style here can be overridden by
+          <em>styles.scss</em> file allowing you to overwrite/modify 3rd party library styles and make them visually compatible with your app.
         </p>
         <p>
           For example, let's say you use
-          <strong>FullCalendar</strong> 3rd party library. You use the <em>vendors.scss</em> file to import default
-          styles of the FullCalendar into your project so it looks and works correctly. Then, you can add custom styles
-          to the <em>styles.scss</em> file to overwrite those default styles to make FullCalendar compatible with your
-          app's design.
+          <strong>FullCalendar</strong> 3rd party library. You use the <em>vendors.scss</em> file to import default styles of the FullCalendar into
+          your project so it looks and works correctly. Then, you can add custom styles to the <em>styles.scss</em> file to overwrite those default
+          styles to make FullCalendar compatible with your app's design.
         </p>
       </li>
     </ul>

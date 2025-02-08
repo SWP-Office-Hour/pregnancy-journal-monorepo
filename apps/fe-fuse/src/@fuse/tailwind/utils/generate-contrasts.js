@@ -20,10 +20,7 @@ const generateContrasts = (palette) => {
 
   // Generate the contrasting colors
   return _.fromPairs(
-    _.map(palette, (color, hue) => [
-      hue,
-      chroma.contrast(color, darkColor) > chroma.contrast(color, lightColor) ? darkColor : lightColor,
-    ]),
+    _.map(palette, (color, hue) => [hue, chroma.contrast(color, darkColor) > chroma.contrast(color, lightColor) ? darkColor : lightColor]),
   );
 };
 

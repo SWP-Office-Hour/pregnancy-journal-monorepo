@@ -1,22 +1,6 @@
 import { AsyncPipe, CurrencyPipe, NgClass, NgTemplateOutlet } from '@angular/common';
-import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-  ViewEncapsulation,
-} from '@angular/core';
-import {
-  FormsModule,
-  ReactiveFormsModule,
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-  Validators,
-} from '@angular/forms';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormsModule, ReactiveFormsModule, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -161,26 +145,22 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy 
     });
 
     // Get the categories
-    this._inventoryService.categories$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((categories: InventoryCategory[]) => {
-        // Update the categories
-        this.categories = categories;
+    this._inventoryService.categories$.pipe(takeUntil(this._unsubscribeAll)).subscribe((categories: InventoryCategory[]) => {
+      // Update the categories
+      this.categories = categories;
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
     // Get the pagination
-    this._inventoryService.pagination$
-      .pipe(takeUntil(this._unsubscribeAll))
-      .subscribe((pagination: InventoryPagination) => {
-        // Update the pagination
-        this.pagination = pagination;
+    this._inventoryService.pagination$.pipe(takeUntil(this._unsubscribeAll)).subscribe((pagination: InventoryPagination) => {
+      // Update the pagination
+      this.pagination = pagination;
 
-        // Mark for check
-        this._changeDetectorRef.markForCheck();
-      });
+      // Mark for check
+      this._changeDetectorRef.markForCheck();
+    });
 
     // Get the products
     this.products$ = this._inventoryService.products$;
@@ -251,12 +231,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy 
           switchMap(() => {
             this.closeDetails();
             this.isLoading = true;
-            return this._inventoryService.getProducts(
-              this._paginator.pageIndex,
-              this._paginator.pageSize,
-              this._sort.active,
-              this._sort.direction,
-            );
+            return this._inventoryService.getProducts(this._paginator.pageIndex, this._paginator.pageSize, this._sort.active, this._sort.direction);
           }),
           map(() => {
             this.isLoading = false;
@@ -493,9 +468,7 @@ export class InventoryListComponent implements OnInit, AfterViewInit, OnDestroy 
    * @param inputValue
    */
   shouldShowCreateTagButton(inputValue: string): boolean {
-    return !!!(
-      inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1
-    );
+    return !!!(inputValue === '' || this.tags.findIndex((tag) => tag.title.toLowerCase() === inputValue.toLowerCase()) > -1);
   }
 
   /**

@@ -1,8 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div
-    class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent"
-  >
+  <div class="bg-card flex-0 flex flex-col border-b p-6 sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8 dark:bg-transparent">
     <div class="min-w-0 flex-1">
       <!-- Breadcrumbs -->
       <div class="flex flex-wrap items-center font-medium">
@@ -30,8 +28,8 @@
 
   <div class="prose prose-sm max-w-3xl flex-auto p-6 sm:p-10">
     <p>
-      <strong>fuse-highlight</strong> is a syntax highlighter component to display syntax highlighted codes within the
-      content. Internally, it uses <em>highlight.js</em>.
+      <strong>fuse-highlight</strong> is a syntax highlighter component to display syntax highlighted codes within the content. Internally, it uses
+      <em>highlight.js</em>.
     </p>
     <p><strong>Exported as: </strong><code>fuseHighlight</code></p>
 
@@ -51,13 +49,12 @@
         </textarea
     >
     <p>
-      <code>fuse-highlight</code> doesn't have its own selector and cannot be used like any other components. It must be
-      used with a <code>&lt;textarea&gt;</code>.
+      <code>fuse-highlight</code> doesn't have its own selector and cannot be used like any other components. It must be used with a
+      <code>&lt;textarea&gt;</code>.
     </p>
     <p>
-      The main reason of this is that the Angular parses the templates before binding and running components. Because of
-      this mechanic, anything you place into templates will be taken as a literal content and parsed by Angular. Only
-      the contents of a
+      The main reason of this is that the Angular parses the templates before binding and running components. Because of this mechanic, anything you
+      place into templates will be taken as a literal content and parsed by Angular. Only the contents of a
       <code>&lt;textarea&gt;</code> can be preserved as is.
     </p>
 
@@ -79,8 +76,7 @@
             </td>
             <td>
               Piece of code to highlight. If
-              <strong>code</strong> input is not provided, the actual content of the <strong>textarea</strong> will be
-              used.
+              <strong>code</strong> input is not provided, the actual content of the <strong>textarea</strong> will be used.
             </td>
             <td>-</td>
           </tr>
@@ -91,9 +87,7 @@
             </td>
             <td>
               Which language to highlight the code. See:
-              <a href="https://highlightjs.org/usage/" rel="noreferrer" target="_blank"
-                >https://highlightjs.org/usage/
-              </a>
+              <a href="https://highlightjs.org/usage/" rel="noreferrer" target="_blank">https://highlightjs.org/usage/ </a>
               for full list of supported languages.
             </td>
             <td>-</td>
