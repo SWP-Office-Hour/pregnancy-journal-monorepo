@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { pregnancyDatatype } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { pregnancyGetRes } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyRecordApiService } from '../pregnancy-record.api.service';
 import { PregnancyRecordSignalService } from '../pregnancy-record.signal.service';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
@@ -36,7 +36,7 @@ import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-uploa
 export class PregnancyRecordFormComponent implements OnInit {
   signalService: PregnancyRecordSignalService = inject(PregnancyRecordSignalService);
   apiService: PregnancyRecordApiService = inject(PregnancyRecordApiService);
-  @Input() data: pregnancyDatatype;
+  @Input() data: pregnancyGetRes;
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
   protected formControls = signal<

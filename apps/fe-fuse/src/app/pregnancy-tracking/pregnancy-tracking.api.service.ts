@@ -4,7 +4,9 @@ import {
   metricsObservable,
   pregnancyDataObservable,
   pregnancyDataObservableById,
-  pregnancyDatatype,
+  pregnancyDataObservableUpdateFail,
+  pregnancyDataObservableUpdateSuccess,
+  pregnancyGetRes,
 } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
@@ -27,7 +29,7 @@ export class PregnancyTrackingApiService {
     return pregnancyDataObservableById(id);
   }
 
-  submitPregnancyData(data: pregnancyDatatype) {
-    console.log(data);
+  submitPregnancyData(data: pregnancyGetRes) {
+    return Math.random() > 0.5 ? pregnancyDataObservableUpdateSuccess(data) : pregnancyDataObservableUpdateFail(data);
   }
 }

@@ -7,7 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { pregnancyDatatype } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import {
+  pregnancyGetRes,
+  pregnancyUpdateFailRes,
+  pregnancyUpdateSuccessRes,
+} from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingApiService } from '../pregnancy-tracking.api.service';
 import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
@@ -36,7 +40,7 @@ import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-uploa
 export class PregnancyTrackingFormComponent implements OnInit {
   signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
   apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
-  @Input() data: pregnancyDatatype;
+  @Input() data: pregnancyGetRes;
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
   protected formControls = signal<
@@ -53,6 +57,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     if (this.data) {
       this.setFormByData(this.data);
     }
+    console.log(this.pregnancyForm.value);
   }
 
   initForm() {
@@ -86,7 +91,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.formControls().push({ controlLabel, controlName, controlType, selectItems });
   }
 
-  setFormByData(pregnancyData: pregnancyDatatype) {
+  setFormByData(pregnancyData: pregnancyGetRes) {
     this.formControls().forEach((control) => {
       if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
         if (control.controlType != 'Select') {
@@ -102,6 +107,14 @@ export class PregnancyTrackingFormComponent implements OnInit {
   }
 
   submitForm() {
-    this.signalService.submit(this.pregnancyForm.value);
+    this.signalService.submit(this.pregnancyForm.value).subscribe({
+      next: (res: pregnancyUpdateSuccessRes) => {
+        console.log(res.data);
+        console.log('success');
+      },
+      error: (err: pregnancyUpdateFailRes) => {
+        console.log(err);
+      },
+    });
   }
 }

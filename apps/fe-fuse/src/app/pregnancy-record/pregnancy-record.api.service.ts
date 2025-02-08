@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { hospitalsObservable, metricsObservable, pregnancyDatatype } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+import {
+  hospitalsObservable,
+  metricsObservable,
+  pregnancyGetRes,
+} from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordApiService {
@@ -13,7 +17,7 @@ export class PregnancyRecordApiService {
     return hospitalsObservable();
   }
 
-  submitPregnancyData(data: pregnancyDatatype) {
+  submitPregnancyData(data: pregnancyGetRes) {
     console.log(data);
   }
 }

@@ -1,5 +1,5 @@
 import { Component, inject, Input, WritableSignal } from '@angular/core';
-import { pregnancyDatatype } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { pregnancyGetRes } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingSelectComponent } from './pregnancy-record-select/pregnancy-tracking-select.component';
 import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
 import { PregnancyTrackingApiService } from './pregnancy-tracking.api.service';
@@ -14,7 +14,7 @@ import { PregnancyTrackingSignalService } from './pregnancy-tracking.signal.serv
 })
 export class PregnancyTrackingComponent {
   private readonly signalService = inject(PregnancyTrackingSignalService);
-  protected $pregnancyDataById: WritableSignal<pregnancyDatatype> = this.signalService.PregnancyDataById;
+  protected $pregnancyDataById: WritableSignal<pregnancyGetRes> = this.signalService.PregnancyDataById;
   private readonly apiService = inject(PregnancyTrackingApiService);
 
   constructor() {

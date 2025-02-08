@@ -1,7 +1,7 @@
 import { MetricRes } from '@pregnancy-journal-monorepo/contract';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
-export type pregnancyDatatype = {
+export type pregnancyGetRes = {
   id: string;
   week: number;
   expectedBirthDate: Date;
@@ -25,7 +25,21 @@ export type pregnancyDatatype = {
   media?: mediaType[];
 };
 
-export const pregnancyData: pregnancyDatatype[] = [
+export type pregnancyUpdateSuccessRes = {
+  status: number;
+  message: string;
+  data: pregnancyGetRes;
+};
+
+export type pregnancyUpdateFailRes = {
+  status: number;
+  message: string;
+  errors: {
+    [key: string]: string;
+  }[];
+};
+
+export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '1',
     week: 10,
@@ -570,4 +584,69 @@ export const hospitalsObservable = () => {
 
 export const metricsObservable = () => {
   return of(metrics);
+};
+
+export const pregnancyDataObservableUpdateSuccess = (record: any) => {
+  const index = pregnancyData.findIndex((item) => item.id === record.id);
+  const { week, expectedBirthDate, nextVisitDate, visitDoctorDate, hospital, media, ...metrics_value } = record;
+  const metric_data = Object.getOwnPropertyNames(metrics_value).map((key) => {
+    return {
+      value: metrics_value[key],
+      metric_id: key,
+      metric_title: metrics.find((metric) => metric.id === key)?.title || '',
+      metric_measure: metrics.find((metric) => metric.id === key)?.measure || '',
+      metric_upperBoundMsg: metrics.find((metric) => metric.id === key)?.upperBoundMsg || '',
+      metric_lowerBoundMsg: metrics.find((metric) => metric.id === key)?.lowerBoundMsg || '',
+      standard_week: metrics.find((metric) => metric.id === key)?.standard[0].week || 0,
+      standard_lowerbound: metrics.find((metric) => metric.id === key)?.standard[0].lowerbound || 0,
+      standard_upperbound: metrics.find((metric) => metric.id === key)?.standard[0].upperbound || 0,
+      whoStandardValue: metrics.find((metric) => metric.id === key)?.standard[0].whoStandardValue || 0,
+      status: 1,
+      tags: [],
+    };
+  });
+  pregnancyData[index] = {
+    ...pregnancyData[index],
+    week,
+    expectedBirthDate,
+    nextVisitDate,
+    visitDoctorDate,
+    hospital,
+    data: {
+      ...metric_data,
+    },
+    media: media || pregnancyData[index].media,
+  };
+
+  return of({
+    status: 200,
+    message: 'Update success',
+    data: pregnancyData[index],
+  });
+};
+
+export const pregnancyDataObservableUpdateFail = (data: pregnancyGetRes) => {
+  return throwError(() => {
+    return {
+      status: 403,
+      message: 'Update fail',
+      errors: [
+        {
+          expectedBirthDate: 'Ngày sinh dự kiến không hợp lệ',
+        },
+        {
+          nextVisitDate: 'Ngày hẹn tái khám không hợp lệ',
+        },
+        {
+          visitDoctorDate: 'Ngày hẹn khám không hợp lệ',
+        },
+        {
+          1: 'Cân nặng không hợp lệ',
+        },
+        {
+          2: 'Chiều cao không hợp lệ',
+        },
+      ],
+    };
+  });
 };
