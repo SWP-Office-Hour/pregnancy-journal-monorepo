@@ -1,4 +1,6 @@
 # Add files here to ignore them from prettier formatting
+**/@fuse/**/*
+/@fuse
 /dist
 /coverage
 /.nx/cache
