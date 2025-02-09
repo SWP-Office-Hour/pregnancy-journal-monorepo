@@ -4,7 +4,7 @@ import { environment } from '../../../environments/environment';
 export const authConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
 
-  redirectUri: window.location.origin,
+  redirectUri: window.location.origin + '/signed-in-redirect',
 
   clientId: environment.clientId,
 
