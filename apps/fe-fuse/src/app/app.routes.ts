@@ -3,7 +3,6 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
-import { SignInWithGoogleComponent } from './core/auth/SignInWithGoogle/SignInWithGoogle.component';
 import { PregnancyRecordComponent } from './pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './pregnancy-tracking/pregnancy-tracking.routes';
 
@@ -43,7 +42,7 @@ export const appRoutes: Route[] = [
       { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes') },
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
       { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
-      { path: 'sign-in-with-google', component: SignInWithGoogleComponent },
+      { path: 'sign-in-with-google', loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes') },
     ],
   },
 
