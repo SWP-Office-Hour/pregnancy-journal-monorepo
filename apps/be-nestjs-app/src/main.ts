@@ -38,7 +38,6 @@ async function bootstrap() {
       tag: tagContract,
       metric: metricContract,
       dashboard: dashboardContract,
-      pregnancy: recordContract,
       blog: blogContract,
       note: noteContract,
       reminder: reminderContract,
@@ -46,6 +45,7 @@ async function bootstrap() {
       membership: membershipContract,
       media: mediaContract,
       category: categoryContract,
+      record: recordContract,
     },
     {
       info: {
