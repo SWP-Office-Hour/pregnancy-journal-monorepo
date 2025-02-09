@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { SignInWithGoogleComponent } from './core/auth/SignInWithGoogle/SignInWithGoogle.component';
 import { PregnancyRecordComponent } from './pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './pregnancy-tracking/pregnancy-tracking.routes';
 
@@ -19,6 +20,7 @@ export const appRoutes: Route[] = [
   // path. Below is another redirection for that path to redirect the user to the desired
   // location. This is a small convenience to keep all main routes together here on this file.
   { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'admin' },
+  //signed in redirect to homepage (default)
 
   // Auth routes for guests
   {
@@ -41,6 +43,7 @@ export const appRoutes: Route[] = [
       { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes') },
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
       { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
+      { path: 'sign-in-with-google', component: SignInWithGoogleComponent },
     ],
   },
 
