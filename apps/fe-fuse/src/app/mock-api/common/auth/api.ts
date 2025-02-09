@@ -43,7 +43,7 @@ export class AuthMockApi {
     // -----------------------------------------------------------------------------------------------------
     // @ Sign in - POST
     // -----------------------------------------------------------------------------------------------------
-    this._fuseMockApiService.onPost('api/auth/sign-in', 1500).reply(({ request }) => {
+    this._fuseMockApiService.onPost('api/auth/sign-in', 0).reply(({ request }) => {
       // Sign in successful
       if (request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin') {
         return [
