@@ -10,7 +10,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
-import { AuthGoogleService } from '../../../../../../fe-angular-app/src/app/services/auth-google.service';
+import { AuthGoogleService } from '../../../core/auth/auth-google.service';
 
 @Component({
   selector: 'auth-sign-in',

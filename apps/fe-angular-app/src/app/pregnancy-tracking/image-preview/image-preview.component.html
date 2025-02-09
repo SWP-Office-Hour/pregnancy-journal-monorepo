@@ -1,8 +1,0 @@
-<div tuiAppearance="outline" tuiCardLarge class="p-auto h-52 w-52">
-  <img [src]="imgObj.mediaUrl" class="h-48 w-48 overflow-hidden rounded-lg hover:cursor-pointer" alt="image" (mousedown)="showImage()" />
-</div>
-
-<ng-template let-observer [tuiDialogOptions]="{ label: 'Xem ảnh', size: 's' }" [(tuiDialog)]="open">
-  <img [src]="imgObj.mediaUrl" class="overflow-hidden rounded-lg" alt="image" /> <br />
-  <button tuiButton size="s" appearance="outline-destructive" (click)="deleteImage()">Xóa ảnh</button>
-</ng-template>

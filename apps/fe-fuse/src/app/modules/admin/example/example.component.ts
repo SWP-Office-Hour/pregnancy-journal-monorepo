@@ -1,4 +1,3 @@
-import { JsonPipe } from '@angular/common';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
@@ -6,7 +5,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
   standalone: true,
   templateUrl: './example.component.html',
   encapsulation: ViewEncapsulation.None,
-  imports: [JsonPipe],
 })
 export class ExampleComponent {
   // private authService = inject(AuthGoogleService);

@@ -1,6 +1,5 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "cacheDirectory": "custom-cache/",
   "namedInputs": {
     "default": ["{projectRoot}/**/*", "sharedGlobals"],
     "production": [
