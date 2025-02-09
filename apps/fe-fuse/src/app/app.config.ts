@@ -6,6 +6,7 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
 import { provideTransloco, TranslocoService } from '@ngneat/transloco';
+import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
@@ -15,6 +16,7 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideOAuthClient(),
     provideAnimations(),
     provideHttpClient(),
     provideRouter(
