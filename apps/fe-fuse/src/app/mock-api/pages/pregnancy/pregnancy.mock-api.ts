@@ -587,37 +587,7 @@ export const metricsObservable = () => {
 };
 
 export const pregnancyDataObservableUpdateSuccess = (record: any) => {
-  const index = pregnancyData.findIndex((item) => item.id === record.id);
-  const { week, expectedBirthDate, nextVisitDate, visitDoctorDate, hospital, media, ...metrics_value } = record;
-  const metric_data = Object.getOwnPropertyNames(metrics_value).map((key) => {
-    return {
-      value: metrics_value[key],
-      metric_id: key,
-      metric_title: metrics.find((metric) => metric.id === key)?.title || '',
-      metric_measure: metrics.find((metric) => metric.id === key)?.measure || '',
-      metric_upperBoundMsg: metrics.find((metric) => metric.id === key)?.upperBoundMsg || '',
-      metric_lowerBoundMsg: metrics.find((metric) => metric.id === key)?.lowerBoundMsg || '',
-      standard_week: metrics.find((metric) => metric.id === key)?.standard[0].week || 0,
-      standard_lowerbound: metrics.find((metric) => metric.id === key)?.standard[0].lowerbound || 0,
-      standard_upperbound: metrics.find((metric) => metric.id === key)?.standard[0].upperbound || 0,
-      whoStandardValue: metrics.find((metric) => metric.id === key)?.standard[0].whoStandardValue || 0,
-      status: 1,
-      tags: [],
-    };
-  });
-  pregnancyData[index] = {
-    ...pregnancyData[index],
-    week,
-    expectedBirthDate,
-    nextVisitDate,
-    visitDoctorDate,
-    hospital,
-    data: {
-      ...metric_data,
-    },
-    media: media || pregnancyData[index].media,
-  };
-
+  const index = pregnancyData.findIndex((data) => data.id === record.id);
   return of({
     status: 200,
     message: 'Update success',

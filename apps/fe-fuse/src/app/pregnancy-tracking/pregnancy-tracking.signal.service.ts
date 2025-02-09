@@ -61,7 +61,6 @@ export class PregnancyTrackingSignalService {
       ...pregnancy_data,
       media: this.mediaSrc(),
     };
-    console.log(data);
     return this.apiService.submitPregnancyData(data);
   }
 }
