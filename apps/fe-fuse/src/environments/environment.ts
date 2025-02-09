@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: process.env.HOST_URL,
-  clientId: process.env.MY_ORG_API_URL_GOOGLE_CONSOLE_CLIENT_ID,
+  apiUrl: 'http://localhost:3000/',
+  clientId: '616565294967-v2e8j0mi27a6ppbpt00mj7ge2dc2ninj.apps.googleusercontent.com',
 };

@@ -29,10 +29,10 @@
           <mat-label>Nhập Email</mat-label>
           <input id="email" matInput [formControlName]="'email'" />
           @if (signInForm.get('email').hasError('required')) {
-            <mat-error> Vui lòng nhập địa chỉ email </mat-error>
+            <mat-error> Vui lòng nhập địa chỉ email</mat-error>
           }
           @if (signInForm.get('email').hasError('email')) {
-            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ </mat-error>
+            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
           }
         </mat-form-field>
 
@@ -53,12 +53,12 @@
               <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
             }
           </button>
-          <mat-error> Vui lòng nhập mật khẩu </mat-error>
+          <mat-error> Vui lòng nhập mật khẩu</mat-error>
         </mat-form-field>
 
         <!-- Actions -->
         <div class="mt-1.5 inline-flex w-full items-center justify-between">
-          <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Lưu mật khẩu </mat-checkbox>
+          <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Lưu mật khẩu</mat-checkbox>
           <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']">Quên mật khẩu? </a>
         </div>
 
@@ -81,7 +81,7 @@
 
         <!-- Single sign-on buttons -->
         <div class="mt-8 flex items-center space-x-4">
-          <button class="flex-auto" type="button" mat-stroked-button>
+          <button (click)="signInWithGoogle()" class="flex-auto" type="button" mat-stroked-button>
             <img src="images/logo/google-icon.svg" />
           </button>
         </div>

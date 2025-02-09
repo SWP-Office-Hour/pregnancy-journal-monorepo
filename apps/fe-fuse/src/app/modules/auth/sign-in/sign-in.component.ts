@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, inject, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -10,6 +10,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseAlertComponent, FuseAlertType } from '@fuse/components/alert';
 import { AuthService } from 'app/core/auth/auth.service';
+import { AuthGoogleService } from '../../../../../../fe-angular-app/src/app/services/auth-google.service';
 
 @Component({
   selector: 'auth-sign-in',
@@ -114,5 +115,12 @@ export class AuthSignInComponent implements OnInit {
         this.showAlert = true;
       },
     );
+  }
+
+  //Login with Google
+  private authService = inject(AuthGoogleService);
+
+  signInWithGoogle() {
+    this.authService.login();
   }
 }
