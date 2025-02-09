@@ -17,9 +17,7 @@ export class UsersService {
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
-      options: {
-        expiresIn: this.configService.get<string>('JWT_ACCESS_TOKEN_EXPIRES_IN'),
-      },
+      options: {},
       secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
     });
   }
@@ -31,6 +29,14 @@ export class UsersService {
         expiresIn: expiresIn || this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
       },
       secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+    });
+  }
+
+  removeRefreshToken(refresh_token_id: string) {
+    return this.databaseService.Token.deleteMany({
+      where: {
+        refresh_token: refresh_token_id,
+      },
     });
   }
 
@@ -138,6 +144,9 @@ export class UsersService {
       this.signAccessToken({ user_id: result.id, role: result.role }),
       this.signRefreshToken({ user_id: result.id, role: result.role }),
     ]);
+
+    //xóa refresh token
+    if (refresh_token) this.removeRefreshToken(refresh_token);
     await this.databaseService.Token.create({
       data: {
         ...new TokenDto({
@@ -154,7 +163,7 @@ export class UsersService {
     //create access token and refresh token then return
     return {
       access_token,
-      refresh_token,
+      // refresh_token,
       user: {
         id: result.id,
         name: result.name,
@@ -178,6 +187,9 @@ export class UsersService {
       this.signAccessToken({ user_id: user.id, role: user.role }),
       this.signRefreshToken({ user_id: user.id, role: user.role }),
     ]);
+
+    //xóa refresh token
+    if (refresh_token) this.removeRefreshToken(refresh_token);
     await this.databaseService.Token.create({
       data: {
         ...new TokenDto({
@@ -194,7 +206,7 @@ export class UsersService {
     //create access token and refresh token then return
     return {
       access_token,
-      refresh_token,
+      // refresh_token,
       user: {
         id: user.id,
         name: user.name,
