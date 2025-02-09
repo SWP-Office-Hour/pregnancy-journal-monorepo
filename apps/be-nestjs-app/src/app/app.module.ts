@@ -9,7 +9,7 @@ import { HospitalModule } from './hosiptal/hospitalModule';
 import { MediaModule } from './media/media.module';
 import { MembershipsModule } from './memberships/memberships.module';
 import { MetricModule } from './metric/metric.module';
-import { RecordModule } from './record/record.module';
+import { RecordsModule } from './records/records.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { TagModule } from './tags/tag.module';
 import { UsersModule } from './users/users.module';
@@ -30,7 +30,7 @@ import { UsersModule } from './users/users.module';
     BlogsModule,
     FileModule,
     MediaModule,
-    RecordModule,
+    RecordsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

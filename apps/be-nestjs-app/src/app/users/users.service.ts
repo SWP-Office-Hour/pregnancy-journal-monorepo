@@ -152,7 +152,15 @@ export class UsersService {
       },
     });
     //create access token and refresh token then return
-    return { access_token, refresh_token };
+    return {
+      access_token,
+      refresh_token,
+      user: {
+        id: result.id,
+        name: result.name,
+        role: result.role,
+      },
+    };
   }
 
   async login(data: LoginRequest) {
@@ -184,7 +192,15 @@ export class UsersService {
       },
     });
     //create access token and refresh token then return
-    return { access_token, refresh_token };
+    return {
+      access_token,
+      refresh_token,
+      user: {
+        id: user.id,
+        name: user.name,
+        role: user.role,
+      },
+    };
   }
 
   // async emailVerify({
