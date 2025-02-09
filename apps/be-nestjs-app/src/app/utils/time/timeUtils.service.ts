@@ -9,6 +9,6 @@ export class TimeUtilsService {
     // Tính tuần thai
     const pregnancyWeek = 40 - daysRemaining / 7;
 
-    return Number(pregnancyWeek.toFixed(1));
+    return Number(pregnancyWeek.toFixed(0));
   }
 }
