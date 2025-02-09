@@ -89,6 +89,7 @@ export class MetricService {
   }
 
   async findByMetricIdAndWeek({ metricId, week }: { metricId: string; week: number }) {
+    console.log(week);
     return await this.databaseService.Metric.findFirst({
       where: {
         id: metricId,
