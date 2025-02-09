@@ -7,11 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import {
-  pregnancyGetRes,
-  pregnancyUpdateFailRes,
-  pregnancyUpdateSuccessRes,
-} from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { pregnancyGetRes, pregnancyUpdateFailRes, pregnancyUpdateSuccessRes } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingApiService } from '../pregnancy-tracking.api.service';
 import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
 import { ImagePreviewComponent } from './image-preview/image-preview.component';
@@ -107,6 +103,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
   }
 
   submitForm() {
+    document.querySelectorAll('.error-message').forEach((element) => element.remove());
     this.signalService.submit(this.pregnancyForm.value).subscribe({
       next: (res: pregnancyUpdateSuccessRes) => {
         const index = this.signalService.PregnancyData().findIndex((data) => data.id == res.data.id);
