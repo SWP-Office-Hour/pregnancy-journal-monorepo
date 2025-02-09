@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "prepare": "husky && git config --local include.path .gitconfig",
-    "format:write": "nx format:write --all"
+    "format:write": "nx format:write --all",
+    "prettier:write": "prettier --write ."
   },
   "private": true,
   "prisma": {
