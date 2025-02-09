@@ -41,6 +41,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
   signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
   apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
   @Input() data: pregnancyGetRes;
+
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
   protected formControls = signal<
@@ -68,7 +69,6 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.apiService.getHospitalList().subscribe((hospitals) => {
       this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
     });
-    this.addControlToForm('week', 0, 'Number', 'Tuần thai');
     this.apiService.getMetrics().subscribe((metrics) => {
       metrics.forEach((metric) => {
         this.addControlToForm(metric.id, 0, 'Number', metric.title);
@@ -109,11 +109,19 @@ export class PregnancyTrackingFormComponent implements OnInit {
   submitForm() {
     this.signalService.submit(this.pregnancyForm.value).subscribe({
       next: (res: pregnancyUpdateSuccessRes) => {
-        console.log(res.data);
-        console.log('success');
+        const index = this.signalService.PregnancyData().findIndex((data) => data.id == res.data.id);
+        this.signalService.selectRecord(index);
       },
       error: (err: pregnancyUpdateFailRes) => {
-        console.log(err);
+        err.errors.forEach((error) => {
+          const form_field = document.getElementById(Object.getOwnPropertyNames(error)[0]);
+          const error_message = error[Object.getOwnPropertyNames(error)[0]];
+          const error_message_element = document.createElement('div');
+          error_message_element.innerText = error_message;
+          error_message_element.className = 'error-message text-red-500';
+          form_field.appendChild(error_message_element);
+          this.pregnancyForm.get(Object.getOwnPropertyNames(error)[0]).setErrors({ invalid: true });
+        });
       },
     });
   }
