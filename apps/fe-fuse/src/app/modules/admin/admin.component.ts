@@ -1,12 +1,12 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 @Component({
-  selector: 'example',
+  selector: 'app-admin',
   standalone: true,
-  templateUrl: './example.component.html',
+  templateUrl: './admin.component.html',
   encapsulation: ViewEncapsulation.None,
 })
-export class ExampleComponent {
+export class AdminComponent {
   // private authService = inject(AuthGoogleService);
   // private router = inject(Router);
   // profile = this.authService.profile;
