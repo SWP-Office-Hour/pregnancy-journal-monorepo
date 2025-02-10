@@ -1,6 +1,8 @@
-import { Body, Controller, Param } from '@nestjs/common';
+import { Body, Controller, Req, UseGuards } from '@nestjs/common';
 import { recordContract, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { RequestWithJWT } from 'express';
+import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { RecordsService } from './records.service';
 
 @Controller()
@@ -16,9 +18,11 @@ export class RecordsController {
   //   });
   // }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(recordContract.getRecordByUserId)
-  handleGetRecordByUserId(@Param('id') id: string) {
+  handleGetRecordByUserId(@Req() request: RequestWithJWT) {
     return tsRestHandler(recordContract.createRecord, async () => {
+      const id = request.decoded_authorization.user_id;
       const record = await this.recordService.getRecordByUserId(id);
       return {
         status: 201,
