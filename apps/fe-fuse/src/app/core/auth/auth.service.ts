@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { UserRole } from '@pregnancy-journal-monorepo/contract';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, Observable, of, switchMap, throwError } from 'rxjs';
@@ -14,6 +15,10 @@ export class AuthService {
   // @ Accessors
   // -----------------------------------------------------------------------------------------------------
 
+  get accessToken(): string {
+    return localStorage.getItem('accessToken') ?? '';
+  }
+
   /**
    * Setter & getter for access token
    */
@@ -21,8 +26,8 @@ export class AuthService {
     localStorage.setItem('accessToken', token);
   }
 
-  get accessToken(): string {
-    return localStorage.getItem('accessToken') ?? '';
+  get refreshToken(): string {
+    return localStorage.getItem('refreshToken') ?? '';
   }
 
   /**
@@ -30,10 +35,6 @@ export class AuthService {
    */
   set refreshToken(token: string) {
     localStorage.setItem('refreshToken', token);
-  }
-
-  get refreshToken(): string {
-    return localStorage.getItem('refreshToken') ?? '';
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -180,5 +181,18 @@ export class AuthService {
 
     // If the access token exists, and it didn't expire, sign in using it
     return this.signInUsingToken();
+  }
+
+  checkAdmin(): Observable<boolean> {
+    const role = AuthUtils.getUserRole(this.accessToken);
+    if (role) {
+      if (role === UserRole.ADMIN) {
+        return of(true);
+      } else {
+        return of(false);
+      }
+    } else {
+      return of(false);
+    }
   }
 }
