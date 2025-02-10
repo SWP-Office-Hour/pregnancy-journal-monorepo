@@ -21,15 +21,15 @@ export class RecordsController {
     return tsRestHandler(recordContract.createRecord, async () => {
       const record = await this.recordService.getRecordByUserId(id);
 
-      const resolvedRecord = await Promise.all(
-        record.map(async (rec) => {
-          const resolvedData = await Promise.all(rec.data.map(async (dataPromise) => await dataPromise));
-          return { ...rec, data: resolvedData };
-        }),
-      );
+      // const resolvedRecord = await Promise.all(
+      //   record.map(async (rec) => {
+      //     const resolvedData = await Promise.all(rec.data.map(async (dataPromise) => await dataPromise));
+      //     return { ...rec, data: resolvedData };
+      //   }),
+      // );
       return {
         status: 201,
-        body: resolvedRecord,
+        body: record,
       };
     });
   }
