@@ -16,7 +16,26 @@ import { QuillEditorComponent } from 'ngx-quill';
 export class CreateBlogComponent implements OnInit {
   createBlogForm: UntypedFormGroup;
   quillModules: any = {
-    toolbar: [['bold', 'italic', 'underline'], [{ align: [] }, { list: 'ordered' }, { list: 'bullet' }], ['clean']],
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['blockquote', 'code-block'],
+      ['link', 'image', 'video', 'formula'],
+
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+      [{ direction: 'rtl' }], // text direction
+
+      [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ['clean'],
+    ],
   };
 
   /**
@@ -36,9 +55,7 @@ export class CreateBlogComponent implements OnInit {
     this.createBlogForm = this._formBuilder.group({
       title: ['', [Validators.required]],
       author: [''],
-      created_at: [''],
-      updated_at: [''],
-      tags: [''],
+      tags: [[]],
       body: ['', [Validators.required]],
     });
   }
@@ -68,5 +85,7 @@ export class CreateBlogComponent implements OnInit {
   /**
    * Send the message
    */
-  send(): void {}
+  send(): void {
+    console.log(this.createBlogForm.value);
+  }
 }

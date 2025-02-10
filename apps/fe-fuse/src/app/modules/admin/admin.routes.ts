@@ -9,6 +9,11 @@ export default [
   },
   {
     path: 'blogs',
-    component: CreateBlogComponent,
+    children: [
+      {
+        path: 'create',
+        component: CreateBlogComponent,
+      },
+    ],
   },
 ] as Routes;
