@@ -21,6 +21,7 @@ import { FinanceMockApi } from 'app/mock-api/dashboards/finance/api';
 import { ProjectMockApi } from 'app/mock-api/dashboards/project/api';
 import { ActivitiesMockApi } from 'app/mock-api/pages/activities/api';
 import { IconsMockApi } from 'app/mock-api/ui/icons/api';
+import { BlogsMockApi } from './dashboards/blogs/api';
 
 export const mockApiServices = [
   AcademyMockApi,
@@ -46,4 +47,5 @@ export const mockApiServices = [
   ShortcutsMockApi,
   TasksMockApi,
   UserMockApi,
+  BlogsMockApi,
 ];
