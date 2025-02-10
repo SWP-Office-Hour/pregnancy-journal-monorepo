@@ -54,7 +54,7 @@ export class RecordsService {
         },
         hospital: {
           connect: {
-            id: record.hosptal_id,
+            id: record.hospital_id,
           },
         },
         visit_record_metric: {
@@ -63,7 +63,7 @@ export class RecordsService {
               value: data.value,
               created_at: new Date(),
               updated_at: new Date(),
-              metric_id: data.meric_id,
+              metric_id: data.metric_i,
             })),
           },
         },
@@ -71,7 +71,7 @@ export class RecordsService {
       include: {
         visit_record_metric: true,
         media: true,
-        hospita: true,
+        hospital: true,
       },
     });
 
