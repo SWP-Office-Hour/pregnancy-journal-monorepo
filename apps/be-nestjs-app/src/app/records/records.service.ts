@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { RecordCreateRequest } from '@pregnancy-journal-monorepo/contract';
+import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MetricService } from '../metric/metric.service';
 import { TimeUtilsService } from '../utils/time/timeUtils.service';
@@ -114,7 +114,7 @@ export class RecordsService {
     return await this.formatRecord(records, user);
   }
 
-  async formatRecord(records, user) {
+  async formatRecord(records, user): Promise<RecordResponse[]> {
     return await Promise.all(
       records.map(async (record) => {
         const week = this.timeUtilsService.calculatePregnancyWeeks({
@@ -189,5 +189,43 @@ export class RecordsService {
     }
 
     return await this.formatRecord([record], user);
+  }
+
+  async updateRecord(record: RecordUpdateRequest) {
+    await this.dataService.Record.update({
+      where: { id: record.id },
+      data: {
+        visit_doctor_date: record.visit_doctor_date,
+        next_visit_doctor_date: record.next_visit_doctor_date,
+        visit_record_metric: {
+          updateMany: record.data.map((data) => ({
+            where: { metric_id: data.metric_id },
+            data: {
+              value: data.value,
+            },
+          })),
+        },
+      },
+    });
+
+    if (record.hospital_id) {
+      const check = await this.dataService.Hospital.findUnique({ where: { id: record.hospital_id } });
+      if (!check) {
+        throw new NotFoundException('Hospital not found');
+      }
+
+      await this.dataService.Record.update({
+        where: { id: record.id },
+        data: {
+          hospital: {
+            connect: {
+              id: record.hospital_id,
+            },
+          },
+        },
+      });
+    }
+    const formatRecord = await this.getRecordById(record.id);
+    return formatRecord[0];
   }
 }

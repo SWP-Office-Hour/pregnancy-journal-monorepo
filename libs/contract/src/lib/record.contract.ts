@@ -28,7 +28,6 @@ const recordMetricCreateReqSchema = z.object({
 const recordMetricUpdateReqSchema = z.object({
   value: z.number().optional(),
   metric_id: z.string().optional(),
-  tag_id: z.string().optional(),
 });
 
 const recordCreateReqSchema = z.object({
@@ -44,27 +43,25 @@ const recordUpdateReqSchema = z.object({
   week: z.number().optional(),
   visit_doctor_date: z.string().datetime().optional(),
   next_visit_doctor_date: z.string().datetime().optional(),
-  hospital: z.string().optional(),
+  hospital_id: z.string().optional(),
   data: z.array(recordMetricUpdateReqSchema.optional()).optional(),
 });
 
-const recordResSchema = z.array(
-  z.object({
-    id: z.string(),
-    week: z.number(),
-    visit_doctor_date: z.date(),
-    next_visit_doctor_date: z.date(),
-    hospital: hospitalResSchema,
-    user_id: z.string(),
-    data: z.array(recordMetricSchema),
-    media: z.array(mediaResSchema),
-  }),
-);
+const recordResSchema = z.object({
+  id: z.string(),
+  week: z.number(),
+  visit_doctor_date: z.date(),
+  next_visit_doctor_date: z.date(),
+  hospital: hospitalResSchema,
+  user_id: z.string(),
+  data: z.array(recordMetricSchema),
+  media: z.array(mediaResSchema),
+});
 
 export type RecordCreateRequest = z.infer<typeof recordCreateReqSchema>;
 export type RecordUpdateRequest = z.infer<typeof recordUpdateReqSchema>;
 
-export type pregnancyResponse = z.infer<typeof recordResSchema>;
+export type RecordResponse = z.infer<typeof recordResSchema>;
 
 const c = initContract();
 
@@ -82,12 +79,12 @@ export const recordContract = c.router({
     },
   },
 
-  getRecordById: {
+  getRecordByUserId: {
     method: 'GET',
     path: '/record/:id',
     description: 'Get pregnancy by user id',
     responses: {
-      200: recordResSchema,
+      200: z.array(recordResSchema),
       400: z.object({
         message: z.string(),
       }),
