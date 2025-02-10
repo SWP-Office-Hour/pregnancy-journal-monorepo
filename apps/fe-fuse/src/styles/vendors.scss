@@ -7,3 +7,7 @@
 
 /* Quill */
 @import 'quill/dist/quill.snow.css';
+
+.ql-container > .ql-editor {
+  min-height: 160px;
+}
