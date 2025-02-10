@@ -81,7 +81,7 @@ export const recordContract = c.router({
 
   getRecordByUserId: {
     method: 'GET',
-    path: '/record/:id',
+    path: '/record',
     description: 'Get pregnancy by user id',
     responses: {
       200: z.array(recordResSchema),
