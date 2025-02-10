@@ -1,0 +1,52 @@
+<div class="flex min-w-0 flex-auto flex-col">
+  <!-- Main -->
+  <div class="flex-auto p-6 sm:p-10">
+    <div class="rounded-2xl border-2 border-gray-300">
+      <!-- Header -->
+      <div class="flex-0 bg-primary text-on-primary flex h-16 items-center justify-between rounded-t-2xl pl-6 pr-3 sm:pl-8 sm:pr-5">
+        <div class="text-lg font-medium">New Message</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+          <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+        </button>
+      </div>
+
+      <!-- Compose form -->
+      <form class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8" [formGroup]="createBlogForm">
+        <mat-form-field>
+          <mat-label>Title</mat-label>
+          <input matInput [formControlName]="'title'" />
+        </mat-form-field>
+
+        <!-- Bcc -->
+
+        <mat-form-field>
+          <mat-label>Author</mat-label>
+          <input matInput [formControlName]="'author'" />
+        </mat-form-field>
+
+        <!-- Subject -->
+        <mat-form-field>
+          <mat-label>Tags</mat-label>
+          <input matInput [formControlName]="'tags'" />
+        </mat-form-field>
+
+        <!-- Body -->
+        <quill-editor class="mt-2" [formControlName]="'body'" [bounds]="'self'" [modules]="quillModules"></quill-editor>
+
+        <!-- Actions -->
+        <div class="mt-4 flex flex-col justify-between sm:mt-6 sm:flex-row sm:items-center">
+          <div class="mt-4 flex items-center sm:mt-0">
+            <!-- Discard -->
+            <button class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">Discard</button>
+            <!-- Save as draft -->
+            <button class="sm:mx-3" mat-stroked-button (click)="saveAsDraft()">
+              <span>Save as draft</span>
+            </button>
+            <!-- Send -->
+            <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="send()">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
