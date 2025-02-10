@@ -1,165 +1,166 @@
-<div class="flex min-w-0 flex-auto flex-col items-center sm:flex-row sm:justify-center md:items-start md:justify-start">
-  <div
-    class="sm:bg-card w-full px-4 py-8 sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow md:flex md:h-full md:w-1/2 md:items-center md:justify-end md:rounded-none md:p-16 md:shadow-none"
+<div class="-z-10">
+  <div class="absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 leading-5"></div>
+
+  <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320">
+    <path
+      fill="#ff597d"
+      fill-opacity="1"
+      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+    ></path>
+  </svg>
+  <svg
+    class="pointer-events-none absolute inset-0"
+    viewBox="0 0 960 540"
+    width="100%"
+    height="100%"
+    preserveAspectRatio="xMidYMax slice"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <div class="mx-auto w-full max-w-80 sm:mx-0 sm:w-80">
-      <!-- Logo -->
-      <div class="w-18">
-        <img src="images/logo/logo_only.png" />
-      </div>
+    <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+      <circle r="234" cx="196" cy="23"></circle>
+      <circle r="234" cx="790" cy="491"></circle>
+    </g>
+  </svg>
+</div>
+<div class="flex h-full w-full">
+  <!-- Content -->
+  <div class="sm:bg-card mx-50 my-12 flex rounded-3xl py-8">
+    <!--block left: form-->
+    <div class="flex w-1/2">
+      <div class="m-auto w-1/2">
+        <!-- Logo -->
+        <div class="mx-auto w-24">
+          <img src="images/logo/logo_only.png" alt="logo" />
+        </div>
+        <!-- Title -->
+        <div class="mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight">Đăng nhập</div>
 
-      <!-- Title -->
-      <div class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">Đăng nhập</div>
-      <div class="mt-0.5 flex items-baseline font-medium">
-        <div>Bạn chưa có tài khoản?</div>
-        <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['/sign-up']">Đăng kí </a>
-      </div>
+        <!-- Alert -->
+        @if (showAlert) {
+          <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
+            {{ alert.message }}
+          </fuse-alert>
+        }
 
-      <!-- Alert -->
-      @if (showAlert) {
-        <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
-          {{ alert.message }}
-        </fuse-alert>
-      }
-
-      <!-- Sign in form -->
-      <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
-        <!-- Email field -->
-        <mat-form-field class="w-full">
-          <mat-label>Nhập Email</mat-label>
-          <input id="email" matInput [formControlName]="'email'" />
-          @if (signInForm.get('email').hasError('required')) {
-            <mat-error> Vui lòng nhập địa chỉ email</mat-error>
-          }
-          @if (signInForm.get('email').hasError('email')) {
-            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
-          }
-        </mat-form-field>
-
-        <!-- Password field -->
-        <mat-form-field class="w-full">
-          <mat-label>Mật khẩu</mat-label>
-          <input id="password" matInput type="password" [formControlName]="'password'" #passwordField />
-          <button
-            mat-icon-button
-            type="button"
-            (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
-            matSuffix
-          >
-            @if (passwordField.type === 'password') {
-              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+        <!-- Sign in form -->
+        <form class="mt-8" [formGroup]="signInForm" #signInNgForm="ngForm">
+          <!-- Email field -->
+          <mat-form-field class="w-full">
+            <mat-label>Email</mat-label>
+            <input id="email" matInput [formControlName]="'email'" />
+            @if (signInForm.get('email').hasError('required')) {
+              <mat-error> Vui lòng nhập địa chỉ email</mat-error>
             }
-            @if (passwordField.type === 'text') {
-              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+            @if (signInForm.get('email').hasError('email')) {
+              <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- Password field -->
+          <mat-form-field class="w-full">
+            <mat-label>Mật khẩu</mat-label>
+            <input id="password" matInput type="password" [formControlName]="'password'" #passwordField />
+            <button
+              mat-icon-button
+              type="button"
+              (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
+              matSuffix
+            >
+              @if (passwordField.type === 'password') {
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+              }
+              @if (passwordField.type === 'text') {
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+              }
+            </button>
+            <mat-error> Vui lòng nhập mật khẩu</mat-error>
+          </mat-form-field>
+
+          <!-- Actions -->
+          <div class="mt-1.5 inline-flex w-full items-center justify-between">
+            <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Lưu mật khẩu</mat-checkbox>
+            <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']">Quên mật khẩu? </a>
+          </div>
+
+          <!-- Submit button -->
+          <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
+            @if (!signInForm.disabled) {
+              <span> Đăng nhập </span>
+            }
+            @if (signInForm.disabled) {
+              <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
             }
           </button>
-          <mat-error> Vui lòng nhập mật khẩu</mat-error>
-        </mat-form-field>
 
-        <!-- Actions -->
-        <div class="mt-1.5 inline-flex w-full items-center justify-between">
-          <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'rememberMe'"> Lưu mật khẩu</mat-checkbox>
-          <a class="text-md text-primary-500 font-medium hover:underline" [routerLink]="['/forgot-password']">Quên mật khẩu? </a>
+          <!-- Separator -->
+          <div class="mt-8 flex items-center">
+            <div class="mt-px flex-auto border-t"></div>
+            <div class="text-secondary mx-2">Hoặc tiếp tục với</div>
+            <div class="mt-px flex-auto border-t"></div>
+          </div>
+
+          <!-- Single sign-on buttons -->
+          <div class="mt-8 flex items-center space-x-4">
+            <button (click)="signInWithGoogle()" class="flex-auto" type="button" mat-stroked-button>
+              <img src="images/logo/google-icon.svg" />
+            </button>
+          </div>
+        </form>
+        <div class="mt-8 flex items-baseline justify-center font-medium">
+          <div>Bạn chưa có tài khoản?</div>
+          <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['/sign-up']">Đăng kí </a>
         </div>
-
-        <!-- Submit button -->
-        <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signInForm.disabled" (click)="signIn()">
-          @if (!signInForm.disabled) {
-            <span> Đăng nhập </span>
-          }
-          @if (signInForm.disabled) {
-            <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
-          }
-        </button>
-
-        <!-- Separator -->
-        <div class="mt-8 flex items-center">
-          <div class="mt-px flex-auto border-t"></div>
-          <div class="text-secondary mx-2">Hoặc tiếp tục với</div>
-          <div class="mt-px flex-auto border-t"></div>
-        </div>
-
-        <!-- Single sign-on buttons -->
-        <div class="mt-8 flex items-center space-x-4">
-          <button (click)="signInWithGoogle()" class="flex-auto" type="button" mat-stroked-button>
-            <img src="images/logo/google-icon.svg" />
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-  <div class="relative hidden h-full w-1/2 flex-auto items-center justify-center overflow-hidden p-16 md:flex lg:px-28 dark:border-l">
-    <!-- Background -->
-    <!-- Rings -->
-    <div
-      class="absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 leading-5"
-    ></div>
-
-    <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320">
-      <path
-        fill="#ff597d"
-        fill-opacity="1"
-        d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
-      ></path>
-    </svg>
-    <svg
-      class="pointer-events-none absolute inset-0"
-      viewBox="0 0 960 540"
-      width="100%"
-      height="100%"
-      preserveAspectRatio="xMidYMax slice"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
-        <circle r="234" cx="196" cy="23"></circle>
-        <circle r="234" cx="790" cy="491"></circle>
-      </g>
-    </svg>
-    <!-- Dots -->
-    <svg class="absolute -right-16 -top-16 text-gray-700" viewBox="0 0 220 192" width="220" height="192" fill="none">
-      <defs>
-        <pattern id="dots-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
-        </pattern>
-      </defs>
-      <rect width="220" height="192" fill="url(#dots-pattern)"></rect>
-    </svg>
-    <!-- Content -->
-    <div class="relative z-10 w-full max-w-2xl">
-      <div class="text-7xl font-bold leading-none text-red-50">
-        <div>Kính chào mẹ!</div>
+    <!--block right-->
+    <div class="relative mr-8 flex w-1/2 flex-col justify-between">
+      <div class="bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10">
+        <div class="h-auto self-center">
+          <div class="mb-4 flex">
+            <div
+              class="self-end text-6xl font-extrabold leading-tight tracking-tight text-pink-50"
+              style="color: #fcedd8; font-family: 'Niconne', cursive; text-shadow: 3px 3px 0px #eb452b"
+            >
+              <i>Pregnancy Journal</i>
+            </div>
+          </div>
+          <div class="mt-4 w-2/3 text-xl leading-6 tracking-tight text-gray-50">
+            <p>
+              <i style="text-align: justify-all"
+                ><strong class="text-2xl">"</strong> Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức
+                khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. <strong class="text-2xl">"</strong></i
+              >
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="mt-6 text-lg leading-6 tracking-tight text-red-100">
-        <p>
-          <strong>Pregnancy Journal</strong> là người bạn đồng hành của mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức
-          khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu.
-        </p>
-        <p class="mt-4">Tham gia ngay hôm nay để gia nhập cộng đồng hơn <strong>10,000</strong> bà mẹ đang chia sẻ yêu thương và kiến thức.</p>
-      </div>
-      <div class="mt-8 flex items-center">
+      <div class="bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10">
         <div class="flex-0 flex items-center -space-x-1.5">
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-red-400 ring-offset-1 ring-offset-red-300"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="images/avatars/female-18.jpg"
             alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-red-400 ring-offset-1 ring-offset-red-300"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="images/avatars/female-11.jpg"
             alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-red-400 ring-offset-1 ring-offset-red-300"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="images/avatars/female-01.jpg"
             alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-red-400 ring-offset-1 ring-offset-red-300"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="images/avatars/female-04.jpg"
             alt="Mẹ sử dụng ứng dụng"
           />
         </div>
-        <div class="ml-4 font-medium tracking-tight text-red-100"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>
+        <div class="ml-4 font-medium tracking-tight text-pink-50"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>
+      </div>
+      <div class="absolute -right-10 bottom-24 z-10 w-96">
+        <img src="images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg" alt="pregnancy" />
       </div>
     </div>
   </div>
