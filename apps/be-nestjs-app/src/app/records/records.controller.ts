@@ -1,4 +1,4 @@
-import { Body, Controller, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
 import { recordContract, RecordCreateRequest, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
@@ -46,10 +46,14 @@ export class RecordsController {
     });
   }
 
-  // @TsRestHandler(recordContract.deleteRecord)
-  // handleDeleteRecord(@Param('id') id: string) {
-  //   return tsRestHandler(recordContract.createRecord, () => {
-  //     return this.recordService.deleteRecord(id);
-  //   });
-  // }
+  @TsRestHandler(recordContract.deleteRecord)
+  handleDeleteRecord(@Param('id') id: string) {
+    return tsRestHandler(recordContract.createRecord, async () => {
+      const mes = await this.recordService.deleteRecord(id);
+      return {
+        status: 201,
+        body: mes,
+      };
+    });
+  }
 }

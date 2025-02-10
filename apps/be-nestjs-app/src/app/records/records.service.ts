@@ -219,4 +219,22 @@ export class RecordsService {
     const formatRecord = await this.getRecordById(record.id);
     return formatRecord[0];
   }
+
+  async deleteRecord(recordId: string) {
+    await Promise.all([
+      this.dataService.RecordMetric.deleteMany({
+        where: { visit_record_id: recordId },
+      }),
+      this.dataService.Media.deleteMany({
+        where: { visit_record_id: recordId },
+      }),
+      this.dataService.Record.delete({
+        where: { id: recordId },
+      }),
+      this.dataService.Reminder.deleteMany({
+        where: { visit_record_id: recordId },
+      }),
+    ]);
+    return { message: 'Record deleted' };
+  }
 }
