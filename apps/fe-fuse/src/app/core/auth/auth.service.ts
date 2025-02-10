@@ -185,8 +185,8 @@ export class AuthService {
 
   checkAdmin(): Observable<boolean> {
     const role = AuthUtils.getUserRole(this.accessToken);
-    if (role) {
-      if (role === UserRole.ADMIN) {
+    if (role != null) {
+      if (role == UserRole.ADMIN) {
         return of(true);
       } else {
         return of(false);

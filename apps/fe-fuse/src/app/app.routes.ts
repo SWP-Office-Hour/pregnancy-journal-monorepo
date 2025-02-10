@@ -3,7 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
-import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard'; // @formatter:off
+import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 
@@ -72,8 +72,8 @@ export const appRoutes: Route[] = [
   // Admin routes
   {
     path: '',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+    canActivate: [AdminAuthGuard],
+    canActivateChild: [AdminAuthGuard],
     component: LayoutComponent,
     data: {
       layout: 'admin',
@@ -87,8 +87,8 @@ export const appRoutes: Route[] = [
   // Customer routes
   {
     path: '',
-    canActivate: [AdminAuthGuard],
-    canActivateChild: [AdminAuthGuard],
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
     component: LayoutComponent,
     resolve: {
       initialData: initialDataResolver,
