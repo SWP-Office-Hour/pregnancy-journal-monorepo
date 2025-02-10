@@ -63,7 +63,7 @@ export class RecordsService {
               value: data.value,
               created_at: new Date(),
               updated_at: new Date(),
-              metric_id: data.metric_i,
+              metric_id: data.metric_id,
             })),
           },
         },
