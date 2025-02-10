@@ -25,11 +25,25 @@
         </mat-form-field>
 
         <!-- Subject -->
-        <mat-form-field>
+        <mat-form-field class="flex-auto">
           <mat-label>Tags</mat-label>
-          <input matInput [formControlName]="'tags'" />
+          <mat-chip-grid #chipGridForTags>
+            @for (chip of tagsChips(); track $index) {
+              <mat-chip-row [value]="chip" (removed)="removeTag(chip)"
+                >{{ chip.title }}
+                <mat-icon matChipRemove>cancel</mat-icon>
+              </mat-chip-row>
+            }
+            <input #tagsInput matInput [matAutocomplete]="auto" [matChipInputFor]="chipGridForTags" [matChipInputAddOnBlur]="true" />
+          </mat-chip-grid>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            @for (tag of tagsOptions; track $index) {
+              <mat-option [value]="tag" [disabled]="isTagSelected(tag)">
+                {{ tag.title }}
+              </mat-option>
+            }
+          </mat-autocomplete>
         </mat-form-field>
-
         <!-- Body -->
         <quill-editor class="mt-2" [formControlName]="'body'" [bounds]="'self'" [modules]="quillModules"></quill-editor>
 
