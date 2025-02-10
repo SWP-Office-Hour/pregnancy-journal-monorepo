@@ -3,11 +3,13 @@ import { ChangeDetectionStrategy, Component, ElementRef, OnInit, signal, ViewChi
 import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
-import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
+import { MatSelect } from '@angular/material/select';
 import { QuillEditorComponent } from 'ngx-quill';
+import { AdminBlogsService } from '../../../core/admin/admin.blogs.service';
 
 @Component({
   selector: 'app-create-blog',
@@ -22,6 +24,7 @@ import { QuillEditorComponent } from 'ngx-quill';
     QuillEditorComponent,
     MatChipsModule,
     MatAutocompleteModule,
+    MatSelect,
   ],
   templateUrl: './create-blog.component.html',
   styleUrl: './create-blog.component.css',
@@ -127,6 +130,48 @@ export class CreateBlogComponent implements OnInit {
       title: 'Kotlin Multiplatform',
     },
   ];
+  categories = [
+    {
+      id: '1',
+      title: 'Web Development',
+    },
+    {
+      id: '2',
+      title: 'Mobile Development',
+    },
+    {
+      id: '3',
+      title: 'Desktop Development',
+    },
+    {
+      id: '4',
+      title: 'Game Development',
+    },
+    {
+      id: '5',
+      title: 'Machine Learning',
+    },
+    {
+      id: '6',
+      title: 'Data Science',
+    },
+    {
+      id: '7',
+      title: 'DevOps',
+    },
+    {
+      id: '8',
+      title: 'Cloud Computing',
+    },
+    {
+      id: '9',
+      title: 'Cybersecurity',
+    },
+    {
+      id: '10',
+      title: 'Blockchain',
+    },
+  ];
   quillModules: any = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -153,7 +198,10 @@ export class CreateBlogComponent implements OnInit {
   /**
    * Constructor
    */
-  constructor(private _formBuilder: UntypedFormBuilder) {}
+  constructor(
+    private _formBuilder: UntypedFormBuilder,
+    private _blogService: AdminBlogsService,
+  ) {}
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
@@ -167,6 +215,8 @@ export class CreateBlogComponent implements OnInit {
     this.createBlogForm = this._formBuilder.group({
       title: ['', [Validators.required]],
       author: [''],
+      summary: [''],
+      category: [''],
       tags: [this.tagsChips()],
       body: ['', [Validators.required]],
     });
@@ -195,18 +245,7 @@ export class CreateBlogComponent implements OnInit {
     console.log(this.createBlogForm.get('tags').value);
   }
 
-  add(event: MatChipInputEvent): void {
-    if (!this.matAutocomplete.isOpen) {
-      const value = event.value;
-      // Add tag
-      if (value) {
-        this.tagsChips.update((tags) => [...tags, { id: '', title: value }]);
-      }
-    }
-    event.chipInput!.clear();
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
+  tagSelected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.value;
     if (!this.tagsChips().some((t) => t.id === value.id)) {
       this.tagsChips().push(value);
@@ -217,5 +256,22 @@ export class CreateBlogComponent implements OnInit {
 
   isTagSelected(tag) {
     return this.tagsChips().some((t) => t.id === tag.id);
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+
+  submit(): void {
+    this._blogService.createBlog(this.createBlogForm.value).subscribe((response: any) => {
+      this._blogService.getContent().subscribe((content) => {
+        const responseWithContent = {
+          id: response.id,
+          title: response.title,
+          author: response.author,
+          summary: response.summary,
+          content,
+        };
+        console.log(responseWithContent);
+      });
+    });
   }
 }

@@ -4,7 +4,7 @@
     <div class="rounded-2xl border-2 border-gray-300">
       <!-- Header -->
       <div class="flex-0 bg-primary text-on-primary flex h-16 items-center justify-between rounded-t-2xl pl-6 pr-3 sm:pl-8 sm:pr-5">
-        <div class="text-lg font-medium">New Message</div>
+        <div class="text-lg font-medium">Blog Editor</div>
         <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
           <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
         </button>
@@ -17,14 +17,21 @@
           <input matInput [formControlName]="'title'" />
         </mat-form-field>
 
-        <!-- Bcc -->
+        <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+          <mat-label>Category</mat-label>
+          <mat-select [formControlName]="'category'" required>
+            <mat-option value="" disabled="true">Select category</mat-option>
+            @for (category of categories; track $index) {
+              <mat-option value="{{ category.id }}">{{ category.title }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
 
         <mat-form-field>
           <mat-label>Author</mat-label>
           <input matInput [formControlName]="'author'" />
         </mat-form-field>
 
-        <!-- Subject -->
         <mat-form-field class="flex-auto">
           <mat-label>Tags</mat-label>
           <mat-chip-grid #chipGridForTags>
@@ -36,7 +43,7 @@
             }
             <input #tagsInput matInput [matAutocomplete]="auto" [matChipInputFor]="chipGridForTags" [matChipInputAddOnBlur]="true" />
           </mat-chip-grid>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagSelected($event)">
             @for (tag of tagsOptions; track $index) {
               <mat-option [value]="tag" [disabled]="isTagSelected(tag)">
                 {{ tag.title }}
@@ -44,6 +51,12 @@
             }
           </mat-autocomplete>
         </mat-form-field>
+
+        <mat-form-field>
+          <mat-label>Summary</mat-label>
+          <input matInput [formControlName]="'summary'" />
+        </mat-form-field>
+
         <!-- Body -->
         <quill-editor class="mt-2" [formControlName]="'body'" [bounds]="'self'" [modules]="quillModules"></quill-editor>
 
@@ -57,7 +70,7 @@
               <span>Save as draft</span>
             </button>
             <!-- Send -->
-            <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="send()">Send</button>
+            <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="submit()">Send</button>
           </div>
         </div>
       </form>
