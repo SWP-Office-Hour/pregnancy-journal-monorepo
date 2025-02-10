@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { PregnancyTrackingSignalService } from '../../pregnancy-tracking.signal.service';
+import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-pregnancy-tracking-paging',

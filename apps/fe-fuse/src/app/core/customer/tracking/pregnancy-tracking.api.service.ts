@@ -7,7 +7,7 @@ import {
   pregnancyDataObservableUpdateFail,
   pregnancyDataObservableUpdateSuccess,
   pregnancyGetRes,
-} from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+} from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingApiService {

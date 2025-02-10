@@ -1,9 +1,9 @@
 import { Component, inject, Input, WritableSignal } from '@angular/core';
-import { pregnancyGetRes } from '../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { PregnancyTrackingApiService } from '../../../core/customer/tracking/pregnancy-tracking.api.service';
+import { PregnancyTrackingSignalService } from '../../../core/customer/tracking/pregnancy-tracking.signal.service';
+import { pregnancyGetRes } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingSelectComponent } from './pregnancy-record-select/pregnancy-tracking-select.component';
 import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
-import { PregnancyTrackingApiService } from './pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from './pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-pregnancy-tracking',

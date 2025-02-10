@@ -1,7 +1,7 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyTrackingSignalService } from '../../../pregnancy-tracking.signal.service';
+import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
 
 @Component({
   selector: 'app-dialog-img',
