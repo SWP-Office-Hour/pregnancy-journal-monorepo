@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { PregnancyRecordSignalService } from '../../pregnancy-record.signal.service';
+import { PregnancyRecordSignalService } from '../../../../core/customer/record/pregnancy-record.signal.service';
 
 @Component({
   selector: 'app-file-upload',

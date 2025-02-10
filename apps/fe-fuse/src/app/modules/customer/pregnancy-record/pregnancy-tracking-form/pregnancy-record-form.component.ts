@@ -7,11 +7,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { pregnancyGetRes, pregnancyUpdateFailRes, pregnancyUpdateSuccessRes } from '../../mock-api/pages/pregnancy/pregnancy.mock-api';
-import { PregnancyTrackingApiService } from '../pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
-import { ImagePreviewComponent } from './image-preview/image-preview.component';
-import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-upload.component';
+import { PregnancyRecordApiService } from '../../../../core/customer/record/pregnancy-record.api.service';
+import { PregnancyRecordSignalService } from '../../../../core/customer/record/pregnancy-record.signal.service';
+import { pregnancyGetRes } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { ImagePreviewComponent } from '../image-preview/image-preview.component';
+import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
 
 @Component({
   selector: 'app-pregnancy-tracking-form',
@@ -30,14 +30,13 @@ import { FileUploadComponent } from './pregnancy-tracking-file-upload/file-uploa
     MatIconModule,
     MatSelectModule,
   ],
-  templateUrl: './pregnancy-tracking-form.component.html',
-  styleUrl: './pregnancy-tracking-form.component.css',
+  templateUrl: './pregnancy-record-form.component.html',
+  styleUrl: './pregnancy-record-form.component.css',
 })
-export class PregnancyTrackingFormComponent implements OnInit {
-  signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
-  apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
+export class PregnancyRecordFormComponent implements OnInit {
+  signalService: PregnancyRecordSignalService = inject(PregnancyRecordSignalService);
+  apiService: PregnancyRecordApiService = inject(PregnancyRecordApiService);
   @Input() data: pregnancyGetRes;
-
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
   protected formControls = signal<
@@ -51,10 +50,6 @@ export class PregnancyTrackingFormComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    if (this.data) {
-      this.setFormByData(this.data);
-    }
-    console.log(this.pregnancyForm.value);
   }
 
   initForm() {
@@ -65,6 +60,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.apiService.getHospitalList().subscribe((hospitals) => {
       this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
     });
+    this.addControlToForm('week', 0, 'Number', 'Tuần thai');
     this.apiService.getMetrics().subscribe((metrics) => {
       metrics.forEach((metric) => {
         this.addControlToForm(metric.id, 0, 'Number', metric.title);
@@ -87,39 +83,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.formControls().push({ controlLabel, controlName, controlType, selectItems });
   }
 
-  setFormByData(pregnancyData: pregnancyGetRes) {
-    this.formControls().forEach((control) => {
-      if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
-        if (control.controlType != 'Select') {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName]);
-        } else {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName].id);
-        }
-      }
-      if (pregnancyData.data.find((d) => d.metric_id === control.controlName)) {
-        this.pregnancyForm.get(control.controlName).setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
-      }
-    });
-  }
-
   submitForm() {
-    document.querySelectorAll('.error-message').forEach((element) => element.remove());
-    this.signalService.submit(this.pregnancyForm.value).subscribe({
-      next: (res: pregnancyUpdateSuccessRes) => {
-        const index = this.signalService.PregnancyData().findIndex((data) => data.id == res.data.id);
-        this.signalService.selectRecord(index);
-      },
-      error: (err: pregnancyUpdateFailRes) => {
-        err.errors.forEach((error) => {
-          const form_field = document.getElementById(Object.getOwnPropertyNames(error)[0]);
-          const error_message = error[Object.getOwnPropertyNames(error)[0]];
-          const error_message_element = document.createElement('div');
-          error_message_element.innerText = error_message;
-          error_message_element.className = 'error-message text-red-500';
-          form_field.appendChild(error_message_element);
-          this.pregnancyForm.get(Object.getOwnPropertyNames(error)[0]).setErrors({ invalid: true });
-        });
-      },
-    });
+    this.signalService.submit(this.pregnancyForm.value);
   }
 }

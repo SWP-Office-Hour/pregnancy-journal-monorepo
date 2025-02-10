@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { PregnancyTrackingSignalService } from '../pregnancy-tracking.signal.service';
-import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging/pregnancy-tracking-paging.component';
+import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
+import { PregnancyTrackingPagingComponent } from '../pregnancy-tracking-paging/pregnancy-tracking-paging.component';
 
 @Component({
   selector: 'app-pregnancy-record-select',

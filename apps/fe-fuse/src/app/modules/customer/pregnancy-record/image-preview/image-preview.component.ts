@@ -3,8 +3,8 @@ import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyRecordSignalService } from '../../pregnancy-record.signal.service';
-import { DialogImgComponent } from './dialog-img/dialog-img.component';
+import { PregnancyRecordSignalService } from '../../../../core/customer/record/pregnancy-record.signal.service';
+import { DialogImgComponent } from '../dialog-img/dialog-img.component';
 
 @Component({
   selector: 'app-image-preview',

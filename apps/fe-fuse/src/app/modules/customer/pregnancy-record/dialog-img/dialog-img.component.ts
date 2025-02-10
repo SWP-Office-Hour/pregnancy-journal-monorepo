@@ -1,7 +1,7 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyRecordSignalService } from '../../../pregnancy-record.signal.service';
+import { PregnancyRecordSignalService } from '../../../../core/customer/record/pregnancy-record.signal.service';
 
 @Component({
   selector: 'app-dialog-img',

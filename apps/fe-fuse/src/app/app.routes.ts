@@ -3,8 +3,8 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
-import { PregnancyRecordComponent } from './pregnancy-record/pregnancy-record.component';
-import { pregnancyTrackingRoutes } from './pregnancy-tracking/pregnancy-tracking.routes';
+import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
+import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes'; // @formatter:off
 
 // @formatter:off
 /* eslint-disable max-len */
