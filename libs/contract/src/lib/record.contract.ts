@@ -40,10 +40,10 @@ const recordCreateReqSchema = z.object({
 
 const recordUpdateReqSchema = z.object({
   id: z.string(),
-  week: z.number().optional(),
   visit_doctor_date: z.string().datetime().optional(),
   next_visit_doctor_date: z.string().datetime().optional(),
   hospital_id: z.string().optional(),
+  doctor_name: z.string().optional(),
   data: z.array(recordMetricUpdateReqSchema.optional()).optional(),
 });
 
