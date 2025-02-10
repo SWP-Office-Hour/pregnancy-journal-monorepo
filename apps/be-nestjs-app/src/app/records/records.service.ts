@@ -101,7 +101,12 @@ export class RecordsService {
       throw new NotFoundException('Record not found');
     }
 
-    return await this.formatRecord(records, user);
+    const result = await this.formatRecord(records, user);
+
+    return {
+      total: result.length,
+      data: result,
+    };
   }
 
   async formatRecord(records, user): Promise<RecordResponse[]> {
