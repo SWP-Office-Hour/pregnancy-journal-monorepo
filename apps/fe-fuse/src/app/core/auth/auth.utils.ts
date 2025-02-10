@@ -28,7 +28,7 @@ export class AuthUtils {
     offsetSeconds = offsetSeconds || 0;
 
     if (date === null) {
-      return true;
+      return false;
     }
 
     // Check if the token is expired
@@ -156,7 +156,7 @@ export class AuthUtils {
   private static _getTokenExpirationDate(token: string): Date | null {
     // Get the decoded token
     const decodedToken = this._decodeToken(token);
-
+    console.log(decodedToken);
     // Return if the decodedToken doesn't have an 'exp' field
     if (!decodedToken.hasOwnProperty('exp')) {
       return null;

@@ -66,6 +66,18 @@ export class AuthMockApi {
     this._fuseMockApiService.onPost('api/auth/sign-in-with-token').reply(({ request }) => {
       // Get the access token
       const accessToken = request.body.accessToken;
+      const adminToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
+      if (accessToken === adminToken) {
+        return [
+          200,
+          {
+            user: cloneDeep(this._user),
+            accessToken: adminToken,
+            tokenType: 'bearer',
+          },
+        ];
+      }
 
       // Verify the token
       if (this._verifyJWTToken(accessToken)) {
@@ -201,8 +213,9 @@ export class AuthMockApi {
 
     // Re-sign and encode the header and payload using the secret
     const signatureCheck = this._base64url(HmacSHA256(header + '.' + payload, this._secret));
-
+    const adminToken =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
     // Verify that the resulting signature is valid
-    return signature === signatureCheck;
+    return signature === signatureCheck || token === adminToken;
   }
 }
