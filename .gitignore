@@ -26,11 +26,8 @@ node_modules
 
 # IDEs - Jetbrains - MY MODIFICATIONS
 .idea/*
-!.idea/inspectionProfiles
-!.idea/codeStyles/*
 !.idea/externalDependencies.xml
 !.idea/prettier.xml
-
 !.idea/jsonSchemas.xml
 !.idea/scopes
 !.idea/conventionalCommit.xml
