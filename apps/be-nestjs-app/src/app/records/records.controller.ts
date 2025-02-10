@@ -1,5 +1,5 @@
-import { Controller, Param } from '@nestjs/common';
-import { recordContract } from '@pregnancy-journal-monorepo/contract';
+import { Body, Controller, Param } from '@nestjs/common';
+import { recordContract, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RecordsService } from './records.service';
 
@@ -16,17 +16,10 @@ export class RecordsController {
   //   });
   // }
 
-  @TsRestHandler(recordContract.getRecordById)
+  @TsRestHandler(recordContract.getRecordByUserId)
   handleGetRecordByUserId(@Param('id') id: string) {
     return tsRestHandler(recordContract.createRecord, async () => {
       const record = await this.recordService.getRecordByUserId(id);
-
-      // const resolvedRecord = await Promise.all(
-      //   record.map(async (rec) => {
-      //     const resolvedData = await Promise.all(rec.data.map(async (dataPromise) => await dataPromise));
-      //     return { ...rec, data: resolvedData };
-      //   }),
-      // );
       return {
         status: 201,
         body: record,
@@ -34,13 +27,17 @@ export class RecordsController {
     });
   }
 
-  // @TsRestHandler(recordContract.updateRecord)
-  // handleUpdateRecord(@Body() record: RecordUpdateRequest) {
-  //   return tsRestHandler(recordContract.createRecord, () => {
-  //     return this.recordService.updateRecord(record);
-  //   });
-  // }
-  //
+  @TsRestHandler(recordContract.updateRecord)
+  handleUpdateRecord(@Body() record: RecordUpdateRequest) {
+    return tsRestHandler(recordContract.createRecord, async () => {
+      const result = await this.recordService.updateRecord(record);
+      return {
+        status: 201,
+        body: result,
+      };
+    });
+  }
+
   // @TsRestHandler(recordContract.deleteRecord)
   // handleDeleteRecord(@Param('id') id: string) {
   //   return tsRestHandler(recordContract.createRecord, () => {
