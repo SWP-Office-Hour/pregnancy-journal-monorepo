@@ -25,6 +25,12 @@ const recordMetricCreateReqSchema = z.object({
   metric_id: z.string(),
 });
 
+const recordMetricUpdateReqSchema = z.object({
+  value: z.number().optional(),
+  metric_id: z.string().optional(),
+  tag_id: z.string().optional(),
+});
+
 const recordCreateReqSchema = z.object({
   visit_doctor_date: z.string().datetime(),
   next_visit_doctor_date: z.string().datetime(),
@@ -39,7 +45,7 @@ const recordUpdateReqSchema = z.object({
   visit_doctor_date: z.string().datetime().optional(),
   next_visit_doctor_date: z.string().datetime().optional(),
   hospital: z.string().optional(),
-  data: z.array(recordMetricSchema.optional()).optional(),
+  data: z.array(recordMetricUpdateReqSchema.optional()).optional(),
 });
 
 const recordResSchema = z.array(
