@@ -22,7 +22,7 @@ export const AdminAuthGuard: CanActivateFn | CanActivateChildFn = (route, state)
       return authService.checkAdmin().pipe(
         switchMap((isAdmin) => {
           if (!isAdmin) {
-            const urlTree = router.parseUrl(`admin`);
+            const urlTree = router.parseUrl(`home`);
             return of(urlTree);
           }
           return of(true);
