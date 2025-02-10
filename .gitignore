@@ -30,14 +30,10 @@ node_modules
 !.idea/codeStyles/*
 !.idea/externalDependencies.xml
 !.idea/prettier.xml
-!.idea/vcs.xml
+
 !.idea/jsonSchemas.xml
 !.idea/scopes
 !.idea/conventionalCommit.xml
-!.idea/git_toolbox_blame.xml
-!.idea/git_toolbox_prj.xml
-!.idea/misc.xml
-!.idea/modules.xml
 
 # IDE - VSCode
 .vscode/*
