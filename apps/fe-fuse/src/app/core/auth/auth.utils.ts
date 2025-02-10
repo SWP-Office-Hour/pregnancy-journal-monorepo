@@ -35,6 +35,19 @@ export class AuthUtils {
     return !(date.valueOf() > new Date().valueOf() + offsetSeconds * 1000);
   }
 
+  /**
+   * Get user_role from token
+   * */
+  static getUserRole(token: string): number {
+    if (!token) {
+      return null;
+    }
+
+    const decodedToken = this._decodeToken(token);
+
+    return decodedToken['role'];
+  }
+
   // -----------------------------------------------------------------------------------------------------
   // @ Private methods
   // -----------------------------------------------------------------------------------------------------
@@ -156,7 +169,6 @@ export class AuthUtils {
   private static _getTokenExpirationDate(token: string): Date | null {
     // Get the decoded token
     const decodedToken = this._decodeToken(token);
-    console.log(decodedToken);
     // Return if the decodedToken doesn't have an 'exp' field
     if (!decodedToken.hasOwnProperty('exp')) {
       return null;
