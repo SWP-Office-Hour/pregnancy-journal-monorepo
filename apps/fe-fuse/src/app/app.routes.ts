@@ -6,20 +6,22 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
+import { LandingComponent } from './modules/landing/landing.component';
+import { HomeComponent } from './modules/member/home/home.component';
 
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 export const appRoutes: Route[] = [
-  // Redirect empty path to '/admin'
-  { path: '', pathMatch: 'full', redirectTo: 'admin' },
+  // Redirect empty path to '/landing'
+  { path: '', pathMatch: 'full', redirectTo: 'landing' },
 
-  // Redirect signed-in user to the '/admin'
+  // Redirect signed-in user to the '/home'
   //
   // After the user signs in, the sign-in page will redirect the user to the 'signed-in-redirect'
   // path. Below is another redirection for that path to redirect the user to the desired
   // location. This is a small convenience to keep all main routes together here on this file.
-  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'admin' },
+  { path: 'signed-in-redirect', pathMatch: 'full', redirectTo: 'home' },
   //signed in redirect to homepage (default)
 
   // Auth routes for guests
@@ -66,10 +68,13 @@ export const appRoutes: Route[] = [
   {
     path: '',
     component: LayoutComponent,
+    data: {
+      layout: 'empty',
+    },
     resolve: {
       initialData: initialDataResolver,
     },
-    children: [{ path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes') }],
+    children: [{ path: 'landing', loadComponent: () => LandingComponent }],
   },
 
   // Admin routes
@@ -102,6 +107,7 @@ export const appRoutes: Route[] = [
       initialData: initialDataResolver,
     },
     children: [
+      { path: 'home', loadComponent: () => HomeComponent },
       { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
       {
         path: 'record',
