@@ -68,6 +68,7 @@ export const authContract = c.router({
   register: {
     method: 'POST',
     path: '/users/auth/register',
+    description: 'Register a new user',
     body: registerSchema,
     responses: {
       200: authResponseSchema,
@@ -78,6 +79,7 @@ export const authContract = c.router({
   login: {
     method: 'POST',
     path: '/users/auth/login',
+    description: 'Login',
     body: loginSchema,
     responses: {
       200: authResponseSchema,
@@ -88,18 +90,19 @@ export const authContract = c.router({
     method: 'POST',
     path: '/users/auth/logout',
     body: tokenSchema,
+    description: 'Logout',
     responses: {
       200: messageResponseSchema,
       401: messageResponseSchema,
     },
   },
-  refreshToken: {
-    method: 'POST',
-    path: '/users/auth/refresh',
-    body: tokenSchema,
-    responses: {
-      200: authResponseSchema,
-      401: messageResponseSchema,
-    },
-  },
+  // refreshToken: {
+  //   method: 'POST',
+  //   path: '/users/auth/refresh',
+  //   body: tokenSchema,
+  //   responses: {
+  //     200: authResponseSchema,
+  //     401: messageResponseSchema,
+  //   },
+  // },
 });

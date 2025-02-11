@@ -41,6 +41,7 @@ export const reminderContract = c.router({
   getAll: {
     method: 'GET',
     path: '/reminders',
+    description: 'Get all reminders',
     responses: {
       200: z.array(reminderResSchema),
       404: z.object({ message: z.string() }),
@@ -49,6 +50,7 @@ export const reminderContract = c.router({
   getOne: {
     method: 'GET',
     path: '/reminders/:id',
+    description: 'Get a reminder by id',
     responses: {
       200: reminderResSchema,
       404: z.object({ message: z.string() }),
@@ -57,6 +59,7 @@ export const reminderContract = c.router({
   create: {
     method: 'POST',
     path: '/reminders',
+    description: 'Create a new reminder',
     body: reminderCreateReqSchema,
     responses: {
       201: reminderResSchema,
@@ -65,6 +68,7 @@ export const reminderContract = c.router({
   update: {
     method: 'PATCH',
     path: '/reminders',
+    description: 'Update a reminder',
     body: reminderUpdateReqSchema,
     responses: {
       200: reminderResSchema,
@@ -73,6 +77,7 @@ export const reminderContract = c.router({
   delete: {
     method: 'DELETE',
     path: '/reminders/:id',
+    description: 'Delete a reminder by id',
     pathParams: z.object({
       id: z.string(),
     }),

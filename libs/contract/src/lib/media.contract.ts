@@ -15,6 +15,7 @@ export const mediaContract = c.router({
     method: 'POST',
     path: '/media',
     contentType: 'multipart/form-data',
+    description: 'Upload a image',
     query: z.object({
       post_id: z.string().optional(),
       record_id: z.string().optional(),
@@ -41,6 +42,7 @@ export const mediaContract = c.router({
   getLink: {
     method: 'GET',
     path: '/media/:id',
+    description: 'Get a image by media id',
     responses: {
       200: mediaResSchema,
       400: z.object({
@@ -51,6 +53,7 @@ export const mediaContract = c.router({
   deleteFile: {
     method: 'DELETE',
     path: '/media/:id',
+    description: 'Delete a image by media id',
     responses: {
       200: z.object({
         message: z.string(),

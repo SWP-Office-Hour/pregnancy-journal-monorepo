@@ -33,6 +33,7 @@ export const noteContract = c.router({
   getAll: {
     method: 'GET',
     path: '/note',
+    description: 'Get all notes',
     responses: {
       200: z.array(noteResSchema),
       404: z.object({ message: z.string() }),
@@ -41,6 +42,10 @@ export const noteContract = c.router({
   getOne: {
     method: 'GET',
     path: '/note/:id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    description: 'Get a note by note id',
     responses: {
       200: noteResSchema,
       404: z.object({ message: z.string() }),
@@ -50,6 +55,7 @@ export const noteContract = c.router({
     method: 'POST',
     path: '/note',
     body: noteCreateReqSchema,
+    description: 'Create a new note',
     responses: {
       201: noteResSchema,
     },
@@ -58,6 +64,7 @@ export const noteContract = c.router({
     method: 'PATCH',
     path: '/note/:id',
     body: noteUpdateReqSchema,
+    description: 'Update a note by note id',
     responses: {
       200: noteResSchema,
     },
@@ -68,6 +75,7 @@ export const noteContract = c.router({
     pathParams: z.object({
       id: z.string(),
     }),
+    description: 'Delete a note by note id',
     responses: {
       204: z.object({
         message: z.string(),

@@ -77,6 +77,7 @@ export const userContract = c.router({
   getAll: {
     method: 'GET',
     path: '/users',
+    description: 'Get all users',
     responses: {
       200: userGetAllResSchema,
       // 404: object({ message: string() }),
@@ -85,6 +86,7 @@ export const userContract = c.router({
   getOne: {
     method: 'GET',
     path: '/users/:id',
+    description: 'Get a user by id',
     pathParams: z.object({
       id: z.string(),
     }),
@@ -97,6 +99,7 @@ export const userContract = c.router({
     method: 'POST',
     path: '/users',
     body: userCreateReqSchema,
+    description: 'Create a new user',
     responses: {
       200: userResSchema,
       // 404: object({ message: string() }),
@@ -106,6 +109,7 @@ export const userContract = c.router({
     method: 'PATCH',
     path: '/users',
     body: userUpdateReqSchema,
+    description: 'Update a user',
     responses: {
       200: userResSchema,
       404: z.object({ message: z.string() }),
