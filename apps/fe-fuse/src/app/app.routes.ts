@@ -64,9 +64,6 @@ export const appRoutes: Route[] = [
   // Landing routes
   {
     path: '',
-    resolve: {
-      initialData: initialDataResolver,
-    },
     component: LayoutComponent,
     children: [{ path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes') }],
   },

@@ -41,7 +41,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class AdminLayoutComponent implements OnInit, OnDestroy {
   isScreenSmall: boolean;
   navigation: Navigation;
-  navigationAppearance: 'default' | 'admin' = 'admin';
+  navigationAppearance: 'default' | 'dense' = 'dense';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -85,7 +85,7 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
       this.isScreenSmall = !matchingAliases.includes('md');
 
       // Change the navigation appearance
-      this.navigationAppearance = this.isScreenSmall ? 'default' : 'admin';
+      this.navigationAppearance = this.isScreenSmall ? 'default' : 'dense';
     });
   }
 
@@ -121,6 +121,6 @@ export class AdminLayoutComponent implements OnInit, OnDestroy {
    * Toggle the navigation appearance
    */
   toggleNavigationAppearance(): void {
-    this.navigationAppearance = this.navigationAppearance === 'default' ? 'admin' : 'default';
+    this.navigationAppearance = this.navigationAppearance === 'default' ? 'dense' : 'default';
   }
 }

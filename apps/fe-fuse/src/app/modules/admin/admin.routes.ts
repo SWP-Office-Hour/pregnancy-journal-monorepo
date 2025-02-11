@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
+import { BlogComponent } from '../blog/blog.component';
+import { CreateBlogComponent } from '../blog/create-blog/create-blog.component';
+import { HealthMetricComponent } from '../health-metric/health-metric.component';
 import { AdminComponent } from './admin.component';
-import { CreateBlogComponent } from './create-blog/create-blog.component';
 
 export default [
   {
@@ -8,8 +10,12 @@ export default [
     component: AdminComponent,
   },
   {
-    path: 'blogs',
-    // component: BlogComponent, trang chính của blog, có mấy cái nút để bấm tiếp qua các chức năng
+    path: 'health-metric',
+    component: HealthMetricComponent,
+  },
+  {
+    path: 'blog',
+    component: BlogComponent,
     children: [
       {
         path: 'create',

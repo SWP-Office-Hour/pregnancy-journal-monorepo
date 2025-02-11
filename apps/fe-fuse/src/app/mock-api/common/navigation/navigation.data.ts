@@ -29,17 +29,24 @@ export const adminNavigation: FuseNavigationItem[] = [
     link: '/home',
   },
   {
+    id: 'health-metric',
+    title: 'Health Metric',
+    type: 'basic',
+    icon: 'heroicons_outline:chart-bar',
+    link: 'admin/health-metric',
+  },
+  {
     id: 'blog',
     title: 'Blog',
     type: 'basic',
-    icon: 'heroicons_outline:shield-check',
-    link: '/blog',
+    icon: 'heroicons_outline:pencil-square',
+    link: 'admin/blog',
     children: [
       {
         id: 'blog-create',
         title: 'Create',
         type: 'basic',
-        link: '/blog/create',
+        link: 'admin/blog/create',
       },
     ],
   },
