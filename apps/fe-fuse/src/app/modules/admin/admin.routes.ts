@@ -15,8 +15,11 @@ export default [
   },
   {
     path: 'blog',
-    component: BlogComponent,
     children: [
+      {
+        path: '',
+        component: BlogComponent,
+      },
       {
         path: 'create',
         component: CreateBlogComponent,
