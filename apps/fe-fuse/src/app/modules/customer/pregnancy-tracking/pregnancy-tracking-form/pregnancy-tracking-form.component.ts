@@ -54,14 +54,12 @@ export class PregnancyTrackingFormComponent implements OnInit {
     if (this.data) {
       this.setFormByData(this.data);
     }
-    console.log(this.pregnancyForm.value);
   }
 
   initForm() {
     this.pregnancyForm = new FormGroup({});
-    this.addControlToForm('visitDoctorDate', new Date(), 'Date', 'Ngày đi khám bác sĩ');
-    this.addControlToForm('nextVisitDate', new Date(), 'Date', 'Ngày đi khám tiếp theo');
-    this.addControlToForm('expectedBirthDate', new Date(), 'Date', 'Ngày dự sinh');
+    this.addControlToForm('visit_doctor_date', new Date(), 'Date', 'Ngày đi khám bác sĩ');
+    this.addControlToForm('next_visit_doctor_date', new Date(), 'Date', 'Ngày đi khám tiếp theo');
     this.apiService.getHospitalList().subscribe((hospitals) => {
       this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
     });
@@ -106,7 +104,7 @@ export class PregnancyTrackingFormComponent implements OnInit {
     document.querySelectorAll('.error-message').forEach((element) => element.remove());
     this.signalService.submit(this.pregnancyForm.value).subscribe({
       next: (res: pregnancyUpdateSuccessRes) => {
-        const index = this.signalService.PregnancyData().findIndex((data) => data.id == res.data.id);
+        const index = this.signalService.RecordData().findIndex((data) => data.id == res.data.id);
         this.signalService.selectRecord(index);
       },
       error: (err: pregnancyUpdateFailRes) => {

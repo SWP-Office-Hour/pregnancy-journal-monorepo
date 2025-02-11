@@ -14,24 +14,24 @@ import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregna
 })
 export class PregnancyTrackingComponent {
   private readonly signalService = inject(PregnancyTrackingSignalService);
-  protected $pregnancyDataById: WritableSignal<pregnancyGetRes> = this.signalService.PregnancyDataById;
+  protected $pregnancyDataById: WritableSignal<pregnancyGetRes> = this.signalService.RecordDataById;
   private readonly apiService = inject(PregnancyTrackingApiService);
 
   constructor() {
-    this.apiService.getPregnancyData().subscribe((data) => {
-      this.signalService.PregnancyData.set(data);
+    this.apiService.getPregnancyData().subscribe((res) => {
+      this.signalService.RecordData.set(res.data);
     });
   }
 
   @Input()
   set id(id: number) {
-    if (id > this.signalService.PregnancyData().length || id < 0) {
-      this.signalService.selectRecord(this.signalService.PregnancyData().length - 1);
+    if (id > this.signalService.RecordData().length || id < 0) {
+      this.signalService.selectRecord(this.signalService.RecordDataLength() - 1);
     } else {
-      this.signalService.PregnancyDataById.set(
-        this.signalService.PregnancyData()[id] ? this.signalService.PregnancyData()[id] : this.signalService.PregnancyData()[length - 1],
+      this.signalService.RecordDataById.set(
+        this.signalService.RecordData()[id] ? this.signalService.RecordData()[id] : this.signalService.RecordData()[length - 1],
       );
-      this.signalService.MediaSrc.set(this.signalService.PregnancyDataById().media || []);
+      this.signalService.MediaSrc.set(this.signalService.RecordDataById().media || []);
     }
   }
 }

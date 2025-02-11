@@ -24,7 +24,7 @@ export class FileUploadComponent {
       reader.onload = () => {
         this.pregnancyService.addImage({
           id: new Date().getTime().toString(),
-          mediaUrl: reader.result as string,
+          url: reader.result as string,
         });
       };
     }

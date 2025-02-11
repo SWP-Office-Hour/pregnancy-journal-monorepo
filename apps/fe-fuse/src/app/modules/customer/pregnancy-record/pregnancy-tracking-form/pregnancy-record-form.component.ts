@@ -54,13 +54,11 @@ export class PregnancyRecordFormComponent implements OnInit {
 
   initForm() {
     this.pregnancyForm = new FormGroup({});
-    this.addControlToForm('visitDoctorDate', new Date(), 'Date', 'Ngày đi khám bác sĩ');
-    this.addControlToForm('nextVisitDate', new Date(), 'Date', 'Ngày đi khám tiếp theo');
-    this.addControlToForm('expectedBirthDate', new Date(), 'Date', 'Ngày dự sinh');
+    this.addControlToForm('visit_doctor_date', new Date(), 'Date', 'Ngày đi khám bác sĩ');
+    this.addControlToForm('next_visit_doctor_date', new Date(), 'Date', 'Ngày đi khám tiếp theo');
     this.apiService.getHospitalList().subscribe((hospitals) => {
       this.addControlToForm('hospital', '', 'Select', 'Bệnh viện', hospitals);
     });
-    this.addControlToForm('week', 0, 'Number', 'Tuần thai');
     this.apiService.getMetrics().subscribe((metrics) => {
       metrics.forEach((metric) => {
         this.addControlToForm(metric.id, 0, 'Number', metric.title);

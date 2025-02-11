@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   hospitalsObservable,
@@ -11,7 +12,7 @@ import {
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingApiService {
-  constructor() {}
+  constructor(private _httpClient: HttpClient) {}
 
   getMetrics() {
     return metricsObservable();
@@ -22,6 +23,7 @@ export class PregnancyTrackingApiService {
   }
 
   getPregnancyData() {
+    // return this._httpClient.get<{ total: number; data: RecordResponse }>('https://localhost:3000/record');
     return pregnancyDataObservable();
   }
 
