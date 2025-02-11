@@ -6,6 +6,7 @@ import { BlogsModule } from './blogs/blogs.module';
 import { CategorysModule } from './categorys/categorys.module';
 import { FileModule } from './file/file.module';
 import { HospitalModule } from './hosiptal/hospitalModule';
+import { MailModule } from './mail/mail.module';
 import { MediaModule } from './media/media.module';
 import { MembershipsModule } from './memberships/memberships.module';
 import { MetricModule } from './metric/metric.module';
@@ -31,6 +32,7 @@ import { UsersModule } from './users/users.module';
     FileModule,
     MediaModule,
     RecordsModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
