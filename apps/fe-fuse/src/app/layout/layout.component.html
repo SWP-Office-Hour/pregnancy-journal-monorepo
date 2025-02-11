@@ -14,56 +14,63 @@
   <centered-layout></centered-layout>
 }
 
-<!-- Enterprise -->
-@if (layout === 'enterprise') {
-  <enterprise-layout></enterprise-layout>
-}
+<!--&lt;!&ndash; Enterprise &ndash;&gt;-->
+<!--@if (layout === 'enterprise') {-->
+<!--  <enterprise-layout></enterprise-layout>-->
+<!--}-->
 
-<!-- Material -->
-@if (layout === 'material') {
-  <material-layout></material-layout>
-}
+<!--&lt;!&ndash; Material &ndash;&gt;-->
+<!--@if (layout === 'material') {-->
+<!--  <material-layout></material-layout>-->
+<!--}-->
 
-<!-- Modern -->
-@if (layout === 'modern') {
-  <modern-layout></modern-layout>
-}
+<!--&lt;!&ndash; Modern &ndash;&gt;-->
+<!--@if (layout === 'modern') {-->
+<!--  <modern-layout></modern-layout>-->
+<!--}-->
 
 <!-- ----------------------------------------------------------------------------------------------------- -->
 <!-- Layouts with vertical navigation -->
 <!-- ----------------------------------------------------------------------------------------------------- -->
 
-<!-- Classic -->
-@if (layout === 'classic') {
-  <classic-layout></classic-layout>
-}
+<!--&lt;!&ndash; Classic &ndash;&gt;-->
+<!--@if (layout === 'classic') {-->
+<!--  <classic-layout></classic-layout>-->
+<!--}-->
 
-<!-- Classy -->
-@if (layout === 'classy') {
-  <classy-layout></classy-layout>
-}
+<!--&lt;!&ndash; Classy &ndash;&gt;-->
+<!--@if (layout === 'classy') {-->
+<!--  <classy-layout></classy-layout>-->
+<!--}-->
 
-<!-- Compact -->
-@if (layout === 'compact') {
-  <compact-layout></compact-layout>
-}
+<!--&lt;!&ndash; Compact &ndash;&gt;-->
+<!--@if (layout === 'compact') {-->
+<!--  <compact-layout></compact-layout>-->
+<!--}-->
 
 <!-- Dense -->
 @if (layout === 'dense') {
   <dense-layout></dense-layout>
 }
 
-<!-- Futuristic -->
-@if (layout === 'futuristic') {
-  <futuristic-layout></futuristic-layout>
-}
+<!--&lt;!&ndash; Futuristic &ndash;&gt;-->
+<!--@if (layout === 'futuristic') {-->
+<!--  <futuristic-layout></futuristic-layout>-->
+<!--}-->
 
-<!-- Thin -->
-@if (layout === 'thin') {
-  <thin-layout></thin-layout>
+<!--&lt;!&ndash; Thin &ndash;&gt;-->
+<!--@if (layout === 'thin') {-->
+<!--  <thin-layout></thin-layout>-->
+<!--}-->
+
+<!-- LAYOUT CUSTOM CHO TỪNG ROLE -->
+@if (layout === 'admin') {
+  <admin-layout></admin-layout>
 }
 
 <!-- ----------------------------------------------------------------------------------------------------- -->
 <!-- Settings drawer - Remove this to remove the drawer and its button -->
 <!-- ----------------------------------------------------------------------------------------------------- -->
-<settings></settings>
+@if (layout == '') {
+  <settings></settings>
+}
