@@ -2,24 +2,24 @@ import { MetricRes, Tag } from '@pregnancy-journal-monorepo/contract';
 import { of, throwError } from 'rxjs';
 
 export type pregnancyGetRes = {
-  id: string;
-  week: number;
-  next_visit_doctor_date: Date;
-  visit_doctor_date: Date;
-  hospital: HospitalType;
-  data: {
-    value: number;
-    metric_id: string;
-    metric_title: string;
-    metric_measure: string;
-    metric_upperBoundMsg: string;
-    metric_lowerBoundMsg: string;
-    standard_week: number;
-    standard_lowerbound: number;
-    standard_upperbound: number;
-    whoStandardValue: number;
+  id?: string;
+  week?: number;
+  next_visit_doctor_date?: Date;
+  visit_doctor_date?: Date;
+  hospital?: HospitalType;
+  data?: {
+    value?: number;
+    metric_id?: string;
+    metric_title?: string;
+    metric_measure?: string;
+    metric_upperBoundMsg?: string;
+    metric_lowerBoundMsg?: string;
+    standard_week?: number;
+    standard_lowerbound?: number;
+    standard_upperbound?: number;
+    whoStandardValue?: number;
     status?: number;
-    tags: Tag[];
+    tags?: Tag;
   }[];
   media?: mediaType[];
 };
@@ -62,7 +62,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_lowerbound: 2,
         standard_upperbound: 4,
         whoStandardValue: 5,
-        tags: [],
       },
       {
         value: 70,
@@ -77,7 +76,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         whoStandardValue: 5,
 
         status: 1,
-        tags: [],
       },
     ],
     media: [
@@ -114,7 +112,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -128,7 +125,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -155,7 +151,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -169,7 +164,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
     media: [
@@ -206,7 +200,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -220,7 +213,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -247,7 +239,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -261,7 +252,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -288,7 +278,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -302,7 +291,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -329,7 +317,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -343,7 +330,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -370,7 +356,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -384,7 +369,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -411,7 +395,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -425,7 +408,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -452,7 +434,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
       {
         value: 70,
@@ -466,7 +447,6 @@ export const pregnancyData: pregnancyGetRes[] = [
         standard_upperbound: 4,
         whoStandardValue: 5,
         status: 1,
-        tags: [],
       },
     ],
   },
@@ -476,7 +456,6 @@ export const metrics: MetricRes[] = [
   {
     id: '1',
     status: 1,
-    tags: [],
     measure: 'kg',
     lowerBoundMsg: 'Cân nặng quá thấp',
     upperBoundMsg: 'Cân nặng quá cao',
@@ -512,9 +491,9 @@ export const metrics: MetricRes[] = [
 ];
 
 export type HospitalType = {
-  id: string;
-  name: string;
-  address: string;
+  id?: string;
+  name?: string;
+  address?: string;
 };
 
 export const hospitals = [
@@ -551,8 +530,8 @@ export const hospitals = [
 ];
 
 export type mediaType = {
-  id: string;
-  url: string;
+  id?: string;
+  url?: string;
 };
 
 export const pregnancyDataObservableById = (id: string) => {

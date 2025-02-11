@@ -1,5 +1,10 @@
+@if (data()) {
+  {{ setFormByData(data()) }}
+}
 <form [formGroup]="pregnancyForm" class="bg-card mt-8 flex flex-col overflow-hidden rounded-2xl p-8 shadow" (submit)="submitForm()">
-  <p class="mb-2"><strong>Tuần:</strong> {{ this.signalService.RecordDataById().week }}</p>
+  @if (this.signalService.RecordDataById()) {
+    <p class="mb-2"><strong>Tuần:</strong> {{ this.signalService.RecordDataById().week }}</p>
+  }
   <div class="-mx-2 flex flex-wrap">
     @for (control of formControls(); track $index) {
       <div class="mb-8 w-full px-2 md:w-1/2">

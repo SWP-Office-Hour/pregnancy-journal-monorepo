@@ -3,6 +3,15 @@
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
 
-  <app-pregnancy-record-select></app-pregnancy-record-select>
-  <app-pregnancy-tracking-form [data]="$pregnancyDataById()"></app-pregnancy-tracking-form>
+  @if ($recordDataLength() === -1) {
+    <div class="flex flex-col items-center">
+      <p class="text-lg">Chưa có dữ liệu thai kỳ</p>
+      <!--      <a class="text-blue-500 underline" [routerLink]="['/customer/pregnancy-record']">Tạo mới</a>-->
+    </div>
+  } @else {
+    <app-pregnancy-record-select></app-pregnancy-record-select>
+    <app-pregnancy-tracking-form></app-pregnancy-tracking-form>
+  }
+
+  {{ console.log($recordDataLength()) }}
 </div>

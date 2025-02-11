@@ -1,7 +1,6 @@
 import { Component, inject, Input, WritableSignal } from '@angular/core';
 import { PregnancyTrackingApiService } from '../../../core/customer/tracking/pregnancy-tracking.api.service';
 import { PregnancyTrackingSignalService } from '../../../core/customer/tracking/pregnancy-tracking.signal.service';
-import { pregnancyGetRes } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingSelectComponent } from './pregnancy-record-select/pregnancy-tracking-select.component';
 import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
 
@@ -13,25 +12,27 @@ import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregna
   standalone: true,
 })
 export class PregnancyTrackingComponent {
+  protected index = -1;
   private readonly signalService = inject(PregnancyTrackingSignalService);
-  protected $pregnancyDataById: WritableSignal<pregnancyGetRes> = this.signalService.RecordDataById;
+  protected $recordDataLength: WritableSignal<number> = this.signalService.RecordDataLength;
   private readonly apiService = inject(PregnancyTrackingApiService);
 
   constructor() {
     this.apiService.getPregnancyData().subscribe((res) => {
       this.signalService.RecordData.set(res.data);
+      this.signalService.RecordDataLength.set(res.total);
+      const length = this.signalService.RecordDataLength();
+      if (this.index >= length || this.index < 0) {
+        this.signalService.selectRecord(0);
+      }
+      this.signalService.RecordDataById.set(res.data[this.index]);
     });
   }
 
   @Input()
   set id(id: number) {
-    if (id > this.signalService.RecordData().length || id < 0) {
-      this.signalService.selectRecord(this.signalService.RecordDataLength() - 1);
-    } else {
-      this.signalService.RecordDataById.set(
-        this.signalService.RecordData()[id] ? this.signalService.RecordData()[id] : this.signalService.RecordData()[length - 1],
-      );
-      this.signalService.MediaSrc.set(this.signalService.RecordDataById().media || []);
-    }
+    this.index = id;
   }
+
+  protected readonly console = console;
 }
