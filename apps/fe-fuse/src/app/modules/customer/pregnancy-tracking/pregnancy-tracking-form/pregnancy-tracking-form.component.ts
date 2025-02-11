@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -36,7 +36,7 @@ import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-uplo
 export class PregnancyTrackingFormComponent implements OnInit {
   signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
   apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
-  @Input() data: pregnancyGetRes;
+  protected data = this.signalService.RecordDataById;
 
   protected imgSrcListSignal = this.signalService.MediaSrc;
   protected pregnancyForm: FormGroup;
@@ -48,12 +48,10 @@ export class PregnancyTrackingFormComponent implements OnInit {
       selectItems?: any[];
     }[]
   >([]);
+  protected readonly console = console;
 
   ngOnInit() {
     this.initForm();
-    if (this.data) {
-      this.setFormByData(this.data);
-    }
   }
 
   initForm() {
@@ -85,21 +83,6 @@ export class PregnancyTrackingFormComponent implements OnInit {
     this.formControls().push({ controlLabel, controlName, controlType, selectItems });
   }
 
-  setFormByData(pregnancyData: pregnancyGetRes) {
-    this.formControls().forEach((control) => {
-      if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
-        if (control.controlType != 'Select') {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName]);
-        } else {
-          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName].id);
-        }
-      }
-      if (pregnancyData.data.find((d) => d.metric_id === control.controlName)) {
-        this.pregnancyForm.get(control.controlName).setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
-      }
-    });
-  }
-
   submitForm() {
     document.querySelectorAll('.error-message').forEach((element) => element.remove());
     this.signalService.submit(this.pregnancyForm.value).subscribe({
@@ -118,6 +101,21 @@ export class PregnancyTrackingFormComponent implements OnInit {
           this.pregnancyForm.get(Object.getOwnPropertyNames(error)[0]).setErrors({ invalid: true });
         });
       },
+    });
+  }
+
+  protected setFormByData(pregnancyData: pregnancyGetRes) {
+    this.formControls().forEach((control) => {
+      if (Object.getOwnPropertyNames(pregnancyData).includes(control.controlName)) {
+        if (control.controlType != 'Select') {
+          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName]);
+        } else {
+          this.pregnancyForm.get(control.controlName).setValue(pregnancyData[control.controlName].id);
+        }
+      }
+      if (pregnancyData.data?.find((d) => d.metric_id === control.controlName)) {
+        this.pregnancyForm.get(control.controlName).setValue(pregnancyData.data.find((d) => d.metric_id === control.controlName).value);
+      }
     });
   }
 }
