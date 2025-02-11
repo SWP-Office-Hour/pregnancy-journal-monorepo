@@ -5,19 +5,12 @@ import { FuseConfig, FuseConfigService } from '@fuse/services/config';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FusePlatformService } from '@fuse/services/platform';
 import { FUSE_VERSION } from '@fuse/version';
-import { Subject, combineLatest, filter, map, takeUntil } from 'rxjs';
+import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { SettingsComponent } from './common/settings/settings.component';
+import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';
 import { CenteredLayoutComponent } from './layouts/horizontal/centered/centered.component';
-import { EnterpriseLayoutComponent } from './layouts/horizontal/enterprise/enterprise.component';
-import { MaterialLayoutComponent } from './layouts/horizontal/material/material.component';
-import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.component';
-import { ClassicLayoutComponent } from './layouts/vertical/classic/classic.component';
-import { ClassyLayoutComponent } from './layouts/vertical/classy/classy.component';
-import { CompactLayoutComponent } from './layouts/vertical/compact/compact.component';
 import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
-import { FuturisticLayoutComponent } from './layouts/vertical/futuristic/futuristic.component';
-import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
 
 @Component({
   selector: 'layout',
@@ -28,15 +21,16 @@ import { ThinLayoutComponent } from './layouts/vertical/thin/thin.component';
   imports: [
     EmptyLayoutComponent,
     CenteredLayoutComponent,
-    EnterpriseLayoutComponent,
-    MaterialLayoutComponent,
-    ModernLayoutComponent,
-    ClassicLayoutComponent,
-    ClassyLayoutComponent,
-    CompactLayoutComponent,
+    // EnterpriseLayoutComponent,
+    // MaterialLayoutComponent,
+    // ModernLayoutComponent,
+    // ClassicLayoutComponent,
+    // ClassyLayoutComponent,
+    // CompactLayoutComponent,
     DenseLayoutComponent,
-    FuturisticLayoutComponent,
-    ThinLayoutComponent,
+    // FuturisticLayoutComponent,
+    // ThinLayoutComponent,
+    AdminLayoutComponent,
     SettingsComponent,
   ],
 })

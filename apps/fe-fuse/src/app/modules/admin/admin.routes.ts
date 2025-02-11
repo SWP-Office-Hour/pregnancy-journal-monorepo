@@ -9,6 +9,7 @@ export default [
   },
   {
     path: 'blogs',
+    // component: BlogComponent, trang chính của blog, có mấy cái nút để bấm tiếp qua các chức năng
     children: [
       {
         path: 'create',

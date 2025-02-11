@@ -1,5 +1,5 @@
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
+import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -68,7 +68,7 @@ export const appConfig: ApplicationConfig = {
     }),
     {
       // Preload the default language before the app starts to prevent empty/jumping content
-      provide: APP_INITIALIZER,
+      provide: provideAppInitializer,
       useFactory: () => {
         const translocoService = inject(TranslocoService);
         const defaultLang = translocoService.getDefaultLang();
@@ -88,7 +88,7 @@ export const appConfig: ApplicationConfig = {
         services: mockApiServices,
       },
       fuse: {
-        layout: 'classy',
+        layout: 'centered',
         scheme: 'light',
         screens: {
           sm: '600px',

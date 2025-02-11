@@ -3,7 +3,7 @@ import { FuseNavigationItem, FuseNavigationService } from '@fuse/components/navi
 import { FuseMockApiService } from '@fuse/lib/mock-api';
 import { contacts } from 'app/mock-api/apps/contacts/data';
 import { tasks } from 'app/mock-api/apps/tasks/data';
-import { defaultNavigation } from 'app/mock-api/common/navigation/data';
+import { defaultNavigation } from 'app/mock-api/common/navigation/navigation.data';
 import { cloneDeep } from 'lodash-es';
 
 @Injectable({ providedIn: 'root' })
