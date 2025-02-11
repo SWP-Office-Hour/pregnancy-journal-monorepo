@@ -35,7 +35,7 @@ model blog_tag {
 
 model hospital {
   id           String         @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  city         String         @db.VarChar(255)
+  address      String         @db.VarChar(255)
   name         String         @db.VarChar(255)
   visit_record visit_record[]
 }

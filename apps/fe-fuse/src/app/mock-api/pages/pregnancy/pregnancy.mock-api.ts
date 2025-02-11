@@ -1,12 +1,11 @@
-import { MetricRes } from '@pregnancy-journal-monorepo/contract';
+import { MetricRes, Tag } from '@pregnancy-journal-monorepo/contract';
 import { of, throwError } from 'rxjs';
 
 export type pregnancyGetRes = {
   id: string;
   week: number;
-  expectedBirthDate: Date;
-  nextVisitDate: Date;
-  visitDoctorDate: Date;
+  next_visit_doctor_date: Date;
+  visit_doctor_date: Date;
   hospital: HospitalType;
   data: {
     value: number;
@@ -20,7 +19,7 @@ export type pregnancyGetRes = {
     standard_upperbound: number;
     whoStandardValue: number;
     status?: number;
-    tags: { id: string; name: string }[];
+    tags: Tag[];
   }[];
   media?: mediaType[];
 };
@@ -43,13 +42,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '1',
     week: 10,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '1',
       name: 'Bệnh viện Bạch Mai',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -85,24 +83,23 @@ export const pregnancyData: pregnancyGetRes[] = [
     media: [
       {
         id: '1',
-        mediaUrl: 'https://picsum.photos/200/300',
+        url: 'https://picsum.photos/200/300',
       },
       {
         id: '2',
-        mediaUrl: 'https://picsum.photos/200/300',
+        url: 'https://picsum.photos/200/300',
       },
     ],
   },
   {
     id: '2',
     week: 20,
-    expectedBirthDate: new Date('2023-01-01'),
-    nextVisitDate: new Date('2022-01-01'),
-    visitDoctorDate: new Date('2022-01-01'),
+    next_visit_doctor_date: new Date('2022-01-01'),
+    visit_doctor_date: new Date('2022-01-01'),
     hospital: {
       id: '2',
       name: 'Bệnh viện Quân Y',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -138,13 +135,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '3',
     week: 30,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '3',
       name: 'Bệnh viện Trung ương',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -179,24 +175,23 @@ export const pregnancyData: pregnancyGetRes[] = [
     media: [
       {
         id: '1',
-        mediaUrl: 'https://picsum.photos/200/300',
+        url: 'https://picsum.photos/200/300',
       },
       {
         id: '2',
-        mediaUrl: 'https://picsum.photos/200/300',
+        url: 'https://picsum.photos/200/300',
       },
     ],
   },
   {
     id: '4',
     week: 40,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '4',
       name: 'Bệnh viện Đa Khoa',
-      city: 'Hồ Chí Minh',
+      address: 'Hồ Chí Minh',
     },
     data: [
       {
@@ -232,13 +227,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '5',
     week: 50,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '5',
       name: 'Bệnh viện Chợ Rẫy',
-      city: 'Hồ Chí Minh',
+      address: 'Hồ Chí Minh',
     },
     data: [
       {
@@ -274,13 +268,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '6',
     week: 60,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '6',
       name: 'Bệnh viện Trung ương',
-      city: 'Hồ Chí Minh',
+      address: 'Hồ Chí Minh',
     },
     data: [
       {
@@ -316,13 +309,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '7',
     week: 70,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '1',
       name: 'Bệnh viện Bạch Mai',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -358,13 +350,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '8',
     week: 80,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '2',
       name: 'Bệnh viện Quân Y',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -400,13 +391,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '9',
     week: 90,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '3',
       name: 'Bệnh viện Trung ương',
-      city: 'Hà Nội',
+      address: 'Hà Nội',
     },
     data: [
       {
@@ -442,13 +432,12 @@ export const pregnancyData: pregnancyGetRes[] = [
   {
     id: '10',
     week: 100,
-    expectedBirthDate: new Date('2022-01-01'),
-    nextVisitDate: new Date('2021-01-01'),
-    visitDoctorDate: new Date('2021-01-01'),
+    next_visit_doctor_date: new Date('2021-01-01'),
+    visit_doctor_date: new Date('2021-01-01'),
     hospital: {
       id: '4',
       name: 'Bệnh viện Đa Khoa',
-      city: 'Hồ Chí Minh',
+      address: 'Hồ Chí Minh',
     },
     data: [
       {
@@ -525,45 +514,45 @@ export const metrics: MetricRes[] = [
 export type HospitalType = {
   id: string;
   name: string;
-  city: string;
+  address: string;
 };
 
 export const hospitals = [
   {
     id: '1',
     name: 'Bệnh viện Bạch Mai',
-    city: 'Hà Nội',
+    address: 'Hà Nội',
   },
   {
     id: '2',
     name: 'Bệnh viện Quân Y',
-    city: 'Hà Nội',
+    address: 'Hà Nội',
   },
   {
     id: '3',
     name: 'Bệnh viện Trung ương',
-    city: 'Hà Nội',
+    address: 'Hà Nội',
   },
   {
     id: '4',
     name: 'Bệnh viện Đa Khoa',
-    city: 'Hồ Chí Minh',
+    address: 'Hồ Chí Minh',
   },
   {
     id: '5',
     name: 'Bệnh viện Chợ Rẫy',
-    city: 'Hồ Chí Minh',
+    address: 'Hồ Chí Minh',
   },
   {
     id: '6',
     name: 'Bệnh viện Trung ương',
-    city: 'Hồ Chí Minh',
+    address: 'Hồ Chí Minh',
   },
 ];
 
 export type mediaType = {
   id: string;
-  mediaUrl: string;
+  url: string;
 };
 
 export const pregnancyDataObservableById = (id: string) => {
@@ -571,7 +560,10 @@ export const pregnancyDataObservableById = (id: string) => {
 };
 
 export const pregnancyDataObservable = () => {
-  return of(pregnancyData);
+  return of({
+    total: pregnancyData.length,
+    data: pregnancyData,
+  });
 };
 
 export const pregnancyDataObservableByPage = (page: number, pageSize: number) => {

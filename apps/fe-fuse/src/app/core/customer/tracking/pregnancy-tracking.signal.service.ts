@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
 import { Router } from '@angular/router';
 import { mediaType, pregnancyGetRes } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
@@ -12,20 +12,31 @@ export class PregnancyTrackingSignalService {
   private router = inject(Router);
   private apiService = inject(PregnancyTrackingApiService);
   //handling pregnancy data
-  private $pregnancyData = signal<pregnancyGetRes[]>([]);
+  private $recordData = signal<pregnancyGetRes[]>([]);
+  private $recordDataLength = signal<number>(-1);
 
-  private $currentDataByPage = computed(() => this.$pregnancyData().slice(this.currentPage * 5, this.currentPage * 5 + 5));
+  // private $currentDataByPage = computed(() => this.$recordData().slice(this.currentPage * 5, this.currentPage * 5 + 5));
   private $pregnancyDataById = signal<pregnancyGetRes | null>(null);
   //handling the media files
   private mediaSrc = signal<mediaType[]>([]);
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private _httpClient: HttpClient) {}
 
-  get PregnancyData() {
-    return this.$pregnancyData;
+  get RecordDataLength() {
+    return this.$recordDataLength;
   }
 
-  get PregnancyDataById() {
+  get RecordData() {
+    // this._httpClient
+    //   .get<{ total: number; data: RecordResponse[] }>('https://localhost:3000/record')
+    //   .subscribe((res: { total: number; data: RecordResponse[] }) => {
+    //     this.$recordDataLength.set(res.total);
+    //     this.$recordData.set(res.data);
+    //   });
+    return this.$recordData;
+  }
+
+  get RecordDataById() {
     return this.$pregnancyDataById;
   }
 
