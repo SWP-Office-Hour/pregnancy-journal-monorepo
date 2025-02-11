@@ -64,10 +64,10 @@ export const appRoutes: Route[] = [
   // Landing routes
   {
     path: '',
-    component: LayoutComponent,
-    data: {
-      layout: 'empty',
+    resolve: {
+      initialData: initialDataResolver,
     },
+    component: LayoutComponent,
     children: [{ path: 'home', loadChildren: () => import('app/modules/landing/home/home.routes') }],
   },
 
