@@ -66,6 +66,7 @@ export const metricContract = c.router({
   getAll: {
     method: 'GET',
     path: '/metrics',
+    description: 'Get all metrics',
     responses: {
       200: z.array(metricResSchema),
       404: z.object({ message: z.string() }),
@@ -74,6 +75,7 @@ export const metricContract = c.router({
   getOne: {
     method: 'GET',
     path: '/metrics/:id',
+    description: 'Get a metric by metric id',
     responses: {
       200: metricResSchema,
       404: z.object({ message: z.string() }),
@@ -82,6 +84,7 @@ export const metricContract = c.router({
   create: {
     method: 'POST',
     path: '/metrics',
+    description: 'Create a new metric',
     body: metricUserCreateReqSchema,
     responses: {
       200: metricResSchema,
@@ -90,6 +93,7 @@ export const metricContract = c.router({
   update: {
     method: 'PATCH',
     path: '/metrics',
+    description: 'Update a metric by metric id',
     body: metricUserUpdateReqSchema,
     responses: {
       200: metricResSchema,

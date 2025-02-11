@@ -30,6 +30,7 @@ export const dashboardContract = c.router({
   getDashboard: {
     method: 'GET',
     path: '/admin/dashboard',
+    description: 'Get dashboard data about users, revenue, and blogs',
     responses: {
       200: dashboardResSchema,
       400: z.object({
@@ -40,6 +41,7 @@ export const dashboardContract = c.router({
   getUserDashboard: {
     method: 'GET',
     path: '/admin/user',
+    description: 'Get dashboard data about users',
     responses: {
       200: dashboardUserResSchema,
       400: z.object({
@@ -50,6 +52,7 @@ export const dashboardContract = c.router({
   getRevenueDashboard: {
     method: 'GET',
     path: '/admin/revenue',
+    description: 'Get dashboard data about revenue',
     responses: {
       200: dashboardRevenueResSchema,
       400: z.object({

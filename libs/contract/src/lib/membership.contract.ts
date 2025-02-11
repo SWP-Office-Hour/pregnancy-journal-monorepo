@@ -39,6 +39,7 @@ export const membershipContract = c.router({
   getAll: {
     method: 'GET',
     path: '/memberships',
+    description: 'Get all memberships',
     responses: {
       200: z.array(membershipResContract),
       404: z.object({ message: z.string() }),
@@ -47,6 +48,10 @@ export const membershipContract = c.router({
   getOne: {
     method: 'GET',
     path: '/memberships/:id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    description: 'Get a membership by membership id',
     responses: {
       200: membershipResContract,
       404: z.object({ message: z.string() }),
@@ -55,6 +60,7 @@ export const membershipContract = c.router({
   create: {
     method: 'POST',
     path: '/memberships',
+    description: 'Create a new membership',
     body: membershipCreateReqContract,
     responses: {
       201: membershipResContract,
@@ -63,6 +69,7 @@ export const membershipContract = c.router({
   update: {
     method: 'PATCH',
     path: '/memberships',
+    description: 'Update a membership by membership id',
     body: membershipUpdateReqContract,
     responses: {
       200: membershipResContract,
@@ -74,6 +81,7 @@ export const membershipContract = c.router({
     pathParams: z.object({
       id: z.string(),
     }),
+    description: 'Delete a membership by membership id',
     responses: {
       204: z.object({
         message: z.string(),

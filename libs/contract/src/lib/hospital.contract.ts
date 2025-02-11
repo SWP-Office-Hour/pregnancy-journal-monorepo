@@ -4,7 +4,7 @@ import { z } from 'zod';
 export const hospitalResSchema = z.object({
   id: z.string(),
   name: z.string(),
-  address: z.string(),
+  city: z.string(),
 });
 
 export const hospitalGetAllResSchema = z.array(hospitalResSchema);
@@ -17,6 +17,7 @@ export const hospitalContract = c.router({
   getAll: {
     method: 'GET',
     path: '/hospitals',
+    description: 'Get all hospitals',
     responses: {
       200: hospitalGetAllResSchema,
     },
@@ -24,6 +25,7 @@ export const hospitalContract = c.router({
   getOne: {
     method: 'GET',
     path: '/hospitals/:id',
+    description: 'Get a hospital by id',
     pathParams: z.object({
       id: z.string(),
     }),

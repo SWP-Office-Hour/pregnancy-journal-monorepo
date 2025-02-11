@@ -31,6 +31,7 @@ export const tagContract = c.router({
   getAll: {
     method: 'GET',
     path: '/tags',
+    description: 'Get all tags',
     responses: {
       200: tagGetAllResSchema,
       404: z.object({ message: z.string() }),
@@ -39,6 +40,10 @@ export const tagContract = c.router({
   getOne: {
     method: 'GET',
     path: '/tags/:id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    description: 'Get a tag by tag id',
     responses: {
       200: tagResSchema,
       404: z.object({ message: z.string() }),
@@ -48,6 +53,7 @@ export const tagContract = c.router({
     method: 'POST',
     path: '/tags',
     body: tagCreateReqSchema,
+    description: 'Create a new tag',
     responses: {
       201: tagResSchema,
     },
@@ -56,6 +62,7 @@ export const tagContract = c.router({
     method: 'PATCH',
     path: '/tags',
     body: tagUpdateReqSchema,
+    description: 'Update a tag',
     responses: {
       200: tagResSchema,
     },
@@ -66,6 +73,7 @@ export const tagContract = c.router({
     pathParams: z.object({
       id: z.string(),
     }),
+    description: 'Delete a tag by id',
     responses: {
       204: z.object({
         message: z.string(),
