@@ -61,12 +61,21 @@
         "development": {
           "optimization": false,
           "extractLicenses": false,
-          "sourceMap": true
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-fuse/src/environments/environment.ts",
+              "with": "apps/fe-fuse/src/environments/environment.development.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
     },
     "serve": {
+      "dependsOn": ["^build"],
+      "defaultConfiguration": "development",
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
         "port": 4222
@@ -78,8 +87,7 @@
         "development": {
           "buildTarget": "fe-fuse:build:development"
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
