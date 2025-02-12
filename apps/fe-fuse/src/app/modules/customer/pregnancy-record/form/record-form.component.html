@@ -1,48 +1,67 @@
-<form [formGroup]="pregnancyForm" class="bg-card mt-3 flex flex-col overflow-hidden rounded-2xl p-8 shadow" (submit)="submitForm()">
+<form [formGroup]="recordForm" class="bg-card mt-3 flex flex-col overflow-hidden rounded-2xl p-8 shadow" (submit)="submitForm()">
   <div class="-mx-2 flex flex-wrap">
-    @for (control of formControls(); track $index) {
-      <div class="mb-8 w-full px-2 md:w-1/2">
-        @switch (control.controlType) {
-          @case ('Number') {
-            <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-              <mat-label>{{ control.controlLabel }}</mat-label>
-              <input matInput placeholder="Placeholder" formControlName="{{ control.controlName }}" />
-              <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
-            </mat-form-field>
+    <div class="mb-8 w-full px-2 md:w-1/2">
+      <!--   Visit Doctor Date   -->
+      <mat-form-field class="input-full-width">
+        <mat-label>Ngày khám bệnh</mat-label>
+        <input matInput [matDatepicker]="visit_doctor_date" formControlName="visit_doctor_date" readonly />
+        <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date"></mat-datepicker-toggle>
+        <mat-datepicker #visit_doctor_date>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <!--   Next Visit Doctor Date   -->
+      <mat-form-field class="input-full-width">
+        <mat-label>Ngày tái khám</mat-label>
+        <input matInput [matDatepicker]="next_visit_doctor_date" formControlName="next_visit_doctor_date" readonly />
+        <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date"></mat-datepicker-toggle>
+        <mat-datepicker #next_visit_doctor_date>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+
+      <!--   Hospital   -->
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Bệnh viện</mat-label>
+        <mat-select formControlName="hospital">
+          <mat-option value="" disabled="true">Chọn bệnh viện</mat-option>
+          @for (hospital of hospitals; track $index) {
+            <mat-option value="{{ hospital.id }}">{{ hospital.name }}</mat-option>
           }
-          @case ('Select') {
-            <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-              <mat-label>{{ control.controlLabel }}</mat-label>
-              <mat-select formControlName="{{ control.controlName }}">
-                <mat-option value="" disabled="true">Chọn {{ control.controlLabel }}</mat-option>
-                @for (item of control.selectItems; track $index) {
-                  <mat-option value="{{ item.id }}">{{ item.name }}</mat-option>
-                }
-              </mat-select>
-            </mat-form-field>
-          }
-          @case ('Date') {
-            <mat-form-field class="input-full-width">
-              <mat-label>{{ control.controlLabel }}</mat-label>
-              <input matInput [matDatepicker]="date_control" formControlName="{{ control.controlName }}" readonly />
-              <mat-datepicker-toggle matIconSuffix [for]="date_control"></mat-datepicker-toggle>
-              <mat-datepicker #date_control>
-                <mat-datepicker-actions>
-                  <button mat-button matDatepickerCancel>Cancel</button>
-                  <button mat-raised-button matDatepickerApply>Apply</button>
-                </mat-datepicker-actions>
-              </mat-datepicker>
-            </mat-form-field>
-          }
+        </mat-select>
+      </mat-form-field>
+
+      <!--   Doctor   -->
+      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+        <mat-label>Bác sĩ</mat-label>
+        <input matInput placeholder="Placeholder" formControlName="doctor_name" />
+        <mat-icon svgIcon="heroicons_mini:identification"></mat-icon>
+      </mat-form-field>
+
+      <!--   Metrics   -->
+      <div formArrayName="metrics">
+        @for (metric of metrics; track $index) {
+          <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
+            <mat-label>{{ metric.title }}</mat-label>
+            <input matInput placeholder="Placeholder" [formControlName]="$index" />
+            <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
+          </mat-form-field>
         }
       </div>
-    }
+    </div>
   </div>
   <div class="mb-8 w-full px-2 md:w-1/2">
     <file-upload (insertImg)="insertImg($event)"></file-upload>
   </div>
   <div class="flex flex-wrap">
-    @for (src of imgSrcListSignal(); track $index) {
+    @for (src of images; track $index) {
       <image-preview [imgObj]="src" (deleteImg)="deleteImg($event)"></image-preview>
     }
   </div>
