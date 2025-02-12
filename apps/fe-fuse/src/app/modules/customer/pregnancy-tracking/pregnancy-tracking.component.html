@@ -6,12 +6,10 @@
   @if ($recordDataLength() === -1) {
     <div class="flex flex-col items-center">
       <p class="text-lg">Chưa có dữ liệu thai kỳ</p>
-      <!--      <a class="text-blue-500 underline" [routerLink]="['/customer/pregnancy-record']">Tạo mới</a>-->
+      <!--      <a class="text-blue-500 underline" [routerLink]="['/customer/pregnancy-service']">Tạo mới</a>-->
     </div>
   } @else {
-    <app-pregnancy-record-select></app-pregnancy-record-select>
-    <app-pregnancy-tracking-form></app-pregnancy-tracking-form>
+    <tracking-select></tracking-select>
+    <tracking-form></tracking-form>
   }
-
-  {{ console.log($recordDataLength()) }}
 </div>

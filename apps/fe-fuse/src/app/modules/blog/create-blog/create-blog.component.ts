@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { QuillEditorComponent } from 'ngx-quill';
-import { AdminBlogsService } from '../../../core/admin/admin.blogs.service';
+import { BlogsService } from '../blogs.service';
 
 @Component({
   selector: 'app-create-blog',
@@ -200,7 +200,7 @@ export class CreateBlogComponent implements OnInit {
    */
   constructor(
     private _formBuilder: UntypedFormBuilder,
-    private _blogService: AdminBlogsService,
+    private _blogService: BlogsService,
   ) {}
 
   // -----------------------------------------------------------------------------------------------------

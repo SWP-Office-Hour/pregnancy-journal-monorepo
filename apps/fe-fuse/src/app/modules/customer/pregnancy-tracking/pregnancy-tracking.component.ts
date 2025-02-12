@@ -1,12 +1,12 @@
 import { Component, inject, Input, WritableSignal } from '@angular/core';
-import { PregnancyTrackingApiService } from '../../../core/customer/tracking/pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from '../../../core/customer/tracking/pregnancy-tracking.signal.service';
-import { PregnancyTrackingSelectComponent } from './pregnancy-record-select/pregnancy-tracking-select.component';
-import { PregnancyTrackingFormComponent } from './pregnancy-tracking-form/pregnancy-tracking-form.component';
+import { PregnancyTrackingApiService } from './service/pregnancy-tracking.api.service';
+import { PregnancyTrackingSignalService } from './service/pregnancy-tracking.signal.service';
+import { TrackingFormComponent } from './tracking-form/tracking-form.component';
+import { TrackingSelectComponent } from './tracking-select/tracking-select.component';
 
 @Component({
-  selector: 'app-pregnancy-tracking',
-  imports: [PregnancyTrackingFormComponent, PregnancyTrackingSelectComponent],
+  selector: 'app-pregnancy-service',
+  imports: [TrackingSelectComponent, TrackingFormComponent],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,

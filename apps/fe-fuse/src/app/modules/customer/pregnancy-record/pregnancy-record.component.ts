@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { PregnancyRecordFormComponent } from './pregnancy-tracking-form/pregnancy-record-form.component';
+import { RecordFormComponent } from './form/record-form.component';
 
 @Component({
-  selector: 'app-pregnancy-record',
+  selector: 'app-pregnancy-service',
   standalone: true,
-  imports: [CommonModule, PregnancyRecordFormComponent],
+  imports: [CommonModule, RecordFormComponent],
   templateUrl: './pregnancy-record.component.html',
   styleUrl: './pregnancy-record.component.css',
 })

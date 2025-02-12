@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hospital, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
+import { AuthService } from '../../../../core/auth/auth.service';
 import {
   pregnancyDataObservableUpdateFail,
   pregnancyDataObservableUpdateSuccess,
   pregnancyGetRes,
-} from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
-import { AuthService } from '../../auth/auth.service';
+} from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingApiService {

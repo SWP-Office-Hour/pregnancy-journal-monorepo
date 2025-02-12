@@ -3,12 +3,12 @@ import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
 import { mediaType } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { DialogImgComponent } from '../dialog-img/dialog-img.component';
+import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
 
 @Component({
-  selector: 'app-image-preview',
+  selector: 'image-preview',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatDialogModule, MatButtonModule],
   templateUrl: './image-preview.component.html',

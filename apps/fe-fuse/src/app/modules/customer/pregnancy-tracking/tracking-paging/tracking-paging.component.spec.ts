@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PregnancyTrackingPagingComponent } from './pregnancy-tracking-paging.component';
+import { TrackingPagingComponent } from './tracking-paging.component';
 
 describe('PregnancyTrackingPagingComponent', () => {
-  let component: PregnancyTrackingPagingComponent;
-  let fixture: ComponentFixture<PregnancyTrackingPagingComponent>;
+  let component: TrackingPagingComponent;
+  let fixture: ComponentFixture<TrackingPagingComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PregnancyTrackingPagingComponent],
+      imports: [TrackingPagingComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PregnancyTrackingPagingComponent);
+    fixture = TestBed.createComponent(TrackingPagingComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

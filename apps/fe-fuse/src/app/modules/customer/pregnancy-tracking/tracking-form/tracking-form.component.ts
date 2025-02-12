@@ -7,14 +7,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { PregnancyTrackingApiService } from '../../../../core/customer/tracking/pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
 import { pregnancyGetRes, pregnancyUpdateFailRes, pregnancyUpdateSuccessRes } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { FileUploadComponent } from '../file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../image-preview/image-preview.component';
-import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-upload.component';
+import { PregnancyTrackingApiService } from '../service/pregnancy-tracking.api.service';
+import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
 
 @Component({
-  selector: 'app-pregnancy-tracking-form',
+  selector: 'tracking-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,10 +30,10 @@ import { FileUploadComponent } from '../pregnancy-tracking-file-upload/file-uplo
     MatIconModule,
     MatSelectModule,
   ],
-  templateUrl: './pregnancy-tracking-form.component.html',
-  styleUrl: './pregnancy-tracking-form.component.css',
+  templateUrl: './tracking-form.component.html',
+  styleUrl: './tracking-form.component.css',
 })
-export class PregnancyTrackingFormComponent implements OnInit {
+export class TrackingFormComponent implements OnInit {
   signalService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
   apiService: PregnancyTrackingApiService = inject(PregnancyTrackingApiService);
   protected data = this.signalService.RecordDataById;

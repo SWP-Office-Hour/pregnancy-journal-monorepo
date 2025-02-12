@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PregnancyTrackingSelectComponent } from './pregnancy-tracking-select.component';
+import { TrackingSelectComponent } from './tracking-select.component';
 
 describe('PregnancyRecordSelectComponent', () => {
-  let component: PregnancyTrackingSelectComponent;
-  let fixture: ComponentFixture<PregnancyTrackingSelectComponent>;
+  let component: TrackingSelectComponent;
+  let fixture: ComponentFixture<TrackingSelectComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PregnancyTrackingSelectComponent],
+      imports: [TrackingSelectComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PregnancyTrackingSelectComponent);
+    fixture = TestBed.createComponent(TrackingSelectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

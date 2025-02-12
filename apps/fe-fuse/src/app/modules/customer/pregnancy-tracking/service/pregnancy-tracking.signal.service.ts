@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
 import { Router } from '@angular/router';
-import { mediaType, pregnancyGetRes } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { mediaType, pregnancyGetRes } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyTrackingApiService } from './pregnancy-tracking.api.service';
 
 @Injectable({ providedIn: 'root' })
