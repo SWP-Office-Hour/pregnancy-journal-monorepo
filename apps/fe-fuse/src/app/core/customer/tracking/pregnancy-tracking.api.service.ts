@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Hospital, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { environment } from '../../../../environments/environment';
 import {
   pregnancyDataObservableUpdateFail,
   pregnancyDataObservableUpdateSuccess,
@@ -10,13 +11,15 @@ import { AuthService } from '../../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingApiService {
+  private env = environment;
+
   constructor(
     private _httpClient: HttpClient,
     private _authService: AuthService,
   ) {}
 
   getMetrics() {
-    return this._httpClient.get<MetricRes[]>('http://localhost:3000/metrics', {
+    return this._httpClient.get<MetricRes[]>(this.env.apiUrl + 'metrics', {
       headers: {
         Authorization: 'Bearer ' + this._authService.accessToken,
       },
@@ -25,7 +28,7 @@ export class PregnancyTrackingApiService {
   }
 
   getHospitalList() {
-    return this._httpClient.get<Hospital[]>('http://localhost:3000/hospitals', {
+    return this._httpClient.get<Hospital[]>(this.env.apiUrl + 'hospitals', {
       headers: {
         Authorization: 'Bearer ' + this._authService.accessToken,
       },
@@ -33,7 +36,7 @@ export class PregnancyTrackingApiService {
   }
 
   getPregnancyData() {
-    return this._httpClient.get<{ total: number; data: RecordResponse[] }>('http://localhost:3000/record', {
+    return this._httpClient.get<{ total: number; data: RecordResponse[] }>(this.env.apiUrl + 'record', {
       headers: {
         Authorization: 'Bearer ' + this._authService.accessToken,
       },
@@ -41,7 +44,7 @@ export class PregnancyTrackingApiService {
   }
 
   getPregnancyDataById(id: string) {
-    return this._httpClient.get<{ total: number; data: RecordResponse[] }>('http://localhost:3000/record/' + id, {
+    return this._httpClient.get<{ total: number; data: RecordResponse[] }>(this.env.apiUrl + 'record/' + id, {
       headers: {
         Authorization: 'Bearer ' + this._authService.accessToken,
       },
