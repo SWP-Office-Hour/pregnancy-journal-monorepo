@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, Input, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { mediaType } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
-import { DialogImgComponent } from '../dialog-img/dialog-img.component';
-import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
+import { DialogImgComponent } from './dialog-img/dialog-img.component';
 
 @Component({
   selector: 'image-preview',
@@ -18,11 +17,18 @@ export class ImagePreviewComponent {
   @Input() imgObj!: mediaType;
   protected open = false;
   private dialog = inject(MatDialog);
-  private pregnancyTrackingService: PregnancyTrackingSignalService = inject(PregnancyTrackingSignalService);
+  private dialogRef: MatDialogRef<DialogImgComponent>;
+  deleteImg = output<string>();
 
   openDialog() {
-    this.dialog.open(DialogImgComponent, {
+    this.dialogRef = this.dialog.open(DialogImgComponent, {
       data: { imgObj: this.imgObj },
+    });
+    this.dialogRef.componentInstance.deleteImg.subscribe((id) => {
+      if (id) {
+        this.deleteImg.emit(id);
+      }
+      this.dialogRef.close();
     });
   }
 }

@@ -39,11 +39,11 @@
     }
   </div>
   <div class="mb-8 w-full px-2 md:w-1/2">
-    <file-upload></file-upload>
+    <file-upload (insertImg)="insertImg($event)"></file-upload>
   </div>
   <div class="flex flex-wrap">
     @for (src of imgSrcListSignal(); track $index) {
-      <image-preview [imgObj]="src"></image-preview>
+      <image-preview [imgObj]="src" (deleteImg)="deleteImg($event)"></image-preview>
     }
   </div>
   <footer class="mt-4 flex justify-end space-x-2">
