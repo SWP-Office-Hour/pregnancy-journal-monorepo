@@ -46,11 +46,14 @@ export class AuthMockApi {
     this._fuseMockApiService.onPost('api/auth/sign-in', 0).reply(({ request }) => {
       // Sign in successful
       if (request.body.email === 'hughes.brian@company.com' && request.body.password === 'admin') {
+        const adminToken =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
+
         return [
           200,
           {
             user: cloneDeep(this._user),
-            accessToken: this._generateJWTToken(),
+            accessToken: adminToken,
             tokenType: 'bearer',
           },
         ];
@@ -179,6 +182,7 @@ export class AuthMockApi {
       iat: iat,
       iss: 'Fuse',
       exp: exp,
+      role: 0,
     };
 
     // Stringify and encode the header
