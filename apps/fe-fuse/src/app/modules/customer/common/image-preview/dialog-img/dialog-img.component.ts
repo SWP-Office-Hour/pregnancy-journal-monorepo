@@ -1,8 +1,7 @@
-import { Component, inject, Inject } from '@angular/core';
+import { Component, Inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { mediaType } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
-import { PregnancyRecordSignalService } from '../service/pregnancy-record.signal.service';
+import { mediaType } from '../../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Component({
   selector: 'dialog-img',
@@ -12,11 +11,9 @@ import { PregnancyRecordSignalService } from '../service/pregnancy-record.signal
 })
 export class DialogImgComponent {
   constructor(@Inject(MAT_DIALOG_DATA) public data: { imgObj: mediaType }) {}
-  private pregnancyTrackingService: PregnancyRecordSignalService = inject(PregnancyRecordSignalService);
+  deleteImg = output<string>();
 
   deleteImage() {
-    if (this.data.imgObj.id) {
-      this.pregnancyTrackingService.deleteImage(this.data.imgObj.id);
-    }
+    this.deleteImg.emit(this.data.imgObj.id);
   }
 }

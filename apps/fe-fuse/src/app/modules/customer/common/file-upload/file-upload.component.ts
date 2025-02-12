@@ -1,8 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
+import { MediaRes } from '@pregnancy-journal-monorepo/contract';
 
 @Component({
   selector: 'file-upload',
@@ -13,8 +13,7 @@ import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.si
 })
 export class FileUploadComponent {
   protected readonly control = new FormControl<File[]>([]);
-
-  private readonly pregnancyService = inject(PregnancyTrackingSignalService);
+  insertImg = output<MediaRes>();
 
   protected onFileChange(event: Event): void {
     const reader = new FileReader();
@@ -22,7 +21,7 @@ export class FileUploadComponent {
     if (file) {
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.pregnancyService.addImage({
+        this.insertImg.emit({
           id: new Date().getTime().toString(),
           url: reader.result as string,
         });
