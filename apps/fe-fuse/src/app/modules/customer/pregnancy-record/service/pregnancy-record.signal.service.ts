@@ -1,6 +1,6 @@
 import { inject, Injectable, signal } from '@angular/core';
 // import { environment } from 'app/../environments/environment';
-import { mediaType } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { mediaType } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 import { PregnancyRecordApiService } from './pregnancy-record.api.service';
 
 @Injectable({ providedIn: 'root' })

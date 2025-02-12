@@ -1,11 +1,11 @@
 import { Component, inject, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { PregnancyTrackingSignalService } from '../../../../core/customer/tracking/pregnancy-tracking.signal.service';
 import { mediaType } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
 
 @Component({
-  selector: 'app-dialog-img',
+  selector: 'dialog-img',
   templateUrl: './dialog-img.component.html',
   styleUrl: './dialog-img.component.css',
   imports: [MatDialogModule, MatButtonModule],

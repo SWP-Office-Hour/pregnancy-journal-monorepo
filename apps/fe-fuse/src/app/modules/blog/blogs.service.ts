@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AdminBlogsService {
+export class BlogsService {
   private _blogs: {
     id: string;
     title: string;
