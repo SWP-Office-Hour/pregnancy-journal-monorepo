@@ -53,7 +53,7 @@ const recordResSchema = z.object({
   visit_doctor_date: z.date(),
   next_visit_doctor_date: z.date(),
   hospital: hospitalResSchema,
-  user_id: z.string(),
+  doctor_name: z.string(),
   data: z.array(recordMetricSchema),
   media: z.array(mediaResSchema),
 });

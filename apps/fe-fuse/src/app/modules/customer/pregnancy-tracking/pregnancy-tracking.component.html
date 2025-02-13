@@ -2,14 +2,10 @@
   <div class="my-5 text-center">
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
-
-  @if ($recordDataLength() === -1) {
-    <div class="flex flex-col items-center">
-      <p class="text-lg">Chưa có dữ liệu thai kỳ</p>
-      <!--      <a class="text-blue-500 underline" [routerLink]="['/customer/pregnancy-service']">Tạo mới</a>-->
-    </div>
-  } @else {
-    <tracking-select></tracking-select>
+  @if (selectedRecordData) {
     <tracking-form></tracking-form>
+  } @else {
+    <p>Chưa có chỉ số đã theo dõi</p>
+    <a [routerLink]="'../record'">Tạo record</a>
   }
 </div>
