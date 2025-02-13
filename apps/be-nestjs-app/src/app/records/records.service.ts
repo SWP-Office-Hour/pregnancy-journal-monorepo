@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MetricService } from '../metric/metric.service';
@@ -13,6 +13,10 @@ export class RecordsService {
   ) {}
 
   async createRecord({ record, userId }: { record: RecordCreateRequest; userId: string }): Promise<RecordResponse> {
+    if (!userId) {
+      throw new UnauthorizedException('access token is required');
+    }
+
     const user = await this.dataService.User.findUnique({
       where: { id: userId },
     });
@@ -21,25 +25,24 @@ export class RecordsService {
       throw new NotFoundException('User not found');
     }
 
-    const hospital = record.hospital_id
-      ? await this.dataService.Hospital.findUnique({
-          where: { id: record.hospital_id },
-        })
-      : undefined;
-
-    if (record.hospital_id && !hospital) {
+    if (!record.hospital_id) {
       throw new NotFoundException('Hospital not found');
+    } else {
+      const hospital = await this.dataService.Hospital.findUnique({
+        where: { id: record.hospital_id },
+      });
+      if (!hospital) {
+        throw new NotFoundException('Hospital not found');
+      }
     }
-
-    //check if metric_id is valid
-    record.data.map(async (data) => {
-      const check = await this.dataService.Metric.findUnique({
+    for (const data of record.data) {
+      const metric = await this.dataService.Metric.findUnique({
         where: { id: data.metric_id },
       });
-      if (!check) {
+      if (!metric) {
         throw new NotFoundException('Metric not found');
       }
-    });
+    }
 
     const newRecord = await this.dataService.Record.create({
       data: {
