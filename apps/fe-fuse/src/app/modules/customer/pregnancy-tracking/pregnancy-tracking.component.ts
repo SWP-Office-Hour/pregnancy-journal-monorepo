@@ -1,38 +1,33 @@
-import { Component, inject, Input, WritableSignal } from '@angular/core';
-import { PregnancyTrackingApiService } from './service/pregnancy-tracking.api.service';
-import { PregnancyTrackingSignalService } from './service/pregnancy-tracking.signal.service';
-import { TrackingFormComponent } from './tracking-form/tracking-form.component';
-import { TrackingSelectComponent } from './tracking-select/tracking-select.component';
+import { Location } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { TrackingFormComponent } from './form/tracking-form.component';
+import { PregnancyTrackingService } from './pregnancy-tracking.service';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [TrackingSelectComponent, TrackingFormComponent],
+  imports: [TrackingFormComponent, RouterLink],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
 })
 export class PregnancyTrackingComponent {
-  protected index = -1;
-  private readonly signalService = inject(PregnancyTrackingSignalService);
-  protected $recordDataLength: WritableSignal<number> = this.signalService.RecordDataLength;
-  private readonly apiService = inject(PregnancyTrackingApiService);
+  protected recordsData: RecordResponse[];
+  protected selectedRecordData: RecordResponse;
 
-  constructor() {
-    this.apiService.getPregnancyData().subscribe((res) => {
-      this.signalService.RecordData.set(res.data);
-      this.signalService.RecordDataLength.set(res.total);
-      const length = this.signalService.RecordDataLength();
-      if (this.index >= length || this.index < 0) {
-        this.signalService.selectRecord(0);
-      }
-      this.signalService.RecordDataById.set(res.data[this.index]);
+  constructor(
+    private _trackingService: PregnancyTrackingService,
+    private _location: Location,
+  ) {
+    this._trackingService.RecordData.subscribe((data) => {
+      this.recordsData = data;
+      this.selectedRecordData = this._trackingService.SelectedRecordData;
+      console.log(this.recordsData);
     });
   }
 
-  @Input()
-  set id(id: number) {
-    this.index = id;
+  backClicked() {
+    this._location.back();
   }
-
-  protected readonly console = console;
 }

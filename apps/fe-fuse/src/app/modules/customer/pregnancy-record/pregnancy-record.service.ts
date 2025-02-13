@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Hospital, MediaRes, MetricRes, RecordCreateRequest } from '@pregnancy-journal-monorepo/contract';
+import { Hospital, MediaRes, MetricRes, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -69,19 +69,12 @@ export class PregnancyRecordService {
   }
 
   submit(record_data: RecordCreateRequest) {
-    // this._httpClient
-    //   .post(environment.apiUrl + 'record', record_data, {
-    //     headers: {
-    //       Authorization: `Bearer ${this._authService.accessToken}`,
-    //     },
-    //   })
-    //   .pipe(map((record: RecordResponse) => record.id))
-    //   .subscribe((id) => {
-    //     this._mediaSrc.forEach((img) => {
-    //       this.postImage({ image: img, record_id: id });
-    //     });
-    //   });
-    console.log('record_data', record_data);
-    console.log('images', this._mediaSrc);
+    return this._httpClient
+      .post(environment.apiUrl + 'record', record_data, {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
+        },
+      })
+      .pipe(map((record: RecordResponse) => record.id));
   }
 }

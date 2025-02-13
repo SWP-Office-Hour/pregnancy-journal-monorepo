@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject } from '@angular/core';
 import { MatRadioChange, MatRadioModule } from '@angular/material/radio';
-import { PregnancyTrackingSignalService } from '../service/pregnancy-tracking.signal.service';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { TrackingPagingComponent } from '../tracking-paging/tracking-paging.component';
 
 @Component({
@@ -12,7 +12,7 @@ import { TrackingPagingComponent } from '../tracking-paging/tracking-paging.comp
   standalone: true,
 })
 export class TrackingSelectComponent {
-  protected signalService = inject(PregnancyTrackingSignalService);
+  protected signalService = inject(PregnancyTrackingService);
   protected currentPageIndex = this.signalService.currentPage;
   $records = computed(() => this.signalService.RecordData().slice(this.signalService.currentPage * 5, this.signalService.currentPage * 5 + 5));
   $selectedRecord = this.signalService.RecordDataById;

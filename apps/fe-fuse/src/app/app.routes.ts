@@ -111,7 +111,7 @@ export const appRoutes: Route[] = [
       { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
       {
         path: 'record',
-        component: PregnancyRecordComponent,
+        loadComponent: () => PregnancyRecordComponent,
       },
     ],
   },

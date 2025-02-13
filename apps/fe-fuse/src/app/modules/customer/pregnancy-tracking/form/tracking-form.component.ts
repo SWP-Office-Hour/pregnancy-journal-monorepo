@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -7,14 +7,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Hospital, MediaRes, MetricRes } from '@pregnancy-journal-monorepo/contract';
-import { pregnancyGetRes } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { Hospital, MediaRes, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
-import { PregnancyRecordService } from '../pregnancy-record.service';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
-  selector: 'record-form',
+  selector: 'tracking-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -30,22 +29,25 @@ import { PregnancyRecordService } from '../pregnancy-record.service';
     MatIconModule,
     MatSelectModule,
   ],
-  templateUrl: './record-form.component.html',
-  styleUrl: './record-form.component.css',
+  templateUrl: './tracking-form.component.html',
+  styleUrl: './tracking-form.component.css',
 })
-export class RecordFormComponent {
-  @Input() data: pregnancyGetRes;
+export class TrackingFormComponent {
+  protected trackingForm: FormGroup;
   protected images: MediaRes[];
-  protected recordForm: FormGroup;
   protected hospitals: Hospital[];
   protected metrics: MetricRes[];
-  protected submitted = false;
+  protected selectedRecordData: RecordResponse;
+  protected week: number;
 
   constructor(
-    private _recordService: PregnancyRecordService,
+    private _trackingService: PregnancyTrackingService,
     private _formBuilder: FormBuilder,
   ) {
-    this.recordForm = this._formBuilder.group(
+    this.selectedRecordData = this._trackingService.SelectedRecordData;
+    this.images = this._trackingService.Media;
+    this.week = this.selectedRecordData.week;
+    this.trackingForm = this._formBuilder.group(
       {
         visit_doctor_date: new Date(),
         next_visit_doctor_date: new Date(),
@@ -57,20 +59,26 @@ export class RecordFormComponent {
         validators: [Validators.required],
       },
     );
-    this._recordService.getHospital().subscribe((hospitals) => {
+    this.trackingForm.patchValue({
+      hospital: this.selectedRecordData.hospital.id,
+      doctor_name: this.selectedRecordData.doctor_name,
+      visit_doctor_date: this.selectedRecordData.visit_doctor_date,
+      next_visit_doctor_date: this.selectedRecordData.next_visit_doctor_date,
+    });
+    this._trackingService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
     });
-    this._recordService.getMetrics().subscribe((metrics) => {
+    this._trackingService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics;
-      this.metrics.forEach(() => {
-        this.metricsFormArray.push(this._formBuilder.control(0));
+      this.metrics.forEach((metric) => {
+        const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.id)?.value || 0;
+        this.metricsFormArray.push(this._formBuilder.control(value));
       });
     });
-    this.images = this._recordService.getMediaSrc();
   }
 
   get metricsFormArray() {
-    return this.recordForm.get('metrics') as FormArray;
+    return this.trackingForm.get('metrics') as FormArray;
   }
 
   submitForm() {
@@ -78,7 +86,7 @@ export class RecordFormComponent {
       metric_id: this.metrics[index].id,
       value: control.value as number,
     }));
-    const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.recordForm.value;
+    const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.trackingForm.value;
     const formData = {
       hospital_id: hospital,
       doctor_name,
@@ -86,21 +94,14 @@ export class RecordFormComponent {
       next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
       data,
     };
-    this._recordService.submit(formData).subscribe({
-      next: () => {
-        window.alert('Record submitted successfully');
-      },
-      error: () => {
-        window.alert('Failed to submit record');
-      },
-    });
+    this._trackingService.submit(formData);
   }
 
   deleteImg(id: string) {
-    this._recordService.deleteImage(id);
+    this._trackingService.deleteImage(id);
   }
 
   insertImg(img: MediaRes) {
-    this._recordService.addImage(img);
+    this._trackingService.addImage(img);
   }
 }
