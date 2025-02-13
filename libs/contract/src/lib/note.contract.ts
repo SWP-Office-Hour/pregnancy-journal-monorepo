@@ -8,24 +8,25 @@ export const noteResSchema = z.object({
   content: z.string(),
   date: z.date(),
   status: statusSchema,
-  created_at: z.date(),
 });
 
 const noteCreateReqSchema = z.object({
   title: z.string(),
   content: z.string(),
-  date: z.date(),
+  date: z.string().datetime(),
   status: statusSchema,
 });
 const noteUpdateReqSchema = z.object({
   id: z.string(),
   title: z.string().optional(),
   content: z.string().optional(),
-  date: z.date().optional(),
+  date: z.string().datetime().optional(),
   status: statusSchema.optional(),
 });
 
-export type Note = z.infer<typeof noteResSchema>;
+export type NoteRes = z.infer<typeof noteResSchema>;
+export type NoteCreateReq = z.infer<typeof noteCreateReqSchema>;
+export type NoteUpdateReq = z.infer<typeof noteUpdateReqSchema>;
 
 const c = initContract();
 
@@ -33,7 +34,7 @@ export const noteContract = c.router({
   getAll: {
     method: 'GET',
     path: '/note',
-    description: 'Get all notes',
+    description: 'Get all notes (đã xong)',
     responses: {
       200: z.array(noteResSchema),
       404: z.object({ message: z.string() }),
@@ -45,7 +46,7 @@ export const noteContract = c.router({
     pathParams: z.object({
       id: z.string(),
     }),
-    description: 'Get a note by note id',
+    description: 'Get a note by note id (đã xong)',
     responses: {
       200: noteResSchema,
       404: z.object({ message: z.string() }),
@@ -55,16 +56,16 @@ export const noteContract = c.router({
     method: 'POST',
     path: '/note',
     body: noteCreateReqSchema,
-    description: 'Create a new note',
+    description: 'Create a new note (đã xong)',
     responses: {
       201: noteResSchema,
     },
   },
   update: {
     method: 'PATCH',
-    path: '/note/:id',
+    path: '/note',
     body: noteUpdateReqSchema,
-    description: 'Update a note by note id',
+    description: 'Update a note by note id (đã xong)',
     responses: {
       200: noteResSchema,
     },
@@ -75,11 +76,9 @@ export const noteContract = c.router({
     pathParams: z.object({
       id: z.string(),
     }),
-    description: 'Delete a note by note id',
+    description: 'Delete a note by note id (đã xong)',
     responses: {
-      204: z.object({
-        message: z.string(),
-      }),
+      204: noteResSchema,
     },
   },
 });
