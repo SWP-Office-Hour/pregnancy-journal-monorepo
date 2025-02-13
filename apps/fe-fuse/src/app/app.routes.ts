@@ -115,4 +115,10 @@ export const appRoutes: Route[] = [
       },
     ],
   },
+
+  {
+    path: '404-not-found',
+    loadChildren: () => import('app/modules/pages/pages.routes'),
+  },
+  { path: '**', redirectTo: '404-not-found' },
 ];
