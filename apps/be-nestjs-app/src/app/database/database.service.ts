@@ -60,4 +60,8 @@ export class DatabaseService {
   get RecordMetric() {
     return this.prisma.visit_record_metric;
   }
+
+  get Note() {
+    return this.prisma.note;
+  }
 }
