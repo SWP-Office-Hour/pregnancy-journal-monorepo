@@ -47,7 +47,7 @@ export const blogContract = c.router({
       limit: z.coerce.number().default(10),
       page: z.coerce.number().default(1),
     }),
-    description: 'Get all blogs',
+    description: 'Get all blogs (đã xong)',
     responses: {
       200: z.object({
         blogs: z.array(blogResSchema),
@@ -59,7 +59,7 @@ export const blogContract = c.router({
   getOne: {
     method: 'GET',
     path: '/blogs/:id',
-    description: 'Get a blog by blog id',
+    description: 'Get a blog by blog id (đã xong)',
     responses: {
       200: blogResSchema,
       404: z.object({ message: z.string() }),
@@ -68,7 +68,7 @@ export const blogContract = c.router({
   create: {
     method: 'POST',
     path: '/blogs',
-    description: 'Create a new blog',
+    description: 'Create a new blog (đã xong)',
     body: blogCreateReqSchema,
     responses: {
       201: blogResSchema,
@@ -77,7 +77,7 @@ export const blogContract = c.router({
   update: {
     method: 'PATCH',
     path: '/blogs',
-    description: 'Update a blog',
+    description: 'Update a blog (đã xong)',
     body: blogUpdateReqSchema,
     responses: {
       200: blogResSchema,
@@ -86,7 +86,7 @@ export const blogContract = c.router({
   delete: {
     method: 'DELETE',
     path: '/blogs/:id',
-    description: 'Delete a blog by blog id',
+    description: 'Delete a blog by blog id (đã xong)',
     pathParams: z.object({
       id: z.string(),
     }),

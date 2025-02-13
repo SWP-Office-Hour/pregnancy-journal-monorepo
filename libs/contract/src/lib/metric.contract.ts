@@ -66,7 +66,7 @@ export const metricContract = c.router({
   getAll: {
     method: 'GET',
     path: '/metrics',
-    description: 'Get all metrics',
+    description: 'Get all metrics (đã xong)',
     responses: {
       200: z.array(metricResSchema),
       404: z.object({ message: z.string() }),
@@ -75,7 +75,7 @@ export const metricContract = c.router({
   getOne: {
     method: 'GET',
     path: '/metrics/:id',
-    description: 'Get a metric by metric id',
+    description: 'Get a metric by metric id (đã xong)',
     responses: {
       200: metricResSchema,
       404: z.object({ message: z.string() }),
@@ -84,7 +84,7 @@ export const metricContract = c.router({
   create: {
     method: 'POST',
     path: '/metrics',
-    description: 'Create a new metric',
+    description: 'Create a new metric (đã xong)',
     body: metricUserCreateReqSchema,
     responses: {
       200: metricResSchema,
@@ -93,7 +93,7 @@ export const metricContract = c.router({
   update: {
     method: 'PATCH',
     path: '/metrics',
-    description: 'Update a metric by metric id',
+    description: 'Update a metric by metric id (đã xong)',
     body: metricUserUpdateReqSchema,
     responses: {
       200: metricResSchema,
@@ -102,6 +102,7 @@ export const metricContract = c.router({
   delete: {
     method: 'DELETE',
     path: '/metrics/:id',
+    description: 'Delete a metric by metric id (đã xong)',
     pathParams: z.object({
       id: z.string(),
     }),
