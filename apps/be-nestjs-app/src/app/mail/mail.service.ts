@@ -6,6 +6,7 @@ import * as Nodemailer from 'nodemailer';
 export class MailService {
   private transport;
 
+  private name = 'Thành';
   // constructor() {
   //   const apiKey = '81931bab4f5e3fc81e22adae19289b5b-1654a412-431d1184';
   //   if (!apiKey) {
@@ -41,19 +42,18 @@ export class MailService {
 
   async sendMail() {
     const sender = {
-      address: 'hoangyen7592sg@gmail.com',
+      email: 'hello@demomailtrap.com',
       name: 'Mailtrap Test',
     };
-    const recipients = ['phatcanlez@gmail.com'];
+    const recipients = ['thanhtran190304@gmail.com'];
 
     try {
       const result = await this.transport.sendMail({
         from: sender,
         to: recipients,
         subject: 'You are awesome!',
-        text: 'Congrats for sending test email with Mailtrap!',
-        category: 'Integration Test',
-        template: {},
+        text: 'hello thành nhé',
+        category: 'phát test',
       });
       console.log(result);
     } catch (error) {
