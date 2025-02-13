@@ -1,7 +1,7 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
   <div class="bg-card">
-    <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
+    <div class="relative mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
       <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
         <!-- Avatar and name -->
         <div class="flex min-w-0 flex-auto items-center">
@@ -30,28 +30,14 @@
           </button>
         </div>
       </div>
-      <!-- Project selector -->
+      <!-- Visit record Button -->
       <div
-        class="bg-default relative flex cursor-pointer self-start overflow-hidden rounded-t-xl border border-b-0 pb-1 pl-5 pr-4 pt-2"
+        class="bg-default absolute -bottom-10 z-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4 border-indigo-600"
         matRipple
-        [matMenuTriggerFor]="projectsMenu"
+        matTooltip="Hôm nay tôi đi khám"
+        [matTooltipPosition]="'right'!"
       >
-        <div class="flex items-center">
-          <div class="overflow-hidden">
-            <div class="truncate font-medium leading-6">
-              {{ selectedProject }}
-            </div>
-          </div>
-          <div class="flex items-center justify-center pl-2">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:chevron-down'"></mat-icon>
-          </div>
-        </div>
-        <mat-menu #projectsMenu="matMenu" [xPosition]="'before'">
-          <button mat-menu-item (click)="selectedProject = 'ACME Corp. Backend App'">ACME Corp. Backend App</button>
-          <button mat-menu-item (click)="selectedProject = 'ACME Corp. Frontend App'">ACME Corp. Frontend App</button>
-          <button mat-menu-item (click)="selectedProject = 'Creapond'">Creapond</button>
-          <button mat-menu-item (click)="selectedProject = 'Withinpixels'">Withinpixels</button>
-        </mat-menu>
+        <mat-icon class="icon-size -10" [svgIcon]="'heroicons_mini:pencil-square'"></mat-icon>
       </div>
     </div>
   </div>
