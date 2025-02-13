@@ -68,7 +68,7 @@ export const authContract = c.router({
   register: {
     method: 'POST',
     path: '/users/auth/register',
-    description: 'Register a new user',
+    description: 'Register a new user (đã xong)',
     body: registerSchema,
     responses: {
       200: authResponseSchema,
@@ -79,7 +79,7 @@ export const authContract = c.router({
   login: {
     method: 'POST',
     path: '/users/auth/login',
-    description: 'Login',
+    description: 'Login (đã xong)',
     body: loginSchema,
     responses: {
       200: authResponseSchema,
@@ -90,7 +90,7 @@ export const authContract = c.router({
     method: 'POST',
     path: '/users/auth/logout',
     body: tokenSchema,
-    description: 'Logout',
+    description: 'Logout (đã xong)',
     responses: {
       200: messageResponseSchema,
       401: messageResponseSchema,

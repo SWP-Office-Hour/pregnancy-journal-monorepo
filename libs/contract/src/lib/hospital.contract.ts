@@ -17,7 +17,7 @@ export const hospitalContract = c.router({
   getAll: {
     method: 'GET',
     path: '/hospitals',
-    description: 'Get all hospitals',
+    description: 'Get all hospitals (đã xong)',
     responses: {
       200: hospitalGetAllResSchema,
     },
@@ -25,7 +25,7 @@ export const hospitalContract = c.router({
   getOne: {
     method: 'GET',
     path: '/hospitals/:id',
-    description: 'Get a hospital by id',
+    description: 'Get a hospital by id (đã xong)',
     pathParams: z.object({
       id: z.string(),
     }),

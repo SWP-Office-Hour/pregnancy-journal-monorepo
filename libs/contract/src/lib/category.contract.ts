@@ -29,7 +29,7 @@ export const categoryContract = c.router({
   create: {
     method: 'POST',
     path: '/categories',
-    description: 'Create a new category',
+    description: 'Create a new category (đã xong)',
     body: categoryCreateReqSchema,
     responses: {
       201: categoryResSchema,
@@ -38,7 +38,7 @@ export const categoryContract = c.router({
   getAll: {
     method: 'GET',
     path: '/categories',
-    description: 'Get all categories',
+    description: 'Get all categories (đã xong)',
     responses: {
       200: z.array(categoryResSchema),
       404: z.object({ message: z.string() }),
@@ -47,7 +47,7 @@ export const categoryContract = c.router({
   getOne: {
     method: 'GET',
     path: '/categories/:id',
-    description: 'Get a category by id',
+    description: 'Get a category by id (đã xong)',
     responses: {
       200: categoryResSchema,
       404: z.object({ message: z.string() }),
@@ -56,7 +56,7 @@ export const categoryContract = c.router({
   update: {
     method: 'PATCH',
     path: '/categories',
-    description: 'Update a category by category id',
+    description: 'Update a category by category id (đã xong)',
     body: categoryUpdateReqSchema,
     responses: {
       200: categoryResSchema,
@@ -66,7 +66,7 @@ export const categoryContract = c.router({
   delete: {
     method: 'DELETE',
     path: '/categories/:id',
-    description: 'Delete a category by id',
+    description: 'Delete a category by id (đã xong)',
     responses: {
       200: categoryResSchema,
       404: z.object({ message: z.string() }),

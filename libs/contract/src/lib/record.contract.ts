@@ -69,7 +69,7 @@ export const recordContract = c.router({
   createRecord: {
     method: 'POST',
     path: '/record',
-    description: 'Create a new record',
+    description: 'Create a new record (đã xong)',
     body: recordCreateReqSchema,
     responses: {
       200: recordResSchema,
@@ -82,7 +82,7 @@ export const recordContract = c.router({
   getRecordByUserId: {
     method: 'GET',
     path: '/record',
-    description: 'Get pregnancy by user id',
+    description: 'Get pregnancy by user id (đã xong)',
     responses: {
       200: z.object({
         total: z.number(),
@@ -97,7 +97,7 @@ export const recordContract = c.router({
   updateRecord: {
     method: 'PATCH',
     path: '/record',
-    description: 'Update a record',
+    description: 'Update a record (đã xong)',
     body: recordUpdateReqSchema,
     responses: {
       200: recordResSchema,
@@ -110,7 +110,7 @@ export const recordContract = c.router({
   deleteRecord: {
     method: 'DELETE',
     path: '/record/:id',
-    description: 'Delete a record',
+    description: 'Delete a record (đã xong)',
     pathParams: z.object({
       id: z.string(),
     }),
