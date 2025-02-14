@@ -21,7 +21,7 @@ export class BlogsController {
       page = page ? page : 1;
       limit = limit ? limit : 10;
 
-      const result = await this.blogsService.findAll(page, limit);
+      const result = await this.blogsService.findAll(Number(page), Number(limit));
       return { status: 200, body: result };
     });
   }
