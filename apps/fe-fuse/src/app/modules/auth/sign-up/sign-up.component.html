@@ -37,7 +37,7 @@
         <div class="mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight">Đăng kí</div>
 
         <!-- Alert -->
-        @if (showAlert) {
+        @if (showAlert()) {
           <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
             {{ alert.message }}
           </fuse-alert>
@@ -50,10 +50,10 @@
             <mat-label>Email</mat-label>
             <input id="email" matInput [formControlName]="'email'" />
             @if (signUpForm.get('email').hasError('required')) {
-              <mat-error> Vui lòng nhập địa chỉ email </mat-error>
+              <mat-error> Vui lòng nhập địa chỉ email</mat-error>
             }
             @if (signUpForm.get('email').hasError('email')) {
-              <mat-error> Vui lòng nhập một địa chỉ email hợp lệ </mat-error>
+              <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
             }
           </mat-form-field>
 
@@ -74,13 +74,13 @@
                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
               }
             </button>
-            <mat-error> Vui lòng nhập mật khẩu </mat-error>
+            <mat-error> Vui lòng nhập mật khẩu</mat-error>
           </mat-form-field>
 
           <!-- ConfirmedPassword field -->
           <mat-form-field class="w-full">
             <mat-label>Xác nhận mật khẩu</mat-label>
-            <input id="confirmedPassword" matInput type="password" [formControlName]="'confirmedPassword'" #confirmedPasswordField />
+            <input id="confirmedPassword" matInput type="password" [formControlName]="'confirm_password'" #confirmedPasswordField />
             <button
               mat-icon-button
               type="button"
@@ -96,7 +96,7 @@
                 <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
               }
             </button>
-            <mat-error> Vui lòng nhập xác nhận mật khẩu </mat-error>
+            <mat-error> Vui lòng nhập xác nhận mật khẩu</mat-error>
           </mat-form-field>
 
           <!-- ToS and PP -->
@@ -108,6 +108,9 @@
               <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Chính sách bảo mật </a>
             </mat-checkbox>
           </div>
+          @if (signUpForm.get('agreements').hasError('required')) {
+            <mat-error> Vui lòng đồng ý với Điều khoản và Chính sách bảo mật</mat-error>
+          }
 
           <!-- Submit button -->
           <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signUpForm.disabled" (click)="signUp()">

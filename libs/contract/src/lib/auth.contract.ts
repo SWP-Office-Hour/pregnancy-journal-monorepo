@@ -21,7 +21,6 @@ const registerSchema = z
       'Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number and one special character',
     ),
     confirm_password: z.string(),
-    last_ovulation_date: z.string().datetime(),
     expected_birth_date: z.string().datetime(),
     phone: z.string().min(1, 'Phone is required'),
     province: z.string().min(1, 'Province is required'),
