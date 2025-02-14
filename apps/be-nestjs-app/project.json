@@ -80,7 +80,7 @@
         "defaultRegistry": "registry.digitalocean.com/office-hour/",
         "tags": ["registry.digitalocean.com/office-hour/api:latest"],
         "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache",
-        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=max"
+        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/cache:buildcache,modes=min"
       }
     }
   }
