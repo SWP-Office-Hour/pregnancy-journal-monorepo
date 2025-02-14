@@ -12,7 +12,7 @@ export class HospitalService {
   async findOne(id: string) {
     const result = await this.databaseService.Hospital.findUnique({
       where: {
-        id: id,
+        hospital_id: id,
       },
     });
     if (!result) {
