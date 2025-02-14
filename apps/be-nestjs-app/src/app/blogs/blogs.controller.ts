@@ -18,6 +18,9 @@ export class BlogsController {
   @TsRestHandler(blogContract.getAll)
   handleGetAll(@Query('page') page: number, @Query('limit') limit: number) {
     return tsRestHandler(blogContract.getAll, async () => {
+      page = page ? page : 1;
+      limit = limit ? limit : 10;
+
       const result = await this.blogsService.findAll(page, limit);
       return { status: 200, body: result };
     });
