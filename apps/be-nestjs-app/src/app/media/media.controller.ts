@@ -49,6 +49,8 @@ export class MediaController {
           result = await this.mediaService.createWithPostId({ media_url: url, post_id });
         } else if (record_id) {
           result = await this.mediaService.createWithRecordId({ media_url: url, record_id });
+        } else {
+          throw new BadRequestException('No post_id or record_id provided');
         }
 
         return {
