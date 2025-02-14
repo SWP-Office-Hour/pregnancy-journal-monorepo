@@ -8,53 +8,53 @@ datasource db {
 }
 
 model blog {
-  id          String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  blog_id     String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title       String     @db.VarChar(255)
   author      String     @db.VarChar(255)
   summary     String     @db.VarChar(255)
   created_at  DateTime   @db.Date
   updated_at  DateTime   @db.Date
-  content_url String     @db.VarChar(255)
+  content     String     @db.MediumText
   category_id String     @db.Char(36)
-  category    category   @relation(fields: [category_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_category_id_Category_id")
+  category    category   @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_category_id_Category_id")
   blog_tag    blog_tag[]
 
   @@index([category_id], map: "FK_Blog_category_id_Category_id")
 }
 
 model blog_tag {
-  id      String @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  blog_id String @db.Char(36)
-  tag_id  String @db.Char(36)
-  blog    blog   @relation(fields: [blog_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_Tag_blog_id_Blog_id")
-  tag     tag    @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_Tag_tag_id_Tag_id")
+  blog_tag_id String @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  blog_id     String @db.Char(36)
+  tag_id      String @db.Char(36)
+  blog        blog   @relation(fields: [blog_id], references: [blog_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_Tag_blog_id_Blog_id")
+  tag         tag    @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_Tag_tag_id_Tag_id")
 
   @@index([blog_id], map: "FK_Blog_Tag_blog_id_Blog_id")
   @@index([tag_id], map: "FK_Blog_Tag_tag_id_Tag_id")
 }
 
 model hospital {
-  id           String         @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  hospital_id  String         @id @default(dbgenerated("(uuid())")) @db.Char(36)
   city         String         @db.VarChar(255)
   name         String         @db.VarChar(255)
   visit_record visit_record[]
 }
 
 model media {
-  id              String        @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  media_id        String        @id @default(dbgenerated("(uuid())")) @db.Char(36)
   media_url       String        @db.VarChar(255)
   created_at      DateTime      @db.Date
   visit_record_id String?       @db.Char(36)
   post_id         String?       @db.Char(36)
-  post            post?         @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Media_post_id_Post_id")
-  visit_record    visit_record? @relation(fields: [visit_record_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Media_visit_record_id_Visit_Record_id")
+  post            post?         @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Media_post_id_Post_id")
+  visit_record    visit_record? @relation(fields: [visit_record_id], references: [visit_record_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Media_visit_record_id_Visit_Record_id")
 
   @@index([post_id], map: "FK_Media_post_id_Post_id")
   @@index([visit_record_id], map: "FK_Media_visit_record_id_Visit_Record_id")
 }
 
 model membership {
-  id              String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  membership_id   String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title           String            @db.VarChar(255)
   description     String            @db.VarChar(255)
   price           Float             @db.Float
@@ -65,31 +65,35 @@ model membership {
 }
 
 model metric {
-  id                  String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  metric_id           String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title               String                @db.VarChar(255)
   measurement_unit    String                @db.VarChar(255)
   status              Int
   required            Boolean               @default(true)
   upperbound_msg      String                @db.Char(255)
   lowerbound_msg      String                @db.Char(255)
+  tag_id              String?               @db.Char(36)
+  tag                 tag?                  @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Metric_tag_id_Tag_id")
   standard            standard[]
   visit_record_metric visit_record_metric[]
+
+  @@index([tag_id], map: "FK_Metric_tag_id_Tag_id")
 }
 
 model note {
-  id      String   @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  note_id String   @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title   String   @db.VarChar(255)
   content String   @db.VarChar(510)
   date    DateTime @db.Date
   status  Int
   user_id String   @db.Char(36)
-  user    user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Note_user_id_User_id")
+  user    user     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Note_user_id_User_id")
 
   @@index([user_id], map: "FK_Note_user_id_User_id")
 }
 
 model reminder {
-  id              String        @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  reminder_id     String        @id @default(dbgenerated("(uuid())")) @db.Char(36)
   type            Int
   title           String        @db.VarChar(255)
   content         String        @db.VarChar(255)
@@ -97,34 +101,35 @@ model reminder {
   status          Int
   user_id         String        @db.Char(36)
   visit_record_id String?       @db.Char(36)
-  user            user          @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_user_id_User_id")
-  visit_record    visit_record? @relation(fields: [visit_record_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_visit_record_id_Visit_Record_id")
+  user            user          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_user_id_User_id")
+  visit_record    visit_record? @relation(fields: [visit_record_id], references: [visit_record_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_visit_record_id_Visit_Record_id")
 
   @@index([user_id], map: "FK_Reminder_user_id_User_id")
   @@index([visit_record_id], map: "FK_Reminder_visit_record_id_Visit_Record_id")
 }
 
 model tag {
-  id                  String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  tag_id              String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title               String                @db.VarChar(255)
   status              Int
   blog_tag            blog_tag[]
+  metric              metric[]
   visit_record_metric visit_record_metric[]
 }
 
 model token {
-  id            String   @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  token_id      String   @id @default(dbgenerated("(uuid())")) @db.Char(36)
   user_id       String   @db.Char(36)
   refresh_token String   @db.VarChar(255)
   created_at    DateTime @db.Date
   updated_at    DateTime @db.Date
-  user          user     @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Token_user_id_User_id")
+  user          user     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Token_user_id_User_id")
 
   @@index([user_id], map: "FK_Token_user_id_User_id")
 }
 
 model user {
-  id                  String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  user_id             String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
   email               String            @db.VarChar(255)
   password            String            @db.VarChar(255)
   expected_birth_date DateTime          @db.Date
@@ -149,80 +154,80 @@ model user {
 }
 
 model comment {
-  id         String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  comment_id String    @id @default(dbgenerated("(uuid())")) @db.Char(36)
   content    String    @db.VarChar(1000)
   post_id    String    @db.Char(36)
   user_id    String    @db.Char(36)
   created_at DateTime? @db.Date
   updated_at DateTime? @db.Date
-  post       post      @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_1")
-  user       user      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
+  post       post      @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_1")
+  user       user      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
 
   @@index([post_id], map: "FK_Comment_post_id_Post_id")
   @@index([user_id], map: "FK_Comment_user_id_User_id")
 }
 
 model post {
-  id         String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  content    String     @db.VarChar(1000)
+  post_id    String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  content    String     @db.Text
   user_id    String     @db.Char(36)
   created_at DateTime?  @db.Date
   updated_at DateTime?  @db.Date
   comment    comment[]
   media      media[]
-  user       user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "post_ibfk_1")
+  user       user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "post_ibfk_1")
   reaction   reaction[]
 
   @@index([user_id], map: "FK_Post_user_id_User_id")
 }
 
 model category {
-  id     String @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  title  String @db.VarChar(1000)
-  status Int
-  blog   blog[]
+  category_id String @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  title       String @db.VarChar(1000)
+  status      Int
+  blog        blog[]
 }
 
 model payment_history {
-  id             String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  user_id        String     @db.Char(36)
-  membership_id  String     @db.Char(36)
-  created_at     String     @db.Char(36)
-  value          Float
-  status         Int
-  payment_method Int
-  membership     membership @relation(fields: [membership_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_membership_id_Membership_id")
-  user           user       @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_user_id_User_id")
+  payment_history_id String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  user_id            String     @db.Char(36)
+  membership_id      String     @db.Char(36)
+  created_at         String     @db.Char(36)
+  value              Float
+  status             Int
+  payment_method     Int
+  membership         membership @relation(fields: [membership_id], references: [membership_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_membership_id_Membership_id")
+  user               user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_user_id_User_id")
 
   @@index([membership_id], map: "FK_Payment_History_membership_id_Membership_id")
   @@index([user_id], map: "FK_Payment_History_user_id_User_id")
 }
 
 model reaction {
-  id      String @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  user_id String @db.Char(36)
-  post_id String @db.Char(36)
-  post    post   @relation(fields: [post_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reaction_post_id_Post_id")
-  user    user   @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reaction_user_id_User_id")
+  reaction_id String @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  user_id     String @db.Char(36)
+  post_id     String @db.Char(36)
+  post        post   @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reaction_post_id_Post_id")
+  user        user   @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reaction_user_id_User_id")
 
   @@index([post_id], map: "FK_Reaction_post_id_Post_id")
   @@index([user_id], map: "FK_Reaction_user_id_User_id")
 }
 
 model standard {
-  id                 String @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  standard_id        String @id @default(dbgenerated("(uuid())")) @db.Char(36)
   week               Int
   upperbound         Float  @db.Float
   lowerbound         Float  @db.Float
   metric_id          String @db.Char(36)
   who_standard_value Float? @db.Float
-  metric             metric @relation(fields: [metric_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Standard_metric_id_Metric_id")
+  metric             metric @relation(fields: [metric_id], references: [metric_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Standard_metric_id_Metric_id")
 
   @@index([metric_id], map: "FK_Standard_metric_id_Metric_id")
 }
 
 model visit_record {
-  id                     String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  visit_record_id        String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
   next_visit_doctor_date DateTime?             @db.Date
   visit_doctor_date      DateTime              @db.Date
   doctor_name            String                @db.VarChar(510)
@@ -231,8 +236,8 @@ model visit_record {
   user_id                String                @db.Char(36)
   media                  media[]
   reminder               reminder[]
-  hospital               hospital              @relation(fields: [hospital_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_hospital_id_Hospital_id")
-  user                   user                  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_user_id_User_id")
+  hospital               hospital              @relation(fields: [hospital_id], references: [hospital_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_hospital_id_Hospital_id")
+  user                   user                  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_user_id_User_id")
   visit_record_metric    visit_record_metric[]
 
   @@index([hospital_id], map: "FK_Visit_Record_hospital_id_Hospital_id")
@@ -240,16 +245,16 @@ model visit_record {
 }
 
 model visit_record_metric {
-  id              String       @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  value           Float        @db.Float
-  metric_id       String       @db.Char(36)
-  visit_record_id String       @db.Char(36)
-  updated_at      DateTime     @db.Date
-  created_at      DateTime     @db.Date
-  tag_id          String?      @db.Char(36)
-  metric          metric       @relation(fields: [metric_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_metric_id_Metric_id")
-  tag             tag?         @relation(fields: [tag_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_tag_id_Tag_id")
-  visit_record    visit_record @relation(fields: [visit_record_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_visit_record_id_Visit_Record_id")
+  visit_record_metric_id String       @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  value                  Float        @db.Float
+  metric_id              String       @db.Char(36)
+  visit_record_id        String       @db.Char(36)
+  updated_at             DateTime     @db.Date
+  created_at             DateTime     @db.Date
+  tag_id                 String?      @db.Char(36)
+  metric                 metric       @relation(fields: [metric_id], references: [metric_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_metric_id_Metric_id")
+  tag                    tag?         @relation(fields: [tag_id], references: [tag_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_tag_id_Tag_id")
+  visit_record           visit_record @relation(fields: [visit_record_id], references: [visit_record_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_Metric_visit_record_id_Visit_Record_id")
 
   @@index([metric_id], map: "FK_Visit_Record_Metric_metric_id_Metric_id")
   @@index([tag_id], map: "FK_Visit_Record_Metric_tag_id_Tag_id")
