@@ -15,7 +15,7 @@ export class JwtUtilsService {
     options = {
       algorithm: 'HS256',
     },
-    secret = this.configService.get<string>('JWT_SECRET'),
+    secret = this.configService.get<string>('JWT_SECRET') || 'jwt_secret',
   }: {
     payload: JwtPayload;
     options: JwtSignOptions;
