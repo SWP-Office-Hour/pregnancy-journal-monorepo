@@ -2,7 +2,7 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
 export const hospitalResSchema = z.object({
-  id: z.string(),
+  hospital_id: z.string(),
   name: z.string(),
   city: z.string(),
 });
