@@ -19,10 +19,11 @@ export class AccessTokenAuthGuard implements CanActivate {
     if (!token) {
       throw new UnauthorizedException('User authentication required');
     }
+
     try {
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret',
       });
       request.decoded_authorization = decoded_authorization;
 
@@ -76,7 +77,7 @@ export class RefreshTokenAuthGuard implements CanActivate {
     try {
       const decoded_refresh_token = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+        secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET') || 'jwt_secret,
       });
       const decoded_authorization = request.decoded_authorization;
       if (decoded_authorization) {
@@ -108,9 +109,12 @@ export class RoleAuthGuard implements CanActivate {
     try {
       const request = context.switchToHttp().getRequest<RequestWithJWT>();
       const token = request.headers.authorization?.split(' ')[1];
+      if (!token) {
+        throw new UnauthorizedException('User authentication required');
+      }
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret'
       });
       if (!decoded_authorization) {
         throw new UnauthorizedException('User role authentication required');
@@ -136,10 +140,13 @@ export class IsLoggin implements CanActivate {
   canActivate(context: ExecutionContext): boolean {
     const request = context.switchToHttp().getRequest<RequestWithJWT>();
     const token = request.headers.authorization?.split(' ')[1];
+    if (!token) {
+      return true;
+    }
     try {
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret'
       });
       request.decoded_authorization = decoded_authorization;
       return true;
