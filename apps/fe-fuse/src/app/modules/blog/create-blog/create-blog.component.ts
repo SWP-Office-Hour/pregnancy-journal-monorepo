@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
-import { ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
+import { Blog, CategoryRes, Tag } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
 import { BlogsService } from '../blogs.service';
 
@@ -31,148 +32,13 @@ import { BlogsService } from '../blogs.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBlogComponent implements OnInit {
-  createBlogForm: UntypedFormGroup;
+  createBlogForm: FormGroup;
   @ViewChild('tagsInput') tags: ElementRef;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-  tagsChips = signal<any[]>([
-    {
-      id: '1',
-      title: 'Angular',
-    },
-    {
-      id: '2',
-      title: 'React',
-    },
-    {
-      id: '3',
-      title: 'Vue',
-    },
-  ]);
-  tagsOptions = [
-    {
-      id: '1',
-      title: 'Angular',
-    },
-    {
-      id: '2',
-      title: 'React',
-    },
-    {
-      id: '3',
-      title: 'Vue',
-    },
-    {
-      id: '4',
-      title: 'JavaScript',
-    },
-    {
-      id: '5',
-      title: 'TypeScript',
-    },
-    {
-      id: '6',
-      title: 'Node.js',
-    },
-    {
-      id: '7',
-      title: 'Express.js',
-    },
-    {
-      id: '8',
-      title: 'Next.js',
-    },
-    {
-      id: '9',
-      title: 'Nest.js',
-    },
-    {
-      id: '10',
-      title: 'Electron',
-    },
-    {
-      id: '11',
-      title: 'React Native',
-    },
-    {
-      id: '12',
-      title: 'Flutter',
-    },
-    {
-      id: '13',
-      title: 'Dart',
-    },
-    {
-      id: '14',
-      title: 'Java',
-    },
-    {
-      id: '15',
-      title: 'Spring Boot',
-    },
-    {
-      id: '16',
-      title: 'Kotlin',
-    },
-    {
-      id: '17',
-      title: 'Swift',
-    },
-    {
-      id: '18',
-      title: 'iOS',
-    },
-    {
-      id: '19',
-      title: 'Android',
-    },
-    {
-      id: '20',
-      title: 'Kotlin Multiplatform',
-    },
-  ];
-  categories = [
-    {
-      id: '1',
-      title: 'Web Development',
-    },
-    {
-      id: '2',
-      title: 'Mobile Development',
-    },
-    {
-      id: '3',
-      title: 'Desktop Development',
-    },
-    {
-      id: '4',
-      title: 'Game Development',
-    },
-    {
-      id: '5',
-      title: 'Machine Learning',
-    },
-    {
-      id: '6',
-      title: 'Data Science',
-    },
-    {
-      id: '7',
-      title: 'DevOps',
-    },
-    {
-      id: '8',
-      title: 'Cloud Computing',
-    },
-    {
-      id: '9',
-      title: 'Cybersecurity',
-    },
-    {
-      id: '10',
-      title: 'Blockchain',
-    },
-  ];
-  quillModules: any = {
+  tagsChips = signal<Tag[]>([]);
+  tagsOptions: Tag[] = [];
+  categories: CategoryRes[] = [];
+  quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
       ['blockquote', 'code-block'],
@@ -194,14 +60,24 @@ export class CreateBlogComponent implements OnInit {
       ['clean'],
     ],
   };
+  protected _blog: Blog;
 
   /**
    * Constructor
    */
   constructor(
-    private _formBuilder: UntypedFormBuilder,
+    private _formBuilder: FormBuilder,
     private _blogService: BlogsService,
-  ) {}
+  ) {
+    this._blogService.getTags().subscribe((tags) => {
+      this.tagsOptions = tags;
+    });
+    this._blogService.getCategories().subscribe((categories) => {
+      this.categories = categories;
+    });
+    this._blog = this._blogService.getBlog();
+    console.log(this._blog);
+  }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Lifecycle hooks
