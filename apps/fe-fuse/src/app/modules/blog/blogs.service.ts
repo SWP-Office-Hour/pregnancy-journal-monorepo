@@ -1,30 +1,48 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map } from 'rxjs';
+import { Blog, CategoryRes, Tag } from '@pregnancy-journal-monorepo/contract';
+import { map, of, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blogs: {
-    id: string;
-    title: string;
-    author: string;
-    summary: string;
-    content_url: string;
-    category: string;
-  }[] = [];
+  private _blog: Blog;
+  private _blogs: Blog[];
+  private _tags: Tag[];
+  private _categories: CategoryRes[];
+  private _page = 1;
+  private _totalPage: number;
 
   /**
    * Constructor
    */
-  constructor(private _httpClient: HttpClient) {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _authService: AuthService,
+  ) {}
+
+  getBlog() {
+    return this._blog;
+  }
 
   getBlogs() {
-    return this._httpClient.get('api/dashboards/blogs').pipe(
-      map((response: any) => {
-        this._blogs = response;
-        return this._blogs;
-      }),
-    );
+    return this._httpClient
+      .get<{ blogs: Blog[]; total_page: number }>(environment.apiUrl + 'blogs', {
+        headers: {
+          Authorization: 'Bearer ' + this._authService.accessToken,
+        },
+        params: {
+          page: this._page,
+        },
+      })
+      .pipe(
+        map(({ blogs, total_page }: { blogs: Blog[]; total_page: number }) => {
+          this._blogs = blogs;
+          this._totalPage = total_page;
+          return { blogs: this._blogs, totalPage: this._totalPage };
+        }),
+      );
   }
 
   createBlog(blog: { title: string; author: string; summary: string; content: string; category: string }) {
@@ -35,11 +53,21 @@ export class BlogsService {
       content_url: 'api/content/',
       category: blog.category,
     };
+    console.log(newBlog);
     return this._httpClient.post('api/dashboards/blogs', newBlog).pipe(
       map((response) => {
         return response;
       }),
     );
+  }
+
+  getBlogById(id: string) {
+    if (this._blogs) {
+      this._blog = this._blogs.find((blog) => blog.id === id);
+      return of(this._blog);
+    } else {
+      return throwError(() => new Error('Blog not found'));
+    }
   }
 
   getContent() {
@@ -48,5 +76,43 @@ export class BlogsService {
         return response;
       }),
     );
+  }
+
+  getTags() {
+    if (this._tags) {
+      return of(this._tags);
+    } else {
+      return this._httpClient
+        .get<Tag[]>(environment.apiUrl + 'tags', {
+          headers: {
+            Authorization: 'Bearer ' + this._authService.accessToken,
+          },
+        })
+        .pipe(
+          map((tags) => {
+            this._tags = tags;
+            return this._tags;
+          }),
+        );
+    }
+  }
+
+  getCategories() {
+    if (this._categories) {
+      return of(this._categories);
+    } else {
+      return this._httpClient
+        .get<CategoryRes[]>(environment.apiUrl + 'categories', {
+          headers: {
+            Authorization: 'Bearer ' + this._authService.accessToken,
+          },
+        })
+        .pipe(
+          map((categories) => {
+            this._categories = categories;
+            return this._categories;
+          }),
+        );
+    }
   }
 }

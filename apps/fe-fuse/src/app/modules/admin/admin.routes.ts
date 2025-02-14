@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-import { BlogComponent } from '../blog/blog.component';
-import { CreateBlogComponent } from '../blog/create-blog/create-blog.component';
+import { BlogRoutes } from '../blog/blog.routes';
 import { HealthMetricComponent } from '../health-metric/health-metric.component';
 import { AdminComponent } from './admin.component';
 
@@ -14,16 +13,7 @@ export default [
     component: HealthMetricComponent,
   },
   {
-    path: 'blog',
-    children: [
-      {
-        path: '',
-        component: BlogComponent,
-      },
-      {
-        path: 'create',
-        component: CreateBlogComponent,
-      },
-    ],
+    path: 'blogs',
+    loadChildren: () => BlogRoutes,
   },
 ] as Routes;
