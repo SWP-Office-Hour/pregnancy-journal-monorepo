@@ -7,7 +7,7 @@ import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blog: BlogResponse;
+  private _blog: BlogResponse | any;
   private _blogs: BlogResponse[];
   private _tags: TagResponse[];
   private _categories: CategoryResponse[];

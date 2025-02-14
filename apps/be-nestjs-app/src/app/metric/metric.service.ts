@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { MetricCreateRequest, MetricUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { MetricCreateRequestType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { PrismaClient } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
 import { StandardService } from '../standard/standard.service';
@@ -11,7 +11,7 @@ export class MetricService {
     private readonly standardService: StandardService,
   ) {}
 
-  async create(createMetricDto: MetricCreateRequest) {
+  async create(createMetricDto: MetricCreateRequestType) {
     return this.databaseService.Metric.create({
       data: {
         title: createMetricDto.title,
@@ -27,7 +27,7 @@ export class MetricService {
                 week: bound.week,
                 upperbound: bound.upperbound,
                 lowerbound: bound.lowerbound,
-                who_standard_value: bound.whoStandardValue,
+                who_standard_value: bound.who_standard_value,
               };
             }),
           },
@@ -56,7 +56,7 @@ export class MetricService {
     return cur;
   }
 
-  update(updateMetricDto: MetricUpdateRequest) {
+  update(updateMetricDto: MetricUpdateRequestType) {
     const cur = this.findOne(updateMetricDto.id);
     if (!cur) {
       throw new NotFoundException('Metric not found');

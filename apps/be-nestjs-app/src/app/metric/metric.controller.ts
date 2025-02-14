@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { metricContract, MetricCreateRequest } from '@pregnancy-journal-monorepo/contract';
+import { metricContract, MetricCreateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { MetricService } from './metric.service';
 
@@ -8,7 +8,7 @@ export class MetricController {
   constructor(private readonly metricService: MetricService) {}
 
   @TsRestHandler(metricContract.create)
-  handleCreate(@Body() createMetricDto: MetricCreateRequest) {
+  handleCreate(@Body() createMetricDto: MetricCreateRequestType) {
     return tsRestHandler(metricContract.create, async () => {
       const result = await this.metricService.create(createMetricDto);
       return { status: 200, body: result };
