@@ -79,8 +79,8 @@
         "push": true,
         "defaultRegistry": "registry.digitalocean.com/office-hour/",
         "tags": ["registry.digitalocean.com/office-hour/api:latest"],
-        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/api:latest",
-        "cache-to": ["type=inline"]
+        "cache-from": "type=gha",
+        "cache-to": "type=gha,mode=max"
       }
     }
   }
