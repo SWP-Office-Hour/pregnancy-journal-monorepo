@@ -6,7 +6,7 @@ export const mediaResSchema = z.object({
   url: z.string(),
 });
 
-export type MediaRes = z.infer<typeof mediaResSchema>;
+export type MediaResponse = z.infer<typeof mediaResSchema>;
 
 const c = initContract();
 

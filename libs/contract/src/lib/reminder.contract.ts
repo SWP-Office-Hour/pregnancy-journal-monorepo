@@ -31,9 +31,9 @@ export const reminderUpdateReqSchema = z.object({
   user_id: z.string().optional(),
 });
 
-export type Reminder = z.infer<typeof reminderResSchema>;
-export type ReminderCreateReq = z.infer<typeof reminderCreateReqSchema>;
-export type ReminderUpdateReq = z.infer<typeof reminderUpdateReqSchema>;
+export type ReminderResponse = z.infer<typeof reminderResSchema>;
+export type ReminderCreateRequest = z.infer<typeof reminderCreateReqSchema>;
+export type ReminderUpdateRequest = z.infer<typeof reminderUpdateReqSchema>;
 
 const c = initContract();
 

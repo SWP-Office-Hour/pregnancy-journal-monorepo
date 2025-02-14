@@ -19,9 +19,9 @@ export const categoryUpdateReqSchema = z.object({
   status: statusSchema.optional(),
 });
 
-export type CategoryRes = z.infer<typeof categoryResSchema>;
-export type CategoryCreateReq = z.infer<typeof categoryCreateReqSchema>;
-export type CategoryUpdateReq = z.infer<typeof categoryUpdateReqSchema>;
+export type CategoryResponse = z.infer<typeof categoryResSchema>;
+export type CategoryCreateRequest = z.infer<typeof categoryCreateReqSchema>;
+export type CategoryUpdateRequest = z.infer<typeof categoryUpdateReqSchema>;
 
 const c = initContract();
 
