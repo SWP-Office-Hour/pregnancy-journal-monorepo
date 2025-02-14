@@ -1,7 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
-import { tagResSchema } from './tag.contract';
 
 export const standardSchema = z.object({
   id: z.string(),
@@ -33,13 +32,13 @@ export const metricResSchema = z.object({
   standard: z.array(standardSchema),
   upperBoundMsg: z.string(),
   lowerBoundMsg: z.string(),
-  tags: z.array(tagResSchema),
+  required: z.boolean(),
   status: statusSchema,
 });
 
-const metricUserCreateReqSchema = z.object({
+const metricCreateReqSchema = z.object({
   title: z.string(),
-  measurementUnit: z.string(),
+  measurement_unit: z.string(),
   standard: z.array(standardCreateReqSchema.optional()).optional(),
   upperBoundMsg: z.string(),
   lowerBoundMsg: z.string(),
@@ -47,10 +46,10 @@ const metricUserCreateReqSchema = z.object({
   status: statusSchema,
 });
 
-const metricUserUpdateReqSchema = z.object({
-  id: z.string(),
+const metricUpdateReqSchema = z.object({
+  id: z.string().nonempty(),
   title: z.string().optional(),
-  measurementUnit: z.string().optional(),
+  measurement_unit: z.string().optional(),
   upperBoundMsg: z.string().optional(),
   lowerBoundMsg: z.string().optional(),
   required: z.boolean().optional(),
@@ -58,8 +57,8 @@ const metricUserUpdateReqSchema = z.object({
 });
 
 export type MetricRes = z.infer<typeof metricResSchema>;
-export type MetricCreateReq = z.infer<typeof metricUserCreateReqSchema>;
-export type MetricUpdateReq = z.infer<typeof metricUserUpdateReqSchema>;
+export type MetricCreateReq = z.infer<typeof metricCreateReqSchema>;
+export type MetricUpdateReq = z.infer<typeof metricUpdateReqSchema>;
 const c = initContract();
 
 export const metricContract = c.router({
@@ -85,7 +84,7 @@ export const metricContract = c.router({
     method: 'POST',
     path: '/metrics',
     description: 'Create a new metric (đã xong)',
-    body: metricUserCreateReqSchema,
+    body: metricCreateReqSchema,
     responses: {
       200: metricResSchema,
     },
@@ -94,7 +93,7 @@ export const metricContract = c.router({
     method: 'PATCH',
     path: '/metrics',
     description: 'Update a metric by metric id (đã xong)',
-    body: metricUserUpdateReqSchema,
+    body: metricUpdateReqSchema,
     responses: {
       200: metricResSchema,
     },

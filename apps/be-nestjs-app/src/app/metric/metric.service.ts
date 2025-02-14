@@ -15,7 +15,7 @@ export class MetricService {
     return this.databaseService.Metric.create({
       data: {
         title: createMetricDto.title,
-        measurement_unit: createMetricDto.measurementUnit,
+        measurement_unit: createMetricDto.measurement_unit,
         status: createMetricDto.status,
         required: createMetricDto.required,
         upperbound_msg: createMetricDto.upperBoundMsg,
