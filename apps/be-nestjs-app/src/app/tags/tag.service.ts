@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TagCreateReq, TagUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { TagCreateRequest, TagUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class TagService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createTagDto: TagCreateReq) {
+  create(createTagDto: TagCreateRequest) {
     return this.databaseService.Tag.create({
       data: {
         title: createTagDto.title,
@@ -31,7 +31,7 @@ export class TagService {
     return result;
   }
 
-  update(updateTagDto: TagUpdateReq) {
+  update(updateTagDto: TagUpdateRequest) {
     const cur = this.findOne(updateTagDto.id);
     if (!cur) {
       throw new NotFoundException('Tag not found');

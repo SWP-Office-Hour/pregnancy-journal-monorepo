@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Blog, BlogCreateReq, BlogUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { BlogCreateRequest, BlogResponse, BlogUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class BlogsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createBlogDto: BlogCreateReq) {
+  async create(createBlogDto: BlogCreateRequest) {
     const category = await this.databaseService.Category.findUnique({
       where: {
         id: createBlogDto.category_id,
@@ -71,7 +71,7 @@ export class BlogsService {
     };
   }
 
-  async findOne(id: string): Promise<Blog> {
+  async findOne(id: string): Promise<BlogResponse> {
     const result = await this.databaseService.Blog.findUnique({
       where: {
         id: id,
@@ -104,7 +104,7 @@ export class BlogsService {
     };
   }
 
-  async update(updateBlogDto: BlogUpdateReq) {
+  async update(updateBlogDto: BlogUpdateRequest) {
     const cur = await this.databaseService.Blog.findUnique({
       where: {
         id: updateBlogDto.id,

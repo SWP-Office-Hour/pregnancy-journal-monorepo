@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ReminderCreateReq, ReminderUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { ReminderCreateRequest, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class ReminderService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createReminderDto: ReminderCreateReq) {
+  create(createReminderDto: ReminderCreateRequest) {
     return this.databaseService.Reminder.create({
       data: {
         title: createReminderDto.title,
@@ -39,7 +39,7 @@ export class ReminderService {
     return result;
   }
 
-  async update(updateReminderDto: ReminderUpdateReq) {
+  async update(updateReminderDto: ReminderUpdateRequest) {
     await this.findOne(updateReminderDto.id);
 
     return this.databaseService.Reminder.update({
