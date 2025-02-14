@@ -130,7 +130,7 @@ export class CreateBlogComponent implements OnInit {
     this.tags.nativeElement.value = '';
   }
 
-  isTagSelected(tag) {
+  isTagSelected(tag: Tag) {
     return this.tagsChips().some((t) => t.id === tag.id);
   }
 
