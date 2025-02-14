@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
@@ -36,7 +36,7 @@ export class TrackingFormComponent {
   protected trackingForm: FormGroup;
   protected images: MediaResponse[];
   protected hospitals: HospitalResponse[];
-  protected metrics: MetricResponse[];
+  protected metrics: MetricResponseType[];
   protected selectedRecordData: RecordResponse;
   protected week: number;
 
@@ -71,7 +71,7 @@ export class TrackingFormComponent {
     this._trackingService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics;
       this.metrics.forEach((metric) => {
-        const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.id)?.value || 0;
+        const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
         this.metricsFormArray.push(this._formBuilder.control(value));
       });
     });
@@ -83,7 +83,7 @@ export class TrackingFormComponent {
 
   submitForm() {
     const data = this.metricsFormArray.controls.map((control, index) => ({
-      metric_id: this.metrics[index].id,
+      metric_id: this.metrics[index].metric_id,
       value: control.value as number,
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.trackingForm.value;

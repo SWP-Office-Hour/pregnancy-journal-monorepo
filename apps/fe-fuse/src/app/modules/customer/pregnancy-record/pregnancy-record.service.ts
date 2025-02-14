@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { HospitalResponse, MediaResponse, MetricResponse, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -9,7 +9,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 export class PregnancyRecordService {
   private _mediaSrc: MediaResponse[] = [];
   private _hospitals: HospitalResponse[];
-  private _metrics = signal<MetricResponse[]>([]);
+  private _metrics = signal<MetricResponseType[]>([]);
 
   constructor(
     private _httpClient: HttpClient,
@@ -22,7 +22,7 @@ export class PregnancyRecordService {
 
   getMetrics() {
     return this._httpClient
-      .get<MetricResponse[]>(environment.apiUrl + 'metrics', {
+      .get<MetricResponseType[]>(environment.apiUrl + 'metrics', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },

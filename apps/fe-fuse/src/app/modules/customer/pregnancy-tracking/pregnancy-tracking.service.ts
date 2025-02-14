@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -13,7 +13,7 @@ export class PregnancyTrackingService {
   private _recordDataLength: number;
   private _media: MediaResponse[] = [];
   private _hospitals: HospitalResponse[];
-  private _metrics: MetricResponse[];
+  private _metrics: MetricResponseType[];
   private _selectedRecord: RecordResponse;
 
   constructor(
@@ -68,7 +68,7 @@ export class PregnancyTrackingService {
 
   getMetrics() {
     return this._httpClient
-      .get<MetricResponse[]>(environment.apiUrl + 'metrics', {
+      .get<MetricResponseType[]>(environment.apiUrl + 'metrics', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
@@ -81,10 +81,12 @@ export class PregnancyTrackingService {
       );
   }
 
-  getRecordDataById(id: string) {
-    this._selectedRecord = this._recordData.find((record) => record.id === id);
-    this._media = this._selectedRecord.media;
-  }
+  // getRecordDataById(id: string) {
+  //   this._selectedRecord = this._recordData.find((record) => record.id === id);
+  //   if (this._selectedRecord) {
+  //     this._media = this._selectedRecord.media;
+  //   }
+  // }
 
   selectRecord(id: number) {
     // this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => this.router.navigate(['tracking/view', id]));

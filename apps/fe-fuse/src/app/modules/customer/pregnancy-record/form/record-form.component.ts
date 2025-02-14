@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
@@ -37,7 +37,7 @@ export class RecordFormComponent {
   protected images: MediaResponse[];
   protected recordForm: FormGroup;
   protected hospitals: HospitalResponse[];
-  protected metrics: MetricResponse[];
+  protected metrics: MetricResponseType[];
   protected submitted = false;
 
   constructor(
@@ -74,7 +74,7 @@ export class RecordFormComponent {
 
   submitForm() {
     const data = this.metricsFormArray.controls.map((control, index) => ({
-      metric_id: this.metrics[index].id,
+      metric_id: this.metrics[index].metric_id,
       value: control.value as number,
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.recordForm.value;
