@@ -66,9 +66,10 @@
       "defaultConfiguration": "production"
     },
     "serve": {
+      "defaultConfiguration": "development",
       "executor": "@angular-devkit/build-angular:dev-server",
       "options": {
-        "port": 4222
+        "port": 5555
       },
       "configurations": {
         "production": {
@@ -77,8 +78,7 @@
         "development": {
           "buildTarget": "fuse-example:build:development"
         }
-      },
-      "defaultConfiguration": "development"
+      }
     },
     "extract-i18n": {
       "executor": "@angular-devkit/build-angular:extract-i18n",
@@ -100,7 +100,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "fuse-example:build",
-        "port": 4222,
+        "port": 5555,
         "staticFilePath": "dist/apps/fuse-example/browser",
         "spa": true
       }
