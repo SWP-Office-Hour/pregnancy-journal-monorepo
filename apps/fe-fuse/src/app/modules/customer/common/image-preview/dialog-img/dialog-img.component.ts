@@ -1,7 +1,7 @@
 import { Component, Inject, output } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { mediaType } from '../../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { MediaRes } from '@pregnancy-journal-monorepo/contract';
 
 @Component({
   selector: 'dialog-img',
@@ -10,7 +10,7 @@ import { mediaType } from '../../../../../mock-api/pages/pregnancy/pregnancy.moc
   imports: [MatDialogModule, MatButtonModule],
 })
 export class DialogImgComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { imgObj: mediaType }) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { imgObj: MediaRes }) {}
   deleteImg = output<string>();
 
   deleteImage() {
