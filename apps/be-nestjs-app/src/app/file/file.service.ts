@@ -15,14 +15,22 @@ export class FileService {
   private readonly uploadPath = join(__dirname, '..', '..', 'images');
 
   constructor(private readonly configService: ConfigService) {
-    this.s3Client = new S3Client({
-      region: 'auto',
-      endpoint: this.configService.get('CLOUDFLARE_ENDPOINT'),
-      credentials: {
-        accessKeyId: this.configService.get('CLOUDFLARE_ACCESS'),
-        secretAccessKey: this.configService.get('CLOUDFLARE_SECRET'),
-      },
-    });
+    const endpoint = this.configService.get('CLOUDFLARE_ENDPOINT');
+    const accessKey = this.configService.get('CLOUDFLARE_ACCESS');
+    const secretKey = this.configService.get('CLOUDFLARE_SECRET');
+
+    if (!endpoint || !accessKey || !secretKey) {
+      throw new BadRequestException('Cloudflare credentials not set');
+    } else {
+      this.s3Client = new S3Client({
+        region: 'auto',
+        endpoint: endpoint,
+        credentials: {
+          accessKeyId: accessKey,
+          secretAccessKey: secretKey,
+        },
+      });
+    }
   }
 
   async uploadToR2(file: Express.Multer.File, filename: string) {
