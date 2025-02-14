@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Hospital, MediaRes, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -11,9 +11,9 @@ export class PregnancyTrackingService {
   currentRecordIndex = 0;
   private _recordData: RecordResponse[];
   private _recordDataLength: number;
-  private _media: MediaRes[] = [];
-  private _hospitals: Hospital[];
-  private _metrics: MetricRes[];
+  private _media: MediaResponse[] = [];
+  private _hospitals: HospitalResponse[];
+  private _metrics: MetricResponse[];
   private _selectedRecord: RecordResponse;
 
   constructor(
@@ -53,7 +53,7 @@ export class PregnancyTrackingService {
 
   getHospitals() {
     return this._httpClient
-      .get<Hospital[]>(environment.apiUrl + 'hospitals', {
+      .get<HospitalResponse[]>(environment.apiUrl + 'hospitals', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
@@ -68,7 +68,7 @@ export class PregnancyTrackingService {
 
   getMetrics() {
     return this._httpClient
-      .get<MetricRes[]>(environment.apiUrl + 'metrics', {
+      .get<MetricResponse[]>(environment.apiUrl + 'metrics', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
@@ -101,7 +101,7 @@ export class PregnancyTrackingService {
     this._media = this._media.filter((img) => img.id !== id);
   }
 
-  addImage(img: MediaRes) {
+  addImage(img: MediaResponse) {
     this._media.push(img);
   }
 

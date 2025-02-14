@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Hospital, MediaRes, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
@@ -34,9 +34,9 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 })
 export class TrackingFormComponent {
   protected trackingForm: FormGroup;
-  protected images: MediaRes[];
-  protected hospitals: Hospital[];
-  protected metrics: MetricRes[];
+  protected images: MediaResponse[];
+  protected hospitals: HospitalResponse[];
+  protected metrics: MetricResponse[];
   protected selectedRecordData: RecordResponse;
   protected week: number;
 
@@ -101,7 +101,7 @@ export class TrackingFormComponent {
     this._trackingService.deleteImage(id);
   }
 
-  insertImg(img: MediaRes) {
+  insertImg(img: MediaResponse) {
     this._trackingService.addImage(img);
   }
 }

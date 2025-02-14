@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Blog, CategoryRes, Tag } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponse, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { map, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blog: Blog;
-  private _blogs: Blog[];
-  private _tags: Tag[];
-  private _categories: CategoryRes[];
+  private _blog: BlogResponse;
+  private _blogs: BlogResponse[];
+  private _tags: TagResponse[];
+  private _categories: CategoryResponse[];
   private _page = 1;
   private _totalPage: number;
 
@@ -28,7 +28,7 @@ export class BlogsService {
 
   getBlogs() {
     return this._httpClient
-      .get<{ blogs: Blog[]; total_page: number }>(environment.apiUrl + 'blogs', {
+      .get<{ blogs: BlogResponse[]; total_page: number }>(environment.apiUrl + 'blogs', {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
@@ -37,7 +37,7 @@ export class BlogsService {
         },
       })
       .pipe(
-        map(({ blogs, total_page }: { blogs: Blog[]; total_page: number }) => {
+        map(({ blogs, total_page }: { blogs: BlogResponse[]; total_page: number }) => {
           this._blogs = blogs;
           this._totalPage = total_page;
           return { blogs: this._blogs, totalPage: this._totalPage };
@@ -83,7 +83,7 @@ export class BlogsService {
       return of(this._tags);
     } else {
       return this._httpClient
-        .get<Tag[]>(environment.apiUrl + 'tags', {
+        .get<TagResponse[]>(environment.apiUrl + 'tags', {
           headers: {
             Authorization: 'Bearer ' + this._authService.accessToken,
           },
@@ -102,7 +102,7 @@ export class BlogsService {
       return of(this._categories);
     } else {
       return this._httpClient
-        .get<CategoryRes[]>(environment.apiUrl + 'categories', {
+        .get<CategoryResponse[]>(environment.apiUrl + 'categories', {
           headers: {
             Authorization: 'Bearer ' + this._authService.accessToken,
           },
