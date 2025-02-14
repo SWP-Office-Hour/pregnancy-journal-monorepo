@@ -7,8 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Hospital, MediaRes, MetricRes } from '@pregnancy-journal-monorepo/contract';
-import { pregnancyGetRes } from '../../../../mock-api/pages/pregnancy/pregnancy.mock-api';
+import { Hospital, MediaRes, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
@@ -34,7 +33,7 @@ import { PregnancyRecordService } from '../pregnancy-record.service';
   styleUrl: './record-form.component.css',
 })
 export class RecordFormComponent {
-  @Input() data: pregnancyGetRes;
+  @Input() data: RecordResponse;
   protected images: MediaRes[];
   protected recordForm: FormGroup;
   protected hospitals: Hospital[];

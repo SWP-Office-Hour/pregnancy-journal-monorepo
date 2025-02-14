@@ -4,7 +4,6 @@ import { Hospital, MediaRes, MetricRes, RecordCreateRequest, RecordResponse } fr
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
-import { mediaType } from '../../../mock-api/pages/pregnancy/pregnancy.mock-api';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordService {
@@ -64,7 +63,7 @@ export class PregnancyRecordService {
     );
   }
 
-  addImage(img: mediaType) {
+  addImage(img: MediaRes) {
     this._mediaSrc.push(img);
   }
 
