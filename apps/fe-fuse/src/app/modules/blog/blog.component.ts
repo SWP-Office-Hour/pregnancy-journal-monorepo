@@ -7,7 +7,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect, MatSelectChange } from '@angular/material/select';
 import { RouterLink } from '@angular/router';
-import { Blog, CategoryRes, Status } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponse, CategoryResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { FuseFindByKeyPipe } from '../../../@fuse/pipes/find-by-key';
 import { BlogsService } from './blogs.service';
 
@@ -18,9 +18,9 @@ import { BlogsService } from './blogs.service';
   styleUrl: './blog.component.scss',
 })
 export class BlogComponent {
-  protected blogs: Blog[] = [];
-  protected categories: CategoryRes[] = [];
-  protected filteredBlogs: Blog[] = [];
+  protected blogs: BlogResponse[] = [];
+  protected categories: CategoryResponse[] = [];
+  protected filteredBlogs: BlogResponse[] = [];
   protected totalPage: number = 0;
   protected readonly Status = Status;
 

@@ -1,15 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
-import { Hospital, MediaRes, MetricRes, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponse, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordService {
-  private _mediaSrc: MediaRes[] = [];
-  private _hospitals: Hospital[];
-  private _metrics = signal<MetricRes[]>([]);
+  private _mediaSrc: MediaResponse[] = [];
+  private _hospitals: HospitalResponse[];
+  private _metrics = signal<MetricResponse[]>([]);
 
   constructor(
     private _httpClient: HttpClient,
@@ -22,7 +22,7 @@ export class PregnancyRecordService {
 
   getMetrics() {
     return this._httpClient
-      .get<MetricRes[]>(environment.apiUrl + 'metrics', {
+      .get<MetricResponse[]>(environment.apiUrl + 'metrics', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
@@ -37,7 +37,7 @@ export class PregnancyRecordService {
 
   getHospital() {
     return this._httpClient
-      .get<Hospital[]>(environment.apiUrl + 'hospitals', {
+      .get<HospitalResponse[]>(environment.apiUrl + 'hospitals', {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
@@ -50,7 +50,7 @@ export class PregnancyRecordService {
       );
   }
 
-  postImage({}: { image: MediaRes; record_id: string }) {
+  postImage({}: { image: MediaResponse; record_id: string }) {
     return this._httpClient.post(environment.apiUrl + 'media', {
       image: this._mediaSrc,
     });
@@ -63,7 +63,7 @@ export class PregnancyRecordService {
     );
   }
 
-  addImage(img: MediaRes) {
+  addImage(img: MediaResponse) {
     this._mediaSrc.push(img);
   }
 

@@ -2,7 +2,7 @@ import { Component, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MediaRes } from '@pregnancy-journal-monorepo/contract';
+import { MediaResponse } from '@pregnancy-journal-monorepo/contract';
 
 @Component({
   selector: 'file-upload',
@@ -13,7 +13,7 @@ import { MediaRes } from '@pregnancy-journal-monorepo/contract';
 })
 export class FileUploadComponent {
   protected readonly control = new FormControl<File[]>([]);
-  insertImg = output<MediaRes>();
+  insertImg = output<MediaResponse>();
 
   protected onFileChange(event: Event): void {
     const reader = new FileReader();

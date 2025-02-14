@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Hospital, MediaRes, MetricRes, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponse, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
@@ -34,10 +34,10 @@ import { PregnancyRecordService } from '../pregnancy-record.service';
 })
 export class RecordFormComponent {
   @Input() data: RecordResponse;
-  protected images: MediaRes[];
+  protected images: MediaResponse[];
   protected recordForm: FormGroup;
-  protected hospitals: Hospital[];
-  protected metrics: MetricRes[];
+  protected hospitals: HospitalResponse[];
+  protected metrics: MetricResponse[];
   protected submitted = false;
 
   constructor(
@@ -99,7 +99,7 @@ export class RecordFormComponent {
     this._recordService.deleteImage(id);
   }
 
-  insertImg(img: MediaRes) {
+  insertImg(img: MediaResponse) {
     this._recordService.addImage(img);
   }
 }

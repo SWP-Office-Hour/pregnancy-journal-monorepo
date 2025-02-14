@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { Blog, CategoryRes, Tag } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponse, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
 import { BlogsService } from '../blogs.service';
 
@@ -35,9 +35,9 @@ export class CreateBlogComponent implements OnInit {
   createBlogForm: FormGroup;
   @ViewChild('tagsInput') tags: ElementRef;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
-  tagsChips = signal<Tag[]>([]);
-  tagsOptions: Tag[] = [];
-  categories: CategoryRes[] = [];
+  tagsChips = signal<TagResponse[]>([]);
+  tagsOptions: TagResponse[] = [];
+  categories: CategoryResponse[] = [];
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -60,7 +60,7 @@ export class CreateBlogComponent implements OnInit {
       ['clean'],
     ],
   };
-  protected _blog: Blog;
+  protected _blog: BlogResponse;
 
   /**
    * Constructor
@@ -130,7 +130,7 @@ export class CreateBlogComponent implements OnInit {
     this.tags.nativeElement.value = '';
   }
 
-  isTagSelected(tag: Tag) {
+  isTagSelected(tag: TagResponse) {
     return this.tagsChips().some((t) => t.id === tag.id);
   }
 
