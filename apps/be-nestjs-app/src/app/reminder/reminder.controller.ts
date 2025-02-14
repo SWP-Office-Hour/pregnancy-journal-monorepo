@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { reminderContract, ReminderCreateReq, ReminderUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { reminderContract, ReminderCreateRequest, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { ReminderService } from './reminder.service';
 
@@ -8,7 +8,7 @@ export class ReminderController {
   constructor(private readonly reminderService: ReminderService) {}
 
   @TsRestHandler(reminderContract.create)
-  handleCreate(@Body() body: ReminderCreateReq) {
+  handleCreate(@Body() body: ReminderCreateRequest) {
     return tsRestHandler(reminderContract.create, async () => {
       const reminder = await this.reminderService.create(body);
       return { status: 200, body: reminder };
@@ -32,7 +32,7 @@ export class ReminderController {
   }
 
   @TsRestHandler(reminderContract.update)
-  handleUpdate(@Body() body: ReminderUpdateReq) {
+  handleUpdate(@Body() body: ReminderUpdateRequest) {
     return tsRestHandler(reminderContract.update, async () => {
       const reminder = await this.reminderService.update(body);
       return { status: 200, body: reminder };

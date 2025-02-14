@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { membershipCreateReq, membershipUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { membershipCreateRequest, membershipUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class MembershipsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createMembershipDto: membershipCreateReq) {
+  create(createMembershipDto: membershipCreateRequest) {
     return this.databaseService.MemberShip.create({
       data: {
         title: createMembershipDto.title,
@@ -35,7 +35,7 @@ export class MembershipsService {
     return res;
   }
 
-  async update(updateMembershipDto: membershipUpdateReq) {
+  async update(updateMembershipDto: membershipUpdateRequest) {
     await this.findOne(updateMembershipDto.id);
 
     return this.databaseService.MemberShip.update({

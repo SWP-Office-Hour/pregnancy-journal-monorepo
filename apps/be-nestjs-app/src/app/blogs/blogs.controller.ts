@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Query } from '@nestjs/common';
-import { blogContract, BlogCreateReq, BlogUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { blogContract, BlogCreateRequest, BlogUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { BlogsService } from './blogs.service';
 
@@ -8,7 +8,7 @@ export class BlogsController {
   constructor(private readonly blogsService: BlogsService) {}
 
   @TsRestHandler(blogContract.create)
-  handleCreate(@Body() createBlogDto: BlogCreateReq) {
+  handleCreate(@Body() createBlogDto: BlogCreateRequest) {
     return tsRestHandler(blogContract.create, async () => {
       const result = await this.blogsService.create(createBlogDto);
       return { status: 200, body: result };
@@ -35,7 +35,7 @@ export class BlogsController {
   }
 
   @TsRestHandler(blogContract.update)
-  handleUpdate(@Body() updateBlogDto: BlogUpdateReq) {
+  handleUpdate(@Body() updateBlogDto: BlogUpdateRequest) {
     return tsRestHandler(blogContract.update, async () => {
       const result = await this.blogsService.update(updateBlogDto);
       return { status: 200, body: result };

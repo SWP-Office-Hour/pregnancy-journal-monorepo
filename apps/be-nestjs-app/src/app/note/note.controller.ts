@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
-import { noteContract, NoteCreateReq, NoteUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { noteContract, NoteCreateRequest, NoteUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
@@ -11,7 +11,7 @@ export class NoteController {
 
   @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(noteContract.create)
-  handleCreate(@Body() note: NoteCreateReq, @Req() req: RequestWithJWT) {
+  handleCreate(@Body() note: NoteCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(noteContract.create, async () => {
       const userId = req.decoded_authorization.user_id;
       const result = await this.noteService.createNote({
@@ -48,7 +48,7 @@ export class NoteController {
   }
 
   @TsRestHandler(noteContract.update)
-  handleUpdate(@Body() note: NoteUpdateReq) {
+  handleUpdate(@Body() note: NoteUpdateRequest) {
     return tsRestHandler(noteContract.update, async () => {
       const result = await this.noteService.updateNoteById(note);
       return {

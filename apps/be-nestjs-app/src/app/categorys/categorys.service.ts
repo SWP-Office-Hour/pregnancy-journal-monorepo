@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CategoryCreateReq, CategoryUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { CategoryCreateRequest, CategoryUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { Category } from './entities/category.entity';
 
@@ -7,7 +7,7 @@ import { Category } from './entities/category.entity';
 export class CategorysService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createCategoryDto: CategoryCreateReq) {
+  async create(createCategoryDto: CategoryCreateRequest) {
     return this.databaseService.Category.create({
       data: {
         status: createCategoryDto.status,
@@ -32,7 +32,7 @@ export class CategorysService {
     return result;
   }
 
-  async update(updateCategoryDto: CategoryUpdateReq) {
+  async update(updateCategoryDto: CategoryUpdateRequest) {
     const cur = await this.findOne(updateCategoryDto.id);
     if (!cur) {
       throw new NotFoundException('Category not found');

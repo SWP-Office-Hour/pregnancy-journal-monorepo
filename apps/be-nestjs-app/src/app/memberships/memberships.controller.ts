@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { membershipContract, membershipCreateReq } from '@pregnancy-journal-monorepo/contract';
+import { membershipContract, membershipCreateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { MembershipsService } from './memberships.service';
 
@@ -8,7 +8,7 @@ export class MembershipsController {
   constructor(private readonly membershipsService: MembershipsService) {}
 
   @TsRestHandler(membershipContract.create)
-  handleCreateMembership(@Body() body: membershipCreateReq) {
+  handleCreateMembership(@Body() body: membershipCreateRequest) {
     return tsRestHandler(membershipContract.create, async () => {
       const membership = await this.membershipsService.create(body);
       return { status: 200, body: membership };
@@ -32,7 +32,7 @@ export class MembershipsController {
   }
 
   @TsRestHandler(membershipContract.update)
-  handleUpdateMembership(@Body() body: membershipCreateReq) {
+  handleUpdateMembership(@Body() body: membershipCreateRequest) {
     return tsRestHandler(membershipContract.update, async () => {
       const membership = await this.membershipsService.update(body);
       return { status: 200, body: membership };

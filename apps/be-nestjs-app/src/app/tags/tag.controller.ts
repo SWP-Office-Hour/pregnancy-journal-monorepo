@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { tagContract, TagCreateReq, TagUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { tagContract, TagCreateRequest, TagUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { TagService } from './tag.service';
 
@@ -8,7 +8,7 @@ export class TagController {
   constructor(private readonly tagService: TagService) {}
 
   @TsRestHandler(tagContract.create)
-  handleCreate(@Body() createTagDto: TagCreateReq) {
+  handleCreate(@Body() createTagDto: TagCreateRequest) {
     return tsRestHandler(tagContract.create, async () => {
       const result = await this.tagService.create(createTagDto);
       return { status: 200, body: result };
@@ -32,7 +32,7 @@ export class TagController {
   }
 
   @TsRestHandler(tagContract.update)
-  handleUpdate(@Body() updateTagDto: TagUpdateReq) {
+  handleUpdate(@Body() updateTagDto: TagUpdateRequest) {
     return tsRestHandler(tagContract.update, async () => {
       const result = await this.tagService.update(updateTagDto);
       return { status: 200, body: result };

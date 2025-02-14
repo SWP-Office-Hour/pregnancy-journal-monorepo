@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { categoryContract, CategoryCreateReq } from '@pregnancy-journal-monorepo/contract';
+import { categoryContract, CategoryCreateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { CategorysService } from './categorys.service';
 
@@ -8,7 +8,7 @@ export class CategorysController {
   constructor(private readonly categorysService: CategorysService) {}
 
   @TsRestHandler(categoryContract.create)
-  handleCreate(@Body() createCategoryDto: CategoryCreateReq) {
+  handleCreate(@Body() createCategoryDto: CategoryCreateRequest) {
     return tsRestHandler(categoryContract.create, async () => {
       const result = await this.categorysService.create(createCategoryDto);
       return { status: 200, body: result };
@@ -32,7 +32,7 @@ export class CategorysController {
   }
 
   @TsRestHandler(categoryContract.update)
-  handleUpdate(@Body() updateCategoryDto: CategoryCreateReq) {
+  handleUpdate(@Body() updateCategoryDto: CategoryCreateRequest) {
     return tsRestHandler(categoryContract.update, async () => {
       const result = await this.categorysService.update(updateCategoryDto);
       return { status: 200, body: result };

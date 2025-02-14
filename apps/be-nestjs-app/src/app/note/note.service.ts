@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { NoteCreateReq, NoteRes, NoteUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { NoteCreateRequest, NoteResponse, NoteUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class NoteService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async createNote({ note, userId }: { note: NoteCreateReq; userId: string }): Promise<NoteRes> {
+  async createNote({ note, userId }: { note: NoteCreateRequest; userId: string }): Promise<NoteResponse> {
     //kiểm tra coi user có tồn tại không
     const user = await this.databaseService.User.findUnique({
       where: {
@@ -51,7 +51,7 @@ export class NoteService {
     return note;
   }
 
-  async updateNoteById(note: NoteUpdateReq) {
+  async updateNoteById(note: NoteUpdateRequest) {
     const noteExist = await this.databaseService.Note.findUnique({
       where: {
         id: note.id,
