@@ -1,9 +1,14 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { fuseAnimations } from '../../../@fuse/animations';
 
 @Component({
   selector: 'app-health-metric',
-  imports: [],
   templateUrl: './health-metric.component.html',
-  styleUrl: './health-metric.component.scss',
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [RouterOutlet],
 })
 export class HealthMetricComponent {}
