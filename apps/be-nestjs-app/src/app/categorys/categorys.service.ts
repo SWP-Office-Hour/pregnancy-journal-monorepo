@@ -1,7 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CategoryCreateRequest, CategoryUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
-import { Category } from './entities/category.entity';
 
 @Injectable()
 export class CategorysService {
@@ -23,7 +22,7 @@ export class CategorysService {
   async findOne(id: string) {
     const result = await this.databaseService.Category.findUnique({
       where: {
-        id: id,
+        category_id: id,
       },
     });
     if (!result) {
@@ -39,11 +38,9 @@ export class CategorysService {
     }
     return this.databaseService.Category.update({
       where: {
-        id: updateCategoryDto.id,
+        category_id: updateCategoryDto.i,
       },
-      data: {
-        ...new Category(updateCategoryDto),
-      },
+      data: updateCategoryDto,
     });
   }
 
@@ -54,7 +51,7 @@ export class CategorysService {
     }
     return this.databaseService.Category.delete({
       where: {
-        id: id,
+        category_id: i,
       },
     });
   }
