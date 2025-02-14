@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
 export const tagResSchema = z.object({
-  id: z.string(),
+  tag_id: z.string(),
   title: z.string(),
 });
 

@@ -10,7 +10,7 @@ const blogResSchema = z.object({
   summary: z.string(),
   content_url: z.string(),
   create_at: z.date(),
-  tags: z.array(tagResSchema),
+  tags: z.array(tagResSchema.optional()).optional(),
   category: categoryResSchema,
 });
 

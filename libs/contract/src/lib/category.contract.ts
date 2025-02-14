@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
 export const categoryResSchema = z.object({
-  id: z.string(),
+  category_id: z.string(),
   title: z.string(),
   status: statusSchema,
 });
