@@ -1,15 +1,15 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import { membershipDaySchema, statusSchema } from './enum.contract';
+import { statusSchema } from './enum.contract';
 
 const membershipResContract = z.object({
-  id: z.string(),
+  membership_id: z.string(),
   title: z.string(),
   price: z.number(),
   description: z.string(),
-  createAt: z.date(),
+  // create_at: z.date(),
   status: statusSchema,
-  expiredInDay: membershipDaySchema,
+  // expiredInDay: membershipDaySchema,
 });
 
 const membershipCreateReqContract = z.object({
@@ -17,7 +17,7 @@ const membershipCreateReqContract = z.object({
   price: z.number(),
   description: z.string(),
   status: statusSchema,
-  expiredInDay: membershipDaySchema,
+  // expiredInDay: membershipDaySchema,
 });
 
 const membershipUpdateReqContract = z.object({
@@ -26,7 +26,7 @@ const membershipUpdateReqContract = z.object({
   price: z.number(),
   description: z.string(),
   status: statusSchema,
-  expiredInDay: membershipDaySchema,
+  // expiredInDay: membershipDaySchema,
 });
 
 export type membershipCreateRequest = z.infer<typeof membershipCreateReqContract>;

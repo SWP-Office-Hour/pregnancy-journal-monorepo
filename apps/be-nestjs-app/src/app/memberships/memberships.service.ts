@@ -26,7 +26,7 @@ export class MembershipsService {
   async findOne(id: string) {
     const res = await this.databaseService.MemberShip.findUnique({
       where: {
-        id: id,
+        membership_id: id,
       },
     });
     if (!res) {
@@ -40,7 +40,7 @@ export class MembershipsService {
 
     return this.databaseService.MemberShip.update({
       where: {
-        id: updateMembershipDto.id,
+        membership_id: updateMembershipDto.i,
       },
       data: updateMembershipDto,
     });
@@ -49,7 +49,7 @@ export class MembershipsService {
   remove(id: string) {
     return this.databaseService.MemberShip.delete({
       where: {
-        id: id,
+        membership_id: id,
       },
     });
   }
