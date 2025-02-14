@@ -13,7 +13,7 @@ export default [
     component: HealthMetricComponent,
   },
   {
-    path: 'blogs',
+    path: 'blog',
     loadChildren: () => BlogRoutes,
   },
 ] as Routes;
