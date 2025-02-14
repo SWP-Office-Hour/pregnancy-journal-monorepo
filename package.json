@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "prepare": "husky && git config --local include.path .gitconfig && pnpm run setup-nx-powerpack",
+    "prepare": "node -e \"process.env.CI || process.env.DOCKER || process.exit(1)\" || (husky && git config --local include.path .gitconfig && pnpm run setup-nx-powerpack)",
     "setup-nx-powerpack": "doppler secrets download --config nxpp --no-file --format env > .env",
     "format:write": "nx format:write --all",
     "prettier:write": "prettier --write ."
