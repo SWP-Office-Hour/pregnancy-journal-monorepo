@@ -2,8 +2,8 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
 export const mediaResSchema = z.object({
-  id: z.string(),
-  url: z.string(),
+  media_id: z.string(),
+  media_url: z.string(),
 });
 
 export type MediaResponse = z.infer<typeof mediaResSchema>;
