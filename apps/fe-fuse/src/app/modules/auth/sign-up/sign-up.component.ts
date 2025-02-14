@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -38,7 +38,7 @@ export class AuthSignUpComponent implements OnInit {
     message: '',
   };
   signUpForm: UntypedFormGroup;
-  showAlert: boolean = false;
+  showAlert = signal(false);
 
   /**
    * Constructor
@@ -61,7 +61,7 @@ export class AuthSignUpComponent implements OnInit {
     this.signUpForm = this._formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      confirmedPassword: ['', Validators.required],
+      confirm_password: ['', Validators.required],
       agreements: ['', Validators.requiredTrue],
     });
   }
@@ -83,30 +83,30 @@ export class AuthSignUpComponent implements OnInit {
     this.signUpForm.disable();
 
     // Hide the alert
-    this.showAlert = false;
+    this.showAlert.set(false);
+
+    console.log(this.signUpForm.value);
 
     // Sign up
-    this._authService.signUp(this.signUpForm.value).subscribe(
-      (response) => {
+    this._authService.confirmationRequired(this.signUpForm.value).subscribe({
+      next: (confirm_signup: string) => {
         // Navigate to the confirmation required page
-        this._router.navigateByUrl('/confirmation-required');
+        console.log(confirm_signup);
+        this._router.navigateByUrl(confirm_signup);
       },
-      (response) => {
+      error: (error) => {
         // Re-enable the form
         this.signUpForm.enable();
-
-        // Reset the form
-        this.signUpNgForm.resetForm();
 
         // Set the alert
         this.alert = {
           type: 'error',
-          message: 'Something went wrong, please try again.',
+          message: error.message,
         };
 
         // Show the alert
-        this.showAlert = true;
+        this.showAlert.set(true);
       },
-    );
+    });
   }
 }

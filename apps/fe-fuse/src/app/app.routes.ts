@@ -58,10 +58,7 @@ export const appRoutes: Route[] = [
     data: {
       layout: 'empty',
     },
-    children: [
-      { path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes') },
-      { path: 'unlock-session', loadChildren: () => import('app/modules/auth/unlock-session/unlock-session.routes') },
-    ],
+    children: [{ path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes') }],
   },
 
   // Landing routes
