@@ -9,7 +9,7 @@ export const hospitalResSchema = z.object({
 
 export const hospitalGetAllResSchema = z.array(hospitalResSchema);
 
-export type Hospital = z.infer<typeof hospitalResSchema>;
+export type HospitalResponse = z.infer<typeof hospitalResSchema>;
 
 const c = initContract();
 

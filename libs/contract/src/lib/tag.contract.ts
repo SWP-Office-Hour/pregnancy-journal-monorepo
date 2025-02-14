@@ -20,9 +20,9 @@ export const tagUpdateReqSchema = z.object({
 
 const tagGetAllResSchema = z.array(tagResSchema);
 
-export type Tag = z.infer<typeof tagResSchema>;
-export type TagCreateReq = z.infer<typeof tagCreateReqSchema>;
-export type TagUpdateReq = z.infer<typeof tagUpdateReqSchema>;
+export type TagResponse = z.infer<typeof tagResSchema>;
+export type TagCreateRequest = z.infer<typeof tagCreateReqSchema>;
+export type TagUpdateRequest = z.infer<typeof tagUpdateReqSchema>;
 const c = initContract();
 
 export const tagContract = c.router({

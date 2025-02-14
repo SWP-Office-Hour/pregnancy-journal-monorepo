@@ -33,9 +33,9 @@ export const blogUpdateReqSchema = z.object({
   category_id: z.string().optional(),
 });
 
-export type Blog = z.infer<typeof blogResSchema>;
-export type BlogCreateReq = z.infer<typeof blogCreateReqSchema>;
-export type BlogUpdateReq = z.infer<typeof blogUpdateReqSchema>;
+export type BlogResponse = z.infer<typeof blogResSchema>;
+export type BlogCreateRequest = z.infer<typeof blogCreateReqSchema>;
+export type BlogUpdateRequest = z.infer<typeof blogUpdateReqSchema>;
 
 const c = initContract();
 

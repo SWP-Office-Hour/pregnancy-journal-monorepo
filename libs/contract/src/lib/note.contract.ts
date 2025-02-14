@@ -24,9 +24,9 @@ const noteUpdateReqSchema = z.object({
   status: statusSchema.optional(),
 });
 
-export type NoteRes = z.infer<typeof noteResSchema>;
-export type NoteCreateReq = z.infer<typeof noteCreateReqSchema>;
-export type NoteUpdateReq = z.infer<typeof noteUpdateReqSchema>;
+export type NoteResponse = z.infer<typeof noteResSchema>;
+export type NoteCreateRequest = z.infer<typeof noteCreateReqSchema>;
+export type NoteUpdateRequest = z.infer<typeof noteUpdateReqSchema>;
 
 const c = initContract();
 

@@ -29,9 +29,9 @@ const membershipUpdateReqContract = z.object({
   expiredInDay: membershipDaySchema,
 });
 
-export type membershipCreateReq = z.infer<typeof membershipCreateReqContract>;
-export type membershipUpdateReq = z.infer<typeof membershipUpdateReqContract>;
-export type membershipRes = z.infer<typeof membershipResContract>;
+export type membershipCreateRequest = z.infer<typeof membershipCreateReqContract>;
+export type membershipUpdateRequest = z.infer<typeof membershipUpdateReqContract>;
+export type membershipResponse = z.infer<typeof membershipResContract>;
 
 const c = initContract();
 

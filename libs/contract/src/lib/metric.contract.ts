@@ -56,9 +56,9 @@ const metricUpdateReqSchema = z.object({
   status: statusSchema.optional(),
 });
 
-export type MetricRes = z.infer<typeof metricResSchema>;
-export type MetricCreateReq = z.infer<typeof metricCreateReqSchema>;
-export type MetricUpdateReq = z.infer<typeof metricUpdateReqSchema>;
+export type MetricResponse = z.infer<typeof metricResSchema>;
+export type MetricCreateRequest = z.infer<typeof metricCreateReqSchema>;
+export type MetricUpdateRequest = z.infer<typeof metricUpdateReqSchema>;
 const c = initContract();
 
 export const metricContract = c.router({
