@@ -38,7 +38,7 @@ export class TagService {
     }
     return this.databaseService.Tag.update({
       where: {
-        tag_id: updateTagDto.,
+        tag_id: updateTagDto.id,
       },
       data: updateTagDto,
     });
@@ -51,7 +51,7 @@ export class TagService {
     }
     return this.databaseService.Tag.delete({
       where: {
-        tag_id: id
+        tag_id: id,
       },
     });
   }
