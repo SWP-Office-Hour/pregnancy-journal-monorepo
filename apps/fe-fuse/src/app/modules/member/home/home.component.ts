@@ -1,8 +1,8 @@
-import { CurrencyPipe, NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRippleModule } from '@angular/material/core';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTableModule } from '@angular/material/table';
@@ -10,6 +10,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { DialogContentPriceComponent } from '../dialog-content-price/dialog-content-price.component';
 
 @Component({
   selector: 'app-home',
@@ -23,17 +24,23 @@ import { NgApexchartsModule } from 'ng-apexcharts';
     MatButtonToggleModule,
     NgApexchartsModule,
     MatTableModule,
-    NgClass,
-    CurrencyPipe,
     MatButtonModule,
     MatTooltipModule,
+    MatDialogModule,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
   //tooltip
   @Input() tooltip: string;
+
+  readonly dialog = inject(MatDialog);
+
+  openDialog() {
+    this.dialog.open(DialogContentPriceComponent);
+  }
 
   //end Tooltip
 
