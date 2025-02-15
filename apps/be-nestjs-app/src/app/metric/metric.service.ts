@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { MetricCreateRequestType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { MetricCreateRequestType, MetricResponseType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { PrismaClient } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
 import { StandardService } from '../standard/standard.service';
@@ -11,29 +11,42 @@ export class MetricService {
     private readonly standardService: StandardService,
   ) {}
 
-  async create(createMetricDto: MetricCreateRequestType) {
-    return this.databaseService.Metric.create({
-      data: {
-        title: createMetricDto.title,
-        measurement_unit: createMetricDto.measurement_unit,
-        status: createMetricDto.status,
-        required: createMetricDto.required,
-        upperbound_msg: createMetricDto.upperBoundMsg,
-        lowerbound_msg: createMetricDto.lowerBoundMsg,
-        standard: {
-          createMany: {
-            data: createMetricDto.standard.map((bound) => {
-              return {
-                week: bound.week,
-                upperbound: bound.upperbound,
-                lowerbound: bound.lowerbound,
-                who_standard_value: bound.who_standard_value,
-              };
-            }),
+  async create(createMetricDto: MetricCreateRequestType): Promise<MetricResponseType> {
+    if (createMetricDto.standard) {
+      return this.databaseService.Metric.create({
+        data: {
+          title: createMetricDto.title,
+          measurement_unit: createMetricDto.measurement_unit,
+          status: createMetricDto.status,
+          required: createMetricDto.required,
+          upperbound_msg: createMetricDto.upperBoundMsg,
+          lowerbound_msg: createMetricDto.lowerBoundMsg,
+          standard: {
+            createMany: {
+              data: createMetricDto.standard.map((bound) => {
+                return {
+                  week: bound.week,
+                  upperbound: bound.upperbound,
+                  lowerbound: bound.lowerbound,
+                  who_standard_value: bound.who_standard_value,
+                };
+              }),
+            },
           },
         },
-      },
-    });
+      });
+    } else {
+      return this.databaseService.Metric.create({
+        data: {
+          title: createMetricDto.title,
+          measurement_unit: createMetricDto.measurement_unit,
+          status: createMetricDto.status,
+          required: createMetricDto.required,
+          upperbound_msg: createMetricDto.upperBoundMsg,
+          lowerbound_msg: createMetricDto.lowerBoundMsg,
+        },
+      });
+    }
   }
 
   findAll() {
@@ -43,7 +56,7 @@ export class MetricService {
   async findOne(id: string) {
     const cur = await this.databaseService.Metric.findUnique({
       where: {
-        id: id,
+        metricid: id,
       },
       include: {
         standard: true,
@@ -63,7 +76,7 @@ export class MetricService {
     }
     return this.databaseService.Metric.update({
       where: {
-        id: updateMetricDto.id,
+        metric_id: updateMetricDto.id,
       },
       data: updateMetricDto,
     });
@@ -80,7 +93,7 @@ export class MetricService {
 
     const deleteMetric = this.databaseService.Metric.delete({
       where: {
-        id: id,
+        metric_id: i,
       },
     });
 
@@ -91,7 +104,7 @@ export class MetricService {
   async findByMetricIdAndWeek({ metricId, week }: { metricId: string; week: number }) {
     return await this.databaseService.Metric.findFirst({
       where: {
-        id: metricId,
+        metric_id: metricId,
       },
       include: {
         standard: {
