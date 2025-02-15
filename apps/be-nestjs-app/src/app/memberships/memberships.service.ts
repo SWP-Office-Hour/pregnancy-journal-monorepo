@@ -40,7 +40,7 @@ export class MembershipsService {
 
     return this.databaseService.MemberShip.update({
       where: {
-        membership_id: updateMembershipDto.i,
+        membership_id: updateMembershipDto.id,
       },
       data: updateMembershipDto,
     });

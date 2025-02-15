@@ -38,7 +38,7 @@ export class CategorysService {
     }
     return this.databaseService.Category.update({
       where: {
-        category_id: updateCategoryDto.i,
+        category_id: updateCategoryDto.id,
       },
       data: updateCategoryDto,
     });

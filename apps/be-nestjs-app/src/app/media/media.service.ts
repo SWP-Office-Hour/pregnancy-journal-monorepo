@@ -23,7 +23,7 @@ export class MediaService {
         media_url: media_url,
         created_at: new Date(),
         visit_record: {
-          connect: { visit_record_id: record_id ,
+          connect: { visit_record_id: record_id },
         },
       },
     });
@@ -36,7 +36,7 @@ export class MediaService {
   async findOne(id: string) {
     const result = await this.databaseService.Media.findUnique({
       where: {
-        media_id: id
+        media_id: i,
       },
       include: {
         post: true,
@@ -53,7 +53,7 @@ export class MediaService {
     await this.findOne(id);
     await this.databaseService.Media.delete({
       where: {
-        media_id: id
+        media_id: id,
       },
     });
 
