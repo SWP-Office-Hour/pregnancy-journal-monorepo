@@ -29,7 +29,7 @@ export class RecordsService {
       throw new NotFoundException('Hospital not found');
     } else {
       const hospital = await this.dataService.Hospital.findUnique({
-        where: { hospital_id: record.hospital_id ,
+        where: { hospital_id: record.hospital_id },
       });
       if (!hospital) {
         throw new NotFoundException('Hospital not found');
@@ -37,7 +37,7 @@ export class RecordsService {
     }
     for (const data of record.data) {
       const metric = await this.dataService.Metric.findUnique({
-        where: { metric_id: data.metric_id }
+        where: { metric_id: data.metric_id },
       });
       if (!metric) {
         throw new NotFoundException('Metric not found');
@@ -52,12 +52,12 @@ export class RecordsService {
         created_at: new Date(),
         user: {
           connect: {
-            user_id: userId
+            user_id: userId,
           },
         },
         hospital: {
           connect: {
-            hospital_id: record.hospital_id
+            hospital_id: record.hospital_id,
           },
         },
         visit_record_metric: {
@@ -84,7 +84,7 @@ export class RecordsService {
 
   async getRecordByUserId(userId: string) {
     const user = await this.dataService.User.findUnique({
-      where: { user_id: userId }
+      where: { user_id: userId },
     });
 
     if (!user) {
@@ -129,7 +129,7 @@ export class RecordsService {
 
             const tag = metricRecord.tag_id
               ? await this.dataService.Tag.findUnique({
-                where: { tag_id: metricRecord.tag_id }
+                  where: { tag_id: metricRecord.tag_id },
                 })
               : undefined;
 
@@ -146,7 +146,7 @@ export class RecordsService {
                 standard_week: metric.standard?.[0]?.week,
                 whoStandardValue: metric.standard?.[0]?.who_standard_value,
                 tag,
-                status: metric.status
+                status: metric.status,
               };
             }
           }),
@@ -181,7 +181,7 @@ export class RecordsService {
     }
 
     const user = await this.dataService.User.findUnique({
-      where: { user_id: record.user_id }
+      where: { user_id: record.user_id },
     });
 
     if (!user) {
@@ -209,11 +209,11 @@ export class RecordsService {
             updateMany: record.data.map((data) => ({
               where: { metric_id: data.metric_id },
               data: {
-                value: data.value
-              }
-            }))
-          }
-        }
+                value: data.value,
+              },
+            })),
+          },
+        },
       });
     }
 
@@ -228,7 +228,7 @@ export class RecordsService {
         data: {
           hospital: {
             connect: {
-              hospital_id: record.hospital_id
+              hospital_id: record.hospital_id,
             },
           },
         },
@@ -247,7 +247,7 @@ export class RecordsService {
         where: { visit_record_id: recordId },
       }),
       this.dataService.Record.delete({
-        where: { visit_record_id: recordId }
+        where: { visit_record_id: recordId },
       }),
       this.dataService.Reminder.deleteMany({
         where: { visit_record_id: recordId },
