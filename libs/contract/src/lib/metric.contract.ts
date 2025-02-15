@@ -9,11 +9,11 @@ export const standardSchema = z.object({
   week: z.number(),
   lowerbound: z.number(),
   upperbound: z.number(),
-  who_standard_value: z.number(),
+  who_standard_value: z.number().nullable(),
 });
 
 export const standardCreateReqSchema = z.object({
-  week: z.number(),
+  week: z.number().min(0).max(40),
   lowerbound: z.number(),
   upperbound: z.number(),
   who_standard_value: z.number(),
@@ -21,7 +21,7 @@ export const standardCreateReqSchema = z.object({
 
 export const standardUpdateReqSchema = z.object({
   standard_id: z.string(),
-  week: z.number().optional(),
+  week: z.number().min(0).max(40).optional(),
   lowerbound: z.number(),
   upperbound: z.number(),
   who_standard_value: z.number().optional(),
@@ -34,16 +34,16 @@ export const metricResponseSchema = z.object({
   title: z.string(),
   measurement_unit: z.string(),
   standard: z.array(standardSchema).optional(),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
-  tags: z.array(tagResSchema),
+  upperbound_msg: z.string(),
+  lowerbound_msg: z.string(),
+  tag: tagResSchema.optional(),
   status: statusSchema,
 });
 
 const metricCreateRequestSchema = z.object({
   title: z.string(),
   measurement_unit: z.string(),
-  standard: z.array(standardCreateReqSchema.optional()).optional(),
+  standard: z.array(standardCreateReqSchema).optional(),
   upperBoundMsg: z.string(),
   lowerBoundMsg: z.string(),
   required: z.boolean(),
