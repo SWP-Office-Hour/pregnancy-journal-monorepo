@@ -1,6 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { LoginRequest, RegisterRequest, Status, UserCreateRequest, UserRole, UserUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import {
+  LoginRequest,
+  RegisterRequest,
+  Status,
+  UserCreateRequest,
+  UserRole,
+  UserUpdateRequest
+} from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
@@ -23,12 +30,13 @@ export class UsersService {
   }
 
   signRefreshToken({ user_id, role, expiresIn }: { user_id: string; role: UserRole; expiresIn?: string }) {
+    const secret = this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET') || 'refresh_token_secret';
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
       options: {
         expiresIn: expiresIn || this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
       },
-      secret: this.configService.get<string>('JWT_REFRESH_TOKEN_SECRET'),
+      secret: secret,
     });
   }
 
@@ -184,8 +192,8 @@ export class UsersService {
       return null;
     }
     const [access_token, refresh_token] = await Promise.all([
-      this.signAccessToken({ user_id: user.id, role: user.role }),
-      this.signRefreshToken({ user_id: user.id, role: user.role }),
+      this.signAccessToken({ user_id: user.user_id, role: user.role }),
+      this.signRefreshToken({ user_id: user.user_id, role: user.role },
     ]);
 
     //xóa refresh token
@@ -194,11 +202,11 @@ export class UsersService {
       data: {
         ...new TokenDto({
           refresh_token: refresh_token,
-          user_id: user.id,
+          user_id: user.user_id
         }),
         user: {
           connect: {
-            id: user.id,
+            user_id: user.user_id
           },
         },
       },
@@ -208,7 +216,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: user.id,
+        user_id: user.user_id,
         name: user.name,
         role: user.role,
       },
@@ -217,10 +225,10 @@ export class UsersService {
 
   // async emailVerify({
   //   email_verify_token,
-  //   user_id,
+  //   user_user_id,
   // }: {
   //   email_verify_token: string;
-  //   user_id: string;
+  //   user_user_id: string;
   // }) {
   //   await this.databaseService.User.update({
   //     where: {

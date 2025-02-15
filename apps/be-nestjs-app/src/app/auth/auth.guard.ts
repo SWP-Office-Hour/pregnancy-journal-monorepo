@@ -114,7 +114,7 @@ export class RoleAuthGuard implements CanActivate {
       }
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret,
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret',
       });
       if (!decoded_authorization) {
         throw new UnauthorizedException('User role authentication required');
@@ -146,7 +146,7 @@ export class IsLoggin implements CanActivate {
     try {
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
-        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret'
+        secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret,
       });
       request.decoded_authorization = decoded_authorization;
       return true;

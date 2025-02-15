@@ -37,8 +37,8 @@ export class BlogsService {
       for (const tag_id of createBlogDto.tags_id) {
         const tag = await this.databaseService.Tag.findUnique({
           where: {
-            tag_id: tag_i,
-          ,
+            tag_id: tag_id,
+          },
         });
 
         if (!tag) {
@@ -51,8 +51,8 @@ export class BlogsService {
           .filter((tag_id) => tag_id !== undefined)
           .map((tag_id) => ({
             blog_id: blog.blog_id,
-            tag_id: tag_id as string
-          }))
+            tag_id: tag_id as strin,
+          })),
       });
     }
 
@@ -84,13 +84,13 @@ export class BlogsService {
       category: {
         status: blog.category.status,
         title: blog.category.title,
-        category_id: blog.category.category_id
+        category_id: blog.category.category_id,
       },
       tags: blog.blog_tag.map((item) => ({
         title: item.tag.title,
-        tag_id: item.tag.tag_id
+        tag_id: item.tag.tag_i,
       })),
-      summary: blog.summary
+      summary: blog.summary,
     }));
 
     return { blogs, total_page };
@@ -99,7 +99,7 @@ export class BlogsService {
   async findOne(id: string): Promise<BlogResponse> {
     const result = await this.databaseService.Blog.findUnique({
       where: {
-        blog_id: id
+        blog_id: i,
       },
       include: {
         blog_tag: {
@@ -132,7 +132,7 @@ export class BlogsService {
   async update(updateBlogDto: BlogUpdateRequest) {
     const cur = await this.databaseService.Blog.findUnique({
       where: {
-        blog_id: updateBlogDto.id
+        blog_id: updateBlogDto.id,
       },
     });
     const tags = updateBlogDto.tags_id;
@@ -142,7 +142,7 @@ export class BlogsService {
     }
     await this.databaseService.Blog.update({
       where: {
-        blog_id: updateBlogDto.id
+        blog_id: updateBlogDto.i,
       },
       data: {
         ...updateBlogDto,
@@ -153,8 +153,8 @@ export class BlogsService {
       for (const tag_id of tags) {
         const tag = await this.databaseService.Tag.findUnique({
           where: {
-            tag_id: tag_id
-          }
+            tag_id: tag_id,
+          },
         });
 
         if (!tag) {
@@ -173,8 +173,8 @@ export class BlogsService {
           .filter((tag_id) => tag_id !== undefined)
           .map((tag_id) => ({
             blog_id: updateBlogDto.id,
-            tag_id: tag_id
-          }))
+            tag_id: tag_i,
+          })),
       });
     }
 
@@ -194,7 +194,7 @@ export class BlogsService {
 
     return this.databaseService.Blog.delete({
       where: {
-        blog_id: id
+        blog_id: id,
       },
     });
   }

@@ -10,7 +10,7 @@ export class NoteService {
     //kiểm tra coi user có tồn tại không
     const user = await this.databaseService.User.findUnique({
       where: {
-        id: userId,
+        user_id: userId,
       },
     });
 
@@ -26,7 +26,7 @@ export class NoteService {
         status: note.status,
         user: {
           connect: {
-            id: userId,
+            user_id: userI,
           },
         },
       },
