@@ -57,7 +57,7 @@ export class ReminderService {
     }
     return this.databaseService.Reminder.delete({
       where: {
-        reminder_id: i,
+        reminder_id: id,
       },
     });
   }

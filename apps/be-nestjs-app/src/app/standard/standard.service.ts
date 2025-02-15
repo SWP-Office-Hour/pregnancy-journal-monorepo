@@ -56,7 +56,7 @@ export class StandardService {
     }
     return this.databaseService.Standard.delete({
       where: {
-        standard_id: i,
+        standard_id: id,
       },
     });
   }
