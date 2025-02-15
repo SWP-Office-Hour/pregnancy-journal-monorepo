@@ -142,7 +142,7 @@ export class BlogsService {
     }
     await this.databaseService.Blog.update({
       where: {
-        blog_id: updateBlogDto.i,
+        blog_id: updateBlogDto.id,
       },
       data: {
         ...updateBlogDto,
