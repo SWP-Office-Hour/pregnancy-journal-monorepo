@@ -3,13 +3,12 @@ import { z } from 'zod';
 import { reminderTypeSchema, statusSchema } from './enum.contract';
 
 export const reminderResSchema = z.object({
-  id: z.string(),
+  reminder_id: z.string(),
   type: reminderTypeSchema,
   title: z.string(),
   content: z.string(),
-  remindDate: z.date(),
+  remind_date: z.date(),
   status: statusSchema,
-  created_at: z.date(),
 });
 
 export const reminderCreateReqSchema = z.object({
