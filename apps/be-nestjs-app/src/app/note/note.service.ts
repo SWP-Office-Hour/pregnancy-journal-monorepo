@@ -26,7 +26,7 @@ export class NoteService {
         status: note.status,
         user: {
           connect: {
-            user_id: userI,
+            user_id: userId,
           },
         },
       },
@@ -40,7 +40,7 @@ export class NoteService {
   async getNoteById(noteId: string) {
     const note = await this.databaseService.Note.findUnique({
       where: {
-        id: noteId,
+        note_id: noteI,
       },
     });
 
@@ -54,7 +54,7 @@ export class NoteService {
   async updateNoteById(note: NoteUpdateRequest) {
     const noteExist = await this.databaseService.Note.findUnique({
       where: {
-        id: note.id,
+        note_id: note.id,
       },
     });
 
@@ -65,7 +65,7 @@ export class NoteService {
     if (note.date) {
       const updatedNote = await this.databaseService.Note.update({
         where: {
-          id: note.id,
+          note_id: note.i,
         },
         data: {
           title: note.title,
@@ -84,7 +84,7 @@ export class NoteService {
 
     return await this.databaseService.Note.update({
       where: {
-        id: note.id,
+        note_id: note.id,
       },
       data: {
         title: note.title,
@@ -99,7 +99,7 @@ export class NoteService {
 
     const deletedNote = await this.databaseService.Note.delete({
       where: {
-        id: id,
+        note_id: i,
       },
     });
 
