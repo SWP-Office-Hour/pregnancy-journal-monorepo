@@ -1,9 +1,10 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { Router } from '@angular/router';
 
 import { OAuthService } from 'angular-oauth2-oidc';
 
+import { Subject } from 'rxjs';
 import { authConfig } from './auth-config';
 
 @Injectable({
@@ -14,7 +15,7 @@ export class AuthGoogleService {
 
   private router = inject(Router);
 
-  profile = signal<any>(null);
+  profile: Subject<any> = new Subject<any>();
 
   constructor() {
     this.initConfiguration();
@@ -27,7 +28,7 @@ export class AuthGoogleService {
 
     this.oAuthService.loadDiscoveryDocumentAndTryLogin().then(() => {
       if (this.oAuthService.hasValidIdToken()) {
-        this.profile.set(this.oAuthService.getIdentityClaims());
+        this.profile.next(this.oAuthService.getIdentityClaims());
       }
     });
   }
@@ -41,10 +42,10 @@ export class AuthGoogleService {
 
     this.oAuthService.logOut();
 
-    this.profile.set(null);
+    this.profile.next(null);
   }
 
   getProfile() {
-    return this.profile();
+    return this.profile;
   }
 }
