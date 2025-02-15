@@ -88,7 +88,7 @@ export class BlogsService {
       },
       tags: blog.blog_tag.map((item) => ({
         title: item.tag.title,
-        tag_id: item.tag.tag_i,
+        tag_id: item.tag.tag_id,
       })),
       summary: blog.summary,
     }));
