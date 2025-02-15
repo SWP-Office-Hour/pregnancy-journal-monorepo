@@ -8,7 +8,7 @@ import {
   UserCreateRequestType,
   UserResponseType,
   UserRole,
-  UserUpdateRequestType
+  UserUpdateRequestType,
 } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
@@ -61,7 +61,7 @@ export class UsersService {
       options: {
         expiresIn: this.configService.get<string>('JWT_EMAIL_TOKEN_EXPIRES_IN'),
       },
-      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET') || 'email,
+      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET') || 'email',
     });
   }
 
@@ -159,7 +159,7 @@ export class UsersService {
     // );
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken({ user_id: result.user_id, role: result.role }),
-      this.signRefreshToken({ user_id: result.user_id, role: result.role })
+      this.signRefreshToken({ user_id: result.user_id, role: result.role }),
     ]);
 
     //xóa refresh token
@@ -168,11 +168,11 @@ export class UsersService {
       data: {
         ...new TokenDto({
           refresh_token: refresh_token,
-          user_id: result.user_id
+          user_id: result.user_id,
         }),
         user: {
           connect: {
-            user_id: result.user_id
+            user_id: result.user_id,
           },
         },
       },
@@ -202,7 +202,7 @@ export class UsersService {
     }
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken({ user_id: user.user_id, role: user.role }),
-      this.signRefreshToken({ user_id: user.user_id, role: user.role })
+      this.signRefreshToken({ user_id: user.user_id, role: user.role }),
     ]);
 
     //xóa refresh token
@@ -211,11 +211,11 @@ export class UsersService {
       data: {
         ...new TokenDto({
           refresh_token: refresh_token,
-          user_id: user.user_id
+          user_id: user.user_id,
         }),
         user: {
           connect: {
-            user_id: user.user_id
+            user_id: user.user_id,
           },
         },
       },
@@ -255,7 +255,7 @@ export class UsersService {
   async logout(refresh_token_id: string) {
     await this.databaseService.Token.delete({
       where: {
-        token_id: refresh_token_id
+        token_id: refresh_token_id,
       },
     });
   }
@@ -264,7 +264,7 @@ export class UsersService {
     //get old refresh token expire time
     const old_refresh_token = await this.databaseService.Token.findUnique({
       where: {
-        token_id: refresh_token_id
+        token_id: refresh_token_id,
       },
     });
 
@@ -278,7 +278,7 @@ export class UsersService {
     }
     const newExpiresIn = this.jwtUtilsService.generateNewRefreshTokenExpiry({
       created_at: old_refresh_token.created_at,
-      old_expires_in: expired
+      old_expires_in: expired,
     });
     //create new access token and refresh token
     const [access_token, refresh_token] = await Promise.all([
@@ -291,7 +291,7 @@ export class UsersService {
     ]);
     await this.databaseService.Token.update({
       where: {
-        token_id: refresh_token_id
+        token_id: refresh_token_id,
       },
       data: {
         refresh_token: refresh_token,
@@ -326,7 +326,7 @@ export class UsersService {
   async getUserById(id: string): Promise<UserResponseType> {
     const user = await this.databaseService.User.findUnique({
       where: {
-        user_id: id
+        user_id: id,
       },
     });
     if (!user) {
@@ -340,7 +340,7 @@ export class UsersService {
 
     return this.databaseService.User.update({
       where: {
-        user_id: updateUser.id
+        user_id: updateUser.id,
       },
       data: {
         ...updateUser,
