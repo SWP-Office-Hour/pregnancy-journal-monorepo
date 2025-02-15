@@ -58,7 +58,7 @@ export class PregnancyRecordService {
 
   deleteImage(id: string) {
     this._mediaSrc.splice(
-      this._mediaSrc.findIndex((img) => img.id === id),
+      this._mediaSrc.findIndex((img) => img.media_id === id),
       1,
     );
   }

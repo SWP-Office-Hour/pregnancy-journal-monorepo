@@ -1,7 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { userRoleSchema, userStatusEnumSchema } from './enum.contract';
-import { tagResSchema } from './tag.contract';
 
 const c = initContract();
 
@@ -9,7 +8,7 @@ const c = initContract();
 //User response
 //User zod schema
 const userResSchema = z.object({
-  id: z.string(),
+  user_id: z.string(),
   name: z.string(),
   email: z.string(),
   expected_birth_date: z.date(),
@@ -20,22 +19,21 @@ const userResSchema = z.object({
   ward: z.string(),
   address: z.string(),
   role: userRoleSchema,
-  createAt: z.date(),
+  created_at: z.date(),
   status: userStatusEnumSchema,
 });
 
 //User get all zod schema
-const userGetAllResSchema = z.array(
-  z.object({
-    id: z.string(),
-    name: z.string(),
-    email: z.string(),
-    createAt: z.date(),
-    role: userRoleSchema,
-    status: userStatusEnumSchema,
-    tags: z.array(tagResSchema),
-  }),
-);
+// const userGetAllResSchema = z.array(
+//   z.object({
+//     user_id: z.string(),
+//     name: z.string(),
+//     email: z.string(),
+//     create_at: z.date(),
+//     role: userRoleSchema,
+//     status: userStatusEnumSchema,
+//   }),
+// );
 
 //User request schema
 //User create request schema
@@ -70,8 +68,9 @@ const userUpdateReqSchema = z.object({
   status: userStatusEnumSchema.optional(),
 });
 
-export type UserCreateRequest = z.infer<typeof userCreateReqSchema>;
-export type UserUpdateRequest = z.infer<typeof userUpdateReqSchema>;
+export type UserCreateRequestType = z.infer<typeof userCreateReqSchema>;
+export type UserUpdateRequestType = z.infer<typeof userUpdateReqSchema>;
+export type UserResponseType = z.infer<typeof userResSchema>;
 
 export const userContract = c.router({
   getAll: {
@@ -79,7 +78,7 @@ export const userContract = c.router({
     path: '/users',
     description: 'Get all users (đã xong)',
     responses: {
-      200: userGetAllResSchema,
+      200: z.array(userResSchema),
       // 404: object({ message: string() }),
     },
   },

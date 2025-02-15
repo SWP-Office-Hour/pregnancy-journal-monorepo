@@ -22,8 +22,8 @@ export class FileUploadComponent {
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.insertImg.emit({
-          id: new Date().getTime().toString(),
-          url: reader.result as string,
+          media_id: new Date().getTime().toString(),
+          media_url: reader.result as string,
         });
       };
     }

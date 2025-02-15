@@ -51,7 +51,7 @@ export class BlogsService {
           .filter((tag_id) => tag_id !== undefined)
           .map((tag_id) => ({
             blog_id: blog.blog_id,
-            tag_id: tag_id as strin,
+            tag_id: tag_id as string,
           })),
       });
     }
@@ -99,7 +99,7 @@ export class BlogsService {
   async findOne(id: string): Promise<BlogResponse> {
     const result = await this.databaseService.Blog.findUnique({
       where: {
-        blog_id: i,
+        blog_id: id,
       },
       include: {
         blog_tag: {
@@ -173,7 +173,7 @@ export class BlogsService {
           .filter((tag_id) => tag_id !== undefined)
           .map((tag_id) => ({
             blog_id: updateBlogDto.id,
-            tag_id: tag_i,
+            tag_id: tag_id,
           })),
       });
     }

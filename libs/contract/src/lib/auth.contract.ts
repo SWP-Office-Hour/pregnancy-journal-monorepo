@@ -1,5 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { userRoleSchema } from './enum.contract';
 
 const c = initContract();
 
@@ -50,11 +51,11 @@ const refreshTokenReqSchema = z.object({
 // Response schemas
 const authResponseSchema = z.object({
   access_token: z.string(),
-  refresh_token: z.string(),
+  // refresh_token: z.string(),
   user: z.object({
     id: z.string(),
     name: z.string(),
-    email: z.string(),
+    role: userRoleSchema,
   }),
 });
 

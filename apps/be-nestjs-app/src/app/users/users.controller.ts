@@ -1,16 +1,13 @@
-import { Body, ConflictException, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, ConflictException, Controller, Param, UnauthorizedException } from '@nestjs/common';
 import {
   authContract,
   LoginRequest,
   RegisterRequest,
-  TokenRequest,
   userContract,
-  UserCreateRequest,
-  UserUpdateRequest,
+  UserCreateRequestType,
+  UserUpdateRequestType,
 } from '@pregnancy-journal-monorepo/contract';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
-import { RequestWithJWT } from 'express';
-import { AccessTokenAuthGuard, RefreshTokenAuthGuard } from '../auth/auth.guard';
 import { UsersService } from './users.service';
 
 @Controller()
@@ -21,11 +18,11 @@ export class UsersController {
   @TsRestHandler(authContract.login)
   async handleLogin(@Body() body: LoginRequest) {
     return tsRestHandler(authContract.login, async () => {
-      const users = await this.usersService.login(body);
-      if (!users) {
+      const user = await this.usersService.login(body);
+      if (!user) {
         throw new UnauthorizedException('Phone number or password is incorrect');
       }
-      return { status: 200, body: users };
+      return { status: 200, body: user };
     });
   }
 
@@ -45,26 +42,31 @@ export class UsersController {
     });
   }
 
-  @UseGuards(AccessTokenAuthGuard, RefreshTokenAuthGuard)
-  @TsRestHandler(authContract.logout)
-  async handleLogout(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
-    return tsRestHandler(authContract.logout, async () => {
-      const { user_id } = req.decoded_authorization;
-      const { refresh_token } = body;
-      const refresh_token_id = await this.usersService.checkRefreshToken({
-        user_id,
-        refresh_token,
-      });
-      if (!refresh_token_id) {
-        throw new UnauthorizedException('Unauthorized Refresh Token');
-      }
-      await this.usersService.logout(refresh_token_id);
-      return {
-        status: 200,
-        body: { message: 'Logout successfully' },
-      };
-    });
-  }
+  // @UseGuards(AccessTokenAuthGuard, RefreshTokenAuthGuard)
+  // @TsRestHandler(authContract.logout)
+  // async handleLogout(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
+  //   return tsRestHandler(authContract.logout, async () => {
+  //     const user_id = req.decoded_authorization;
+  //     const { refresh_token } = body;
+  //
+  //     if (!user_id) {
+  //       throw new UnauthorizedException('Unauthorized');
+  //     }
+  //
+  //     // const refresh_token_id = await this.usersService.checkRefreshToken({
+  //     //   user_id,
+  //     //   refresh_token,
+  //     // });
+  //     // if (!refresh_token_id) {
+  //     //   throw new UnauthorizedException('Unauthorized Refresh Token');
+  //     // }
+  //     await this.usersService.logout(user_id);
+  //     return {
+  //       status: 200,
+  //       body: { message: 'Logout successfully' },
+  //     };
+  //   });
+  // }
 
   // @UseGuards(RefreshTokenAuthGuard)
   // @TsRestHandler(authContract.refreshToken)
@@ -88,7 +90,7 @@ export class UsersController {
   // }
 
   @TsRestHandler(userContract.create)
-  async handleCreate(@Body() body: UserCreateRequest) {
+  async handleCreate(@Body() body: UserCreateRequestType) {
     //check if email already exists
     const user = await this.usersService.checkEmail(body.email);
     if (user) {
@@ -119,7 +121,7 @@ export class UsersController {
   }
 
   @TsRestHandler(userContract.update)
-  async handleUpdate(@Body() body: UserUpdateRequest) {
+  async handleUpdate(@Body() body: UserUpdateRequestType) {
     return tsRestHandler(userContract.update, async () => {
       const users = await this.usersService.updateUser(body);
       return { status: 200, body: users };

@@ -124,7 +124,6 @@ export class AuthService {
           // piece of code can replace the token with the refreshed one.
           if (response.access_token) {
             this.accessToken = response.access_token;
-            this.refreshToken = response.refresh_token;
           }
 
           // Set the authenticated flag to true
@@ -177,7 +176,6 @@ export class AuthService {
     return this._httpClient.post('api/auth/sign-up', user).pipe(
       map((response: AuthResponse) => {
         this.accessToken = response.access_token;
-        this.refreshToken = response.refresh_token;
         this._authenticated = true;
         this._userService.user = response.user;
         return response;

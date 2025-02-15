@@ -117,13 +117,13 @@ export class CreateBlogComponent implements OnInit {
 
   removeTag(tag: any): void {
     this.tagsChips.set(this.tagsChips().filter((t: any) => t.id !== tag.id));
-    this.createBlogForm.get('tags').setValue(this.tagsChips());
-    console.log(this.createBlogForm.get('tags').value);
+    this.createBlogForm.get('tags')!.setValue(this.tagsChips());
+    console.log(this.createBlogForm.get('tags')!.value);
   }
 
   tagSelected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.value;
-    if (!this.tagsChips().some((t) => t.id === value.id)) {
+    if (!this.tagsChips().some((t) => t.tag_id === value.id)) {
       this.tagsChips().push(value);
     }
 
@@ -131,7 +131,7 @@ export class CreateBlogComponent implements OnInit {
   }
 
   isTagSelected(tag: TagResponse) {
-    return this.tagsChips().some((t) => t.id === tag.id);
+    return this.tagsChips().some((t) => t.tag_id === tag.tag_id);
   }
 
   // -----------------------------------------------------------------------------------------------------

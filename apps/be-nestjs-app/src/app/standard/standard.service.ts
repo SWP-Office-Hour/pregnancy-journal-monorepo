@@ -30,7 +30,7 @@ export class StandardService {
   findOne(id: string) {
     return this.databaseService.Standard.findUnique({
       where: {
-        standard_id: i,
+        standard_id: id,
       },
     });
   }

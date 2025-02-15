@@ -51,7 +51,7 @@ export class CategorysService {
     }
     return this.databaseService.Category.delete({
       where: {
-        category_id: i,
+        category_id: id,
       },
     });
   }

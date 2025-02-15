@@ -65,7 +65,7 @@ export class NoteService {
     if (note.date) {
       const updatedNote = await this.databaseService.Note.update({
         where: {
-          note_id: note.i,
+          note_id: note.id,
         },
         data: {
           title: note.title,
