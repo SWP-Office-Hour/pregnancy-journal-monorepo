@@ -60,7 +60,7 @@ export class TrackingFormComponent {
       },
     );
     this.trackingForm.patchValue({
-      hospital: this.selectedRecordData.hospital.id,
+      hospital: this.selectedRecordData.hospital.hospital_id,
       doctor_name: this.selectedRecordData.doctor_name,
       visit_doctor_date: this.selectedRecordData.visit_doctor_date,
       next_visit_doctor_date: this.selectedRecordData.next_visit_doctor_date,

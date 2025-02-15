@@ -30,7 +30,7 @@ export class ReminderService {
   async findOne(id: string) {
     const result = await this.databaseService.Reminder.findUnique({
       where: {
-        reminder_id: i,
+        reminder_id: id,
       },
     });
     if (!result) {

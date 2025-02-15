@@ -6,7 +6,7 @@ export class Category {
   status: Status;
 
   constructor(category: CategoryResponse) {
-    this.id = category.id;
+    this.id = category.category_id;
     this.title = category.title;
     this.status = category.status;
   }

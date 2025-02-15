@@ -36,7 +36,7 @@ export class MediaService {
   async findOne(id: string) {
     const result = await this.databaseService.Media.findUnique({
       where: {
-        media_id: i,
+        media_id: id,
       },
       include: {
         post: true,

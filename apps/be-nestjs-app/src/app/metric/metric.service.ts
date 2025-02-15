@@ -93,7 +93,7 @@ export class MetricService {
 
     const deleteMetric = this.databaseService.Metric.delete({
       where: {
-        metric_id: i,
+        metric_id: id,
       },
     });
 

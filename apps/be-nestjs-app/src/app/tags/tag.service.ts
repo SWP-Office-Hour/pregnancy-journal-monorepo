@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { TagCreateRequest, TagUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { TagCreateRequest, TagResponse, TagUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class TagService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  create(createTagDto: TagCreateRequest) {
+  create(createTagDto: TagCreateRequest): Promise<TagResponse> {
     return this.databaseService.Tag.create({
       data: {
         title: createTagDto.title,
@@ -22,7 +22,7 @@ export class TagService {
   async findOne(id: string) {
     const result = await this.databaseService.Tag.findUnique({
       where: {
-        id: id,
+        tag_id: id,
       },
     });
     if (!result) {
@@ -38,7 +38,7 @@ export class TagService {
     }
     return this.databaseService.Tag.update({
       where: {
-        id: updateTagDto.id,
+        tag_id: updateTagDto.,
       },
       data: updateTagDto,
     });
@@ -51,7 +51,7 @@ export class TagService {
     }
     return this.databaseService.Tag.delete({
       where: {
-        id: id,
+        tag_id: id
       },
     });
   }

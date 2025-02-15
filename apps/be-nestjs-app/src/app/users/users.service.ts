@@ -1,12 +1,14 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
+  AuthResponse,
   LoginRequest,
   RegisterRequest,
   Status,
-  UserCreateRequest,
+  UserCreateRequestType,
+  UserResponseType,
   UserRole,
-  UserUpdateRequest
+  UserUpdateRequestType
 } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
@@ -25,7 +27,7 @@ export class UsersService {
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
       options: {},
-      secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET'),
+      secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'access,
     });
   }
 
@@ -54,7 +56,7 @@ export class UsersService {
       options: {
         expiresIn: this.configService.get<string>('JWT_EMAIL_TOKEN_EXPIRES_IN'),
       },
-      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET'),
+      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET') || 'email'
     });
   }
 
@@ -90,6 +92,9 @@ export class UsersService {
         email,
       },
     });
+    if (!result) {
+      throw new NotFoundException('User not found');
+    }
 
     return result;
   }
@@ -104,7 +109,7 @@ export class UsersService {
     if (!result) {
       return null;
     }
-    return result.id;
+    return result.user_id;
   }
 
   // async checkVerifyStatus(user_id: string) {
@@ -116,9 +121,8 @@ export class UsersService {
   //   return result.verify_status;
   // }
 
-  async users(): Promise<UserEntity[]> {
-    const result = await this.databaseService.User.findMany();
-    return result;
+  async users(): Promise<UserResponseType[]> {
+    return await this.databaseService.User.findMany();
   }
 
   async register(data: RegisterRequest) {
@@ -149,8 +153,8 @@ export class UsersService {
     //   `http://localhost:3000/users/email-verify?email_verify_token=${email_verify_token}`,
     // );
     const [access_token, refresh_token] = await Promise.all([
-      this.signAccessToken({ user_id: result.id, role: result.role }),
-      this.signRefreshToken({ user_id: result.id, role: result.role }),
+      this.signAccessToken({ user_id: result.user_id, role: result.role }),
+      this.signRefreshToken({ user_id: result.user_id, role: result.role })
     ]);
 
     //xóa refresh token
@@ -159,11 +163,11 @@ export class UsersService {
       data: {
         ...new TokenDto({
           refresh_token: refresh_token,
-          user_id: result.id,
+          user_id: result.user_id
         }),
         user: {
           connect: {
-            id: result.id,
+            user_id: result.user_id
           },
         },
       },
@@ -173,14 +177,14 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: result.id,
+        id: result.user_id,
         name: result.name,
         role: result.role,
       },
     };
   }
 
-  async login(data: LoginRequest) {
+  async login(data: LoginRequest): Promise<AuthResponse> {
     const { email, password } = data;
     const user = await this.databaseService.User.findFirst({
       where: {
@@ -189,11 +193,11 @@ export class UsersService {
       },
     });
     if (!user) {
-      return null;
+      throw new NotFoundException('User not found');
     }
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken({ user_id: user.user_id, role: user.role }),
-      this.signRefreshToken({ user_id: user.user_id, role: user.role },
+      this.signRefreshToken({ user_id: user.user_id, role: user.role })
     ]);
 
     //xóa refresh token
@@ -216,7 +220,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        user_id: user.user_id,
+        id: user.user_id,
         name: user.name,
         role: user.role,
       },
@@ -246,7 +250,7 @@ export class UsersService {
   async logout(refresh_token_id: string) {
     await this.databaseService.Token.delete({
       where: {
-        id: refresh_token_id,
+        token_id: refresh_token_id
       },
     });
   }
@@ -255,12 +259,21 @@ export class UsersService {
     //get old refresh token expire time
     const old_refresh_token = await this.databaseService.Token.findUnique({
       where: {
-        id: refresh_token_id,
+        token_id: refresh_token_id
       },
     });
+
+    if (!old_refresh_token) {
+      throw new NotFoundException('Refresh token not found');
+    }
+
+    const expired = this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN');
+    if (!expired) {
+      throw new NotFoundException('.env file cannot fount JWT_REFRESH_TOKEN_EXPIRES_IN');
+    }
     const newExpiresIn = this.jwtUtilsService.generateNewRefreshTokenExpiry({
       created_at: old_refresh_token.created_at,
-      old_expires_in: this.configService.get<string>('JWT_REFRESH_TOKEN_EXPIRES_IN'),
+      old_expires_in: expired
     });
     //create new access token and refresh token
     const [access_token, refresh_token] = await Promise.all([
@@ -273,7 +286,7 @@ export class UsersService {
     ]);
     await this.databaseService.Token.update({
       where: {
-        id: refresh_token_id,
+        token_id: refresh_token_id
       },
       data: {
         refresh_token: refresh_token,
@@ -284,7 +297,7 @@ export class UsersService {
     return { access_token, refresh_token };
   }
 
-  async create(userCreateRequest: UserCreateRequest) {
+  async create(userCreateRequest: UserCreateRequestType): Promise<UserResponseType> {
     const user = await this.databaseService.User.create({
       data: {
         name: userCreateRequest.name,
@@ -305,10 +318,10 @@ export class UsersService {
     return user;
   }
 
-  getUserById(id: string) {
-    const user = this.databaseService.User.findUnique({
+  async getUserById(id: string): Promise<UserResponseType> {
+    const user = await this.databaseService.User.findUnique({
       where: {
-        id,
+        user_id: id
       },
     });
     if (!user) {
@@ -317,12 +330,12 @@ export class UsersService {
     return user;
   }
 
-  async updateUser(updateUser: UserUpdateRequest) {
+  async updateUser(updateUser: UserUpdateRequestType) {
     await this.getUserById(updateUser.id);
 
     return this.databaseService.User.update({
       where: {
-        id: updateUser.id,
+        user_id: updateUser.id
       },
       data: {
         ...updateUser,

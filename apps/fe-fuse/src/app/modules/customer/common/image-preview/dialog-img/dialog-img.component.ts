@@ -15,6 +15,6 @@ export class DialogImgComponent {
   deleteImg = output<string>();
 
   deleteImage() {
-    this.deleteImg.emit(this.data.imgObj.id);
+    this.deleteImg.emit(this.data.imgObj.media_id);
   }
 }

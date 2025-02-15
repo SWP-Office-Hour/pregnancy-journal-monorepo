@@ -100,7 +100,7 @@ export class PregnancyTrackingService {
 
   deleteImage(id: string) {
     // this._mediaSrcet(this._media.filter((img) => img.id !== id));
-    this._media = this._media.filter((img) => img.id !== id);
+    this._media = this._media.filter((img) => img.media_id !== id);
   }
 
   addImage(img: MediaResponse) {
