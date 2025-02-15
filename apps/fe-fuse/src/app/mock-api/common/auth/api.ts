@@ -108,7 +108,18 @@ export class AuthMockApi {
     // -----------------------------------------------------------------------------------------------------
     this._fuseMockApiService.onPost('api/auth/sign-up', 1500).reply(() =>
       // Simply return true
-      [200, true],
+      {
+        const adminToken =
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
+        return [
+          200,
+          {
+            access_token: adminToken,
+            refresh_token: adminToken,
+            user: { id: this._user.id, name: this._user.name, email: this._user.email },
+          },
+        ];
+      },
     );
 
     // -----------------------------------------------------------------------------------------------------

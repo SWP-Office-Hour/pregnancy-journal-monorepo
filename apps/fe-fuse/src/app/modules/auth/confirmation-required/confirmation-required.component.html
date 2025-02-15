@@ -80,7 +80,7 @@
             <mat-select formControlName="ward">
               <mat-option value="" disabled="true">Chọn phường/xã</mat-option>
               @for (ward of wards; track $index) {
-                <mat-option value="{{ ward.code }}">{{ ward.name }}</mat-option>
+                <mat-option value="{{ ward.name }}">{{ ward.name }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
@@ -93,6 +93,17 @@
             <input matInput formControlName="address" />
           </mat-form-field>
         </div>
+
+        <!-- Submit -->
+        <button
+          class="fuse-mat-button-large mt-8 w-full"
+          mat-flat-button
+          [color]="'primary'"
+          [disabled]="confirmationForm.disabled"
+          (click)="signUp()"
+        >
+          Đăng ký
+        </button>
       </form>
 
       <!-- Form footer -->

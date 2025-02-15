@@ -88,6 +88,21 @@ export class AuthConfirmationRequiredComponent {
    * Submit the confirmation form
    */
   signUp() {
+    const { province, district, ward, ...rest } = this.confirmationForm.value;
+    this._httpClient.get<Province>('https://provinces.open-api.vn/api/p/' + province).subscribe((province) => {
+      this.confirmationForm.get('province').setValue(province.name);
+    });
+    this._httpClient.get<District>('https://provinces.open-api.vn/api/d/' + district).subscribe((district) => {
+      this.confirmationForm.get('district').setValue(district.name);
+    });
+    const expected_birth_date = new Date(rest.expected_birth_date).toISOString();
+    this.confirmationForm.get('expected_birth_date').setValue(expected_birth_date);
+
+    // Disable the form to prevent multiple submissions
+    this.confirmationForm.disable();
+
+    console.log(this.confirmationForm.value);
+
     this._authService.signUp(this.confirmationForm.value).subscribe({
       next: () => {
         this._router.navigate(['']);
