@@ -24,10 +24,15 @@ export class UsersService {
   ) {}
 
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
+    const secret = this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET');
+    if (!secret) {
+      throw new NotFoundException('.env file cannot fount JWT_ACCESS_TOKEN_SECRET');
+    }
+
     return this.jwtUtilsService.signToken({
       payload: { user_id, role },
       options: {},
-      secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'access,
+      secret: secret,
     });
   }
 
@@ -56,7 +61,7 @@ export class UsersService {
       options: {
         expiresIn: this.configService.get<string>('JWT_EMAIL_TOKEN_EXPIRES_IN'),
       },
-      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET') || 'email'
+      secret: this.configService.get<string>('JWT_EMAIL_TOKEN_SECRET') || 'email,
     });
   }
 
