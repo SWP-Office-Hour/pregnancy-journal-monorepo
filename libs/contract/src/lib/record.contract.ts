@@ -44,7 +44,7 @@ const recordUpdateReqSchema = z.object({
   next_visit_doctor_date: z.string().datetime().optional(),
   hospital_id: z.string().optional(),
   doctor_name: z.string().optional(),
-  data: z.array(recordMetricUpdateReqSchema.optional()).optional(),
+  data: z.array(recordMetricUpdateReqSchema).optional(),
 });
 
 const recordResSchema = z.object({

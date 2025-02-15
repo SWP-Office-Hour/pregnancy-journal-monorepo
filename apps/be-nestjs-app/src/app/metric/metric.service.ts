@@ -56,7 +56,7 @@ export class MetricService {
   async findOne(id: string) {
     const cur = await this.databaseService.Metric.findUnique({
       where: {
-        metricid: id,
+        metric_id: id,
       },
       include: {
         standard: true,
