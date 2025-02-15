@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { noteContract, NoteCreateRequest, NoteUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
@@ -13,7 +13,11 @@ export class NoteController {
   @TsRestHandler(noteContract.create)
   handleCreate(@Body() note: NoteCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(noteContract.create, async () => {
+      if (!req.decoded_authorization) {
+        throw new UnauthorizedException('UnAuthorized');
+      }
       const userId = req.decoded_authorization.user_id;
+
       const result = await this.noteService.createNote({
         note: note,
         userId: userId,
