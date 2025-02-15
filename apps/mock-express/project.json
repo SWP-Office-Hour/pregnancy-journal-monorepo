@@ -1,0 +1,26 @@
+{
+  "name": "mock-express",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/mock-express/src",
+  "projectType": "application",
+  "tags": [],
+  "targets": {
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "dependsOn": ["build"],
+      "options": {
+        "buildTarget": "mock-express:build",
+        "runBuildTargetDependencies": false
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "mock-express:build:development"
+        },
+        "production": {
+          "buildTarget": "mock-express:build:production"
+        }
+      }
+    }
+  }
+}
