@@ -16,7 +16,7 @@ export class StandardService {
         who_standard_value: createStandardDto.whoStandardValue,
         metric: {
           connect: {
-            id: createStandardDto.metricId,
+            metric_id: createStandardDto.metricId,
           },
         },
       },
@@ -30,7 +30,7 @@ export class StandardService {
   findOne(id: string) {
     return this.databaseService.Standard.findUnique({
       where: {
-        id: id,
+        standard_id: i,
       },
     });
   }
@@ -43,7 +43,7 @@ export class StandardService {
 
     return this.databaseService.Standard.update({
       where: {
-        id: updateStandardDto.id,
+        standard_id: updateStandardDto.id,
       },
       data: updateStandardDto,
     });
@@ -56,7 +56,7 @@ export class StandardService {
     }
     return this.databaseService.Standard.delete({
       where: {
-        id: id,
+        standard_id: i,
       },
     });
   }

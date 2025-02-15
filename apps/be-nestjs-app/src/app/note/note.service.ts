@@ -40,7 +40,7 @@ export class NoteService {
   async getNoteById(noteId: string) {
     const note = await this.databaseService.Note.findUnique({
       where: {
-        note_id: noteI,
+        note_id: noteId,
       },
     });
 
@@ -99,7 +99,7 @@ export class NoteService {
 
     const deletedNote = await this.databaseService.Note.delete({
       where: {
-        note_id: i,
+        note_id: id,
       },
     });
 
