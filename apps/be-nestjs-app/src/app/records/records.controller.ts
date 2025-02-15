@@ -1,4 +1,4 @@
-import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import { recordContract, RecordCreateRequest, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
@@ -13,6 +13,10 @@ export class RecordsController {
   @TsRestHandler(recordContract.createRecord)
   handleCreateRecord(@Body() record: RecordCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(recordContract.createRecord, async () => {
+      if (!req.decoded_authorization) {
+        throw new UnauthorizedException('UnAuthorized');
+      }
+
       const userId = req.decoded_authorization.user_id;
       const result = await this.recordService.createRecord({ record, userId });
       return {
@@ -26,6 +30,9 @@ export class RecordsController {
   @TsRestHandler(recordContract.getRecordByUserId)
   handleGetRecordByUserId(@Req() request: RequestWithJWT) {
     return tsRestHandler(recordContract.createRecord, async () => {
+      if (!request.decoded_authorization) {
+        throw new UnauthorizedException('UnAuthorized');
+      }
       const id = request.decoded_authorization.user_id;
       const record = await this.recordService.getRecordByUserId(id);
       return {
