@@ -1,26 +1,26 @@
 {
-  "name": "mock-express",
+  "name": "mockapi-express",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/mock-express/src",
+  "sourceRoot": "apps/mockapi-express/src",
   "projectType": "application",
-  "tags": [],
   "targets": {
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "dependsOn": ["build"],
       "options": {
-        "buildTarget": "mock-express:build",
-        "runBuildTargetDependencies": false
+        "buildTarget": "mockapi-express:build",
+        "runBuildTargetDependencies": true
       },
       "configurations": {
         "development": {
-          "buildTarget": "mock-express:build:development"
+          "buildTarget": "mockapi-express:build:development"
         },
         "production": {
-          "buildTarget": "mock-express:build:production"
+          "buildTarget": "mockapi-express:build:production"
         }
       }
     }
-  }
+  },
+  "tags": []
 }
