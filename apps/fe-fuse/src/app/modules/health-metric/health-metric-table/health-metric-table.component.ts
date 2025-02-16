@@ -1,3 +1,4 @@
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, OnInit, resource, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { HealthMetric } from '@pregnancy-journal-monorepo/contract';
+import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-health-metric-table',
@@ -35,15 +37,17 @@ import { HealthMetric } from '@pregnancy-journal-monorepo/contract';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
+    NgTemplateOutlet,
   ],
 })
 export class HealthMetricTableComponent implements OnInit {
-  searchInputControl: UntypedFormControl = new UntypedFormControl();
   isLoading: boolean = false;
+  selectedMetric: HealthMetric | null = null;
+  searchInputControl: UntypedFormControl = new UntypedFormControl();
   metricList = signal<Array<HealthMetric>>([]);
   metricResource = resource<HealthMetric[], {}>({
-    loader: async ({ request, abortSignal }) => {
-      const response = await fetch('http://localhost:3000/api/metrics', {
+    loader: async ({ abortSignal }) => {
+      const response = await fetch(environment.apiUrl + 'metrics', {
         signal: abortSignal,
       });
       if (!response.ok) throw Error(`Could not fetch...`);
@@ -53,7 +57,7 @@ export class HealthMetricTableComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
+  async ngOnInit() {
     console.log('metricResource');
     console.log(this.metricResource.value());
     console.log('metricList signal');
@@ -70,7 +74,18 @@ export class HealthMetricTableComponent implements OnInit {
     console.log('Create metric');
   }
 
-  trackByFn(index: number, item: any): any {
-    return item.id || index;
+  protected readonly Status = Status;
+
+  toggleDetails(metricId: string): void {
+    // If the metric is already selected...
+    if (this.selectedMetric && this.selectedMetric.metric_id === metricId) {
+      // Close the details
+      this.closeDetails();
+      return;
+    }
+  }
+
+  closeDetails(): void {
+    this.selectedMetric = null;
   }
 }
