@@ -20,7 +20,7 @@ app.get('/api', (req, res) => {
   res.send({ message: 'Welcome to mockapi-express!' });
 });
 
-app.get('/api/metrics', (req, res) => {
+app.get('/metrics', (req, res) => {
   res.send(healthMetricListMockData);
 });
 
