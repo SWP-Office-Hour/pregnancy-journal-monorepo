@@ -51,16 +51,19 @@ export class HealthMetricTableComponent implements OnInit {
     },
   });
 
-  constructor() {
-    // this.metricList.update(this.metricResource.value());
-    // this.metricList = signal<Array<HealthMetric>>([]);
-  }
+  constructor() {}
+
   ngOnInit(): void {
-    // const metricResource;
-    // console.log('metricResource');
-    // console.log(this.metricResource.value());
-    // console.log('metricList');
-    // console.log(this.metricList());
+    console.log('metricResource');
+    console.log(this.metricResource.value());
+    console.log('metricList signal');
+    console.log(this.metricList());
+    console.log('update signal');
+    console.log(this.metricResource.value());
+    const data = this.metricResource.value();
+    this.metricList.set(data!);
+    console.log('metricList signal');
+    console.log(this.metricList());
   }
 
   createMetric() {

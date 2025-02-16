@@ -49,9 +49,12 @@
         }
         <ul>
           @for (metric of metricResource.value(); track metric.metric_id) {
+            <li>{{ metric.metric_id }}</li>
             <li>{{ metric.title }}</li>
-            <li>{{ metric.status }}</li>
+            <li>{{ metric.standard }}</li>
             <li>{{ metric.measurement_unit }}</li>
+            <li>{{ metric.lowerbound_msg }}</li>
+            <li>{{ metric.upperbound_msg }}</li>
           } @empty {
             <li class="no-data">Nothing to show</li>
           }

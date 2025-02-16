@@ -39,6 +39,7 @@ export const metricResponseSchema = z.object({
   lowerbound_msg: z.string(),
   tag: tagResSchema.optional(),
   status: statusSchema,
+  required: z.boolean(),
 });
 
 const metricCreateRequestSchema = z.object({
