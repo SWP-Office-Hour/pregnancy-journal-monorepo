@@ -4,6 +4,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
+import { CalendarComponent } from './modules/calendar/calendar.component';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { LandingComponent } from './modules/landing/landing.component';
@@ -109,6 +110,10 @@ export const appRoutes: Route[] = [
       {
         path: 'record',
         loadComponent: () => PregnancyRecordComponent,
+      },
+      {
+        path: 'calendar',
+        loadComponent: () => CalendarComponent,
       },
     ],
   },
