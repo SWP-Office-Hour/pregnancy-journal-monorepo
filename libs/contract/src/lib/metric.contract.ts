@@ -4,6 +4,7 @@ import { statusSchema } from './enum.contract';
 import { tagResSchema } from './tag.contract';
 
 // STANDARD ============================================
+
 export const standardSchema = z.object({
   standard_id: z.string(),
   week: z.number(),
@@ -60,9 +61,14 @@ const metricUpdateRequestSchema = z.object({
   status: statusSchema.optional(),
 });
 
-export type MetricResponseType = z.infer<typeof metricResponseSchema>;
+export type HealthMetric = z.infer<typeof metricResponseSchema>;
+
 export type MetricCreateRequestType = z.infer<typeof metricCreateRequestSchema>;
+
+export type MetricResponseType = z.infer<typeof metricResponseSchema>;
+
 export type MetricUpdateRequestType = z.infer<typeof metricUpdateRequestSchema>;
+
 const c = initContract();
 
 export const metricContract = c.router({
