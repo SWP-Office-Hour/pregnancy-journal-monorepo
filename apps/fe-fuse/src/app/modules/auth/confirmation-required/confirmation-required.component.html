@@ -80,7 +80,7 @@
             <mat-select formControlName="ward">
               <mat-option value="" disabled="true">Chọn phường/xã</mat-option>
               @for (ward of wards; track $index) {
-                <mat-option value="{{ ward.name }}">{{ ward.name }}</mat-option>
+                <mat-option value="{{ ward.code }}">{{ ward.name }}</mat-option>
               }
             </mat-select>
           </mat-form-field>
