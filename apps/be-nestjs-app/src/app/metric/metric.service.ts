@@ -2,51 +2,70 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { MetricCreateRequestType, MetricResponseType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { PrismaClient } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
-import { StandardService } from '../standard/standard.service';
+import { TagService } from '../tags/tag.service';
 
 @Injectable()
 export class MetricService {
   constructor(
     private readonly databaseService: DatabaseService,
-    private readonly standardService: StandardService,
+    // private readonly standardService: StandardService,
+    private readonly tagService: TagService,
   ) {}
 
   async create(createMetricDto: MetricCreateRequestType): Promise<MetricResponseType> {
-    if (createMetricDto.standard) {
-      return this.databaseService.Metric.create({
+    // if (createMetricDto.standard) {
+    //   return this.databaseService.Metric.create({
+    //     data: {
+    //       title: createMetricDto.title,
+    //       measurement_unit: createMetricDto.measurement_unit,
+    //       status: createMetricDto.status,
+    //       required: createMetricDto.required,
+    //       upperbound_msg: createMetricDto.upperbound_msg,
+    //       lowerbound_msg: createMetricDto.lowerbound_msg,
+    //       // standard: {
+    //       //   createMany: {
+    //       //     data: createMetricDto.standard.map((bound) => {
+    //       //       return {
+    //       //         week: bound.week,
+    //       //         upperbound: bound.upperbound,
+    //       //         lowerbound: bound.lowerbound,
+    //       //         who_standard_value: bound.who_standard_value,
+    //       //       };
+    //       //     }),
+    //       //   },
+    //       // },
+    //     },
+    //   });
+    // } else {
+
+    let metric = await this.databaseService.Metric.create({
+      data: {
+        title: createMetricDto.title,
+        measurement_unit: createMetricDto.measurement_unit,
+        status: createMetricDto.status,
+        required: createMetricDto.required,
+        upperbound_msg: createMetricDto.upperbound_msg,
+        lowerbound_msg: createMetricDto.lowerbound_msg,
+      },
+    });
+
+    if (createMetricDto.tag_id) {
+      const tag = await this.tagService.findOne(createMetricDto.tag_id);
+      metric = await this.databaseService.Metric.update({
+        where: {
+          metric_id: metric.metric_id,
+        },
         data: {
-          title: createMetricDto.title,
-          measurement_unit: createMetricDto.measurement_unit,
-          status: createMetricDto.status,
-          required: createMetricDto.required,
-          upperbound_msg: createMetricDto.upperBoundMsg,
-          lowerbound_msg: createMetricDto.lowerBoundMsg,
-          standard: {
-            createMany: {
-              data: createMetricDto.standard.map((bound) => {
-                return {
-                  week: bound.week,
-                  upperbound: bound.upperbound,
-                  lowerbound: bound.lowerbound,
-                  who_standard_value: bound.who_standard_value,
-                };
-              }),
+          tag: {
+            connect: {
+              tag_id: tag.tag_id,
             },
           },
         },
       });
-    } else {
-      return this.databaseService.Metric.create({
-        data: {
-          title: createMetricDto.title,
-          measurement_unit: createMetricDto.measurement_unit,
-          status: createMetricDto.status,
-          required: createMetricDto.required,
-          upperbound_msg: createMetricDto.upperBoundMsg,
-          lowerbound_msg: createMetricDto.lowerBoundMsg,
-        },
-      });
     }
+
+    return metric;
   }
 
   findAll() {
@@ -69,14 +88,15 @@ export class MetricService {
     return cur;
   }
 
-  update(updateMetricDto: MetricUpdateRequestType) {
-    const cur = this.findOne(updateMetricDto.id);
+  async update(updateMetricDto: MetricUpdateRequestType) {
+    const cur = await this.findOne(updateMetricDto.metric_id);
     if (!cur) {
       throw new NotFoundException('Metric not found');
     }
+
     return this.databaseService.Metric.update({
       where: {
-        metric_id: updateMetricDto.id,
+        metric_id: updateMetricDto.metric_id,
       },
       data: updateMetricDto,
     });
