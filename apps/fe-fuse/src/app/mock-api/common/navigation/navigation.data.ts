@@ -36,6 +36,13 @@ export const adminNavigation: FuseNavigationItem[] = [
     link: 'admin/health-metric',
   },
   {
+    id: 'tag',
+    title: 'Tag',
+    type: 'basic',
+    icon: 'heroicons_outline:tag',
+    link: 'admin/tag',
+  },
+  {
     id: 'blog',
     title: 'Blog',
     type: 'basic',
@@ -49,6 +56,27 @@ export const adminNavigation: FuseNavigationItem[] = [
         link: 'admin/blog/create',
       },
     ],
+  },
+  {
+    id: 'hospital',
+    title: 'Hospital',
+    type: 'basic',
+    icon: 'heroicons_outline:building-office',
+    link: 'admin/hospital',
+  },
+  {
+    id: 'category',
+    title: 'Category',
+    type: 'basic',
+    icon: 'heroicons_outline:list-bullet',
+    link: 'admin/category',
+  },
+  {
+    id: 'membership',
+    title: 'Membership',
+    type: 'basic',
+    icon: 'heroicons_outline:user-group',
+    link: 'admin/category',
   },
 ];
 
