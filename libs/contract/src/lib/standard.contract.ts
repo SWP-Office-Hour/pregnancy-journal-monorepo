@@ -1,5 +1,3 @@
-// STANDARD ============================================
-
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
@@ -31,11 +29,13 @@ export const standardUpdateReqSchema = standardSchema.extend({
 });
 
 export type Standard = z.infer<typeof standardSchema>;
+export type StandardCreateReq = z.infer<typeof standardCreateReqSchema>;
+export type StandardUpdateReq = z.infer<typeof standardUpdateReqSchema>;
 
 const c = initContract();
 
 export const standardContract = c.router({
-  getAll: {
+  getAllStandardByMetricId: {
     method: 'GET',
     path: '/standards/:metric_id',
     pathParams: z.object({
@@ -43,7 +43,7 @@ export const standardContract = c.router({
     }),
     description: 'Get all standards by metric id',
     responses: {
-      200: z.array(standardSchema),
+      200: z.array(standardSchema).nullable(),
       404: z.object({ message: z.string() }),
     },
   },

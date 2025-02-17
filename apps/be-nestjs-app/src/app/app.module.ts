@@ -12,6 +12,7 @@ import { MetricModule } from './metric/metric.module';
 import { NoteModule } from './note/note.module';
 import { RecordsModule } from './records/records.module';
 import { ReminderModule } from './reminder/reminder.module';
+import { StandardModule } from './standard/standard.module';
 import { TagModule } from './tags/tag.module';
 import { UsersModule } from './users/users.module';
 
@@ -33,6 +34,7 @@ import { UsersModule } from './users/users.module';
     MediaModule,
     RecordsModule,
     NoteModule,
+    StandardModule,
   ],
   controllers: [AppController],
   providers: [AppService],

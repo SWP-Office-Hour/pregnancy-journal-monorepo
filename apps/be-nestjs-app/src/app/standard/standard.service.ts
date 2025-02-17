@@ -1,22 +1,31 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { Standard, StandardCreateReq, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
-import { CreateStandardDto } from './dto/create-standard.dto';
-import { UpdateStandardDto } from './dto/update-standard.dto';
+import { MetricService } from '../metric/metric.service';
 
 @Injectable()
 export class StandardService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly metricService: MetricService,
+  ) {}
 
-  create(createStandardDto: CreateStandardDto) {
+  async create(createStandardDto: StandardCreateReq) {
+    const metric = await this.metricService.findOne(createStandardDto.metric_id);
+
+    if (!metric) {
+      throw new NotFoundException('Metric not found');
+    }
+
     return this.databaseService.Standard.create({
       data: {
         week: createStandardDto.week,
-        upperbound: createStandardDto.upperBound,
-        lowerbound: createStandardDto.lowerBound,
-        who_standard_value: createStandardDto.whoStandardValue,
+        upperbound: createStandardDto.upperbound,
+        lowerbound: createStandardDto.lowerbound,
+        who_standard_value: createStandardDto.who_standard_value,
         metric: {
           connect: {
-            metric_id: createStandardDto.metricId,
+            metric_id: createStandardDto.metric_id,
           },
         },
       },
@@ -35,15 +44,34 @@ export class StandardService {
     });
   }
 
-  update(updateStandardDto: UpdateStandardDto) {
-    const cur = this.findOne(updateStandardDto.id);
+  async findStandardByMetricId(id: string): Promise<Standard[]> {
+    await this.metricService.findOne(id);
+
+    const result = await this.databaseService.Metric.findUnique({
+      include: {
+        standard: true,
+      },
+      where: {
+        metric_id: id,
+      },
+    });
+
+    if (!result) {
+      return [];
+    }
+
+    return result.standard;
+  }
+
+  update(updateStandardDto: StandardUpdateReq) {
+    const cur = this.findOne(updateStandardDto.standard_id);
     if (!cur) {
       throw new NotFoundException('Standard not found');
     }
 
     return this.databaseService.Standard.update({
       where: {
-        standard_id: updateStandardDto.id,
+        standard_id: updateStandardDto.standard_id,
       },
       data: updateStandardDto,
     });
