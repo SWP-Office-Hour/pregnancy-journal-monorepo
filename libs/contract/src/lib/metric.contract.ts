@@ -34,33 +34,37 @@ export const metricResponseSchema = z.object({
   metric_id: z.string(),
   title: z.string(),
   measurement_unit: z.string(),
-  standard: z.array(standardSchema).optional(),
+  status: statusSchema,
+  required: z.boolean(),
   upperbound_msg: z.string(),
   lowerbound_msg: z.string(),
   tag: tagResSchema.optional(),
-  status: statusSchema,
-  required: z.boolean(),
 });
 
-const metricCreateRequestSchema = z.object({
-  title: z.string(),
-  measurement_unit: z.string(),
-  standard: z.array(standardCreateReqSchema).optional(),
-  upperBoundMsg: z.string(),
-  lowerBoundMsg: z.string(),
-  required: z.boolean(),
-  status: statusSchema,
-});
-
-const metricUpdateRequestSchema = z.object({
-  id: z.string(),
-  title: z.string().optional(),
-  measurementUnit: z.string().optional(),
-  upperBoundMsg: z.string().optional(),
-  lowerBoundMsg: z.string().optional(),
-  required: z.boolean().optional(),
-  status: statusSchema.optional(),
-});
+// Create Request Schema
+const metricCreateRequestSchema = metricResponseSchema
+  .extend({
+    tag_id: z.string().optional(),
+  })
+  .omit({
+    metric_id: true,
+    tag: true,
+  });
+// Update Request Schema
+const metricUpdateRequestSchema = metricResponseSchema
+  .omit({
+    tag: true,
+  })
+  .extend({
+    metric_id: z.string(), // Ensure metric_id is required
+    title: z.string().optional(),
+    measurement_unit: z.string().optional(),
+    upperbound_msg: z.string().optional(),
+    lowerbound_msg: z.string().optional(),
+    required: z.boolean().optional(),
+    status: statusSchema.optional(),
+    tag_id: z.string().optional(),
+  });
 
 export type HealthMetric = z.infer<typeof metricResponseSchema>;
 
