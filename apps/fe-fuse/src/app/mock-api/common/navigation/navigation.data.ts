@@ -43,6 +43,13 @@ export const adminNavigation: FuseNavigationItem[] = [
     link: 'admin/tag',
   },
   {
+    id: 'hospital',
+    title: 'Hospital',
+    type: 'basic',
+    icon: 'heroicons_outline:building-office',
+    link: 'admin/hospital',
+  },
+  {
     id: 'blog',
     title: 'Blog',
     type: 'basic',
@@ -58,13 +65,6 @@ export const adminNavigation: FuseNavigationItem[] = [
     ],
   },
   {
-    id: 'hospital',
-    title: 'Hospital',
-    type: 'basic',
-    icon: 'heroicons_outline:building-office',
-    link: 'admin/hospital',
-  },
-  {
     id: 'category',
     title: 'Category',
     type: 'basic',
@@ -76,7 +76,7 @@ export const adminNavigation: FuseNavigationItem[] = [
     title: 'Membership',
     type: 'basic',
     icon: 'heroicons_outline:user-group',
-    link: 'admin/category',
+    link: 'admin/membership',
   },
 ];
 

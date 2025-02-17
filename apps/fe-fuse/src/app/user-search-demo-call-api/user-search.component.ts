@@ -4,7 +4,7 @@ import { API_URL } from './config';
 import { User } from './model';
 
 @Component({
-  selector: 'app-user-search',
+  selector: 'app-user-search-demo-call-api',
   imports: [MatProgressBarModule],
   template: `
     <fieldset>

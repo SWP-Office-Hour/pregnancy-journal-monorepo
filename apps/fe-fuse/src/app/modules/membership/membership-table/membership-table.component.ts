@@ -19,8 +19,8 @@ import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-health-metric-table',
-  templateUrl: './health-metric-table.component.html',
-  styleUrl: './health-metric-table.component.css',
+  templateUrl: './membership-table.component.html',
+  styleUrl: './membership-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -41,7 +41,7 @@ import { environment } from '../../../../environments/environment';
     NgTemplateOutlet,
   ],
 })
-export class HealthMetricTableComponent {
+export class MembershipTableComponent {
   protected readonly Status = Status;
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
