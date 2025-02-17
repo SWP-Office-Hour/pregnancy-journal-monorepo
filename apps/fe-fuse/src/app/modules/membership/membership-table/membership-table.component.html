@@ -1,0 +1,320 @@
+<div class="bg-card flex min-w-0 flex-auto flex-col sm:absolute sm:inset-0 sm:overflow-hidden dark:bg-transparent">
+  <!-- Header -->
+  <div class="flex-0 relative flex flex-col border-b px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8">
+    <!-- Loader -->
+    @if (isLoading) {
+      <div class="absolute inset-x-0 bottom-0">
+        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+      </div>
+    }
+    <!-- Title -->
+    <div class="text-4xl font-extrabold tracking-tight">Membership</div>
+    <!-- Actions -->
+    <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+      <!-- Search -->
+      <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-64" [subscriptSizing]="'dynamic'">
+        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
+        <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search products'" />
+      </mat-form-field>
+      <!-- Add product button -->
+      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createMetric()">
+        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+        <span class="ml-2 mr-1">Add Membership</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="flex flex-auto overflow-hidden">
+    <!-- Products list -->
+    <!--    <div class="sm:mb-18 flex flex-auto flex-col overflow-hidden sm:overflow-y-auto">-->
+    <!--      <div class="grid">-->
+    <!--        &lt;!&ndash; Header &ndash;&gt;-->
+    <!--        <div-->
+    <!--          class="inventory-grid text-secondary text-md sticky top-0 z-10 grid gap-4 bg-gray-50 px-6 py-4 font-semibold shadow md:px-8 dark:bg-black dark:bg-opacity-5"-->
+    <!--          matSort-->
+    <!--          matSortDisableClear-->
+    <!--        >-->
+    <!--          <div [mat-sort-header]="'title'">Title</div>-->
+    <!--          <div class="hidden lg:block" [mat-sort-header]="'measurement_unit'">Measurement unit</div>-->
+    <!--          <div class="hidden lg:block" [mat-sort-header]="'active'">Active</div>-->
+    <!--          <div class="hidden lg:block" [mat-sort-header]="'required'">Is Required</div>-->
+    <!--          <div class="hidden lg:block" [mat-sort-header]="'upperbound_msg'">upperbound_msg</div>-->
+    <!--          <div class="hidden lg:block" [mat-sort-header]="'lowerbound_msg'">lowerbound_msg</div>-->
+    <!--          <div class="hidden sm:block">Details</div>-->
+    <!--        </div>-->
+    <!--        &lt;!&ndash; Rows &ndash;&gt;-->
+
+    <!--        @for (metric of metricResource.value(); track metric.metric_id) {-->
+    <!--          <div class="inventory-grid grid items-center gap-4 border-b px-6 py-3 md:px-8">-->
+    <!--            &lt;!&ndash; Title &ndash;&gt;-->
+    <!--            <div class="hidden truncate md:block">-->
+    <!--              {{ metric.title }}-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; Measurement unit &ndash;&gt;-->
+    <!--            <div class="hidden lg:block">-->
+    <!--              {{ metric.measurement_unit }}-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; Active &ndash;&gt;-->
+    <!--            <div class="hidden lg:block">-->
+    <!--              @if (metric.status == Status.ACTIVE) {-->
+    <!--                <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>-->
+    <!--              }-->
+    <!--              @if (metric.status == Status.INACTIVE) {-->
+    <!--                <mat-icon class="icon-size-5 text-gray-400" [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>-->
+    <!--              }-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; Is Required &ndash;&gt;-->
+    <!--            <div class="hidden lg:block">-->
+    <!--              @if (metric.required) {-->
+    <!--                <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>-->
+    <!--              }-->
+    <!--              @if (!metric.required) {-->
+    <!--                <mat-icon class="icon-size-5 text-gray-400" [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>-->
+    <!--              }-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; upperbound_msg &ndash;&gt;-->
+    <!--            <div class="hidden lg:block">-->
+    <!--              {{ metric.upperbound_msg }}-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; lowerbound_msg &ndash;&gt;-->
+    <!--            <div class="hidden lg:block">-->
+    <!--              {{ metric.lowerbound_msg }}-->
+    <!--            </div>-->
+    <!--            &lt;!&ndash; Details button &ndash;&gt;-->
+    <!--            <div>-->
+    <!--              <button class="h-7 min-h-7 min-w-10 px-2 leading-6" mat-stroked-button (click)="toggleDetails(metric.metric_id)">-->
+    <!--                <mat-icon-->
+    <!--                  class="icon-size-5"-->
+    <!--                  [svgIcon]="selectedMetric?.metric_id === metric.metric_id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"-->
+    <!--                ></mat-icon>-->
+    <!--              </button>-->
+    <!--            </div>-->
+    <!--          </div>-->
+    <!--          <div class="grid">-->
+    <!--            @if (selectedMetric?.metric_id === metric.metric_id) {-->
+    <!--              <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: { $implicit: metric }"></ng-container>-->
+    <!--            }-->
+    <!--          </div>-->
+    <!--        } @empty {-->
+    <!--          <li class="no-data">Nothing to show</li>-->
+    <!--        }-->
+    <!--      </div>-->
+
+    <!--      <ng-template #rowDetailsTemplate let-metric>-->
+    <!--        <div class="overflow-hidden shadow-lg">-->
+    <!--          <div class="flex border-b">-->
+    <!--            &lt;!&ndash; Selected product form &ndash;&gt;-->
+    <!--            <form class="flex w-full flex-col" [formGroup]="selectedMetricForm">-->
+    <!--              <div class="flex flex-col p-8 sm:flex-row">-->
+    <!--                &lt;!&ndash; Product images and status &ndash;&gt;-->
+    <!--                <div class="mb-8 flex flex-col items-center sm:mb-0 sm:items-start">-->
+    <!--                  <div class="flex flex-col items-center"></div>-->
+    <!--                  <div class="mt-8 flex flex-col">-->
+    <!--                    <span class="mb-2 font-semibold">Product status</span>-->
+    <!--                    <mat-slide-toggle [formControlName]="'required'" [color]="'primary'">-->
+    <!--                      {{ selectedMetricForm.get('required').value === true ? 'Required' : 'Disabled' }}-->
+    <!--                    </mat-slide-toggle>-->
+    <!--                  </div>-->
+    <!--                </div>-->
+
+    <!--                <div class="flex flex-auto flex-wrap">-->
+    <!--                  &lt;!&ndash;                  ahihi&ndash;&gt;-->
+    <!--                  &lt;!&ndash; Name, SKU & etc. &ndash;&gt;-->
+    <!--                  <div class="flex w-full flex-col sm:pl-8 lg:w-2/4">-->
+    <!--                    &lt;!&ndash; Name &ndash;&gt;-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Title</mat-label>-->
+    <!--                      <input matInput [formControlName]="'title'" />-->
+    <!--                    </mat-form-field>-->
+
+    <!--                    &lt;!&ndash; SKU and Barcode &ndash;&gt;-->
+    <!--                    <div class="flex">-->
+    <!--                      <mat-form-field class="w-1/3 pr-2">-->
+    <!--                        <mat-label>SKU</mat-label>-->
+    <!--                        <input matInput [formControlName]="'sku'" />-->
+    <!--                      </mat-form-field>-->
+    <!--                      <mat-form-field class="w-2/3 pl-2">-->
+    <!--                        <mat-label>Barcode</mat-label>-->
+    <!--                        <input matInput [formControlName]="'barcode'" />-->
+    <!--                      </mat-form-field>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Category, Brand & Vendor &ndash;&gt;-->
+    <!--                    <div class="flex">-->
+    <!--                      <mat-form-field class="w-1/3 pr-2">-->
+    <!--                        <mat-label>Category</mat-label>-->
+    <!--                        <mat-select [formControlName]="'category'">-->
+    <!--                          @for (category of categories; track category) {-->
+    <!--                            <mat-option [value]="category.id">-->
+    <!--                              {{ category.name }}-->
+    <!--                            </mat-option>-->
+    <!--                          }-->
+    <!--                        </mat-select>-->
+    <!--                      </mat-form-field>-->
+    <!--                      <mat-form-field class="w-1/3 px-2">-->
+    <!--                        <mat-label>Brand</mat-label>-->
+    <!--                        <mat-select [formControlName]="'brand'">-->
+    <!--                          @for (brand of brands; track brand) {-->
+    <!--                            <mat-option [value]="brand.id">-->
+    <!--                              {{ brand.name }}-->
+    <!--                            </mat-option>-->
+    <!--                          }-->
+    <!--                        </mat-select>-->
+    <!--                      </mat-form-field>-->
+    <!--                      <mat-form-field class="w-1/3 pl-2">-->
+    <!--                        <mat-label>Vendor</mat-label>-->
+    <!--                        <mat-select [formControlName]="'vendor'">-->
+    <!--                          @for (vendor of vendors; track vendor) {-->
+    <!--                            <mat-option [value]="vendor.id">-->
+    <!--                              {{ vendor.name }}-->
+    <!--                            </mat-option>-->
+    <!--                          }-->
+    <!--                        </mat-select>-->
+    <!--                      </mat-form-field>-->
+    <!--                    </div>-->
+
+    <!--                    &lt;!&ndash; Stock and Reserved &ndash;&gt;-->
+    <!--                    <div class="flex">-->
+    <!--                      <mat-form-field class="w-1/3 pr-2">-->
+    <!--                        <mat-label>Stock</mat-label>-->
+    <!--                        <input type="number" matInput [formControlName]="'stock'" />-->
+    <!--                      </mat-form-field>-->
+    <!--                      <mat-form-field class="w-1/3 pl-2">-->
+    <!--                        <mat-label>Reserved</mat-label>-->
+    <!--                        <input type="number" matInput [formControlName]="'reserved'" />-->
+    <!--                      </mat-form-field>-->
+    <!--                    </div>-->
+    <!--                  </div>-->
+
+    <!--                  &lt;!&ndash; Cost, Base price, Tax & Price &ndash;&gt;-->
+    <!--                  <div class="flex w-full flex-col sm:pl-8 lg:w-1/4">-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Cost</mat-label>-->
+    <!--                      <span matPrefix>$</span>-->
+    <!--                      <input matInput [formControlName]="'cost'" />-->
+    <!--                    </mat-form-field>-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Base Price</mat-label>-->
+    <!--                      <span matPrefix>$</span>-->
+    <!--                      <input matInput [formControlName]="'basePrice'" />-->
+    <!--                    </mat-form-field>-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Tax</mat-label>-->
+    <!--                      <span matSuffix>%</span>-->
+    <!--                      <input type="number" matInput [formControlName]="'taxPercent'" />-->
+    <!--                    </mat-form-field>-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Price</mat-label>-->
+    <!--                      <span matSuffix>$</span>-->
+    <!--                      <input matInput [formControlName]="'price'" />-->
+    <!--                    </mat-form-field>-->
+    <!--                  </div>-->
+
+    <!--                  &lt;!&ndash; Weight & Tags &ndash;&gt;-->
+    <!--                  <div class="flex w-full flex-col sm:pl-8 lg:w-1/4">-->
+    <!--                    <mat-form-field class="w-full">-->
+    <!--                      <mat-label>Weight</mat-label>-->
+    <!--                      <span matSuffix>lbs.</span>-->
+    <!--                      <input matInput [formControlName]="'weight'" />-->
+    <!--                    </mat-form-field>-->
+
+    <!--                    &lt;!&ndash; Tags &ndash;&gt;-->
+    <!--                    <span class="mb-px font-medium leading-tight">Tags</span>-->
+    <!--                    <div class="mt-1.5 overflow-hidden rounded-md border border-gray-300 shadow-sm dark:border-gray-500">-->
+    <!--                      &lt;!&ndash; Header &ndash;&gt;-->
+    <!--                      <div class="-my-px flex items-center px-3 py-2">-->
+    <!--                        <div class="flex min-w-0 flex-auto items-center">-->
+    <!--                          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>-->
+    <!--                          <input-->
+    <!--                            class="ml-2 min-w-0 border-0 py-1"-->
+    <!--                            type="text"-->
+    <!--                            placeholder="Enter tag name"-->
+    <!--                            (input)="filterTags($event)"-->
+    <!--                            (keydown)="filterTagsInputKeyDown($event)"-->
+    <!--                            [maxLength]="50"-->
+    <!--                            #newTagInput-->
+    <!--                          />-->
+    <!--                        </div>-->
+    <!--                        <button class="ml-3 h-8 min-h-8 w-8" mat-icon-button (click)="toggleTagsEditMode()">-->
+    <!--                          @if (!tagsEditMode) {-->
+    <!--                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-square'"></mat-icon>-->
+    <!--                          }-->
+    <!--                          @if (tagsEditMode) {-->
+    <!--                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:check'"></mat-icon>-->
+    <!--                          }-->
+    <!--                        </button>-->
+    <!--                      </div>-->
+    <!--                      &lt;!&ndash; Available tags &ndash;&gt;-->
+    <!--                      <div class="h-44 overflow-y-auto border-t border-gray-300 leading-none dark:border-gray-500">-->
+    <!--                        &lt;!&ndash; Tags &ndash;&gt;-->
+    <!--                        @if (!tagsEditMode) {-->
+    <!--                          @for (tag of filteredTags; track trackByFn($index, tag)) {-->
+    <!--                            <mat-checkbox-->
+    <!--                              class="flex h-10 min-h-10 items-center pl-1 pr-4"-->
+    <!--                              [color]="'primary'"-->
+    <!--                              [checked]="selectedProduct.tags.includes(tag.id)"-->
+    <!--                              (change)="toggleProductTag(tag, $event)"-->
+    <!--                            >-->
+    <!--                              {{ tag.title }}-->
+    <!--                            </mat-checkbox>-->
+    <!--                          }-->
+    <!--                        }-->
+    <!--                        &lt;!&ndash; Tags editing &ndash;&gt;-->
+    <!--                        @if (tagsEditMode) {-->
+    <!--                          <div class="space-y-2 p-4">-->
+    <!--                            @for (tag of filteredTags; track trackByFn($index, tag)) {-->
+    <!--                              <mat-form-field class="fuse-mat-dense w-full" [subscriptSizing]="'dynamic'">-->
+    <!--                                <input matInput [value]="tag.title" (input)="updateTagTitle(tag, $event)" />-->
+    <!--                                <button mat-icon-button (click)="deleteTag(tag)" matSuffix>-->
+    <!--                                  <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>-->
+    <!--                                </button>-->
+    <!--                              </mat-form-field>-->
+    <!--                            }-->
+    <!--                          </div>-->
+    <!--                        }-->
+    <!--                        @if (shouldShowCreateTagButton(newTagInput.value)) {-->
+    <!--                          <div-->
+    <!--                            class="dark:hover:bg-hover -ml-0.5 flex h-10 min-h-10 cursor-pointer items-center border-t pl-4 pr-3 leading-none hover:bg-gray-50"-->
+    <!--                            (click)="createTag(newTagInput.value); newTagInput.value = ''"-->
+    <!--                            matRipple-->
+    <!--                          >-->
+    <!--                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>-->
+    <!--                            <div class="break-all">-->
+    <!--                              Create "<b>{{ newTagInput.value }}</b-->
+    <!--                              >"-->
+    <!--                            </div>-->
+    <!--                          </div>-->
+    <!--                        }-->
+    <!--                      </div>-->
+    <!--                    </div>-->
+    <!--                  </div>-->
+    <!--                  &lt;!&ndash;                  ahihi&ndash;&gt;-->
+    <!--                </div>-->
+    <!--              </div>-->
+
+    <!--              <div class="flex w-full items-center justify-between border-t px-8 py-4">-->
+    <!--                <button class="-ml-4" mat-button [color]="'warn'" (click)="deleteSelectedProduct()">Delete</button>-->
+    <!--                <div class="flex items-center">-->
+    <!--                  @if (flashMessage) {-->
+    <!--                    <div class="mr-4 flex items-center">-->
+    <!--                      @if (flashMessage === 'success') {-->
+    <!--                        <mat-icon class="text-green-500" [svgIcon]="'heroicons_outline:check'"></mat-icon>-->
+    <!--                        <span class="ml-2">Product updated</span>-->
+    <!--                      }-->
+    <!--                      @if (flashMessage === 'error') {-->
+    <!--                        <mat-icon class="text-red-500" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>-->
+    <!--                        <span class="ml-2">An error occurred, try again!</span>-->
+    <!--                      }-->
+    <!--                    </div>-->
+    <!--                  }-->
+    <!--                  <button mat-flat-button [color]="'primary'" (click)="updateSelectedMetric()">Update</button>-->
+    <!--                </div>-->
+    <!--              </div>-->
+    <!--            </form>-->
+    <!--          </div>-->
+    <!--        </div>-->
+    <!--      </ng-template>-->
+    <!--    </div>-->
+  </div>
+</div>

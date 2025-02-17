@@ -17,7 +17,43 @@ export default [
     ],
   },
   {
+    path: 'tag',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('app/modules/tag/tag.route'),
+      },
+    ],
+  },
+  {
+    path: 'hospital',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('app/modules/hospital/hospital.route'),
+      },
+    ],
+  },
+  {
     path: 'blog',
     loadChildren: () => BlogRoutes,
+  },
+  {
+    path: 'category',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('app/modules/category/category.route'),
+      },
+    ],
+  },
+  {
+    path: 'membership',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('app/modules/membership/membership.route'),
+      },
+    ],
   },
 ] as Routes;

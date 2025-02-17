@@ -18,9 +18,9 @@ import { FuseConfirmationService } from '../../../../../../fuse-example/src/@fus
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-health-metric-table',
-  templateUrl: './health-metric-table.component.html',
-  styleUrl: './health-metric-table.component.css',
+  selector: 'app-tag-table',
+  templateUrl: './tag-table.component.html',
+  styleUrl: './tag-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -41,7 +41,7 @@ import { environment } from '../../../../environments/environment';
     NgTemplateOutlet,
   ],
 })
-export class HealthMetricTableComponent {
+export class TagTableComponent {
   protected readonly Status = Status;
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
