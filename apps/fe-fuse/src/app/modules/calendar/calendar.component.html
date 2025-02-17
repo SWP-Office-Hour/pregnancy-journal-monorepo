@@ -116,7 +116,13 @@
       }
     </div>
     <div class="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-      <div class="hidden w-full lg:grid lg:grid-cols-7 lg:grid-rows-6 lg:gap-px">
+      <div
+        [ngClass]="{
+          'hidden w-full lg:grid lg:grid-cols-7 lg:gap-px': true,
+          'lg:grid-rows-6': this.daysOfMonth().length > 35,
+          'lg:grid-rows-5': this.daysOfMonth().length <= 35,
+        }"
+      >
         <!--
           Always include: "relative py-2 px-3"
           Is current month, include: "bg-white"
@@ -125,16 +131,24 @@
         @for (dayOfMonth of daysOfMonth(); track $index) {
           <div
             [ngClass]="{
-              'relative px-3 py-2': true,
+              'relative px-3 py-2 hover:bg-blue-200': true,
               'bg-white': dayOfMonth.month == firstDayOfActiveMonth().month,
               'bg-gray-50 text-gray-500': dayOfMonth.month !== firstDayOfActiveMonth().month,
+              'bg-blue-600 text-white': activeDay()?.toISODate() === dayOfMonth.toISODate(),
             }"
+            (click)="clickDate(dayOfMonth)"
           >
             <time datetime="{{ dayOfMonth.toISODate() }}">{{ dayOfMonth.day }}</time>
           </div>
         }
       </div>
-      <div class="isolate grid w-full grid-cols-7 grid-rows-6 gap-px lg:hidden">
+      <div
+        [ngClass]="{
+          'isolate grid w-full grid-cols-7 gap-px lg:hidden': true,
+          'grid-rows-6': this.daysOfMonth().length > 35,
+          'grid-rows-5': this.daysOfMonth().length <= 35,
+        }"
+      >
         @for (dayOfMonth of daysOfMonth(); track $index) {
           <button
             type="button"
@@ -175,6 +189,26 @@
           Is not selected, is not current month, and is not today: "text-gray-500"
         -->
       </div>
+    </div>
+  </div>
+  <div class="schedule">
+    <div class="schedule-headline">
+      @if (activeDay(); as activeDay) {
+        <div>{{ activeDay.toLocaleString(DATE_MED) }}</div>
+      } @else {
+        <div>Please select a day</div>
+      }
+    </div>
+    <div>
+      @if (activeDay() && activeDayMeetings().length === 0) {
+        <div>No Planned Meetings today</div>
+      }
+
+      @if (activeDay() && activeDayMeetings().length > 0) {
+        @for (meeting of activeDayMeetings(); track $index) {
+          <div>{{ meeting }}</div>
+        }
+      }
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, input, InputSignal, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, resource, ResourceRef, Signal, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -7,8 +7,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ReminderResponse } from '@pregnancy-journal-monorepo/contract';
 import { DateTime, Info, Interval } from 'luxon';
-import { Meetings } from './meetings.interface';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-calendar',
@@ -29,7 +30,7 @@ import { Meetings } from './meetings.interface';
 export class CalendarComponent {
   selected_date = new FormControl(DateTime.local());
   selected_date_as_string = new FormControl('');
-  meetings: InputSignal<Meetings> = input.required();
+  meetings: ResourceRef<ReminderResponse[]>;
   today: Signal<DateTime> = signal(DateTime.local());
   firstDayOfActiveMonth: WritableSignal<DateTime> = signal(this.today().startOf('month'));
   activeDay: WritableSignal<DateTime | null> = signal(null);
@@ -56,7 +57,8 @@ export class CalendarComponent {
       return [];
     }
 
-    return this.meetings()[activeDayISO] ?? [];
+    const meetingDate = this.meetings.value().filter((meeting) => meeting.remind_date.toISOString() === activeDayISO);
+    return meetingDate.length ? meetingDate.map((date) => date.title) : [];
   });
   protected open = signal(false);
 
@@ -68,20 +70,27 @@ export class CalendarComponent {
         this.selected_date_as_string.setValue(`${date.monthLong} ${date.year}`);
       }
     });
+    this.meetings = resource({
+      loader: async () => {
+        const response = await fetch(environment.apiUrl + 'reminders');
+        return response.json();
+      },
+    });
   }
 
   goToPreviousMonth(): void {
     this.firstDayOfActiveMonth.set(this.firstDayOfActiveMonth().minus({ month: 1 }));
-    console.log('goToPreviousMonth');
-    console.log(this.firstDayOfActiveMonth());
+    this.selected_date.setValue(this.firstDayOfActiveMonth());
   }
 
   goToNextMonth(): void {
     this.firstDayOfActiveMonth.set(this.firstDayOfActiveMonth().plus({ month: 1 }));
+    this.selected_date.setValue(this.firstDayOfActiveMonth());
   }
 
   goToToday(): void {
     this.firstDayOfActiveMonth.set(this.today().startOf('month'));
+    this.selected_date.setValue(this.firstDayOfActiveMonth());
   }
 
   clickSelector() {
@@ -89,8 +98,10 @@ export class CalendarComponent {
   }
 
   protected clickDate(dayOfMonth: DateTime) {
-    console.log(dayOfMonth);
-    console.log(this.activeDay());
-    console.log(this.activeDay()?.toISODate() === dayOfMonth.toISODate());
+    if (this.activeDay()?.toISODate() === dayOfMonth.toISODate()) {
+      this.activeDay.set(null);
+    } else {
+      this.activeDay.set(dayOfMonth);
+    }
   }
 }
