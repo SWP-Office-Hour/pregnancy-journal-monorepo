@@ -13,7 +13,6 @@ import {
 import { DatabaseService } from '../database/database.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
-import { UserEntity } from './models/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -91,16 +90,12 @@ export class UsersService {
   //   return Boolean(result);
   // }
 
-  async checkEmail(email: string): Promise<UserEntity> {
+  async checkEmail(email: string): Promise<UserResponseType | null> {
     const result = await this.databaseService.User.findFirst({
       where: {
         email,
       },
     });
-    if (!result) {
-      throw new NotFoundException('User not found');
-    }
-
     return result;
   }
 
