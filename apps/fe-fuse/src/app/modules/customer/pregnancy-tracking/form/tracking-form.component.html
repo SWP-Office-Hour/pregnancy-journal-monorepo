@@ -34,7 +34,7 @@
         <mat-select formControlName="hospital">
           <mat-option value="" disabled="true">Chọn bệnh viện</mat-option>
           @for (hospital of hospitals; track $index) {
-            <mat-option value="{{ hospital.id }}">{{ hospital.name }}</mat-option>
+            <mat-option value="{{ hospital.hospital_id }}">{{ hospital.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
