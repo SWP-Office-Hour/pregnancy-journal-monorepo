@@ -19,6 +19,7 @@ import {
   payosContract,
   recordContract,
   reminderContract,
+  standardContract,
   tagContract,
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
@@ -46,6 +47,7 @@ async function bootstrap() {
       media: mediaContract,
       category: categoryContract,
       record: recordContract,
+      standard: standardContract,
     },
     {
       info: {

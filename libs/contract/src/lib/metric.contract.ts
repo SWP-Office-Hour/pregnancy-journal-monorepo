@@ -1,7 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
-import { standardSchema } from './standard.contract';
 import { tagResSchema } from './tag.contract';
 
 // METRIC ============================================
