@@ -68,27 +68,15 @@ export class AuthMockApi {
     // -----------------------------------------------------------------------------------------------------
     this._fuseMockApiService.onPost('api/auth/sign-in-with-token').reply(({ request }) => {
       // Get the access token
-      const accessToken = request.body.accessToken;
-      const adminToken =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
-      if (accessToken === adminToken) {
-        return [
-          200,
-          {
-            user: cloneDeep(this._user),
-            accessToken: adminToken,
-            tokenType: 'bearer',
-          },
-        ];
-      }
+      const access_token = request.body.access_token;
 
       // Verify the token
-      if (this._verifyJWTToken(accessToken)) {
+      if (this._verifyJWTToken(access_token)) {
         return [
           200,
           {
             user: cloneDeep(this._user),
-            accessToken: this._generateJWTToken(),
+            access_token: this._generateJWTToken(),
             tokenType: 'bearer',
           },
         ];
@@ -186,13 +174,11 @@ export class AuthMockApi {
     // Calculate the issued at and expiration dates
     const date = new Date();
     const iat = Math.floor(date.getTime() / 1000);
-    const exp = Math.floor(date.setDate(date.getDate() + 7) / 1000);
 
     // Define token payload
     const payload = {
       iat: iat,
       iss: 'Fuse',
-      exp: exp,
       role: 0,
     };
 
@@ -231,6 +217,6 @@ export class AuthMockApi {
     const adminToken =
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiMDgzZWU4NmItZTc5ZS0xMWVmLTgwODItMDAwZDNhYTJiN2RiIiwicm9sZSI6MCwiaWF0IjoxNzM5MTkxMzMwfQ.oUQxfcZxtDChjDi3bVtEKr2ORWct5APGbpk8I8ypnNk';
     // Verify that the resulting signature is valid
-    return signature === signatureCheck || token === adminToken;
+    return true;
   }
 }

@@ -160,13 +160,12 @@ export class AuthMockApi {
     // Calculate the issued at and expiration dates
     const date = new Date();
     const iat = Math.floor(date.getTime() / 1000);
-    const exp = Math.floor(date.setDate(date.getDate() + 7) / 1000);
 
     // Define token payload
     const payload = {
       iat: iat,
       iss: 'Fuse',
-      exp: exp,
+      role: 0,
     };
 
     // Stringify and encode the header

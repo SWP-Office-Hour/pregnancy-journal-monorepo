@@ -4,6 +4,7 @@ import { AuthResponse, RegisterRequest, UserRole } from '@pregnancy-journal-mono
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -59,7 +60,8 @@ export class AuthService {
    * @param email
    */
   forgotPassword(email: string): Observable<any> {
-    return this._httpClient.post('api/auth/forgot-password', email);
+    return throwError(() => new Error('Not implemented'));
+    // return this._httpClient.post('api/auth/forgot-password', email);
   }
 
   /**
@@ -68,7 +70,8 @@ export class AuthService {
    * @param password
    */
   resetPassword(password: string): Observable<any> {
-    return this._httpClient.post('api/auth/reset-password', password);
+    return throwError(() => new Error('Not implemented'));
+    // return this._httpClient.post('api/auth/reset-password', password);
   }
 
   /**
@@ -82,11 +85,10 @@ export class AuthService {
       return throwError(() => new Error('User is already logged in.'));
     }
 
-    return this._httpClient.post('api/auth/sign-in', credentials).pipe(
-      switchMap((response: any) => {
+    return this._httpClient.post(environment.apiUrl + 'users/auth/login', credentials).pipe(
+      switchMap((response: AuthResponse) => {
         // Store the access token in the local storage
-        this.accessToken = response.accessToken;
-        this.refreshToken = response.refreshToken;
+        this.accessToken = response.access_token;
 
         // Set the authenticated flag to true
         this._authenticated = true;
@@ -107,7 +109,7 @@ export class AuthService {
     // Sign in using the token
     return this._httpClient
       .post('api/auth/sign-in-with-token', {
-        accessToken: this.accessToken,
+        access_token: this.accessToken,
       })
       .pipe(
         catchError(() =>
@@ -144,7 +146,6 @@ export class AuthService {
   signOut(): Observable<any> {
     // Remove the access token from the local storage
     localStorage.removeItem('accessToken');
-    localStorage.removeItem('refreshToken');
 
     // Set the authenticated flag to false
     this._authenticated = false;
@@ -173,11 +174,18 @@ export class AuthService {
    * @param user
    */
   signUp(user: RegisterRequest): Observable<any> {
-    return this._httpClient.post('api/auth/sign-up', user).pipe(
+    return this._httpClient.post(environment.apiUrl + 'users/auth/register', user).pipe(
       map((response: AuthResponse) => {
         this.accessToken = response.access_token;
         this._authenticated = true;
-        this._userService.user = response.user;
+        this._userService.user = {
+          id: response.user.id,
+          name: response.user.name,
+          role: response.user.role,
+          status: 'active',
+          avatar: '',
+          email: user.email,
+        };
         return response;
       }),
     );

@@ -80,7 +80,7 @@ export class AuthForgotPasswordComponent implements OnInit {
 
     // Forgot password
     this._authService
-      .forgotPassword(this.forgotPasswordForm.get('email').value)
+      .forgotPassword(this.forgotPasswordForm.get('email')!.value)
       .pipe(
         finalize(() => {
           // Re-enable the form
@@ -93,21 +93,21 @@ export class AuthForgotPasswordComponent implements OnInit {
           this.showAlert = true;
         }),
       )
-      .subscribe(
-        (response) => {
+      .subscribe({
+        next: (response) => {
           // Set the alert
           this.alert = {
             type: 'success',
             message: "Password reset sent! You'll receive an email if you are registered on our system.",
           };
         },
-        (response) => {
+        error: (response) => {
           // Set the alert
           this.alert = {
             type: 'error',
             message: 'Email does not found! Are you sure you are already a member?',
           };
         },
-      );
+      });
   }
 }

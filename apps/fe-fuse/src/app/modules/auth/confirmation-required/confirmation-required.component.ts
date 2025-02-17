@@ -72,9 +72,9 @@ export class AuthConfirmationRequiredComponent {
     if (!this._authService.signUpData) {
       this._router.navigate(['sign-up']);
     } else {
-      this.confirmationForm.get('email').setValue(this._authService.signUpData.email);
-      this.confirmationForm.get('password').setValue(this._authService.signUpData.password);
-      this.confirmationForm.get('confirm_password').setValue(this._authService.signUpData.confirm_password);
+      this.confirmationForm.get('email')!.setValue(this._authService.signUpData.email);
+      this.confirmationForm.get('password')!.setValue(this._authService.signUpData.password);
+      this.confirmationForm.get('confirm_password')!.setValue(this._authService.signUpData.confirm_password);
       this._httpClient.get<Province[]>('https://provinces.open-api.vn/api/p/?depth=1').subscribe((provinces) => {
         this.provinces = provinces;
       });
@@ -90,13 +90,13 @@ export class AuthConfirmationRequiredComponent {
   signUp() {
     const { province, district, ward, ...rest } = this.confirmationForm.value;
     this._httpClient.get<Province>('https://provinces.open-api.vn/api/p/' + province).subscribe((province) => {
-      this.confirmationForm.get('province').setValue(province.name);
+      this.confirmationForm.get('province')!.setValue(province.name);
     });
     this._httpClient.get<District>('https://provinces.open-api.vn/api/d/' + district).subscribe((district) => {
-      this.confirmationForm.get('district').setValue(district.name);
+      this.confirmationForm.get('district')!.setValue(district.name);
     });
     const expected_birth_date = new Date(rest.expected_birth_date).toISOString();
-    this.confirmationForm.get('expected_birth_date').setValue(expected_birth_date);
+    this.confirmationForm.get('expected_birth_date')!.setValue(expected_birth_date);
 
     // Disable the form to prevent multiple submissions
     this.confirmationForm.disable();
@@ -134,7 +134,7 @@ export class AuthConfirmationRequiredComponent {
     this.wards = [];
     this.districts = [];
     this._httpClient.get<Province>(`https://provinces.open-api.vn/api/p/${province_code}?depth=2`).subscribe((province) => {
-      this.districts = province.districts;
+      this.districts = province.districts!;
     });
   }
 
@@ -145,7 +145,7 @@ export class AuthConfirmationRequiredComponent {
     const district_code = district_code_input.value;
     this.wards = [];
     this._httpClient.get<District>(`https://provinces.open-api.vn/api/d/${district_code}?depth=2`).subscribe((district) => {
-      this.wards = district.wards;
+      this.wards = district.wards!;
     });
   }
 }
