@@ -1,5 +1,5 @@
-import { Controller, Param } from '@nestjs/common';
-import { standardContract, StandardCreateReq } from '@pregnancy-journal-monorepo/contract';
+import { Body, Controller, Param } from '@nestjs/common';
+import { standardContract, StandardCreateReq, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { StandardService } from './standard.service';
 
@@ -8,7 +8,7 @@ export class StandardController {
   constructor(private readonly standardService: StandardService) {}
 
   @TsRestHandler(standardContract.create)
-  handleCreate(createStandardDto: StandardCreateReq) {
+  handleCreate(@Body() createStandardDto: StandardCreateReq) {
     return tsRestHandler(standardContract.create, async () => {
       const standard = await this.standardService.create(createStandardDto);
       return {
@@ -29,25 +29,25 @@ export class StandardController {
     });
   }
 
-  // @TsRestHandler(standardContract.create)
-  // handleCreate(createStandardDto: StandardCreateReq) {
-  //   return tsRestHandler(standardContract.create, async () => {
-  //     const standard = await this.standardService.create(createStandardDto);
-  //     return {
-  //       status: 201,
-  //       body: standard,
-  //     };
-  //   });
-  // }
-  //
-  // @TsRestHandler(standardContract.create)
-  // handleCreate(createStandardDto: StandardCreateReq) {
-  //   return tsRestHandler(standardContract.create, async () => {
-  //     const standard = await this.standardService.create(createStandardDto);
-  //     return {
-  //       status: 201,
-  //       body: standard,
-  //     };
-  //   });
-  // }
+  @TsRestHandler(standardContract.update)
+  handleUpdate(@Body() updateStandard: StandardUpdateReq) {
+    return tsRestHandler(standardContract.create, async () => {
+      const standard = await this.standardService.update(updateStandard);
+      return {
+        status: 201,
+        body: standard,
+      };
+    });
+  }
+
+  @TsRestHandler(standardContract.delete)
+  handleDelete(@Param('standard_id') standardId: string) {
+    return tsRestHandler(standardContract.create, async () => {
+      const standard = await this.standardService.remove(standardId);
+      return {
+        status: 201,
+        body: standard,
+      };
+    });
+  }
 }
