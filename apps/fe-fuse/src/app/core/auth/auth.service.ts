@@ -108,7 +108,7 @@ export class AuthService {
   signInUsingToken(): Observable<any> {
     // Sign in using the token
     return this._httpClient
-      .post(environment.apiUrl + 'users/auth/sign-in-with-token', {
+      .get(environment.apiUrl + 'users/auth/sign-in-with-token', {
         headers: {
           Authorization: 'Bearer ' + this.accessToken,
         },
