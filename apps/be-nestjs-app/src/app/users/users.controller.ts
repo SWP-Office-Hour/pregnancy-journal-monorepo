@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Param, UnauthorizedException } from '@nestjs/common';
+import { Body, ConflictException, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import {
   authContract,
   LoginRequest,
@@ -8,6 +8,8 @@ import {
   UserUpdateRequestType,
 } from '@pregnancy-journal-monorepo/contract';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
+import { RequestWithJWT } from 'express';
+import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { UsersService } from './users.service';
 
 @Controller()
@@ -39,6 +41,24 @@ export class UsersController {
           body: { message: 'Email is already registered' },
         };
       }
+    });
+  }
+
+  @UseGuards(AccessTokenAuthGuard)
+  @TsRestHandler(authContract.signInWithToken)
+  async handleSignInWithToken(@Req() req: RequestWithJWT) {
+    return tsRestHandler(authContract.signInWithToken, async () => {
+      const user_id = req.decoded_authorization?.user_id;
+
+      if (!user_id) {
+        throw new UnauthorizedException('Token is invalid');
+      }
+
+      const user = await this.usersService.signInWithToken(user_id);
+      if (!user) {
+        throw new UnauthorizedException('Token is invalid');
+      }
+      return { status: 201, body: user };
     });
   }
 
