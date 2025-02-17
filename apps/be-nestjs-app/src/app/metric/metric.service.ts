@@ -93,13 +93,34 @@ export class MetricService {
     if (!cur) {
       throw new NotFoundException('Metric not found');
     }
+    const tag = updateMetricDto.tag_id;
+    if (tag) {
+      await this.tagService.findOne(tag); // check if tag exists
+    }
+    updateMetricDto.tag_id = undefined;
 
-    return this.databaseService.Metric.update({
+    let metric = await this.databaseService.Metric.update({
       where: {
         metric_id: updateMetricDto.metric_id,
       },
       data: updateMetricDto,
     });
+
+    if (tag) {
+      metric = await this.databaseService.Metric.update({
+        where: {
+          metric_id: updateMetricDto.metric_id,
+        },
+        data: {
+          tag: {
+            connect: {
+              tag_id: tag,
+            },
+          },
+        },
+      });
+    }
+    return metric;
   }
 
   async remove(id: string) {
