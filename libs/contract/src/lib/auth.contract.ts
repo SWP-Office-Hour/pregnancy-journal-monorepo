@@ -86,6 +86,15 @@ export const authContract = c.router({
       401: messageResponseSchema,
     },
   },
+  signInWithToken: {
+    method: 'GET',
+    path: '/users/auth/sign-in-with-token',
+    description: 'sign in with access token (đã xong)',
+    responses: {
+      200: authResponseSchema,
+      401: messageResponseSchema,
+    },
+  },
   logout: {
     method: 'POST',
     path: '/users/auth/logout',

@@ -17,7 +17,7 @@ export class AccessTokenAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestWithJWT>();
     const token = request.headers.authorization?.split(' ')[1];
     if (!token) {
-      throw new UnauthorizedException('User authentication required');
+      throw new UnauthorizedException('User access token authentication required');
     }
 
     try {

@@ -184,7 +184,7 @@ export class UsersService {
     };
   }
 
-  async login(data: LoginRequest): Promise<AuthResponse> {
+  async login(data: LoginRequest): Promise<AuthResponse | null> {
     const { email, password } = data;
     const user = await this.databaseService.User.findFirst({
       where: {
@@ -192,9 +192,11 @@ export class UsersService {
         password,
       },
     });
+
     if (!user) {
-      throw new NotFoundException('User not found');
+      return null;
     }
+
     const [access_token, refresh_token] = await Promise.all([
       this.signAccessToken({ user_id: user.user_id, role: user.role }),
       this.signRefreshToken({ user_id: user.user_id, role: user.role }),
@@ -215,6 +217,31 @@ export class UsersService {
         },
       },
     });
+    //create access token and refresh token then return
+    return {
+      access_token,
+      // refresh_token,
+      user: {
+        id: user.user_id,
+        name: user.name,
+        role: user.role,
+      },
+    };
+  }
+
+  async signInWithToken(userId: string): Promise<AuthResponse | null> {
+    const user = await this.databaseService.User.findFirst({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    const access_token = await this.signAccessToken({ user_id: user.user_id, role: user.role });
+
     //create access token and refresh token then return
     return {
       access_token,
