@@ -21,7 +21,7 @@ const membershipCreateReqContract = z.object({
 });
 
 const membershipUpdateReqContract = z.object({
-  id: z.string(),
+  membership_id: z.string(),
   title: z.string(),
   price: z.number(),
   description: z.string(),

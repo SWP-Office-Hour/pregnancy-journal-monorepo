@@ -36,11 +36,11 @@ export class MembershipsService {
   }
 
   async update(updateMembershipDto: membershipUpdateRequest) {
-    await this.findOne(updateMembershipDto.id);
+    await this.findOne(updateMembershipDto.membership_id);
 
     return this.databaseService.MemberShip.update({
       where: {
-        membership_id: updateMembershipDto.id,
+        membership_id: updateMembershipDto.membership_id,
       },
       data: updateMembershipDto,
     });
