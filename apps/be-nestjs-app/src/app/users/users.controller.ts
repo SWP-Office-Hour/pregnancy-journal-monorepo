@@ -32,11 +32,11 @@ export class UsersController {
       const email = await this.usersService.checkEmail(body.email);
       if (!email) {
         const users = await this.usersService.register(body);
-        return { status: 200, body: users };
+        return { status: 201, body: users };
       } else {
         return {
           status: 401,
-          body: { message: 'Phone number is already registered' },
+          body: { message: 'Email is already registered' },
         };
       }
     });
