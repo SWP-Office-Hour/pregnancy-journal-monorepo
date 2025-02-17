@@ -1,5 +1,7 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
+import { MatAnchor } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { TrackingFormComponent } from './form/tracking-form.component';
@@ -7,7 +9,7 @@ import { PregnancyTrackingService } from './pregnancy-tracking.service';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [TrackingFormComponent, RouterLink],
+  imports: [TrackingFormComponent, RouterLink, MatAnchor, MatIcon],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
