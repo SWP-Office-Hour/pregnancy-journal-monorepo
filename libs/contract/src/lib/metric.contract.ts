@@ -1,32 +1,8 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
+import { standardSchema } from './standard.contract';
 import { tagResSchema } from './tag.contract';
-
-// STANDARD ============================================
-
-export const standardSchema = z.object({
-  standard_id: z.string(),
-  week: z.number(),
-  lowerbound: z.number(),
-  upperbound: z.number(),
-  who_standard_value: z.number().nullable(),
-});
-
-export const standardCreateReqSchema = z.object({
-  week: z.number().min(0).max(40),
-  lowerbound: z.number(),
-  upperbound: z.number(),
-  who_standard_value: z.number(),
-});
-
-export const standardUpdateReqSchema = z.object({
-  standard_id: z.string(),
-  week: z.number().min(0).max(40).optional(),
-  lowerbound: z.number(),
-  upperbound: z.number(),
-  who_standard_value: z.number().optional(),
-});
 
 // METRIC ============================================
 
