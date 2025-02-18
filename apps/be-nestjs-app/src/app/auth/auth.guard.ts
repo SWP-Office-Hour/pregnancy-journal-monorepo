@@ -1,4 +1,4 @@
-import { CanActivate, ExecutionContext, ForbiddenException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { CanActivate, ExecutionContext, ForbiddenException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Reflector } from '@nestjs/core';
 import { RefreshTokenRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
@@ -17,7 +17,7 @@ export class AccessTokenAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<RequestWithJWT>();
     const token = request.headers.authorization?.split(' ')[1];
     if (!token) {
-      throw new UnauthorizedException('User access token authentication required');
+      throw new ForbiddenException('User access token authentication required');
     }
 
     try {
@@ -29,7 +29,7 @@ export class AccessTokenAuthGuard implements CanActivate {
 
       return true;
     } catch (e) {
-      throw new UnauthorizedException(e.message);
+      throw new ForbiddenException(e.message);
     }
   }
 }
@@ -45,7 +45,7 @@ export class AccessTokenAuthGuard implements CanActivate {
 //     const request = context.switchToHttp().getRequest<RequestWithJWT>();
 //     const token = request.query.email_verify_token;
 //     if (!token) {
-//       throw new UnauthorizedException('User authentication required');
+//       throw new ForbiddenException('User authentication required');
 //     }
 //     try {
 //       const decoded_email_verify = this.jwtUtilsService.verifyToken({
@@ -71,7 +71,7 @@ export class RefreshTokenAuthGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const token = (request.body as RefreshTokenRequest).refresh_token;
     if (!token) {
-      throw new UnauthorizedException('User authentication required');
+      throw new ForbiddenException('User authentication required');
     }
 
     try {
@@ -82,13 +82,13 @@ export class RefreshTokenAuthGuard implements CanActivate {
       const decoded_authorization = request.decoded_authorization;
       if (decoded_authorization) {
         if (decoded_authorization.user_id !== decoded_refresh_token.user_id) {
-          throw new UnauthorizedException('Invalid token');
+          throw new ForbiddenException('Invalid token');
         }
       }
       request.decoded_refresh_token = decoded_refresh_token;
       return true;
     } catch (e) {
-      throw new UnauthorizedException(e.message);
+      throw new ForbiddenException(e.message);
     }
   }
 }
@@ -110,14 +110,14 @@ export class RoleAuthGuard implements CanActivate {
       const request = context.switchToHttp().getRequest<RequestWithJWT>();
       const token = request.headers.authorization?.split(' ')[1];
       if (!token) {
-        throw new UnauthorizedException('User authentication required');
+        throw new ForbiddenException('User authentication required');
       }
       const decoded_authorization = this.jwtUtilsService.verifyToken({
         token,
         secret: this.configService.get<string>('JWT_ACCESS_TOKEN_SECRET') || 'jwt_secret',
       });
       if (!decoded_authorization) {
-        throw new UnauthorizedException('User role authentication required');
+        throw new ForbiddenException('User role authentication required');
       }
       const isAllowed = requiredRoles.includes(decoded_authorization.role);
       if (!isAllowed) {
@@ -125,7 +125,7 @@ export class RoleAuthGuard implements CanActivate {
       }
       return isAllowed;
     } catch (e) {
-      throw new UnauthorizedException(e.message);
+      throw new ForbiddenException(e.message);
     }
   }
 }

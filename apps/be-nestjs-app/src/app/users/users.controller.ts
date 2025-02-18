@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, NotFoundException, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, ConflictException, Controller, NotFoundException, Param, Req, UseGuards } from '@nestjs/common';
 import {
   authContract,
   LoginRequest,
@@ -51,12 +51,12 @@ export class UsersController {
       const user_id = req.decoded_authorization?.user_id;
 
       if (!user_id) {
-        throw new UnauthorizedException('Token is invalid');
+        throw new NotFoundException('Token is invalid');
       }
 
       const user = await this.usersService.signInWithToken(user_id);
       if (!user) {
-        throw new UnauthorizedException('Token is invalid');
+        throw new NotFoundException('Token is invalid');
       }
       return { status: 201, body: user };
     });
