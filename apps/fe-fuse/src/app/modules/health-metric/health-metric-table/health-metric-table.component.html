@@ -33,30 +33,30 @@
         <div
           class="inventory-grid text-secondary text-md sticky top-0 z-10 grid gap-4 bg-gray-50 px-6 py-4 font-semibold shadow md:px-8 dark:bg-black dark:bg-opacity-5"
           matSort
-          matSortDisableClear
+          matSortDisableClear=""
         >
           <div [mat-sort-header]="'title'">Title</div>
-          <div class="hidden lg:block" [mat-sort-header]="'measurement_unit'">Measurement unit</div>
-          <div class="hidden lg:block" [mat-sort-header]="'active'">Active</div>
-          <div class="hidden lg:block" [mat-sort-header]="'required'">Is Required</div>
-          <div class="hidden lg:block" [mat-sort-header]="'upperbound_msg'">upperbound_msg</div>
-          <div class="hidden lg:block" [mat-sort-header]="'lowerbound_msg'">lowerbound_msg</div>
-          <div class="hidden sm:block">Details</div>
+          <div class="" [mat-sort-header]="'measurement_unit'">Measurement unit</div>
+          <div class="" [mat-sort-header]="'active'">Active</div>
+          <div class="" [mat-sort-header]="'required'">Is Required</div>
+          <div class="" [mat-sort-header]="'upperbound_msg'">upperbound_msg</div>
+          <div class="" [mat-sort-header]="'lowerbound_msg'">lowerbound_msg</div>
+          <div class="">Details</div>
         </div>
         <!-- Rows -->
 
-        @for (metric of metricResource.value(); track metric.metric_id) {
-          <div class="inventory-grid grid items-center gap-4 border-b px-6 py-3 md:px-8">
+        @for (metric of metricResource.value()!; track metric.metric_id) {
+          <div class="inventory-grid grid items-center gap-4 border-b px-6 py-3">
             <!-- Title -->
-            <div class="hidden truncate md:block">
+            <div class="">
               {{ metric.title }}
             </div>
             <!-- Measurement unit -->
-            <div class="hidden lg:block">
+            <div class="">
               {{ metric.measurement_unit }}
             </div>
             <!-- Active -->
-            <div class="hidden lg:block">
+            <div class="">
               @if (metric.status == Status.ACTIVE) {
                 <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>
               }
@@ -65,7 +65,7 @@
               }
             </div>
             <!-- Is Required -->
-            <div class="hidden lg:block">
+            <div class="">
               @if (metric.required) {
                 <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>
               }
@@ -74,11 +74,11 @@
               }
             </div>
             <!-- upperbound_msg -->
-            <div class="hidden lg:block">
+            <div class="">
               {{ metric.upperbound_msg }}
             </div>
             <!-- lowerbound_msg -->
-            <div class="hidden lg:block">
+            <div class="">
               {{ metric.lowerbound_msg }}
             </div>
             <!-- Details button -->
@@ -103,198 +103,52 @@
 
       <ng-template #rowDetailsTemplate let-metric>
         <div class="overflow-hidden shadow-lg">
-          <div class="flex border-b">
+          <div class="border-b">
             <!-- Selected product form -->
-            <form class="flex w-full flex-col" [formGroup]="selectedMetricForm">
-              <div class="flex flex-col p-8 sm:flex-row">
-                <!-- Product images and status -->
-                <div class="mb-8 flex flex-col items-center sm:mb-0 sm:items-start">
-                  <div class="flex flex-col items-center"></div>
-                  <div class="mt-8 flex flex-col">
-                    <span class="mb-2 font-semibold">Product status</span>
-                    <mat-slide-toggle [formControlName]="'required'" [color]="'primary'">
-                      {{ selectedMetricForm.get('required').value === true ? 'Required' : 'Disabled' }}
-                    </mat-slide-toggle>
-                  </div>
-                </div>
-
-                <div class="flex flex-auto flex-wrap">
-                  <!--                  ahihi-->
-                  <!-- Name, SKU & etc. -->
-                  <div class="flex w-full flex-col sm:pl-8 lg:w-2/4">
-                    <!-- Name -->
+            <form class="w-full" [formGroup]="selectedMetricForm">
+              <div class="bg-gray-300 px-4 pt-5">
+                <div class="">
+                  <div class="grid-selected-detail grid">
+                    <!-- Title -->
                     <mat-form-field class="w-full">
                       <mat-label>Title</mat-label>
                       <input matInput [formControlName]="'title'" />
-                      d
                     </mat-form-field>
-
-                    <!-- SKU and Barcode -->
-                    <div class="flex">
-                      <mat-form-field class="w-1/3 pr-2">
-                        <mat-label>SKU</mat-label>
-                        <input matInput [formControlName]="'sku'" />
-                      </mat-form-field>
-                      <mat-form-field class="w-2/3 pl-2">
-                        <mat-label>Barcode</mat-label>
-                        <input matInput [formControlName]="'barcode'" />
-                      </mat-form-field>
-                    </div>
-
-                    <!-- Category, Brand & Vendor -->
-                    <div class="flex">
-                      <mat-form-field class="w-1/3 pr-2">
-                        <mat-label>Category</mat-label>
-                        <mat-select [formControlName]="'category'">
-                          @for (category of categories; track category) {
-                            <mat-option [value]="category.id">
-                              {{ category.name }}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field class="w-1/3 px-2">
-                        <mat-label>Brand</mat-label>
-                        <mat-select [formControlName]="'brand'">
-                          @for (brand of brands; track brand) {
-                            <mat-option [value]="brand.id">
-                              {{ brand.name }}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </mat-form-field>
-                      <mat-form-field class="w-1/3 pl-2">
-                        <mat-label>Vendor</mat-label>
-                        <mat-select [formControlName]="'vendor'">
-                          @for (vendor of vendors; track vendor) {
-                            <mat-option [value]="vendor.id">
-                              {{ vendor.name }}
-                            </mat-option>
-                          }
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-
-                    <!-- Stock and Reserved -->
-                    <div class="flex">
-                      <mat-form-field class="w-1/3 pr-2">
-                        <mat-label>Stock</mat-label>
-                        <input type="number" matInput [formControlName]="'stock'" />
-                      </mat-form-field>
-                      <mat-form-field class="w-1/3 pl-2">
-                        <mat-label>Reserved</mat-label>
-                        <input type="number" matInput [formControlName]="'reserved'" />
-                      </mat-form-field>
-                    </div>
-                  </div>
-
-                  <!-- Cost, Base price, Tax & Price -->
-                  <div class="flex w-full flex-col sm:pl-8 lg:w-1/4">
-                    <mat-form-field class="w-full">
-                      <mat-label>Cost</mat-label>
-                      <span matPrefix>$</span>
-                      <input matInput [formControlName]="'cost'" />
+                    <!-- Measurement unit -->
+                    <mat-form-field class="">
+                      <mat-label>Measurement Unit</mat-label>
+                      <input matInput [formControlName]="'measurement_unit'" />
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                      <mat-label>Base Price</mat-label>
-                      <span matPrefix>$</span>
-                      <input matInput [formControlName]="'basePrice'" />
+                    <!-- lowerbound_msg -->
+                    <mat-form-field class="">
+                      <mat-label>upperbound_msg</mat-label>
+                      <input matInput [formControlName]="'upperbound_msg'" />
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                      <mat-label>Tax</mat-label>
-                      <span matSuffix>%</span>
-                      <input type="number" matInput [formControlName]="'taxPercent'" />
+                    <!-- lowerbound_msg -->
+                    <mat-form-field class="">
+                      <mat-label>lowerbound_msg</mat-label>
+                      <input matInput [formControlName]="'lowerbound_msg'" />
                     </mat-form-field>
-                    <mat-form-field class="w-full">
-                      <mat-label>Price</mat-label>
-                      <span matSuffix>$</span>
-                      <input matInput [formControlName]="'price'" />
-                    </mat-form-field>
-                  </div>
-
-                  <!-- Weight & Tags -->
-                  <div class="flex w-full flex-col sm:pl-8 lg:w-1/4">
-                    <mat-form-field class="w-full">
-                      <mat-label>Weight</mat-label>
-                      <span matSuffix>lbs.</span>
-                      <input matInput [formControlName]="'weight'" />
-                    </mat-form-field>
-
-                    <!-- Tags -->
-                    <span class="mb-px font-medium leading-tight">Tags</span>
-                    <div class="mt-1.5 overflow-hidden rounded-md border border-gray-300 shadow-sm dark:border-gray-500">
-                      <!-- Header -->
-                      <div class="-my-px flex items-center px-3 py-2">
-                        <div class="flex min-w-0 flex-auto items-center">
-                          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>
-                          <input
-                            class="ml-2 min-w-0 border-0 py-1"
-                            type="text"
-                            placeholder="Enter tag name"
-                            (input)="filterTags($event)"
-                            (keydown)="filterTagsInputKeyDown($event)"
-                            [maxLength]="50"
-                            #newTagInput
-                          />
-                        </div>
-                        <button class="ml-3 h-8 min-h-8 w-8" mat-icon-button (click)="toggleTagsEditMode()">
-                          @if (!tagsEditMode) {
-                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:pencil-square'"></mat-icon>
-                          }
-                          @if (tagsEditMode) {
-                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                          }
-                        </button>
+                    <!-- Toggle -->
+                    <div>
+                      <div class="mt-4 px-3">
+                        <span class="mb-2 font-semibold">Is user required</span>
+                        <mat-slide-toggle [formControlName]="'required'" [color]="'primary'">
+                          {{ selectedMetricForm.get('required').value === true ? 'Required' : 'Disabled' }}
+                        </mat-slide-toggle>
                       </div>
-                      <!-- Available tags -->
-                      <div class="h-44 overflow-y-auto border-t border-gray-300 leading-none dark:border-gray-500">
-                        <!-- Tags -->
-                        @if (!tagsEditMode) {
-                          @for (tag of filteredTags; track trackByFn($index, tag)) {
-                            <mat-checkbox
-                              class="flex h-10 min-h-10 items-center pl-1 pr-4"
-                              [color]="'primary'"
-                              [checked]="selectedProduct.tags.includes(tag.id)"
-                              (change)="toggleProductTag(tag, $event)"
-                            >
-                              {{ tag.title }}
-                            </mat-checkbox>
-                          }
-                        }
-                        <!-- Tags editing -->
-                        @if (tagsEditMode) {
-                          <div class="space-y-2 p-4">
-                            @for (tag of filteredTags; track trackByFn($index, tag)) {
-                              <mat-form-field class="fuse-mat-dense w-full" [subscriptSizing]="'dynamic'">
-                                <input matInput [value]="tag.title" (input)="updateTagTitle(tag, $event)" />
-                                <button mat-icon-button (click)="deleteTag(tag)" matSuffix>
-                                  <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
-                                </button>
-                              </mat-form-field>
-                            }
-                          </div>
-                        }
-                        @if (shouldShowCreateTagButton(newTagInput.value)) {
-                          <div
-                            class="dark:hover:bg-hover -ml-0.5 flex h-10 min-h-10 cursor-pointer items-center border-t pl-4 pr-3 leading-none hover:bg-gray-50"
-                            (click)="createTag(newTagInput.value); newTagInput.value = ''"
-                            matRipple
-                          >
-                            <mat-icon class="icon-size-5 mr-2" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                            <div class="break-all">
-                              Create "<b>{{ newTagInput.value }}</b
-                              >"
-                            </div>
-                          </div>
-                        }
+
+                      <div class="mt-2 px-3">
+                        <span class="mb font-semibold">Status</span>
+                        <mat-slide-toggle [formControlName]="'status'" [color]="'primary'">
+                          {{ selectedMetricForm.get('status').value === Status.ACTIVE ? 'ACTIVE' : 'INACTIVE' }}
+                        </mat-slide-toggle>
                       </div>
                     </div>
                   </div>
-                  <!--                  ahihi-->
                 </div>
               </div>
-
-              <div class="flex w-full items-center justify-between border-t px-8 py-4">
+              <div class="flex w-full items-center justify-between border-t bg-gray-300 px-8 py-4">
                 <button class="-ml-4" mat-button [color]="'warn'" (click)="deleteSelectedProduct()">Delete</button>
                 <div class="flex items-center">
                   @if (flashMessage) {

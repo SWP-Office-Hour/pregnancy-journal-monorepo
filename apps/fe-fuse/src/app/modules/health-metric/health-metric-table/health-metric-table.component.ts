@@ -149,14 +149,23 @@ export class HealthMetricTableComponent {
     const metric = this.selectedMetricForm.getRawValue();
     console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
     console.log(metric);
+    console.log('stringify');
+    console.log(JSON.stringify(metric));
     // Remove the currentImageIndex field
-    delete metric.currentImageIndex;
+    (async () => {
+      const response = await fetch(environment.apiUrl + 'metrics', {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(metric),
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+      return await response.json();
+    })();
 
-    // Update the product on the server
-    // this._inventoryService.updateProduct(product.id, product).subscribe(() => {
     //   // Show a success message
-    //   this.showFlashMessage('success');
-    // });
+    this.showFlashMessage('success');
   }
 
   /**
