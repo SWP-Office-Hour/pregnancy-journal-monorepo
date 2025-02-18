@@ -1,4 +1,4 @@
-import { Body, ConflictException, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, ConflictException, Controller, NotFoundException, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
 import {
   authContract,
   LoginRequest,
@@ -22,7 +22,7 @@ export class UsersController {
     return tsRestHandler(authContract.login, async () => {
       const user = await this.usersService.login(body);
       if (!user) {
-        throw new UnauthorizedException('Phone number or password is incorrect');
+        throw new NotFoundException('Phone number or password is incorrect');
       }
       return { status: 200, body: user };
     });
