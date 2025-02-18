@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, resource, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, resource, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -14,7 +14,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
-import { FuseConfirmationService } from '../../../../../../fuse-example/src/@fuse/services/confirmation';
+
+import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -78,12 +79,13 @@ export class HealthMetricTableComponent {
       required: [false],
       upperbound_msg: [''],
       lowerbound_msg: [''],
-      tag: [''],
     });
-    // effect(() => {
-    //   console.log('metricResource');
-    //   console.log(this.metricResource.value());
-    // });
+    effect(() => {
+      console.log('metricResource');
+      console.log(this.metricResource.value());
+      console.log('metricList');
+      console.log(this.metricList());
+    });
   }
 
   toggleDetails(metricId: string): void {
@@ -151,7 +153,7 @@ export class HealthMetricTableComponent {
     console.log(metric);
     console.log('stringify');
     console.log(JSON.stringify(metric));
-    // Remove the currentImageIndex field
+
     (async () => {
       const response = await fetch(environment.apiUrl + 'metrics', {
         method: 'PATCH',
@@ -161,7 +163,12 @@ export class HealthMetricTableComponent {
         body: JSON.stringify(metric),
       });
       if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
+
+      const rsJson = await response.json();
+      console.log('rsJson');
+      console.log(rsJson);
+
+      this.metricResource.reload();
     })();
 
     //   // Show a success message
