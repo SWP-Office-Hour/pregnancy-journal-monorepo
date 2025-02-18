@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PostCreateType, PostType, PostUpdateType } from '../../../../../libs/contract/src/lib/post.contract';
+import { PostCreateType, PostType, PostUpdateType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
 

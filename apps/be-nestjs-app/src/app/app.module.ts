@@ -12,6 +12,7 @@ import { MembershipsModule } from './memberships/memberships.module';
 import { MetricModule } from './metric/metric.module';
 import { NoteModule } from './note/note.module';
 import { PostsModule } from './posts/posts.module';
+import { ReactionModule } from './reaction/reaction.module';
 import { RecordsModule } from './records/records.module';
 import { ReminderModule } from './reminder/reminder.module';
 import { StandardModule } from './standard/standard.module';
@@ -39,6 +40,7 @@ import { UsersModule } from './users/users.module';
     StandardModule,
     PostsModule,
     CommentsModule,
+    ReactionModule,
   ],
   controllers: [AppController],
   providers: [AppService],
