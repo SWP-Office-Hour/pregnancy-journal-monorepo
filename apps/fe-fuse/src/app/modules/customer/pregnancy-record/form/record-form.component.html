@@ -50,7 +50,9 @@
         @for (metric of metrics; track $index) {
           <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
             <mat-label>{{ metric.title }}</mat-label>
+
             <input type="number" matInput placeholder="Placeholder" [formControlName]="$index" />
+            <span>{{ metric.measurement_unit }}</span>
             <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
           </mat-form-field>
         }
