@@ -1,16 +1,30 @@
-import { ChangeDetectionStrategy, Component, inject, Input } from '@angular/core';
+import { TextFieldModule } from '@angular/cdk/text-field';
+import { NgClass } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
-import { MatRippleModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatOptionModule, MatRippleModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { Router } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
-import { NgApexchartsModule } from 'ng-apexcharts';
+import ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
+import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 import { DialogContentPriceComponent } from '../dialog-content-price/dialog-content-price.component';
+import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
+import ProjectService = ts.server.ProjectService;
 
 @Component({
   selector: 'app-home',
@@ -24,15 +38,40 @@ import { DialogContentPriceComponent } from '../dialog-content-price/dialog-cont
     MatButtonToggleModule,
     NgApexchartsModule,
     MatTableModule,
-    MatButtonModule,
     MatTooltipModule,
     MatDialogModule,
+    RecommendedBlogsComponent,
+    FormsModule,
+    MatError,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    NgClass,
+    TextFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatDatepickerModule,
   ],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  // Form tính ngày dự sinh
+  @ViewChild('countDownForm') countDownNgForm: NgForm;
+  countDownForm: UntypedFormGroup;
+
+  formFieldHelpers: string[] = [''];
+  fixedSubscriptInput: FormControl = new FormControl('', [Validators.required]);
+  dynamicSubscriptInput: FormControl = new FormControl('', [Validators.required]);
+  fixedSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
+  dynamicSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
+
+  calculateExpectedDate() {}
+
   //tooltip
   @Input() tooltip: string;
 
@@ -44,93 +83,98 @@ export class HomeComponent {
 
   //end Tooltip
 
-  // chartGithubIssues: ApexOptions = {};
+  chartWeightOfFetal: ApexOptions = {};
   // chartTaskDistribution: ApexOptions = {};
   // chartBudgetDistribution: ApexOptions = {};
   // chartWeeklyExpenses: ApexOptions = {};
   // chartMonthlyExpenses: ApexOptions = {};
   // chartYearlyExpenses: ApexOptions = {};
-  // data: any;
+  data: any;
   // selectedProject: string = 'ACME Corp. Backend App';
   // private _unsubscribeAll: Subject<any> = new Subject<any>();
-  //
-  // /**
-  //  * Constructor
-  //  */
-  // constructor(
-  //   private _projectService: ProjectService,
-  //   private _router: Router,
-  // ) {}
-  //
-  // // -----------------------------------------------------------------------------------------------------
-  // // @ Lifecycle hooks
-  // // -----------------------------------------------------------------------------------------------------
-  //
+
+  /**
+   * Constructor
+   */
+  constructor(
+    //Form tính ngày dự sinh
+    private _formBuilder: UntypedFormBuilder,
+    //Chart weight of fetal
+    // private _projectService: ProjectService,
+    private _router: Router,
+  ) {}
+
   // /**
   //  * On init
   //  */
-  // ngOnInit(): void {
-  //   // Get the data
-  //   this._projectService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-  //     // Store the data
-  //     this.data = data;
-  //
-  //     // Prepare the chart data
-  //     this._prepareChartData();
-  //   });
-  //
-  //   // Attach SVG fill fixer to all ApexCharts
-  //   window['Apex'] = {
-  //     chart: {
-  //       events: {
-  //         mounted: (chart: any, options?: any): void => {
-  //           this._fixSvgFill(chart.el);
-  //         },
-  //         updated: (chart: any, options?: any): void => {
-  //           this._fixSvgFill(chart.el);
-  //         },
-  //       },
-  //     },
-  //   };
-  // }
-  //
-  // /**
-  //  * On destroy
-  //  */
+  ngOnInit(): void {
+    // Form tính ngày dự sinh
+    this.countDownForm = this._formBuilder.group({
+      lastMenstrualPeriod: ['', Validators.required],
+      menstrualCycle: ['15 ngày', Validators.required],
+    });
+
+    // Get the data
+    // this._projectService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
+    // Store the data
+    // this.data = data;
+
+    // Prepare the chart data
+    // this._prepareChartData();
+    // });
+
+    // Attach SVG fill fixer to all ApexCharts
+    // window['Apex'] = {
+    //   chart: {
+    //     events: {
+    //       // mounted: (chart: any, options?: any): void => {
+    //       //   this._fixSvgFill(chart.el);
+    //       // },
+    //       // updated: (chart: any, options?: any): void => {
+    //       //   this._fixSvgFill(chart.el);
+    //       // },
+    //     },
+    //   },
+    // };
+  }
+
+  /**
+   * On destroy
+   */
   // ngOnDestroy(): void {
   //   // Unsubscribe from all subscriptions
   //   this._unsubscribeAll.next(null);
   //   this._unsubscribeAll.complete();
   // }
-  //
-  // // -----------------------------------------------------------------------------------------------------
-  // // @ Public methods
-  // // -----------------------------------------------------------------------------------------------------
-  //
-  // /**
-  //  * Track by function for ngFor loops
-  //  *
-  //  * @param index
-  //  * @param item
-  //  */
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Track by function for ngFor loops
+   *
+   * @param index
+   * @param item
+   */
   // trackByFn(index: number, item: any): any {
   //   return item.id || index;
   // }
-  //
-  // // -----------------------------------------------------------------------------------------------------
-  // // @ Private methods
-  // // -----------------------------------------------------------------------------------------------------
-  //
-  // /**
-  //  * Fix the SVG fill references. This fix must be applied to all ApexCharts
-  //  * charts in order to fix 'black color on gradient fills on certain browsers'
-  //  * issue caused by the '<base>' tag.
-  //  *
-  //  * Fix based on https://gist.github.com/Kamshak/c84cdc175209d1a30f711abd6a81d472
-  //  *
-  //  * @param element
-  //  * @private
-  //  */
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Private methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Fix the SVG fill references. This fix must be applied to all ApexCharts
+   * charts in order to fix 'black color on gradient fills on certain browsers'
+   * issue caused by the '<base>' tag.
+   *
+   * Fix based on https://gist.github.com/Kamshak/c84cdc175209d1a30f711abd6a81d472
+   *
+   * @param element
+   * @private
+   */
   // private _fixSvgFill(element: Element): void {
   //   // Current URL
   //   const currentURL = this._router.url;
@@ -145,12 +189,12 @@ export class HomeComponent {
   //       el.setAttribute('fill', `url(${currentURL}${attrVal.slice(attrVal.indexOf('#'))}`);
   //     });
   // }
-  //
-  // /**
-  //  * Prepare the chart data from the data
-  //  *
-  //  * @private
-  //  */
+
+  /**
+   * Prepare the chart data from the data
+   *
+   * @private
+   */
   // private _prepareChartData(): void {
   //   // Github issues
   //   this.chartGithubIssues = {
@@ -227,8 +271,8 @@ export class HomeComponent {
   //       },
   //     },
   //   };
-  //
-  //   // Task distribution
+
+  // Task distribution
   //   this.chartTaskDistribution = {
   //     chart: {
   //       fontFamily: 'inherit',
@@ -385,8 +429,8 @@ export class HomeComponent {
   //       },
   //     },
   //   };
-  //
-  //   // Monthly expenses
+
+  // Monthly expenses
   //   this.chartMonthlyExpenses = {
   //     chart: {
   //       animations: {
@@ -418,8 +462,8 @@ export class HomeComponent {
   //       },
   //     },
   //   };
-  //
-  //   // Yearly expenses
+
+  // Yearly expenses
   //   this.chartYearlyExpenses = {
   //     chart: {
   //       animations: {
