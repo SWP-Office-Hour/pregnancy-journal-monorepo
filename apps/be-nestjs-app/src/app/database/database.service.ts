@@ -64,4 +64,8 @@ export class DatabaseService {
   get Note() {
     return this.prisma.note;
   }
+
+  get Post() {
+    return this.prisma.post;
+  }
 }
