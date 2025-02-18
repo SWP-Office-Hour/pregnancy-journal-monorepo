@@ -6,16 +6,16 @@ export const CommentSchema = z.object({
   content: z.string(),
   post_id: z.string(),
   user_id: z.string(),
-  create_at: z.string(),
-  update_at: z.string(),
+  created_at: z.date().nullable(),
+  updated_at: z.date().nullable(),
 });
 
-export const CommentCreateRequestSchema = CommentSchema.omit({ comment_id: true, update_at: true, user_id: true, create_at: true });
-export const CommentUpdateRequestSchema = CommentSchema.omit({ create_at: true, user_id: true, post_id: true, update_at: true });
+export const CommentCreateRequestSchema = CommentSchema.omit({ comment_id: true, updated_at: true, user_id: true, created_at: true });
+export const CommentUpdateRequestSchema = CommentSchema.omit({ created_at: true, user_id: true, post_id: true, updated_at: true });
 
-export type Comment = z.infer<typeof CommentSchema>;
-export type CommentCreateRequest = z.infer<typeof CommentCreateRequestSchema>;
-export type CommentUpdateRequest = z.infer<typeof CommentUpdateRequestSchema>;
+export type CommentType = z.infer<typeof CommentSchema>;
+export type CommentCreateRequestType = z.infer<typeof CommentCreateRequestSchema>;
+export type CommentUpdateRequestType = z.infer<typeof CommentUpdateRequestSchema>;
 
 const c = initContract();
 
@@ -51,13 +51,13 @@ export const commentContract = c.router({
   },
   delete: {
     method: 'DELETE',
-    path: '/comments/:comment_id',
+    path: '/comments/:id',
     description: 'Delete a comment by comment_id',
     pathParams: z.object({
-      comment_id: z.string(),
+      id: z.string(),
     }),
     responses: {
-      200: z.object({ message: z.string() }),
+      200: CommentSchema,
     },
   },
 });

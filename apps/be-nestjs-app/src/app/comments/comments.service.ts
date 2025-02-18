@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CommentCreateRequest, CommentUpdateRequest } from '../../../../../libs/contract/src/lib/comment.contract';
+import { CommentCreateRequestType, CommentType, CommentUpdateRequestType } from '../../../../../libs/contract/src/lib/comment.contract';
 import { DatabaseService } from '../database/database.service';
 import { PostsService } from '../posts/posts.service';
 import { UsersService } from '../users/users.service';
@@ -12,12 +12,14 @@ export class CommentsService {
     private readonly usersService: UsersService,
   ) {}
 
-  async createComment({ comment, user_id }: { comment: CommentCreateRequest; user_id: string }) {
+  async createComment({ comment, user_id }: { comment: CommentCreateRequestType; user_id: string }): Promise<CommentType> {
     await this.postService.findOne(comment.post_id);
     await this.usersService.getUserById(user_id);
     return await this.dataService.Comment.create({
       data: {
         content: comment.content,
+        created_at: new Date(),
+        updated_at: new Date(),
         post: {
           connect: {
             post_id: comment.post_id,
@@ -32,7 +34,7 @@ export class CommentsService {
     });
   }
 
-  async getAllComments(post_id: string) {
+  async getAllCommentsByPostId(post_id: string) {
     await this.postService.findOne(post_id);
     return await this.dataService.Comment.findMany({
       where: {
@@ -41,7 +43,7 @@ export class CommentsService {
     });
   }
 
-  async updateComment(comment: CommentUpdateRequest) {
+  async updateComment(comment: CommentUpdateRequestType) {
     const result = await this.dataService.Comment.findUnique({
       where: {
         comment_id: comment.comment_id,
