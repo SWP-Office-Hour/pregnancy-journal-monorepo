@@ -10,6 +10,6 @@
   }
 
   @screen lg {
-    grid-template-columns: 300px 180px auto 180px auto 180px 180px 70px;
+    grid-template-columns: 300px 180px 70px;
   }
 }

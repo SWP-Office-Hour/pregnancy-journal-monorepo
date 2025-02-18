@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, resource, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, resource } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -53,7 +53,7 @@ export class HealthMetricTableComponent {
   selectedMetricForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
 
-  metricList = signal<Array<HealthMetric>>([]);
+  // metricList = signal<Array<HealthMetric>>([]);
 
   metricResource = resource<HealthMetric[], {}>({
     loader: async ({ abortSignal }) => {
@@ -85,8 +85,8 @@ export class HealthMetricTableComponent {
     effect(() => {
       console.log('metricResource');
       console.log(this.metricResource.value());
-      console.log('metricList');
-      console.log(this.metricList());
+      // console.log('metricList');
+      // console.log(this.metricList());
     });
   }
 
@@ -142,12 +142,8 @@ export class HealthMetricTableComponent {
 
       this.metricResource.reload();
       this.selectedMetric = rsJson;
+      this.selectedMetricForm.patchValue(rsJson);
     })();
-
-    //
-    // // Fill the form
-    // this.selectedProductForm.patchValue(newProduct);
-
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
