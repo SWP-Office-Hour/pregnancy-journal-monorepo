@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, inject, resource } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,7 +12,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { Hospital, Status } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { FuseAlertService } from '../../../../@fuse/components/alert';
 import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
 import { environment } from '../../../../environments/environment';
@@ -39,7 +38,7 @@ import { environment } from '../../../../environments/environment';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
-    NgTemplateOutlet,
+    // NgTemplateOutlet,
   ],
 })
 export class HospitalTableComponent {
@@ -48,13 +47,13 @@ export class HospitalTableComponent {
   protected readonly Status = Status;
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
-  selectedHospital: Hospital | null = null;
+  selectedHospital: HospitalResponse | null = null;
   selectedHospitalForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
 
   // hospitalList = signal<Array<HealthMetric>>([]);
 
-  hospitalResource = resource<Hospital[], {}>({
+  hospitalResource = resource<HospitalResponse[], {}>({
     loader: async ({ abortSignal }) => {
       const response = await fetch(environment.apiUrl + 'hospitals', {
         signal: abortSignal,
@@ -92,7 +91,7 @@ export class HospitalTableComponent {
       this.closeDetails();
       return;
     }
-    const resultOfFindInList: Hospital | undefined = this.hospitalResource.value()!.find((item) => item.hospital_id === hospitalId);
+    const resultOfFindInList: HospitalResponse | undefined = this.hospitalResource.value()!.find((item) => item.hospital_id === hospitalId);
     if (resultOfFindInList) {
       this.selectedHospital = resultOfFindInList;
     } else {
