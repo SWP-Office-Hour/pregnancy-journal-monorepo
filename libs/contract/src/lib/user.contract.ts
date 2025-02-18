@@ -7,66 +7,43 @@ const c = initContract();
 //User
 //User response
 //User zod schema
-const userResSchema = z.object({
-  user_id: z.string(),
+
+// Base user schema (common fields)
+const baseUserSchema = z.object({
   name: z.string(),
   email: z.string(),
+  phone: z.string(),
+  province: z.string(),
+  district: z.string(),
+  ward: z.string(),
+  address: z.string(),
+  role: userRoleSchema,
+  status: userStatusEnumSchema,
+});
+
+// User response schema
+const userResSchema = baseUserSchema.extend({
+  user_id: z.string(),
   expected_birth_date: z.date(),
   membershipId: z.string().optional(),
-  phone: z.string(),
-  province: z.string(),
-  district: z.string(),
-  ward: z.string(),
-  address: z.string(),
-  role: userRoleSchema,
   created_at: z.date(),
-  status: userStatusEnumSchema,
 });
 
-//User get all zod schema
-// const userGetAllResSchema = z.array(
-//   z.object({
-//     user_id: z.string(),
-//     name: z.string(),
-//     email: z.string(),
-//     create_at: z.date(),
-//     role: userRoleSchema,
-//     status: userStatusEnumSchema,
-//   }),
-// );
+// User create request schema
+const userCreateReqSchema = userResSchema
+  .extend({
+    password: z.string(), // Add password field
+    expected_birth_date: z.string().datetime(), // Change expected_birth_date to string
+  })
+  .omit({ user_id: true, created_at: true }); // Omit fields not needed for creation
 
-//User request schema
-//User create request schema
-const userCreateReqSchema = z.object({
-  name: z.string(),
-  email: z.string(),
-  password: z.string(),
-  expected_birth_date: z.string().datetime(),
-  membershipId: z.string().optional(),
-  phone: z.string(),
-  province: z.string(),
-  district: z.string(),
-  ward: z.string(),
-  address: z.string(),
-  role: userRoleSchema,
-  status: userStatusEnumSchema,
+// User update request schema
+const userUpdateReqSchema = baseUserSchema.partial().extend({
+  user_id: z.string(), // Add user_id field
+  expected_birth_date: z.string().datetime().optional(), // Change expected_birth_date to string and make it optional
+  password: z.string().optional(), // Make password optional
 });
-
-//User update request schema
-const userUpdateReqSchema = z.object({
-  id: z.string(),
-  email: z.string().optional(),
-  name: z.string().optional(),
-  expectedBirthDate: z.string().datetime().optional(),
-  membershipId: z.string().optional(),
-  phone: z.string().optional(),
-  province: z.string().optional(),
-  district: z.string().optional(),
-  ward: z.string().optional(),
-  address: z.string().optional(),
-  role: userRoleSchema.optional(),
-  status: userStatusEnumSchema.optional(),
-});
+// Make all fields optional for updates
 
 export type UserCreateRequestType = z.infer<typeof userCreateReqSchema>;
 export type UserUpdateRequestType = z.infer<typeof userUpdateReqSchema>;
