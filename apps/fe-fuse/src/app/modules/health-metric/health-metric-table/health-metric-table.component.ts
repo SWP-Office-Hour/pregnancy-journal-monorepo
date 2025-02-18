@@ -75,9 +75,9 @@ export class HealthMetricTableComponent {
     // Create the selected product form
     this.selectedMetricForm = this._formBuilder.group({
       metric_id: [''],
-      title: [''],
+      title: ['New metric'],
       measurement_unit: ['', [Validators.required]],
-      status: Status,
+      status: 0,
       required: [false],
       upperbound_msg: [''],
       lowerbound_msg: [''],
@@ -116,10 +116,44 @@ export class HealthMetricTableComponent {
 
   createMetric() {
     console.log('Create metric');
+    this.closeDetails();
+    console.log(this.selectedMetric);
+
+    // Get the product object
+    const metric = this.selectedMetricForm.getRawValue();
+    console.log('I JUST RUN createMetric AND this.selectedMetricForm.getRawValue(); is ');
+    console.log(metric);
+    console.log('stringify');
+    console.log(JSON.stringify(metric));
+
+    (async () => {
+      const response = await fetch(environment.apiUrl + 'metrics', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(metric),
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+
+      const rsJson = await response.json();
+      console.log('rsJson');
+      console.log(rsJson);
+
+      this.metricResource.reload();
+      this.selectedMetric = rsJson;
+    })();
+
+    //
+    // // Fill the form
+    // this.selectedProductForm.patchValue(newProduct);
+
+    // Mark for check
+    this._changeDetectorRef.markForCheck();
   }
 
   updateSelectedMetric(): void {
-    // Get the product object
+    // Get the metric object
     const metric = this.selectedMetricForm.getRawValue();
     console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
     console.log(metric);
