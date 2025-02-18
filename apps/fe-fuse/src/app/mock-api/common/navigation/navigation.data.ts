@@ -66,15 +66,23 @@ export const adminNavigation: FuseNavigationItem[] = [
   {
     id: 'blog',
     title: 'Blog',
-    type: 'basic',
+    type: 'aside',
     icon: 'heroicons_outline:pencil-square',
-    link: 'admin/blog',
+    // link: 'admin/blog',
     children: [
+      {
+        id: 'blog-all',
+        title: 'All',
+        type: 'basic',
+        link: 'admin/blog',
+        icon: 'heroicons_outline:pencil-square',
+      },
       {
         id: 'blog-create',
         title: 'Create',
         type: 'basic',
         link: 'admin/blog/create',
+        icon: 'heroicons_outline:pencil-square',
       },
     ],
   },
