@@ -14,7 +14,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
-import { FuseConfirmationService } from '../../../../../../fuse-example/src/@fuse/services/confirmation';
+import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
 import { environment } from '../../../../environments/environment';
 
 @Component({

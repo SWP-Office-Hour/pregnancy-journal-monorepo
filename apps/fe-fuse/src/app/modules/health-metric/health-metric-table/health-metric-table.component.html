@@ -138,11 +138,12 @@
                         </mat-slide-toggle>
                       </div>
 
-                      <div class="mt-2 px-3">
+                      <div class="mt-2 bg-white px-3">
                         <span class="mb font-semibold">Status</span>
-                        <mat-slide-toggle [formControlName]="'status'" [color]="'primary'">
-                          {{ selectedMetricForm.get('status').value === Status.ACTIVE ? 'ACTIVE' : 'INACTIVE' }}
-                        </mat-slide-toggle>
+                        <mat-select [formControlName]="'status'">
+                          <mat-option [value]="Status.ACTIVE"> ACTIVE </mat-option>
+                          <mat-option [value]="Status.INACTIVE"> INACTIVE </mat-option>
+                        </mat-select>
                       </div>
                     </div>
                   </div>
