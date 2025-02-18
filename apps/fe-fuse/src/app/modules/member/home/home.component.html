@@ -44,113 +44,10 @@
     <div class="mx-auto w-full max-w-screen-xl">
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <!-- Home -->
-        <mat-tab label="Dành cho mẹ">
+        <mat-tab label="Thông báo">
           <ng-template matTabContent>
-            <div class="mb-8 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
-              <div class="flex flex-col items-center rounded-2xl md:col-span-4">
-                <div class="mt-1 text-center text-6xl font-extrabold leading-tight tracking-tight">
-                  <div class="self-end text-pink-100" style="color: #fcedd8; font-family: 'Niconne', cursive; text-shadow: 3px 3px 0px #eb452b">
-                    <i>Đếm ngược kỳ diệu</i>
-                  </div>
-                </div>
-
-                <!-- Recurring selector -->
-              </div>
-              <!-- Tháng  -->
-              <div
-                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
-                style="
-                  box-shadow:
-                    0 1px 1px rgba(0, 0, 0, 0.15),
-                    0 10px 0 -5px #eee,
-                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
-                    0 20px 0 -10px #eee,
-                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
-                "
-              >
-                <div class="flex h-full flex-col">
-                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>
-                  <div class="flex h-3/4 w-full items-center justify-center">
-                    <div class="flex flex-col items-center">
-                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-9xl">3</div>
-                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Tháng</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                </div>
-                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                </div>
-              </div>
-              <!-- Tuần  -->
-              <div
-                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
-                style="
-                  box-shadow:
-                    0 1px 1px rgba(0, 0, 0, 0.15),
-                    0 10px 0 -5px #eee,
-                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
-                    0 20px 0 -10px #eee,
-                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
-                "
-              >
-                <div class="flex h-full flex-col">
-                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>
-                  <div class="flex h-3/4 w-full items-center justify-center">
-                    <div class="flex flex-col items-center">
-                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-9xl">3</div>
-                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Tuần</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                </div>
-                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                </div>
-              </div>
-              <!-- Ngày  -->
-              <div
-                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
-                style="
-                  box-shadow:
-                    0 1px 1px rgba(0, 0, 0, 0.15),
-                    0 10px 0 -5px #eee,
-                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
-                    0 20px 0 -10px #eee,
-                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
-                "
-              >
-                <div class="flex h-full flex-col">
-                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>
-                  <div class="flex h-3/4 w-full items-center justify-center">
-                    <div class="flex flex-col items-center">
-                      <div class="text-7xl font-bold leading-none tracking-tight text-amber-500 sm:text-9xl">6</div>
-                      <div class="text-xl font-medium text-amber-600 dark:text-amber-500">Ngày</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                </div>
-                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                </div>
-              </div>
-            </div>
-            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+            <!--Thông báo-->
+            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Task distribution -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
@@ -358,8 +255,397 @@
           </ng-template>
         </mat-tab>
 
-        <mat-tab label="Tính ngày dự sinh">
-          <ng-template matTabContent></ng-template>
+        <mat-tab label="Bé con">
+          <ng-template matTabContent>
+            <!--Tính ngày dự sinh-->
+            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <!-- Content -->
+              <div class="bg-card flex-auto flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow md:col-span-3">
+                <div class="flex items-start justify-between md:col-span-2">
+                  <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>
+                  <div class="-mr-3 -mt-2 ml-2">
+                    <button mat-icon-button [matMenuTriggerFor]="summaryMenu">
+                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:clock'"></mat-icon>
+                    </button>
+                    <mat-menu #summaryMenu="matMenu">
+                      <button mat-menu-item>Yesterday</button>
+                      <button mat-menu-item>2 days ago</button>
+                      <button mat-menu-item>3 days ago</button>
+                    </mat-menu>
+                  </div>
+                </div>
+
+                <div class="flex flex-auto flex-col">
+                  <div class="mt-2 flex flex-col">
+                    <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
+                    <!--                    <div class="text-secondary mt-5 flex w-full items-baseline justify-center"></div>-->
+                    <form class="bg-card mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" #countDownNgForm="ngForm">
+                      <div class="grid gap-6 md:grid-cols-2">
+                        <!--Ngày đầu chu kì kinh cuối-->
+                        <div class="flex w-full flex-col">
+                          <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
+                            <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" />
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                          </mat-form-field>
+                        </div>
+                        <!--Chu kì kinh cuối-->
+                        <div class="gt-xs:flex-row flex w-full flex-col">
+                          <mat-form-field [ngClass]="formFieldHelpers" class="gt-xs:pr-3 flex-auto" formControlName="menstrualCycle">
+                            <mat-label>Chu kỳ kinh nguyệt</mat-label>
+                            <mat-select>
+                              <mat-option value="select1-1">15 Ngày</mat-option>
+                              <mat-option value="select1-2">16 Ngày</mat-option>
+                              <mat-option value="select1-3">17 Ngày</mat-option>
+                              <mat-option value="select1-1">18 Ngày</mat-option>
+                              <mat-option value="select1-2">19 Ngày</mat-option>
+                              <mat-option value="select1-3">20 Ngày</mat-option>
+                              <mat-option value="select1-1">21 Ngày</mat-option>
+                              <mat-option value="select1-2">22 Ngày</mat-option>
+                              <mat-option value="select1-3">23 Ngày</mat-option>
+                              <mat-option value="select1-1">24 Ngày</mat-option>
+                              <mat-option value="select1-2">25 Ngày</mat-option>
+                              <mat-option value="select1-3">26 Ngày</mat-option>
+                              <mat-option value="select1-1">27 Ngày</mat-option>
+                              <mat-option value="select1-2">28 Ngày</mat-option>
+                              <mat-option value="select1-3">29 Ngày</mat-option>
+                              <mat-option value="select1-1">30 Ngày</mat-option>
+                              <mat-option value="select1-2">31 Ngày</mat-option>
+                              <mat-option value="select1-3">32 Ngày</mat-option>
+                              <mat-option value="select1-1">33 Ngày</mat-option>
+                              <mat-option value="select1-2">34 Ngày</mat-option>
+                              <mat-option value="select1-3">35 Ngày</mat-option>
+                              <mat-option value="select1-1">36 Ngày</mat-option>
+                              <mat-option value="select1-2">37 Ngày</mat-option>
+                              <mat-option value="select1-3">38 Ngày</mat-option>
+                              <mat-option value="select1-1">39 Ngày</mat-option>
+                              <mat-option value="select1-2">40 Ngày</mat-option>
+                            </mat-select>
+                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
+                          </mat-form-field>
+                        </div>
+                      </div>
+                      <!-- Email field -->
+                      <!--                        <mat-form-field class="w-full">-->
+                      <!--                          <mat-label>Email</mat-label>-->
+                      <!--                          <input id="expectedDate" matInput [formControlName]="'expectedDate'" />-->
+                      <!--                          @if (signInForm.get('email').hasError('required')) {-->
+                      <!--                            <mat-error> Vui lòng nhập địa chỉ email</mat-error>-->
+                      <!--                          }-->
+                      <!--                          @if (signInForm.get('email').hasError('email')) {-->
+                      <!--                            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>-->
+                      <!--                          }-->
+                      <!--                        </mat-form-field>-->
+
+                      <!-- Submit button -->
+                      <button
+                        class="fuse-mat-button-large mt-6 w-full"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="countDownForm.disabled"
+                        (click)="calculateExpectedDate()"
+                      >
+                        @if (!countDownForm.disabled) {
+                          <span> Xem Kết Quả Ngay</span>
+                        }
+                        @if (countDownForm.disabled) {
+                          <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+                        }
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <!-- Tháng  -->
+              <div
+                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
+                style="
+                  box-shadow:
+                    0 1px 1px rgba(0, 0, 0, 0.15),
+                    0 10px 0 -5px #eee,
+                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
+                    0 20px 0 -10px #eee,
+                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+                "
+              >
+                <div class="flex h-full flex-col">
+                  <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">
+                    <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">
+                      <div class="text-pink-100" style="color: #fcedd8; font-family: 'Niconne', cursive; text-shadow: 2px 2px 0px #eb452b">
+                        <i>Đếm ngược kỳ diệu</i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex h-2/3 w-full items-center justify-center">
+                    <div class="flex flex-col items-center">
+                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">299</div>
+                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
+                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+                </div>
+                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
+                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+                </div>
+              </div>
+              <!--              &lt;!&ndash; Tuần  &ndash;&gt;-->
+              <!--              <div-->
+              <!--                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"-->
+              <!--                style="-->
+              <!--                  box-shadow:-->
+              <!--                    0 1px 1px rgba(0, 0, 0, 0.15),-->
+              <!--                    0 10px 0 -5px #eee,-->
+              <!--                    0 10px 1px -4px rgba(0, 0, 0, 0.15),-->
+              <!--                    0 20px 0 -10px #eee,-->
+              <!--                    0 20px 1px -9px rgba(0, 0, 0, 0.15);-->
+              <!--                "-->
+              <!--              >-->
+              <!--                <div class="flex h-full flex-col">-->
+              <!--                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>-->
+              <!--                  <div class="flex h-3/4 w-full items-center justify-center">-->
+              <!--                    <div class="flex flex-col items-center">-->
+              <!--                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-9xl">3</div>-->
+              <!--                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Tuần</div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">-->
+              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
+              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
+              <!--                </div>-->
+              <!--                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">-->
+              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
+              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+              <!--              &lt;!&ndash; Ngày  &ndash;&gt;-->
+              <!--              <div-->
+              <!--                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"-->
+              <!--                style="-->
+              <!--                  box-shadow:-->
+              <!--                    0 1px 1px rgba(0, 0, 0, 0.15),-->
+              <!--                    0 10px 0 -5px #eee,-->
+              <!--                    0 10px 1px -4px rgba(0, 0, 0, 0.15),-->
+              <!--                    0 20px 0 -10px #eee,-->
+              <!--                    0 20px 1px -9px rgba(0, 0, 0, 0.15);-->
+              <!--                "-->
+              <!--              >-->
+              <!--                <div class="flex h-full flex-col">-->
+              <!--                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>-->
+              <!--                  <div class="flex h-3/4 w-full items-center justify-center">-->
+              <!--                    <div class="flex flex-col items-center">-->
+              <!--                      <div class="text-7xl font-bold leading-none tracking-tight text-amber-500 sm:text-9xl">6</div>-->
+              <!--                      <div class="text-xl font-medium text-amber-600 dark:text-amber-500">Ngày</div>-->
+              <!--                    </div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+
+              <!--                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">-->
+              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
+              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
+              <!--                </div>-->
+              <!--                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">-->
+              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
+              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
+              <!--                </div>-->
+              <!--              </div>-->
+            </div>
+            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <!-- Cấu trúc thai -->
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+                <div class="flex flex-col items-start justify-between sm:flex-row">
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>
+                  <div class="mt-3 sm:ml-2 sm:mt-0"></div>
+                </div>
+                <div class="mt-6 flex flex-auto flex-col">
+                  <!--            Hình ảnh thai nhi-->
+                  <!--            Câu nhắc tuần xuất khám-->
+
+                  <!--            <apx-chart-->
+                  <!--              class="h-80 w-full flex-auto"-->
+                  <!--              [chart]="chartTaskDistribution.chart"-->
+                  <!--              [labels]="chartTaskDistribution.labels"-->
+                  <!--              [legend]="chartTaskDistribution.legend"-->
+                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
+                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
+                  <!--              [states]="chartTaskDistribution.states"-->
+                  <!--              [stroke]="chartTaskDistribution.stroke"-->
+                  <!--              [theme]="chartTaskDistribution.theme"-->
+                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
+                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
+                  <!--            ></apx-chart>-->
+                </div>
+                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
+                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                    <div class="text-5xl font-semibold leading-none tracking-tighter">
+                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
+                      <!--                Data của ngày dự sinh-->
+                    </div>
+                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
+                    <div class="text-secondary mt-1 text-center">Ngày xxx</div>
+                  </div>
+                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                    <div class="text-5xl font-semibold leading-none tracking-tighter">
+                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
+                      <!--                Data của -->
+                    </div>
+                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
+                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Schedule -->
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+                <div class="flex flex-col items-start justify-between sm:flex-row">
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Quản lý thai nhi</div>
+                  <div class="mt-3 sm:ml-2 sm:mt-0">
+                    <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">
+                      <mat-button-toggle value="today">Today</mat-button-toggle>
+                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>
+                    </mat-button-toggle-group>
+                  </div>
+                </div>
+                <div class="mt-2 flex flex-col divide-y">
+                  <!--            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {-->
+                  <!--              <div class="flex flex-row items-center justify-between px-0.5 py-4">-->
+                  <!--                <div class="flex flex-col">-->
+                  <!--                  <div class="font-medium">-->
+                  <!--                    {{ scheduleItem.title }}-->
+                  <!--                  </div>-->
+                  <!--                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">-->
+                  <!--                    @if (scheduleItem.time) {-->
+                  <!--                      <div class="flex items-center">-->
+                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>-->
+                  <!--                        <div class="text-secondary text-md ml-1.5">-->
+                  <!--                          {{ scheduleItem.time }}-->
+                  <!--                        </div>-->
+                  <!--                      </div>-->
+                  <!--                    }-->
+                  <!--                    @if (scheduleItem.location) {-->
+                  <!--                      <div class="flex items-center">-->
+                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>-->
+                  <!--                        <div class="text-secondary text-md ml-1.5">-->
+                  <!--                          {{ scheduleItem.location }}-->
+                  <!--                        </div>-->
+                  <!--                      </div>-->
+                  <!--                    }-->
+                  <!--                  </div>-->
+                  <!--                </div>-->
+                  <!--                <button mat-icon-button>-->
+                  <!--                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>-->
+                  <!--                </button>-->
+                  <!--              </div>-->
+                  <!--            }-->
+                </div>
+              </div>
+
+              <!-- Summary -->
+              <!-- Github issues summary -->
+              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">
+                <div class="flex flex-col items-start justify-between sm:flex-row">
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Biểu đồ cân nặng</div>
+                  <div class="mt-3 sm:ml-2 sm:mt-0">
+                    <!--                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">-->
+                    <!--                      <mat-button-toggle value="last-week">Last Week</mat-button-toggle>-->
+                    <!--                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>-->
+                    <!--                    </mat-button-toggle-group>-->
+                  </div>
+                </div>
+                <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">
+                  <!-- New vs. Closed -->
+                  <div class="flex flex-auto flex-col">
+                    <div class="text-secondary font-medium">Em bé & Tiêu chuẩn</div>
+                    <div class="flex flex-auto flex-col">
+                      <!--                      <apx-chart-->
+                      <!--                        class="h-80 w-full flex-auto"-->
+                      <!--&lt;!&ndash;                        [chart]="chartWeightOfFetal.chart"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [colors]="chartWeightOfFetal.colors"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [dataLabels]="chartWeightOfFetal.dataLabels"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [grid]="chartWeightOfFetal.grid"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [labels]="chartWeightOfFetal.labels"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [legend]="chartWeightOfFetal.legend"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [plotOptions]="chartWeightOfFetal.plotOptions"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [series]="chartWeightOfFetal.series[githubIssuesWeekSelector.value]"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [states]="chartWeightOfFetal.states"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [stroke]="chartWeightOfFetal.stroke"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [tooltip]="chartWeightOfFetal.tooltip"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [xaxis]="chartWeightOfFetal.xaxis"&ndash;&gt;-->
+                      <!--&lt;!&ndash;                        [yaxis]="chartWeightOfFetal.yaxis"&ndash;&gt;-->
+                      <!--                      ></apx-chart>-->
+                    </div>
+                  </div>
+                  <!-- Overview -->
+                  <div class="flex flex-col">
+                    <div class="text-secondary font-medium">Overview</div>
+                    <div class="mt-6 grid flex-auto grid-cols-4 gap-4">
+                      <!-- New issues -->
+                      <div
+                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}-->
+                        </div>
+                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>
+                      </div>
+                      <!-- Closed -->
+                      <div
+                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}-->
+                        </div>
+                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>
+                      </div>
+                      <!-- Fixed -->
+                      <div
+                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}-->
+                        </div>
+                        <div class="mt-1 text-center text-sm font-medium">Fixed</div>
+                      </div>
+                      <!-- Won't fix -->
+                      <div
+                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}-->
+                        </div>
+                        <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>
+                      </div>
+                      <!-- Re-opened -->
+                      <div
+                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}-->
+                        </div>
+                        <div class="mt-1 text-center text-sm font-medium">Re-opened</div>
+                      </div>
+                      <!-- Needs triage -->
+                      <div
+                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+                      >
+                        <div class="text-5xl font-semibold leading-none tracking-tight">
+                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}-->
+                        </div>
+                        <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
         </mat-tab>
 
         <!--        &lt;!&ndash; Budget &ndash;&gt;-->
@@ -650,6 +936,12 @@
         <!--            </div>-->
         <!--          </ng-template>-->
         <!--        </mat-tab>-->
+
+        <mat-tab label="Bài viết nên đọc">
+          <ng-template matTabContent>
+            <app-recommended-blogs></app-recommended-blogs>
+          </ng-template>
+        </mat-tab>
       </mat-tab-group>
     </div>
   </div>
