@@ -9,5 +9,6 @@ import { PostsService } from './posts.service';
   imports: [UsersModule, JwtUtilsModule],
   controllers: [PostsController],
   providers: [PostsService, DatabaseService],
+  exports: [PostsService],
 })
 export class PostsModule {}
