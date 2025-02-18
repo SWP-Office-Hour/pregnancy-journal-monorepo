@@ -17,6 +17,20 @@ export const defaultNavigation: FuseNavigationItem[] = [
     icon: 'heroicons_outline:chart-bar',
     link: '/tracking',
   },
+  {
+    id: 'record',
+    title: 'Record',
+    type: 'basic',
+    icon: 'heroicons_outline:clipboard-document-list',
+    link: '/record',
+  },
+  {
+    id: 'calendar',
+    title: 'Calendar',
+    type: 'basic',
+    icon: 'heroicons_outline:calendar',
+    link: '/calendar',
+  },
 ];
 
 //*********** adminNavigation là route cho ADMIN *************/
