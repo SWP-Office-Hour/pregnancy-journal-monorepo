@@ -25,8 +25,14 @@ export class PostsService {
     });
   }
 
-  async findAll() {
-    return await this.databaseService.Post.findMany();
+  async findAll(page: number, limit: number): Promise<PostType[]> {
+    return await this.databaseService.Post.findMany({
+      skip: page == 0 ? Number(page) : (page - 1) * limit,
+      take: Number(limit),
+      orderBy: {
+        created_at: 'desc',
+      },
+    });
   }
 
   async findOne(id: string): Promise<PostType> {

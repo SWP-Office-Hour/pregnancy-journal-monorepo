@@ -1,18 +1,18 @@
-import { Body, Controller, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, Param, Query, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { postContract, PostCreateType, PostUpdateType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
-import { PostContract, PostCreateType, PostUpdateType } from '../../../../../libs/contract/src/lib/post.contract';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { PostsService } from './posts.service';
 
-@Controller('posts')
+@Controller()
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
   @UseGuards(AccessTokenAuthGuard)
-  @TsRestHandler(PostContract.create)
+  @TsRestHandler(postContract.create)
   handleCreate(@Body() createPostDto: PostCreateType, @Req() req: RequestWithJWT) {
-    return tsRestHandler(PostContract.create, async () => {
+    return tsRestHandler(postContract.create, async () => {
       const user = req.decoded_authorization?.user_id;
       if (!user) {
         throw new UnauthorizedException('Access token is invalid');
@@ -26,10 +26,13 @@ export class PostsController {
     });
   }
 
-  @TsRestHandler(PostContract.getAll)
-  handleGetAll() {
-    return tsRestHandler(PostContract.getAll, async () => {
-      const posts = await this.postsService.findAll();
+  @TsRestHandler(postContract.getAll)
+  handleGetAll(@Query('page') page: number, @Query('limit') limit: number) {
+    return tsRestHandler(postContract.getAll, async () => {
+      page = page ? page : 1;
+      limit = limit ? limit : 10;
+
+      const posts = await this.postsService.findAll(page, limit);
       return {
         status: 200,
         body: {
@@ -40,9 +43,9 @@ export class PostsController {
     });
   }
 
-  @TsRestHandler(PostContract.getOne)
-  handleGetOne(id: string) {
-    return tsRestHandler(PostContract.getOne, async () => {
+  @TsRestHandler(postContract.getOne)
+  handleGetOne(@Param('id') id: string) {
+    return tsRestHandler(postContract.getOne, async () => {
       const post = await this.postsService.findOne(id);
       return {
         status: 200,
@@ -51,9 +54,9 @@ export class PostsController {
     });
   }
 
-  @TsRestHandler(PostContract.update)
+  @TsRestHandler(postContract.update)
   handleUpdate(@Body() updatePostDto: PostUpdateType) {
-    return tsRestHandler(PostContract.update, async () => {
+    return tsRestHandler(postContract.update, async () => {
       const post = await this.postsService.update(updatePostDto);
       return {
         status: 200,
@@ -62,9 +65,9 @@ export class PostsController {
     });
   }
 
-  @TsRestHandler(PostContract.delete)
-  handleDelete(id: string) {
-    return tsRestHandler(PostContract.delete, async () => {
+  @TsRestHandler(postContract.delete)
+  handleDelete(@Param('id') id: string) {
+    return tsRestHandler(postContract.delete, async () => {
       await this.postsService.remove(id);
       return {
         status: 200,
