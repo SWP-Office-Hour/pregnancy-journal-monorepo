@@ -1,1 +1,59 @@
-<p>create-calendar works!</p>
+<div class="max-h-160 md:w-160 md:min-w-160 -m-6 flex flex-auto flex-col overflow-y-auto">
+  <!-- Header -->
+  <div class="flex-0 bg-primary text-on-primary flex h-16 items-center justify-between pl-6 pr-3 sm:pl-8 sm:pr-5">
+    <div class="text-lg font-medium">Card</div>
+    <button mat-icon-button (click)="matDialogRef.close()" [tabIndex]="-1">
+      <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
+    </button>
+  </div>
+
+  <!-- Card form -->
+  <form class="flex-0 flex w-full flex-col items-start space-y-6 overflow-y-auto p-6 sm:p-8" [formGroup]="reminderForm">
+    <!-- Title -->
+    <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+      <mat-label>Title</mat-label>
+      <textarea matInput [formControlName]="'title'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1"> </textarea>
+    </mat-form-field>
+
+    <!-- Due date -->
+    <div>
+      <div class="font-medium">Remind Date</div>
+      <div
+        class="relative mt-1.5 flex cursor-pointer items-center rounded-full px-4 leading-9"
+        [ngClass]="{
+          'bg-green-200 text-green-800 dark:bg-green-500 dark:text-green-100': true,
+        }"
+        (click)="dueDatePicker.open()"
+      >
+        <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+        <span class="text-md ml-2 font-medium">
+          @if (reminderForm.get('remind_date').value) {
+            {{ reminderForm.get('remind_date').value | date: 'longDate' }}
+          } @else {
+            Not set
+          }
+        </span>
+        <mat-form-field class="fuse-mat-dense pointer-events-none invisible absolute inset-0 -mt-2.5 opacity-0" [subscriptSizing]="'dynamic'">
+          <input matInput [formControlName]="'remind_date'" [matDatepicker]="dueDatePicker" />
+          <mat-datepicker #dueDatePicker>
+            <mat-datepicker-actions>
+              <button mat-flat-button [color]="'primary'" matDatepickerApply>Select</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+      <mat-label>Content</mat-label>
+      <textarea matInput [formControlName]="'content'" [rows]="1" cdkTextareaAutosize [cdkAutosizeMinRows]="1"> </textarea>
+    </mat-form-field>
+
+    <!-- Controller -->
+    <div class="flex w-full justify-between">
+      <button mat-button (click)="matDialogRef.close()">Cancel</button>
+      <button mat-flat-button [color]="'primary'" (click)="onSubmit()">Save</button>
+    </div>
+  </form>
+</div>

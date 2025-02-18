@@ -37,4 +37,8 @@ export class CalendarService {
   getMeetingByDate(date: DateTime) {
     return this.meetings()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
   }
+
+  createReminder(reminder: any) {
+    console.log(reminder);
+  }
 }
