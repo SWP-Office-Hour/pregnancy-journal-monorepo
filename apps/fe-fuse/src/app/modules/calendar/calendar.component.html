@@ -57,7 +57,7 @@
           type="button"
           class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
         >
-          Add event
+          Create event
         </button>
       </div>
       <div class="relative ml-6 md:hidden">
@@ -95,10 +95,23 @@
         >
           <div class="py-1" role="none">
             <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <button class="block w-full px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-0-item-0">Create event</button>
+            <button
+              class="block w-full px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-0-item-0"
+            >
+              Create event
+            </button>
           </div>
           <div class="py-1" role="none">
-            <button (click)="goToToday()" class="block w-full px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="menu-0-item-1">
+            <button
+              (click)="goToToday()"
+              class="block w-full px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-0-item-1"
+            >
               Go to today
             </button>
           </div>
@@ -135,10 +148,14 @@
               'bg-white': dayOfMonth.month == firstDayOfActiveMonth().month,
               'bg-gray-50 text-gray-500': dayOfMonth.month !== firstDayOfActiveMonth().month,
               'bg-blue-600 text-white': activeDay()?.toISODate() === dayOfMonth.toISODate(),
+              'bg-blue-900 text-white': dayOfMonth.toISODate() == today().toISODate(),
             }"
             (click)="clickDate(dayOfMonth)"
           >
             <time datetime="{{ dayOfMonth.toISODate() }}">{{ dayOfMonth.day }}</time>
+            @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
+              <p>{{ meeting.title }}</p>
+            }
           </div>
         }
       </div>
@@ -156,6 +173,7 @@
               'flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10': true,
               'bg-white': dayOfMonth.month == firstDayOfActiveMonth().month,
               'bg-gray-50 text-gray-500': dayOfMonth.month !== firstDayOfActiveMonth().month,
+              'bg-blue-900 font-semibold text-white': today().toISODate() === dayOfMonth.toISODate(),
             }"
             (click)="clickDate(dayOfMonth)"
           >
@@ -175,6 +193,9 @@
               }"
               >{{ dayOfMonth.day }}
             </time>
+            @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
+              <p>{{ meeting.title }}</p>
+            }
             <span class="sr-only">0 events</span>
           </button>
         }
@@ -200,13 +221,20 @@
       }
     </div>
     <div>
-      @if (activeDay() && activeDayMeetings().length === 0) {
+      @if (activeDay && activeDayMeetings().length === 0) {
         <div>No Planned Meetings today</div>
       }
 
-      @if (activeDay() && activeDayMeetings().length > 0) {
+      @if (activeDay && activeDayMeetings().length > 0) {
         @for (meeting of activeDayMeetings(); track $index) {
-          <div>{{ meeting }}</div>
+          <div>{{ meeting.title }}</div>
+          <p>
+            <time datetime="{{ meeting.remind_date }}">{{
+              meeting.remind_date?.getDate() + '/' + meeting.remind_date?.getMonth() + '/' + meeting.remind_date.getFullYear()
+            }}</time>
+          </p>
+
+          <p>{{ meeting.content }}</p>
         }
       }
     </div>
