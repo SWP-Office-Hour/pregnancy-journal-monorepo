@@ -155,8 +155,8 @@
                   @if (flashMessage) {
                     <div class="mr-4 flex items-center">
                       @if (flashMessage === 'success') {
-                        <mat-icon class="text-green-500" [svgIcon]="'heroicons_outline:check'"></mat-icon>
-                        <span class="ml-2">Product updated</span>
+                        <mat-icon class="bg-green-300" [svgIcon]="'heroicons_outline:check'"></mat-icon>
+                        <span class="ml-2 font-bold text-green-900">Metric updated</span>
                       }
                       @if (flashMessage === 'error') {
                         <mat-icon class="text-red-500" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>

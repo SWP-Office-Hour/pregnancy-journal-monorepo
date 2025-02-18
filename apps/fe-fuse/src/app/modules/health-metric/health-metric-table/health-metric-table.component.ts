@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, resource, signal } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, resource, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -15,6 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
 import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
 
+import { FuseAlertService } from '../../../../@fuse/components/alert';
 import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
 import { environment } from '../../../../environments/environment';
 
@@ -43,6 +44,8 @@ import { environment } from '../../../../environments/environment';
   ],
 })
 export class HealthMetricTableComponent {
+  private _fuseAlertService = inject(FuseAlertService);
+  private _fuseConfirmationService: FuseConfirmationService;
   protected readonly Status = Status;
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
@@ -67,7 +70,6 @@ export class HealthMetricTableComponent {
    */
   constructor(
     private _formBuilder: FormBuilder,
-    private _fuseConfirmationService: FuseConfirmationService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     // Create the selected product form
@@ -95,7 +97,6 @@ export class HealthMetricTableComponent {
       this.closeDetails();
       return;
     }
-
     const resultOfFindInList: HealthMetric | undefined = this.metricResource.value()!.find((item) => item.metric_id === metricId);
     if (resultOfFindInList) {
       this.selectedMetric = resultOfFindInList;
@@ -105,7 +106,6 @@ export class HealthMetricTableComponent {
     // Fill the form
     this.selectedMetricForm.patchValue(this.selectedMetric);
     console.log(this.selectedMetricForm.value);
-
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
@@ -116,34 +116,6 @@ export class HealthMetricTableComponent {
 
   createMetric() {
     console.log('Create metric');
-  }
-
-  deleteSelectedProduct(): void {
-    // Open the confirmation dialog
-    const confirmation = this._fuseConfirmationService.open({
-      title: 'Delete product',
-      message: 'Are you sure you want to remove this product? This action cannot be undone!',
-      actions: {
-        confirm: {
-          label: 'Delete',
-        },
-      },
-    });
-
-    // Subscribe to the confirmation dialog closed action
-    confirmation.afterClosed().subscribe((result) => {
-      // If the confirm button pressed...
-      if (result === 'confirmed') {
-        // Get the product object
-        const product = this.selectedMetricForm.getRawValue();
-
-        // Delete the product on the server
-        // this._inventoryService.deleteProduct(product.id).subscribe(() => {
-        // Close the details
-        this.closeDetails();
-        // });
-      }
-    });
   }
 
   updateSelectedMetric(): void {
@@ -173,6 +145,34 @@ export class HealthMetricTableComponent {
 
     //   // Show a success message
     this.showFlashMessage('success');
+  }
+
+  deleteSelectedProduct(): void {
+    // Open the confirmation dialog
+    const confirmation = this._fuseConfirmationService.open({
+      title: 'Delete product',
+      message: 'Are you sure you want to remove this product? This action cannot be undone!',
+      actions: {
+        confirm: {
+          label: 'Delete',
+        },
+      },
+    });
+
+    // Subscribe to the confirmation dialog closed action
+    confirmation.afterClosed().subscribe((result) => {
+      // If the confirm button pressed...
+      if (result === 'confirmed') {
+        // Get the product object
+        const product = this.selectedMetricForm.getRawValue();
+
+        // Delete the product on the server
+        // this._inventoryService.deleteProduct(product.id).subscribe(() => {
+        // Close the details
+        this.closeDetails();
+        // });
+      }
+    });
   }
 
   /**
