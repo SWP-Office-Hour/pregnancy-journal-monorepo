@@ -1,5 +1,5 @@
-import { Controller, NotFoundException, Param } from '@nestjs/common';
-import { hospitalContract } from '@pregnancy-journal-monorepo/contract';
+import { Body, Controller, NotFoundException, Param } from '@nestjs/common';
+import { hospitalContract, HospitalCreateRequestType, HospitalUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { HospitalService } from './hospital.service';
 
@@ -23,6 +23,22 @@ export class HospitalController {
         throw new NotFoundException('Hospital not found');
       }
       return { status: 200, body: hospital };
+    });
+  }
+
+  @TsRestHandler(hospitalContract.create)
+  handleCreateHospital(@Body() hospital: HospitalCreateRequestType) {
+    return tsRestHandler(hospitalContract.create, async () => {
+      const re = await this.hospitalService.create(hospital);
+      return { status: 200, body: re };
+    });
+  }
+
+  @TsRestHandler(hospitalContract.update)
+  handleUpdateHospital(@Body() hospital: HospitalUpdateRequestType) {
+    return tsRestHandler(hospitalContract.update, async () => {
+      const re = await this.hospitalService.update(hospital);
+      return { status: 200, body: re };
     });
   }
 }
