@@ -16,3 +16,4 @@ export * from './lib/record.contract';
 export * from './lib/reminder.contract';
 export * from './lib/standard.contract';
 export * from './lib/tag.contract';
+export * from './lib/user.contract';

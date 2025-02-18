@@ -10,6 +10,7 @@ import {
   authContract,
   blogContract,
   categoryContract,
+  commentContract,
   dashboardContract,
   hospitalContract,
   mediaContract,
@@ -25,7 +26,6 @@ import {
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
 import { generateOpenApi } from '@ts-rest/open-api';
-import { commentContract } from '../../../libs/contract/src/lib/comment.contract';
 import { AppModule } from './app/app.module';
 import { SocketIoAdapter } from './socket-io.adapter';
 
