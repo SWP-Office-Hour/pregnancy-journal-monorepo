@@ -5,8 +5,8 @@ export const PostSchema = z.object({
   post_id: z.string(),
   content: z.string(),
   user_id: z.string(),
-  created_at: z.string(),
-  updated_at: z.string(),
+  created_at: z.date().nullable(),
+  updated_at: z.date().nullable(),
 });
 
 export const PostCreateSchema = PostSchema.omit({ post_id: true, created_at: true, updated_at: true, user_id: true });
