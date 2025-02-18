@@ -19,10 +19,11 @@ export type PostUpdateType = z.infer<typeof PostUpdateSchema>;
 
 const c = initContract();
 
-export const PostContract = c.router({
+export const postContract = c.router({
   create: {
     method: 'POST',
     path: '/posts',
+    description: 'Create a new post',
     body: PostCreateSchema,
     responses: {
       200: PostSchema,
@@ -32,6 +33,11 @@ export const PostContract = c.router({
   getAll: {
     method: 'GET',
     path: '/posts',
+    query: z.object({
+      limit: z.coerce.number().min(0).default(10),
+      page: z.coerce.number().min(1).default(1),
+    }),
+    description: 'Get all posts',
     responses: {
       200: z.object({
         total: z.number(),
@@ -43,6 +49,7 @@ export const PostContract = c.router({
   getOne: {
     method: 'GET',
     path: '/posts/:id',
+    description: 'Get a post by id',
     pathParams: z.object({
       id: z.string(),
     }),
@@ -54,6 +61,7 @@ export const PostContract = c.router({
   update: {
     method: 'PATCH',
     path: '/posts',
+    description: 'Update a post',
     body: PostUpdateSchema,
     responses: {
       200: PostSchema,
@@ -63,6 +71,7 @@ export const PostContract = c.router({
   delete: {
     method: 'DELETE',
     path: '/posts/:id',
+    description: 'Delete a post',
     pathParams: z.object({
       id: z.string(),
     }),

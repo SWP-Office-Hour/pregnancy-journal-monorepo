@@ -44,8 +44,8 @@ export const blogContract = c.router({
     method: 'GET',
     path: '/blogs',
     query: z.object({
-      limit: z.coerce.number().default(10),
-      page: z.coerce.number().default(1),
+      limit: z.coerce.number().min(0).default(10),
+      page: z.coerce.number().min(1).default(1),
     }),
     description: 'Get all blogs (đã xong)',
     responses: {

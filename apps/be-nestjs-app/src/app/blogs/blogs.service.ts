@@ -61,8 +61,8 @@ export class BlogsService {
 
   async findAll(page: number, limit: number) {
     const result = await this.databaseService.Blog.findMany({
-      skip: page == 0 ? page : (page - 1) * limit,
-      take: limit,
+      skip: page == 0 ? Number(page) : (page - 1) * limit,
+      take: Number(limit),
       include: {
         category: true,
         blog_tag: {
