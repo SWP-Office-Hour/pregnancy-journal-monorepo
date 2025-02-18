@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectorRef, Component, resource, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, effect, inject, resource } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -13,7 +13,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
+import { Hospital, Status } from '@pregnancy-journal-monorepo/contract';
+import { FuseAlertService } from '../../../../@fuse/components/alert';
 import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
 import { environment } from '../../../../environments/environment';
 
@@ -42,18 +43,20 @@ import { environment } from '../../../../environments/environment';
   ],
 })
 export class HospitalTableComponent {
+  private _fuseAlertService = inject(FuseAlertService);
+  private _fuseConfirmationService: FuseConfirmationService;
   protected readonly Status = Status;
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
-  selectedMetric: HealthMetric | null = null;
-  selectedMetricForm: UntypedFormGroup;
+  selectedHospital: Hospital | null = null;
+  selectedHospitalForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
 
-  metricList = signal<Array<HealthMetric>>([]);
+  // hospitalList = signal<Array<HealthMetric>>([]);
 
-  metricResource = resource<HealthMetric[], {}>({
+  hospitalResource = resource<Hospital[], {}>({
     loader: async ({ abortSignal }) => {
-      const response = await fetch(environment.apiUrl + 'metrics', {
+      const response = await fetch(environment.apiUrl + 'hospitals', {
         signal: abortSignal,
       });
       if (!response.ok) throw Error(`Could not fetch...`);
@@ -66,97 +69,133 @@ export class HospitalTableComponent {
    */
   constructor(
     private _formBuilder: FormBuilder,
-    private _fuseConfirmationService: FuseConfirmationService,
     private _changeDetectorRef: ChangeDetectorRef,
   ) {
     // Create the selected product form
-    this.selectedMetricForm = this._formBuilder.group({
-      metric_id: [''],
-      title: [''],
-      measurement_unit: ['', [Validators.required]],
-      status: Status,
-      required: [false],
-      upperbound_msg: [''],
-      lowerbound_msg: [''],
-      tag: [''],
+    this.selectedHospitalForm = this._formBuilder.group({
+      hospital_id: [''],
+      name: ['New Hospital'],
+      city: [''],
     });
-    // effect(() => {
-    //   console.log('metricResource');
-    //   console.log(this.metricResource.value());
-    // });
+    effect(() => {
+      console.log('hospitalResource');
+      console.log(this.hospitalResource.value());
+      // console.log('hospitalList');
+      // console.log(this.hospitalList());
+    });
   }
 
-  toggleDetails(metricId: string): void {
+  toggleDetails(hospitalId: string): void {
     // If the metric is already selected...
-    if (this.selectedMetric && this.selectedMetric.metric_id === metricId) {
+    if (this.selectedHospital && this.selectedHospital.hospital_id === hospitalId) {
       // Close the details
       this.closeDetails();
       return;
     }
-
-    const resultOfFindInList: HealthMetric | undefined = this.metricResource.value()!.find((item) => item.metric_id === metricId);
+    const resultOfFindInList: Hospital | undefined = this.hospitalResource.value()!.find((item) => item.hospital_id === hospitalId);
     if (resultOfFindInList) {
-      this.selectedMetric = resultOfFindInList;
+      this.selectedHospital = resultOfFindInList;
     } else {
       return;
     }
     // Fill the form
-    this.selectedMetricForm.patchValue(this.selectedMetric);
-    console.log(this.selectedMetricForm.value);
-
+    this.selectedHospitalForm.patchValue(this.selectedHospital);
+    console.log(this.selectedHospitalForm.value);
     // Mark for check
     this._changeDetectorRef.markForCheck();
   }
 
   closeDetails(): void {
-    this.selectedMetric = null;
+    this.selectedHospital = null;
   }
 
   createMetric() {
-    console.log('Create metric');
+    //   this.closeDetails();
+    //   console.log(this.selectedHospital);
+    //
+    //   const rawDataFromForm = this.selectedMetricForm.getRawValue();
+    //   console.log('I JUST RUN createMetric AND this.selectedMetricForm.getRawValue(); is ');
+    //   console.log(rawDataFromForm);
+    //   console.log('stringify');
+    //   console.log(JSON.stringify(rawDataFromForm));
+    //
+    //   (async () => {
+    //     const response = await fetch(environment.apiUrl + 'metrics', {
+    //       method: 'POST',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(rawDataFromForm),
+    //     });
+    //     if (!response.ok) throw Error(`Could not fetch...`);
+    //
+    //     const rsJson = await response.json();
+    //     console.log('rsJson');
+    //     console.log(rsJson);
+    //
+    //     this.hospitalResource.reload();
+    //     this.selectedHospital = rsJson;
+    //     this.selectedProductForm.patchValue(newProduct);
+    //   })();
+    //   // Mark for check
+    //   this._changeDetectorRef.markForCheck();
+  }
+
+  updateSelectedHospital(): void {
+    //   // Get the metric object
+    //   const metric = this.selectedHospitalForm.getRawValue();
+    //   // console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
+    //   // console.log(metric);
+    //   // console.log('stringify');
+    //   // console.log(JSON.stringify(metric));
+    //
+    //   (async () => {
+    //     const response = await fetch(environment.apiUrl + 'metrics', {
+    //       method: 'PATCH',
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: JSON.stringify(metric),
+    //     });
+    //     if (!response.ok) throw Error(`Could not fetch...`);
+    //
+    //     const rsJson = await response.json();
+    //     console.log('rsJson');
+    //     console.log(rsJson);
+    //
+    //     this.hospitalResource.reload();
+    //   })();
+    //
+    //   //   // Show a success message
+    //   this.showFlashMessage('success');
   }
 
   deleteSelectedProduct(): void {
-    // Open the confirmation dialog
-    const confirmation = this._fuseConfirmationService.open({
-      title: 'Delete product',
-      message: 'Are you sure you want to remove this product? This action cannot be undone!',
-      actions: {
-        confirm: {
-          label: 'Delete',
-        },
-      },
-    });
-
-    // Subscribe to the confirmation dialog closed action
-    confirmation.afterClosed().subscribe((result) => {
-      // If the confirm button pressed...
-      if (result === 'confirmed') {
-        // Get the product object
-        const product = this.selectedMetricForm.getRawValue();
-
-        // Delete the product on the server
-        // this._inventoryService.deleteProduct(product.id).subscribe(() => {
-        // Close the details
-        this.closeDetails();
-        // });
-      }
-    });
-  }
-
-  updateSelectedMetric(): void {
-    // Get the product object
-    const metric = this.selectedMetricForm.getRawValue();
-    console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
-    console.log(metric);
-    // Remove the currentImageIndex field
-    delete metric.currentImageIndex;
-
-    // Update the product on the server
-    // this._inventoryService.updateProduct(product.id, product).subscribe(() => {
-    //   // Show a success message
-    //   this.showFlashMessage('success');
-    // });
+    //   // Open the confirmation dialog
+    //   const confirmation = this._fuseConfirmationService.open({
+    //     title: 'Delete product',
+    //     message: 'Are you sure you want to remove this product? This action cannot be undone!',
+    //     actions: {
+    //       confirm: {
+    //         label: 'Delete',
+    //       },
+    //     },
+    //   });
+    //
+    //   // Subscribe to the confirmation dialog closed action
+    //   confirmation.afterClosed().subscribe((result) => {
+    //     // If the confirm button pressed...
+    //     if (result === 'confirmed') {
+    //       // Get the product object
+    //       const product = this.selectedHospitalForm.getRawValue();
+    //
+    //       // Delete the product on the server
+    //       // this._inventoryService.deleteProduct(product.id).subscribe(() => {
+    //       // Close the details
+    //       this.closeDetails();
+    //       // });
+    //     }
+    //   });
   }
 
   /**
