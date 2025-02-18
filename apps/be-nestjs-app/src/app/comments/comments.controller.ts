@@ -1,7 +1,7 @@
 import { Body, Controller, NotFoundException, Param, Req, UseGuards } from '@nestjs/common';
+import { commentContract, CommentCreateRequestType, CommentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
-import { commentContract, CommentCreateRequestType, CommentUpdateRequestType } from '../../../../../libs/contract/src/lib/comment.contract';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { CommentsService } from './comments.service';
 
