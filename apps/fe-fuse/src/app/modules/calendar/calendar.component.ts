@@ -3,6 +3,7 @@ import { Component, computed, Signal, signal, WritableSignal } from '@angular/co
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -10,6 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReminderResponse } from '@pregnancy-journal-monorepo/contract';
 import { DateTime, Info, Interval } from 'luxon';
 import { CalendarService } from './calendar.service';
+import { CreateCalendarComponent } from './create-calendar/create-calendar.component';
 
 @Component({
   selector: 'app-calendar',
@@ -62,7 +64,10 @@ export class CalendarComponent {
   });
   protected open = signal(false);
 
-  constructor(private _calendarService: CalendarService) {
+  constructor(
+    private _calendarService: CalendarService,
+    private _matDialog: MatDialog,
+  ) {
     this.selected_date_as_string.setValue(`${this.today().monthLong} ${this.today().year}`);
     this.selected_date.valueChanges.subscribe((date) => {
       if (date) {
@@ -102,5 +107,11 @@ export class CalendarComponent {
 
   protected getMeetingByDate(date: DateTime) {
     return this._calendarService.getMeetingByDate(date);
+  }
+
+  protected createMeeting() {
+    this._matDialog.open(CreateCalendarComponent, {
+      autoFocus: false,
+    });
   }
 }
