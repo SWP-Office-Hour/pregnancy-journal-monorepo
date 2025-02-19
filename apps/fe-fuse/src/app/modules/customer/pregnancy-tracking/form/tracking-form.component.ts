@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
@@ -69,7 +69,7 @@ export class TrackingFormComponent {
       this.hospitals = hospitals;
     });
     this._trackingService.getMetrics().subscribe((metrics) => {
-      this.metrics = metrics;
+      this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
         const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
         this.metricsFormArray.push(this._formBuilder.control(value));

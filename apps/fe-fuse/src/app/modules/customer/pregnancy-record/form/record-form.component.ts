@@ -7,7 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { Router } from '@angular/router';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
@@ -41,6 +42,7 @@ export class RecordFormComponent {
   protected submitted = false;
 
   constructor(
+    private _router: Router,
     private _recordService: PregnancyRecordService,
     private _formBuilder: FormBuilder,
   ) {
@@ -60,7 +62,7 @@ export class RecordFormComponent {
       this.hospitals = hospitals;
     });
     this._recordService.getMetrics().subscribe((metrics) => {
-      this.metrics = metrics;
+      this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach(() => {
         this.metricsFormArray.push(this._formBuilder.control(0));
       });
@@ -88,8 +90,9 @@ export class RecordFormComponent {
     this._recordService.submit(formData).subscribe({
       next: () => {
         window.alert('Record submitted successfully');
+        this._router.navigate(['/']);
       },
-      error: () => {
+      error: (err) => {
         window.alert('Failed to submit record');
       },
     });
