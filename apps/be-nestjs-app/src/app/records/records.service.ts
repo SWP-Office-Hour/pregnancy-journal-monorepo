@@ -136,7 +136,6 @@ export class RecordsService {
             if (metric) {
               return {
                 record_id: record.visit_record_id,
-
                 value: metricRecord.value,
                 metric_id: metricRecord.metric_id,
                 metric_title: metric.title,
