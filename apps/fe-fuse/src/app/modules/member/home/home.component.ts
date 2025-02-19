@@ -10,7 +10,7 @@ import { MatOptionModule, MatRippleModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -20,11 +20,43 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
-import ts from '@schematics/angular/third_party/github.com/Microsoft/TypeScript/lib/typescript';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
-import { DialogContentPriceComponent } from '../dialog-content-price/dialog-content-price.component';
+import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
-import ProjectService = ts.server.ProjectService;
+
+@Component({
+  selector: 'app-dialog-content-price',
+  imports: [MatDialogModule, MatButtonModule, FuseCardComponent, MatIcon],
+  templateUrl: './dialog-content-price.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogContentPriceComponent {
+  // constructor(
+  //   private scroller: ViewportScroller,
+  //   private router: Router,
+  // ) {}
+  // ngOnInit() {
+  //   this.router.navigate(['/home']);
+  // }
+
+  // //Scroll
+  // goDown1() {
+  //   this.scroller.scrollToAnchor('listCard');
+  // }
+
+  goDown2() {
+    //this.scroller.scrollToAnchor("targetGreen");
+    document.getElementById('header')!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
+  //
+  // goDown3() {
+  //   this.router.navigate([], { fragment: 'targetBlue' });
+  // }
+}
 
 @Component({
   selector: 'app-home',
@@ -74,9 +106,7 @@ export class HomeComponent implements OnInit {
 
   //tooltip
   @Input() tooltip: string;
-
   readonly dialog = inject(MatDialog);
-
   openDialog() {
     this.dialog.open(DialogContentPriceComponent);
   }
@@ -92,6 +122,8 @@ export class HomeComponent implements OnInit {
   data: any;
   // selectedProject: string = 'ACME Corp. Backend App';
   // private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+  //Get data of Standard Metric
 
   /**
    * Constructor
