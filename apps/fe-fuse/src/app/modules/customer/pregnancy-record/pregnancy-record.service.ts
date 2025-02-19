@@ -74,6 +74,10 @@ export class PregnancyRecordService {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
       })
-      .pipe(map((record: RecordResponse) => record.id));
+      .pipe(
+        map((record: RecordResponse) => {
+          return record;
+        }),
+      );
   }
 }
