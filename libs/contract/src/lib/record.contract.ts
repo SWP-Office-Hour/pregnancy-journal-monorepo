@@ -48,7 +48,7 @@ const recordUpdateReqSchema = z.object({
 });
 
 const recordResSchema = z.object({
-  id: z.string(),
+  visit_record_id: z.string(),
   week: z.number(),
   visit_doctor_date: z.date(),
   next_visit_doctor_date: z.date(),
