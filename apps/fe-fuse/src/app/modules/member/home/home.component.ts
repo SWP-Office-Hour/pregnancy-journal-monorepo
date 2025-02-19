@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -23,6 +23,16 @@ import { TranslocoModule } from '@ngneat/transloco';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
+//
+// @Component({
+//   selector: 'expansion-duedate',
+//   templateUrl: 'expansion-overview-example.html',
+//   imports: [MatExpansionModule],
+//   changeDetection: ChangeDetectionStrategy.OnPush,
+// })
+// export class ExpansionOverviewExample {
+//   readonly panelOpenState = signal(false);
+// }
 
 @Component({
   selector: 'app-dialog-content-price',
@@ -92,17 +102,27 @@ export class DialogContentPriceComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent implements OnInit {
+  //User
+  // private user: User;
+  private dueDate: Date = new Date();
+
   // Form tính ngày dự sinh
   @ViewChild('countDownForm') countDownNgForm: NgForm;
   countDownForm: UntypedFormGroup;
-
+  private expectedDate: Date;
   formFieldHelpers: string[] = [''];
-  fixedSubscriptInput: FormControl = new FormControl('', [Validators.required]);
-  dynamicSubscriptInput: FormControl = new FormControl('', [Validators.required]);
-  fixedSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
-  dynamicSubscriptInputWithHint: FormControl = new FormControl('', [Validators.required]);
 
-  calculateExpectedDate() {}
+  calculateDueDate(lmp: Date, cycleLength: number): Date {
+    // Ngày dự sinh tiêu chuẩn (40 tuần = 280 ngày)
+    let dueDate = new Date(lmp);
+    dueDate.setDate(dueDate.getDate() + 280);
+
+    // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
+    let adjustment = cycleLength - 28;
+    dueDate.setDate(dueDate.getDate() + adjustment);
+
+    return dueDate;
+  }
 
   //tooltip
   @Input() tooltip: string;
@@ -143,7 +163,7 @@ export class HomeComponent implements OnInit {
     // Form tính ngày dự sinh
     this.countDownForm = this._formBuilder.group({
       lastMenstrualPeriod: ['', Validators.required],
-      menstrualCycle: ['15 ngày', Validators.required],
+      menstrualCycle: ['', Validators.required],
     });
 
     // Get the data
