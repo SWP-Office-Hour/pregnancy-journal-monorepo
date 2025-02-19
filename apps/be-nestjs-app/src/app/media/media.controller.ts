@@ -40,11 +40,12 @@ export class MediaController {
       try {
         await this.fileService.uploadToR2(file, uniqueName);
         console.log(file);
-        // if (file) await unlink(file.path);
+        if (file) await unlink(file.path);
         //xóa file sau khi upload
 
         const url = await this.fileService.createPresignedUrl(uniqueName);
         let result: MediaResponse;
+
         if (post_id) {
           result = await this.mediaService.createWithPostId({ media_url: url, post_id });
         } else if (record_id) {
@@ -61,8 +62,7 @@ export class MediaController {
         if (file.path) {
           await unlink(file.path); // Xóa file tạm nếu upload thất bại
         }
-        console.log(error);
-        throw new BadRequestException('Could not upload file');
+        throw new BadRequestException(error.message);
       }
     });
   }

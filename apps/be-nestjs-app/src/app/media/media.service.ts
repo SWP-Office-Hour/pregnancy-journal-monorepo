@@ -5,8 +5,18 @@ import { DatabaseService } from '../database/database.service';
 export class MediaService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  createWithPostId({ media_url, post_id }: { media_url: string; post_id: string }) {
-    return this.databaseService.Media.create({
+  async createWithPostId({ media_url, post_id }: { media_url: string; post_id: string }) {
+    const post = this.databaseService.Post.findUnique({
+      where: {
+        post_id: post_id,
+      },
+    });
+
+    if (!post) {
+      throw new NotFoundException('Post not found');
+    }
+
+    return await this.databaseService.Media.create({
       data: {
         media_url: media_url,
         created_at: new Date(),
@@ -17,8 +27,18 @@ export class MediaService {
     });
   }
 
-  createWithRecordId({ media_url, record_id }: { media_url: string; record_id: string }) {
-    return this.databaseService.Media.create({
+  async createWithRecordId({ media_url, record_id }: { media_url: string; record_id: string }) {
+    const record = await this.databaseService.Record.findUnique({
+      where: {
+        visit_record_id: record_id,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException('Record not found');
+    }
+
+    return await this.databaseService.Media.create({
       data: {
         media_url: media_url,
         created_at: new Date(),
