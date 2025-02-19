@@ -82,7 +82,7 @@ export class RecordsService {
     return formatRecord[0];
   }
 
-  async getRecordByUserId(userId: string) {
+  async getRecordByUserId(userId: string): Promise<{ total: number; data: RecordResponse[] }> {
     const user = await this.dataService.User.findUnique({
       where: { user_id: userId },
     });
@@ -135,6 +135,8 @@ export class RecordsService {
 
             if (metric) {
               return {
+                record_id: record.visit_record_id,
+
                 value: metricRecord.value,
                 metric_id: metricRecord.metric_id,
                 metric_title: metric.title,
@@ -153,10 +155,11 @@ export class RecordsService {
         );
 
         return {
-          id: record.id,
+          visit_record_id: record.visit_record_id,
           week,
           visit_doctor_date: record.visit_doctor_date,
           next_visit_doctor_date: record.next_visit_doctor_date,
+          doctor_name: record.doctor_name,
           hospital: record.hospital,
           user_id: record.user_id,
           data,
