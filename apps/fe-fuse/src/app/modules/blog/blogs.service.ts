@@ -50,15 +50,22 @@ export class BlogsService {
       title: blog.title,
       author: blog.author,
       summary: blog.summary,
-      content_url: 'api/content/',
+      content_url: blog.content,
       category: blog.category,
     };
     console.log(newBlog);
-    return this._httpClient.post('api/dashboards/blogs', newBlog).pipe(
-      map((response) => {
-        return response;
-      }),
-    );
+    return this._httpClient
+      .post(environment.apiUrl + 'blogs', {
+        headers: {
+          Authorization: 'Bearer ' + this._authService.accessToken,
+        },
+        body: newBlog,
+      })
+      .pipe(
+        map((response) => {
+          return response;
+        }),
+      );
   }
 
   getBlogById(id: string) {
