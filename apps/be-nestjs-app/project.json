@@ -22,6 +22,7 @@
     },
     "prisma": {
       "executor": "nx:run-commands",
+      "cache": true,
       "options": {
         "command": "pnpx prisma generate"
       }
@@ -79,8 +80,8 @@
         "push": true,
         "defaultRegistry": "registry.digitalocean.com/office-hour/",
         "tags": ["registry.digitalocean.com/office-hour/api:latest"],
-        "cache-from": "type=gha",
-        "cache-to": "type=gha,mode=max"
+        "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/api:buildcache",
+        "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/api:buildcache,mode=max"
       }
     }
   }
