@@ -1,4 +1,8 @@
-<form [formGroup]="trackingForm" class="bg-card mt-3 flex flex-col overflow-hidden rounded-2xl p-8 shadow" (submit)="submitForm()">
+<form
+  [formGroup]="trackingForm"
+  class="max-h-128 bg-card mt-3 flex flex-col overflow-hidden overflow-scroll rounded-2xl p-8 shadow"
+  (submit)="submitForm()"
+>
   <p class="mb-2"><strong>Tuần:</strong> {{ week }}</p>
   <div class="-mx-2 flex flex-wrap">
     <div class="mb-8 w-full px-2 md:w-1/2">
@@ -68,6 +72,6 @@
   </div>
   <footer class="mt-4 flex justify-end space-x-2">
     <button mat-flat-button type="submit">Lưu</button>
-    <button mat-stroked-button type="reset">Hủy</button>
+    <button mat-stroked-button type="reset" (click)="closeForm()">Hủy</button>
   </footer>
 </form>

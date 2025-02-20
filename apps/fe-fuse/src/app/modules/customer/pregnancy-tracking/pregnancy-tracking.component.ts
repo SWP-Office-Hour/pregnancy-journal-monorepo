@@ -4,12 +4,12 @@ import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
-import { TrackingFormComponent } from './form/tracking-form.component';
 import { PregnancyTrackingService } from './pregnancy-tracking.service';
+import { TrackingCardComponent } from './tracking-card/tracking-card.component';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [TrackingFormComponent, RouterLink, MatAnchor, MatIcon],
+  imports: [TrackingCardComponent, RouterLink, MatAnchor, MatIcon],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
@@ -24,7 +24,6 @@ export class PregnancyTrackingComponent {
   ) {
     this._trackingService.RecordData.subscribe((data) => {
       this.recordsData = data;
-      this.selectedRecordData = this._trackingService.SelectedRecordData;
       console.log(this.recordsData);
     });
   }
