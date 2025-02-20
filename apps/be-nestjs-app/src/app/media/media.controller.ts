@@ -38,15 +38,16 @@ export class MediaController {
 
       const uniqueName = Date.now() + '-' + file.originalname;
       try {
-        await this.fileService.uploadToR2(file, uniqueName);
-
-        const url = await this.fileService.createPresignedUrl(uniqueName);
+        const upload = await this.fileService.uploadToR2(file, uniqueName);
+        if (!upload) {
+          throw new BadRequestException('Error uploading file');
+        }
         let result: MediaResponse;
 
         if (post_id) {
-          result = await this.mediaService.createWithPostId({ media_url: url, post_id });
+          result = await this.mediaService.createWithPostId({ media_url: uniqueName, post_id });
         } else if (record_id) {
-          result = await this.mediaService.createWithRecordId({ media_url: url, record_id });
+          result = await this.mediaService.createWithRecordId({ media_url: uniqueName, record_id });
         } else {
           throw new BadRequestException('No post_id or record_id provided');
         }
@@ -87,8 +88,9 @@ export class MediaController {
   handleDeleteFile(@Param('id') filename: string) {
     return tsRestHandler(mediaContract.deleteFile, async () => {
       try {
-        await this.fileService.deleteFile(filename);
-        await this.mediaService.remove(filename);
+        const media = await this.mediaService.remove(filename);
+        await this.fileService.deleteFile(media.media_url);
+
         //xóa ở thư mục images
         // await unlink(join(__dirname, '..', '..', 'images', filename));
         return {
@@ -130,7 +132,7 @@ export class MediaController {
           body: link,
         };
       } catch (error) {
-        throw new NotFoundException('File not found');
+        throw new NotFoundException('Media not found');
       }
     });
   }

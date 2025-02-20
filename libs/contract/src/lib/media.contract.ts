@@ -44,7 +44,7 @@ export const mediaContract = c.router({
     path: '/media/:id',
     description: 'Get a image by media id',
     responses: {
-      200: mediaResSchema,
+      200: z.object({ media: mediaResSchema, imgLink: z.string() }),
       400: z.object({
         message: z.string(),
       }),

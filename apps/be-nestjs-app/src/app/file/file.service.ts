@@ -4,7 +4,7 @@ import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Express } from 'express';
-import { constants, createReadStream, createWriteStream, mkdirSync } from 'fs';
+import { constants, createReadStream } from 'fs';
 import { access, unlink } from 'fs/promises';
 import { IncomingMessage } from 'http';
 import { join } from 'path';
@@ -66,31 +66,31 @@ export class FileService {
     }
   }
 
-  async downloadFile(filename: string) {
-    try {
-      const file = await this.getFile(filename);
-      const buffer = await streamToBuffer(file as IncomingMessage);
-
-      const filePath = join(this.uploadPath, filename);
-
-      // Ensure the upload directory exists
-      mkdirSync(this.uploadPath, { recursive: true });
-
-      const writeStream = createWriteStream(filePath);
-      writeStream.write(buffer);
-      writeStream.end();
-      // writeStream.on('finish', () => {
-      //   res.send({ message: 'File saved successfully', path: filePath });
-      // });
-      writeStream.on('error', (error) => {
-        throw new BadRequestException('Could not save file');
-      });
-      return filePath;
-    } catch (error) {
-      console.error('Error downloading file:', error);
-      throw error;
-    }
-  }
+  // async downloadFile(filename: string) {
+  //   try {
+  //     const file = await this.getFile(filename);
+  //     const buffer = await streamToBuffer(file as IncomingMessage);
+  //
+  //     const filePath = join(this.uploadPath, filename);
+  //
+  //     // Ensure the upload directory exists
+  //     mkdirSync(this.uploadPath, { recursive: true });
+  //
+  //     const writeStream = createWriteStream(filePath);
+  //     writeStream.write(buffer);
+  //     writeStream.end();
+  //     // writeStream.on('finish', () => {
+  //     //   res.send({ message: 'File saved successfully', path: filePath });
+  //     // });
+  //     writeStream.on('error', (error) => {
+  //       throw new BadRequestException('Could not save file');
+  //     });
+  //     return filePath;
+  //   } catch (error) {
+  //     console.error('Error downloading file:', error);
+  //     throw error;
+  //   }
+  // }
 
   async deleteFile(filename: string) {
     try {
@@ -107,6 +107,7 @@ export class FileService {
     }
   }
 
+  //hàm này dùng để tạo presign gửi đi khi upload (cũ bỏ ko làm cách này nữa)
   createPresignedUrlWithClient = () => {
     const bucket = this.configService.get('CLOUDFLARE_BUCKET');
     const key = this.configService.get('CLOUDFLARE_SECRET');
@@ -116,11 +117,11 @@ export class FileService {
     return getSignedUrl(client, command, { expiresIn: 3600 });
   };
 
-  async getFilePath(filename: string) {
-    const filepath = await this.downloadFile(filename);
-    console.log(filepath);
-    return join(this.uploadPath, filepath);
-  }
+  // async getFilePath(filename: string) {
+  //   const filepath = await this.downloadFile(filename);
+  //   console.log(filepath);
+  //   return join(this.uploadPath, filepath);
+  // }
 
   async deleteLocalFile(fileName: string) {
     try {
@@ -134,19 +135,14 @@ export class FileService {
     }
   }
 
-  async createPresignedUrl(filename: string) {
+  //lấy cái link presign để gửi đi khi mún download file, dùng tấm ảnh
+  async getImageUrl(filename: string) {
     const command = new GetObjectCommand({
       Bucket: this.configService.get('CLOUDFLARE_BUCKET'),
       Key: filename,
     });
-    const url = await getSignedUrl(this.s3Client, command, { expiresIn: 3600 });
+    const url = await getSignedUrl(this.s3Client, command, { expiresIn: 604800 });
     return url;
-  }
-
-  async sendFile(nameFile: string) {
-    const imagePath = await this.downloadFile(nameFile);
-    console.log(imagePath);
-    return imagePath;
   }
 }
 
