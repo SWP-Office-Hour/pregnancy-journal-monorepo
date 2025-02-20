@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -41,6 +42,7 @@ export class TrackingFormComponent {
   protected week: number;
 
   constructor(
+    protected dialogRef: MatDialogRef<TrackingFormComponent>,
     private _trackingService: PregnancyTrackingService,
     private _formBuilder: FormBuilder,
   ) {
@@ -49,6 +51,7 @@ export class TrackingFormComponent {
     this.week = this.selectedRecordData.week;
     this.trackingForm = this._formBuilder.group(
       {
+        visit_record_id: '',
         visit_doctor_date: new Date(),
         next_visit_doctor_date: new Date(),
         hospital: '',
@@ -60,6 +63,7 @@ export class TrackingFormComponent {
       },
     );
     this.trackingForm.patchValue({
+      visit_record_id: this.selectedRecordData.visit_record_id,
       hospital: this.selectedRecordData.hospital.hospital_id,
       doctor_name: this.selectedRecordData.doctor_name,
       visit_doctor_date: this.selectedRecordData.visit_doctor_date,
@@ -86,15 +90,25 @@ export class TrackingFormComponent {
       metric_id: this.metrics[index].metric_id,
       value: control.value as number,
     }));
-    const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.trackingForm.value;
+    const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
     const formData = {
+      id: visit_record_id,
       hospital_id: hospital,
       doctor_name,
       visit_doctor_date: new Date(visit_doctor_date).toISOString(),
       next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
       data,
     };
-    this._trackingService.submit(formData);
+    console.log(formData);
+    this._trackingService.submit(formData).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.closeForm();
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 
   deleteImg(id: string) {
@@ -103,5 +117,10 @@ export class TrackingFormComponent {
 
   insertImg(img: MediaResponse) {
     this._trackingService.addImage(img);
+  }
+
+  closeForm() {
+    this._trackingService.SelectedRecordData = '';
+    this.dialogRef.close();
   }
 }

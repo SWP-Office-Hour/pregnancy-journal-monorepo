@@ -2,9 +2,9 @@
   <div class="my-5 text-center">
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
-  @if (selectedRecordData) {
-    <tracking-form></tracking-form>
-  } @else {
+  @for (recordData of recordsData; track $index) {
+    <app-tracking-card [recordData]="recordData"></app-tracking-card>
+  } @empty {
     <p>Chưa có chỉ số đã theo dõi</p>
     <div>
       <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'../record'">
