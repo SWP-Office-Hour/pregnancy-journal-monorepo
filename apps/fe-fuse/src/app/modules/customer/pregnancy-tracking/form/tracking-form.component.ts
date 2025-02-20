@@ -92,7 +92,7 @@ export class TrackingFormComponent {
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
     const formData = {
-      id: visit_record_id,
+      visit_record_id,
       hospital_id: hospital,
       doctor_name,
       visit_doctor_date: new Date(visit_doctor_date).toISOString(),
