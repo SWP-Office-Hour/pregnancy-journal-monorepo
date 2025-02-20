@@ -29,7 +29,7 @@ export class RecordsController {
   @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(recordContract.getRecordByUserId)
   handleGetRecordByUserId(@Req() request: RequestWithJWT) {
-    return tsRestHandler(recordContract.createRecord, async () => {
+    return tsRestHandler(recordContract.updateRecord, async () => {
       if (!request.decoded_authorization) {
         throw new UnauthorizedException('UnAuthorized');
       }
