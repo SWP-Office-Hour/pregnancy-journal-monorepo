@@ -9,6 +9,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
+      "cache": true,
       "options": {
         "outputPath": "dist/apps/fuse-example",
         "index": "apps/fuse-example/src/index.html",

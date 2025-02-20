@@ -33,7 +33,6 @@
           "includePaths": ["apps/fe-fuse/src/@fuse/styles"]
         },
         "styles": [
-          "apps/fe-fuse/src/styles.scss",
           "apps/fe-fuse/src/@fuse/styles/tailwind.scss",
           "apps/fe-fuse/src/@fuse/styles/themes.scss",
           "apps/fe-fuse/src/styles/vendors.scss",
