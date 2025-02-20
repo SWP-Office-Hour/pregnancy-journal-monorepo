@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
+import { FileService } from '../file/file.service';
 
 @Injectable()
 export class MediaService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly fileService: FileService,
+  ) {}
 
   async createWithPostId({ media_url, post_id }: { media_url: string; post_id: string }) {
     const post = this.databaseService.Post.findUnique({
@@ -66,17 +70,17 @@ export class MediaService {
     if (!result) {
       throw new NotFoundException('Media not found');
     }
-    return result;
+    const imgLink = await this.fileService.getImageUrl(result.media_url);
+
+    return { media: result, imgLink: imgLink };
   }
 
   async remove(id: string) {
     await this.findOne(id);
-    await this.databaseService.Media.delete({
+    return await this.databaseService.Media.delete({
       where: {
         media_id: id,
       },
     });
-
-    return 'delete successfully';
   }
 }
