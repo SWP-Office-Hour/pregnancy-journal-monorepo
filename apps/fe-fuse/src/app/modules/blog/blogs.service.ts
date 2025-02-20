@@ -70,7 +70,7 @@ export class BlogsService {
 
   getBlogById(id: string) {
     if (this._blogs) {
-      this._blog = this._blogs.find((blog) => blog.id === id);
+      this._blog = this._blogs.find((blog) => blog.blog_id === id);
       return of(this._blog);
     } else {
       return throwError(() => new Error('Blog not found'));

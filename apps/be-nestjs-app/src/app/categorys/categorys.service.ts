@@ -32,13 +32,13 @@ export class CategorysService {
   }
 
   async update(updateCategoryDto: CategoryUpdateRequest) {
-    const cur = await this.findOne(updateCategoryDto.id);
+    const cur = await this.findOne(updateCategoryDto.category_id);
     if (!cur) {
       throw new NotFoundException('Category not found');
     }
     return this.databaseService.Category.update({
       where: {
-        category_id: updateCategoryDto.id,
+        category_id: updateCategoryDto.category_id,
       },
       data: updateCategoryDto,
     });

@@ -195,7 +195,7 @@ export class RecordsService {
 
   async updateRecord(record: RecordUpdateRequest) {
     await this.dataService.Record.update({
-      where: { visit_record_id: record.id },
+      where: { visit_record_id: record.visit_record_id },
       data: {
         visit_doctor_date: record.visit_doctor_date,
         next_visit_doctor_date: record.next_visit_doctor_date,
@@ -205,7 +205,7 @@ export class RecordsService {
 
     if (record.data) {
       await this.dataService.Record.update({
-        where: { visit_record_id: record.id },
+        where: { visit_record_id: record.visit_record_id },
         data: {
           visit_record_metric: {
             updateMany: record.data.map((data) => ({
@@ -226,7 +226,7 @@ export class RecordsService {
       }
 
       await this.dataService.Record.update({
-        where: { visit_record_id: record.id },
+        where: { visit_record_id: record.visit_record_id },
         data: {
           hospital: {
             connect: {
@@ -236,7 +236,7 @@ export class RecordsService {
         },
       });
     }
-    const formatRecord = await this.getRecordById(record.id);
+    const formatRecord = await this.getRecordById(record.visit_record_id);
     return formatRecord[0];
   }
 
