@@ -38,25 +38,35 @@ const recordCreateReqSchema = z.object({
   data: z.array(recordMetricCreateReqSchema),
 });
 
-const recordUpdateReqSchema = z.object({
-  id: z.string(),
-  visit_doctor_date: z.string().datetime().optional(),
-  next_visit_doctor_date: z.string().datetime().optional(),
-  hospital_id: z.string().optional(),
-  doctor_name: z.string().optional(),
-  data: z.array(recordMetricUpdateReqSchema).optional(),
-});
+const recordUpdateReqSchema = recordCreateReqSchema
+  .omit({
+    visit_doctor_date: true,
+    next_visit_doctor_date: true,
+    hospital_id: true,
+    doctor_name: true,
+    data: true,
+  })
+  .extend({
+    visit_record_id: z.string(),
+    visit_doctor_date: z.string().datetime().optional(),
+    next_visit_doctor_date: z.string().datetime().optional(),
+    hospital_id: z.string().optional(),
+    doctor_name: z.string().optional(),
+    data: z.array(recordMetricUpdateReqSchema).optional(),
+  });
 
-const recordResSchema = z.object({
-  visit_record_id: z.string(),
-  week: z.number(),
-  visit_doctor_date: z.date(),
-  next_visit_doctor_date: z.date(),
-  hospital: hospitalResSchema,
-  doctor_name: z.string(),
-  data: z.array(recordMetricSchema),
-  media: z.array(mediaResSchema),
-});
+const recordResSchema = recordCreateReqSchema
+  .omit({
+    hospital_id: true,
+  })
+  .extend({
+    visit_record_id: z.string(),
+    week: z.number(),
+    visit_doctor_date: z.date(),
+    next_visit_doctor_date: z.date(),
+    hospital: hospitalResSchema,
+    media: z.array(mediaResSchema),
+  });
 
 export type RecordCreateRequest = z.infer<typeof recordCreateReqSchema>;
 export type RecordUpdateRequest = z.infer<typeof recordUpdateReqSchema>;

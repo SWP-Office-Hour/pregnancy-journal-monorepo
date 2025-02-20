@@ -5,19 +5,16 @@ import { statusSchema } from './enum.contract';
 export const tagResSchema = z.object({
   tag_id: z.string(),
   title: z.string(),
-});
-
-export const tagCreateReqSchema = z.object({
-  title: z.string(),
   status: statusSchema,
 });
 
-export const tagUpdateReqSchema = z.object({
-  id: z.string(),
+// Sử dụng omit để loại bỏ trường `tag_id` từ `tagResSchema` khi tạo mới tag
+export const tagCreateReqSchema = tagResSchema.omit({ tag_id: true });
+
+export const tagUpdateReqSchema = tagResSchema.extend({
   title: z.string().optional(),
   status: statusSchema.optional(),
 });
-
 const tagGetAllResSchema = z.array(tagResSchema);
 
 export type TagResponse = z.infer<typeof tagResSchema>;

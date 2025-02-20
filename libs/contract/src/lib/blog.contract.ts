@@ -4,31 +4,29 @@ import { categoryResSchema } from './category.contract';
 import { tagResSchema } from './tag.contract';
 
 const blogResSchema = z.object({
-  id: z.string(),
+  blog_id: z.string(),
   title: z.string(),
   author: z.string(),
   summary: z.string(),
-  content_url: z.string(),
-  create_at: z.date(),
+  content: z.string(),
+  created_at: z.date(),
+  updated_at: z.date(),
   tags: z.array(tagResSchema.optional()).optional(),
   category: categoryResSchema,
 });
 
-export const blogCreateReqSchema = z.object({
-  title: z.string(),
-  author: z.string(),
-  summary: z.string(),
-  content_url: z.string(),
+// Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới blog
+export const blogCreateReqSchema = blogResSchema.omit({ blog_id: true, created_at: true, updated_at: true, tags: true, category: true }).extend({
   tags_id: z.array(z.string().optional()).optional(),
   category_id: z.string(),
 });
 
-export const blogUpdateReqSchema = z.object({
-  id: z.string(),
+// Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật blog
+export const blogUpdateReqSchema = blogResSchema.omit({ created_at: true, updated_at: true, tags: true, category: true }).extend({
   title: z.string().optional(),
   author: z.string().optional(),
   summary: z.string().optional(),
-  content_url: z.string().optional(),
+  content: z.string().optional(),
   tags_id: z.array(z.string().optional()).optional(),
   category_id: z.string().optional(),
 });

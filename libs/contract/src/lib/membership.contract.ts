@@ -7,26 +7,23 @@ const membershipResContract = z.object({
   title: z.string(),
   price: z.number(),
   description: z.string(),
-  // create_at: z.date(),
+  created_at: z.date(),
+  updated_at: z.date(),
   status: statusSchema,
   // expiredInDay: membershipDaySchema,
 });
 
-const membershipCreateReqContract = z.object({
-  title: z.string(),
-  price: z.number(),
-  description: z.string(),
-  status: statusSchema,
-  // expiredInDay: membershipDaySchema,
+// Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới membership
+const membershipCreateReqContract = membershipResContract.omit({
+  membership_id: true,
+  created_at: true,
+  updated_at: true,
 });
 
-const membershipUpdateReqContract = z.object({
-  membership_id: z.string(),
-  title: z.string(),
-  price: z.number(),
-  description: z.string(),
-  status: statusSchema,
-  // expiredInDay: membershipDaySchema,
+// Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật membership
+const membershipUpdateReqContract = membershipResContract.omit({
+  created_at: true,
+  updated_at: true,
 });
 
 export type membershipCreateRequest = z.infer<typeof membershipCreateReqContract>;
