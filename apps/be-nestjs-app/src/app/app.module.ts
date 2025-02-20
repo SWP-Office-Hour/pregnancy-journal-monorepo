@@ -7,6 +7,7 @@ import { CategorysModule } from './categorys/categorys.module';
 import { CommentsModule } from './comments/comments.module';
 import { FileModule } from './file/file.module';
 import { HospitalModule } from './hosiptal/hospital.module';
+import { MailModule } from './mail/mail.module';
 import { MediaModule } from './media/media.module';
 import { MembershipsModule } from './memberships/memberships.module';
 import { MetricModule } from './metric/metric.module';
@@ -41,6 +42,7 @@ import { UsersModule } from './users/users.module';
     PostsModule,
     CommentsModule,
     ReactionModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
