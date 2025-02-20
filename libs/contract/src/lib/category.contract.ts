@@ -8,13 +8,11 @@ export const categoryResSchema = z.object({
   status: statusSchema,
 });
 
-export const categoryCreateReqSchema = z.object({
-  title: z.string(),
-  status: statusSchema,
-});
+// Sử dụng omit để loại bỏ trường `category_id` khi tạo mới category
+export const categoryCreateReqSchema = categoryResSchema.omit({ category_id: true });
 
-export const categoryUpdateReqSchema = z.object({
-  id: z.string(),
+// Sử dụng omit để loại bỏ trường không cần thiết khi cập nhật category
+export const categoryUpdateReqSchema = categoryResSchema.extend({
   title: z.string().optional(),
   status: statusSchema.optional(),
 });
