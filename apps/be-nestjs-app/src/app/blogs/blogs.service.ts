@@ -20,7 +20,7 @@ export class BlogsService {
     const blog = await this.databaseService.Blog.create({
       data: {
         title: createBlogDto.title,
-        content: createBlogDto.content_url,
+        content: createBlogDto.content,
         author: createBlogDto.author,
         summary: createBlogDto.summary,
         created_at: new Date(),
@@ -59,7 +59,7 @@ export class BlogsService {
     return blog;
   }
 
-  async findAll(page: number, limit: number) {
+  async findAll(page: number, limit: number): Promise<{ blogs: BlogResponse[]; total_page: number }> {
     const result = await this.databaseService.Blog.findMany({
       skip: page == 0 ? Number(page) : (page - 1) * limit,
       take: Number(limit),
@@ -76,11 +76,12 @@ export class BlogsService {
     const total_page = Math.ceil((await this.databaseService.Blog.count()) / limit);
 
     const blogs = result.map((blog) => ({
-      id: blog.blog_id,
+      blog_id: blog.blog_id,
       title: blog.title,
       author: blog.author,
-      content_url: blog.content,
-      create_at: blog.created_at,
+      content: blog.content,
+      created_at: blog.created_at,
+      updated_at: blog.updated_at,
       category: {
         status: blog.category.status,
         title: blog.category.title,
@@ -89,6 +90,7 @@ export class BlogsService {
       tags: blog.blog_tag.map((item) => ({
         title: item.tag.title,
         tag_id: item.tag.tag_id,
+        status: item.tag.status,
       })),
       summary: blog.summary,
     }));
@@ -118,12 +120,13 @@ export class BlogsService {
     const tags = result.blog_tag.map((item) => item.tag);
 
     return {
-      id: result.blog_id,
+      blog_id: result.blog_id,
       title: result.title,
-      content_url: result.content,
+      content: result.content,
       author: result.author,
       summary: result.summary,
-      create_at: result.created_at,
+      created_at: result.created_at,
+      updated_at: result.updated_at,
       category: result.category,
       tags: tags,
     };
@@ -132,7 +135,7 @@ export class BlogsService {
   async update(updateBlogDto: BlogUpdateRequest) {
     const cur = await this.databaseService.Blog.findUnique({
       where: {
-        blog_id: updateBlogDto.id,
+        blog_id: updateBlogDto.blog_id,
       },
     });
     const tags = updateBlogDto.tags_id;
@@ -142,7 +145,7 @@ export class BlogsService {
     }
     await this.databaseService.Blog.update({
       where: {
-        blog_id: updateBlogDto.id,
+        blog_id: updateBlogDto.blog_id,
       },
       data: {
         ...updateBlogDto,
@@ -164,7 +167,7 @@ export class BlogsService {
 
       await this.databaseService.BlogOnTag.deleteMany({
         where: {
-          blog_id: updateBlogDto.id,
+          blog_id: updateBlogDto.blog_id,
         },
       });
 
@@ -172,13 +175,13 @@ export class BlogsService {
         data: tags
           .filter((tag_id) => tag_id !== undefined)
           .map((tag_id) => ({
-            blog_id: updateBlogDto.id,
+            blog_id: updateBlogDto.blog_id,
             tag_id: tag_id,
           })),
       });
     }
 
-    return this.findOne(updateBlogDto.id);
+    return this.findOne(updateBlogDto.blog_id);
   }
 
   async remove(id: string) {

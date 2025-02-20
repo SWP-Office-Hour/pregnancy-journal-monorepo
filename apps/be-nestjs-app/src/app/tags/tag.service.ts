@@ -32,13 +32,13 @@ export class TagService {
   }
 
   update(updateTagDto: TagUpdateRequest) {
-    const cur = this.findOne(updateTagDto.id);
+    const cur = this.findOne(updateTagDto.tag_id);
     if (!cur) {
       throw new NotFoundException('Tag not found');
     }
     return this.databaseService.Tag.update({
       where: {
-        tag_id: updateTagDto.id,
+        tag_id: updateTagDto.tag_id,
       },
       data: updateTagDto,
     });
