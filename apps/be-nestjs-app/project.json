@@ -83,6 +83,10 @@
         "cache-from": "type=registry,ref=registry.digitalocean.com/office-hour/api:buildcache",
         "cache-to": "type=registry,ref=registry.digitalocean.com/office-hour/api:buildcache,mode=max"
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/be-nestjs-app/Dockerfile . -t be-nestjs-app"
     }
   }
 }
