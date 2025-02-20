@@ -99,17 +99,11 @@ export class PregnancyTrackingService {
      * Update record ở đây
      * */
     return this._httpClient
-      .patch(
-        environment.apiUrl + 'record',
-        {
-          ...pregnancy_data,
+      .patch(environment.apiUrl + 'record', pregnancy_data, {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
         },
-        {
-          headers: {
-            Authorization: `Bearer ${this._authService.accessToken}`,
-          },
-        },
-      )
+      })
       .pipe(
         map((res: RecordResponse) => {
           const index = this._recordData.findIndex((record) => record.visit_record_id === res.visit_record_id);

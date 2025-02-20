@@ -16,7 +16,6 @@ import { TrackingCardComponent } from './tracking-card/tracking-card.component';
 })
 export class PregnancyTrackingComponent {
   protected recordsData: RecordResponse[];
-  protected selectedRecordData: RecordResponse;
 
   constructor(
     private _trackingService: PregnancyTrackingService,
@@ -26,9 +25,5 @@ export class PregnancyTrackingComponent {
       this.recordsData = data;
       console.log(this.recordsData);
     });
-  }
-
-  backClicked() {
-    this._location.back();
   }
 }
