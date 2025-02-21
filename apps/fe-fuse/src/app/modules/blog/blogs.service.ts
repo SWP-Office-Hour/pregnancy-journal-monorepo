@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BlogResponse, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import { BlogCreateRequest, BlogResponse, BlogUpdateRequest, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { map, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blog: BlogResponse | any;
+  private _blog: BlogResponse;
   private _blogs: BlogResponse[];
   private _tags: TagResponse[];
   private _categories: CategoryResponse[];
@@ -38,51 +38,54 @@ export class BlogsService {
       })
       .pipe(
         map(({ blogs, total_page }: { blogs: BlogResponse[]; total_page: number }) => {
-          this._blogs = blogs;
+          this._blogs = blogs || [];
           this._totalPage = total_page;
           return { blogs: this._blogs, totalPage: this._totalPage };
         }),
       );
   }
 
-  createBlog(blog: { title: string; author: string; summary: string; content: string; category: string }) {
-    const newBlog = {
-      title: blog.title,
-      author: blog.author,
-      summary: blog.summary,
-      content_url: blog.content,
-      category: blog.category,
-    };
-    console.log(newBlog);
+  updateBlog(blog: BlogUpdateRequest) {
     return this._httpClient
-      .post(environment.apiUrl + 'blogs', {
+      .patch<BlogResponse>(environment.apiUrl + 'blogs', blog, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
-        body: newBlog,
       })
       .pipe(
-        map((response) => {
+        map((response: BlogResponse) => {
+          this._blogs = this._blogs.map((blog) => {
+            if (blog.blog_id === response.blog_id) {
+              return response;
+            }
+            return blog;
+          });
+          return response;
+        }),
+      );
+  }
+
+  createBlog(blog: BlogCreateRequest) {
+    return this._httpClient
+      .post<BlogResponse>(environment.apiUrl + 'blogs', blog, {
+        headers: {
+          Authorization: 'Bearer ' + this._authService.accessToken,
+        },
+      })
+      .pipe(
+        map((response: BlogResponse) => {
           return response;
         }),
       );
   }
 
   getBlogById(id: string) {
-    if (this._blogs) {
-      this._blog = this._blogs.find((blog) => blog.blog_id === id);
-      return of(this._blog);
-    } else {
+    const blogById = this._blogs?.find((blog) => blog.blog_id === id);
+    if (!blogById) {
       return throwError(() => new Error('Blog not found'));
     }
-  }
-
-  getContent() {
-    return this._httpClient.get('api/content/').pipe(
-      map((response: any) => {
-        return response;
-      }),
-    );
+    this._blog = blogById;
+    return of(blogById);
   }
 
   getTags() {
@@ -121,5 +124,13 @@ export class BlogsService {
           }),
         );
     }
+  }
+
+  filterByCategory(category_id: string) {
+    return this._blogs.filter((blog) => blog.category.category_id === category_id);
+  }
+
+  filterByQuery(query: string) {
+    return this._blogs.filter((blog) => blog.title.toLowerCase().includes(query.toLowerCase()));
   }
 }

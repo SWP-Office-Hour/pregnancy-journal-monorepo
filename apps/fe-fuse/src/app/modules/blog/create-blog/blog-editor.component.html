@@ -11,7 +11,7 @@
       </div>
 
       <!-- Compose form -->
-      <form class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8" [formGroup]="createBlogForm">
+      <form class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8" [formGroup]="blogEditorForm">
         <mat-form-field>
           <mat-label>Title</mat-label>
           <input matInput [formControlName]="'title'" />
@@ -19,7 +19,7 @@
 
         <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
           <mat-label>Category</mat-label>
-          <mat-select [formControlName]="'category'" required>
+          <mat-select [formControlName]="'category_id'" required>
             <mat-option value="" disabled="true">Select category</mat-option>
             @for (category of categories; track $index) {
               <mat-option value="{{ category.category_id }}">{{ category.title }}</mat-option>
@@ -58,17 +58,21 @@
         </mat-form-field>
 
         <!-- Body -->
-        <quill-editor class="mt-2" [formControlName]="'body'" [bounds]="'self'" [modules]="quillModules"></quill-editor>
+        <quill-editor
+          class="mt-2"
+          [formControlName]="'body'"
+          [bounds]="'self'"
+          [modules]="quillModules"
+          [customModules]="[{ path: 'modules/imageCompress', implementation: imageCompressImplementation }]"
+        ></quill-editor>
 
         <!-- Actions -->
         <div class="mt-4 flex flex-col justify-between sm:mt-6 sm:flex-row sm:items-center">
           <div class="mt-4 flex items-center sm:mt-0">
             <!-- Discard -->
-            <button class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">Discard</button>
-            <!-- Save as draft -->
-            <button class="sm:mx-3" mat-stroked-button (click)="saveAsDraft()">
-              <span>Save as draft</span>
-            </button>
+            @if (!_blog) {
+              <button class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">Discard</button>
+            }
             <!-- Send -->
             <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="submit()">Send</button>
           </div>

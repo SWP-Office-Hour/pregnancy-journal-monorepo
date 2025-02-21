@@ -8,8 +8,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
-import { BlogResponse, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import { Router } from '@angular/router';
+import { BlogCreateRequest, BlogResponse, BlogUpdateRequest, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
+import { imageCompressor } from 'quill-image-compress';
 import { BlogsService } from '../blogs.service';
 
 @Component({
@@ -27,12 +29,13 @@ import { BlogsService } from '../blogs.service';
     MatAutocompleteModule,
     MatSelect,
   ],
-  templateUrl: './create-blog.component.html',
-  styleUrl: './create-blog.component.css',
+  templateUrl: './blog-editor.component.html',
+  styleUrl: './blog-editor.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CreateBlogComponent implements OnInit {
-  createBlogForm: FormGroup;
+export class BlogEditorComponent implements OnInit {
+  imageCompressImplementation = imageCompressor;
+  blogEditorForm: FormGroup;
   @ViewChild('tagsInput') tags: ElementRef;
   @ViewChild('auto', { static: false }) matAutocomplete: MatAutocomplete;
   tagsChips = signal<TagResponse[]>([]);
@@ -59,6 +62,13 @@ export class CreateBlogComponent implements OnInit {
 
       ['clean'],
     ],
+    imageCompress: {
+      quality: 0.7, // default
+      maxWidth: 1024, // default
+      maxHeight: 1024, // default
+      imageType: 'image/jpeg', // default
+      debug: false, // default
+    },
   };
   protected _blog: BlogResponse;
 
@@ -68,6 +78,7 @@ export class CreateBlogComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _blogService: BlogsService,
+    private _router: Router,
   ) {
     this._blogService.getTags().subscribe((tags) => {
       this.tagsOptions = tags;
@@ -76,7 +87,6 @@ export class CreateBlogComponent implements OnInit {
       this.categories = categories;
     });
     this._blog = this._blogService.getBlog();
-    console.log(this._blog);
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -88,14 +98,27 @@ export class CreateBlogComponent implements OnInit {
    */
   ngOnInit(): void {
     // Create the form
-    this.createBlogForm = this._formBuilder.group({
+    this.blogEditorForm = this._formBuilder.group({
       title: ['', [Validators.required]],
       author: [''],
       summary: [''],
-      category: [''],
-      tags: [this.tagsChips()],
+      category_id: [''],
+      tags: [[]],
       body: ['', [Validators.required]],
     });
+    if (this._blog) {
+      this.blogEditorForm.patchValue({
+        title: this._blog.title,
+        author: this._blog.author,
+        summary: this._blog.summary,
+        body: this._blog.content,
+        category_id: this._blog.category.category_id,
+        tags: this._blog.tags,
+      });
+      this._blog.tags!.forEach((tag) => {
+        this.tagsChips().push(tag!);
+      });
+    }
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -104,27 +127,27 @@ export class CreateBlogComponent implements OnInit {
 
   saveAndClose(): void {
     // Save the message as a draft
-    this.saveAsDraft();
+    this._router.navigateByUrl('/admin/blog');
   }
 
-  discard(): void {}
-
-  saveAsDraft(): void {}
+  discard(): void {
+    this.blogEditorForm.reset();
+  }
 
   send(): void {
-    console.log(this.createBlogForm.value);
+    console.log(this.blogEditorForm.value);
   }
 
-  removeTag(tag: any): void {
-    this.tagsChips.set(this.tagsChips().filter((t: any) => t.id !== tag.id));
-    this.createBlogForm.get('tags')!.setValue(this.tagsChips());
-    console.log(this.createBlogForm.get('tags')!.value);
+  removeTag(tag: TagResponse): void {
+    this.tagsChips.set(this.tagsChips().filter((t: TagResponse) => t.tag_id !== tag.tag_id));
+    this.blogEditorForm.get('tags')!.setValue(this.tagsChips());
   }
 
   tagSelected(event: MatAutocompleteSelectedEvent): void {
     const value = event.option.value;
     if (!this.tagsChips().some((t) => t.tag_id === value.id)) {
       this.tagsChips().push(value);
+      this.blogEditorForm.get('tags')!.setValue(this.tagsChips());
     }
 
     this.tags.nativeElement.value = '';
@@ -137,17 +160,45 @@ export class CreateBlogComponent implements OnInit {
   // -----------------------------------------------------------------------------------------------------
 
   submit(): void {
-    this._blogService.createBlog(this.createBlogForm.value).subscribe((response: any) => {
-      this._blogService.getContent().subscribe((content) => {
-        const responseWithContent = {
-          id: response.id,
-          title: response.title,
-          author: response.author,
-          summary: response.summary,
-          content,
-        };
-        console.log(responseWithContent);
+    if (!this._blog) {
+      const blogCreateData: BlogCreateRequest = {
+        title: this.blogEditorForm.value.title,
+        author: this.blogEditorForm.value.author,
+        summary: this.blogEditorForm.value.summary,
+        content: this.blogEditorForm.value.body,
+        category_id: this.blogEditorForm.value.category_id,
+        tags_id: this.blogEditorForm.value.tags.map((tag: TagResponse) => tag.tag_id),
+      };
+      this._blogService.createBlog(blogCreateData).subscribe({
+        next: () => {
+          window.alert('Blog created successfully');
+          this._router.navigateByUrl('/admin/blog');
+        },
+        error: (error) => {
+          console.log(error);
+          window.alert(error.error.message);
+        },
       });
-    });
+    } else {
+      const blogUpdateData: BlogUpdateRequest = {
+        title: this.blogEditorForm.value.title,
+        author: this.blogEditorForm.value.author,
+        blog_id: this._blog.blog_id,
+        category_id: this.blogEditorForm.value.category_id,
+        summary: this.blogEditorForm.value.summary,
+        content: this.blogEditorForm.value.body,
+        tags_id: this.blogEditorForm.value.tags.map((tag: TagResponse) => tag.tag_id),
+      };
+      this._blogService.updateBlog(blogUpdateData).subscribe({
+        next: () => {
+          window.alert('Blog updated successfully');
+          this._router.navigateByUrl('/admin/blog');
+        },
+        error: (error) => {
+          console.log(error);
+          window.alert(error.error.message);
+        },
+      });
+    }
   }
 }
