@@ -44,320 +44,324 @@
     <div class="mx-auto w-full max-w-screen-xl">
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <!-- Home -->
-        <mat-tab label="Thông báo">
-          <ng-template matTabContent>
-            <!--Thông báo-->
-            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-              <!-- Task distribution -->
-              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>
-                  <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <button
-                      mat-raised-button
-                      matTooltip="(Ngày hiện tại)"
-                      aria-label="Button that displays a tooltip when focused or hovered over and the value of tooltip is current date"
-                    >
-                      Tuần nay
-                    </button>
-                    <mat-button-toggle-group value="this-week" #taskDistributionWeekSelector="matButtonToggleGroup">
-                      <mat-button-toggle value="last-week"
-                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon
-                      ></mat-button-toggle>
-                      <mat-button-toggle value="last-week"
-                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-right'"></mat-icon
-                      ></mat-button-toggle>
-                    </mat-button-toggle-group>
-                    <div class="ValueOfWeek">Tuần 5</div>
-                  </div>
-                </div>
-                <div class="mt-6 flex flex-auto flex-col">
-                  <!--            Hình ảnh thai nhi-->
-                  <!--            Câu nhắc tuần xuất khám-->
+        <!--        <mat-tab label="Thông báo">-->
+        <!--          <ng-template matTabContent>-->
+        <!--            &lt;!&ndash;Thông báo&ndash;&gt;-->
+        <!--            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">-->
+        <!--              &lt;!&ndash; Task distribution &ndash;&gt;-->
+        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
+        <!--                <div class="flex flex-col items-start justify-between sm:flex-row">-->
+        <!--                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>-->
+        <!--                  <div class="mt-3 sm:ml-2 sm:mt-0">-->
+        <!--                    <button-->
+        <!--                      mat-raised-button-->
+        <!--                      matTooltip="(Ngày hiện tại)"-->
+        <!--                      aria-label="Button that displays a tooltip when focused or hovered over and the value of tooltip is current date"-->
+        <!--                    >-->
+        <!--                      Tuần nay-->
+        <!--                    </button>-->
+        <!--                    <mat-button-toggle-group value="this-week" #taskDistributionWeekSelector="matButtonToggleGroup">-->
+        <!--                      <mat-button-toggle value="last-week"-->
+        <!--                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon-->
+        <!--                      ></mat-button-toggle>-->
+        <!--                      <mat-button-toggle value="last-week"-->
+        <!--                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-right'"></mat-icon-->
+        <!--                      ></mat-button-toggle>-->
+        <!--                    </mat-button-toggle-group>-->
+        <!--                    <div class="ValueOfWeek">Tuần 5</div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="mt-6 flex flex-auto flex-col">-->
+        <!--                  &lt;!&ndash;            Hình ảnh thai nhi&ndash;&gt;-->
+        <!--                  &lt;!&ndash;            Câu nhắc tuần xuất khám&ndash;&gt;-->
 
-                  <!--            <apx-chart-->
-                  <!--              class="h-80 w-full flex-auto"-->
-                  <!--              [chart]="chartTaskDistribution.chart"-->
-                  <!--              [labels]="chartTaskDistribution.labels"-->
-                  <!--              [legend]="chartTaskDistribution.legend"-->
-                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
-                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
-                  <!--              [states]="chartTaskDistribution.states"-->
-                  <!--              [stroke]="chartTaskDistribution.stroke"-->
-                  <!--              [theme]="chartTaskDistribution.theme"-->
-                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
-                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
-                  <!--            ></apx-chart>-->
-                </div>
-                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
-                      <!--                Data của ngày dự sinh-->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
-                    <div class="text-secondary mt-1 text-center">Còn xxx day</div>
-                  </div>
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
-                      <!--                Data của -->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
-                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>
-                  </div>
-                </div>
-              </div>
+        <!--                  &lt;!&ndash;            <apx-chart&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              class="h-80 w-full flex-auto"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [chart]="chartTaskDistribution.chart"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [labels]="chartTaskDistribution.labels"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [legend]="chartTaskDistribution.legend"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [plotOptions]="chartTaskDistribution.plotOptions"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [states]="chartTaskDistribution.states"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [stroke]="chartTaskDistribution.stroke"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [theme]="chartTaskDistribution.theme"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [tooltip]="chartTaskDistribution.tooltip"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              [yaxis]="chartTaskDistribution.yaxis"&ndash;&gt;-->
+        <!--                  &lt;!&ndash;            ></apx-chart>&ndash;&gt;-->
+        <!--                </div>-->
+        <!--                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">-->
+        <!--                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
+        <!--                    <div class="text-5xl font-semibold leading-none tracking-tighter">-->
+        <!--                      &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}&ndash;&gt;-->
+        <!--                      &lt;!&ndash;                Data của ngày dự sinh&ndash;&gt;-->
+        <!--                    </div>-->
+        <!--                    <div class="text-secondary mt-1 text-center">Dự sinh</div>-->
+        <!--                    <div class="text-secondary mt-1 text-center">Còn xxx day</div>-->
+        <!--                  </div>-->
+        <!--                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
+        <!--                    <div class="text-5xl font-semibold leading-none tracking-tighter">-->
+        <!--                      &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}&ndash;&gt;-->
+        <!--                      &lt;!&ndash;                Data của &ndash;&gt;-->
+        <!--                    </div>-->
+        <!--                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>-->
+        <!--                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--              </div>-->
 
-              <!-- Schedule -->
-              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Schedule</div>
-                  <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">
-                      <mat-button-toggle value="today">Today</mat-button-toggle>
-                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>
-                    </mat-button-toggle-group>
-                  </div>
-                </div>
-                <div class="mt-2 flex flex-col divide-y">
-                  <!--            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {-->
-                  <!--              <div class="flex flex-row items-center justify-between px-0.5 py-4">-->
-                  <!--                <div class="flex flex-col">-->
-                  <!--                  <div class="font-medium">-->
-                  <!--                    {{ scheduleItem.title }}-->
-                  <!--                  </div>-->
-                  <!--                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">-->
-                  <!--                    @if (scheduleItem.time) {-->
-                  <!--                      <div class="flex items-center">-->
-                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>-->
-                  <!--                        <div class="text-secondary text-md ml-1.5">-->
-                  <!--                          {{ scheduleItem.time }}-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    }-->
-                  <!--                    @if (scheduleItem.location) {-->
-                  <!--                      <div class="flex items-center">-->
-                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>-->
-                  <!--                        <div class="text-secondary text-md ml-1.5">-->
-                  <!--                          {{ scheduleItem.location }}-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    }-->
-                  <!--                  </div>-->
-                  <!--                </div>-->
-                  <!--                <button mat-icon-button>-->
-                  <!--                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>-->
-                  <!--                </button>-->
-                  <!--              </div>-->
-                  <!--            }-->
-                </div>
-              </div>
+        <!--              &lt;!&ndash; Schedule &ndash;&gt;-->
+        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
+        <!--                <div class="flex flex-col items-start justify-between sm:flex-row">-->
+        <!--                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Schedule</div>-->
+        <!--                  <div class="mt-3 sm:ml-2 sm:mt-0">-->
+        <!--                    <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">-->
+        <!--                      <mat-button-toggle value="today">Today</mat-button-toggle>-->
+        <!--                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>-->
+        <!--                    </mat-button-toggle-group>-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <div class="mt-2 flex flex-col divide-y">-->
+        <!--                  &lt;!&ndash;            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              <div class="flex flex-row items-center justify-between px-0.5 py-4">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                <div class="flex flex-col">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                  <div class="font-medium">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                    {{ scheduleItem.title }}&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                    @if (scheduleItem.time) {&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                      <div class="flex items-center">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        <div class="text-secondary text-md ml-1.5">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                          {{ scheduleItem.time }}&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                    }&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                    @if (scheduleItem.location) {&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                      <div class="flex items-center">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        <div class="text-secondary text-md ml-1.5">&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                          {{ scheduleItem.location }}&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                    }&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                <button mat-icon-button>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;                </button>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;              </div>&ndash;&gt;-->
+        <!--                  &lt;!&ndash;            }&ndash;&gt;-->
+        <!--                </div>-->
+        <!--              </div>-->
 
-              <!-- Summary -->
-              <!-- Github issues summary -->
-              <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">-->
-              <!--                <div class="flex flex-col items-start justify-between sm:flex-row">-->
-              <!--                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Github Issues Summary</div>-->
-              <!--                  <div class="mt-3 sm:ml-2 sm:mt-0">-->
-              <!--                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">-->
-              <!--                      <mat-button-toggle value="last-week">Last Week</mat-button-toggle>-->
-              <!--                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>-->
-              <!--                    </mat-button-toggle-group>-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!--                <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">-->
-              <!--                  &lt;!&ndash; New vs. Closed &ndash;&gt;-->
-              <!--                  <div class="flex flex-auto flex-col">-->
-              <!--                    <div class="text-secondary font-medium">New vs. Closed</div>-->
-              <!--                    <div class="flex flex-auto flex-col">-->
-              <!--                      &lt;!&ndash;                      <apx-chart&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        class="h-80 w-full flex-auto"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [chart]="chartGithubIssues.chart"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [colors]="chartGithubIssues.colors"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [dataLabels]="chartGithubIssues.dataLabels"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [grid]="chartGithubIssues.grid"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [labels]="chartGithubIssues.labels"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [legend]="chartGithubIssues.legend"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [plotOptions]="chartGithubIssues.plotOptions"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [series]="chartGithubIssues.series[githubIssuesWeekSelector.value]"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [states]="chartGithubIssues.states"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [stroke]="chartGithubIssues.stroke"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [tooltip]="chartGithubIssues.tooltip"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [xaxis]="chartGithubIssues.xaxis"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                        [yaxis]="chartGithubIssues.yaxis"&ndash;&gt;-->
-              <!--                      &lt;!&ndash;                      ></apx-chart>&ndash;&gt;-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                  &lt;!&ndash; Overview &ndash;&gt;-->
-              <!--                  <div class="flex flex-col">-->
-              <!--                    <div class="text-secondary font-medium">Overview</div>-->
-              <!--                    <div class="mt-6 grid flex-auto grid-cols-4 gap-4">-->
-              <!--                      &lt;!&ndash; New issues &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>-->
-              <!--                      </div>-->
-              <!--                      &lt;!&ndash; Closed &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>-->
-              <!--                      </div>-->
-              <!--                      &lt;!&ndash; Fixed &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-center text-sm font-medium">Fixed</div>-->
-              <!--                      </div>-->
-              <!--                      &lt;!&ndash; Won't fix &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>-->
-              <!--                      </div>-->
-              <!--                      &lt;!&ndash; Re-opened &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-center text-sm font-medium">Re-opened</div>-->
-              <!--                      </div>-->
-              <!--                      &lt;!&ndash; Needs triage &ndash;&gt;-->
-              <!--                      <div-->
-              <!--                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"-->
-              <!--                      >-->
-              <!--                        <div class="text-5xl font-semibold leading-none tracking-tight">-->
-              <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}-->
-              <!--                        </div>-->
-              <!--                        <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>-->
-              <!--                      </div>-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                </div>-->
-              <!--              </div>-->
-            </div>
-          </ng-template>
-        </mat-tab>
+        <!--              &lt;!&ndash; Summary &ndash;&gt;-->
+        <!--              &lt;!&ndash; Github issues summary &ndash;&gt;-->
+        <!--              &lt;!&ndash;              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                <div class="flex flex-col items-start justify-between sm:flex-row">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Github Issues Summary</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  <div class="mt-3 sm:ml-2 sm:mt-0">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <mat-button-toggle value="last-week">Last Week</mat-button-toggle>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    </mat-button-toggle-group>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  &lt;!&ndash; New vs. Closed &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  <div class="flex flex-auto flex-col">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    <div class="text-secondary font-medium">New vs. Closed</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    <div class="flex flex-auto flex-col">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                      <apx-chart&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        class="h-80 w-full flex-auto"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [chart]="chartGithubIssues.chart"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [colors]="chartGithubIssues.colors"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [dataLabels]="chartGithubIssues.dataLabels"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [grid]="chartGithubIssues.grid"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [labels]="chartGithubIssues.labels"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [legend]="chartGithubIssues.legend"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [plotOptions]="chartGithubIssues.plotOptions"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [series]="chartGithubIssues.series[githubIssuesWeekSelector.value]"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [states]="chartGithubIssues.states"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [stroke]="chartGithubIssues.stroke"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [tooltip]="chartGithubIssues.tooltip"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [xaxis]="chartGithubIssues.xaxis"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [yaxis]="chartGithubIssues.yaxis"&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash;                      ></apx-chart>&ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  &lt;!&ndash; Overview &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  <div class="flex flex-col">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    <div class="text-secondary font-medium">Overview</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    <div class="mt-6 grid flex-auto grid-cols-4 gap-4">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; New issues &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; Closed &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; Fixed &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Fixed</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; Won't fix &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; Re-opened &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Re-opened</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      &lt;!&ndash; Needs triage &ndash;&gt;&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
+        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                    </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;                </div>&ndash;&gt;-->
+        <!--              &lt;!&ndash;              </div>&ndash;&gt;-->
+        <!--            </div>-->
+        <!--          </ng-template>-->
+        <!--        </mat-tab>-->
 
         <mat-tab label="Bé con">
           <ng-template matTabContent>
             <!--Tính ngày dự sinh-->
+
             <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Content -->
-              <div class="bg-card flex-auto flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow md:col-span-3">
+              <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">
+                <!--              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">-->
                 <div class="flex items-start justify-between md:col-span-2">
                   <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>
                   <div class="-mr-3 -mt-2 ml-2">
-                    <button mat-icon-button [matMenuTriggerFor]="summaryMenu">
-                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:clock'"></mat-icon>
+                    <button mat-icon-button>
+                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:calculator'"></mat-icon>
                     </button>
-                    <mat-menu #summaryMenu="matMenu">
-                      <button mat-menu-item>Yesterday</button>
-                      <button mat-menu-item>2 days ago</button>
-                      <button mat-menu-item>3 days ago</button>
-                    </mat-menu>
                   </div>
                 </div>
 
-                <div class="flex flex-auto flex-col">
-                  <div class="mt-2 flex flex-col">
-                    <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
-                    <!--                    <div class="text-secondary mt-5 flex w-full items-baseline justify-center"></div>-->
-                    <form class="bg-card mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" #countDownNgForm="ngForm">
-                      <div class="grid gap-6 md:grid-cols-2">
-                        <!--Ngày đầu chu kì kinh cuối-->
-                        <div class="flex w-full flex-col">
-                          <mat-form-field [ngClass]="formFieldHelpers" class="flex-auto">
-                            <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
-                            <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" />
-                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                            <mat-datepicker #picker1></mat-datepicker>
-                          </mat-form-field>
-                        </div>
-                        <!--Chu kì kinh cuối-->
-                        <div class="gt-xs:flex-row flex w-full flex-col">
-                          <mat-form-field [ngClass]="formFieldHelpers" class="gt-xs:pr-3 flex-auto" formControlName="menstrualCycle">
-                            <mat-label>Chu kỳ kinh nguyệt</mat-label>
-                            <mat-select>
-                              <mat-option value="select1-1">15 Ngày</mat-option>
-                              <mat-option value="select1-2">16 Ngày</mat-option>
-                              <mat-option value="select1-3">17 Ngày</mat-option>
-                              <mat-option value="select1-1">18 Ngày</mat-option>
-                              <mat-option value="select1-2">19 Ngày</mat-option>
-                              <mat-option value="select1-3">20 Ngày</mat-option>
-                              <mat-option value="select1-1">21 Ngày</mat-option>
-                              <mat-option value="select1-2">22 Ngày</mat-option>
-                              <mat-option value="select1-3">23 Ngày</mat-option>
-                              <mat-option value="select1-1">24 Ngày</mat-option>
-                              <mat-option value="select1-2">25 Ngày</mat-option>
-                              <mat-option value="select1-3">26 Ngày</mat-option>
-                              <mat-option value="select1-1">27 Ngày</mat-option>
-                              <mat-option value="select1-2">28 Ngày</mat-option>
-                              <mat-option value="select1-3">29 Ngày</mat-option>
-                              <mat-option value="select1-1">30 Ngày</mat-option>
-                              <mat-option value="select1-2">31 Ngày</mat-option>
-                              <mat-option value="select1-3">32 Ngày</mat-option>
-                              <mat-option value="select1-1">33 Ngày</mat-option>
-                              <mat-option value="select1-2">34 Ngày</mat-option>
-                              <mat-option value="select1-3">35 Ngày</mat-option>
-                              <mat-option value="select1-1">36 Ngày</mat-option>
-                              <mat-option value="select1-2">37 Ngày</mat-option>
-                              <mat-option value="select1-3">38 Ngày</mat-option>
-                              <mat-option value="select1-1">39 Ngày</mat-option>
-                              <mat-option value="select1-2">40 Ngày</mat-option>
-                            </mat-select>
-                            <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                      <!-- Email field -->
-                      <!--                        <mat-form-field class="w-full">-->
-                      <!--                          <mat-label>Email</mat-label>-->
-                      <!--                          <input id="expectedDate" matInput [formControlName]="'expectedDate'" />-->
-                      <!--                          @if (signInForm.get('email').hasError('required')) {-->
-                      <!--                            <mat-error> Vui lòng nhập địa chỉ email</mat-error>-->
-                      <!--                          }-->
-                      <!--                          @if (signInForm.get('email').hasError('email')) {-->
-                      <!--                            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>-->
-                      <!--                          }-->
-                      <!--                        </mat-form-field>-->
-
-                      <!-- Submit button -->
-                      <button
-                        class="fuse-mat-button-large mt-6 w-full"
-                        mat-flat-button
-                        [color]="'primary'"
-                        [disabled]="countDownForm.disabled"
-                        (click)="calculateExpectedDate()"
-                      >
-                        @if (!countDownForm.disabled) {
-                          <span> Xem Kết Quả Ngay</span>
-                        }
-                        @if (countDownForm.disabled) {
-                          <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
-                        }
-                      </button>
-                    </form>
+                <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
+                <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">
+                  <div class="grid gap-6 md:grid-cols-2">
+                    <!--Ngày đầu chu kì kinh cuối-->
+                    <div class="flex w-full flex-col">
+                      <mat-form-field class="flex-auto">
+                        <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <!--Chu kì kinh cuối-->
+                    <div class="gt-xs:flex-row flex w-full flex-col">
+                      <mat-form-field class="gt-xs:pr-3 flex-auto">
+                        <mat-label>Chu kỳ kinh nguyệt</mat-label>
+                        <mat-select formControlName="menstrualCycle">
+                          <mat-option value="15">15 Ngày</mat-option>
+                          <mat-option value="16">16 Ngày</mat-option>
+                          <mat-option value="17">17 Ngày</mat-option>
+                          <mat-option value="18">18 Ngày</mat-option>
+                          <mat-option value="19">19 Ngày</mat-option>
+                          <mat-option value="20">20 Ngày</mat-option>
+                          <mat-option value="21">21 Ngày</mat-option>
+                          <mat-option value="22">22 Ngày</mat-option>
+                          <mat-option value="23">23 Ngày</mat-option>
+                          <mat-option value="24">24 Ngày</mat-option>
+                          <mat-option value="25">25 Ngày</mat-option>
+                          <mat-option value="26">26 Ngày</mat-option>
+                          <mat-option value="27">27 Ngày</mat-option>
+                          <mat-option value="28">28 Ngày</mat-option>
+                          <mat-option value="29">29 Ngày</mat-option>
+                          <mat-option value="30">30 Ngày</mat-option>
+                          <mat-option value="31">31 Ngày</mat-option>
+                          <mat-option value="32">32 Ngày</mat-option>
+                          <mat-option value="33">33 Ngày</mat-option>
+                          <mat-option value="34">34 Ngày</mat-option>
+                          <mat-option value="35">35 Ngày</mat-option>
+                          <mat-option value="36">36 Ngày</mat-option>
+                          <mat-option value="37">37 Ngày</mat-option>
+                          <mat-option value="38">38 Ngày</mat-option>
+                          <mat-option value="39">39 Ngày</mat-option>
+                          <mat-option value="40">40 Ngày</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
                   </div>
-                </div>
-              </div>
-              <!-- Tháng  -->
+                  <!-- Email field -->
+                  <!--                        <mat-form-field class="w-full">-->
+                  <!--                          <mat-label>Email</mat-label>-->
+                  <!--                          <input id="expectedDate" matInput [formControlName]="'expectedDate'" />-->
+                  <!--                          @if (signInForm.get('email').hasError('required')) {-->
+                  <!--                            <mat-error> Vui lòng nhập địa chỉ email</mat-error>-->
+                  <!--                          }-->
+                  <!--                          @if (signInForm.get('email').hasError('email')) {-->
+                  <!--                            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>-->
+                  <!--                          }-->
+                  <!--                        </mat-form-field>-->
+
+                  <!-- Submit button -->
+                  <button
+                    class="fuse-mat-button-large mt-6 w-full"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="!countDownForm.valid"
+                    (click)="expandableCard01.expanded = true"
+                  >
+                    Xem Kết Quả Ngay
+                  </button>
+                </form>
+                <ng-container fuseCardExpansion>
+                  <div class="mt-10 flex flex-col items-center">
+                    <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>
+                    <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>
+                    <div class="mt-3">
+                      <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.
+                    </div>
+                    <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">
+                      <mat-icon
+                        class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"
+                        [ngClass]="{
+                          'rotate-180': expandableCard01.expanded,
+                        }"
+                        [svgIcon]="'heroicons_mini:chevron-down'"
+                      ></mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </fuse-card>
+              <!-- Lịch countdown  -->
               <div
                 class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
                 style="
@@ -936,7 +940,8 @@
         <!--            </div>-->
         <!--          </ng-template>-->
         <!--        </mat-tab>-->
-
+      </mat-tab-group>
+      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <mat-tab label="Bài viết nên đọc">
           <ng-template matTabContent>
             <app-recommended-blogs></app-recommended-blogs>
