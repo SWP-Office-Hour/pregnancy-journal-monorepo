@@ -1,11 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, resource, ResourceRef, signal, WritableSignal } from '@angular/core';
-import { ReminderResponse } from '@pregnancy-journal-monorepo/contract';
+import { ReminderCreateRequest, ReminderResponse } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
+import { map } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class CalendarService {
-  constructor() {}
+  constructor(
+    private _httpClient: HttpClient,
+    private _authService: AuthService,
+  ) {}
 
   private _activeDay: WritableSignal<DateTime | null> = signal(null);
 
@@ -38,7 +44,18 @@ export class CalendarService {
     return this.meetings()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
   }
 
-  createReminder(reminder: any) {
-    console.log(reminder);
+  createReminder(reminder: ReminderCreateRequest) {
+    return this._httpClient
+      .post<ReminderResponse>(environment.apiUrl + 'reminders', reminder, {
+        headers: {
+          Authorization: 'Bearer ' + this._authService.accessToken,
+        },
+      })
+      .pipe(
+        map((response: ReminderResponse) => {
+          this._meetings.set([...this.meetings(), response]);
+          return response;
+        }),
+      );
   }
 }
