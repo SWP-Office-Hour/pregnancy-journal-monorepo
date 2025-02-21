@@ -49,19 +49,14 @@ export class TrackingFormComponent {
     this.selectedRecordData = this._trackingService.SelectedRecordData;
     this.images = this._trackingService.Media;
     this.week = this.selectedRecordData.week;
-    this.trackingForm = this._formBuilder.group(
-      {
-        visit_record_id: '',
-        visit_doctor_date: new Date(),
-        next_visit_doctor_date: new Date(),
-        hospital: '',
-        doctor_name: '',
-        metrics: this._formBuilder.array([]),
-      },
-      {
-        validators: [Validators.required],
-      },
-    );
+    this.trackingForm = this._formBuilder.group({
+      visit_record_id: ['', Validators.required],
+      visit_doctor_date: [new Date(), Validators.required],
+      next_visit_doctor_date: [new Date(), Validators.required],
+      hospital: ['', Validators.required],
+      doctor_name: ['', Validators.required],
+      metrics: this._formBuilder.array([]),
+    });
     this.trackingForm.patchValue({
       visit_record_id: this.selectedRecordData.visit_record_id,
       hospital: this.selectedRecordData.hospital.hospital_id,
@@ -76,7 +71,7 @@ export class TrackingFormComponent {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
         const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
-        this.metricsFormArray.push(this._formBuilder.control(value));
+        this.metricsFormArray.push(this._formBuilder.control(value, metric.required ? Validators.required : []));
       });
     });
   }
