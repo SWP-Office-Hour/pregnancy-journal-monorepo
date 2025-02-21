@@ -11,7 +11,7 @@ ENV NODE_ENV=production
 ENV PORT=3000
 
 WORKDIR /usr/src/app
-COPY dist/apps/be-nestjs-app/package*.json ./
+COPY dist/apps/be-nestjs-app ./
 COPY apps/be-nestjs-app/prisma/schema.prisma ./prisma/
 
 RUN pnpm install
