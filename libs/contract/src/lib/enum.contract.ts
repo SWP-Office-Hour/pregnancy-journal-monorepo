@@ -33,9 +33,8 @@ export const membershipDaySchema = z.nativeEnum(membershipDay);
 
 // Định nghĩa ReminderType enum
 export enum ReminderType {
-  BIRTHDAY,
-  EVENT,
-  MEETING,
+  EVENT = 0,
+  MEETING = 1,
 }
 
 export const reminderTypeSchema = z.nativeEnum(ReminderType);

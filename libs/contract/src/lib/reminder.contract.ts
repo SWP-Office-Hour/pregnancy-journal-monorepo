@@ -2,33 +2,32 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { reminderTypeSchema, statusSchema } from './enum.contract';
 
-export const reminderResSchema = z.object({
+// Base schema for common fields
+const reminderBaseSchema = z.object({
+  title: z.string(),
+  content: z.string(),
+  remind_date: z.string().date(),
+});
+
+// Schema for creating a reminder
+export const reminderCreateReqSchema = reminderBaseSchema;
+
+// Schema for updating a reminder
+export const reminderUpdateReqSchema = reminderBaseSchema.partial().extend({
   reminder_id: z.string(),
-  type: reminderTypeSchema,
-  title: z.string(),
-  content: z.string(),
-  remind_date: z.date(),
-  status: statusSchema,
 });
 
-export const reminderCreateReqSchema = z.object({
-  type: reminderTypeSchema,
-  title: z.string(),
-  content: z.string(),
-  remindDate: z.string().date(),
-  status: statusSchema,
-  user_id: z.string(),
-});
-
-export const reminderUpdateReqSchema = z.object({
-  id: z.string(),
-  type: reminderTypeSchema.optional(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  remindDate: z.string().date().optional(),
-  status: statusSchema.optional(),
-  user_id: z.string().optional(),
-});
+// Schema for the reminder response
+export const reminderResSchema = reminderBaseSchema
+  .extend({
+    reminder_id: z.string(),
+    type: reminderTypeSchema,
+    status: statusSchema,
+  })
+  .omit({ remind_date: true })
+  .extend({
+    remind_date: z.date(),
+  });
 
 export type ReminderResponse = z.infer<typeof reminderResSchema>;
 export type ReminderCreateRequest = z.infer<typeof reminderCreateReqSchema>;
