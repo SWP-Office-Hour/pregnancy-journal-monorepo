@@ -29,6 +29,7 @@ export class BlogComponent {
       this.blogs = blogs;
       this.filteredBlogs = blogs;
       this.totalPage = totalPage;
+      this._blogsService.clearBlog();
     });
     this._blogsService.getCategories().subscribe((categories) => {
       this.categories = categories;
