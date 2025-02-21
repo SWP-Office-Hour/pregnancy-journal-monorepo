@@ -36,7 +36,12 @@ export class BlogComponent {
   }
 
   filterByCategory($event: MatSelectChange) {
-    console.log($event.value);
+    const category_id = $event.value;
+    if (!category_id || category_id === 'all') {
+      this.filteredBlogs = this.blogs;
+      return;
+    }
+    this.filteredBlogs = this._blogsService.filterByCategory(category_id);
   }
 
   trackByFn(index: number, item: any): any {
@@ -44,6 +49,6 @@ export class BlogComponent {
   }
 
   filterByQuery(value: string) {
-    console.log(value);
+    this.filteredBlogs = this._blogsService.filterByQuery(value);
   }
 }

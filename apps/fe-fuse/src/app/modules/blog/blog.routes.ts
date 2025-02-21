@@ -62,13 +62,13 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { catchError, throwError } from 'rxjs';
 import { BlogComponent } from './blog.component';
 import { BlogsService } from './blogs.service';
-import { CreateBlogComponent } from './create-blog/create-blog.component';
+import { BlogEditorComponent } from './create-blog/blog-editor.component';
 
 const blogResolver = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
   const blogsService = inject(BlogsService);
   const router = inject(Router);
 
-  return blogsService.getBlogById(route.paramMap.get('id')).pipe(
+  return blogsService.getBlogById(route.paramMap.get('id')!).pipe(
     // Error here means the requested course is not available
     catchError((error) => {
       // Log the error
@@ -93,11 +93,11 @@ export const BlogRoutes = [
   },
   {
     path: 'create',
-    component: CreateBlogComponent,
+    component: BlogEditorComponent,
   },
   {
     path: ':id',
-    component: CreateBlogComponent,
+    component: BlogEditorComponent,
     resolve: {
       blog: blogResolver,
     },

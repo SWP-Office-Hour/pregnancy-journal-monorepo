@@ -68,6 +68,7 @@
     "nodemailer": "^6.10.0",
     "perfect-scrollbar": "^1.5.6",
     "quill": "^2.0.3",
+    "quill-image-compress": "^2.0.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "socket.io": "^4.8.1",
