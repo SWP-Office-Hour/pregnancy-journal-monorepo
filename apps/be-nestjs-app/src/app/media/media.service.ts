@@ -1,4 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
+import { MediaResponse } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { FileService } from '../file/file.service';
 
@@ -8,6 +9,28 @@ export class MediaService {
     private readonly databaseService: DatabaseService,
     private readonly fileService: FileService,
   ) {}
+
+  async updateWithRecordId({ media, record_id }: { media: MediaResponse[]; record_id?: string }) {
+    const record = await this.databaseService.Record.findUnique({
+      where: {
+        visit_record_id: record_id,
+      },
+    });
+    if (!record) {
+      throw new NotFoundException('Record not found');
+    }
+
+    const mediaOfRecord = await this.databaseService.Media.findMany({
+      where: {
+        visit_record_id: record_id,
+      },
+    });
+
+    const deletedMedias = mediaOfRecord.filter((m) => !media.find((m2) => m2.media_id === m.media_id));
+    const newMedias = media.filter((m) => !mediaOfRecord.find((m2) => m2.media_id === m.media_id));
+
+    return { newMedias, deletedMedias };
+  }
 
   async createWithPostId({ media_url, post_id }: { media_url: string; post_id: string }) {
     const post = this.databaseService.Post.findUnique({
