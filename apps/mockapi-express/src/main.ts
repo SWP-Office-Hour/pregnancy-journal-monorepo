@@ -6,6 +6,7 @@
 import cors from 'cors';
 import express from 'express';
 import * as path from 'path';
+import { blogsMockData } from './blogs.mockapi';
 import { healthMetricListMockData } from './health-metric.mockapi';
 
 const app = express();
@@ -24,7 +25,11 @@ app.get('/metrics', (req, res) => {
   res.send(healthMetricListMockData);
 });
 
-const port = process.env.PORT || 3333;
+app.get('/blogs', (req, res) => {
+  res.send(blogsMockData);
+});
+
+const port = 3000;
 const server = app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}/`);
 });
