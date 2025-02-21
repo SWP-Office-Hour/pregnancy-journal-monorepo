@@ -46,25 +46,20 @@ export class RecordFormComponent {
     private _recordService: PregnancyRecordService,
     private _formBuilder: FormBuilder,
   ) {
-    this.recordForm = this._formBuilder.group(
-      {
-        visit_doctor_date: new Date(),
-        next_visit_doctor_date: new Date(),
-        hospital: '',
-        doctor_name: '',
-        metrics: this._formBuilder.array([]),
-      },
-      {
-        validators: [Validators.required],
-      },
-    );
+    this.recordForm = this._formBuilder.group({
+      visit_doctor_date: [new Date(), Validators.required],
+      next_visit_doctor_date: [new Date(), Validators.required],
+      hospital: ['', Validators.required],
+      doctor_name: ['', Validators.required],
+      metrics: this._formBuilder.array([]),
+    });
     this._recordService.getHospital().subscribe((hospitals) => {
       this.hospitals = hospitals;
     });
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
-      this.metrics.forEach(() => {
-        this.metricsFormArray.push(this._formBuilder.control(0));
+      this.metrics.forEach((metric) => {
+        this.metricsFormArray.push(this._formBuilder.control(0, metric.required ? Validators.required : []));
       });
     });
     this.images = this._recordService.getMediaSrc();
@@ -75,6 +70,10 @@ export class RecordFormComponent {
   }
 
   submitForm() {
+    if (this.recordForm.invalid) {
+      this.recordForm.markAllAsTouched();
+      return;
+    }
     const data = this.metricsFormArray.controls.map((control, index) => ({
       metric_id: this.metrics[index].metric_id,
       value: control.value as number,
