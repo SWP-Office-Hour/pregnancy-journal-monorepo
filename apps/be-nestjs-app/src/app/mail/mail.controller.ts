@@ -7,6 +7,6 @@ export class MailController {
 
   @Get()
   handleMail() {
-    return this.mailService.send();
+    return this.mailService.resetPassword('940ccb81-ed13-11ef-9d96-0242ac110002');
   }
 }
