@@ -3,19 +3,23 @@ import { ApplicationConfig, inject, provideAppInitializer } from '@angular/core'
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
 import { provideTransloco, TranslocoService } from '@ngneat/transloco';
+import Aura from '@primeng/themes/aura';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
+import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
 import { appRoutes } from './app.routes';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
     provideOAuthClient(),
     provideAnimations(),
     provideHttpClient(),
@@ -25,6 +29,11 @@ export const appConfig: ApplicationConfig = {
       withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
       withComponentInputBinding(),
     ),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+      },
+    }),
 
     // Material Date Adapter
     {
