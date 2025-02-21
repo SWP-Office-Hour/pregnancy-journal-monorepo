@@ -1,14 +1,15 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatOptionModule, MatRippleModule } from '@angular/material/core';
+import { MatOptionModule, MatRippleModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatError, MatFormFieldModule } from '@angular/material/form-field';
 import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -96,7 +97,10 @@ export class DialogContentPriceComponent {
     MatOptionModule,
     MatChipsModule,
     MatDatepickerModule,
+    MatExpansionModule,
+    FuseCardComponent,
   ],
+  providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -104,33 +108,41 @@ export class DialogContentPriceComponent {
 export class HomeComponent implements OnInit {
   //User
   // private user: User;
-  private dueDate: Date = new Date();
 
   // Form tính ngày dự sinh
-  @ViewChild('countDownForm') countDownNgForm: NgForm;
-  countDownForm: UntypedFormGroup;
-  private expectedDate: Date;
-  formFieldHelpers: string[] = [''];
+  private expectedDate: Date = new Date();
+  public formatDate: string;
+  countDownForm = new FormGroup({
+    lastMenstrualPeriod: new FormControl('', Validators.required),
+    menstrualCycle: new FormControl('', Validators.required),
+  });
 
-  calculateDueDate(lmp: Date, cycleLength: number): Date {
-    // Ngày dự sinh tiêu chuẩn (40 tuần = 280 ngày)
-    let dueDate = new Date(lmp);
-    dueDate.setDate(dueDate.getDate() + 280);
+  calculateExpectedDate() {
+    const lastMenstrualPeriodString: string | null = this.countDownForm.get('lastMenstrualPeriod')?.value;
+    const lastMenstrualPeriod: Date | null = lastMenstrualPeriodString ? new Date(lastMenstrualPeriodString) : null;
+    const menstrualCycleString: string | null = this.countDownForm.get('menstrualCycle')?.value;
+    const menstrualCycle: number | null = menstrualCycleString ? Number(menstrualCycleString) : null;
 
-    // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
-    let adjustment = cycleLength - 28;
-    dueDate.setDate(dueDate.getDate() + adjustment);
+    if (lastMenstrualPeriod instanceof Date && typeof menstrualCycle === 'number') {
+      // Ngày dự sinh tiêu chuẩn với chu kỳ 28 ngày (40 tuần = 280 ngày)
+      let dueDate = new Date(lastMenstrualPeriod);
+      dueDate.setDate(dueDate.getDate() + 280);
 
-    return dueDate;
+      // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
+      let adjustment = menstrualCycle - 28;
+      dueDate.setDate(dueDate.getDate() + adjustment);
+
+      this.expectedDate = dueDate;
+      this.formatDate = this.expectedDate.toLocaleDateString('vi-VN');
+    }
   }
 
-  //tooltip
+  //tooltip for Hôm nay mẹ đi khám
   @Input() tooltip: string;
   readonly dialog = inject(MatDialog);
   openDialog() {
     this.dialog.open(DialogContentPriceComponent);
   }
-
   //end Tooltip
 
   chartWeightOfFetal: ApexOptions = {};
@@ -160,21 +172,13 @@ export class HomeComponent implements OnInit {
   //  * On init
   //  */
   ngOnInit(): void {
-    // Form tính ngày dự sinh
-    this.countDownForm = this._formBuilder.group({
-      lastMenstrualPeriod: ['', Validators.required],
-      menstrualCycle: ['', Validators.required],
-    });
-
     // Get the data
     // this._projectService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
     // Store the data
     // this.data = data;
-
     // Prepare the chart data
     // this._prepareChartData();
     // });
-
     // Attach SVG fill fixer to all ApexCharts
     // window['Apex'] = {
     //   chart: {
