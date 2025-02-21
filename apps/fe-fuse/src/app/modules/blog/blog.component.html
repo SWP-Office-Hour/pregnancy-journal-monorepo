@@ -8,7 +8,7 @@
           <mat-select [value]="'all'" (selectionChange)="filterByCategory($event)">
             <mat-option [value]="'all'">All</mat-option>
             @for (category of categories; track trackByFn($index, category)) {
-              <mat-option [value]="category.id">{{ category.title }}</mat-option>
+              <mat-option [value]="category.category_id">{{ category.title }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
@@ -49,7 +49,7 @@
               <div class="mt-auto flex w-full flex-col">
                 <!-- Course launch button -->
                 <div class="bg-gray-50 px-6 py-4 text-right dark:bg-transparent">
-                  <a mat-stroked-button [routerLink]="[blog.id]">
+                  <a mat-stroked-button [routerLink]="[blog.blog_id]">
                     <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:arrow-right'"></mat-icon>
                     <span>Read More</span>
                   </a>
