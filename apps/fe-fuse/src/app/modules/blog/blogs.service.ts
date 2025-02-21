@@ -7,7 +7,7 @@ import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blog: BlogResponse;
+  private _blog: BlogResponse | null;
   private _blogs: BlogResponse[];
   private _tags: TagResponse[];
   private _categories: CategoryResponse[];
@@ -24,6 +24,10 @@ export class BlogsService {
 
   getBlog() {
     return this._blog;
+  }
+
+  clearBlog() {
+    this._blog = null;
   }
 
   getBlogs() {

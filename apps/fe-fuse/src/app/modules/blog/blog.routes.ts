@@ -94,6 +94,12 @@ export const BlogRoutes = [
   {
     path: 'create',
     component: BlogEditorComponent,
+    resolve: {
+      blog: () => {
+        const blogsService = inject(BlogsService);
+        blogsService.clearBlog();
+      },
+    },
   },
   {
     path: ':id',
