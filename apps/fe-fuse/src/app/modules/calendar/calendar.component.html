@@ -145,16 +145,22 @@
         -->
         @for (dayOfMonth of daysOfMonth(); track $index) {
           <div
+            class="relative px-3 py-2 hover:bg-blue-200"
             [ngClass]="{
-              'relative px-3 py-2 hover:bg-blue-200': true,
-              'bg-white': dayOfMonth.month == firstDayOfActiveMonth().month,
-              'bg-gray-50 text-gray-500': dayOfMonth.month !== firstDayOfActiveMonth().month,
-              'bg-blue-600 text-white': activeDay()?.toISODate() === dayOfMonth.toISODate(),
-              'bg-blue-900 text-white': dayOfMonth.toISODate() == today().toISODate(),
+              'bg-white': dateInActiveMonth(dayOfMonth),
+              'bg-gray-50 text-gray-500': !dateInActiveMonth(dayOfMonth),
+              '!bg-blue-900 text-white': IsToday(dayOfMonth),
             }"
             (click)="clickDate(dayOfMonth)"
           >
-            <time datetime="{{ dayOfMonth.toISODate() }}">{{ dayOfMonth.day }}</time>
+            <time
+              datetime="{{ dayOfMonth.toISODate() }}"
+              [ngClass]="{
+                'flex h-6 w-6 items-center justify-center rounded-full': true,
+                'bg-indigo-600': IsActiveDay(dayOfMonth),
+              }"
+              >{{ dayOfMonth.day }}
+            </time>
             @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
               <p>{{ meeting.title }}</p>
             }
@@ -173,9 +179,9 @@
             type="button"
             [ngClass]="{
               'flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10': true,
-              'bg-white': dayOfMonth.month == firstDayOfActiveMonth().month,
-              'bg-gray-50 text-gray-500': dayOfMonth.month !== firstDayOfActiveMonth().month,
-              'bg-blue-900 font-semibold text-white': today().toISODate() === dayOfMonth.toISODate(),
+              'bg-white': dateInActiveMonth(dayOfMonth),
+              'bg-gray-50 text-gray-500': !dateInActiveMonth(dayOfMonth),
+              '!bg-blue-900 font-semibold text-white': IsToday(dayOfMonth),
             }"
             (click)="clickDate(dayOfMonth)"
           >

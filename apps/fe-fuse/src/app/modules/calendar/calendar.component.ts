@@ -73,7 +73,6 @@ export class CalendarComponent {
       if (date) {
         this.firstDayOfActiveMonth.set(DateTime.fromObject({ month: date.month, year: date.year }).startOf('month'));
         this.selected_date_as_string.setValue(`${date.monthLong} ${date.year}`);
-        this._calendarService.activeDay = date;
       }
     });
   }
@@ -98,7 +97,7 @@ export class CalendarComponent {
   }
 
   protected clickDate(dayOfMonth: DateTime) {
-    if (this.activeDay()?.toISODate() === dayOfMonth.toISODate()) {
+    if (this.IsActiveDay(dayOfMonth)) {
       this._calendarService.activeDay = null;
     } else {
       this._calendarService.activeDay = dayOfMonth;
@@ -113,5 +112,17 @@ export class CalendarComponent {
     this._matDialog.open(CreateCalendarComponent, {
       autoFocus: false,
     });
+  }
+
+  protected dateInActiveMonth(date: DateTime): boolean {
+    return date.month === this.firstDayOfActiveMonth().month;
+  }
+
+  protected IsActiveDay(date: DateTime): boolean {
+    return date.toISODate() === this.activeDay()?.toISODate();
+  }
+
+  protected IsToday(date: DateTime): boolean {
+    return date.toISODate() === this.today().toISODate();
   }
 }
