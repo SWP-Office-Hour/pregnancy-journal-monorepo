@@ -21,5 +21,5 @@ USER node
 EXPOSE 3000
 # Generate Prisma client during the build phase
 RUN pnpx prisma generate
-CMD ["dumb-init", "node", "main.js"]
+CMD ["node", "main.js"]
 
