@@ -8,7 +8,7 @@ body fuse-splash-screen {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #111827;
+  background-image: linear-gradient(to bottom right, #fbcfe8, #fda4af);
   color: #f9fafb;
   z-index: 999999;
   pointer-events: none;
