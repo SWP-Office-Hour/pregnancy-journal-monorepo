@@ -1,22 +1,28 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { ReminderCreateRequest, ReminderResponse, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest, Status } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
+import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class ReminderService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    private readonly userService: UsersService,
+  ) {}
 
-  async create(createReminderDto: ReminderCreateRequest): Promise<ReminderResponse> {
+  async create(createReminderDto: ReminderCreateRequest, userId: string): Promise<ReminderResponse> {
+    await this.userService.getUserById(userId);
+
     return await this.databaseService.Reminder.create({
       data: {
         title: createReminderDto.title,
         content: createReminderDto.content,
-        status: createReminderDto.status,
-        type: createReminderDto.type,
-        remind_date: new Date(createReminderDto.remindDate),
+        status: Status.ACTIVE,
+        type: ReminderType.EVENT,
+        remind_date: new Date(createReminderDto.remind_date),
         user: {
           connect: {
-            user_id: createReminderDto.user_id,
+            user_id: userId,
           },
         },
       },
@@ -40,11 +46,11 @@ export class ReminderService {
   }
 
   async update(updateReminderDto: ReminderUpdateRequest) {
-    await this.findOne(updateReminderDto.id);
+    await this.findOne(updateReminderDto.reminder_id);
 
     return this.databaseService.Reminder.update({
       where: {
-        reminder_id: updateReminderDto.id,
+        reminder_id: updateReminderDto.reminder_id,
       },
       data: updateReminderDto,
     });
