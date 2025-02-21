@@ -1,9 +1,9 @@
 # Install dependencies only when needed
-FROM docker.io/node:lts-alpine AS deps
+FROM docker.io/node:lts-alpine
 # Set environment variables for pnpm
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-
+RUN apk add --no-cache dumb-init
 # Enable corepack and install pnpm
 RUN corepack enable && corepack prepare pnpm@latest --activate
 
@@ -21,5 +21,5 @@ USER node
 EXPOSE 3000
 # Generate Prisma client during the build phase
 RUN pnpx prisma generate
-CMD ["node", "main.js"]
+CMD ["dumb-init", "node", "main.js"]
 
