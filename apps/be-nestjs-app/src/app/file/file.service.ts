@@ -51,6 +51,24 @@ export class FileService {
     }
   }
 
+  async uploadToR2Blob(file: Blob, filename: string) {
+    try {
+      const upload = new Upload({
+        client: this.s3Client,
+        params: {
+          Bucket: this.configService.get('CLOUDFLARE_BUCKET'),
+          Key: filename,
+          Body: file,
+        },
+      });
+      await upload.done();
+      return true;
+    } catch (error) {
+      console.error('Error uploading to R2:', error);
+      throw error;
+    }
+  }
+
   async getFile(filename: string) {
     try {
       const command = new GetObjectCommand({
@@ -154,3 +172,8 @@ function streamToBuffer(stream: IncomingMessage): Promise<Buffer> {
     stream.on('error', reject);
   });
 }
+
+export const blobToFile = (blob: Blob, fileName: string): File => {
+  //Cast to a File() type
+  return new File([blob], fileName, { lastModified: new Date().getTime() });
+};

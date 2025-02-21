@@ -29,6 +29,23 @@ export const mediaContract = c.router({
     },
   },
 
+  updateMultiFiles: {
+    method: 'PATCH',
+    path: '/multi_media',
+    description: 'Upload multiple images',
+    query: z.object({
+      post_id: z.string().optional(),
+      record_id: z.string().optional(),
+    }),
+    body: mediaResSchema.array(),
+    responses: {
+      200: z.array(mediaResSchema),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
+
   // getFile: {
   //   method: 'GET',
   //   path: '/media/:filename',
