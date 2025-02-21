@@ -41,6 +41,7 @@ export class PregnancyTrackingService {
     const record = this._recordData.find((record) => record.visit_record_id === record_id);
     if (record) {
       this._selectedRecord = record;
+      this._media = [];
       record.media.forEach((img) => {
         this._httpClient.get(environment.apiUrl + 'media/' + img.media_id, {}).subscribe((res: { media: MediaResponse; imgLink: string }) => {
           this._media.push({
@@ -54,6 +55,10 @@ export class PregnancyTrackingService {
 
   get Media(): MediaResponse[] {
     return this._media;
+  }
+
+  set Media(media: MediaResponse[]) {
+    this._media = media;
   }
 
   getHospitals() {
