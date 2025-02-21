@@ -22,7 +22,7 @@
           <mat-select [formControlName]="'category'" required>
             <mat-option value="" disabled="true">Select category</mat-option>
             @for (category of categories; track $index) {
-              <mat-option value="{{ category.id }}">{{ category.title }}</mat-option>
+              <mat-option value="{{ category.category_id }}">{{ category.title }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
