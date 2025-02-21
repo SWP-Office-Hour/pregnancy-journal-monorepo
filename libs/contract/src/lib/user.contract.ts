@@ -22,7 +22,7 @@ const baseUserSchema = z.object({
 });
 
 // User response schema
-const userResSchema = baseUserSchema.extend({
+export const userResSchema = baseUserSchema.extend({
   user_id: z.string(),
   expected_birth_date: z.date(),
   membershipId: z.string().optional(),
