@@ -14,12 +14,12 @@ WORKDIR /usr/src/app
 COPY dist/apps/be-nestjs-app ./
 COPY apps/be-nestjs-app/prisma/schema.prisma ./prisma/
 
-RUN pnpm install
+RUN pnpm install --prod
+RUN pnpx prisma generate
 
 RUN chown -R node:node .
 USER node
 EXPOSE 3000
 # Generate Prisma client during the build phase
-RUN pnpx prisma generate
 CMD ["dumb-init", "node", "main.js"]
 
