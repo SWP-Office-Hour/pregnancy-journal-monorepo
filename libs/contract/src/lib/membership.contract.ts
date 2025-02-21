@@ -2,7 +2,7 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
-const membershipResContract = z.object({
+export const membershipResContract = z.object({
   membership_id: z.string(),
   title: z.string(),
   price: z.number(),

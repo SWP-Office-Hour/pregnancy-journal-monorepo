@@ -48,3 +48,9 @@ export enum PayStatus {
 }
 
 export const payStatusSchema = z.nativeEnum(PayStatus);
+
+export enum PayMethod {
+  PAYOS = 0,
+}
+
+export const payMethodSchema = z.nativeEnum(PayMethod);
