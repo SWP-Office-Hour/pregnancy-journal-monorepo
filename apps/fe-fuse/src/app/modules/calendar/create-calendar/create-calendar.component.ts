@@ -1,13 +1,15 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { CommonModule, DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { ReminderCreateRequest, ReminderResponse } from '@pregnancy-journal-monorepo/contract';
+import { DateTime } from 'luxon';
 import { CalendarService } from '../calendar.service';
 
 @Component({
@@ -37,14 +39,26 @@ export class CreateCalendarComponent {
     private _calendarService: CalendarService,
   ) {
     this.reminderForm = this._formBuilder.group({
-      title: [''],
-      content: [''],
-      remind_date: [''],
+      title: ['', Validators.required],
+      content: ['', Validators.required],
+      remind_date: ['', Validators.required],
     });
   }
 
   onSubmit(): void {
-    this._calendarService.createReminder(this.reminderForm.value);
-    this.matDialogRef.close();
+    if (this.reminderForm.invalid) {
+      this.reminderForm.markAllAsTouched();
+      return;
+    }
+    const reminderData: ReminderCreateRequest = {
+      title: this.reminderForm.get('title')?.value,
+      content: this.reminderForm.get('content')?.value,
+      remind_date: (this.reminderForm.get('remind_date')?.value as DateTime).toISODate()!,
+    };
+    console.log(reminderData);
+    this._calendarService.createReminder(reminderData).subscribe((res: ReminderResponse) => {
+      console.log(res);
+      this.matDialogRef.close();
+    });
   }
 }
