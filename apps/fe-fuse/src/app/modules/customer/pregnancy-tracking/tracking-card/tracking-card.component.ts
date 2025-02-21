@@ -24,6 +24,7 @@ export class TrackingCardComponent {
 
   editTracking() {
     this._trackingService.SelectedRecordData = this.recordData.visit_record_id;
+    console.log(this._trackingService.SelectedRecordData);
     this._dialog.open(TrackingFormComponent, {
       autoFocus: false,
     });

@@ -90,9 +90,10 @@ export class RecordFormComponent {
     this._recordService.submit(formData).subscribe({
       next: () => {
         window.alert('Record submitted successfully');
-        this._router.navigate(['/']);
+        this._router.navigate(['/tracking']);
       },
       error: (err) => {
+        console.log(err);
         window.alert('Failed to submit record');
       },
     });

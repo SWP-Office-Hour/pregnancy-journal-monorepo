@@ -4,6 +4,7 @@ import { HospitalResponse, MediaResponse, MetricResponseType, RecordCreateReques
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
+import { dataURItoBlob } from '../common/blob.utils';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordService {
@@ -75,8 +76,35 @@ export class PregnancyRecordService {
         },
       })
       .pipe(
-        map((record: RecordResponse) => {
-          return record;
+        map((res: RecordResponse) => {
+          this._mediaSrc.forEach((img) => {
+            // convert string base64 to blob
+            const blob = dataURItoBlob(img.media_url);
+
+            // create form data
+            const fd = new FormData();
+
+            // append blob to form data
+            fd.append('file', blob);
+
+            // post image
+            this._httpClient
+              .post(environment.apiUrl + 'media?record_id=' + res.visit_record_id, fd, {
+                headers: {
+                  Authorization: `Bearer ${this._authService.accessToken}`,
+                },
+              })
+              .subscribe({
+                next: () => {
+                  console.log('Image uploaded');
+                },
+                error: (err) => {
+                  console.error(err);
+                },
+              });
+          });
+
+          return res;
         }),
       );
   }
