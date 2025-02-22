@@ -2,7 +2,8 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
-export const noteResSchema = z.object({
+// Base schema with all fields
+const noteResSchema = z.object({
   note_id: z.string(),
   title: z.string(),
   content: z.string(),
@@ -10,19 +11,19 @@ export const noteResSchema = z.object({
   status: statusSchema,
 });
 
-const noteCreateReqSchema = z.object({
-  title: z.string(),
-  content: z.string(),
-  date: z.string().datetime(),
-  status: statusSchema,
+// Schema for creating a note (omits note_id since it's generated server-side)
+const noteCreateReqSchema = noteResSchema.omit({ note_id: true }).extend({
+  date: z.string().datetime(), // Override date to be a string in ISO 8601 format
 });
-const noteUpdateReqSchema = z.object({
-  id: z.string(),
-  title: z.string().optional(),
-  content: z.string().optional(),
-  date: z.string().datetime().optional(),
-  status: statusSchema.optional(),
-});
+
+// Schema for updating a note (all fields are optional except note_id)
+const noteUpdateReqSchema = noteResSchema
+  .omit({ date: true }) // Omit date since it's overridden
+  .partial() // Make all fields optional except note_id
+  .extend({
+    note_id: z.string(), // Ensure note_id is required
+    date: z.string().datetime().optional(),
+  });
 
 export type NoteResponse = z.infer<typeof noteResSchema>;
 export type NoteCreateRequest = z.infer<typeof noteCreateReqSchema>;
