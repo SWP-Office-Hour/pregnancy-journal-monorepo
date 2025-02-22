@@ -9,6 +9,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
@@ -29,7 +31,9 @@ import { PregnancyRecordService } from '../pregnancy-record.service';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './record-form.component.html',
   styleUrl: './record-form.component.css',
 })
@@ -45,6 +49,7 @@ export class RecordFormComponent {
     private _router: Router,
     private _recordService: PregnancyRecordService,
     private _formBuilder: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.recordForm = this._formBuilder.group({
       visit_doctor_date: [new Date(), Validators.required],
@@ -72,6 +77,7 @@ export class RecordFormComponent {
   submitForm() {
     if (this.recordForm.invalid) {
       this.recordForm.markAllAsTouched();
+      this.submitFail();
       return;
     }
     const data = this.metricsFormArray.controls.map((control, index) => ({
@@ -88,12 +94,11 @@ export class RecordFormComponent {
     };
     this._recordService.submit(formData).subscribe({
       next: () => {
-        window.alert('Record submitted successfully');
-        this._router.navigate(['/tracking']);
+        this.submitSuccess();
       },
       error: (err) => {
         console.log(err);
-        window.alert('Failed to submit record');
+        this.submitFail();
       },
     });
   }
@@ -104,5 +109,17 @@ export class RecordFormComponent {
 
   insertImg(img: MediaResponse) {
     this._recordService.addImage(img);
+  }
+
+  submitSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Lưu thành công', detail: 'Lưu chỉ số thành công', key: 'tr', life: 3000 });
+  }
+
+  submitFail() {
+    this.messageService.add({ severity: 'error', summary: 'Lưu thất bại', detail: 'Lưu chỉ số thất bại', key: 'tr', life: 3000 });
+  }
+
+  clear() {
+    this.recordForm.reset();
   }
 }

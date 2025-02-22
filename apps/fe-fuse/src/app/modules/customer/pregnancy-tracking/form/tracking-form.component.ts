@@ -9,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
@@ -29,7 +31,9 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     MatButtonModule,
     MatIconModule,
     MatSelectModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './tracking-form.component.html',
   styleUrl: './tracking-form.component.css',
 })
@@ -45,6 +49,7 @@ export class TrackingFormComponent {
     protected dialogRef: MatDialogRef<TrackingFormComponent>,
     private _trackingService: PregnancyTrackingService,
     private _formBuilder: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.selectedRecordData = this._trackingService.SelectedRecordData;
     this.images = this._trackingService.Media;
@@ -81,6 +86,11 @@ export class TrackingFormComponent {
   }
 
   submitForm() {
+    if (this.trackingForm.invalid) {
+      this.trackingForm.markAllAsTouched();
+      this.submitFail();
+      return;
+    }
     const data = this.metricsFormArray.controls.map((control, index) => ({
       metric_id: this.metrics[index].metric_id,
       value: control.value as number,
@@ -94,19 +104,16 @@ export class TrackingFormComponent {
       next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
       data,
     };
-    console.log(formData);
     this._trackingService.submit(formData).subscribe({
       next: (res) => {
         this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
           console.log(res);
-          window.alert('Data submitted successfully');
+          this.submitSuccess();
         });
-        this.closeForm();
       },
       error: (err) => {
-        console.error(err);
-        window.alert('Failed to submit data');
-        this.closeForm();
+        console.log(err);
+        this.submitFail();
       },
     });
   }
@@ -122,5 +129,13 @@ export class TrackingFormComponent {
   closeForm() {
     this._trackingService.SelectedRecordData = '';
     this.dialogRef.close();
+  }
+
+  submitSuccess() {
+    this.messageService.add({ severity: 'success', summary: 'Lưu thành công', detail: 'Lưu chỉ số thành công', key: 'tr', life: 3000 });
+  }
+
+  submitFail() {
+    this.messageService.add({ severity: 'error', summary: 'Lưu thất bại', detail: 'Lưu chỉ số thất bại', key: 'tr', life: 3000 });
   }
 }
