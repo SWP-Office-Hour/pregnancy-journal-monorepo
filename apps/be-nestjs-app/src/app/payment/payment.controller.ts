@@ -1,34 +1,25 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
-import { CreatePaymentDto } from './dto/create-payment.dto';
-import { UpdatePaymentDto } from './dto/update-payment.dto';
+import { Body, Controller, NotFoundException, Req, UseGuards } from '@nestjs/common';
+import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
+import { RequestWithJWT } from 'express';
+import { paymentContract, PaymentCreateRequestType } from '../../../../../libs/contract/src/lib/payment.contract';
+import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { PaymentService } from './payment.service';
 
-@Controller('payment')
+@Controller()
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
-  @Post()
-  create(@Body() createPaymentDto: CreatePaymentDto) {
-    return this.paymentService.create(createPaymentDto);
-  }
+  @UseGuards(AccessTokenAuthGuard)
+  @TsRestHandler(paymentContract.create)
+  handleCreatePayment(@Body() paymentRequest: PaymentCreateRequestType, @Req() req: RequestWithJWT) {
+    return tsRestHandler(paymentContract.create, async () => {
+      const user = req.decoded_authorization;
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      const payment = await this.paymentService.createPayment(paymentRequest, user.user_id);
 
-  @Get()
-  findAll() {
-    return this.paymentService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.paymentService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePaymentDto: UpdatePaymentDto) {
-    return this.paymentService.update(+id, updatePaymentDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.paymentService.remove(+id);
+      return { status: 200, body: payment };
+    });
   }
 }

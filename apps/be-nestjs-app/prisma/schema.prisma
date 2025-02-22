@@ -42,7 +42,7 @@ model hospital {
 
 model media {
   media_id        String        @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  media_url       String        @db.VarChar(255)
+  media_url       String        @db.VarChar(1000)
   created_at      DateTime      @db.Date
   visit_record_id String?       @db.Char(36)
   post_id         String?       @db.Char(36)
@@ -192,7 +192,7 @@ model payment_history {
   payment_history_id String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
   user_id            String     @db.Char(36)
   membership_id      String     @db.Char(36)
-  created_at         String     @db.Char(36)
+  created_at         DateTime   @db.Date
   value              Float
   status             Int
   payment_method     Int
