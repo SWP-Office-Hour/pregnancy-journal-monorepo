@@ -26,6 +26,7 @@ export class ImagePreviewComponent {
     });
     this.dialogRef.componentInstance.deleteImg.subscribe((id) => {
       if (id) {
+        console.log('delete img', id);
         this.deleteImg.emit(id);
       }
       this.dialogRef.close();
