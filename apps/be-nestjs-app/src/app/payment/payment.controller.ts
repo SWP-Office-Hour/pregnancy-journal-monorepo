@@ -1,7 +1,7 @@
 import { Body, Controller, NotFoundException, Req, UseGuards } from '@nestjs/common';
+import { paymentContract, PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
-import { paymentContract, PaymentCreateRequestType } from '../../../../../libs/contract/src/lib/payment.contract';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { PaymentService } from './payment.service';
 
@@ -19,6 +19,14 @@ export class PaymentController {
       }
       const payment = await this.paymentService.createPayment(paymentRequest, user.user_id);
 
+      return { status: 200, body: payment };
+    });
+  }
+
+  @TsRestHandler(paymentContract.update)
+  handleUpdatePayment(@Body() paymentRequest: PaymentUpdateRequestType) {
+    return tsRestHandler(paymentContract.update, async () => {
+      const payment = await this.paymentService.updatePayment(paymentRequest);
       return { status: 200, body: payment };
     });
   }

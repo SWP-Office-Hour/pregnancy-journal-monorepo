@@ -4,11 +4,7 @@ import { z } from 'zod';
 
 const paymentSchema = z.object({
   payment_history_id: z.string(),
-  user: z.object({
-    user_id: z.string(),
-    email: z.string(),
-    name: z.string(),
-  }),
+  user_id: z.string(),
   membership: membershipResContract,
   value: z.number(),
   created_at: z.date(),
@@ -20,7 +16,7 @@ const paymentCreateReqSchema = paymentSchema
   .omit({
     payment_history_id: true,
     created_at: true,
-    user: true,
+    user_id: true,
     membership: true,
     status: true,
     value: true,
@@ -32,7 +28,7 @@ const paymentCreateReqSchema = paymentSchema
 
 const paymentUpdateReqSchema = paymentSchema.omit({
   created_at: true,
-  user: true,
+  user_id: true,
   membership: true,
   value: true,
   payment_method: true,
