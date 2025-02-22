@@ -6,7 +6,6 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FusePlatformService } from '@fuse/services/platform';
 import { FUSE_VERSION } from '@fuse/version';
 import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
-import { SettingsComponent } from './common/settings/settings.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';
 import { CenteredLayoutComponent } from './layouts/horizontal/centered/centered.component';
@@ -31,7 +30,6 @@ import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
     // FuturisticLayoutComponent,
     // ThinLayoutComponent,
     AdminLayoutComponent,
-    SettingsComponent,
   ],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
