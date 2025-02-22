@@ -69,6 +69,18 @@
               "with": "apps/fe-fuse/src/environments/environment.development.ts"
             }
           ]
+        },
+        "staging": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true,
+          "fileReplacements": [
+            {
+              "replace": "apps/fe-fuse/src/environments/environment.ts",
+              "with": "apps/fe-fuse/src/environments/environment.staging.ts"
+            }
+          ]
         }
       },
       "defaultConfiguration": "production"
@@ -81,11 +93,14 @@
         "port": 4222
       },
       "configurations": {
-        "production": {
-          "buildTarget": "fe-fuse:build:production"
+        "staging": {
+          "buildTarget": "fe-fuse:build:staging"
         },
         "development": {
           "buildTarget": "fe-fuse:build:development"
+        },
+        "production": {
+          "buildTarget": "fe-fuse:build:production"
         }
       }
     },

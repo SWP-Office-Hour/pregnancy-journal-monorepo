@@ -1,4 +1,3 @@
-import { NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectorRef, Component, resource, signal } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -38,7 +37,6 @@ import { environment } from '../../../../environments/environment';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
-    NgTemplateOutlet,
   ],
 })
 export class TagTableComponent {
