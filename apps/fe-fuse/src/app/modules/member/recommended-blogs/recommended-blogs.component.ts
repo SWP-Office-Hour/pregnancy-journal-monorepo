@@ -1,5 +1,4 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { NgClass, NgStyle } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
 import { BlogResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { ButtonModule } from 'primeng/button';
 import { Carousel } from 'primeng/carousel';
@@ -30,8 +28,7 @@ import { FuseCardComponent } from '../../../../@fuse/components/card';
     FuseCardComponent,
     MatButtonModule,
     MatIconModule,
-    RouterLink,
-    NgClass,
+
     MatMenuModule,
     MatCheckboxModule,
     MatProgressBarModule,
@@ -42,7 +39,6 @@ import { FuseCardComponent } from '../../../../@fuse/components/card';
     MatTooltipModule,
     Carousel,
     ButtonModule,
-    NgStyle,
   ],
   templateUrl: './recommended-blogs.component.html',
   styleUrl: './recommended-blogs.component.css',

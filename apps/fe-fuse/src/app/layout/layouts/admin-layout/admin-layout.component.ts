@@ -11,7 +11,6 @@ import { Navigation } from 'app/core/navigation/navigation.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
 import { MessagesComponent } from 'app/layout/common/messages/messages.component';
 import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
-import { QuickChatComponent } from 'app/layout/common/quick-chat/quick-chat.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
 
@@ -31,7 +30,7 @@ import { Subject, takeUntil } from 'rxjs';
     NotificationsComponent,
     UserComponent,
     RouterOutlet,
-    QuickChatComponent,
+
     RouterLink,
   ],
 })
