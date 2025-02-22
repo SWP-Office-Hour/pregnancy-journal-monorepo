@@ -1,10 +1,14 @@
-import { membershipResContract, payMethodSchema, payStatusSchema, userResSchema } from '@pregnancy-journal-monorepo/contract';
+import { membershipResContract, payMethodSchema, payStatusSchema } from '@pregnancy-journal-monorepo/contract';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
-const paymentResSchema = z.object({
+const paymentSchema = z.object({
   payment_history_id: z.string(),
-  user: userResSchema,
+  user: z.object({
+    user_id: z.string(),
+    email: z.string(),
+    name: z.string(),
+  }),
   membership: membershipResContract,
   value: z.number(),
   created_at: z.date(),
@@ -12,7 +16,7 @@ const paymentResSchema = z.object({
   payment_method: payMethodSchema,
 });
 
-const paymentCreateReqSchema = paymentResSchema
+const paymentCreateReqSchema = paymentSchema
   .omit({
     payment_history_id: true,
     created_at: true,
@@ -26,13 +30,18 @@ const paymentCreateReqSchema = paymentResSchema
     membership_id: z.string(),
   });
 
-const paymentUpdateReqSchema = paymentResSchema.omit({
+const paymentUpdateReqSchema = paymentSchema.omit({
   created_at: true,
   user: true,
   membership: true,
   value: true,
   payment_method: true,
   status: true,
+});
+
+const paymentResSchema = z.object({
+  payment: paymentSchema,
+  payment_url: z.string(),
 });
 
 export type PaymentCreateRequestType = z.infer<typeof paymentCreateReqSchema>;
@@ -48,10 +57,7 @@ export const paymentContract = c.router({
     description: 'Create a new payment',
     body: paymentCreateReqSchema,
     responses: {
-      200: z.object({
-        payment: paymentResSchema,
-        payment_url: z.string(),
-      }),
+      200: paymentResSchema,
     },
   },
   update: {
@@ -60,21 +66,21 @@ export const paymentContract = c.router({
     description: 'Update a payment by id',
     body: paymentUpdateReqSchema,
     responses: {
-      200: paymentResSchema,
+      200: paymentSchema,
     },
   },
-  getLinkPayment: {
-    method: 'GET',
-    path: '/payments/:payment_history_id',
-    pathParams: z.object({
-      payment_history_id: z.string(),
-    }),
-    description: 'Get payment link',
-    responses: {
-      200: z.object({
-        payment: paymentResSchema,
-        payment_url: z.string(),
-      }),
-    },
-  },
+  // getLinkPayment: {
+  //   method: 'GET',
+  //   path: '/payments/:payment_history_id',
+  //   pathParams: z.object({
+  //     payment_history_id: z.string(),
+  //   }),
+  //   description: 'Get payment link',
+  //   responses: {
+  //     200: z.object({
+  //       payment: paymentResSchema,
+  //       payment_url: z.string(),
+  //     }),
+  //   },
+  // },
 });

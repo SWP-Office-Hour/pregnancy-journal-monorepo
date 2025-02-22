@@ -72,4 +72,8 @@ export class DatabaseService {
   get Comment() {
     return this.prisma.comment;
   }
+
+  get Payment() {
+    return this.prisma.payment_history;
+  }
 }

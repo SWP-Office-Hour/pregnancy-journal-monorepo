@@ -17,6 +17,7 @@ import {
   membershipContract,
   metricContract,
   noteContract,
+  paymentContract,
   payosContract,
   postContract,
   recordContract,
@@ -53,6 +54,7 @@ async function bootstrap() {
       category: categoryContract,
       record: recordContract,
       standard: standardContract,
+      payment: paymentContract,
     },
     {
       info: {

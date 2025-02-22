@@ -9,7 +9,7 @@ const c = initContract();
 //User zod schema
 
 // Base user schema (common fields)
-const baseUserSchema = z.object({
+export const baseUserSchema = z.object({
   name: z.string(),
   email: z.string(),
   phone: z.string(),
