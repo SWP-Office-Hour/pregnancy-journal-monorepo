@@ -1,13 +1,15 @@
-import { Body, Controller, Param, Req } from '@nestjs/common';
+import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
 import { reminderContract, ReminderCreateRequest, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { ReminderService } from './reminder.service';
+import { AccessTokenAuthGuard } from '../auth/auth.guard';
 
 @Controller()
 export class ReminderController {
   constructor(private readonly reminderService: ReminderService) {}
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(reminderContract.create)
   handleCreate(@Body() body: ReminderCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(reminderContract.create, async () => {

@@ -41,9 +41,8 @@ export const reminderTypeSchema = z.nativeEnum(ReminderType);
 
 // Định nghĩa PayStatus enum
 export enum PayStatus {
-  PENDING,
-  SUCCESS,
-  FAILED,
+  SUCCESS = 1,
+  FAILED = 0,
 }
 
 export const payStatusSchema = z.nativeEnum(PayStatus);

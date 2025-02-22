@@ -11,7 +11,7 @@ const payosReqSchema = z.object({
   membershipId: z.string(),
   status: payStatusSchema,
   userId: z.string(),
-  createdAt: z.date(),
+  createdAt: z.string().date(),
 });
 
 const payosResSchema = z.object({
