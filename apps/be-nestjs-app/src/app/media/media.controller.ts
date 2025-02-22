@@ -30,9 +30,8 @@ export class MediaController {
       if (!post_id && !record_id) {
         throw new BadRequestException('No post_id or record_id provided');
       }
-      if (!media || media.length === 0) {
-        throw new BadRequestException('No file updated');
-      }
+
+      console.log(media);
       const { newMedias, deletedMedias } = await this.mediaService.updateWithRecordId({ media, record_id });
 
       if (deletedMedias.length === 0 && newMedias.length === 0) {
@@ -56,49 +55,45 @@ export class MediaController {
 
       // IF UPDATE MEDIA HAVE NEW MEDIA
       if (blobs) {
-        try {
-          const uploads = await Promise.all(
-            blobs.map((blob) => {
-              return this.fileService.uploadToR2Blob(blob.buffer, blob.filename);
-            }),
+        const uploads = await Promise.all(
+          blobs.map((blob) => {
+            return this.fileService.uploadToR2Blob(blob.buffer, blob.filename);
+          }),
+        );
+        if (!uploads) {
+          throw new BadRequestException('Error uploading file');
+        }
+
+        if (uploads.length !== blobs.length) {
+          throw new BadRequestException('Error uploading file with upload count not match');
+        }
+
+        if (uploads.some((upload) => !upload)) {
+          throw new BadRequestException('Error uploading file with some upload failed');
+        }
+
+        if (post_id) {
+          const create_result = await Promise.all(
+            blobs.map((blob) =>
+              this.mediaService.createWithPostId({
+                media_url: blob.filename,
+                post_id,
+              }),
+            ),
           );
-          if (!uploads) {
-            throw new BadRequestException('Error uploading file');
-          }
-
-          if (uploads.length !== blobs.length) {
-            throw new BadRequestException('Error uploading file with upload count not match');
-          }
-
-          if (uploads.some((upload) => !upload)) {
-            throw new BadRequestException('Error uploading file with some upload failed');
-          }
-
-          if (post_id) {
-            const create_result = await Promise.all(
-              blobs.map((blob) =>
-                this.mediaService.createWithPostId({
-                  media_url: blob.filename,
-                  post_id,
-                }),
-              ),
-            );
-            result.push(...create_result);
-          } else if (record_id) {
-            const create_result = await Promise.all(
-              blobs.map((blob) =>
-                this.mediaService.createWithRecordId({
-                  media_url: blob.filename,
-                  record_id,
-                }),
-              ),
-            );
-            result.push(...create_result);
-          } else {
-            throw new BadRequestException('No post_id or record_id provided');
-          }
-        } catch (error) {
-          throw new BadRequestException(error.message);
+          result.push(...create_result);
+        } else if (record_id) {
+          const create_result = await Promise.all(
+            blobs.map((blob) =>
+              this.mediaService.createWithRecordId({
+                media_url: blob.filename,
+                record_id,
+              }),
+            ),
+          );
+          result.push(...create_result);
+        } else {
+          throw new BadRequestException('No post_id or record_id provided');
         }
       }
 
