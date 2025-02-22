@@ -26,6 +26,7 @@ import {
   userContract,
 } from '@pregnancy-journal-monorepo/contract';
 import { generateOpenApi } from '@ts-rest/open-api';
+import { json, urlencoded } from 'express';
 import { AppModule } from './app/app.module';
 import { SocketIoAdapter } from './socket-io.adapter';
 
@@ -92,7 +93,8 @@ async function bootstrap() {
   });
 
   const globalPrefix = 'api';
-
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
