@@ -70,7 +70,7 @@ export class BlogEditorComponent implements OnInit {
       debug: false, // default
     },
   };
-  protected _blog: BlogResponse;
+  protected _blog: BlogResponse | null;
 
   /**
    * Constructor
