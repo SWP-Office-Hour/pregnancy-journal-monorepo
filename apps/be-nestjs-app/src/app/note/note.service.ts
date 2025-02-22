@@ -54,7 +54,7 @@ export class NoteService {
   async updateNoteById(note: NoteUpdateRequest) {
     const noteExist = await this.databaseService.Note.findUnique({
       where: {
-        note_id: note.id,
+        note_id: note.note_id,
       },
     });
 
@@ -65,7 +65,7 @@ export class NoteService {
     if (note.date) {
       const updatedNote = await this.databaseService.Note.update({
         where: {
-          note_id: note.id,
+          note_id: note.note_id,
         },
         data: {
           title: note.title,
@@ -84,7 +84,7 @@ export class NoteService {
 
     return await this.databaseService.Note.update({
       where: {
-        note_id: note.id,
+        note_id: note.note_id,
       },
       data: {
         title: note.title,
