@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CheckoutRequestType } from '@payos/node/lib/type';
-import { PaymentCreateRequestType, PaymentResponseType, PayMethod, PayStatus } from '@pregnancy-journal-monorepo/contract';
+import { PaymentCreateRequestType, PaymentResponseType, PaymentUpdateRequestType, PayMethod, PayStatus } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MembershipsService } from '../memberships/memberships.service';
 import { PayosService } from '../payos/payos.service';
@@ -37,9 +37,6 @@ export class PaymentService {
       },
 
       include: {
-        user: {
-          select: { user_id: true, email: true, name: true },
-        },
         membership: true,
       },
     });
@@ -55,5 +52,17 @@ export class PaymentService {
     const paymentUrl = await this.payosService.createLinkPayment(payRequest);
 
     return { payment, payment_url: paymentUrl.checkoutUrl };
+  }
+
+  async updatePayment(paymentRequest: PaymentUpdateRequestType) {
+    return await this.databaseService.Payment.update({
+      where: { payment_history_id: paymentRequest.payment_history_id },
+      data: {
+        status: PayStatus.SUCCESS,
+      },
+      include: {
+        membership: true,
+      },
+    });
   }
 }
