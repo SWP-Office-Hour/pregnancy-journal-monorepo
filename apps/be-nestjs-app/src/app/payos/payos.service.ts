@@ -16,8 +16,6 @@ export class PayosService {
     }
 
     const payOS = new PayOS(PAYOS_CLIENT_ID, PAYOS_API_KEY, PAYOS_CHECKSUM_KEY);
-    console.log(this.configService.get<string>('PAYOS_CLIENT_ID'));
-    console.log(payOS);
     return await payOS.createPaymentLink(payosCreateRequest);
   }
 }

@@ -12,6 +12,8 @@ import { MediaModule } from './media/media.module';
 import { MembershipsModule } from './memberships/memberships.module';
 import { MetricModule } from './metric/metric.module';
 import { NoteModule } from './note/note.module';
+import { PaymentModule } from './payment/payment.module';
+import { PayosModule } from './payos/payos.module';
 import { PostsModule } from './posts/posts.module';
 import { ReactionModule } from './reaction/reaction.module';
 import { RecordsModule } from './records/records.module';
@@ -43,6 +45,8 @@ import { UsersModule } from './users/users.module';
     CommentsModule,
     ReactionModule,
     MailModule,
+    PayosModule,
+    PaymentModule,
   ],
   controllers: [AppController],
   providers: [AppService],

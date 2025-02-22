@@ -23,7 +23,6 @@ const paymentCreateReqSchema = paymentResSchema
     payment_method: true,
   })
   .extend({
-    user_id: z.string(),
     membership_id: z.string(),
   });
 
@@ -33,6 +32,7 @@ const paymentUpdateReqSchema = paymentResSchema.omit({
   membership: true,
   value: true,
   payment_method: true,
+  status: true,
 });
 
 export type PaymentCreateRequestType = z.infer<typeof paymentCreateReqSchema>;
