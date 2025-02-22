@@ -97,17 +97,22 @@ export class TrackingFormComponent {
     console.log(formData);
     this._trackingService.submit(formData).subscribe({
       next: (res) => {
-        console.log(res);
+        this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
+          console.log(res);
+          window.alert('Data submitted successfully');
+        });
         this.closeForm();
       },
       error: (err) => {
         console.error(err);
+        window.alert('Failed to submit data');
+        this.closeForm();
       },
     });
   }
 
   deleteImg(id: string) {
-    this._trackingService.deleteImage(id);
+    this.images = this._trackingService.deleteImage(id);
   }
 
   insertImg(img: MediaResponse) {

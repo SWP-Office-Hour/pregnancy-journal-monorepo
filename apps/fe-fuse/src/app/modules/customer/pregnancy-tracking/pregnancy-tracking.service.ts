@@ -93,6 +93,7 @@ export class PregnancyTrackingService {
 
   deleteImage(id: string) {
     this._media = this._media.filter((img) => img.media_id !== id);
+    return this._media;
   }
 
   addImage(img: MediaResponse) {
@@ -104,9 +105,6 @@ export class PregnancyTrackingService {
      * Update image ở đây
      */
     // Mốt update image ở đây nè
-    // xài dataURItoBlob để convert base64 sang blob
-    // xài getFormData để convert blob sang FormData
-    // rồi gửi lên server
     /**
      * Update record ở đây
      * */
@@ -120,6 +118,21 @@ export class PregnancyTrackingService {
         map((res: RecordResponse) => {
           const index = this._recordData.findIndex((record) => record.visit_record_id === res.visit_record_id);
           this._recordData[index] = res;
+          return res;
+        }),
+      );
+  }
+
+  updateImage(record_id: string) {
+    return this._httpClient
+      .patch(environment.apiUrl + 'multi_media?record_id=' + record_id, this._media, {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
+        },
+      })
+      .pipe(
+        map((res: MediaResponse) => {
+          this.RecordData.subscribe();
           return res;
         }),
       );

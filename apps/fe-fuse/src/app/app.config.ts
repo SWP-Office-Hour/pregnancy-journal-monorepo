@@ -12,6 +12,7 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { mockApiServices } from 'app/mock-api';
+import { NgxImageCompressService } from 'ngx-image-compress';
 import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
 import { appRoutes } from './app.routes';
@@ -134,5 +135,6 @@ export const appConfig: ApplicationConfig = {
         ],
       },
     }),
+    NgxImageCompressService,
   ],
 };
