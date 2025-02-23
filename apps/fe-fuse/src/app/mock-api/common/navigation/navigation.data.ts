@@ -40,7 +40,7 @@ export const adminNavigation: FuseNavigationItem[] = [
     title: 'Home',
     type: 'basic',
     icon: 'heroicons_outline:home',
-    link: '/home',
+    link: '/admin',
   },
   {
     id: 'health-metric',
@@ -97,8 +97,16 @@ export const adminNavigation: FuseNavigationItem[] = [
     id: 'membership',
     title: 'Membership',
     type: 'basic',
-    icon: 'heroicons_outline:user-group',
+    // icon: 'heroicons_outline:user-group',
+    icon: 'heroicons_outline:identification',
     link: 'admin/membership',
+  },
+  {
+    id: 'users',
+    title: 'Users',
+    type: 'basic',
+    icon: 'heroicons_outline:user-group',
+    link: 'admin/users',
   },
 ];
 

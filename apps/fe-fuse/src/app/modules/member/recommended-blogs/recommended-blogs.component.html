@@ -1,7 +1,7 @@
 <!-- Main -->
 <div class="mx-auto w-full">
   @if (this.blogs.length) {
-    <p-carousel class="" [value]="this.blogs" [numVisible]="4" [numScroll]="1">
+    <p-carousel class="" [value]="this.blogs" [numVisible]="4" [numScroll]="1" [autoplayInterval]="3000">
       <ng-template let-blog #item>
         <fuse-card class="mx-auto flex h-full w-full max-w-72 flex-col" #expandableCard01="fuseCard">
           <img class="object-cover" src="/images/cards/05-320x200.jpg" alt="Card cover image" />

@@ -1,5 +1,5 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, resource, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -11,11 +11,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { BlogResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { Blog, Status } from '@pregnancy-journal-monorepo/contract';
+import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { Carousel } from 'primeng/carousel';
 import { blogsMockData } from '../../../../../../mockapi-express/src/blogs.mockapi';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-recommended-blogs',
@@ -28,7 +30,7 @@ import { FuseCardComponent } from '../../../../@fuse/components/card';
     FuseCardComponent,
     MatButtonModule,
     MatIconModule,
-
+    NgxSplideModule,
     MatMenuModule,
     MatCheckboxModule,
     MatProgressBarModule,
@@ -44,41 +46,24 @@ import { FuseCardComponent } from '../../../../@fuse/components/card';
   styleUrl: './recommended-blogs.component.css',
 })
 export class RecommendedBlogsComponent {
-  protected blogs: BlogResponse[] = [];
+  protected blogs: Blog[] = [];
   protected readonly Status = Status;
 
-  constructor() {}
+  blogResource = resource<Blog[], {}>({
+    loader: async ({ abortSignal }) => {
+      const response = await fetch(environment.apiUrl + 'blogs', {
+        signal: abortSignal,
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+      return await response.json();
+    },
+  });
 
   responsiveOptions: any[] | undefined;
-
-  ngOnInit() {
-    // this._blogsService.getBlogs().subscribe(({ blogs }) => {
-    //   this.blogs = blogs;
-    // });
+  constructor() {
+    this.blogs = blogsMockData;
     this.blogs = blogsMockData;
     console.log(this.blogs);
-    // this.responsiveOptions = [
-    //   {
-    //     breakpoint: '1400px',
-    //     numVisible: 4,
-    //     numScroll: 1,
-    //   },
-    //   {
-    //     breakpoint: '1199px',
-    //     numVisible: 5,
-    //     numScroll: 1,
-    //   },
-    //   {
-    //     breakpoint: '767px',
-    //     numVisible: 3,
-    //     numScroll: 1,
-    //   },
-    //   {
-    //     breakpoint: '575px',
-    //     numVisible: 2,
-    //     numScroll: 1,
-    //   },
-    // ];
   }
 
   // private _fuseCards: QueryList<ElementRef>;

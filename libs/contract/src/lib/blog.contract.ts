@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { categoryResSchema } from './category.contract';
 import { tagResSchema } from './tag.contract';
 
-const blogResSchema = z.object({
+const blogResponeSchema = z.object({
   blog_id: z.string(),
   title: z.string(),
   author: z.string(),
@@ -16,13 +16,13 @@ const blogResSchema = z.object({
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới blog
-export const blogCreateReqSchema = blogResSchema.omit({ blog_id: true, created_at: true, updated_at: true, tags: true, category: true }).extend({
+export const blogCreateReqSchema = blogResponeSchema.omit({ blog_id: true, created_at: true, updated_at: true, tags: true, category: true }).extend({
   tags_id: z.array(z.string().optional()).optional(),
   category_id: z.string(),
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật blog
-export const blogUpdateReqSchema = blogResSchema.omit({ created_at: true, updated_at: true, tags: true, category: true }).extend({
+export const blogUpdateReqSchema = blogResponeSchema.omit({ created_at: true, updated_at: true, tags: true, category: true }).extend({
   title: z.string().optional(),
   author: z.string().optional(),
   summary: z.string().optional(),
@@ -31,9 +31,13 @@ export const blogUpdateReqSchema = blogResSchema.omit({ created_at: true, update
   category_id: z.string().optional(),
 });
 
-export type BlogResponse = z.infer<typeof blogResSchema>;
-export type BlogCreateRequest = z.infer<typeof blogCreateReqSchema>;
-export type BlogUpdateRequest = z.infer<typeof blogUpdateReqSchema>;
+export type Blog = z.infer<typeof blogResponeSchema>;
+
+export type BlogResponseType = z.infer<typeof blogResponeSchema>;
+
+export type BlogCreateRequestType = z.infer<typeof blogCreateReqSchema>;
+
+export type BlogUpdateRequestType = z.infer<typeof blogUpdateReqSchema>;
 
 const c = initContract();
 
@@ -48,7 +52,7 @@ export const blogContract = c.router({
     description: 'Get all blogs (đã xong)',
     responses: {
       200: z.object({
-        blogs: z.array(blogResSchema),
+        blogs: z.array(blogResponeSchema),
         total_page: z.number(),
       }),
       404: z.object({ message: z.string() }),
@@ -59,7 +63,7 @@ export const blogContract = c.router({
     path: '/blogs/:id',
     description: 'Get a blog by blog id (đã xong)',
     responses: {
-      200: blogResSchema,
+      200: blogResponeSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -69,7 +73,7 @@ export const blogContract = c.router({
     description: 'Create a new blog (đã xong)',
     body: blogCreateReqSchema,
     responses: {
-      201: blogResSchema,
+      201: blogResponeSchema,
     },
   },
   update: {
@@ -78,7 +82,7 @@ export const blogContract = c.router({
     description: 'Update a blog (đã xong)',
     body: blogUpdateReqSchema,
     responses: {
-      200: blogResSchema,
+      200: blogResponeSchema,
     },
   },
   delete: {

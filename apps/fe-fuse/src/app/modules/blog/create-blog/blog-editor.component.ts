@@ -9,7 +9,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { BlogCreateRequest, BlogResponse, BlogUpdateRequest, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import { BlogCreateRequestType, BlogResponseType, BlogUpdateRequestType, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
 import { imageCompressor } from 'quill-image-compress';
 import { BlogsService } from '../blogs.service';
@@ -70,7 +70,7 @@ export class BlogEditorComponent implements OnInit {
       debug: false, // default
     },
   };
-  protected _blog: BlogResponse | null;
+  protected _blog: BlogResponseType | null;
 
   /**
    * Constructor
@@ -161,7 +161,7 @@ export class BlogEditorComponent implements OnInit {
 
   submit(): void {
     if (!this._blog) {
-      const blogCreateData: BlogCreateRequest = {
+      const blogCreateData: BlogCreateRequestType = {
         title: this.blogEditorForm.value.title,
         author: this.blogEditorForm.value.author,
         summary: this.blogEditorForm.value.summary,
@@ -180,7 +180,7 @@ export class BlogEditorComponent implements OnInit {
         },
       });
     } else {
-      const blogUpdateData: BlogUpdateRequest = {
+      const blogUpdateData: BlogUpdateRequestType = {
         title: this.blogEditorForm.value.title,
         author: this.blogEditorForm.value.author,
         blog_id: this._blog.blog_id,

@@ -1,6 +1,6 @@
-import { BlogResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 
-export const blogsMockData: BlogResponse[] = [
+export const blogsMockData: BlogResponseType[] = [
   {
     blog_id: '1',
     title: 'The Future of AI',

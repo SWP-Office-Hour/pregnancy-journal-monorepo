@@ -43,9 +43,9 @@ const metricUpdateRequestSchema = metricResponseSchema
 
 export type HealthMetric = z.infer<typeof metricResponseSchema>;
 
-export type MetricCreateRequestType = z.infer<typeof metricCreateRequestSchema>;
-
 export type MetricResponseType = z.infer<typeof metricResponseSchema>;
+
+export type MetricCreateRequestType = z.infer<typeof metricCreateRequestSchema>;
 
 export type MetricUpdateRequestType = z.infer<typeof metricUpdateRequestSchema>;
 
