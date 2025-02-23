@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { BlogCreateRequest, BlogResponse, BlogUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { BlogCreateRequestType, BlogResponseType, BlogUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class BlogsService {
   constructor(private readonly databaseService: DatabaseService) {}
 
-  async create(createBlogDto: BlogCreateRequest) {
+  async create(createBlogDto: BlogCreateRequestType) {
     const category = await this.databaseService.Category.findUnique({
       where: {
         category_id: createBlogDto.category_id,
@@ -59,7 +59,7 @@ export class BlogsService {
     return blog;
   }
 
-  async findAll(page: number, limit: number): Promise<{ blogs: BlogResponse[]; total_page: number }> {
+  async findAll(page: number, limit: number): Promise<{ blogs: BlogResponseType[]; total_page: number }> {
     const result = await this.databaseService.Blog.findMany({
       skip: page == 0 ? Number(page) : (page - 1) * limit,
       take: Number(limit),
@@ -98,7 +98,7 @@ export class BlogsService {
     return { blogs, total_page };
   }
 
-  async findOne(id: string): Promise<BlogResponse> {
+  async findOne(id: string): Promise<BlogResponseType> {
     const result = await this.databaseService.Blog.findUnique({
       where: {
         blog_id: id,
@@ -132,7 +132,7 @@ export class BlogsService {
     };
   }
 
-  async update(updateBlogDto: BlogUpdateRequest) {
+  async update(updateBlogDto: BlogUpdateRequestType) {
     const cur = await this.databaseService.Blog.findUnique({
       where: {
         blog_id: updateBlogDto.blog_id,

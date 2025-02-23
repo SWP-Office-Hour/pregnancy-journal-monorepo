@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="SCOPE fe-fuse" pattern="file[pregnancy-journal-monorepo]:apps/fe-fuse//*" />
+  <scope name="SCOPE fe-fuse" pattern="!file[pregnancy-journal-monorepo]:apps/fuse-example//*" />
 </component>

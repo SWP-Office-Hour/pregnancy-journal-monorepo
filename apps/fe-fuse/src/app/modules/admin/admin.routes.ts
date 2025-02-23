@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { BlogRoutes } from '../blog/blog.routes';
 import { AdminComponent } from './admin.component';
+import { UserTableComponent } from './user-table/user-table.component';
 
 export default [
   {
@@ -53,6 +54,15 @@ export default [
       {
         path: '',
         loadChildren: () => import('app/modules/membership/membership.route'),
+      },
+    ],
+  },
+  {
+    path: 'users',
+    children: [
+      {
+        path: '',
+        loadComponent: () => UserTableComponent,
       },
     ],
   },

@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BlogCreateRequest, BlogResponse, BlogUpdateRequest, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import { BlogCreateRequestType, BlogResponseType, BlogUpdateRequestType, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { map, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {
-  private _blog: BlogResponse | null;
-  private _blogs: BlogResponse[];
+  private _blog: BlogResponseType | null;
+  private _blogs: BlogResponseType[];
   private _tags: TagResponse[];
   private _categories: CategoryResponse[];
   private _page = 1;
@@ -32,7 +32,7 @@ export class BlogsService {
 
   getBlogs() {
     return this._httpClient
-      .get<{ blogs: BlogResponse[]; total_page: number }>(environment.apiUrl + 'blogs', {
+      .get<{ blogs: BlogResponseType[]; total_page: number }>(environment.apiUrl + 'blogs', {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
@@ -41,7 +41,7 @@ export class BlogsService {
         },
       })
       .pipe(
-        map(({ blogs, total_page }: { blogs: BlogResponse[]; total_page: number }) => {
+        map(({ blogs, total_page }: { blogs: BlogResponseType[]; total_page: number }) => {
           this._blogs = blogs || [];
           this._totalPage = total_page;
           return { blogs: this._blogs, totalPage: this._totalPage };
@@ -49,15 +49,15 @@ export class BlogsService {
       );
   }
 
-  updateBlog(blog: BlogUpdateRequest) {
+  updateBlog(blog: BlogUpdateRequestType) {
     return this._httpClient
-      .patch<BlogResponse>(environment.apiUrl + 'blogs', blog, {
+      .patch<BlogResponseType>(environment.apiUrl + 'blogs', blog, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
       })
       .pipe(
-        map((response: BlogResponse) => {
+        map((response: BlogResponseType) => {
           this._blogs = this._blogs.map((blog) => {
             if (blog.blog_id === response.blog_id) {
               return response;
@@ -69,15 +69,15 @@ export class BlogsService {
       );
   }
 
-  createBlog(blog: BlogCreateRequest) {
+  createBlog(blog: BlogCreateRequestType) {
     return this._httpClient
-      .post<BlogResponse>(environment.apiUrl + 'blogs', blog, {
+      .post<BlogResponseType>(environment.apiUrl + 'blogs', blog, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
       })
       .pipe(
-        map((response: BlogResponse) => {
+        map((response: BlogResponseType) => {
           return response;
         }),
       );
