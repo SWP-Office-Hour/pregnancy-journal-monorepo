@@ -12,7 +12,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Blog, Status } from '@pregnancy-journal-monorepo/contract';
-import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { Carousel } from 'primeng/carousel';
 import { blogsMockData } from '../../../../../../mockapi-express/src/blogs.mockapi';
@@ -30,7 +29,6 @@ import { environment } from '../../../../environments/environment';
     FuseCardComponent,
     MatButtonModule,
     MatIconModule,
-    NgxSplideModule,
     MatMenuModule,
     MatCheckboxModule,
     MatProgressBarModule,
