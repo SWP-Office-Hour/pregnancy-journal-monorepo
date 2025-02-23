@@ -60,7 +60,7 @@ jobs:
       #      - id: nx-format-check
       #        run: pnpm exec nx format:check
       - id: nx-affected
-        run: pnpm exec nx affected -t lint build
+        run: pnpm exec nx affected -t lint build --parallel
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}

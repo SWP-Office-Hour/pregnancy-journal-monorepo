@@ -62,7 +62,7 @@ jobs:
       #      - id: nx-format-check
       #        run: pnpm exec nx format:check
       - id: nx-affected
-        run: pnpm exec nx affected -t lint build
+        run: pnpm exec nx affected -t lint build --parallel
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -109,7 +109,7 @@ jobs:
           echo "BASE: ${{ env.NX_BASE }}"
           echo "HEAD: ${{ env.NX_HEAD }}"
 
-      - run: pnpm exec nx show projects --affected --json
+      - run: pnpm exec nx show projects --affected --json --parallel
 
       - id: run-affected
         run: echo "rs='$(pnpm exec nx show projects --affected --json)'" >> $GITHUB_OUTPUT
@@ -122,7 +122,7 @@ jobs:
       #### BE FLAG ####
       - id: be-nestjs-deploy-flag
         if: contains(steps.run-affected.outputs.rs,'"be-nestjs-app"')
-        run: pnpm exec nx run be-nestjs-app:build:production
+        run: pnpm exec nx run be-nestjs-app:build:production --parallel
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -154,7 +154,7 @@ jobs:
       #### FE FLAG ####
       - id: fe-angular-deploy-flag
         if: contains(steps.run-affected.outputs.rs,'"fe-fuse"')
-        run: pnpm exec nx run fe-fuse:build:production
+        run: pnpm exec nx run fe-fuse:build:production --parallel
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
