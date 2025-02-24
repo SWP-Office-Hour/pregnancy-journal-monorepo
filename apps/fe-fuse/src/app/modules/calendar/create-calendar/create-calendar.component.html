@@ -1,7 +1,7 @@
 <div class="max-h-160 md:w-160 md:min-w-160 -m-6 flex flex-auto flex-col overflow-y-auto">
   <!-- Header -->
   <div class="flex-0 bg-primary text-on-primary flex h-16 items-center justify-between pl-6 pr-3 sm:pl-8 sm:pr-5">
-    <div class="text-lg font-medium">Card</div>
+    <div class="text-lg font-medium">{{ title || 'Lịch hẹn' }}</div>
     <button mat-icon-button (click)="matDialogRef.close()" [tabIndex]="-1">
       <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
     </button>
