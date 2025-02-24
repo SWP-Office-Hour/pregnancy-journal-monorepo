@@ -1,6 +1,5 @@
-<!-- component -->
-<div class="w-full lg:flex lg:h-full lg:flex-col">
-  <header class="flex items-center justify-between border-b border-gray-200 px-6 py-4 lg:flex-none">
+<div class="w-full bg-gray-50 lg:flex lg:h-full lg:flex-col">
+  <header class="flex items-center justify-between border-b border-gray-200 bg-white px-6 py-4 lg:flex-none">
     <mat-form-field class="w-44">
       <input matInput [formControl]="selected_date_as_string" readonly />
       <input hidden matInput [matDatepicker]="selected_date_picker" [formControl]="selected_date" readonly />
@@ -12,8 +11,9 @@
         </mat-datepicker-actions>
       </mat-datepicker>
     </mat-form-field>
-    <div class="flex items-center">
-      <div class="relative flex items-center rounded-md bg-white shadow-sm md:items-stretch">
+    <div class="flex items-center gap-4">
+      <div class="relative flex items-center rounded-md bg-white shadow-sm ring-1 ring-gray-200 md:items-stretch">
+        <!-- Navigation buttons ... -->
         <button
           type="button"
           class="flex h-9 w-12 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
@@ -51,217 +51,144 @@
           </svg>
         </button>
       </div>
-      <div class="hidden md:ml-4 md:flex md:items-center">
-        <div class="ml-6 h-6 w-px bg-gray-300"></div>
-        <button
-          (click)="createMeeting()"
-          type="button"
-          class="ml-6 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-        >
-          Create event
-        </button>
-      </div>
-      <div class="relative ml-6 md:hidden">
+
+      <!-- Mobile menu dropdown -->
+      <div class="relative md:hidden">
         <button
           type="button"
-          class="-mx-2 flex items-center rounded-full border border-transparent p-2 text-gray-400 hover:text-gray-500"
-          id="menu-0-button"
+          class="flex h-9 items-center justify-center rounded-md border border-gray-300 px-2 text-gray-400 hover:text-gray-500 md:hidden"
+          (click)="showMobileMenu = !showMobileMenu"
           aria-expanded="false"
           aria-haspopup="true"
-          (click)="clickSelector()"
         >
-          <span class="sr-only">Open menu</span>
-          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-            <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+          <span class="sr-only">Open mobile menu</span>
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01" />
           </svg>
         </button>
 
-        <!--
-          Dropdown menu, show/hide based on menu state.
-
-          Entering: "transition ease-out duration-100"
-            From: "transform opacity-0 scale-95"
-            To: "transform opacity-100 scale-100"
-          Leaving: "transition ease-in duration-75"
-            From: "transform opacity-100 scale-100"
-            To: "transform opacity-0 scale-95"
-        -->
+        <!-- Dropdown menu -->
         <div
-          class="absolute right-0 z-10 mt-3 w-36 origin-top-right divide-y divide-gray-100 overflow-hidden rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-          role="menu"
-          [hidden]="!open()"
-          aria-orientation="vertical"
-          aria-labelledby="menu-0-button"
-          tabindex="-1"
+          *ngIf="showMobileMenu"
+          class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
         >
-          <div class="py-1" role="none">
-            <!-- Active: "bg-gray-100 text-gray-900", Not Active: "text-gray-700" -->
-            <button
-              class="block w-full px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100"
-              role="menuitem"
-              tabindex="-1"
-              id="menu-0-item-0"
-              (click)="createMeeting()"
-            >
-              Create event
+          <div class="py-1">
+            <button (click)="goToToday(); showMobileMenu = false" class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100">
+              Today
             </button>
-          </div>
-          <div class="py-1" role="none">
             <button
-              (click)="goToToday()"
-              class="block w-full px-4 py-2 text-sm text-gray-700 hover:cursor-pointer hover:bg-gray-100"
-              role="menuitem"
-              tabindex="-1"
-              id="menu-0-item-1"
+              (click)="createMeeting(); showMobileMenu = false"
+              class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
             >
-              Go to today
+              Create Event
             </button>
           </div>
         </div>
+      </div>
+
+      <!-- Desktop buttons -->
+      <div class="hidden gap-4 md:flex md:items-center">
+        <button
+          (click)="createMeeting()"
+          class="flex items-center gap-2 rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+        >
+          <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd" d="M10 12a2 2 0 100-4 2 2 0 000 4zM3 10a7 7 0 1114 0 7 7 0 01-14 0z" clip-rule="evenodd" />
+          </svg>
+          <span>Create Event</span>
+        </button>
       </div>
     </div>
   </header>
-  <div class="shadow ring-1 ring-black ring-opacity-5 lg:flex lg:flex-auto lg:flex-col">
-    <div class="grid grid-cols-7 gap-px border-b border-gray-300 bg-gray-200 text-center text-xs font-semibold leading-6 text-gray-700 lg:flex-none">
-      @for (weekDay of weekDays(); track $index) {
-        <div class="flex justify-center bg-white py-2">
-          <span>{{ weekDay.charAt(0) }}</span>
-          <span class="sr-only sm:not-sr-only">{{ weekDay.slice(1) }}</span>
-        </div>
-      }
-    </div>
-    <div class="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
-      <div
-        [ngClass]="{
-          'hidden w-full lg:grid lg:grid-cols-7 lg:gap-px': true,
-          'lg:grid-rows-6': this.daysOfMonth().length > 35,
-          'lg:grid-rows-5': this.daysOfMonth().length <= 35,
-        }"
-      >
-        <!--
-          Always include: "relative py-2 px-3"
-          Is current month, include: "bg-white"
-          Is not current month, include: "bg-gray-50 text-gray-500"
-        -->
-        @for (dayOfMonth of daysOfMonth(); track $index) {
-          <div
-            class="relative px-3 py-2 hover:bg-blue-200"
-            [ngClass]="{
-              'bg-white': dateInActiveMonth(dayOfMonth),
-              'bg-gray-50 text-gray-500': !dateInActiveMonth(dayOfMonth),
-              '!bg-blue-600 text-white': IsToday(dayOfMonth),
-            }"
-            (click)="clickDate(dayOfMonth)"
-          >
-            <time
-              datetime="{{ dayOfMonth.toISODate() }}"
-              [ngClass]="{
-                'flex h-6 w-6 items-center justify-center rounded-full': true,
-                'bg-indigo-600': IsActiveDay(dayOfMonth),
-              }"
-              >{{ dayOfMonth.day }}
-            </time>
-            @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
-              <span
-                [ngClass]="{
-                  'text-xl': true,
-                  'text-green': meeting.type == ReminderType.MEETING,
-                  'text-red': meeting.type == ReminderType.EVENT,
-                }"
-              >
-                •
-              </span>
-            }
+
+  <div class="px-4 py-6 sm:px-6 lg:px-8">
+    <div class="overflow-hidden rounded-lg bg-white shadow ring-1 ring-black ring-opacity-5">
+      <div class="grid grid-cols-7 gap-px bg-gray-200 text-center text-sm font-semibold leading-6 text-gray-700">
+        @for (weekDay of weekDays(); track $index) {
+          <div class="bg-white py-2.5">
+            <span class="sr-only sm:not-sr-only">{{ weekDay }}</span>
+            <span class="sm:hidden">{{ weekDay.charAt(0) }}</span>
           </div>
         }
       </div>
-      <div
-        [ngClass]="{
-          'isolate grid w-full grid-cols-7 gap-px lg:hidden': true,
-          'grid-rows-6': this.daysOfMonth().length > 35,
-          'grid-rows-5': this.daysOfMonth().length <= 35,
-        }"
-      >
-        @for (dayOfMonth of daysOfMonth(); track $index) {
-          <button
-            type="button"
-            [ngClass]="{
-              'flex h-14 flex-col px-3 py-2 hover:bg-gray-100 focus:z-10': true,
-              'bg-white': dateInActiveMonth(dayOfMonth),
-              'bg-gray-50 text-gray-500': !dateInActiveMonth(dayOfMonth),
-              '!bg-blue-900 font-semibold text-white': IsToday(dayOfMonth),
-            }"
-            (click)="clickDate(dayOfMonth)"
-          >
-            <!--
-              Always include: "ml-auto"
-              Is selected, include: "flex h-6 w-6 items-center justify-center rounded-full"
-              Is selected and is today, include: "bg-indigo-600"
-              Is selected and is not today, include: "bg-gray-900"
-            -->
-            <time
-              datetime="{{ dayOfMonth.toISODate() }}"
+      <div class="flex bg-gray-200 text-xs leading-6 text-gray-700 lg:flex-auto">
+        <div class="grid w-full grid-cols-7 gap-px">
+          @for (dayOfMonth of daysOfMonth(); track $index) {
+            <div
+              class="relative min-h-[6rem] bg-white p-2 transition-colors hover:bg-gray-50 focus:z-10"
               [ngClass]="{
-                'ml-auto': true,
-                'flex h-6 w-6 items-center justify-center rounded-full': activeDay()?.toISODate() === dayOfMonth.toISODate(),
-                'bg-indigo-600': activeDay()?.toISODate() === dayOfMonth.toISODate(),
-                'bg-gray-900': activeDay()?.toISODate() === dayOfMonth.toISODate(),
+                'bg-gray-50 text-gray-500': !dateInActiveMonth(dayOfMonth),
+                'font-semibold': IsToday(dayOfMonth) || IsActiveDay(dayOfMonth),
               }"
-              >{{ dayOfMonth.day }}
-            </time>
-            <div>
-              @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
-                <span
-                  [ngClass]="{
-                    'text-xl': true,
-                    'text-green': meeting.type == ReminderType.MEETING,
-                    'text-red': meeting.type == ReminderType.EVENT,
-                  }"
-                >
-                  •
-                </span>
-              }
+              (click)="selectDay(dayOfMonth)"
+            >
+              <time
+                datetime="{{ dayOfMonth.toISODate() }}"
+                class="mx-auto flex h-6 w-6 items-center justify-center rounded-full text-sm"
+                [ngClass]="{
+                  'bg-indigo-600 text-white': IsToday(dayOfMonth),
+                  'text-gray-900': dateInActiveMonth(dayOfMonth) && !IsToday(dayOfMonth),
+                  'text-gray-500': !dateInActiveMonth(dayOfMonth),
+                }"
+              >
+                {{ dayOfMonth.day }}
+              </time>
+              <div class="mt-1 flex flex-wrap gap-1">
+                @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
+                  <span
+                    class="block h-2 w-2 rounded-full"
+                    [ngClass]="{
+                      'bg-green-500': meeting.type == ReminderType.MEETING,
+                      'bg-red-500': meeting.type == ReminderType.EVENT,
+                    }"
+                  ></span>
+                }
+              </div>
             </div>
-          </button>
-        }
-        <!--
-          Always include: "flex h-14 flex-col py-2 px-3 hover:bg-gray-100 focus:z-10"
-          Is current month, include: "bg-white"
-          Is not current month, include: "bg-gray-50"
-          Is selected or is today, include: "font-semibold"
-          Is selected, include: "text-white"
-          Is not selected and is today, include: "text-indigo-600"
-          Is not selected and is current month, and is not today, include: "text-gray-900"
-          Is not selected, is not current month, and is not today: "text-gray-500"
-        -->
+          }
+        </div>
       </div>
     </div>
   </div>
-  <div class="schedule">
-    <div class="schedule-headline">
-      @if (activeDay(); as activeDay) {
-        <div>{{ activeDay.toLocaleString(DATE_MED) }}</div>
-      } @else {
-        <div>Please select a day</div>
-      }
-    </div>
-    <div>
-      @if (activeDay && activeDayMeetings().length === 0) {
-        <div>No Planned Meetings today</div>
-      }
 
-      @if (activeDay && activeDayMeetings().length > 0) {
-        @for (meeting of activeDayMeetings(); track $index) {
-          <div>{{ meeting.title }}</div>
-          <p>
-            <time datetime="{{ meeting.remind_date }}"
-              >{{ meeting.remind_date?.getDate() + '/' + meeting.remind_date?.getMonth() + '/' + meeting.remind_date.getFullYear() }}
-            </time>
-          </p>
-
-          <p>{{ meeting.content }}</p>
+  <div class="px-4 pb-6 sm:px-6 lg:px-8">
+    <div class="rounded-lg bg-white p-6 shadow">
+      <h2 class="text-lg font-semibold text-gray-900">
+        @if (activeDay()) {
+          {{ activeDay()!.toLocaleString(DATE_MED) }}
+        } @else {
+          Select a date
         }
-      }
+      </h2>
+
+      <div class="mt-4 space-y-4">
+        @if (activeDay() && activeDayMeetings().length === 0) {
+          <p class="text-sm text-gray-500">No events scheduled for this day.</p>
+        }
+
+        @for (meeting of activeDayMeetings(); track $index) {
+          <div class="rounded-lg border p-4 transition-colors hover:bg-gray-50">
+            <div class="flex items-center gap-3">
+              <div class="flex-shrink-0">
+                <div
+                  class="h-3 w-3 rounded-full"
+                  [ngClass]="{
+                    'bg-green-500': meeting.type == ReminderType.MEETING,
+                    'bg-red-500': meeting.type == ReminderType.EVENT,
+                  }"
+                ></div>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-medium text-gray-900">{{ meeting.title }}</p>
+                <p class="truncate text-sm text-gray-500">{{ meeting.content }}</p>
+                <time class="mt-1 block text-xs text-gray-400">
+                  {{ meeting.remind_date | date: 'mediumDate' }}
+                </time>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>
