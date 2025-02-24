@@ -10,6 +10,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-01-15'),
     updated_at: new Date('2025-02-10'),
     category: { title: 'Technology', status: Status.ACTIVE, category_id: 'tech-001' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '2',
@@ -20,6 +21,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2024-12-10'),
     updated_at: new Date('2025-01-05'),
     category: { title: 'Health', status: Status.ACTIVE, category_id: 'health-002' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '3',
@@ -30,6 +32,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-01-20'),
     updated_at: new Date('2025-02-01'),
     category: { title: 'Programming', status: Status.ACTIVE, category_id: 'prog-003' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '4',
@@ -40,6 +43,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2024-11-25'),
     updated_at: new Date('2025-01-10'),
     category: { title: 'Lifestyle', status: Status.ACTIVE, category_id: 'life-004' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '5',
@@ -50,6 +54,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-01-10'),
     updated_at: new Date('2025-02-05'),
     category: { title: 'Finance', status: Status.ACTIVE, category_id: 'fin-005' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '6',
@@ -60,6 +65,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2024-12-05'),
     updated_at: new Date('2025-01-25'),
     category: { title: 'Self Improvement', status: Status.ACTIVE, category_id: 'self-006' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '7',
@@ -70,6 +76,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-01-12'),
     updated_at: new Date('2025-02-09'),
     category: { title: 'Science', status: Status.ACTIVE, category_id: 'sci-007' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '8',
@@ -80,6 +87,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-01-05'),
     updated_at: new Date('2025-01-20'),
     category: { title: 'Technology', status: Status.ACTIVE, category_id: 'tech-008' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '9',
@@ -90,6 +98,7 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2024-12-15'),
     updated_at: new Date('2025-01-30'),
     category: { title: 'Photography', status: Status.ACTIVE, category_id: 'photo-009' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
   {
     blog_id: '10',
@@ -100,5 +109,6 @@ export const blogsMockData: BlogResponseType[] = [
     created_at: new Date('2025-02-01'),
     updated_at: new Date('2025-02-15'),
     category: { title: 'Finance', status: Status.ACTIVE, category_id: 'fin-010' },
+    blog_cover: 'https://example.com/ai-cover.jpg',
   },
 ];
