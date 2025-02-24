@@ -1,6 +1,6 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -30,6 +30,7 @@ import { CalendarService } from '../calendar.service';
 })
 export class CreateCalendarComponent {
   protected reminderForm: FormGroup;
+  @Input() title: string;
   protected activeDay = this._calendarService.activeDay;
 
   constructor(
