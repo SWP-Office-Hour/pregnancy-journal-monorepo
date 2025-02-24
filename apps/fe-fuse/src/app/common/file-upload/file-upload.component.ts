@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, Input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -15,6 +15,7 @@ import { getBase64 } from '../blob.utils';
 })
 export class FileUploadComponent {
   insertImg = output<MediaResponse>();
+  @Input() buttonText: string;
   protected readonly control = new FormControl<File[]>([]);
 
   constructor(private imageCompress: NgxImageCompressService) {}

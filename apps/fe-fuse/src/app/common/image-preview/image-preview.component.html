@@ -1,3 +1,21 @@
-<mat-card class="p-auto h-56 w-56 rounded-lg" appearance="outlined" (click)="openDialog()">
-  <img alt="image" class="h-56 w-56 overflow-hidden rounded-lg hover:cursor-pointer" src="{{ imgObj.media_url }}" />
+<mat-card
+  [ngClass]="{
+    'p-auto rounded-lg': true,
+    'h-56 w-56': !heightAsPx && !widthAsPx,
+  }"
+  [style.height.px]="heightAsPx ? heightAsPx : 'auto'"
+  [style.width.px]="widthAsPx ? widthAsPx : 'auto'"
+  appearance="outlined"
+  (click)="openDialog()"
+>
+  <img
+    alt="image"
+    [ngClass]="{
+      'overflow-hidden rounded-lg hover:cursor-pointer': true,
+      'h-56 w-56': !heightAsPx && !widthAsPx,
+    }"
+    [style.height.px]="heightAsPx ? heightAsPx : 'auto'"
+    [style.width.px]="widthAsPx ? widthAsPx : 'auto'"
+    src="{{ imgObj.media_url }}"
+  />
 </mat-card>
