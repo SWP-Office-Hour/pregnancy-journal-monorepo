@@ -57,6 +57,15 @@
           <input matInput [formControlName]="'summary'" />
         </mat-form-field>
 
+        <div class="mb-8 w-full px-2 md:w-1/2">
+          <file-upload (insertImg)="addImage($event)"></file-upload>
+        </div>
+        <div class="flex flex-wrap">
+          @for (src of images; track $index) {
+            <image-preview [imgObj]="src" (deleteImg)="deleteImage($event)"></image-preview>
+          }
+        </div>
+
         <!-- Body -->
         <quill-editor
           class="mt-2"

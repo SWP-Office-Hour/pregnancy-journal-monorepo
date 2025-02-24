@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { FileUploadComponent } from '../../common/file-upload/file-upload.component';
-import { ImagePreviewComponent } from '../../common/image-preview/image-preview.component';
+import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
+import { ImagePreviewComponent } from '../../../../common/image-preview/image-preview.component';
 import { PregnancyRecordService } from '../pregnancy-record.service';
 
 @Component({

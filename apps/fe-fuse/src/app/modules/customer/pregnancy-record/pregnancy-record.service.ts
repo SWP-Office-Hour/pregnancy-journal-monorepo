@@ -3,8 +3,8 @@ import { Injectable, signal } from '@angular/core';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { dataURItoBlob } from '../../../common/blob.utils';
 import { AuthService } from '../../../core/auth/auth.service';
-import { dataURItoBlob } from '../common/blob.utils';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyRecordService {

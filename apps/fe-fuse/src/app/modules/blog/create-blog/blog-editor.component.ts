@@ -9,9 +9,11 @@ import { MatIcon } from '@angular/material/icon';
 import { MatInput } from '@angular/material/input';
 import { MatSelect } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { BlogCreateRequestType, BlogResponseType, BlogUpdateRequestType, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponseType, BlogUpdateRequestType, CategoryResponse, MediaResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
 import { imageCompressor } from 'quill-image-compress';
+import { FileUploadComponent } from '../../../common/file-upload/file-upload.component';
+import { ImagePreviewComponent } from '../../../common/image-preview/image-preview.component';
 import { BlogsService } from '../blogs.service';
 
 @Component({
@@ -28,6 +30,8 @@ import { BlogsService } from '../blogs.service';
     MatChipsModule,
     MatAutocompleteModule,
     MatSelect,
+    FileUploadComponent,
+    ImagePreviewComponent,
   ],
   templateUrl: './blog-editor.component.html',
   styleUrl: './blog-editor.component.css',
@@ -41,6 +45,7 @@ export class BlogEditorComponent implements OnInit {
   tagsChips = signal<TagResponse[]>([]);
   tagsOptions: TagResponse[] = [];
   categories: CategoryResponse[] = [];
+  images: MediaResponse[] = this._blogService.Media;
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -157,11 +162,19 @@ export class BlogEditorComponent implements OnInit {
     return this.tagsChips().some((t) => t.tag_id === tag.tag_id);
   }
 
+  deleteImage(id: string) {
+    this._blogService.deleteImage(id);
+  }
+
+  addImage(img: MediaResponse) {
+    this._blogService.addImage(img);
+  }
+
   // -----------------------------------------------------------------------------------------------------
 
   submit(): void {
     if (!this._blog) {
-      const blogCreateData: BlogCreateRequestType = {
+      const blogCreateData = {
         title: this.blogEditorForm.value.title,
         author: this.blogEditorForm.value.author,
         summary: this.blogEditorForm.value.summary,
