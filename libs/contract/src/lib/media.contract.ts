@@ -36,7 +36,7 @@ export const mediaContract = c.router({
       post_id: z.string().optional(),
       record_id: z.string().optional(),
     }),
-    body: mediaResSchema,
+    body: z.array(mediaResSchema),
     responses: {
       200: mediaResSchema,
       400: z.object({
