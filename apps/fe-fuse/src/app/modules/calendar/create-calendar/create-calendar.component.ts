@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReminderCreateRequest, ReminderResponse } from '@pregnancy-journal-monorepo/contract';
-import { DateTime } from 'luxon';
 import { CalendarService } from '../calendar.service';
 
 @Component({
@@ -53,11 +52,10 @@ export class CreateCalendarComponent {
     const reminderData: ReminderCreateRequest = {
       title: this.reminderForm.get('title')?.value,
       content: this.reminderForm.get('content')?.value,
-      remind_date: (this.reminderForm.get('remind_date')?.value as DateTime).toISODate()!,
+      remind_date: this.reminderForm.get('remind_date')?.value.toISODate(),
     };
-    console.log(reminderData);
+
     this._calendarService.createReminder(reminderData).subscribe((res: ReminderResponse) => {
-      console.log(res);
       this.matDialogRef.close();
     });
   }

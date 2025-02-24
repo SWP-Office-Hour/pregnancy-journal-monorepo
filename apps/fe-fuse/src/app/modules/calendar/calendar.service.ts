@@ -53,7 +53,7 @@ export class CalendarService {
       })
       .pipe(
         map((response: ReminderResponse) => {
-          this._meetings.set([...this.meetings(), response]);
+          this._meetings.set([...this.meetings(), { ...response, remind_date: new Date(response.remind_date) }]);
           return response;
         }),
       );
