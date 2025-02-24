@@ -17,7 +17,7 @@ export const standardCreateReqSchema = standardSchema
     standard_id: true, // Loại bỏ trường `standard_id`
   })
   .extend({
-    week: z.number().min(0).max(40), // Thêm validation cho `week`
+    week: z.number().min(0).max(50), // Thêm validation cho `week`
   });
 
 // Update request schema
@@ -26,7 +26,7 @@ export const standardUpdateReqSchema = standardSchema
     metric_id: true, // Loại bỏ trường `metric_id`
   })
   .extend({
-    week: z.number().min(0).max(40).optional(), // Thêm validation và làm cho `week` tùy chọn
+    week: z.number().min(0).max(50).optional(), // Thêm validation và làm cho `week` tùy chọn
     lowerbound: z.number().optional(), // Làm cho `lowerbound` tùy chọn
     upperbound: z.number().optional(), // Làm cho `upperbound` tùy chọn
     who_standard_value: z.number().nullable().optional(), // Làm cho `who_standard_value` tùy chọn// Làm cho `metric_id` tùy chọn

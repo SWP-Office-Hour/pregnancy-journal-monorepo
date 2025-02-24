@@ -19,6 +19,37 @@ export class TagService {
     return this.databaseService.Tag.findMany();
   }
 
+  async findAllByUser(userId: string): Promise<TagResponse[]> {
+    const user = await this.databaseService.User.findUnique({
+      where: { user_id: userId },
+      include: {
+        visit_record: {
+          orderBy: {
+            visit_doctor_date: 'asc',
+          },
+          include: {
+            visit_record_metric: true,
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    const lastRecord = user.visit_record[user.visit_record.length - 1];
+
+    if (!lastRecord) {
+      return [];
+    }
+
+    const tags_id = lastRecord.visit_record_metric.map((metric) => metric.tag_id).filter((tag_id) => tag_id !== null);
+
+    const tags = await Promise.all(tags_id.map((tag_id) => this.databaseService.Tag.findUnique({ where: { tag_id } })));
+
+    return tags.filter((tag): tag is TagResponse => tag !== null);
+  }
+
   async findOne(id: string) {
     const result = await this.databaseService.Tag.findUnique({
       where: {
