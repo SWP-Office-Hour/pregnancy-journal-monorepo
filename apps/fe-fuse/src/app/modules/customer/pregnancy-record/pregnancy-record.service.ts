@@ -3,7 +3,6 @@ import { Injectable, signal } from '@angular/core';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordCreateRequest, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
-import { dataURItoBlob } from '../../../common/blob.utils';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
@@ -51,12 +50,6 @@ export class PregnancyRecordService {
       );
   }
 
-  postImage({}: { image: MediaResponse; record_id: string }) {
-    return this._httpClient.post(environment.apiUrl + 'media', {
-      image: this._mediaSrc,
-    });
-  }
-
   deleteImage(id: string) {
     this._mediaSrc.splice(
       this._mediaSrc.findIndex((img) => img.media_id === id),
@@ -77,31 +70,10 @@ export class PregnancyRecordService {
       })
       .pipe(
         map((res: RecordResponse) => {
-          this._mediaSrc.forEach((img) => {
-            // convert string base64 to blob
-            const blob = dataURItoBlob(img.media_url);
-
-            // create form data
-            const fd = new FormData();
-
-            // append blob to form data
-            fd.append('file', blob);
-
-            // post image
-            this._httpClient
-              .post(environment.apiUrl + 'media?record_id=' + res.visit_record_id, fd, {
-                headers: {
-                  Authorization: `Bearer ${this._authService.accessToken}`,
-                },
-              })
-              .subscribe({
-                next: () => {
-                  console.log('Image uploaded');
-                },
-                error: (err) => {
-                  console.error(err);
-                },
-              });
+          this._httpClient.post(environment.apiUrl + 'multi_media?record_id=' + res.visit_record_id, this._mediaSrc, {
+            headers: {
+              Authorization: `Bearer ${this._authService.accessToken}`,
+            },
           });
 
           return res;
