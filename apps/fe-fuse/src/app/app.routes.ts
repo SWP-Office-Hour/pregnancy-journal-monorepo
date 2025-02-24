@@ -10,6 +10,7 @@ import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/p
 import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
 import { postRoutes } from './modules/post/post.routes';
+import { UserProfileComponent } from './modules/user-profile/user-profile.component';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -119,6 +120,10 @@ export const appRoutes: Route[] = [
       {
         path: 'post',
         loadChildren: () => postRoutes,
+      },
+      {
+        path: 'user-profile',
+        loadComponent: () => UserProfileComponent,
       },
     ],
   },

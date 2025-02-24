@@ -4,6 +4,6 @@ import { AuthSignInWithGoogleComponent } from './sign-in-with-google.component';
 export default [
   {
     path: '',
-    component: AuthSignInWithGoogleComponent,
+    loadComponent: () => AuthSignInWithGoogleComponent,
   },
 ] as Routes;

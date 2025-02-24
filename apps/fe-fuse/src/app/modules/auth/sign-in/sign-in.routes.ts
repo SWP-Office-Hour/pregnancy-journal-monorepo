@@ -4,6 +4,6 @@ import { AuthSignInComponent } from 'app/modules/auth/sign-in/sign-in.component'
 export default [
   {
     path: '',
-    component: AuthSignInComponent,
+    loadComponent: () => AuthSignInComponent,
   },
 ] as Routes;

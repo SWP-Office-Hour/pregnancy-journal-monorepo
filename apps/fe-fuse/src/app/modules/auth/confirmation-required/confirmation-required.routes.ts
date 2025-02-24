@@ -4,6 +4,6 @@ import { AuthConfirmationRequiredComponent } from 'app/modules/auth/confirmation
 export default [
   {
     path: '',
-    component: AuthConfirmationRequiredComponent,
+    loadComponent: () => AuthConfirmationRequiredComponent,
   },
 ] as Routes;
