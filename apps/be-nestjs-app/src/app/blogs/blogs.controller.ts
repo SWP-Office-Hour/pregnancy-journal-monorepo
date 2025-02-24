@@ -26,6 +26,16 @@ export class BlogsController {
     });
   }
 
+  @TsRestHandler(blogContract.getBlogByTag)
+  handleGetBlogByTag(@Param('tag_id') tagId: string[], @Query('page') page: number, @Query('limit') limit: number) {
+    return tsRestHandler(blogContract.getBlogByTag, async () => {
+      page = page ? page : 1;
+      limit = limit ? limit : 10;
+      const result = await this.blogsService.findByTag(page, limit, tagId);
+      return { status: 200, body: result };
+    });
+  }
+
   @TsRestHandler(blogContract.getOne)
   handleGetOne(@Param('id') id: string) {
     return tsRestHandler(blogContract.getOne, async () => {

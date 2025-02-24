@@ -69,6 +69,27 @@ export const blogContract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
+
+  getBlogByTag: {
+    method: 'GET',
+    path: '/blogs/tag/:tag_id',
+    description: 'Get a blog by tag id (đã xong)',
+    query: z.object({
+      limit: z.coerce.number().min(0).default(10),
+      page: z.coerce.number().min(1).default(1),
+    }),
+    pathParams: z.object({
+      tag_id: z.array(z.string()),
+    }),
+    responses: {
+      200: z.object({
+        blogs: z.array(blogResponeSchema),
+        total_page: z.number(),
+      }),
+      404: z.object({ message: z.string() }),
+    },
+  },
+
   create: {
     method: 'POST',
     path: '/blogs',
