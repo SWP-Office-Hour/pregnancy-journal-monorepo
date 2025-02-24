@@ -38,7 +38,7 @@ async function bootstrap() {
   const apiDocument = generateOpenApi(
     {
       auth: authContract,
-      user: userContract,
+      user_for_admin: userContract,
       pay: payosContract,
       tag: tagContract,
       metric: metricContract,
