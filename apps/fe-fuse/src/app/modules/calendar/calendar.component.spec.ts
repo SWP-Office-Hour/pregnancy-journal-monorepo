@@ -19,4 +19,8 @@ describe('CalendarComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have a selected_date', () => {
+    expect(component.selected_date).toBeDefined();
+  });
 });
