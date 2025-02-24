@@ -62,7 +62,8 @@ export class CalendarComponent {
     const meetingDate = this.meetings().filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === activeDayISO);
     return meetingDate.length ? meetingDate : [];
   });
-  protected open = signal(false);
+  protected showMobileMenu = false;
+  protected readonly ReminderType = ReminderType;
 
   constructor(
     private _calendarService: CalendarService,
@@ -73,6 +74,7 @@ export class CalendarComponent {
       if (date) {
         this.firstDayOfActiveMonth.set(DateTime.fromObject({ month: date.month, year: date.year }).startOf('month'));
         this.selected_date_as_string.setValue(`${date.monthLong} ${date.year}`);
+        this.selectDay(date);
       }
     });
   }
@@ -92,11 +94,7 @@ export class CalendarComponent {
     this.selected_date.setValue(this.firstDayOfActiveMonth());
   }
 
-  clickSelector() {
-    this.open.set(!this.open());
-  }
-
-  protected clickDate(dayOfMonth: DateTime) {
+  protected selectDay(dayOfMonth: DateTime) {
     if (this.IsActiveDay(dayOfMonth)) {
       this._calendarService.activeDay = null;
     } else {
@@ -125,6 +123,4 @@ export class CalendarComponent {
   protected IsToday(date: DateTime): boolean {
     return date.toISODate() === this.today().toISODate();
   }
-
-  protected readonly ReminderType = ReminderType;
 }

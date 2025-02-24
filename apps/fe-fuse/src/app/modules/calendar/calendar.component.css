@@ -83,3 +83,15 @@
   font-weight: 600;
   margin-bottom: 30px;
 }
+
+.mat-datepicker-content {
+  @apply rounded-lg shadow-lg;
+}
+
+.mat-calendar-table-header {
+  @apply font-medium text-gray-500;
+}
+
+.mat-calendar-body-cell-content {
+  @apply transition-colors duration-200;
+}
