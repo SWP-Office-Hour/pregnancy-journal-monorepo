@@ -3,6 +3,7 @@ import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
+import { FormComponent } from './common/form/form.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
 import { CalendarComponent } from './modules/calendar/calendar.component';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
@@ -124,6 +125,71 @@ export const appRoutes: Route[] = [
       {
         path: 'user-profile',
         loadComponent: () => UserProfileComponent,
+      },
+      {
+        path: 'form',
+        data: {
+          selectInput: [
+            {
+              label: 'Select',
+              value: '1',
+              name: 'select',
+              options: [
+                {
+                  value: '1',
+                  title: 'Java',
+                },
+                {
+                  value: '2',
+                  title: 'JavaScript',
+                },
+                {
+                  value: '3',
+                  title: 'TypeScript',
+                },
+              ],
+              required: true,
+            },
+          ],
+          numberInput: [
+            {
+              label: 'Number',
+              value: 1,
+              name: 'number',
+              placeholder: 'Number',
+              pattern: '^[0-9]*$',
+              required: true,
+            },
+          ],
+          textInput: [
+            {
+              label: 'Text',
+              value: 'Super duper form',
+              name: 'text',
+              placeholder: 'Text',
+              pattern: '^[a-zA-Z]*$',
+              required: true,
+            },
+            {
+              label: 'Text',
+              value: 'Super duper form 2',
+              name: 'text',
+              placeholder: 'Text',
+              pattern: '^[a-zA-Z]*$',
+              required: true,
+            },
+          ],
+          dateInput: [
+            {
+              label: 'Date',
+              name: 'date',
+              value: new Date(),
+              required: true,
+            },
+          ],
+          submitText: 'Chốt',
+        },
+        loadComponent: () => FormComponent,
       },
     ],
   },

@@ -1,0 +1,51 @@
+/* Add to your global styles or component styles */
+::ng-deep .p-datepicker {
+  @apply rounded-md border border-gray-200 shadow-lg;
+}
+
+::ng-deep .p-dropdown {
+  @apply w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500;
+}
+
+::ng-deep .p-inputtext {
+  @apply w-full rounded-md border-gray-300;
+}
+
+/* Toast Container Overrides */
+.custom-toast .p-toast-message {
+  background-color: #ffffff; /* White background */
+  border-left: 4px solid #ec4899; /* Pink accent border */
+  color: #1f2937; /* Dark text color */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  padding: 1rem;
+}
+
+/* Toast Summary & Detail */
+.custom-toast .p-toast-message .p-toast-summary {
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.custom-toast .p-toast-message .p-toast-detail {
+  color: #374151;
+}
+
+/* Close Icon Styling */
+.custom-toast .p-toast-close-icon {
+  color: #ec4899;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+}
+
+.custom-toast .p-toast-close-icon:hover {
+  color: #db2777;
+}
+
+/* Override Variants (if using different message severities) */
+.custom-toast .p-toast-message-success,
+.custom-toast .p-toast-message-info,
+.custom-toast .p-toast-message-warn,
+.custom-toast .p-toast-message-error {
+  border-left-color: #ec4899;
+}

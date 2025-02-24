@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,16 +25,14 @@ import { District, Province, Ward } from '../auth/confirmation-required/confirma
   styleUrl: './user-profile.component.css',
 })
 export class UserProfileComponent {
+  count = 0;
   profileForm: FormGroup;
   avatarPreview: string | ArrayBuffer | null = null;
   protected provinces: Province[] = [];
   protected districts: District[] = [];
   protected wards: Ward[] = [];
 
-  constructor(
-    private fb: FormBuilder,
-    private _httpClient: HttpClient,
-  ) {
+  constructor(private fb: FormBuilder) {
     this.profileForm = this.fb.group({
       avatar: [null],
       email: ['', [Validators.required, Validators.email]],
@@ -48,31 +45,38 @@ export class UserProfileComponent {
       address: ['', Validators.required],
     });
 
-    this._httpClient.get<Province[]>('https://provinces.open-api.vn/api/p').subscribe({
-      next: (provinces) => {
+    fetch('https://provinces.open-api.vn/api/p')
+      .then((response) => {
+        return response.json();
+      })
+      .then((provinces: Province[]) => {
         this.provinces = provinces;
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
+      });
   }
 
   async onProvinceSelected(province_code_input: MatSelectChange) {
     const province_code = province_code_input.value;
     this.wards = [];
     this.districts = [];
-    this._httpClient.get<Province>(`https://provinces.open-api.vn/api/p/${province_code}?depth=2`).subscribe((province) => {
-      this.districts = province.districts!;
-    });
+    fetch(`https://provinces.open-api.vn/api/p/${province_code}?depth=2`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((province: Province) => {
+        this.districts = province.districts!;
+      });
   }
 
   async onDistrictSelected(district_code_input: MatSelectChange) {
     const district_code = district_code_input.value;
     this.wards = [];
-    this._httpClient.get<District>(`https://provinces.open-api.vn/api/d/${district_code}?depth=2`).subscribe((district) => {
-      this.wards = district.wards!;
-    });
+    fetch(`https://provinces.open-api.vn/api/d/${district_code}?depth=2`)
+      .then((response) => {
+        return response.json();
+      })
+      .then((district: District) => {
+        this.wards = district.wards!;
+      });
   }
 
   onFileSelected(event: Event) {
@@ -87,7 +91,11 @@ export class UserProfileComponent {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      console.log(this.profileForm.value);
+      const data = {
+        ...this.profileForm.value,
+        birthDate: this.profileForm.value.birthDate.toISODate(),
+      };
+      console.log(data);
     }
   }
 }
