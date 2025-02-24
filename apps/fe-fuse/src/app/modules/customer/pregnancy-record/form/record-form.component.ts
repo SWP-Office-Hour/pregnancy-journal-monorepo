@@ -93,8 +93,9 @@ export class RecordFormComponent {
       data,
     };
     this._recordService.submit(formData).subscribe({
-      next: () => {
-        this.submitSuccess();
+      next: (res) => {
+        if (res) this.submitSuccess();
+        this.clear();
       },
       error: (err) => {
         console.log(err);

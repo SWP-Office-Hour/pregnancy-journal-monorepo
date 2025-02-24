@@ -9,6 +9,7 @@ import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pr
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
+import { postRoutes } from './modules/post/post.routes';
 
 // @formatter:off
 /* eslint-disable max-len */
@@ -114,6 +115,10 @@ export const appRoutes: Route[] = [
       {
         path: 'calendar',
         loadComponent: () => CalendarComponent,
+      },
+      {
+        path: 'post',
+        loadChildren: () => postRoutes,
       },
     ],
   },

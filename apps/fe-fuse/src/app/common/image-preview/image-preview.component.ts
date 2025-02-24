@@ -15,6 +15,8 @@ import { DialogImgComponent } from './dialog-img/dialog-img.component';
 })
 export class ImagePreviewComponent {
   @Input() imgObj!: MediaResponse;
+  @Input() heightAsPx: number;
+  @Input() widthAsPx: number;
   protected open = false;
   private dialog = inject(MatDialog);
   private dialogRef: MatDialogRef<DialogImgComponent>;

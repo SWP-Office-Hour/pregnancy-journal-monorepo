@@ -1,0 +1,30 @@
+<div class="mx-auto max-w-xl rounded-lg border bg-white p-4 shadow-sm">
+  <div class="mb-4 flex items-center gap-3">
+    <div class="h-10 w-10 rounded-full bg-gray-200"></div>
+    <span class="text-sm font-medium text-gray-800">Việt Thành</span>
+  </div>
+
+  <div class="mb-4">
+    <textarea
+      class="min-h-[100px] w-full resize-none border-none bg-transparent text-gray-800 placeholder-gray-500 outline-none"
+      placeholder="Viết ơi, bạn đang nghĩ gì thế?"
+    ></textarea>
+  </div>
+
+  <div class="mb-4 flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2">
+    <div class="ml-auto flex gap-4">
+      <file-upload [buttonText]="'Chọn ảnh'" (insertImg)="insertImg($event)"></file-upload>
+      <button class="rounded-full p-2 hover:bg-gray-200">Tag</button>
+      <button class="rounded-full p-2 hover:bg-gray-200">Emoji</button>
+      <button class="rounded-full p-2 hover:bg-gray-200">Location</button>
+      <button class="rounded-full p-2 hover:bg-gray-200">GIF</button>
+    </div>
+  </div>
+  <div class="mb-4 flex items-center gap-2">
+    @for (image of images; track $index) {
+      <image-preview [heightAsPx]="120" [widthAsPx]="120" [imgObj]="image" (deleteImg)="deleteImg($event)"></image-preview>
+    }
+  </div>
+
+  <button class="w-full rounded-lg bg-gray-200 py-2 text-gray-800 hover:bg-gray-300">Đăng</button>
+</div>
