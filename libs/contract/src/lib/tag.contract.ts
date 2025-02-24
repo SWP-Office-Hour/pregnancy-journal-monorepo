@@ -44,6 +44,20 @@ export const tagContract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
+
+  getTagsByUser: {
+    method: 'GET',
+    path: '/tags/user/:userId',
+    pathParams: z.object({
+      userId: z.string(),
+    }),
+    description: 'Get all tags by user (đã xong)',
+    responses: {
+      200: tagGetAllResSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+
   create: {
     method: 'POST',
     path: '/tags',

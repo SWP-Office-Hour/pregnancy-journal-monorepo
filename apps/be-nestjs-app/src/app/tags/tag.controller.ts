@@ -31,6 +31,14 @@ export class TagController {
     });
   }
 
+  @TsRestHandler(tagContract.getTagsByUser)
+  handleGetTagsByUser(@Param('userId') userId: string) {
+    return tsRestHandler(tagContract.getTagsByUser, async () => {
+      const result = await this.tagService.findAllByUser(userId);
+      return { status: 200, body: result };
+    });
+  }
+
   @TsRestHandler(tagContract.update)
   handleUpdate(@Body() updateTagDto: TagUpdateRequest) {
     return tsRestHandler(tagContract.update, async () => {
