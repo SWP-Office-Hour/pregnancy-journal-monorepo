@@ -4,6 +4,6 @@ import { AuthResetPasswordComponent } from 'app/modules/auth/reset-password/rese
 export default [
   {
     path: '',
-    component: AuthResetPasswordComponent,
+    loadComponent: () => AuthResetPasswordComponent,
   },
 ] as Routes;
