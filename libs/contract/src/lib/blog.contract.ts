@@ -11,6 +11,7 @@ const blogResponeSchema = z.object({
   content: z.string(),
   created_at: z.date(),
   updated_at: z.date(),
+  blog_cover: z.string(),
   tags: z.array(tagResSchema.optional()).optional(),
   category: categoryResSchema,
 });
@@ -27,6 +28,7 @@ export const blogUpdateReqSchema = blogResponeSchema.omit({ created_at: true, up
   author: z.string().optional(),
   summary: z.string().optional(),
   content: z.string().optional(),
+  blog_cover: z.string().optional(),
   tags_id: z.array(z.string().optional()).optional(),
   category_id: z.string().optional(),
 });
