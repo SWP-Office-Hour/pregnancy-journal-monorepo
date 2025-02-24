@@ -30,7 +30,7 @@ const recordMetricUpdateReqSchema = z.object({
   metric_id: z.string().optional(),
 });
 
-const recordCreateReqSchema = z.object({
+const recordBaseSchema = z.object({
   visit_doctor_date: z.string().datetime(),
   next_visit_doctor_date: z.string().datetime(),
   hospital_id: z.string(),
@@ -38,7 +38,12 @@ const recordCreateReqSchema = z.object({
   data: z.array(recordMetricCreateReqSchema),
 });
 
-const recordUpdateReqSchema = recordCreateReqSchema
+const recordCreateReqSchema = recordBaseSchema.refine((data) => data.next_visit_doctor_date > data.visit_doctor_date, {
+  message: 'next visit doctor day must be greater than visit doctor day',
+  path: ['next_visit_doctor_date'],
+});
+
+const recordUpdateReqSchema = recordBaseSchema
   .omit({
     visit_doctor_date: true,
     next_visit_doctor_date: true,
@@ -55,7 +60,7 @@ const recordUpdateReqSchema = recordCreateReqSchema
     data: z.array(recordMetricUpdateReqSchema).optional(),
   });
 
-const recordResSchema = recordCreateReqSchema
+const recordResSchema = recordBaseSchema
   .omit({
     hospital_id: true,
   })
