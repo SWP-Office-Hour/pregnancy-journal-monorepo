@@ -25,10 +25,7 @@ const recordMetricCreateReqSchema = z.object({
   metric_id: z.string(),
 });
 
-const recordMetricUpdateReqSchema = z.object({
-  value: z.number().optional(),
-  metric_id: z.string().optional(),
-});
+const recordMetricUpdateReqSchema = recordMetricCreateReqSchema;
 
 const recordBaseSchema = z.object({
   visit_doctor_date: z.string().datetime(),
