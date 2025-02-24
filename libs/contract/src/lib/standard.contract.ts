@@ -21,13 +21,16 @@ export const standardCreateReqSchema = standardSchema
   });
 
 // Update request schema
-export const standardUpdateReqSchema = standardSchema.extend({
-  week: z.number().min(0).max(40).optional(), // Thêm validation và làm cho `week` tùy chọn
-  lowerbound: z.number().optional(), // Làm cho `lowerbound` tùy chọn
-  upperbound: z.number().optional(), // Làm cho `upperbound` tùy chọn
-  who_standard_value: z.number().nullable().optional(), // Làm cho `who_standard_value` tùy chọn
-  metric_id: z.string().optional(), // Làm cho `metric_id` tùy chọn
-});
+export const standardUpdateReqSchema = standardSchema
+  .omit({
+    metric_id: true, // Loại bỏ trường `metric_id`
+  })
+  .extend({
+    week: z.number().min(0).max(40).optional(), // Thêm validation và làm cho `week` tùy chọn
+    lowerbound: z.number().optional(), // Làm cho `lowerbound` tùy chọn
+    upperbound: z.number().optional(), // Làm cho `upperbound` tùy chọn
+    who_standard_value: z.number().nullable().optional(), // Làm cho `who_standard_value` tùy chọn// Làm cho `metric_id` tùy chọn
+  });
 
 export type Standard = z.infer<typeof standardSchema>;
 export type StandardCreateReq = z.infer<typeof standardCreateReqSchema>;
