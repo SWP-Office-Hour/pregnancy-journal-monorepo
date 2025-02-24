@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ReminderResponse } from '@pregnancy-journal-monorepo/contract';
+import { ReminderResponse, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime, Info, Interval } from 'luxon';
 import { CalendarService } from './calendar.service';
 import { CreateCalendarComponent } from './create-calendar/create-calendar.component';
@@ -125,4 +125,6 @@ export class CalendarComponent {
   protected IsToday(date: DateTime): boolean {
     return date.toISODate() === this.today().toISODate();
   }
+
+  protected readonly ReminderType = ReminderType;
 }
