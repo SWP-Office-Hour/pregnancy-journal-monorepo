@@ -25,6 +25,7 @@ export class BlogsService {
         summary: createBlogDto.summary,
         created_at: new Date(),
         updated_at: new Date(),
+        blog_cover: createBlogDto.blog_cover,
         category: {
           connect: {
             category_id: createBlogDto.category_id,
@@ -82,6 +83,7 @@ export class BlogsService {
       content: blog.content,
       created_at: blog.created_at,
       updated_at: blog.updated_at,
+      blog_cover: blog.blog_cover,
       category: {
         status: blog.category.status,
         title: blog.category.title,
@@ -127,6 +129,7 @@ export class BlogsService {
       summary: result.summary,
       created_at: result.created_at,
       updated_at: result.updated_at,
+      blog_cover: result.blog_cover,
       category: result.category,
       tags: tags,
     };

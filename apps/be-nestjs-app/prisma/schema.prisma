@@ -16,6 +16,7 @@ model blog {
   updated_at  DateTime   @db.Date
   content     String     @db.MediumText
   category_id String     @db.Char(36)
+  blog_cover  String     @db.LongText
   category    category   @relation(fields: [category_id], references: [category_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Blog_category_id_Category_id")
   blog_tag    blog_tag[]
 
