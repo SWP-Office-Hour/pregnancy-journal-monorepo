@@ -1,6 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BlogCreateRequestType, BlogResponseType, BlogUpdateRequestType, CategoryResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
+import {
+  BlogCreateRequestType,
+  BlogResponseType,
+  BlogUpdateRequestType,
+  CategoryResponse,
+  MediaResponse,
+  TagResponse,
+} from '@pregnancy-journal-monorepo/contract';
 import { map, of, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
@@ -13,6 +20,7 @@ export class BlogsService {
   private _categories: CategoryResponse[];
   private _page = 1;
   private _totalPage: number;
+  private _media: MediaResponse[] = [];
 
   /**
    * Constructor
@@ -21,6 +29,10 @@ export class BlogsService {
     private _httpClient: HttpClient,
     private _authService: AuthService,
   ) {}
+
+  get Media(): MediaResponse[] {
+    return this._media;
+  }
 
   getBlog() {
     return this._blog;
@@ -50,8 +62,12 @@ export class BlogsService {
   }
 
   updateBlog(blog: BlogUpdateRequestType) {
+    const updatedBlog: BlogUpdateRequestType = {
+      ...blog,
+      blog_cover: this._media[0].media_url || '',
+    };
     return this._httpClient
-      .patch<BlogResponseType>(environment.apiUrl + 'blogs', blog, {
+      .patch<BlogResponseType>(environment.apiUrl + 'blogs', updatedBlog, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
@@ -69,9 +85,13 @@ export class BlogsService {
       );
   }
 
-  createBlog(blog: BlogCreateRequestType) {
+  createBlog(blog) {
+    const newBlog: BlogCreateRequestType = {
+      ...blog,
+      blog_cover: this._media[0].media_url || '',
+    };
     return this._httpClient
-      .post<BlogResponseType>(environment.apiUrl + 'blogs', blog, {
+      .post<BlogResponseType>(environment.apiUrl + 'blogs', newBlog, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
@@ -89,6 +109,7 @@ export class BlogsService {
       return throwError(() => new Error('Blog not found'));
     }
     this._blog = blogById;
+    this._media = [];
     return of(blogById);
   }
 
@@ -136,5 +157,16 @@ export class BlogsService {
 
   filterByQuery(query: string) {
     return this._blogs.filter((blog) => blog.title.toLowerCase().includes(query.toLowerCase()));
+  }
+
+  deleteImage(id: string) {
+    if (this._media[0].media_id === id) {
+      this._media = [];
+    }
+    return this._media;
+  }
+
+  addImage(img: MediaResponse) {
+    this._media[0] = img;
   }
 }
