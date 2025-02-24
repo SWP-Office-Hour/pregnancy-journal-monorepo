@@ -1,0 +1,100 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="mx-auto max-w-4xl rounded-lg bg-white p-6 shadow-md">
+  <!-- Date Inputs Section -->
+  <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div formArrayName="dateInputArray" class="space-y-4">
+      @for (input of dateInput; track $index) {
+        <div class="dateInput">
+          <label for="{{ input.name }}" class="mb-1 block text-sm font-medium text-pink-600">
+            {{ input.label }}
+          </label>
+          <p-datepicker
+            formControlName="{{ $index }}"
+            [readonlyInput]="true"
+            [showIcon]="true"
+            inputId="{{ input.name + $index }}"
+            [showOnFocus]="false"
+            styleClass="w-full"
+            inputStyleClass="w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+          ></p-datepicker>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Text Inputs Section -->
+  <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div formArrayName="textInputArray" class="space-y-4">
+      @for (input of textInput; track $index) {
+        <div>
+          <label for="{{ input.name + $index }}" class="mb-1 block text-sm font-medium text-pink-600">
+            {{ input.label }}
+          </label>
+          <input
+            type="text"
+            pInputText
+            formControlName="{{ $index }}"
+            id="{{ input.name + $index }}"
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+          />
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Select Inputs Section -->
+  <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div formArrayName="selectInputArray" class="space-y-4">
+      @for (input of selectInput; track $index) {
+        <div>
+          <label for="{{ input.name + $index }}" class="mb-1 block text-sm font-medium text-pink-600">
+            {{ input.label }}
+          </label>
+          <p-select
+            [options]="input.options"
+            optionLabel="title"
+            optionValue="value"
+            [filter]="true"
+            filterBy="title"
+            [showClear]="true"
+            placeholder="Select a {{ input.label }}"
+            formControlName="{{ $index }}"
+            id="{{ input.name + $index }}"
+            styleClass="w-full"
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+          ></p-select>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Number Inputs Section -->
+  <div class="mb-8 grid grid-cols-1 gap-6 md:grid-cols-2">
+    <div formArrayName="numberInputArray" class="space-y-4">
+      @for (input of numberInput; track $index) {
+        <div>
+          <label for="{{ input.name + $index }}" class="mb-1 block text-sm font-medium text-pink-600">
+            {{ input.label }}
+          </label>
+          <p-inputnumber
+            formControlName="{{ $index }}"
+            id="{{ input.name + $index }}"
+            class="w-full rounded-md border-gray-300 shadow-sm focus:border-pink-500 focus:ring-pink-500"
+          ></p-inputnumber>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Submit Button -->
+  <div class="mt-8 flex justify-end">
+    <button
+      type="submit"
+      class="inline-flex items-center rounded-md border border-transparent bg-pink-600 px-6 py-2 text-sm font-medium text-white hover:bg-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+    >
+      {{ submitText || 'Submit' }}
+    </button>
+  </div>
+
+  <!-- Toast Component with Custom Styling -->
+  <p-toast styleClass="custom-toast"></p-toast>
+</form>
