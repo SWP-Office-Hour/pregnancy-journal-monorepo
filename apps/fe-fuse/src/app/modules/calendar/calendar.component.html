@@ -162,7 +162,15 @@
               >{{ dayOfMonth.day }}
             </time>
             @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
-              <p>{{ meeting.title }}</p>
+              <span
+                [ngClass]="{
+                  'text-xl': true,
+                  'text-green': meeting.type == ReminderType.MEETING,
+                  'text-red': meeting.type == ReminderType.EVENT,
+                }"
+              >
+                •
+              </span>
             }
           </div>
         }
@@ -201,10 +209,19 @@
               }"
               >{{ dayOfMonth.day }}
             </time>
-            @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
-              <p>{{ meeting.title }}</p>
-            }
-            <span class="sr-only">0 events</span>
+            <div>
+              @for (meeting of getMeetingByDate(dayOfMonth); track $index) {
+                <span
+                  [ngClass]="{
+                    'text-xl': true,
+                    'text-green': meeting.type == ReminderType.MEETING,
+                    'text-red': meeting.type == ReminderType.EVENT,
+                  }"
+                >
+                  •
+                </span>
+              }
+            </div>
           </button>
         }
         <!--
