@@ -1,10 +1,10 @@
 import { Routes } from '@angular/router';
-import { MembershipTableComponent } from './membership-table/membership-table.component';
+import { PricingModernComponent } from './membership-user/membership.component';
 
-export default [
+export const membershipsRoute = [
   {
     path: '',
-    component: MembershipTableComponent,
+    component: PricingModernComponent,
     // children: [
     //   {
     //     path: '/table',
