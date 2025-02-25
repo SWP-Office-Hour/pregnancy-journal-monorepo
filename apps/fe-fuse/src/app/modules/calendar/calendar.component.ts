@@ -123,4 +123,11 @@ export class CalendarComponent {
   protected IsToday(date: DateTime): boolean {
     return date.toISODate() === this.today().toISODate();
   }
+
+  editMeeting(reminderId: string) {
+    this._calendarService.reminder = this.meetings().find((meeting) => meeting.reminder_id === reminderId)!;
+    this._matDialog.open(ReminderEditorComponent, {
+      autoFocus: false,
+    });
+  }
 }

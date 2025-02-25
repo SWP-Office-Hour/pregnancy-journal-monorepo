@@ -8,7 +8,10 @@ import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { ReminderCreateRequest, ReminderResponse } from '@pregnancy-journal-monorepo/contract';
+import { ReminderCreateRequest, ReminderResponse, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ToastModule } from 'primeng/toast';
 import { CalendarService } from '../calendar.service';
 
 @Component({
@@ -24,24 +27,93 @@ import { CalendarService } from '../calendar.service';
     MatButtonModule,
     MatDialogModule,
     CommonModule,
+    ToastModule,
+    ConfirmPopupModule,
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './reminder-editor.component.html',
   styleUrl: './reminder-editor.component.css',
 })
 export class ReminderEditorComponent {
-  protected reminderForm: FormGroup;
   @Input() title: string;
-  protected activeDay = this._calendarService.activeDay;
+  protected reminderForm: FormGroup;
+  protected reminder: ReminderResponse | null;
 
   constructor(
     public matDialogRef: MatDialogRef<ReminderEditorComponent>,
     private _formBuilder: FormBuilder,
     private _calendarService: CalendarService,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) {
     this.reminderForm = this._formBuilder.group({
+      id: [''],
       title: ['', Validators.required],
       content: ['', Validators.required],
       remind_date: ['', Validators.required],
+    });
+    this.reminder = this._calendarService.reminder;
+    if (this.reminder) {
+      this.reminderForm.patchValue({
+        id: this.reminder.reminder_id,
+        title: this.reminder.title,
+        content: this.reminder.content,
+        remind_date: this.reminder.remind_date,
+      });
+      this.title = 'Edit Reminder';
+    }
+  }
+
+  confirmDelete(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Do you want to delete this record?',
+      icon: 'pi pi-info-circle',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+      accept: () => {
+        this.onDelete();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      },
+    });
+  }
+
+  confirmSubmit(event: Event) {
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: 'Are you sure you want to proceed?',
+      icon: 'pi pi-exclamation-triangle',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Save',
+      },
+      accept: () => {
+        this.onSubmit();
+      },
+      reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+      },
+    });
+  }
+
+  onDelete() {
+    this._calendarService.deleteReminder(this.reminderForm.get('id')?.value).subscribe((res: ReminderResponse) => {
+      this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+      this._calendarService.clearReminder();
+      this.matDialogRef.close();
     });
   }
 
@@ -50,14 +122,29 @@ export class ReminderEditorComponent {
       this.reminderForm.markAllAsTouched();
       return;
     }
-    const reminderData: ReminderCreateRequest = {
-      title: this.reminderForm.get('title')?.value,
-      content: this.reminderForm.get('content')?.value,
-      remind_date: this.reminderForm.get('remind_date')?.value.toISODate(),
-    };
+    if (this.reminder) {
+      const updateData: ReminderUpdateRequest = {
+        reminder_id: this.reminderForm.get('id')?.value,
+        title: this.reminderForm.get('title')?.value,
+        content: this.reminderForm.get('content')?.value,
+        remind_date: this.reminderForm.get('remind_date')?.value.toISODate(),
+      };
+      this._calendarService.updateReminder(updateData).subscribe((res: ReminderResponse) => {
+        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        this._calendarService.clearReminder();
+        this.matDialogRef.close();
+      });
+    } else {
+      const reminderData: ReminderCreateRequest = {
+        title: this.reminderForm.get('title')?.value,
+        content: this.reminderForm.get('content')?.value,
+        remind_date: this.reminderForm.get('remind_date')?.value.toISODate(),
+      };
 
-    this._calendarService.createReminder(reminderData).subscribe((res: ReminderResponse) => {
-      this.matDialogRef.close();
-    });
+      this._calendarService.createReminder(reminderData).subscribe((res: ReminderResponse) => {
+        this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        this.matDialogRef.close();
+      });
+    }
   }
 }
