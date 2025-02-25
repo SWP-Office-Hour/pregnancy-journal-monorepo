@@ -98,8 +98,10 @@ export class RecordFormComponent {
         this.clear();
       },
       error: (err) => {
-        console.log(err);
-        this.submitFail();
+        const { error } = err;
+        const { bodyResult } = error;
+        const msg = bodyResult.issues[0].message;
+        this.submitFail(msg);
       },
     });
   }
@@ -113,11 +115,23 @@ export class RecordFormComponent {
   }
 
   submitSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Lưu thành công', detail: 'Lưu chỉ số thành công', key: 'tr', life: 3000 });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Lưu thành công',
+      detail: 'Lưu chỉ số thành công',
+      key: 'tr',
+      life: 3000,
+    });
   }
 
-  submitFail() {
-    this.messageService.add({ severity: 'error', summary: 'Lưu thất bại', detail: 'Lưu chỉ số thất bại', key: 'tr', life: 3000 });
+  submitFail(msg?: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Lưu thất bại',
+      detail: msg || 'Lưu chỉ số thất bại',
+      key: 'tr',
+      life: 3000,
+    });
   }
 
   clear() {
