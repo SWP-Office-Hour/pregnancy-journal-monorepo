@@ -53,7 +53,10 @@
     <!-- Controller -->
     <div class="flex w-full justify-between">
       <button mat-button (click)="matDialogRef.close()">Cancel</button>
-      <button mat-flat-button [color]="'primary'" (click)="onSubmit()">Save</button>
+      <p-toast />
+      <p-confirmpopup></p-confirmpopup>
+      <button mat-flat-button [color]="'primary'" (click)="confirmSubmit($event)">Save</button>
+      <button mat-flat-button [color]="'warn'" (click)="confirmDelete($event)">Delete</button>
     </div>
   </form>
 </div>

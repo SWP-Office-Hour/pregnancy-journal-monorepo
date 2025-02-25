@@ -167,7 +167,10 @@
         }
 
         @for (meeting of activeDayMeetings(); track $index) {
-          <div class="rounded-lg border p-4 transition-colors hover:bg-gray-50">
+          <div
+            class="rounded-lg border p-4 transition-colors hover:cursor-pointer hover:bg-pink-100 hover:shadow-xl"
+            (click)="editMeeting(meeting.reminder_id)"
+          >
             <div class="flex items-center gap-3">
               <div class="flex-shrink-0">
                 <div
