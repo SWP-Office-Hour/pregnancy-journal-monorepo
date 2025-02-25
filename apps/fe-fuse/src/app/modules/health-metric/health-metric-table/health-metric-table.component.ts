@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, resource, ViewChild } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -36,11 +37,6 @@ interface Column {
   field: string;
   header: string;
   // customExportHeader?: string;
-}
-
-interface ExportColumn {
-  title: string;
-  dataKey: string;
 }
 
 @Component({
@@ -83,7 +79,9 @@ interface ExportColumn {
     InputIconModule,
     IconFieldModule,
     ConfirmDialogModule,
+    NgIf,
   ],
+  providers: [MessageService, ConfirmationService],
 })
 export class HealthMetricTableComponent {
   protected readonly Status = Status;
@@ -94,12 +92,10 @@ export class HealthMetricTableComponent {
   cols!: Column[];
   selectedMetric: HealthMetric | null = null;
   statuses!: any[];
-
   flashMessage: 'success' | 'error' | null = null;
   isLoading: boolean = false;
   selectedMetricForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
-
   // metricList = signal<Array<HealthMetric>>([]);
   metricResource = resource<HealthMetric[], {}>({
     loader: async ({ abortSignal }) => {
@@ -138,17 +134,80 @@ export class HealthMetricTableComponent {
     });
 
     this.statuses = [
-      { label: 'INSTOCK', value: 'instock' },
-      { label: 'LOWSTOCK', value: 'lowstock' },
-      { label: 'OUTOFSTOCK', value: 'outofstock' },
+      { label: 'ACTIVE', value: Status.ACTIVE },
+      { label: 'INACTIVE', value: Status.INACTIVE },
     ];
 
     this.cols = [
       { field: 'title', header: 'Title' },
-      { field: 'image', header: 'Image' },
-      { field: 'price', header: 'Price' },
-      { field: 'category', header: 'Category' },
+      { field: 'measurement_unit', header: 'Unit' },
+      { field: 'status', header: 'Status' },
+      { field: 'required', header: 'Required' },
+      { field: 'upperbound_msg', header: 'upperbound_msg' },
+      { field: 'lowerbound_msg', header: 'lowerbound_msg' },
     ];
+  }
+
+  saveProduct() {
+    this.submitted = true;
+    let _metric = this.metricResource.value()!;
+    // if (this.product.name?.trim()) {
+    //   if (this.product.id) {
+    //     _metric[this.findIndexById(this.product.id)] = this.product;
+    //     this.products.set([..._metric]);
+    //     this.messageService.add({
+    //       severity: 'success',
+    //       summary: 'Successful',
+    //       detail: 'Product Updated',
+    //       life: 3000,
+    //     });
+    //   } else {
+    //     this.product.id = this.createId();
+    //     this.product.image = 'product-placeholder.svg';
+    //     this.messageService.add({
+    //       severity: 'success',
+    //       summary: 'Successful',
+    //       detail: 'Product Created',
+    //       life: 3000,
+    //     });
+    //     this.products.set([..._metric, this.product]);
+    //   }
+    //
+    //   this.productDialog = false;
+    //   this.product = {};
+    // }
+  }
+
+  hideDialog() {
+    this.metricDialog = false;
+    this.submitted = false;
+  }
+
+  editProduct(metricInp: HealthMetric) {
+    this.metric = { ...metricInp };
+    this.metricDialog = true;
+  }
+
+  getSeverityBoolean(require: boolean) {
+    switch (require) {
+      case true:
+        return 'success';
+      case false:
+        return 'warn';
+      default:
+        return 'info';
+    }
+  }
+
+  getSeverity(status: Status) {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'success';
+      case Status.INACTIVE:
+        return 'warn';
+      default:
+        return 'info';
+    }
   }
 
   onGlobalFilter(table: Table, event: Event) {

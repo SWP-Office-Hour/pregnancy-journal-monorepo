@@ -1,353 +1,159 @@
-<!--<div class="bg-card flex min-w-0 flex-auto flex-col sm:absolute sm:inset-0 sm:overflow-hidden dark:bg-transparent">-->
-<!--  &lt;!&ndash; Header &ndash;&gt;-->
-<!--  <div class="flex-0 relative flex flex-col border-b px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8">-->
-<!--    &lt;!&ndash; Loader &ndash;&gt;-->
-<!--    @if (isLoading) {-->
-<!--      <div class="absolute inset-x-0 bottom-0">-->
-<!--        <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>-->
-<!--      </div>-->
-<!--    }-->
-<!--    &lt;!&ndash; Title &ndash;&gt;-->
-<!--    <div class="text-4xl font-extrabold tracking-tight">Health Metric</div>-->
-<!--    &lt;!&ndash; Actions &ndash;&gt;-->
-<!--    <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">-->
-<!--      &lt;!&ndash; Search &ndash;&gt;-->
-<!--      <mat-form-field class="fuse-mat-dense fuse-mat-rounded min-w-64" [subscriptSizing]="'dynamic'">-->
-<!--        <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:magnifying-glass'"></mat-icon>-->
-<!--        <input matInput [formControl]="searchInputControl" [autocomplete]="'off'" [placeholder]="'Search products'" />-->
-<!--      </mat-form-field>-->
-<!--      &lt;!&ndash; Add product button &ndash;&gt;-->
-<!--      <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createMetric()">-->
-<!--        <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>-->
-<!--        <span class="ml-2 mr-1">Add Metric</span>-->
-<!--      </button>-->
-<!--    </div>-->
-<!--  </div>-->
-
-<!--  &lt;!&ndash; Main &ndash;&gt;-->
-<!--  <div class="flex flex-auto overflow-hidden">-->
-<!--    &lt;!&ndash; Products list &ndash;&gt;-->
-<!--    <div class="sm:mb-18 flex flex-auto flex-col overflow-hidden sm:overflow-y-auto">-->
-<!--      <div class="grid">-->
-<!--        &lt;!&ndash; Header &ndash;&gt;-->
-<!--        <div-->
-<!--          class="inventory-grid text-secondary text-md sticky top-0 z-10 grid gap-4 bg-gray-50 px-6 py-4 font-semibold shadow md:px-8 dark:bg-black dark:bg-opacity-5"-->
-<!--          matSort-->
-<!--          matSortDisableClear=""-->
-<!--        >-->
-<!--          <div [mat-sort-header]="'title'">Title</div>-->
-<!--          <div class="" [mat-sort-header]="'measurement_unit'">Measurement unit</div>-->
-<!--          <div class="" [mat-sort-header]="'active'">Active</div>-->
-<!--          <div class="" [mat-sort-header]="'required'">Is Required</div>-->
-<!--          <div class="" [mat-sort-header]="'upperbound_msg'">upperbound_msg</div>-->
-<!--          <div class="" [mat-sort-header]="'lowerbound_msg'">lowerbound_msg</div>-->
-<!--          <div class="">Details</div>-->
-<!--        </div>-->
-<!--        &lt;!&ndash; Rows &ndash;&gt;-->
-
-<!--        @for (metric of metricResource.value()!; track metric.metric_id) {-->
-<!--          <div class="inventory-grid grid items-center gap-4 border-b px-6 py-3">-->
-<!--            &lt;!&ndash; Title &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              {{ metric.title }}-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Measurement unit &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              {{ metric.measurement_unit }}-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Active &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              @if (metric.status == Status.ACTIVE) {-->
-<!--                <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>-->
-<!--              }-->
-<!--              @if (metric.status == Status.INACTIVE) {-->
-<!--                <mat-icon class="icon-size-5 text-gray-400" [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>-->
-<!--              }-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Is Required &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              @if (metric.required) {-->
-<!--                <mat-icon class="icon-size-5 text-green-400" [svgIcon]="'heroicons_solid:check'"></mat-icon>-->
-<!--              }-->
-<!--              @if (!metric.required) {-->
-<!--                <mat-icon class="icon-size-5 text-gray-400" [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>-->
-<!--              }-->
-<!--            </div>-->
-<!--            &lt;!&ndash; upperbound_msg &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              {{ metric.upperbound_msg }}-->
-<!--            </div>-->
-<!--            &lt;!&ndash; lowerbound_msg &ndash;&gt;-->
-<!--            <div class="">-->
-<!--              {{ metric.lowerbound_msg }}-->
-<!--            </div>-->
-<!--            &lt;!&ndash; Details button &ndash;&gt;-->
-<!--            <div>-->
-<!--              <button class="h-7 min-h-7 min-w-10 px-2 leading-6" mat-stroked-button (click)="toggleDetails(metric.metric_id)">-->
-<!--                <mat-icon-->
-<!--                  class="icon-size-5"-->
-<!--                  [svgIcon]="selectedMetric?.metric_id === metric.metric_id ? 'heroicons_solid:chevron-up' : 'heroicons_solid:chevron-down'"-->
-<!--                ></mat-icon>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="grid">-->
-<!--            @if (selectedMetric?.metric_id === metric.metric_id) {-->
-<!--              <ng-container *ngTemplateOutlet="rowDetailsTemplate; context: { $implicit: metric }"></ng-container>-->
-<!--            }-->
-<!--          </div>-->
-<!--        } @empty {-->
-<!--          <li class="no-data">Nothing to show</li>-->
-<!--        }-->
-<!--      </div>-->
-
-<!--      <ng-template #rowDetailsTemplate let-metric>-->
-<!--        <div class="overflow-hidden shadow-lg">-->
-<!--          <div class="border-b">-->
-<!--            &lt;!&ndash; Selected product form &ndash;&gt;-->
-<!--            <form class="w-full" [formGroup]="selectedMetricForm">-->
-<!--              <div class="bg-gray-300 px-4 pt-5">-->
-<!--                <div class="">-->
-<!--                  <div class="grid-selected-detail grid">-->
-<!--                    &lt;!&ndash; Title &ndash;&gt;-->
-<!--                    <mat-form-field class="w-full">-->
-<!--                      <mat-label>Title</mat-label>-->
-<!--                      <input matInput [formControlName]="'title'" />-->
-<!--                    </mat-form-field>-->
-<!--                    &lt;!&ndash; Measurement unit &ndash;&gt;-->
-<!--                    <mat-form-field class="">-->
-<!--                      <mat-label>Measurement Unit</mat-label>-->
-<!--                      <input matInput [formControlName]="'measurement_unit'" />-->
-<!--                    </mat-form-field>-->
-<!--                    &lt;!&ndash; lowerbound_msg &ndash;&gt;-->
-<!--                    <mat-form-field class="">-->
-<!--                      <mat-label>upperbound_msg</mat-label>-->
-<!--                      <input matInput [formControlName]="'upperbound_msg'" />-->
-<!--                    </mat-form-field>-->
-<!--                    &lt;!&ndash; lowerbound_msg &ndash;&gt;-->
-<!--                    <mat-form-field class="">-->
-<!--                      <mat-label>lowerbound_msg</mat-label>-->
-<!--                      <input matInput [formControlName]="'lowerbound_msg'" />-->
-<!--                    </mat-form-field>-->
-<!--                    &lt;!&ndash; Toggle &ndash;&gt;-->
-<!--                    <div>-->
-<!--                      <div class="mt-4 px-3">-->
-<!--                        <span class="mb-2 font-semibold">Is user required</span>-->
-<!--                        <mat-slide-toggle [formControlName]="'required'" [color]="'primary'">-->
-<!--                          {{ selectedMetricForm.get('required').value === true ? 'Required' : 'Disabled' }}-->
-<!--                        </mat-slide-toggle>-->
-<!--                      </div>-->
-
-<!--                      <div class="mt-2 bg-white px-3">-->
-<!--                        <span class="mb font-semibold">Status</span>-->
-<!--                        <mat-select [formControlName]="'status'">-->
-<!--                          <mat-option [value]="Status.ACTIVE"> ACTIVE </mat-option>-->
-<!--                          <mat-option [value]="Status.INACTIVE"> INACTIVE </mat-option>-->
-<!--                        </mat-select>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="flex w-full items-center justify-between border-t bg-gray-300 px-8 py-4">-->
-<!--                <button class="-ml-4" mat-button [color]="'warn'" (click)="deleteSelectedProduct()">Delete</button>-->
-<!--                <div class="flex items-center">-->
-<!--                  @if (flashMessage) {-->
-<!--                    <div class="mr-4 flex items-center">-->
-<!--                      @if (flashMessage === 'success') {-->
-<!--                        <mat-icon class="bg-green-300" [svgIcon]="'heroicons_outline:check'"></mat-icon>-->
-<!--                        <span class="ml-2 font-bold text-green-900">Metric updated</span>-->
-<!--                      }-->
-<!--                      @if (flashMessage === 'error') {-->
-<!--                        <mat-icon class="text-red-500" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>-->
-<!--                        <span class="ml-2">An error occurred, try again!</span>-->
-<!--                      }-->
-<!--                    </div>-->
-<!--                  }-->
-<!--                  <button mat-flat-button [color]="'primary'" (click)="updateSelectedMetric()">Update</button>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </form>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </ng-template>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
-
-<p-toolbar styleClass="mb-6">
-  <ng-template #start>
-    <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" />
-    <p-button
-      (onClick)="deleteSelectedProducts()"
-      [disabled]="!selectedMetric || !selectedMetric.length"
-      icon="pi pi-trash"
-      label="Delete"
-      outlined="true"
-      severity="secondary"
-    />
-  </ng-template>
-
-  <ng-template #end>
-    <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
-  </ng-template>
-</p-toolbar>
-
-<p-table
-  #dt
-  [(selection)]="selectedMetric"
-  [columns]="cols"
-  [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
-  [paginator]="true"
-  [rowHover]="true"
-  [rowsPerPageOptions]="[10, 20, 30]"
-  [rows]="10"
-  [showCurrentPageReport]="true"
-  [tableStyle]="{ 'min-width': '75rem' }"
-  [value]="metricResource.value()"
-  currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
-  dataKey="id"
->
-  <ng-template #caption>
-    <div class="flex items-center justify-between">
-      <h5 class="m-0">Manage Metric</h5>
-      <p-iconfield>
-        <p-inputicon styleClass="pi pi-search" />
-        <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
-      </p-iconfield>
-    </div>
-  </ng-template>
-  <ng-template #header>
-    <tr>
-      <th style="width: 3rem">
-        <p-tableHeaderCheckbox />
-      </th>
-      <th pSortableColumn="title" style="min-width: 16rem">
-        Title
-        <p-sortIcon field="title" />
-      </th>
-      <th>Image</th>
-      <th pSortableColumn="price" style="min-width: 8rem">
-        Price
-        <p-sortIcon field="price" />
-      </th>
-      <th pSortableColumn="category" style="min-width: 10rem">
-        Category
-        <p-sortIcon field="category" />
-      </th>
-      <th pSortableColumn="rating" style="min-width: 12rem">
-        Reviews
-        <p-sortIcon field="rating" />
-      </th>
-      <th pSortableColumn="inventoryStatus" style="min-width: 12rem">
-        Status
-        <p-sortIcon field="inventoryStatus" />
-      </th>
-      <th style="min-width: 12rem"></th>
-    </tr>
-  </ng-template>
-  <ng-template #body>
-    @let metric = metricResource.value();
-    <tr>
-      <td style="width: 3rem">
-        <p-tableCheckbox [value]="metric" />
-      </td>
-      <td style="min-width: 16rem">{{ metric.title }}</td>
-      <td>
-        <img
-          [alt]="metric.name"
-          [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + metric.image"
-          class="rounded"
-          style="width: 64px"
-        />
-      </td>
-      <td>{{ metric.price | currency: 'USD' }}</td>
-      <td>{{ metric.category }}</td>
-      <td>
-        <p-rating [(ngModel)]="metric.rating" [readonly]="true" />
-      </td>
-      <td>
-        <p-tag [severity]="getSeverity(metric.inventoryStatus)" [value]="metric.inventoryStatus" />
-      </td>
-      <td>
-        <p-button (click)="editProduct(metric)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
-        <p-button (click)="deleteProduct(metric)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
-
-<p-dialog [(visible)]="productDialog" [modal]="true" [style]="{ width: '450px' }" header="Product Details">
-  <ng-template #content>
-    <div class="flex flex-col gap-6">
-      <img
-        *ngIf="product.image"
-        [alt]="product.image"
-        [src]="'https://primefaces.org/cdn/primeng/images/demo/product/' + product.image"
-        class="m-auto block pb-4"
+<div class="flex w-full flex-col">
+  <p-toolbar styleClass="mb-6" class="">
+    <ng-template #start>
+      <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" />
+      <p-button
+        (onClick)="deleteSelectedProducts()"
+        [disabled]="!selectedMetric || !selectedMetric.length"
+        icon="pi pi-trash"
+        label="Delete"
+        outlined="true"
+        severity="secondary"
       />
-      <div>
-        <label class="mb-3 block font-bold" for="name">Name</label>
-        <input [(ngModel)]="product.name" autofocus fluid id="name" pInputText required type="text" />
-        <small *ngIf="submitted && !product.name" class="text-red-500">Name is required.</small>
-      </div>
-      <div>
-        <label class="mb-3 block font-bold" for="description">Description</label>
-        <textarea [(ngModel)]="product.description" cols="20" fluid id="description" pTextarea required rows="3"></textarea>
-      </div>
+    </ng-template>
 
-      <div>
-        <label class="mb-3 block font-bold" for="inventoryStatus">Inventory Status</label>
-        <p-select
-          [(ngModel)]="product.inventoryStatus"
-          [options]="statuses"
-          fluid
-          inputId="inventoryStatus"
-          optionLabel="label"
-          optionValue="label"
-          placeholder="Select a Status"
-        />
-      </div>
+    <ng-template #end>
+      <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+    </ng-template>
+  </p-toolbar>
 
-      <div>
-        <span class="mb-4 block font-bold">Category</span>
-        <div class="grid grid-cols-12 gap-4">
-          <div class="col-span-6 flex items-center gap-2">
-            <p-radiobutton [(ngModel)]="product.category" id="category1" name="category" value="Accessories"></p-radiobutton>
-            <label for="category1">Accessories</label>
-          </div>
-          <div class="col-span-6 flex items-center gap-2">
-            <p-radiobutton [(ngModel)]="product.category" id="category2" name="category" value="Clothing"></p-radiobutton>
-            <label for="category2">Clothing</label>
-          </div>
-          <div class="col-span-6 flex items-center gap-2">
-            <p-radiobutton [(ngModel)]="product.category" id="category3" name="category" value="Electronics"></p-radiobutton>
-            <label for="category3">Electronics</label>
-          </div>
-          <div class="col-span-6 flex items-center gap-2">
-            <p-radiobutton [(ngModel)]="product.category" id="category4" name="category" value="Fitness"></p-radiobutton>
-            <label for="category4">Fitness</label>
+  <p-table
+    #dt
+    [value]="metricResource.value()"
+    [(selection)]="selectedMetric"
+    [columns]="cols"
+    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [paginator]="true"
+    [rowHover]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+    dataKey="id"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Manage Metric</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="title" style="min-width: 16rem">
+          Title
+          <p-sortIcon field="title" />
+        </th>
+        <th pSortableColumn="measurement_unit" style="min-width: 8rem">
+          Unit
+          <p-sortIcon field="measurement_unit" />
+        </th>
+        <th pSortableColumn="status" style="min-width: 12rem">
+          Status
+          <p-sortIcon field="status" />
+        </th>
+        <th pSortableColumn="required" style="min-width: 12rem">
+          Required
+          <p-sortIcon field="required" />
+        </th>
+        <th pSortableColumn="upperbound_msg" style="min-width: 12rem">
+          upperbound_msg
+          <p-sortIcon field="upperbound_msg" />
+        </th>
+        <th pSortableColumn="lowerbound_msg" style="min-width: 12rem">
+          lowerbound_msg
+          <p-sortIcon field="lowerbound_msg" />
+        </th>
+        <th style="min-width: 12rem"></th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-metric>
+      <tr>
+        <td style="min-width: 16rem">{{ metric.title }}</td>
+        <!--      -->
+        <td>{{ metric.measurement_unit }}</td>
+        <!--      -->
+        <td>
+          <p-tag [severity]="getSeverity(metric.status)" [value]="metric.status" />
+        </td>
+        <!--      -->
+        <td>
+          <p-tag [severity]="getSeverityBoolean(metric.required)" [value]="metric.required" />
+        </td>
+        <!--      -->
+        <td style="min-width: 16rem">{{ metric.upperbound_msg }}</td>
+        <td style="min-width: 16rem">{{ metric.lowerbound_msg }}</td>
+        <td>
+          <p-button (click)="editProduct(metric)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
+          <!--          <p-button (click)="deleteProduct(metric)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />-->
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px' }" header="Metric Details">
+    <ng-template #content>
+      <div class="flex flex-col gap-6">
+        <!--Title-->
+        <div>
+          <label class="mb-3 block font-bold" for="name">Title</label>
+          <input [(ngModel)]="metric.title" autofocus fluid="true" id="name" pInputText required type="text" />
+          <small *ngIf="submitted && !metric.title" class="text-red-500">Title is required.</small>
+        </div>
+        <!-- Unit -->
+        <div>
+          <label class="mb-3 block font-bold" for="measurement_unit">Unit</label>
+          <input [(ngModel)]="metric.title" autofocus fluid="true" id="measurement_unit" pInputText required type="text" />
+          <small *ngIf="submitted && !metric.title" class="text-red-500">measurement_unit is required.</small>
+        </div>
+        <!--Status-->
+        <div>
+          <label class="mb-3 block font-bold" for="status">Status</label>
+          <p-select
+            [(ngModel)]="metric.status"
+            [options]="statuses"
+            fluid="true"
+            inputId="status"
+            optionLabel="label"
+            optionValue="label"
+            placeholder="Select a Status"
+          />
+        </div>
+        <div>
+          <span class="mb-4 block font-bold">required</span>
+          <div class="grid grid-cols-12 gap-4">
+            <div class="col-span-6 flex items-center gap-2">
+              <p-radio-button [(ngModel)]="metric.required" id="category1" name="required" value="true" />
+              <label for="category1">true</label>
+            </div>
+            <div class="col-span-6 flex items-center gap-2">
+              <p-radio-button [(ngModel)]="metric.required" id="category2" name="category" value="false"></p-radio-button>
+              <label for="category2">false</label>
+            </div>
           </div>
         </div>
+
+        <!--      <div class="grid grid-cols-12 gap-4">-->
+        <!--        <div class="col-span-6">-->
+        <!--          <label class="mb-3 block font-bold" for="price">Price</label>-->
+        <!--          <p-inputNumber [(ngModel)]="product.price" currency="USD" fluid id="price" locale="en-US" mode="currency"></p-inputNumber>-->
+        <!--        </div>-->
+        <!--        <div class="col-span-6">-->
+        <!--          <label class="mb-3 block font-bold" for="quantity">Quantity</label>-->
+        <!--          <p-input-number [(ngModel)]="product.quantity" fluid id="quantity" />-->
+        <!--        </div>-->
+        <!--      </div>-->
       </div>
+    </ng-template>
 
-      <div class="grid grid-cols-12 gap-4">
-        <div class="col-span-6">
-          <label class="mb-3 block font-bold" for="price">Price</label>
-          <p-inputNumber [(ngModel)]="product.price" currency="USD" fluid id="price" locale="en-US" mode="currency"></p-inputNumber>
-        </div>
-        <div class="col-span-6">
-          <label class="mb-3 block font-bold" for="quantity">Quantity</label>
-          <p-inputnumber [(ngModel)]="product.quantity" fluid id="quantity" />
-        </div>
-      </div>
-    </div>
-  </ng-template>
+    <ng-template #footer>
+      <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" text />
+      <p-button (click)="saveProduct()" icon="pi pi-check" label="Save" />
+    </ng-template>
+  </p-dialog>
 
-  <ng-template #footer>
-    <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" text />
-    <p-button (click)="saveProduct()" icon="pi pi-check" label="Save" />
-  </ng-template>
-</p-dialog>
-
-<p-confirmdialog [style]="{ width: '450px' }" />
+  <p-confirm-dialog [style]="{ width: '450px' }"></p-confirm-dialog>
+</div>
