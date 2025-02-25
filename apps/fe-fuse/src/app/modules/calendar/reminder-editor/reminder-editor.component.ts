@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReminderCreateRequest, ReminderResponse, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { DateTime } from 'luxon';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
@@ -58,7 +59,7 @@ export class ReminderEditorComponent {
         id: this.reminder.reminder_id,
         title: this.reminder.title,
         content: this.reminder.content,
-        remind_date: this.reminder.remind_date,
+        remind_date: DateTime.fromISO(new Date(this.reminder.remind_date).toISOString()),
       });
       this.title = 'Edit Reminder';
     }

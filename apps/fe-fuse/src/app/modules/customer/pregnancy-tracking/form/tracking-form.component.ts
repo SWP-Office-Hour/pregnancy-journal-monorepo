@@ -104,6 +104,7 @@ export class TrackingFormComponent {
       next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
       data,
     };
+    console.log(formData);
     this._trackingService.submit(formData).subscribe({
       next: (res) => {
         this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
