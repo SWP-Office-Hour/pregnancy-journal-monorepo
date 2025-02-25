@@ -45,9 +45,25 @@ const userUpdateReqSchema = baseUserSchema.partial().extend({
 });
 // Make all fields optional for updates
 
+//user profile
+const userProfileSchema = userResSchema
+  .extend({
+    expected_birth_date: z.string().datetime(), // Change expected_birth_date to string
+  })
+  .omit({ status: true, created_at: true, role: true, user_id: true });
+
+//user profile update
+const userProfileUpdateSchema = userProfileSchema
+  .omit({
+    membershipId: true,
+  })
+  .partial();
+
 export type UserCreateRequestType = z.infer<typeof userCreateReqSchema>;
 export type UserUpdateRequestType = z.infer<typeof userUpdateReqSchema>;
 export type UserResponseType = z.infer<typeof userResSchema>;
+export type UserProfileResponseType = z.infer<typeof userProfileSchema>;
+export type UserProfileUpdateType = z.infer<typeof userProfileUpdateSchema>;
 
 export const userContract = c.router({
   getAll: {
@@ -88,6 +104,30 @@ export const userContract = c.router({
     description: 'Update a user (đã xong)',
     responses: {
       200: userResSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+
+  getProfile: {
+    method: 'GET',
+    path: '/users/profile/:user_id',
+    description: 'Get user profile',
+    pathParams: z.object({
+      user_id: z.string(),
+    }),
+    responses: {
+      200: userProfileSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+
+  updateProfile: {
+    method: 'PATCH',
+    path: '/users/profile',
+    body: userProfileUpdateSchema,
+    description: 'Update user profile',
+    responses: {
+      200: userProfileSchema,
       404: z.object({ message: z.string() }),
     },
   },
