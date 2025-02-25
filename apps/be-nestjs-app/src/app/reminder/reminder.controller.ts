@@ -36,6 +36,9 @@ export class ReminderController {
   handleFindOne(@Param('id') id: string) {
     return tsRestHandler(reminderContract.getOne, async () => {
       const reminder = await this.reminderService.findOne(id);
+      if (!reminder) {
+        return { status: 404, body: { message: 'Reminder not found' } };
+      }
       return { status: 200, body: reminder };
     });
   }
@@ -43,15 +46,23 @@ export class ReminderController {
   @TsRestHandler(reminderContract.update)
   handleUpdate(@Body() body: ReminderUpdateRequest) {
     return tsRestHandler(reminderContract.update, async () => {
+      const isExist = await this.reminderService.findOne(body.reminder_id);
+      if (!isExist) {
+        return { status: 404, body: { message: 'Reminder not found' } };
+      }
       const reminder = await this.reminderService.update(body);
       return { status: 200, body: reminder };
     });
   }
 
   @TsRestHandler(reminderContract.delete)
-  handleDelete(@Body() body: { id: string }) {
+  handleDelete(@Param() { id }: { id: string }) {
     return tsRestHandler(reminderContract.delete, async () => {
-      const deleted = await this.reminderService.remove(body.id);
+      const isExist = await this.reminderService.findOne(id);
+      if (!isExist) {
+        return { status: 404, body: { message: 'Reminder not found' } };
+      }
+      const deleted = await this.reminderService.remove(id);
       return { status: 200, body: deleted };
     });
   }
