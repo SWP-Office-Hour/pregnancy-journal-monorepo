@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateCalendarComponent } from './create-calendar.component';
+import { ReminderEditorComponent } from './reminder-editor.component';
 
 describe('CreateCalendarComponent', () => {
-  let component: CreateCalendarComponent;
-  let fixture: ComponentFixture<CreateCalendarComponent>;
+  let component: ReminderEditorComponent;
+  let fixture: ComponentFixture<ReminderEditorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CreateCalendarComponent],
+      imports: [ReminderEditorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(CreateCalendarComponent);
+    fixture = TestBed.createComponent(ReminderEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -12,7 +12,7 @@ import { ReminderCreateRequest, ReminderResponse } from '@pregnancy-journal-mono
 import { CalendarService } from '../calendar.service';
 
 @Component({
-  selector: 'app-create-calendar',
+  selector: 'app-reminder-editor',
   imports: [
     CdkTextareaAutosize,
     DatePipe,
@@ -25,16 +25,16 @@ import { CalendarService } from '../calendar.service';
     MatDialogModule,
     CommonModule,
   ],
-  templateUrl: './create-calendar.component.html',
-  styleUrl: './create-calendar.component.css',
+  templateUrl: './reminder-editor.component.html',
+  styleUrl: './reminder-editor.component.css',
 })
-export class CreateCalendarComponent {
+export class ReminderEditorComponent {
   protected reminderForm: FormGroup;
   @Input() title: string;
   protected activeDay = this._calendarService.activeDay;
 
   constructor(
-    public matDialogRef: MatDialogRef<CreateCalendarComponent>,
+    public matDialogRef: MatDialogRef<ReminderEditorComponent>,
     private _formBuilder: FormBuilder,
     private _calendarService: CalendarService,
   ) {

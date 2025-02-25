@@ -11,7 +11,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReminderResponse, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime, Info, Interval } from 'luxon';
 import { CalendarService } from './calendar.service';
-import { CreateCalendarComponent } from './create-calendar/create-calendar.component';
+import { ReminderEditorComponent } from './reminder-editor/reminder-editor.component';
 
 @Component({
   selector: 'app-calendar',
@@ -107,7 +107,7 @@ export class CalendarComponent {
   }
 
   protected createMeeting() {
-    this._matDialog.open(CreateCalendarComponent, {
+    this._matDialog.open(ReminderEditorComponent, {
       autoFocus: false,
     });
   }
