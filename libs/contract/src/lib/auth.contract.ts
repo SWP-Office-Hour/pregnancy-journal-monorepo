@@ -63,6 +63,16 @@ const messageResponseSchema = z.object({
   message: z.string(),
 });
 
+const changePasswordSchema = z
+  .object({
+    email: z.string().min(1, 'Email is required').email(),
+    password: z.string().min(1, 'Password is required'),
+    confirm_password: z.string().min(1, 'Confirm password is required'),
+  })
+  .refine((data) => data.password === data.confirm_password, {
+    message: "Confirm Passwords don't match",
+  });
+
 // Contract
 export const authContract = c.router({
   register: {
@@ -105,7 +115,29 @@ export const authContract = c.router({
       401: messageResponseSchema,
     },
   },
-  // refreshToken: {
+
+  forgotPassword: {
+    method: 'POST',
+    path: '/users/auth/forgot-password',
+    description: 'Forgot password (đã xong)',
+    body: z.object({
+      email: z.string().min(1, 'Email is required'),
+    }),
+    responses: {
+      200: messageResponseSchema,
+      401: messageResponseSchema,
+    },
+  },
+  changePassword: {
+    method: 'POST',
+    path: '/users/auth/change-password',
+    description: 'Change password (đã xong)',
+    body: changePasswordSchema,
+    responses: {
+      200: authResponseSchema,
+      401: messageResponseSchema,
+    },
+  },
   //   method: 'POST',
   //   path: '/users/auth/refresh',
   //   body: tokenSchema,
