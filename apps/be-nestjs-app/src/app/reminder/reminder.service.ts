@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest, Status } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
@@ -40,28 +40,26 @@ export class ReminderService {
       },
     });
     if (!result) {
-      throw new NotFoundException('Reminder not found');
+      return null;
     }
     return result;
   }
 
   async update(updateReminderDto: ReminderUpdateRequest) {
-    await this.findOne(updateReminderDto.reminder_id);
-
-    return this.databaseService.Reminder.update({
+    return await this.databaseService.Reminder.update({
       where: {
         reminder_id: updateReminderDto.reminder_id,
       },
-      data: updateReminderDto,
+      data: {
+        title: updateReminderDto.title,
+        content: updateReminderDto.content,
+        remind_date: new Date(updateReminderDto.remind_date as string),
+      },
     });
   }
 
-  remove(id: string) {
-    const check = this.findOne(id);
-    if (!check) {
-      throw new NotFoundException('Reminder not found');
-    }
-    return this.databaseService.Reminder.delete({
+  async remove(id: string) {
+    return await this.databaseService.Reminder.delete({
       where: {
         reminder_id: id,
       },
