@@ -13,7 +13,96 @@
     <!--    </div>-->
     <div class="h-400 max-h-400 min-h-400 rounded-2xl border-2 border-dashed border-gray-300">
       <div class="flex h-full items-center justify-center">
-        <span class="text-3xl text-gray-400">Content goes here</span>
+        <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">
+          <!-- New vs. Closed -->
+          <div class="flex flex-auto flex-col">
+            <div class="text-secondary font-medium">New vs. Closed</div>
+            <div class="flex flex-auto flex-col">
+              <!--              <apx-chart-->
+              <!--                class="h-80 w-full flex-auto"-->
+              <!--&lt;!&ndash;                [chart]="chartGithubIssues.chart"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [colors]="chartGithubIssues.colors"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [dataLabels]="chartGithubIssues.dataLabels"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [grid]="chartGithubIssues.grid"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [labels]="chartGithubIssues.labels"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [legend]="chartGithubIssues.legend"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [plotOptions]="chartGithubIssues.plotOptions"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [series]="chartGithubIssues.series[githubIssuesWeekSelector.value]"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [states]="chartGithubIssues.states"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [stroke]="chartGithubIssues.stroke"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [tooltip]="chartGithubIssues.tooltip"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [xaxis]="chartGithubIssues.xaxis"&ndash;&gt;-->
+              <!--&lt;!&ndash;                [yaxis]="chartGithubIssues.yaxis"&ndash;&gt;-->
+              <!--              ></apx-chart>-->
+            </div>
+          </div>
+          <!-- Overview -->
+          <div class="flex flex-col">
+            <div class="text-secondary font-medium">Overview</div>
+            <div class="mt-6 grid flex-auto grid-cols-4 gap-4">
+              <!-- New issues -->
+              <div
+                class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
+                  1
+                  <!--                                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}-->
+                </div>
+                <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>
+              </div>
+              <!-- Closed -->
+              <div
+                class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
+                  2
+                  <!--                                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}-->
+                </div>
+                <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>
+              </div>
+              <!-- Fixed -->
+              <div
+                class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight">
+                  3
+                  <!--                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}-->
+                </div>
+                <div class="mt-1 text-center text-sm font-medium">Fixed</div>
+              </div>
+              <!-- Won't fix -->
+              <div
+                class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight">
+                  4
+                  <!--                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}-->
+                </div>
+                <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>
+              </div>
+              <!-- Re-opened -->
+              <div
+                class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight">
+                  5
+                  <!--                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}-->
+                </div>
+                <div class="mt-1 text-center text-sm font-medium">Re-opened</div>
+              </div>
+              <!-- Needs triage -->
+              <div
+                class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
+              >
+                <div class="text-5xl font-semibold leading-none tracking-tight">
+                  6
+                  <!--                  {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}-->
+                </div>
+                <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
