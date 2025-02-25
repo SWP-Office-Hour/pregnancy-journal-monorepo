@@ -9,5 +9,6 @@ import { ReminderService } from './reminder.service';
   imports: [UsersModule, JwtUtilsModule],
   controllers: [ReminderController],
   providers: [ReminderService, DatabaseService],
+  exports: [ReminderService],
 })
 export class ReminderModule {}

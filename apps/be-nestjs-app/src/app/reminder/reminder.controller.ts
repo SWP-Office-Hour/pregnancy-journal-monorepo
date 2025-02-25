@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
-import { reminderContract, ReminderCreateRequest, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { reminderContract, ReminderCreateRequest, ReminderType, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
@@ -50,6 +50,9 @@ export class ReminderController {
       if (!isExist) {
         return { status: 404, body: { message: 'Reminder not found' } };
       }
+      if (isExist.type == ReminderType.MEETING) {
+        return { status: 400, body: { message: 'Cannot update meeting' } };
+      }
       const reminder = await this.reminderService.update(body);
       return { status: 200, body: reminder };
     });
@@ -61,6 +64,9 @@ export class ReminderController {
       const isExist = await this.reminderService.findOne(id);
       if (!isExist) {
         return { status: 404, body: { message: 'Reminder not found' } };
+      }
+      if (isExist.type == ReminderType.MEETING) {
+        return { status: 400, body: { message: 'Cannot delete meeting' } };
       }
       const deleted = await this.reminderService.remove(id);
       return { status: 200, body: deleted };

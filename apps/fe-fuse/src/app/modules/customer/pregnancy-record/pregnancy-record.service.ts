@@ -75,7 +75,7 @@ export class PregnancyRecordService {
               Authorization: `Bearer ${this._authService.accessToken}`,
             },
           });
-
+          this._mediaSrc = [];
           return res;
         }),
       );

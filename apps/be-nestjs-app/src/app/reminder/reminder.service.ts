@@ -10,6 +10,41 @@ export class ReminderService {
     private readonly userService: UsersService,
   ) {}
 
+  async createByNextVisitDoctorDate({
+    visit_record_id,
+    user_id,
+    next_visit_doctor_date,
+  }: {
+    visit_record_id: string;
+    user_id: string;
+    next_visit_doctor_date: string;
+  }): Promise<ReminderResponse> {
+    const nextVisitDoctorDate = new Date(next_visit_doctor_date);
+    const remind_date = new Date(nextVisitDoctorDate);
+    remind_date.setDate(remind_date.getDate() - 1);
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${nextVisitDoctorDate.getFullYear()}`;
+
+    return await this.databaseService.Reminder.create({
+      data: {
+        title: 'Ngày tái khám',
+        content: reminder_content,
+        status: Status.ACTIVE,
+        type: ReminderType.MEETING,
+        remind_date,
+        user: {
+          connect: {
+            user_id,
+          },
+        },
+        visit_record: {
+          connect: {
+            visit_record_id,
+          },
+        },
+      },
+    });
+  }
+
   async create(createReminderDto: ReminderCreateRequest, userId: string): Promise<ReminderResponse> {
     await this.userService.getUserById(userId);
 
@@ -43,6 +78,41 @@ export class ReminderService {
       return null;
     }
     return result;
+  }
+
+  async updateByNextVisitDoctorDate({
+    next_visit_doctor_date,
+    visit_record_id,
+    user_id,
+  }: {
+    next_visit_doctor_date: string;
+    visit_record_id: string;
+    user_id: string;
+  }) {
+    const nextVisitDoctorDate = new Date(next_visit_doctor_date);
+    const remind_date = new Date(nextVisitDoctorDate);
+    remind_date.setDate(remind_date.getDate() - 1);
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${nextVisitDoctorDate.getFullYear()}`;
+
+    const reminder = await this.databaseService.Reminder.findFirst({
+      where: {
+        visit_record_id,
+      },
+    });
+
+    if (!reminder) {
+      return await this.createByNextVisitDoctorDate({ visit_record_id, user_id, next_visit_doctor_date });
+    }
+    return await this.databaseService.Reminder.update({
+      where: {
+        reminder_id: reminder.reminder_id,
+      },
+      data: {
+        title: 'Ngày tái khám',
+        content: reminder_content,
+        remind_date,
+      },
+    });
   }
 
   async update(updateReminderDto: ReminderUpdateRequest) {

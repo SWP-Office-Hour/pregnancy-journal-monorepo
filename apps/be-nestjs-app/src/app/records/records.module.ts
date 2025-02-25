@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
 import { MetricModule } from '../metric/metric.module';
-import { MetricService } from '../metric/metric.service';
+import { ReminderModule } from '../reminder/reminder.module';
 import { StandardService } from '../standard/standard.service';
 import { TagModule } from '../tags/tag.module';
 import { UsersModule } from '../users/users.module';
@@ -11,8 +11,8 @@ import { RecordsController } from './records.controller';
 import { RecordsService } from './records.service';
 
 @Module({
-  imports: [JwtUtilsModule, MetricModule, TagModule, UsersModule],
+  imports: [JwtUtilsModule, MetricModule, TagModule, UsersModule, ReminderModule],
   controllers: [RecordsController],
-  providers: [RecordsService, DatabaseService, MetricService, TimeUtilsService, StandardService],
+  providers: [RecordsService, DatabaseService, TimeUtilsService, StandardService],
 })
 export class RecordsModule {}
