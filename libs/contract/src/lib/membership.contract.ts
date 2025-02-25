@@ -2,7 +2,7 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
-export const membershipResContract = z.object({
+export const membershipResponeContract = z.object({
   membership_id: z.string(),
   title: z.string(),
   price: z.number(),
@@ -14,21 +14,22 @@ export const membershipResContract = z.object({
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới membership
-const membershipCreateReqContract = membershipResContract.omit({
+const membershipCreateRequestContract = membershipResponeContract.omit({
   membership_id: true,
   created_at: true,
   updated_at: true,
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật membership
-const membershipUpdateReqContract = membershipResContract.omit({
+const membershipUpdateRequestContract = membershipResponeContract.omit({
   created_at: true,
   updated_at: true,
 });
 
-export type membershipCreateRequest = z.infer<typeof membershipCreateReqContract>;
-export type membershipUpdateRequest = z.infer<typeof membershipUpdateReqContract>;
-export type membershipResponse = z.infer<typeof membershipResContract>;
+export type Membership = z.infer<typeof membershipResponeContract>;
+export type MembershipCreateRequest = z.infer<typeof membershipCreateRequestContract>;
+export type MembershipUpdateRequest = z.infer<typeof membershipUpdateRequestContract>;
+export type membershipResponse = z.infer<typeof membershipResponeContract>;
 
 const c = initContract();
 
@@ -38,7 +39,7 @@ export const membershipContract = c.router({
     path: '/memberships',
     description: 'Get all memberships (đã xong)',
     responses: {
-      200: z.array(membershipResContract),
+      200: z.array(membershipResponeContract),
       404: z.object({ message: z.string() }),
     },
   },
@@ -50,7 +51,7 @@ export const membershipContract = c.router({
     }),
     description: 'Get a membership by membership id (đã xong)',
     responses: {
-      200: membershipResContract,
+      200: membershipResponeContract,
       404: z.object({ message: z.string() }),
     },
   },
@@ -58,18 +59,18 @@ export const membershipContract = c.router({
     method: 'POST',
     path: '/memberships',
     description: 'Create a new membership (đã xong)',
-    body: membershipCreateReqContract,
+    body: membershipCreateRequestContract,
     responses: {
-      201: membershipResContract,
+      201: membershipResponeContract,
     },
   },
   update: {
     method: 'PATCH',
     path: '/memberships',
     description: 'Update a membership by membership id (đã xong)',
-    body: membershipUpdateReqContract,
+    body: membershipUpdateRequestContract,
     responses: {
-      200: membershipResContract,
+      200: membershipResponeContract,
     },
   },
   delete: {
