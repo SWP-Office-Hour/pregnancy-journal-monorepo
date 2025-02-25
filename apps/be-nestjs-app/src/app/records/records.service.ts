@@ -2,6 +2,7 @@ import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/co
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MetricService } from '../metric/metric.service';
+import { ReminderService } from '../reminder/reminder.service';
 import { UsersService } from '../users/users.service';
 import { TimeUtilsService } from '../utils/time/timeUtils.service';
 
@@ -12,6 +13,7 @@ export class RecordsService {
     private readonly timeUtilsService: TimeUtilsService,
     private readonly metricService: MetricService,
     private readonly userService: UsersService,
+    private readonly reminderService: ReminderService,
   ) {}
 
   async createRecord({ record, userId }: { record: RecordCreateRequest; userId: string }): Promise<RecordResponse> {
@@ -90,6 +92,13 @@ export class RecordsService {
         media: true,
         hospital: true,
       },
+    });
+
+    // Create reminder
+    await this.reminderService.createByNextVisitDoctorDate({
+      user_id: userId,
+      visit_record_id: newRecord.visit_record_id,
+      next_visit_doctor_date: record.next_visit_doctor_date,
     });
 
     const formatRecord = await this.getRecordById(newRecord.visit_record_id);
@@ -262,6 +271,14 @@ export class RecordsService {
         doctor_name: record.doctor_name,
       },
     });
+
+    if (record.next_visit_doctor_date) {
+      await this.reminderService.updateByNextVisitDoctorDate({
+        next_visit_doctor_date: record.next_visit_doctor_date,
+        visit_record_id: record.visit_record_id,
+        user_id: newRecord.user_id,
+      });
+    }
 
     if (record.data) {
       for (const data of record.data) {
