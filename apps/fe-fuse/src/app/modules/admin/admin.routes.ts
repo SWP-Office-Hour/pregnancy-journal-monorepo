@@ -1,12 +1,17 @@
+import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { BlogRoutes } from '../blog/blog.routes';
 import { AdminComponent } from './admin.component';
+import { AdminService } from './admin.service';
 import { UserTableComponent } from './user-table/user-table.component';
 
 export default [
   {
     path: '',
     component: AdminComponent,
+    resolve: {
+      data: () => inject(AdminService).getData(),
+    },
   },
   {
     path: 'health-metric',

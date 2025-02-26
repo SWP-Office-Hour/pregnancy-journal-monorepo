@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class ProjectService {
+export class AdminService {
   private _data: BehaviorSubject<any> = new BehaviorSubject(null);
 
   /**

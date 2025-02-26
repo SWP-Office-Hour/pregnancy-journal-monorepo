@@ -36,7 +36,7 @@ export const defaultNavigation: FuseNavigationItem[] = [
     title: 'Pricing',
     type: 'basic',
     icon: 'heroicons_outline:currency-dollar',
-    link: '/pricing',
+    link: '/membership',
   },
   {
     id: 'about',

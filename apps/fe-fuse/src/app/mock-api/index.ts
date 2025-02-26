@@ -3,6 +3,7 @@ import { NavigationMockApi } from 'app/mock-api/common/navigation/api';
 import { NotificationsMockApi } from 'app/mock-api/common/notifications/api';
 import { UserMockApi } from 'app/mock-api/common/user/api';
 import { IconsMockApi } from 'app/mock-api/icons/api';
+import { AdminMockApi } from './common/dashboards/project/api';
 
 export const mockApiServices = [
   // AcademyMockApi,
@@ -22,4 +23,5 @@ export const mockApiServices = [
   // ShortcutsMockApi,
   UserMockApi,
   // BlogsMockApi,
+  AdminMockApi,
 ];
