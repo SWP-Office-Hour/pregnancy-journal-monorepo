@@ -1,6 +1,7 @@
 import { Body, ConflictException, Controller, NotFoundException, Param, Req, UseGuards } from '@nestjs/common';
 import {
   authContract,
+  ChangePasswordRequest,
   ForgotPasswordRequest,
   LoginRequest,
   RegisterRequest,
@@ -186,8 +187,9 @@ export class UsersController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(authContract.changePassword)
-  async handleChangePassword(@Body() body: any, req: RequestWithJWT) {
+  async handleChangePassword(@Body() body: ChangePasswordRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(authContract.changePassword, async () => {
       const user_id = req.decoded_authorization?.user_id;
       if (!user_id) {
