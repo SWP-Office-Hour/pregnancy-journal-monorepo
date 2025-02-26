@@ -169,6 +169,9 @@ export class UsersController {
   @TsRestHandler(userContract.update)
   async handleUpdate(@Body() body: UserUpdateRequestType) {
     return tsRestHandler(userContract.update, async () => {
+      if (!body.user_id) {
+        throw new NotFoundException('User not found');
+      }
       const users = await this.usersService.updateUser(body);
       return { status: 200, body: users };
     });

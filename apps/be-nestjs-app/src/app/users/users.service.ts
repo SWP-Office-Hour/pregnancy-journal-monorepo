@@ -432,7 +432,7 @@ export class UsersService {
   }
 
   async updateUser(updateUser: UserUpdateRequestType): Promise<UserResponseType> {
-    await this.getUserById(updateUser.user_id);
+    await this.getUserById(updateUser.user_id!);
 
     return await this.databaseService.User.update({
       where: {
