@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MediaResponse } from '@pregnancy-journal-monorepo/contract';
 import { FileUploadComponent } from '../../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../../common/image-preview/image-preview.component';
@@ -12,14 +13,16 @@ import { ImagePreviewComponent } from '../../../common/image-preview/image-previ
   styleUrl: './create-post.component.css',
 })
 export class CreatePostComponent {
-  protected postForm: FormGroup;
+  @Output() postCreated = new EventEmitter<any>();
+  protected postForm: FormGroup = this._formBuilder.group({
+    content: [''],
+  });
   protected images: MediaResponse[] = [];
 
-  constructor(private _formBuilder: FormBuilder) {
-    this.postForm = this._formBuilder.group({
-      content: [''],
-    });
-  }
+  constructor(
+    private _formBuilder: FormBuilder,
+    protected dialogRef: MatDialogRef<CreatePostComponent>,
+  ) {}
 
   insertImg(media: MediaResponse) {
     this.images.push(media);
@@ -27,5 +30,10 @@ export class CreatePostComponent {
 
   deleteImg(mediaId: string) {
     this.images = this.images.filter((img) => img.media_id !== mediaId);
+  }
+
+  onSubmit() {
+    this.postCreated.emit(this.postForm.value);
+    this.dialogRef.close();
   }
 }
