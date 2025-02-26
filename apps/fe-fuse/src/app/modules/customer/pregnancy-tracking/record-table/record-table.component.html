@@ -1,5 +1,23 @@
-<div class="card">
+<div class="card overflow-hidden rounded-xl bg-white shadow-sm">
   <p-toast />
+  <div class="flex items-center justify-between bg-pink-50 p-4">
+    <h2 class="text-lg font-medium text-pink-500">Weekly Records</h2>
+    <div class="flex flex-wrap justify-end gap-2">
+      <p-button
+        label="Expand All"
+        icon="pi pi-expand"
+        (onClick)="expandAll()"
+        styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
+      />
+      <p-button
+        label="Collapse All"
+        icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
+        (onClick)="collapseAll()"
+        styleClass="p-button-rounded p-button-sm p-button-text text-pink-500 hover:text-pink-600"
+      />
+    </div>
+  </div>
+
   <p-table
     [value]="rows"
     dataKey="week"
@@ -7,26 +25,22 @@
     [expandedRowKeys]="expandedRows"
     (onRowExpand)="onRowExpand($event)"
     (onRowCollapse)="onRowCollapse($event)"
+    styleClass="p-datatable-sm"
+    [rowHover]="true"
   >
-    <ng-template #caption>
-      <div class="flex flex-wrap justify-end gap-2">
-        <p-button label="" icon="pi pi-expand" (onClick)="expandAll()" />
-        <p-button label="" icon="pi pi-arrow-down-left-and-arrow-up-right-to-center" text (onClick)="collapseAll()" />
-      </div>
-    </ng-template>
-    <ng-template #header>
-      <tr>
-        <th style="width: 5rem"></th>
-        <th pSortableColumn="week">
+    <ng-template pTemplate="header">
+      <tr class="bg-gray-50">
+        <th style="width: 5rem" class="text-gray-700"></th>
+        <th pSortableColumn="week" class="p-3 text-gray-700">
           Week
           <p-sortIcon field="name" />
         </th>
-        <th>Size</th>
+        <th class="p-3 text-gray-700">Size</th>
       </tr>
     </ng-template>
-    <ng-template #body let-row let-expanded="expanded">
-      <tr>
-        <td>
+    <ng-template pTemplate="body" let-row let-expanded="expanded">
+      <tr class="border-b border-gray-100">
+        <td class="p-3">
           <p-button
             type="button"
             pRipple
@@ -35,60 +49,88 @@
             [rounded]="true"
             [plain]="true"
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+            styleClass="text-pink-500 hover:text-pink-600 focus:shadow-none"
           />
         </td>
-        <td>{{ row.week }}</td>
-        <td>{{ getLength(row.week) }}</td>
+        <td class="p-3 font-medium">{{ row.week }}</td>
+        <td class="p-3">{{ getLength(row.week) }}</td>
       </tr>
     </ng-template>
-    <ng-template #expandedrow let-row>
+    <ng-template pTemplate="expandedrow" let-row>
       <tr>
-        <td colspan="7">
-          <div class="p-4">
-            <p-table [value]="row.records" dataKey="visit_record_id">
-              <ng-template #header>
-                <tr>
-                  <th pSortableColumn="week">
+        <td colspan="7" class="border-none p-0">
+          <div class="bg-gray-50 p-4">
+            <p-table
+              [value]="row.records"
+              dataKey="visit_record_id"
+              styleClass="p-datatable-sm"
+              [rowHover]="true"
+              [scrollable]="true"
+              scrollHeight="400px"
+            >
+              <ng-template pTemplate="header">
+                <tr class="border-b border-gray-200 bg-white">
+                  <th pSortableColumn="week" class="sticky top-0 bg-white p-3 text-gray-700">
                     Tuần
                     <p-sortIcon field="week" />
                   </th>
-                  <th pSortableColumn="hospital.name">
+                  <th pSortableColumn="hospital.name" class="sticky top-0 bg-white p-3 text-gray-700">
                     Bệnh viện
-                    <p-sortIcon field="hospital.name  " />
+                    <p-sortIcon field="hospital.name" />
                   </th>
-                  <th pSortableColumn="visit_doctor_date">
+                  <th pSortableColumn="visit_doctor_date" class="sticky top-0 bg-white p-3 text-gray-700">
                     Ngày khám
                     <p-sortIcon field="visit_doctor_date" />
                   </th>
-                  <th pSortableColumn="next_visit_doctor_date">
+                  <th pSortableColumn="next_visit_doctor_date" class="sticky top-0 bg-white p-3 text-gray-700">
                     Ngày tái khám
                     <p-sortIcon field="next_visit_doctor_date" />
                   </th>
-                  <th pSortableColumn="doctor_name">
+                  <th pSortableColumn="doctor_name" class="sticky top-0 bg-white p-3 text-gray-700">
                     Bác sĩ
                     <p-sortIcon field="doctor_name" />
                   </th>
-                  <th style="width: 4rem"></th>
+                  <th style="width: 4rem" class="sticky top-0 bg-white p-3 text-gray-700"></th>
                 </tr>
               </ng-template>
-              <ng-template #body let-record>
-                <tr>
-                  <td>{{ record.week }}</td>
-                  <td>{{ record.hospital.name }}</td>
-                  <td>{{ record.visit_doctor_date | date }}</td>
-                  <td>{{ record.next_visit_doctor_date | date }}</td>
-                  <td>{{ record.doctor_name }}</td>
-                  <td>
-                    <p-button (click)="editTracking(record.visit_record_id)" type="button" icon="pi pi-ellipsis-h" />
+              <ng-template pTemplate="body" let-record>
+                <tr class="border-b border-gray-100">
+                  <td class="p-3">{{ record.week }}</td>
+                  <td class="p-3">{{ record.hospital.name }}</td>
+                  <td class="p-3">{{ record.visit_doctor_date | date }}</td>
+                  <td class="p-3">{{ record.next_visit_doctor_date | date }}</td>
+                  <td class="p-3">{{ record.doctor_name }}</td>
+                  <td class="p-3">
+                    <p-button
+                      (click)="editTracking(record.visit_record_id)"
+                      type="button"
+                      icon="pi pi-ellipsis-h"
+                      styleClass="p-button-rounded p-button-text text-pink-500 hover:text-pink-600"
+                    />
                   </td>
                 </tr>
               </ng-template>
-              <ng-template #emptymessage>
+              <ng-template pTemplate="emptymessage">
                 <tr>
-                  <td colspan="6">There is no record in this week yet.</td>
+                  <td colspan="6" class="p-4 text-center text-gray-500">
+                    <div class="flex flex-col items-center justify-center p-6">
+                      <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
+                      <span>There is no record in this week yet.</span>
+                    </div>
+                  </td>
                 </tr>
               </ng-template>
             </p-table>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="3" class="p-4 text-center text-gray-500">
+          <div class="flex flex-col items-center justify-center p-6">
+            <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
+            <span>No records found</span>
           </div>
         </td>
       </tr>
