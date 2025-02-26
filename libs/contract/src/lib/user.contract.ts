@@ -38,11 +38,14 @@ const userCreateReqSchema = userResSchema
   .omit({ user_id: true, created_at: true }); // Omit fields not needed for creation
 
 // User update request schema
-const userUpdateReqSchema = baseUserSchema.partial().extend({
-  user_id: z.string(), // Add user_id field
-  expected_birth_date: z.string().datetime().optional(), // Change expected_birth_date to string and make it optional
-  password: z.string().optional(), // Make password optional
-});
+const userUpdateReqSchema = baseUserSchema
+  .partial()
+  .extend({
+    expected_birth_date: z.string().datetime().optional(), // Change expected_birth_date to string and make it optional
+    password: z.string().optional(), // Add password field and make it optional
+    user_id: z.string().optional(), // Add user_id field
+  })
+  .omit({ status: true, role: true });
 // Make all fields optional for updates
 
 //user profile
