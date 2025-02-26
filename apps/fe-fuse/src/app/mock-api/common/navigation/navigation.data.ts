@@ -32,6 +32,13 @@ export const defaultNavigation: FuseNavigationItem[] = [
     link: '/blog',
   },
   {
+    id: 'community',
+    title: 'Community',
+    type: 'basic',
+    icon: 'heroicons_outline:user-group',
+    link: '/community',
+  },
+  {
     id: 'pricing',
     title: 'Pricing',
     type: 'basic',

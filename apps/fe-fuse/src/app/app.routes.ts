@@ -127,7 +127,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => CalendarComponent,
       },
       {
-        path: 'post',
+        path: 'community',
         loadChildren: () => postRoutes,
       },
       {
