@@ -7,4 +7,5 @@ export interface User {
   avatar?: string;
   status?: string;
   role?: UserRole;
+  expected_birth_date?: string;
 }
