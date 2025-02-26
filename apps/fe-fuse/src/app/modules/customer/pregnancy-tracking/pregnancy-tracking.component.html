@@ -12,11 +12,5 @@
       <mat-icon class="icon-size-5 ml-2" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
     </a>
   </div>
-  <div class="flex flex-wrap">
-    @for (recordData of recordsData(); track $index) {
-      <app-tracking-card [recordData]="recordData"></app-tracking-card>
-    } @empty {
-      <p>Chưa có chỉ số đã theo dõi</p>
-    }
-  </div>
+  <app-record-table></app-record-table>
 </div>
