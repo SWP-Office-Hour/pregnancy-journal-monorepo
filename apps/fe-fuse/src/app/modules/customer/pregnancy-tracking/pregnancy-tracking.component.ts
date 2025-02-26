@@ -6,11 +6,11 @@ import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-m
 import { DateTime } from 'luxon';
 import { LineChartComponent } from '../../../common/line-chart/line-chart.component';
 import { PregnancyTrackingService } from './pregnancy-tracking.service';
-import { TrackingCardComponent } from './tracking-card/tracking-card.component';
+import { RecordTableComponent } from './record-table/record-table.component';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [TrackingCardComponent, RouterLink, MatAnchor, MatIcon, LineChartComponent],
+  imports: [RouterLink, MatAnchor, MatIcon, LineChartComponent, RecordTableComponent],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
