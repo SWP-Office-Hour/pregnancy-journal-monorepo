@@ -56,6 +56,7 @@ const userProfileSchema = userResSchema
 const userProfileUpdateSchema = userProfileSchema
   .omit({
     membershipId: true,
+    email: true,
   })
   .partial()
   .extend({ expected_birth_date: z.string().datetime().optional() });
