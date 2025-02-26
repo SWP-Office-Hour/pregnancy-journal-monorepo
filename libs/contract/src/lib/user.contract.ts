@@ -48,7 +48,7 @@ const userUpdateReqSchema = baseUserSchema.partial().extend({
 //user profile
 const userProfileSchema = userResSchema
   .extend({
-    expected_birth_date: z.string().datetime(), // Change expected_birth_date to string
+    expected_birth_date: z.date(), // Change expected_birth_date to string
   })
   .omit({ status: true, created_at: true, role: true, user_id: true });
 
@@ -57,7 +57,8 @@ const userProfileUpdateSchema = userProfileSchema
   .omit({
     membershipId: true,
   })
-  .partial();
+  .partial()
+  .extend({ expected_birth_date: z.string().datetime().optional() });
 
 export type UserCreateRequestType = z.infer<typeof userCreateReqSchema>;
 export type UserUpdateRequestType = z.infer<typeof userUpdateReqSchema>;
@@ -75,18 +76,7 @@ export const userContract = c.router({
       // 404: object({ message: string() }),
     },
   },
-  getOne: {
-    method: 'GET',
-    path: '/users/:id',
-    description: 'Get a user by id (đã xong)',
-    pathParams: z.object({
-      id: z.string(),
-    }),
-    responses: {
-      200: userResSchema,
-      404: z.object({ message: z.string() }),
-    },
-  },
+
   create: {
     method: 'POST',
     path: '/users',
@@ -110,14 +100,10 @@ export const userContract = c.router({
 
   getProfile: {
     method: 'GET',
-    path: '/users/profile/:user_id',
+    path: '/users/profile',
     description: 'Get user profile',
-    pathParams: z.object({
-      user_id: z.string(),
-    }),
     responses: {
       200: userProfileSchema,
-      404: z.object({ message: z.string() }),
     },
   },
 
@@ -128,6 +114,18 @@ export const userContract = c.router({
     description: 'Update user profile',
     responses: {
       200: userProfileSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+  getOne: {
+    method: 'GET',
+    path: '/users/:id',
+    description: 'Get a user by id (đã xong)',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    responses: {
+      200: userResSchema,
       404: z.object({ message: z.string() }),
     },
   },

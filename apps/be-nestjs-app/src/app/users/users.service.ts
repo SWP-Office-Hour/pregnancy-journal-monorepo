@@ -2,15 +2,19 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   AuthResponse,
+  ChangePasswordRequest,
   LoginRequest,
   RegisterRequest,
   Status,
   UserCreateRequestType,
+  UserProfileResponseType,
+  UserProfileUpdateType,
   UserResponseType,
   UserRole,
   UserUpdateRequestType,
 } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
+import { MailService } from '../mail/mail.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 
@@ -20,6 +24,7 @@ export class UsersService {
     private readonly databaseService: DatabaseService,
     private readonly jwtUtilsService: JwtUtilsService,
     private readonly configService: ConfigService,
+    private readonly mailService: MailService,
   ) {}
 
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
@@ -324,6 +329,74 @@ export class UsersService {
     return { access_token, refresh_token };
   }
 
+  async forgotPassword(email: string) {
+    const user = await this.databaseService.User.findFirst({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    //send email verify token to user email
+    const code = await this.mailService.resetPassword(user);
+
+    const userAfter = await this.databaseService.User.update({
+      where: {
+        user_id: user.user_id,
+      },
+      data: {
+        password: String(code),
+        updated_at: new Date(),
+      },
+    });
+
+    if (userAfter.password === String(code)) {
+      return 'Password reset successfully';
+    }
+  }
+
+  async changePassword(data: ChangePasswordRequest, user_id: string): Promise<AuthResponse> {
+    const user = await this.databaseService.User.findUnique({
+      where: {
+        user_id,
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found, access token is invalid');
+    }
+
+    if (user.password !== data.old_password) {
+      throw new NotFoundException('Old password is incorrect');
+    }
+
+    const userAfter = await this.databaseService.User.update({
+      where: {
+        user_id: user.user_id,
+      },
+      data: {
+        password: data.password,
+        updated_at: new Date(),
+      },
+    });
+
+    const access_token = await this.signAccessToken({ user_id: userAfter.user_id, role: userAfter.role });
+
+    //create access token and refresh token then return
+    return {
+      access_token,
+      // refresh_token,
+      user: {
+        id: userAfter.user_id,
+        name: userAfter.name,
+        role: userAfter.role,
+      },
+    };
+  }
+
   async create(userCreateRequest: UserCreateRequestType): Promise<UserResponseType> {
     const user = await this.databaseService.User.create({
       data: {
@@ -351,6 +424,7 @@ export class UsersService {
         user_id: id,
       },
     });
+
     if (!user) {
       throw new NotFoundException('User not found');
     }
@@ -369,5 +443,46 @@ export class UsersService {
         updated_at: new Date(),
       },
     });
+  }
+
+  async getUserProfile(id: string): Promise<UserProfileResponseType> {
+    const user = await this.databaseService.User.findUnique({
+      where: {
+        user_id: id,
+      },
+      include: {
+        payment_history: true,
+      },
+    });
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+    return {
+      name: user.name,
+      email: user.email,
+      phone: user.phone,
+      province: user.province,
+      district: user.district,
+      ward: user.ward,
+      address: user.address,
+      expected_birth_date: user.expected_birth_date,
+      membershipId: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
+    };
+  }
+
+  async updateProfile(updateProfile: UserProfileUpdateType, userId): Promise<UserProfileResponseType> {
+    await this.getUserById(userId);
+
+    await this.databaseService.User.update({
+      where: {
+        user_id: userId,
+      },
+      data: {
+        ...updateProfile,
+        updated_at: new Date(),
+      },
+    });
+
+    return await this.getUserProfile(userId);
   }
 }

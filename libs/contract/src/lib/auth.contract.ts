@@ -10,6 +10,8 @@ export type LoginRequest = z.infer<typeof loginSchema>;
 export type TokenRequest = z.infer<typeof tokenSchema>;
 export type AuthResponse = z.infer<typeof authResponseSchema>;
 export type RefreshTokenRequest = z.infer<typeof refreshTokenReqSchema>;
+export type ChangePasswordRequest = z.infer<typeof changePasswordSchema>;
+export type ForgotPasswordRequest = z.infer<typeof forgotPasswordSchema>;
 
 // Schemas
 const registerSchema = z
@@ -65,13 +67,17 @@ const messageResponseSchema = z.object({
 
 const changePasswordSchema = z
   .object({
-    email: z.string().min(1, 'Email is required').email(),
+    old_password: z.string().min(1, 'Old password is required'),
     password: z.string().min(1, 'Password is required'),
     confirm_password: z.string().min(1, 'Confirm password is required'),
   })
   .refine((data) => data.password === data.confirm_password, {
     message: "Confirm Passwords don't match",
   });
+
+const forgotPasswordSchema = z.object({
+  email: z.string().min(1, 'Email is required'),
+});
 
 // Contract
 export const authContract = c.router({
@@ -120,9 +126,7 @@ export const authContract = c.router({
     method: 'POST',
     path: '/users/auth/forgot-password',
     description: 'Forgot password (đã xong)',
-    body: z.object({
-      email: z.string().min(1, 'Email is required'),
-    }),
+    body: forgotPasswordSchema,
     responses: {
       200: messageResponseSchema,
       401: messageResponseSchema,
