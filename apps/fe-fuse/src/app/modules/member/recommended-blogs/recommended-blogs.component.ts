@@ -60,7 +60,6 @@ export class RecommendedBlogsComponent {
   responsiveOptions: any[] | undefined;
   constructor() {
     this.blogs = blogsMockData;
-    this.blogs = blogsMockData;
     console.log(this.blogs);
   }
 

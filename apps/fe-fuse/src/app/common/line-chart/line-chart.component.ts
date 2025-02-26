@@ -53,14 +53,19 @@ export class LineChartComponent implements OnInit {
             name: data.name,
           };
         }) || [],
-      colors: ['#64748B', '#94A3B8'],
+      colors: ['#ff595e', '#ffca3a', '#8ac926', '#1982c4', '#6a4c93'],
       dataLabels: {
         enabled: false,
       },
-      fill: {
-        colors: ['#64748B', '#94A3B8'],
-        opacity: 0.5,
-      },
+      // fill: {
+      //   type: 'gradient',
+      //   gradient: {
+      //     shadeIntensity: 1,
+      //     opacityFrom: 0.7,
+      //     opacityTo: 0.5,
+      //     stops: [0, 100],
+      //   },
+      // },
       grid: {
         show: false,
         padding: {

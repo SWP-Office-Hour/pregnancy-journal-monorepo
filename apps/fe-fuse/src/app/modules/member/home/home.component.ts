@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, Input, OnInit, ViewEncapsulation } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormBuilder, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -19,10 +19,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Router } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
-import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
+import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
+import { NgApexchartsModule } from 'ng-apexcharts';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
+import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnancy-record.service';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
 //
 // @Component({
@@ -104,12 +105,107 @@ export class DialogContentPriceComponent {
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent implements OnInit {
-  //User
-  // private user: User;
+export class HomeComponent {
+  //Thai nhi
+  //get data standard of metric from API
+  protected metrics: MetricResponseType[];
+  protected weightMetricId: string;
+  protected readonly Status = Status;
 
+  //1. Lấy User
+  //2. Lấy ngày đẻ
+  private _expectedDate: Date = new Date();
+  //3. Tính tuần thai
+  private _currentPregnancyWeek: number = 4;
+  //Hàm tính tuần thai
+  calculateCurrentPregnancyWeek() {
+    // Chuyển đổi ngày dự sinh từ chuỗi sang Date
+    const expectedDate = new Date(this._expectedDate);
+
+    // Lấy ngày hiện tại
+    const currentDate = new Date();
+
+    // Tính số ngày còn lại đến ngày dự sinh
+    const remainingDays = Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Tính số tuần thai hiện tại
+    const currentPregnancyWeek = 40 - Math.floor(remainingDays / 7);
+
+    // Kiểm tra nếu vượt quá 40 tuần
+    if (currentPregnancyWeek < 0) {
+      return; //'Đã quá ngày dự sinh!';
+    } else if (currentPregnancyWeek > 40) {
+      return; //'Lỗi: Ngày dự sinh không hợp lệ!';
+    }
+    this._currentPregnancyWeek = currentPregnancyWeek;
+  }
+
+  private _countWeek: number = this._currentPregnancyWeek;
+  public get countWeek(): string {
+    return this._countWeek.toString().padStart(4, '0');
+  }
+  standardResource = [
+    { week: 8, weight: 1 },
+    { week: 9, weight: 2 },
+    { week: 10, weight: 4 },
+    { week: 11, weight: 7 },
+    { week: 12, weight: 14 },
+    { week: 13, weight: 23 },
+    { week: 14, weight: 43 },
+    { week: 15, weight: 70 },
+    { week: 16, weight: 100 },
+    { week: 17, weight: 140 },
+    { week: 18, weight: 190 },
+    { week: 19, weight: 240 },
+    { week: 20, weight: 300 },
+    { week: 21, weight: 360 },
+    { week: 22, weight: 430 },
+    { week: 23, weight: 501 },
+    { week: 24, weight: 600 },
+    { week: 25, weight: 660 },
+    { week: 26, weight: 760 },
+    { week: 27, weight: 875 },
+    { week: 28, weight: 1005 },
+    { week: 29, weight: 1153 },
+    { week: 30, weight: 1319 },
+    { week: 31, weight: 1502 },
+    { week: 32, weight: 1702 },
+    { week: 33, weight: 1918 },
+    { week: 34, weight: 2146 },
+    { week: 35, weight: 2383 },
+    { week: 36, weight: 2622 },
+    { week: 37, weight: 2859 },
+    { week: 38, weight: 3083 },
+    { week: 39, weight: 3288 },
+    { week: 40, weight: 3462 },
+  ];
+  //chưa có data bên database
+  // standardResource = resource<Standard[], {}>({
+  //   loader: async ({ abortSignal }) => {
+  //     const response = await fetch(environment.apiUrl + 'standards/' + this.weightMetricId, {
+  //       signal: abortSignal,
+  //     });
+  //     if (!response.ok) throw Error(`Could not fetch...`);
+  //     return await response.json();
+  //   },
+  // });
+  padNumberToFourDigits(value: number): string {
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error('Giá trị phải là một số nguyên không âm.');
+    }
+    return value.toString().padStart(4, '0');
+  }
+  goToPreviousWeek() {
+    if (this._countWeek > 1) this._countWeek--;
+  }
+  goToNextWeek() {
+    if (this._countWeek < 40) this._countWeek++;
+  }
+  goToThisWeek() {
+    this._countWeek = this._currentPregnancyWeek;
+  }
   // Form tính ngày dự sinh
-  private expectedDate: Date = new Date();
+
   public formatDate: string;
   countDownForm = new FormGroup({
     lastMenstrualPeriod: new FormControl('', Validators.required),
@@ -131,8 +227,8 @@ export class HomeComponent implements OnInit {
       let adjustment = menstrualCycle - 28;
       dueDate.setDate(dueDate.getDate() + adjustment);
 
-      this.expectedDate = dueDate;
-      this.formatDate = this.expectedDate.toLocaleDateString('vi-VN');
+      this._expectedDate = dueDate;
+      this.formatDate = this._expectedDate.toLocaleDateString('vi-VN');
     }
   }
 
@@ -144,411 +240,15 @@ export class HomeComponent implements OnInit {
   }
   //end Tooltip
 
-  chartWeightOfFetal: ApexOptions = {};
-  // chartTaskDistribution: ApexOptions = {};
-  // chartBudgetDistribution: ApexOptions = {};
-  // chartWeeklyExpenses: ApexOptions = {};
-  // chartMonthlyExpenses: ApexOptions = {};
-  // chartYearlyExpenses: ApexOptions = {};
-  data: any;
-  // selectedProject: string = 'ACME Corp. Backend App';
-  // private _unsubscribeAll: Subject<any> = new Subject<any>();
-
-  //Get data of Standard Metric
-
-  /**
-   * Constructor
-   */
-  constructor(
-    //Form tính ngày dự sinh
-    private _formBuilder: UntypedFormBuilder,
-    //Chart weight of fetal
-    // private _projectService: ProjectService,
-    private _router: Router,
-  ) {}
-
-  // /**
-  //  * On init
-  //  */
-  ngOnInit(): void {
-    // Get the data
-    // this._projectService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
-    // Store the data
-    // this.data = data;
-    // Prepare the chart data
-    // this._prepareChartData();
-    // });
-    // Attach SVG fill fixer to all ApexCharts
-    // window['Apex'] = {
-    //   chart: {
-    //     events: {
-    //       // mounted: (chart: any, options?: any): void => {
-    //       //   this._fixSvgFill(chart.el);
-    //       // },
-    //       // updated: (chart: any, options?: any): void => {
-    //       //   this._fixSvgFill(chart.el);
-    //       // },
-    //     },
-    //   },
-    // };
+  constructor(private _recordService: PregnancyRecordService) {
+    this._recordService.getMetrics().subscribe((metrics) => {
+      this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
+      this.metrics.forEach((metric) => {
+        if (metric.title == 'Cân nặng') {
+          this.weightMetricId = metric.metric_id;
+        }
+      });
+      console.log(this.metrics);
+    });
   }
-
-  /**
-   * On destroy
-   */
-  // ngOnDestroy(): void {
-  //   // Unsubscribe from all subscriptions
-  //   this._unsubscribeAll.next(null);
-  //   this._unsubscribeAll.complete();
-  // }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Track by function for ngFor loops
-   *
-   * @param index
-   * @param item
-   */
-  // trackByFn(index: number, item: any): any {
-  //   return item.id || index;
-  // }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Private methods
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * Fix the SVG fill references. This fix must be applied to all ApexCharts
-   * charts in order to fix 'black color on gradient fills on certain browsers'
-   * issue caused by the '<base>' tag.
-   *
-   * Fix based on https://gist.github.com/Kamshak/c84cdc175209d1a30f711abd6a81d472
-   *
-   * @param element
-   * @private
-   */
-  // private _fixSvgFill(element: Element): void {
-  //   // Current URL
-  //   const currentURL = this._router.url;
-  //
-  //   // 1. Find all elements with 'fill' attribute within the element
-  //   // 2. Filter out the ones that doesn't have cross reference so we only left with the ones that use the 'url(#id)' syntax
-  //   // 3. Insert the 'currentURL' at the front of the 'fill' attribute value
-  //   Array.from(element.querySelectorAll('*[fill]'))
-  //     .filter((el) => el.getAttribute('fill').indexOf('url(') !== -1)
-  //     .forEach((el) => {
-  //       const attrVal = el.getAttribute('fill');
-  //       el.setAttribute('fill', `url(${currentURL}${attrVal.slice(attrVal.indexOf('#'))}`);
-  //     });
-  // }
-
-  /**
-   * Prepare the chart data from the data
-   *
-   * @private
-   */
-  // private _prepareChartData(): void {
-  //   // Github issues
-  //   this.chartGithubIssues = {
-  //     chart: {
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'line',
-  //       toolbar: {
-  //         show: false,
-  //       },
-  //       zoom: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     colors: ['#64748B', '#94A3B8'],
-  //     dataLabels: {
-  //       enabled: true,
-  //       enabledOnSeries: [0],
-  //       background: {
-  //         borderWidth: 0,
-  //       },
-  //     },
-  //     grid: {
-  //       borderColor: 'var(--fuse-border)',
-  //     },
-  //     labels: this.data.githubIssues.labels,
-  //     legend: {
-  //       show: false,
-  //     },
-  //     plotOptions: {
-  //       bar: {
-  //         columnWidth: '50%',
-  //       },
-  //     },
-  //     series: this.data.githubIssues.series,
-  //     states: {
-  //       hover: {
-  //         filter: {
-  //           type: 'darken',
-  //           // value: 0.75,
-  //         },
-  //       },
-  //     },
-  //     stroke: {
-  //       width: [3, 0],
-  //     },
-  //     tooltip: {
-  //       followCursor: true,
-  //       theme: 'dark',
-  //     },
-  //     xaxis: {
-  //       axisBorder: {
-  //         show: false,
-  //       },
-  //       axisTicks: {
-  //         color: 'var(--fuse-border)',
-  //       },
-  //       labels: {
-  //         style: {
-  //           colors: 'var(--fuse-text-secondary)',
-  //         },
-  //       },
-  //       tooltip: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         offsetX: -16,
-  //         style: {
-  //           colors: 'var(--fuse-text-secondary)',
-  //         },
-  //       },
-  //     },
-  //   };
-
-  // Task distribution
-  //   this.chartTaskDistribution = {
-  //     chart: {
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'polarArea',
-  //       toolbar: {
-  //         show: false,
-  //       },
-  //       zoom: {
-  //         enabled: false,
-  //       },
-  //     },
-  //     labels: this.data.taskDistribution.labels,
-  //     legend: {
-  //       position: 'bottom',
-  //     },
-  //     plotOptions: {
-  //       polarArea: {
-  //         spokes: {
-  //           connectorColors: 'var(--fuse-border)',
-  //         },
-  //         rings: {
-  //           strokeColor: 'var(--fuse-border)',
-  //         },
-  //       },
-  //     },
-  //     series: this.data.taskDistribution.series,
-  //     states: {
-  //       hover: {
-  //         filter: {
-  //           type: 'darken',
-  //           // value: 0.75,
-  //         },
-  //       },
-  //     },
-  //     stroke: {
-  //       width: 2,
-  //     },
-  //     theme: {
-  //       monochrome: {
-  //         enabled: true,
-  //         color: '#93C5FD',
-  //         shadeIntensity: 0.75,
-  //         shadeTo: 'dark',
-  //       },
-  //     },
-  //     tooltip: {
-  //       followCursor: true,
-  //       theme: 'dark',
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         style: {
-  //           colors: 'var(--fuse-text-secondary)',
-  //         },
-  //       },
-  //     },
-  //   };
-  //
-  //   // Budget distribution
-  //   this.chartBudgetDistribution = {
-  //     chart: {
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'radar',
-  //       sparkline: {
-  //         enabled: true,
-  //       },
-  //     },
-  //     colors: ['#818CF8'],
-  //     dataLabels: {
-  //       enabled: true,
-  //       formatter: (val: number): string | number => `${val}%`,
-  //       textAnchor: 'start',
-  //       style: {
-  //         fontSize: '13px',
-  //         fontWeight: 500,
-  //       },
-  //       background: {
-  //         borderWidth: 0,
-  //         padding: 4,
-  //       },
-  //       offsetY: -15,
-  //     },
-  //     markers: {
-  //       strokeColors: '#818CF8',
-  //       strokeWidth: 4,
-  //     },
-  //     plotOptions: {
-  //       radar: {
-  //         polygons: {
-  //           strokeColors: 'var(--fuse-border)',
-  //           connectorColors: 'var(--fuse-border)',
-  //         },
-  //       },
-  //     },
-  //     series: this.data.budgetDistribution.series,
-  //     stroke: {
-  //       width: 2,
-  //     },
-  //     tooltip: {
-  //       theme: 'dark',
-  //       y: {
-  //         formatter: (val: number): string => `${val}%`,
-  //       },
-  //     },
-  //     xaxis: {
-  //       labels: {
-  //         show: true,
-  //         style: {
-  //           fontSize: '12px',
-  //           fontWeight: '500',
-  //         },
-  //       },
-  //       categories: this.data.budgetDistribution.categories,
-  //     },
-  //     yaxis: {
-  //       max: (max: number): number => parseInt((max + 10).toFixed(0), 10),
-  //       tickAmount: 7,
-  //     },
-  //   };
-  //
-  //   // Weekly expenses
-  //   this.chartWeeklyExpenses = {
-  //     chart: {
-  //       animations: {
-  //         enabled: false,
-  //       },
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'line',
-  //       sparkline: {
-  //         enabled: true,
-  //       },
-  //     },
-  //     colors: ['#22D3EE'],
-  //     series: this.data.weeklyExpenses.series,
-  //     stroke: {
-  //       curve: 'smooth',
-  //     },
-  //     tooltip: {
-  //       theme: 'dark',
-  //     },
-  //     xaxis: {
-  //       type: 'category',
-  //       categories: this.data.weeklyExpenses.labels,
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         formatter: (val): string => `$${val}`,
-  //       },
-  //     },
-  //   };
-
-  // Monthly expenses
-  //   this.chartMonthlyExpenses = {
-  //     chart: {
-  //       animations: {
-  //         enabled: false,
-  //       },
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'line',
-  //       sparkline: {
-  //         enabled: true,
-  //       },
-  //     },
-  //     colors: ['#4ADE80'],
-  //     series: this.data.monthlyExpenses.series,
-  //     stroke: {
-  //       curve: 'smooth',
-  //     },
-  //     tooltip: {
-  //       theme: 'dark',
-  //     },
-  //     xaxis: {
-  //       type: 'category',
-  //       categories: this.data.monthlyExpenses.labels,
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         formatter: (val): string => `$${val}`,
-  //       },
-  //     },
-  //   };
-
-  // Yearly expenses
-  //   this.chartYearlyExpenses = {
-  //     chart: {
-  //       animations: {
-  //         enabled: false,
-  //       },
-  //       fontFamily: 'inherit',
-  //       foreColor: 'inherit',
-  //       height: '100%',
-  //       type: 'line',
-  //       sparkline: {
-  //         enabled: true,
-  //       },
-  //     },
-  //     colors: ['#FB7185'],
-  //     series: this.data.yearlyExpenses.series,
-  //     stroke: {
-  //       curve: 'smooth',
-  //     },
-  //     tooltip: {
-  //       theme: 'dark',
-  //     },
-  //     xaxis: {
-  //       type: 'category',
-  //       categories: this.data.yearlyExpenses.labels,
-  //     },
-  //     yaxis: {
-  //       labels: {
-  //         formatter: (val): string => `$${val}`,
-  //       },
-  //     },
-  //   };
-  // }
 }
