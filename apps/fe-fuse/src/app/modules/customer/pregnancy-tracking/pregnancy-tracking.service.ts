@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
-  private _recordData: RecordResponse[];
+  private _recordData: WritableSignal<RecordResponse[]> = signal([]);
   private _media: MediaResponse[] = [];
   private _hospitals: HospitalResponse[];
   private _metrics: MetricResponseType[];
@@ -19,18 +19,12 @@ export class PregnancyTrackingService {
   ) {}
 
   get RecordData() {
-    return this._httpClient
-      .get<{ total: number; data: RecordResponse[] }>(environment.apiUrl + 'record', {
-        headers: {
-          Authorization: `Bearer ${this._authService.accessToken}`,
-        },
-      })
-      .pipe(
-        map((res: { total: number; data: RecordResponse[] }) => {
-          this._recordData = res.data;
-          return this._recordData;
-        }),
-      );
+    return this._httpClient.get<{ total: number; data: RecordResponse[] }>(environment.apiUrl + 'record').pipe(
+      map((res: { total: number; data: RecordResponse[] }) => {
+        this._recordData.set(res.data);
+        return this._recordData;
+      }),
+    );
   }
 
   get SelectedRecordData(): RecordResponse {
@@ -38,7 +32,7 @@ export class PregnancyTrackingService {
   }
 
   set SelectedRecordData(record_id: string) {
-    const record = this._recordData.find((record) => record.visit_record_id === record_id);
+    const record = this._recordData().find((record) => record.visit_record_id === record_id);
     if (record) {
       this._selectedRecord = record;
       this._media = [];
@@ -100,14 +94,7 @@ export class PregnancyTrackingService {
     this._media.push(img);
   }
 
-  submit(pregnancy_data: RecordUpdateRequest) {
-    /**
-     * Update image ở đây
-     */
-    // Mốt update image ở đây nè
-    /**
-     * Update record ở đây
-     * */
+  updateRecord(pregnancy_data: any) {
     return this._httpClient
       .patch(environment.apiUrl + 'record', pregnancy_data, {
         headers: {
@@ -116,8 +103,7 @@ export class PregnancyTrackingService {
       })
       .pipe(
         map((res: RecordResponse) => {
-          const index = this._recordData.findIndex((record) => record.visit_record_id === res.visit_record_id);
-          this._recordData[index] = res;
+          this._recordData.set(this._recordData().map((record) => (record.visit_record_id === res.visit_record_id ? res : record)));
           return res;
         }),
       );

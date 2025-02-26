@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
@@ -52,8 +53,8 @@ export class RecordFormComponent {
     private messageService: MessageService,
   ) {
     this.recordForm = this._formBuilder.group({
-      visit_doctor_date: [new Date(), Validators.required],
-      next_visit_doctor_date: [new Date(), Validators.required],
+      visit_doctor_date: ['', Validators.required],
+      next_visit_doctor_date: ['', Validators.required],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
@@ -88,8 +89,8 @@ export class RecordFormComponent {
     const formData = {
       hospital_id: hospital,
       doctor_name,
-      visit_doctor_date: new Date(visit_doctor_date).toISOString(),
-      next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
+      visit_doctor_date: visit_doctor_date.toJSDate(),
+      next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
     this._recordService.submit(formData).subscribe({
@@ -136,5 +137,13 @@ export class RecordFormComponent {
 
   clear() {
     this.recordForm.reset();
+  }
+
+  visitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.recordForm.get('visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.recordForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
   }
 }

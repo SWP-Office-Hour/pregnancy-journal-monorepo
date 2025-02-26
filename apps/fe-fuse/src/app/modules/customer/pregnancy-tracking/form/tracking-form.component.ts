@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
@@ -66,8 +67,8 @@ export class TrackingFormComponent {
       visit_record_id: this.selectedRecordData.visit_record_id,
       hospital: this.selectedRecordData.hospital.hospital_id,
       doctor_name: this.selectedRecordData.doctor_name,
-      visit_doctor_date: this.selectedRecordData.visit_doctor_date,
-      next_visit_doctor_date: this.selectedRecordData.next_visit_doctor_date,
+      visit_doctor_date: DateTime.fromJSDate(new Date(this.selectedRecordData.visit_doctor_date)),
+      next_visit_doctor_date: DateTime.fromJSDate(new Date(this.selectedRecordData.next_visit_doctor_date)),
     });
     this._trackingService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
@@ -100,21 +101,21 @@ export class TrackingFormComponent {
       visit_record_id,
       hospital_id: hospital,
       doctor_name,
-      visit_doctor_date: new Date(visit_doctor_date).toISOString(),
-      next_visit_doctor_date: new Date(next_visit_doctor_date).toISOString(),
+      visit_doctor_date: visit_doctor_date.toJSDate(),
+      next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
-    console.log(formData);
-    this._trackingService.submit(formData).subscribe({
+    this._trackingService.updateRecord(formData).subscribe({
       next: (res) => {
-        this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
-          console.log(res);
+        this._trackingService.updateImage(visit_record_id).subscribe((res) => {
           this.submitSuccess();
+          this.closeForm();
         });
       },
       error: (err) => {
         console.log(err);
         this.submitFail();
+        this.closeForm();
       },
     });
   }
@@ -133,10 +134,30 @@ export class TrackingFormComponent {
   }
 
   submitSuccess() {
-    this.messageService.add({ severity: 'success', summary: 'Lưu thành công', detail: 'Lưu chỉ số thành công', key: 'tr', life: 3000 });
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Lưu thành công',
+      detail: 'Lưu chỉ số thành công',
+      key: 'tr',
+      life: 3000,
+    });
   }
 
   submitFail() {
-    this.messageService.add({ severity: 'error', summary: 'Lưu thất bại', detail: 'Lưu chỉ số thất bại', key: 'tr', life: 3000 });
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Lưu thất bại',
+      detail: 'Lưu chỉ số thất bại',
+      key: 'tr',
+      life: 3000,
+    });
+  }
+
+  visitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.trackingForm.get('visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.trackingForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
   }
 }

@@ -1,3 +1,4 @@
+import { inject } from '@angular/core';
 import { Route } from '@angular/router';
 import { initialDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
@@ -6,6 +7,7 @@ import { LayoutComponent } from 'app/layout/layout.component';
 import { FormComponent } from './common/form/form.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
 import { CalendarComponent } from './modules/calendar/calendar.component';
+import { CalendarService } from './modules/calendar/calendar.service';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { LandingComponent } from './modules/landing/landing.component';
@@ -117,6 +119,11 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'calendar',
+        resolve: () => {
+          const _calendarService = inject(CalendarService);
+
+          _calendarService.reloadMeetings();
+        },
         loadComponent: () => CalendarComponent,
       },
       {

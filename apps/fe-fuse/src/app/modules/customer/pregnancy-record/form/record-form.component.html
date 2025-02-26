@@ -4,7 +4,7 @@
       <!--   Visit Doctor Date   -->
       <mat-form-field class="input-full-width">
         <mat-label>Ngày khám bệnh</mat-label>
-        <input matInput [matDatepicker]="visit_doctor_date" formControlName="visit_doctor_date" readonly />
+        <input matInput (dateChange)="visitDateChange($event)" [matDatepicker]="visit_doctor_date" formControlName="visit_doctor_date" readonly />
         <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date"></mat-datepicker-toggle>
         <mat-datepicker #visit_doctor_date>
           <mat-datepicker-actions>
@@ -17,7 +17,13 @@
       <!--   Next Visit Doctor Date   -->
       <mat-form-field class="input-full-width">
         <mat-label>Ngày tái khám</mat-label>
-        <input matInput [matDatepicker]="next_visit_doctor_date" formControlName="next_visit_doctor_date" readonly />
+        <input
+          matInput
+          (dateChange)="nextVisitDateChange($event)"
+          [matDatepicker]="next_visit_doctor_date"
+          formControlName="next_visit_doctor_date"
+          readonly
+        />
         <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date"></mat-datepicker-toggle>
         <mat-datepicker #next_visit_doctor_date>
           <mat-datepicker-actions>

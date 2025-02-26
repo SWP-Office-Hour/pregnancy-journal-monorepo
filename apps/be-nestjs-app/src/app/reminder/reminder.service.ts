@@ -22,7 +22,7 @@ export class ReminderService {
     const nextVisitDoctorDate = new Date(next_visit_doctor_date);
     const remind_date = new Date(nextVisitDoctorDate);
     remind_date.setDate(remind_date.getDate() - 1);
-    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${nextVisitDoctorDate.getFullYear()}`;
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${remind_date.getFullYear()}`;
 
     return await this.databaseService.Reminder.create({
       data: {
@@ -92,7 +92,7 @@ export class ReminderService {
     const nextVisitDoctorDate = new Date(next_visit_doctor_date);
     const remind_date = new Date(nextVisitDoctorDate);
     remind_date.setDate(remind_date.getDate() - 1);
-    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${nextVisitDoctorDate.getFullYear()}`;
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${remind_date.getFullYear()}`;
 
     const reminder = await this.databaseService.Reminder.findFirst({
       where: {

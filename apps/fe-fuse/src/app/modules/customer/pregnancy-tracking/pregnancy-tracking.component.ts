@@ -1,5 +1,4 @@
-import { Location } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal, WritableSignal } from '@angular/core';
 import { MatAnchor } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -17,13 +16,10 @@ import { TrackingCardComponent } from './tracking-card/tracking-card.component';
   standalone: true,
 })
 export class PregnancyTrackingComponent {
-  protected recordsData: RecordResponse[];
+  protected recordsData: WritableSignal<RecordResponse[]> = signal([]);
   protected metrics: MetricResponseType[];
 
-  constructor(
-    private _trackingService: PregnancyTrackingService,
-    private _location: Location,
-  ) {
+  constructor(private _trackingService: PregnancyTrackingService) {
     this._trackingService.RecordData.subscribe((data) => {
       this.recordsData = data;
     });
@@ -43,7 +39,7 @@ export class PregnancyTrackingComponent {
       };
     });
 
-    this.recordsData.forEach((record) => {
+    this.recordsData().forEach((record) => {
       record.data.forEach((data) => {
         const metric = this.metrics.find((m) => m.metric_id == data.metric_id);
         if (metric) {
