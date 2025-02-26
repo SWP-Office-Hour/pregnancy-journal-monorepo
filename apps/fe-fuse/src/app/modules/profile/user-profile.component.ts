@@ -10,7 +10,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
-import { UserProfileResponseType } from '@pregnancy-journal-monorepo/contract';
+import { Router } from '@angular/router';
+import { UserProfileResponseType, UserUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { environment } from '../../../environments/environment';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
@@ -43,6 +44,7 @@ export class UserProfileComponent {
   constructor(
     private fb: FormBuilder,
     private _httpClient: HttpClient,
+    private router: Router,
   ) {
     this.profileForm = this.fb.group({
       avatar: [null],
@@ -70,13 +72,24 @@ export class UserProfileComponent {
         name: profile.name,
         expected_birth_date: DateTime.fromISO(new Date(profile.expected_birth_date).toISOString()),
         phone: profile.phone,
-        province: profile.province,
-        district: profile.district,
-        ward: profile.ward,
         address: profile.address,
       });
 
-      console.log(profile);
+      Promise.all([
+        fetch(`https://provinces.open-api.vn/api/p/${profile.province}?depth=2`),
+        fetch(`https://provinces.open-api.vn/api/d/${profile.district}?depth=2`),
+      ]).then(async ([province_response, district_response]) => {
+        const province = await province_response.json();
+        const district = await district_response.json();
+        this.districts = province.districts!;
+        this.wards = district.wards!;
+        this.profileForm.patchValue({
+          province: profile.province,
+          district: profile.district,
+          ward: profile.ward,
+        });
+        console.log(this.profileForm.value);
+      });
     });
   }
 
@@ -117,16 +130,26 @@ export class UserProfileComponent {
 
   onSubmit() {
     if (this.profileForm.valid) {
-      const data = {
-        ...this.profileForm.value,
+      const data: UserUpdateRequestType = {
+        email: this.profileForm.value.email,
+        name: this.profileForm.value.name,
         expected_birth_date: this.profileForm.value.expected_birth_date.toJSDate(),
+        phone: this.profileForm.value.phone,
+        province: this.profileForm.value.province.toString(),
+        district: this.profileForm.value.district.toString(),
+        ward: this.profileForm.value.ward.toString(),
+        address: this.profileForm.value.address,
       };
-      console.log(data);
+      this._httpClient.patch<UserProfileResponseType>(environment.apiUrl + 'users/profile', data).subscribe(() => {
+        this.router.navigate(['/user-profile']).then(() => {
+          console.log('Profile updated');
+        });
+      });
     }
   }
 
   expectedBirthDateChange(event: MatDatepickerInputEvent<any>) {
-    const date_as_iso_string = (event.value as DateTime).plus({ hour: 7 }).toISO();
+    const date_as_iso_string = (event.value as DateTime).plus({ hour: 7 });
     this.profileForm.patchValue({ expected_birth_date: date_as_iso_string });
   }
 }

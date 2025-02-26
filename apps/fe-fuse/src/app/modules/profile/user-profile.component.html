@@ -31,7 +31,7 @@
   </div>
 
   <!-- Form Section -->
-  <form [formGroup]="profileForm" class="space-y-6">
+  <form [formGroup]="profileForm" class="space-y-6" (submit)="onSubmit()">
     <!-- Personal Information Card -->
     <mat-card class="overflow-hidden rounded-xl shadow-sm">
       <mat-card-header class="bg-pink-50 p-4">
@@ -103,9 +103,13 @@
             <div>
               <mat-form-field appearance="outline" class="w-full">
                 <mat-label>Province</mat-label>
-                <mat-select formControlName="province">
+                <mat-select (selectionChange)="onProvinceSelected($event)" formControlName="province">
                   <mat-option value="">Select Province</mat-option>
-                  <mat-option *ngFor="let province of provinces" [value]="province.code">
+                  <mat-option
+                    *ngFor="let province of provinces"
+                    [value]="province.code"
+                    [disabled]="province.code == profileForm.get('province')?.value"
+                  >
                     {{ province.name }}
                   </mat-option>
                 </mat-select>
@@ -117,9 +121,17 @@
             <div>
               <mat-form-field appearance="outline" class="w-full">
                 <mat-label>District</mat-label>
-                <mat-select formControlName="district" [disabled]="!profileForm.get('province')?.value">
+                <mat-select
+                  (selectionChange)="onDistrictSelected($event)"
+                  formControlName="district"
+                  [disabled]="!profileForm.get('province')?.value"
+                >
                   <mat-option value="">Select District</mat-option>
-                  <mat-option *ngFor="let district of districts" [value]="district.code">
+                  <mat-option
+                    *ngFor="let district of districts"
+                    [value]="district.code"
+                    [disabled]="district.code == profileForm.get('district')?.value"
+                  >
                     {{ district.name }}
                   </mat-option>
                 </mat-select>
@@ -133,7 +145,7 @@
                 <mat-label>Ward</mat-label>
                 <mat-select formControlName="ward" [disabled]="!profileForm.get('district')?.value">
                   <mat-option value="">Select Ward</mat-option>
-                  <mat-option *ngFor="let ward of wards" [value]="ward.code">
+                  <mat-option *ngFor="let ward of wards" [value]="ward.code" [disabled]="ward.code == profileForm.get('ward')?.value">
                     {{ ward.name }}
                   </mat-option>
                 </mat-select>
