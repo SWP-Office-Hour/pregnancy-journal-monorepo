@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { ChangeDetectorRef, Component, effect, resource, ViewChild } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -17,6 +17,7 @@ import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -33,12 +34,6 @@ import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { environment } from '../../../../environments/environment';
 
-interface Column {
-  field: string;
-  header: string;
-  // customExportHeader?: string;
-}
-
 @Component({
   selector: 'app-health-metric-table',
   templateUrl: './health-metric-table.component.html',
@@ -46,6 +41,7 @@ interface Column {
   animations: fuseAnimations,
   standalone: true,
   imports: [
+    ConfirmPopupModule,
     TableModule,
     MatProgressBarModule,
     MatFormFieldModule,
@@ -80,23 +76,24 @@ interface Column {
     IconFieldModule,
     ConfirmDialogModule,
     NgIf,
+    ConfirmPopup,
   ],
   providers: [MessageService, ConfirmationService],
 })
 export class HealthMetricTableComponent {
   protected readonly Status = Status;
+  @ViewChild('dt') dt!: Table;
   metricDialog: boolean = false;
   submitted: boolean = false;
-  metric!: HealthMetric | {};
-  @ViewChild('dt') dt!: Table;
-  cols!: Column[];
-  selectedMetric: HealthMetric | null = null;
+  metric: HealthMetric | null;
   statuses!: any[];
-  flashMessage: 'success' | 'error' | null = null;
+
+  selectedMetric: HealthMetric | null = null;
   isLoading: boolean = false;
   selectedMetricForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
   // metricList = signal<Array<HealthMetric>>([]);
+
   metricResource = resource<HealthMetric[], {}>({
     loader: async ({ abortSignal }) => {
       const response = await fetch(environment.apiUrl + 'metrics', {
@@ -111,71 +108,86 @@ export class HealthMetricTableComponent {
    * Constructor
    */
   constructor(
-    private _formBuilder: FormBuilder,
     private _changeDetectorRef: ChangeDetectorRef,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
   ) {
-    // // Create the selected product form
-    // this.selectedMetricForm = this._formBuilder.group({
-    //   metric_id: [''],
-    //   title: ['New metric'],
-    //   measurement_unit: ['', [Validators.required]],
-    //   status: 0,
-    //   required: [false],
-    //   upperbound_msg: [''],
-    //   lowerbound_msg: [''],
-    // });
     effect(() => {
       console.log('metricResource');
       console.log(this.metricResource.value());
-      // console.log('metricList');
-      // console.log(this.metricList());
     });
-
-    this.statuses = [
-      { label: 'ACTIVE', value: Status.ACTIVE },
-      { label: 'INACTIVE', value: Status.INACTIVE },
-    ];
-
-    this.cols = [
-      { field: 'title', header: 'Title' },
-      { field: 'measurement_unit', header: 'Unit' },
-      { field: 'status', header: 'Status' },
-      { field: 'required', header: 'Required' },
-      { field: 'upperbound_msg', header: 'upperbound_msg' },
-      { field: 'lowerbound_msg', header: 'lowerbound_msg' },
-    ];
   }
 
-  saveProduct() {
+  /**
+   * Method
+   */
+
+  saveMetric(event: Event) {
+    console.log('event');
+    console.log(event);
+
     this.submitted = true;
-    let _metric = this.metricResource.value()!;
-    // if (this.product.name?.trim()) {
-    //   if (this.product.id) {
-    //     _metric[this.findIndexById(this.product.id)] = this.product;
-    //     this.products.set([..._metric]);
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Product Updated',
-    //       life: 3000,
-    //     });
-    //   } else {
-    //     this.product.id = this.createId();
-    //     this.product.image = 'product-placeholder.svg';
-    //     this.messageService.add({
-    //       severity: 'success',
-    //       summary: 'Successful',
-    //       detail: 'Product Created',
-    //       life: 3000,
-    //     });
-    //     this.products.set([..._metric, this.product]);
-    //   }
+    // @ts-ignore
+    let _metric: HealthMetric = this.metric;
+
+    const messageAction = _metric.metric_id != '' ? 'update' : 'create new';
+    console.log('messageAction');
+    console.log(messageAction);
+
+    const messageDetail = messageAction.charAt(0).toUpperCase() + messageAction.slice(1) + 'd';
+    const method = _metric.metric_id != '' ? 'PATCH' : 'POST';
+    //THIS IS UPDATE
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to ${messageAction} the metric?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        // (async () => {
+        //   const response = await fetch(environment.apiUrl + 'metrics', {
+        //     method: method,
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: JSON.stringify(_metric),
+        //   });
+        //   if (!response.ok) throw Error(`Could not fetch...`);
+        //   const rsJson = await response.json();
+        //   console.log('rsJson');
+        //   console.log(rsJson);
+        // })();
+
+        this.metricDialog = false;
+        this.metric = null;
+        this.metricResource.reload();
+
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Successful',
+          detail: `Products ${messageDetail}`,
+          life: 4000,
+        });
+      },
+    });
+
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Successful',
+    //   detail: 'Product Updated',
+    //   life: 3000,
+    // });
     //
-    //   this.productDialog = false;
-    //   this.product = {};
-    // }
+    // console.log('saveMetric');
+    // console.log(_metric);
+
+    // this.product.image = 'product-placeholder.svg';
+    // this.messageService.add({
+    //   severity: 'success',
+    //   summary: 'Successful',
+    //   detail: 'Product Created',
+    //   life: 3000,
+    // });
+    //
   }
 
   hideDialog() {
@@ -184,11 +196,13 @@ export class HealthMetricTableComponent {
   }
 
   editProduct(metricInp: HealthMetric) {
+    console.log('editProduct');
+    console.log(metricInp);
     this.metric = { ...metricInp };
     this.metricDialog = true;
   }
 
-  getSeverityBoolean(require: boolean) {
+  getSeverityRequired(require: boolean) {
     switch (require) {
       case true:
         return 'success';
@@ -199,7 +213,16 @@ export class HealthMetricTableComponent {
     }
   }
 
-  getSeverity(status: Status) {
+  convertRequireToReadable(require: boolean) {
+    switch (require) {
+      case true:
+        return 'REQUIRED';
+      case false:
+        return 'OPTIONAL';
+    }
+  }
+
+  getSeverityStatus(status: Status) {
     switch (status) {
       case Status.ACTIVE:
         return 'success';
@@ -210,19 +233,28 @@ export class HealthMetricTableComponent {
     }
   }
 
+  convertStatusToReadable(status: Status) {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'ACTIVE';
+      case Status.INACTIVE:
+        return 'INACTIVE';
+    }
+  }
+
   onGlobalFilter(table: Table, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
   openNew() {
-    this.metric = {};
+    this.metric = null;
     this.submitted = false;
     this.metricDialog = true;
   }
 
-  exportCSV() {
-    this.dt.exportCSV();
-  }
+  // exportCSV() {
+  //   this.dt.exportCSV();
+  // }
 
   deleteSelectedProducts() {
     this.confirmationService.confirm({
@@ -324,27 +356,5 @@ export class HealthMetricTableComponent {
 
       this.metricResource.reload();
     })();
-
-    //   // Show a success message
-    this.showFlashMessage('success');
-  }
-
-  /**
-   * Show flash message
-   */
-  showFlashMessage(type: 'success' | 'error'): void {
-    // Show the message
-    this.flashMessage = type;
-
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
-
-    // Hide it after 3 seconds
-    setTimeout(() => {
-      this.flashMessage = null;
-
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    }, 3000);
   }
 }

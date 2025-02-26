@@ -1,35 +1,26 @@
+<!--suppress ALL -->
+<p-toast />
 <div class="flex w-full flex-col">
   <p-toolbar styleClass="mb-6" class="">
     <ng-template #start>
       <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" />
-      <p-button
-        (onClick)="deleteSelectedProducts()"
-        [disabled]="!selectedMetric || !selectedMetric.length"
-        icon="pi pi-trash"
-        label="Delete"
-        outlined="true"
-        severity="secondary"
-      />
     </ng-template>
-
     <ng-template #end>
-      <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />
+      <!--    <p-button label="Export" icon="pi pi-upload" severity="secondary" (onClick)="exportCSV()" />-->
     </ng-template>
   </p-toolbar>
 
   <p-table
     #dt
     [value]="metricResource.value()"
-    [(selection)]="selectedMetric"
-    [columns]="cols"
-    [globalFilterFields]="['name', 'country.name', 'representative.name', 'status']"
+    [globalFilterFields]="['title', 'measurement_unit', 'status', 'required', 'upperbound_msg', 'lowerbound_msg']"
     [paginator]="true"
     [rowHover]="true"
     [rowsPerPageOptions]="[10, 20, 30]"
     [rows]="10"
     [showCurrentPageReport]="true"
     [tableStyle]="{ 'min-width': '75rem' }"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} products"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} metric"
     dataKey="id"
   >
     <ng-template #caption>
@@ -43,31 +34,31 @@
     </ng-template>
     <ng-template #header>
       <tr>
-        <th pSortableColumn="title" style="min-width: 16rem">
+        <th pSortableColumn="title" style="min-width: 6rem">
           Title
           <p-sortIcon field="title" />
         </th>
-        <th pSortableColumn="measurement_unit" style="min-width: 8rem">
+        <th pSortableColumn="measurement_unit" style="min-width: 6rem">
           Unit
           <p-sortIcon field="measurement_unit" />
         </th>
-        <th pSortableColumn="status" style="min-width: 12rem">
+        <th pSortableColumn="status" style="min-width: 7rem">
           Status
           <p-sortIcon field="status" />
         </th>
-        <th pSortableColumn="required" style="min-width: 12rem">
+        <th pSortableColumn="required" style="min-width: 7rem">
           Required
           <p-sortIcon field="required" />
         </th>
-        <th pSortableColumn="upperbound_msg" style="min-width: 12rem">
-          upperbound_msg
-          <p-sortIcon field="upperbound_msg" />
+        <th pSortableColumn="upperbound_msg" style="min-width: 7rem">
+          Upperbound Message
+          <p-sortIcon field="upperbound Message" />
         </th>
-        <th pSortableColumn="lowerbound_msg" style="min-width: 12rem">
-          lowerbound_msg
+        <th pSortableColumn="lowerbound_msg" style="min-width: 7rem">
+          Lowerbound Message
           <p-sortIcon field="lowerbound_msg" />
         </th>
-        <th style="min-width: 12rem"></th>
+        <th style="min-width: 4rem">Action</th>
       </tr>
     </ng-template>
     <ng-template #body let-metric>
@@ -77,11 +68,11 @@
         <td>{{ metric.measurement_unit }}</td>
         <!--      -->
         <td>
-          <p-tag [severity]="getSeverity(metric.status)" [value]="metric.status" />
+          <p-tag [severity]="getSeverityStatus(metric.status)" [value]="convertStatusToReadable(metric.status)" />
         </td>
         <!--      -->
         <td>
-          <p-tag [severity]="getSeverityBoolean(metric.required)" [value]="metric.required" />
+          <p-tag [severity]="getSeverityRequired(metric.required)" [value]="convertRequireToReadable(metric.required)" />
         </td>
         <!--      -->
         <td style="min-width: 16rem">{{ metric.upperbound_msg }}</td>
@@ -94,66 +85,63 @@
     </ng-template>
   </p-table>
 
-  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px' }" header="Metric Details">
+  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px', height: '600px' }" header="Metric Details">
     <ng-template #content>
       <div class="flex flex-col gap-6">
         <!--Title-->
         <div>
-          <label class="mb-3 block font-bold" for="name">Title</label>
-          <input [(ngModel)]="metric.title" autofocus fluid="true" id="name" pInputText required type="text" />
+          <label class="mb-3 block font-bold" for="title">Title</label>
+          <input [(ngModel)]="metric.title" autofocus fluid="true" id="title" pInputText required type="text" />
           <small *ngIf="submitted && !metric.title" class="text-red-500">Title is required.</small>
         </div>
         <!-- Unit -->
         <div>
           <label class="mb-3 block font-bold" for="measurement_unit">Unit</label>
-          <input [(ngModel)]="metric.title" autofocus fluid="true" id="measurement_unit" pInputText required type="text" />
-          <small *ngIf="submitted && !metric.title" class="text-red-500">measurement_unit is required.</small>
+          <input [(ngModel)]="metric.measurement_unit" autofocus fluid="true" id="measurement_unit" pInputText required type="text" />
+          <small *ngIf="submitted && !metric.measurement_unit" class="text-red-500">Unit is required.</small>
         </div>
         <!--Status-->
         <div>
           <label class="mb-3 block font-bold" for="status">Status</label>
           <p-select
             [(ngModel)]="metric.status"
-            [options]="statuses"
+            [options]="[
+              { label: 'ACTIVE', value: Status.ACTIVE },
+              { label: 'INACTIVE', value: Status.INACTIVE },
+            ]"
             fluid="true"
             inputId="status"
             optionLabel="label"
-            optionValue="label"
+            optionValue="value"
             placeholder="Select a Status"
           />
         </div>
+        <!--Required-->
         <div>
-          <span class="mb-4 block font-bold">required</span>
-          <div class="grid grid-cols-12 gap-4">
-            <div class="col-span-6 flex items-center gap-2">
-              <p-radio-button [(ngModel)]="metric.required" id="category1" name="required" value="true" />
-              <label for="category1">true</label>
-            </div>
-            <div class="col-span-6 flex items-center gap-2">
-              <p-radio-button [(ngModel)]="metric.required" id="category2" name="category" value="false"></p-radio-button>
-              <label for="category2">false</label>
-            </div>
-          </div>
+          <label class="mb-3 block font-bold" for="status">Require</label>
+          <p-select
+            [(ngModel)]="metric.required"
+            [options]="[
+              { labelReq: 'REQUIRED', valueReq: true },
+              { labelReq: 'OPTIONAL', valueReq: false },
+            ]"
+            fluid="true"
+            inputId="required"
+            optionLabel="labelReq"
+            optionValue="valueReq"
+            placeholder="Select a Option"
+          />
         </div>
-
-        <!--      <div class="grid grid-cols-12 gap-4">-->
-        <!--        <div class="col-span-6">-->
-        <!--          <label class="mb-3 block font-bold" for="price">Price</label>-->
-        <!--          <p-inputNumber [(ngModel)]="product.price" currency="USD" fluid id="price" locale="en-US" mode="currency"></p-inputNumber>-->
-        <!--        </div>-->
-        <!--        <div class="col-span-6">-->
-        <!--          <label class="mb-3 block font-bold" for="quantity">Quantity</label>-->
-        <!--          <p-input-number [(ngModel)]="product.quantity" fluid id="quantity" />-->
-        <!--        </div>-->
-        <!--      </div>-->
       </div>
     </ng-template>
 
     <ng-template #footer>
-      <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" text />
-      <p-button (click)="saveProduct()" icon="pi pi-check" label="Save" />
+      <div class="">
+        <p-button (click)="hideDialog($event)" icon="pi pi-times" label="Cancel" text="true" />
+        <p-button (click)="saveMetric($event)" icon="pi pi-check" label="Save" />
+      </div>
     </ng-template>
   </p-dialog>
-
-  <p-confirm-dialog [style]="{ width: '450px' }"></p-confirm-dialog>
 </div>
+<p-confirm-popup baseZIndex="99" />
+<p-toast />
