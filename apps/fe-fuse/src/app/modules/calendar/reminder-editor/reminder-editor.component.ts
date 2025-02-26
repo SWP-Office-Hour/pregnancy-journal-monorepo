@@ -143,6 +143,7 @@ export class ReminderEditorComponent {
       };
 
       this._calendarService.createReminder(reminderData).subscribe((res: ReminderResponse) => {
+        this._calendarService.clearReminder();
         this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
         this.matDialogRef.close();
       });
