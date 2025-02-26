@@ -24,6 +24,27 @@ export const defaultNavigation: FuseNavigationItem[] = [
     icon: 'heroicons_outline:calendar',
     link: '/calendar',
   },
+  {
+    id: 'blog',
+    title: 'Blog',
+    type: 'basic',
+    icon: 'heroicons_outline:pencil-square',
+    link: '/blog',
+  },
+  {
+    id: 'pricing',
+    title: 'Pricing',
+    type: 'basic',
+    icon: 'heroicons_outline:currency-dollar',
+    link: '/pricing',
+  },
+  {
+    id: 'about',
+    title: 'About',
+    type: 'basic',
+    icon: 'heroicons_outline:information-circle',
+    link: '/about',
+  },
 ];
 
 //*********** adminNavigation là route cho ADMIN *************/
