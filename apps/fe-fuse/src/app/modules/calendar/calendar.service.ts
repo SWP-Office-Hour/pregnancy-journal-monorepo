@@ -22,6 +22,11 @@ export class CalendarService {
     );
   }
 
+  reloadMeetings() {
+    this._meetings.reload();
+    console.log('reloaded', this.meetings());
+  }
+
   private _reminder: ReminderResponse | null;
 
   get reminder(): ReminderResponse | null {
@@ -42,7 +47,7 @@ export class CalendarService {
     this._activeDay.set(value);
   }
 
-  private _meetings: ResourceRef<ReminderResponse[]> = resource({
+  protected _meetings: ResourceRef<ReminderResponse[]> = resource({
     loader: async () => {
       const response = await fetch(environment.apiUrl + 'reminders');
       const reminders = await response.json();

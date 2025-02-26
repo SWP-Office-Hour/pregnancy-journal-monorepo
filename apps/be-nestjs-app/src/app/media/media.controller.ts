@@ -22,7 +22,10 @@ export class MediaController {
       const { newMedias, deletedMedias } = await this.mediaService.updateWithRecordId({ media, record_id });
 
       if (deletedMedias.length === 0 && newMedias.length === 0) {
-        throw new BadRequestException('No media to update');
+        return {
+          status: 200 as const,
+          body: [],
+        };
       }
       const media_urls = await Promise.all(newMedias.map((m) => fetch(m.media_url)));
       const blobs = (await Promise.all(media_urls.map((m) => m.blob()))).map((blob) => {

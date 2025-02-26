@@ -18,13 +18,6 @@ export const defaultNavigation: FuseNavigationItem[] = [
     link: '/tracking',
   },
   {
-    id: 'record',
-    title: 'Record',
-    type: 'basic',
-    icon: 'heroicons_outline:clipboard-document-list',
-    link: '/record',
-  },
-  {
     id: 'calendar',
     title: 'Calendar',
     type: 'basic',
