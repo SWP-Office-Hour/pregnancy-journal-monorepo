@@ -14,7 +14,7 @@ import { environment } from '../../../../environments/environment';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent],
+  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent],
 })
 export class PricingModernComponent {
   yearlyBilling: boolean = true;
