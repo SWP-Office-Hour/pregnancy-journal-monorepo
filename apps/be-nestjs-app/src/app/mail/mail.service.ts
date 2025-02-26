@@ -1,23 +1,18 @@
 import { MailerService } from '@nestjs-modules/mailer';
 import { Injectable } from '@nestjs/common';
+import { UserResponseType } from '@pregnancy-journal-monorepo/contract';
 import { v4 as uuidv4 } from 'uuid';
-import { UsersService } from '../users/users.service';
 
 @Injectable()
 export class MailService {
-  constructor(
-    private readonly mailerService: MailerService,
-    private readonly userService: UsersService,
-  ) {}
+  constructor(private readonly mailerService: MailerService) {}
 
-  async resetPassword(userId: string) {
-    const user = await this.userService.getUserById(userId);
-
+  async resetPassword(user: UserResponseType) {
     const uuid = uuidv4().replace(/[^0-9]/g, '');
     const code = parseInt(uuid.slice(0, 6), 10);
 
     await this.mailerService.sendMail({
-      to: 'hoangyen7592sg@gmail.com', // list of receivers
+      to: user.email, // list of receivers
       from: 'noreply@gmail.com', // sender address
       subject: 'Reset Password', // Subject line
       text: 'reset password', // plaintext body
