@@ -1,12 +1,18 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
+import { UserProfileResponseType } from '@pregnancy-journal-monorepo/contract';
+import { DateTime } from 'luxon';
+import { environment } from '../../../environments/environment';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
 
 @Component({
@@ -20,9 +26,11 @@ import { District, Province, Ward } from '../auth/confirmation-required/confirma
     MatDatepickerModule,
     MatIconModule,
     CommonModule,
+    MatCardModule,
+    MatDividerModule,
   ],
   templateUrl: './user-profile.component.html',
-  styleUrl: './user-profile.component.css',
+  styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
   count = 0;
@@ -32,12 +40,15 @@ export class UserProfileComponent {
   protected districts: District[] = [];
   protected wards: Ward[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private _httpClient: HttpClient,
+  ) {
     this.profileForm = this.fb.group({
       avatar: [null],
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      birthDate: ['', Validators.required],
+      expected_birth_date: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]],
       province: ['', Validators.required],
       district: ['', Validators.required],
@@ -52,6 +63,21 @@ export class UserProfileComponent {
       .then((provinces: Province[]) => {
         this.provinces = provinces;
       });
+
+    this._httpClient.get<UserProfileResponseType>(environment.apiUrl + 'users/profile').subscribe((profile) => {
+      this.profileForm.patchValue({
+        email: profile.email,
+        name: profile.name,
+        expected_birth_date: DateTime.fromISO(new Date(profile.expected_birth_date).toISOString()),
+        phone: profile.phone,
+        province: profile.province,
+        district: profile.district,
+        ward: profile.ward,
+        address: profile.address,
+      });
+
+      console.log(profile);
+    });
   }
 
   async onProvinceSelected(province_code_input: MatSelectChange) {
@@ -93,9 +119,14 @@ export class UserProfileComponent {
     if (this.profileForm.valid) {
       const data = {
         ...this.profileForm.value,
-        birthDate: this.profileForm.value.birthDate.toISODate(),
+        expected_birth_date: this.profileForm.value.expected_birth_date.toJSDate(),
       };
       console.log(data);
     }
+  }
+
+  expectedBirthDateChange(event: MatDatepickerInputEvent<any>) {
+    const date_as_iso_string = (event.value as DateTime).plus({ hour: 7 }).toISO();
+    this.profileForm.patchValue({ expected_birth_date: date_as_iso_string });
   }
 }

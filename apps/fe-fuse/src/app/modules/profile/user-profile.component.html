@@ -1,0 +1,161 @@
+<!-- Profile Form -->
+<div class="w-full bg-gray-50 p-6 md:p-6">
+  <!-- Header Section -->
+  <div class="mb-6 flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm">
+    <div class="relative">
+      <!-- Profile Avatar -->
+      @if (avatarPreview) {
+        <img src="{{ avatarPreview }}" class="h-16 w-16 rounded-full object-cover" alt="avt" />
+      } @else {
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-300" viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+          />
+        </svg>
+      }
+      <!-- Camera Button -->
+      <button
+        (click)="fileInput.click()"
+        class="absolute -bottom-2 -right-2 rounded-full bg-pink-500 p-1 text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z" />
+          <path
+            d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
+          />
+        </svg>
+      </button>
+      <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
+    </div>
+    <h1 class="m-0 text-2xl font-medium text-pink-500">My Profile</h1>
+  </div>
+
+  <!-- Form Section -->
+  <form [formGroup]="profileForm" class="space-y-6">
+    <!-- Personal Information Card -->
+    <mat-card class="overflow-hidden rounded-xl shadow-sm">
+      <mat-card-header class="bg-pink-50 p-4">
+        <mat-card-title class="text-lg font-medium text-pink-500">Personal Information</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="p-4">
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <!-- Name Field -->
+          <div>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Full Name</mat-label>
+              <input matInput formControlName="name" placeholder="Enter your full name" />
+              <mat-error *ngIf="profileForm.get('name')?.invalid">Name is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Email Field -->
+          <div>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Email Address</mat-label>
+              <input matInput formControlName="email" placeholder="Enter your email" type="email" />
+              <mat-error *ngIf="profileForm.get('email')?.invalid">Valid email is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Birth Date Field -->
+          <div>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Expected Birth Date</mat-label>
+              <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />
+              <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Valid date is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- Phone Field -->
+          <div>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Phone Number</mat-label>
+              <input matInput formControlName="phone" placeholder="Enter your phone number" type="tel" />
+              <mat-error *ngIf="profileForm.get('phone')?.invalid">Valid phone number is required</mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Address Information Card -->
+    <mat-card class="overflow-hidden rounded-xl shadow-sm">
+      <mat-card-header class="bg-pink-50 p-4">
+        <mat-card-title class="text-lg font-medium text-pink-500">Address Details</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="p-4">
+        <div class="grid grid-cols-1 gap-4">
+          <!-- Address Field -->
+          <div>
+            <mat-form-field appearance="outline" class="w-full">
+              <mat-label>Street Address</mat-label>
+              <input matInput formControlName="address" placeholder="Enter your street address" />
+              <mat-error *ngIf="profileForm.get('address')?.invalid">Address is required</mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <!-- Province Field -->
+            <div>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Province</mat-label>
+                <mat-select formControlName="province">
+                  <mat-option value="">Select Province</mat-option>
+                  <mat-option *ngFor="let province of provinces" [value]="province.code">
+                    {{ province.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="profileForm.get('province')?.invalid">Province is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- District Field -->
+            <div>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>District</mat-label>
+                <mat-select formControlName="district" [disabled]="!profileForm.get('province')?.value">
+                  <mat-option value="">Select District</mat-option>
+                  <mat-option *ngFor="let district of districts" [value]="district.code">
+                    {{ district.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="profileForm.get('district')?.invalid">District is required</mat-error>
+              </mat-form-field>
+            </div>
+
+            <!-- Ward Field -->
+            <div>
+              <mat-form-field appearance="outline" class="w-full">
+                <mat-label>Ward</mat-label>
+                <mat-select formControlName="ward" [disabled]="!profileForm.get('district')?.value">
+                  <mat-option value="">Select Ward</mat-option>
+                  <mat-option *ngFor="let ward of wards" [value]="ward.code">
+                    {{ ward.name }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="profileForm.get('ward')?.invalid">Ward is required</mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- Submit Button -->
+    <div class="flex justify-end">
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="profileForm.invalid"
+        class="rounded-full bg-pink-500 px-8 py-2 font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
+      >
+        Save Changes
+      </button>
+    </div>
+  </form>
+</div>

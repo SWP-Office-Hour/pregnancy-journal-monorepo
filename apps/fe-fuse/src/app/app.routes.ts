@@ -14,7 +14,7 @@ import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
 import { membershipsRoute } from './modules/membership/membership.route';
 import { postRoutes } from './modules/post/post.routes';
-import { UserProfileComponent } from './modules/user-profile/user-profile.component';
+import { UserProfileComponent } from './modules/profile/user-profile.component';
 
 // @formatter:off
 /* eslint-disable max-len */
