@@ -31,7 +31,7 @@
           "envFile": ".env.serve.development"
         },
         "staging": {
-          "envFile": ".env.serve.development"
+          "envFile": ".env.serve.staging"
         }
       }
     },

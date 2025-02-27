@@ -1,0 +1,165 @@
+/* Blog content styling */
+.blog-content {
+  /* Base styling */
+  color: #374151;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+/* This uses Tailwind's typography plugin classes as a base,
+   but we're adding our own styles for the raw HTML content */
+
+/* Headings */
+.blog-content h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #111827;
+  line-height: 1.2;
+}
+
+.blog-content h2 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin-top: 2rem;
+  margin-bottom: 1.25rem;
+  color: #111827;
+  line-height: 1.3;
+}
+
+.blog-content h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1.75rem;
+  margin-bottom: 1rem;
+  color: #111827;
+  line-height: 1.4;
+}
+
+.blog-content h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+  color: #111827;
+}
+
+/* Paragraphs */
+.blog-content p {
+  margin-bottom: 1.5rem;
+}
+
+/* Lists */
+.blog-content ul {
+  list-style-type: disc;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content ol {
+  list-style-type: decimal;
+  margin-left: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.blog-content li {
+  margin-bottom: 0.5rem;
+}
+
+/* Blockquotes */
+.blog-content blockquote {
+  border-left: 4px solid #818cf8;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #4b5563;
+  margin: 1.5rem 0;
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.25rem;
+}
+
+/* Links */
+.blog-content a {
+  color: #4f46e5;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.blog-content a:hover {
+  color: #4338ca;
+}
+
+/* Code blocks */
+.blog-content pre {
+  background-color: #1f2937;
+  color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  font-family: monospace;
+}
+
+.blog-content code {
+  background-color: #f3f4f6;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-family: monospace;
+  font-size: 0.875rem;
+}
+
+.blog-content pre code {
+  background-color: transparent;
+  padding: 0;
+  border-radius: 0;
+  color: #f9fafb;
+}
+
+/* Images */
+.blog-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Tables */
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+}
+
+.blog-content th {
+  background-color: #f3f4f6;
+  padding: 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  border: 1px solid #e5e7eb;
+}
+
+.blog-content td {
+  padding: 0.75rem;
+  border: 1px solid #e5e7eb;
+}
+
+.blog-content tbody tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+/* Horizontal rule */
+.blog-content hr {
+  border: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 2rem 0;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

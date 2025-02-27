@@ -17,21 +17,36 @@ const blogResponeSchema = z.object({
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới blog
-export const blogCreateReqSchema = blogResponeSchema.omit({ blog_id: true, created_at: true, updated_at: true, tags: true, category: true }).extend({
-  tags_id: z.array(z.string().optional()).optional(),
-  category_id: z.string(),
-});
+export const blogCreateReqSchema = blogResponeSchema
+  .omit({
+    blog_id: true,
+    created_at: true,
+    updated_at: true,
+    tags: true,
+    category: true,
+  })
+  .extend({
+    tags_id: z.array(z.string().optional()).optional(),
+    category_id: z.string(),
+  });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật blog
-export const blogUpdateReqSchema = blogResponeSchema.omit({ created_at: true, updated_at: true, tags: true, category: true }).extend({
-  title: z.string().optional(),
-  author: z.string().optional(),
-  summary: z.string().optional(),
-  content: z.string().optional(),
-  blog_cover: z.string().optional(),
-  tags_id: z.array(z.string().optional()).optional(),
-  category_id: z.string().optional(),
-});
+export const blogUpdateReqSchema = blogResponeSchema
+  .omit({
+    created_at: true,
+    updated_at: true,
+    tags: true,
+    category: true,
+  })
+  .extend({
+    title: z.string().optional(),
+    author: z.string().optional(),
+    summary: z.string().optional(),
+    content: z.string().optional(),
+    blog_cover: z.string().optional(),
+    tags_id: z.array(z.string().optional()).optional(),
+    category_id: z.string().optional(),
+  });
 
 export type Blog = z.infer<typeof blogResponeSchema>;
 
@@ -60,16 +75,25 @@ export const blogContract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
-  getOne: {
+  getBlogByCategory: {
     method: 'GET',
-    path: '/blogs/:id',
-    description: 'Get a blog by blog id (đã xong)',
+    path: '/blogs/category/:category_id',
+    description: 'Get a blog by category id',
+    query: z.object({
+      limit: z.coerce.number().min(0).default(10),
+      page: z.coerce.number().min(1).default(1),
+    }),
+    pathParams: z.object({
+      category_id: z.string(),
+    }),
     responses: {
-      200: blogResponeSchema,
+      200: z.object({
+        blogs: z.array(blogResponeSchema),
+        total_page: z.number(),
+      }),
       404: z.object({ message: z.string() }),
     },
   },
-
   getBlogByTag: {
     method: 'GET',
     path: '/blogs/tag/:tag_id',
@@ -89,7 +113,6 @@ export const blogContract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
-
   create: {
     method: 'POST',
     path: '/blogs',
@@ -106,6 +129,15 @@ export const blogContract = c.router({
     body: blogUpdateReqSchema,
     responses: {
       200: blogResponeSchema,
+    },
+  },
+  getOne: {
+    method: 'GET',
+    path: '/blogs/:id',
+    description: 'Get a blog by blog id (đã xong)',
+    responses: {
+      200: blogResponeSchema,
+      404: z.object({ message: z.string() }),
     },
   },
   delete: {
