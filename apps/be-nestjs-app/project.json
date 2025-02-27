@@ -25,6 +25,14 @@
       "cache": true,
       "options": {
         "command": "pnpx prisma generate"
+      },
+      "configurations": {
+        "development": {
+          "envFile": ".env.serve.development"
+        },
+        "staging": {
+          "envFile": ".env.serve.development"
+        }
       }
     },
     "build": {
