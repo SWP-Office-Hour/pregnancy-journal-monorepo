@@ -33,6 +33,8 @@
           "includePaths": ["apps/fe-fuse/src/@fuse/styles"]
         },
         "styles": [
+          "node_modules/@splidejs/splide/dist/css/splide.min.css",
+          "node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css",
           "apps/fe-fuse/src/@fuse/styles/tailwind.scss",
           "apps/fe-fuse/src/@fuse/styles/themes.scss",
           "apps/fe-fuse/src/styles/vendors.scss",
@@ -40,7 +42,7 @@
           "apps/fe-fuse/src/styles/styles.scss",
           "apps/fe-fuse/src/styles/tailwind.scss"
         ],
-        "scripts": []
+        "scripts": ["node_modules/@splidejs/splide/dist/js/splide.js"]
       },
       "configurations": {
         "production": {
