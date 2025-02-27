@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, resource, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, effect, inject, resource, ViewChild } from '@angular/core';
 import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -32,6 +32,7 @@ import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { FuseLoadingService } from '../../../../@fuse/services/loading';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -81,11 +82,12 @@ import { environment } from '../../../../environments/environment';
   providers: [MessageService, ConfirmationService],
 })
 export class HealthMetricTableComponent {
+  private _fuseLoadingService = inject(FuseLoadingService);
   protected readonly Status = Status;
   @ViewChild('dt') dt!: Table;
   metricDialog: boolean = false;
   submitted: boolean = false;
-  metric: HealthMetric | null;
+  metric: HealthMetric;
   statuses!: any[];
 
   selectedMetric: HealthMetric | null = null;
@@ -143,51 +145,41 @@ export class HealthMetricTableComponent {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        // (async () => {
-        //   const response = await fetch(environment.apiUrl + 'metrics', {
-        //     method: method,
-        //     headers: {
-        //       'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify(_metric),
-        //   });
-        //   if (!response.ok) throw Error(`Could not fetch...`);
-        //   const rsJson = await response.json();
-        //   console.log('rsJson');
-        //   console.log(rsJson);
-        // })();
+        (async () => {
+          const response = await fetch(environment.apiUrl + 'metrics', {
+            method: method,
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(_metric),
+          });
+          if (!response.ok) {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: `Metric ${messageDetail}`,
+              life: 4000,
+            });
+            throw Error(`Could not fetch...`);
+          }
+          const rsJson = await response.json();
+          console.log('rsJson');
+          console.log(rsJson);
 
-        this.metricDialog = false;
-        this.metric = null;
-        this.metricResource.reload();
+          this.metricDialog = false;
+          // @ts-ignore
+          this.metric = {};
+          this.metricResource.reload();
 
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successful',
-          detail: `Products ${messageDetail}`,
-          life: 4000,
-        });
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: `Metric ${messageDetail}`,
+            life: 4000,
+          });
+        })();
       },
     });
-
-    // this.messageService.add({
-    //   severity: 'success',
-    //   summary: 'Successful',
-    //   detail: 'Product Updated',
-    //   life: 3000,
-    // });
-    //
-    // console.log('saveMetric');
-    // console.log(_metric);
-
-    // this.product.image = 'product-placeholder.svg';
-    // this.messageService.add({
-    //   severity: 'success',
-    //   summary: 'Successful',
-    //   detail: 'Product Created',
-    //   life: 3000,
-    // });
-    //
   }
 
   hideDialog() {
@@ -247,7 +239,12 @@ export class HealthMetricTableComponent {
   }
 
   openNew() {
-    this.metric = null;
+    // CHỌN DEFAULT OPTION Ở ĐÂY
+    // @ts-ignore
+    this.metric = {
+      status: Status.INACTIVE,
+    };
+    // this.metric = null;
     this.submitted = false;
     this.metricDialog = true;
   }
