@@ -104,6 +104,9 @@ importers:
       '@prisma/client':
         specifier: ^6.1.0
         version: 6.3.1(typescript@5.7.3)
+      '@splidejs/splide':
+        specifier: ^4.1.4
+        version: 4.1.4
       '@ts-rest/core':
         specifier: ^3.51.0
         version: 3.51.0(@types/node@18.19.68)(zod@3.24.1)
@@ -170,6 +173,9 @@ importers:
       ngx-quill:
         specifier: ^27.0.0
         version: 27.0.0(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(quill@2.0.3)(rxjs@7.8.1)
+      ngx-splide:
+        specifier: ^7.0.1
+        version: 7.0.1(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(@splidejs/splide@4.1.4)
       nodemailer:
         specifier: ^6.10.0
         version: 6.10.0
@@ -3562,6 +3568,9 @@ packages:
 
   '@socket.io/component-emitter@3.1.2':
     resolution: {integrity: sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA==}
+
+  '@splidejs/splide@4.1.4':
+    resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
 
   '@svgdotjs/svg.draggable.js@3.0.5':
     resolution: {integrity: sha512-ljL/fB0tAjRfFOJGhXpr7rEx9DJ6D7Pxt3AXvgxjEM17g6wK3Ho9nXhntraOMx8JLZdq4NBMjokeXMvnQzJVYA==}
@@ -7441,6 +7450,13 @@ packages:
       '@angular/core': ^19.0.0
       quill: ^2.0.0
       rxjs: ^7.0.0
+
+  ngx-splide@7.0.1:
+    resolution: {integrity: sha512-oA7KNfUUnp41NUkUaiFK6lLAY5fw6bZxOnOBRqJT4yuFckiR92rCXVhSELeZ/5EHLxMOI1tLj/90UDqL3IlKDw==}
+    peerDependencies:
+      '@angular/common': '>=17'
+      '@angular/core': '>=17'
+      '@splidejs/splide': ^4
 
   nice-try@1.0.5:
     resolution: {integrity: sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==}
@@ -14718,6 +14734,8 @@ snapshots:
 
   '@socket.io/component-emitter@3.1.2': {}
 
+  '@splidejs/splide@4.1.4': {}
+
   '@svgdotjs/svg.draggable.js@3.0.5(@svgdotjs/svg.js@3.2.4)':
     dependencies:
       '@svgdotjs/svg.js': 3.2.4
@@ -19451,6 +19469,13 @@ snapshots:
       '@angular/core': 19.1.4(rxjs@7.8.1)(zone.js@0.15.0)
       quill: 2.0.3
       rxjs: 7.8.1
+      tslib: 2.8.1
+
+  ngx-splide@7.0.1(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(@splidejs/splide@4.1.4):
+    dependencies:
+      '@angular/common': 19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
+      '@angular/core': 19.1.4(rxjs@7.8.1)(zone.js@0.15.0)
+      '@splidejs/splide': 4.1.4
       tslib: 2.8.1
 
   nice-try@1.0.5:
