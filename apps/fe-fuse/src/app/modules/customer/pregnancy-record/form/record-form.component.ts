@@ -65,7 +65,7 @@ export class RecordFormComponent {
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
-        this.metricsFormArray.push(this._formBuilder.control(0, metric.required ? Validators.required : []));
+        this.metricsFormArray.push(this._formBuilder.control('', metric.required ? Validators.required : []));
       });
     });
     this.images = this._recordService.getMediaSrc();
