@@ -68,8 +68,49 @@ export class MetricService {
     return metric;
   }
 
-  findAll() {
-    return this.databaseService.Metric.findMany();
+  async findAll(): Promise<MetricResponseType[]> {
+    const metric = await this.databaseService.Metric.findMany();
+    return Promise.all(
+      metric.map(async (m) => {
+        if (!m.tag_id) {
+          return {
+            metric_id: m.metric_id,
+            title: m.title,
+            measurement_unit: m.measurement_unit,
+            status: m.status,
+            required: m.required,
+            upperbound_msg: m.upperbound_msg,
+            lowerbound_msg: m.lowerbound_msg,
+          };
+        }
+        const tag = await this.databaseService.Tag.findUnique({
+          where: {
+            tag_id: m.tag_id,
+          },
+        });
+        if (!tag) {
+          return {
+            metric_id: m.metric_id,
+            title: m.title,
+            measurement_unit: m.measurement_unit,
+            status: m.status,
+            required: m.required,
+            upperbound_msg: m.upperbound_msg,
+            lowerbound_msg: m.lowerbound_msg,
+          };
+        }
+        return {
+          metric_id: m.metric_id,
+          title: m.title,
+          measurement_unit: m.measurement_unit,
+          status: m.status,
+          required: m.required,
+          upperbound_msg: m.upperbound_msg,
+          lowerbound_msg: m.lowerbound_msg,
+          tag,
+        };
+      }),
+    );
   }
 
   async findOne(id: string) {
