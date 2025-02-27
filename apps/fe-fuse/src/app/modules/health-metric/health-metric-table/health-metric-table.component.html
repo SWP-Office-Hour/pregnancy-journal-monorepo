@@ -1,4 +1,3 @@
-<!--suppress ALL -->
 <p-toast />
 <div class="flex w-full flex-col">
   <p-toolbar styleClass="mb-6" class="">
@@ -85,7 +84,7 @@
     </ng-template>
   </p-table>
 
-  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px', height: '600px' }" header="Metric Details">
+  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px', height: '800px' }" header="Metric Details">
     <ng-template #content>
       <div class="flex flex-col gap-6">
         <!--Title-->
@@ -110,7 +109,7 @@
               { label: 'INACTIVE', value: Status.INACTIVE },
             ]"
             fluid="true"
-            inputId="status"
+            id="status"
             optionLabel="label"
             optionValue="value"
             placeholder="Select a Status"
@@ -118,7 +117,7 @@
         </div>
         <!--Required-->
         <div>
-          <label class="mb-3 block font-bold" for="status">Require</label>
+          <label class="mb-3 block font-bold" for="required">Require</label>
           <p-select
             [(ngModel)]="metric.required"
             [options]="[
@@ -126,18 +125,31 @@
               { labelReq: 'OPTIONAL', valueReq: false },
             ]"
             fluid="true"
+            id="required"
             inputId="required"
             optionLabel="labelReq"
             optionValue="valueReq"
             placeholder="Select a Option"
           />
         </div>
+        <!--upperbound_msg-->
+        <div>
+          <label class="mb-3 block font-bold" for="upperbound_msg">Upperbound Message</label>
+          <input [(ngModel)]="metric.upperbound_msg" autofocus fluid="true" id="upperbound_msg" pInputText required type="text" />
+          <small *ngIf="submitted && !metric.upperbound_msg" class="text-red-500">Upperbound Message is required.</small>
+        </div>
+        <!--lowerbound_msg-->
+        <div>
+          <label class="mb-3 block font-bold" for="lowerbound_msg">Lowerbound Message</label>
+          <input [(ngModel)]="metric.lowerbound_msg" fluid="true" id="lowerbound_msg" pInputText required type="text" />
+          <small *ngIf="submitted && !metric.lowerbound_msg" class="text-red-500">Lowerbound Message is required.</small>
+        </div>
       </div>
     </ng-template>
 
     <ng-template #footer>
       <div class="">
-        <p-button (click)="hideDialog($event)" icon="pi pi-times" label="Cancel" text="true" />
+        <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" text="true" />
         <p-button (click)="saveMetric($event)" icon="pi pi-check" label="Save" />
       </div>
     </ng-template>
