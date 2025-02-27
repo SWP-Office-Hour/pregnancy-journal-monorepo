@@ -85,11 +85,11 @@ export const adminNavigation: FuseNavigationItem[] = [
     link: 'admin/hospital',
   },
   {
-    id: 'blog',
+    id: 'admin_blog',
     title: 'Blog',
     type: 'aside',
     icon: 'heroicons_outline:pencil-square',
-    // link: 'admin/blog',
+    link: 'admin/blog',
     children: [
       {
         id: 'blog-all',

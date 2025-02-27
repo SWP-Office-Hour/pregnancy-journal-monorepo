@@ -100,7 +100,57 @@ export class BlogsService {
     return { blogs, total_page };
   }
 
-  async findByTag(page: number, limit: number, tag_id: string[]): Promise<{ blogs: BlogResponseType[]; total_page: number }> {
+  async findByCategory({ limit, category_id, page }: { page: number; limit: number; category_id: string }) {
+    const result = await this.databaseService.Blog.findMany({
+      skip: page == 0 ? Number(page) : (page - 1) * limit,
+      take: Number(limit),
+      where: {
+        category_id,
+      },
+      include: {
+        category: true,
+        blog_tag: {
+          include: {
+            tag: true,
+          },
+        },
+      },
+    });
+
+    const total_page = Math.ceil((await this.databaseService.Blog.count()) / limit);
+
+    const blogs = result.map((blog) => ({
+      blog_id: blog.blog_id,
+      title: blog.title,
+      author: blog.author,
+      content: blog.content,
+      created_at: blog.created_at,
+      updated_at: blog.updated_at,
+      blog_cover: blog.blog_cover,
+      category: {
+        status: blog.category.status,
+        title: blog.category.title,
+        category_id: blog.category.category_id,
+      },
+      tags: blog.blog_tag.map((item) => ({
+        title: item.tag.title,
+        tag_id: item.tag.tag_id,
+        status: item.tag.status,
+      })),
+      summary: blog.summary,
+    }));
+
+    return { blogs, total_page };
+  }
+
+  async findByTag(
+    page: number,
+    limit: number,
+    tag_id: string[],
+  ): Promise<{
+    blogs: BlogResponseType[];
+    total_page: number;
+  }> {
     const result = await this.databaseService.Blog.findMany({
       skip: page == 0 ? Number(page) : (page - 1) * limit,
       take: Number(limit),

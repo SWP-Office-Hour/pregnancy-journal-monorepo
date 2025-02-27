@@ -26,6 +26,16 @@ export class BlogsController {
     });
   }
 
+  @TsRestHandler(blogContract.getBlogByCategory)
+  handleGetBlogByCategory(@Param('category_id') category_id: string, @Query('page') page: number, @Query('limit') limit: number) {
+    return tsRestHandler(blogContract.getBlogByCategory, async () => {
+      page = page ? page : 1;
+      limit = limit ? limit : 10;
+      const result = await this.blogsService.findByCategory({ page, limit, category_id });
+      return { status: 200, body: result };
+    });
+  }
+
   @TsRestHandler(blogContract.getBlogByTag)
   handleGetBlogByTag(@Param('tag_id') tagId: string[], @Query('page') page: number, @Query('limit') limit: number) {
     return tsRestHandler(blogContract.getBlogByTag, async () => {
