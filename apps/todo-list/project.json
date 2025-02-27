@@ -84,6 +84,15 @@
         "staticFilePath": "dist/apps/todo-list/browser",
         "spa": true
       }
+    },
+    "component-test": {
+      "executor": "@nx/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/todo-list/cypress.config.ts",
+        "testingType": "component",
+        "skipServe": true,
+        "devServerTarget": "todo-list:build"
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ export class TodosComponent implements OnInit {
   todoService = inject(TodosService);
   todoItems = signal<Array<Todo>>([]);
   searchTerm = signal('');
+  newTodo = signal('');
 
   ngOnInit(): void {
     this.todoService
@@ -30,6 +31,19 @@ export class TodosComponent implements OnInit {
       .subscribe((todos) => {
         this.todoItems.set(todos);
       });
+  }
+
+  addTodoItem(todoContent: string) {
+    const todoItem: Todo = {
+      userId: this.todoItems().length + 1,
+      id: new Date().getTime(),
+      title: todoContent,
+      completed: false,
+    };
+
+    this.todoItems.update((todos) => {
+      return [todoItem, ...todos];
+    });
   }
 
   updateTodoItem(todoItem: Todo) {

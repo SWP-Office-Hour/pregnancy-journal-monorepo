@@ -4,9 +4,15 @@
   <p>Loading...</p>
 }
 
-<form>
-  <label>Filter Todos</label>
-  <input name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search todos..." />
+<form style="margin-bottom: 20px">
+  <label for="search_todo">Filter Todos</label><br />
+  <input id="search_todo" name="searchTerm" [(ngModel)]="searchTerm" placeholder="Search todos..." />
+</form>
+
+<form style="margin-bottom: 20px">
+  <label for="new_todo">Add New Todo</label><br />
+  <input id="new_todo" #new_todo name="newTodo" [(ngModel)]="newTodo" placeholder="Type something..." />
+  <button id="new_todo_btn" (click)="addTodoItem(new_todo.value)" style="border: solid 1px black">Add Todo</button>
 </form>
 
 <ul class="todos">
