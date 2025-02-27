@@ -1,0 +1,60 @@
+<!-- Masonry Blog Component -->
+<div class="container mx-auto px-4 py-8">
+  <!-- Header section -->
+  <div class="mb-8 text-center">
+    <h1 class="mb-2 text-3xl font-bold">Our Blog</h1>
+    <p class="mx-auto max-w-2xl text-gray-600">Stay updated with our latest articles, insights, and stories from our team.</p>
+  </div>
+
+  <!-- Category filter -->
+  <div class="mb-6 flex flex-wrap justify-center gap-2">
+    <button class="rounded-full bg-indigo-600 px-4 py-2 text-white transition hover:bg-indigo-700">All</button>
+    <button *ngFor="let category of categories" class="rounded-full bg-gray-200 px-4 py-2 text-gray-800 transition hover:bg-gray-300">
+      {{ category.title }}
+    </button>
+  </div>
+
+  <!-- Masonry blog grid -->
+  <div class="masonry-grid">
+    <!-- Blog card - repeated for each blog post -->
+    <div *ngFor="let blog of blogs" class="masonry-item mb-6 break-inside-avoid">
+      <div class="overflow-hidden rounded-lg bg-white shadow-md transition-shadow duration-300 hover:shadow-lg">
+        <!-- Blog cover image -->
+        <div class="relative aspect-video overflow-hidden">
+          <img [src]="blog.blog_cover" [alt]="blog.title" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+          <!-- Category badge -->
+          <span class="absolute right-4 top-4 rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold text-white">
+            {{ getCategoryName(blog.category.category_id) }}
+          </span>
+        </div>
+
+        <!-- Blog content -->
+        <div class="p-5">
+          <h3 class="mb-2 line-clamp-2 text-xl font-bold transition-colors hover:text-indigo-600">
+            <a [routerLink]="['/blog', blog.blog_id]">{{ blog.title }}</a>
+          </h3>
+
+          <!-- Author and date info -->
+          <div class="mb-3 flex items-center text-sm text-gray-600">
+            <div class="flex items-center">
+              <span class="font-medium">{{ blog.author }}</span>
+            </div>
+            <span class="mx-2">•</span>
+            <span>{{ blog.created_at | date }}</span>
+          </div>
+
+          <!-- Summary -->
+          <p class="mb-4 line-clamp-3 text-gray-700">{{ blog.summary }}</p>
+
+          <!-- Read more link -->
+          <a [routerLink]="['/blog', blog.blog_id]" class="inline-flex items-center font-medium text-indigo-600 hover:text-indigo-800">
+            Read more
+            <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
