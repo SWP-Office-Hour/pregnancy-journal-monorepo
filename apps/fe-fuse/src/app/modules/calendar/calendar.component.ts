@@ -107,6 +107,7 @@ export class CalendarComponent {
   }
 
   protected createMeeting() {
+    this._calendarService.clearReminder();
     this._matDialog.open(ReminderEditorComponent, {
       autoFocus: false,
     });

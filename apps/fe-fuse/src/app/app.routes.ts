@@ -78,7 +78,13 @@ export const appRoutes: Route[] = [
     resolve: {
       initialData: initialDataResolver,
     },
-    children: [{ path: 'landing', loadComponent: () => LandingComponent }],
+    children: [
+      { path: 'landing', loadComponent: () => LandingComponent },
+      {
+        path: 'about',
+        redirectTo: 'landing',
+      },
+    ],
   },
 
   // Admin routes
@@ -127,7 +133,7 @@ export const appRoutes: Route[] = [
         loadComponent: () => CalendarComponent,
       },
       {
-        path: 'post',
+        path: 'community',
         loadChildren: () => postRoutes,
       },
       {

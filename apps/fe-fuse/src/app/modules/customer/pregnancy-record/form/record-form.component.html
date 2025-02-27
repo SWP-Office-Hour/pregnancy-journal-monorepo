@@ -1,82 +1,121 @@
-<form [formGroup]="recordForm" class="bg-card mt-3 flex flex-col overflow-hidden rounded-2xl p-8 shadow" (submit)="submitForm()">
-  <div class="-mx-2 flex flex-wrap">
-    <div class="mb-8 w-full px-2 md:w-1/2">
-      <!--   Visit Doctor Date   -->
-      <mat-form-field class="input-full-width">
-        <mat-label>Ngày khám bệnh</mat-label>
-        <input matInput (dateChange)="visitDateChange($event)" [matDatepicker]="visit_doctor_date" formControlName="visit_doctor_date" readonly />
-        <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date"></mat-datepicker-toggle>
-        <mat-datepicker #visit_doctor_date>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button matDatepickerApply>Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
-      </mat-form-field>
+<form
+  [formGroup]="recordForm"
+  class="mt-4 flex w-full flex-col overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-sm"
+  (submit)="submitForm()"
+>
+  <!-- Header Section -->
+  <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-pink-50 px-6 py-4 pb-4">
+    <h2 class="text-2xl font-bold text-pink-500">Theo dõi bệnh án</h2>
+  </div>
 
-      <!--   Next Visit Doctor Date   -->
-      <mat-form-field class="input-full-width">
-        <mat-label>Ngày tái khám</mat-label>
-        <input
-          matInput
-          (dateChange)="nextVisitDateChange($event)"
-          [matDatepicker]="next_visit_doctor_date"
-          formControlName="next_visit_doctor_date"
-          readonly
-        />
-        <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date"></mat-datepicker-toggle>
-        <mat-datepicker #next_visit_doctor_date>
-          <mat-datepicker-actions>
-            <button mat-button matDatepickerCancel>Cancel</button>
-            <button mat-raised-button matDatepickerApply>Apply</button>
-          </mat-datepicker-actions>
-        </mat-datepicker>
-      </mat-form-field>
+  <!-- Main Content -->
+  <div class="flex flex-col gap-8 md:flex-row">
+    <!-- Left Column -->
+    <div class="flex-1 space-y-6">
+      <!-- Date Inputs -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <mat-form-field class="w-full">
+          <mat-label class="font-medium text-gray-700">Ngày khám bệnh</mat-label>
+          <input
+            matInput
+            (dateChange)="visitDateChange($event)"
+            [matDatepicker]="visit_doctor_date"
+            formControlName="visit_doctor_date"
+            readonly
+            class="!pt-1 focus:ring-2 focus:ring-pink-300"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date">
+            <mat-icon svgIcon="heroicons_mini:calendar" class="ms-2 text-pink-300"></mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #visit_doctor_date>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
 
-      <!--   Hospital   -->
-      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-        <mat-label>Bệnh viện</mat-label>
-        <mat-select formControlName="hospital">
-          <mat-option value="" disabled="true">Chọn bệnh viện</mat-option>
+        <mat-form-field class="w-full">
+          <mat-label class="font-medium text-gray-700">Ngày tái khám</mat-label>
+          <input
+            matInput
+            (dateChange)="nextVisitDateChange($event)"
+            [matDatepicker]="next_visit_doctor_date"
+            formControlName="next_visit_doctor_date"
+            readonly
+            class="!pt-1 focus:ring-2 focus:ring-pink-300"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date">
+            <mat-icon svgIcon="heroicons_mini:calendar" class="ms-2 text-pink-300"></mat-icon>
+          </mat-datepicker-toggle>
+          <mat-datepicker #next_visit_doctor_date>
+            <mat-datepicker-actions>
+              <button mat-button matDatepickerCancel>Cancel</button>
+              <button mat-raised-button matDatepickerApply>Apply</button>
+            </mat-datepicker-actions>
+          </mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <!-- Hospital and Doctor -->
+      <mat-form-field class="w-full">
+        <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>
+        <mat-select formControlName="hospital" class="!pt-1 focus:ring-2 focus:ring-pink-300">
+          <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>
           @for (hospital of hospitals; track $index) {
-            <mat-option value="{{ hospital.hospital_id }}">{{ hospital.name }}</mat-option>
+            <mat-option value="{{ hospital.hospital_id }}" class="hover:bg-pink-50">
+              {{ hospital.name }}
+            </mat-option>
           }
         </mat-select>
+        <mat-icon svgIcon="heroicons_mini:building-library" class="ms-2 text-[color:--primary-color]"></mat-icon>
       </mat-form-field>
 
-      <!--   Doctor   -->
-      <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-        <mat-label>Bác sĩ</mat-label>
-        <input matInput placeholder="Placeholder" formControlName="doctor_name" />
-        <mat-icon svgIcon="heroicons_mini:identification"></mat-icon>
+      <mat-form-field class="w-full">
+        <mat-label class="font-medium text-gray-700">Bác sĩ</mat-label>
+        <input matInput formControlName="doctor_name" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
+        <mat-icon svgIcon="heroicons_mini:identification" class="ms-2 text-pink-300"></mat-icon>
       </mat-form-field>
 
-      <!--   Metrics   -->
-      <div formArrayName="metrics">
+      <!-- Metrics -->
+      <div formArrayName="metrics" class="space-y-4">
         @for (metric of metrics; track $index) {
-          <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-            <mat-label>{{ metric.title }}</mat-label>
-
-            <input type="number" matInput placeholder="Placeholder" [formControlName]="$index" />
-            <span>{{ metric.measurement_unit }}</span>
-            <mat-icon svgIcon="heroicons_mini:calculator"></mat-icon>
+          <mat-form-field class="w-full">
+            <mat-label class="font-medium text-gray-700">{{ metric.title }}({{ metric.measurement_unit }})</mat-label>
+            <input matInput [formControlName]="$index" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
+            <mat-icon svgIcon="heroicons_mini:calculator" class="ms-2 text-pink-300"></mat-icon>
           </mat-form-field>
         }
       </div>
     </div>
-  </div>
-  <div class="mb-8 w-full px-2 md:w-1/2">
-    <file-upload (insertImg)="insertImg($event)"></file-upload>
-  </div>
-  <div class="flex flex-wrap">
-    @for (src of images; track $index) {
-      <image-preview [imgObj]="src" (deleteImg)="deleteImg($event)"></image-preview>
-    }
-  </div>
-  <footer class="mt-4 flex justify-end space-x-2">
-    <button mat-flat-button type="submit">Lưu</button>
-    <button mat-stroked-button type="reset">Hủy</button>
-  </footer>
 
-  <p-toast position="top-right" key="tr" />
+    <!-- Right Column -->
+    <div class="flex-1">
+      <div class="rounded-lg border-2 border-dashed border-pink-300 bg-white p-4">
+        <h3 class="mb-4 text-lg font-medium text-pink-500">Tải lên hình ảnh</h3>
+        <file-upload (insertImg)="insertImg($event)" class="w-full"></file-upload>
+        <!-- Image Previews -->
+        <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+          @for (src of images; track $index) {
+            <image-preview
+              [imgObj]="src"
+              (deleteImg)="deleteImg($event)"
+              class="cursor-pointer overflow-hidden rounded-lg border-2 border-pink-50 transition-transform hover:scale-105"
+            >
+            </image-preview>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Buttons -->
+  <div class="mt-8 flex justify-end gap-3 border-t border-gray-200 pt-6">
+    <button mat-flat-button type="submit" class="rounded-lg !bg-pink-500 px-6 py-2 !text-white transition-colors hover:!bg-pink-600">Lưu</button>
+    <button mat-stroked-button type="reset" (click)="clear()" class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 hover:!bg-pink-50">
+      Hủy
+    </button>
+  </div>
+
+  <p-toast position="top-right" key="tr" class="!font-sans" />
 </form>

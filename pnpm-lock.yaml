@@ -170,6 +170,9 @@ importers:
       ngx-image-compress:
         specifier: ^18.1.5
         version: 18.1.5(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))
+      ngx-infinite-scroll:
+        specifier: ^19.0.0
+        version: 19.0.0(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))
       ngx-quill:
         specifier: ^27.0.0
         version: 27.0.0(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(quill@2.0.3)(rxjs@7.8.1)
@@ -7442,6 +7445,12 @@ packages:
     peerDependencies:
       '@angular/common': x.x.x
       '@angular/core': x.x.x
+
+  ngx-infinite-scroll@19.0.0:
+    resolution: {integrity: sha512-Ft4xNNDLXoDGi2hF6ylehjxbG8JIgfoL6qDWWcebGMcbh1CEfEsh0HGkDuFlX/cBBMenRh2HFbXlYq8BAtbvLw==}
+    peerDependencies:
+      '@angular/common': '>=19.0.0 <20.0.0'
+      '@angular/core': '>=19.0.0 <20.0.0'
 
   ngx-quill@27.0.0:
     resolution: {integrity: sha512-6jZSt3SYUn2IU+qM5/5YFEw4QfL2mRy62lhtSlJXs2rTZnB7e6MWoOsZ4mQF3H2dSoe4InRSmUU3srqFBveeMw==}
@@ -19459,6 +19468,12 @@ snapshots:
       tslib: 2.8.1
 
   ngx-image-compress@18.1.5(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0)):
+    dependencies:
+      '@angular/common': 19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
+      '@angular/core': 19.1.4(rxjs@7.8.1)(zone.js@0.15.0)
+      tslib: 2.8.1
+
+  ngx-infinite-scroll@19.0.0(@angular/common@19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0)):
     dependencies:
       '@angular/common': 19.1.4(@angular/core@19.1.4(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)
       '@angular/core': 19.1.4(rxjs@7.8.1)(zone.js@0.15.0)

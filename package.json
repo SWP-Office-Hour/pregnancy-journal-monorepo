@@ -67,6 +67,7 @@
     "multer": "^1.4.5-lts.1",
     "ng-apexcharts": "^1.15.0",
     "ngx-image-compress": "^18.1.5",
+    "ngx-infinite-scroll": "^19.0.0",
     "ngx-quill": "^27.0.0",
     "ngx-splide": "^7.0.1",
     "nodemailer": "^6.10.0",
