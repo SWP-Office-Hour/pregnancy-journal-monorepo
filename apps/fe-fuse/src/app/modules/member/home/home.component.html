@@ -464,107 +464,198 @@
             <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Cấu trúc thai -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>
-                  <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <!--                    Bỏ nút bấm qua lại giữa các tuần-->
-                    <div class="relative flex flex-auto items-center shadow-sm md:items-stretch">
-                      <!-- Navigation buttons ... -->
-                      <button
-                        type="button"
-                        class="flex h-9 w-20 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"
-                        (click)="goToPreviousWeek()"
-                      >
-                        <span class="sr-only">Previous week</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path
-                            fill-rule="evenodd"
-                            d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                      <button
-                        type="button"
-                        class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"
-                        (click)="goToThisWeek()"
-                      >
-                        Tuần này
-                      </button>
-                      <button
-                        type="button"
-                        class="flex h-9 w-20 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"
-                        (click)="goToNextWeek()"
-                      >
-                        <span class="sr-only">Next week</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path
-                            fill-rule="evenodd"
-                            d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-                <div class="relative mt-6 flex flex-auto flex-col">
-                  <!--            Hình ảnh mẹ-->
-                  <img class="" [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'" [alt]="'mẹ tuần ' + countWeek" />
+                <!--                <splide class="splide" data-splide='{"type":"loop","perPage":3}'>-->
+                <!--                  <splide-slide >-->
+                <!--                    <div class="flex flex-col items-start justify-between sm:flex-row">-->
+                <!--                      <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>-->
+                <!--                      <div class="mt-3 sm:ml-2 sm:mt-0">-->
+                <!--                        &lt;!&ndash;                    Bỏ nút bấm qua lại giữa các tuần&ndash;&gt;-->
+                <!--                        <div class="relative flex flex-auto items-center shadow-sm md:items-stretch">-->
+                <!--                          &lt;!&ndash; Navigation buttons ... &ndash;&gt;-->
+                <!--                          &lt;!&ndash;                      nút lùi về tuần trc&ndash;&gt;-->
+                <!--                          <button-->
+                <!--                            type="button"-->
+                <!--                            class="flex h-9 w-20 items-center justify-center rounded-l-md border-y border-l border-gray-300 pr-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pr-0 md:hover:bg-gray-50"-->
+                <!--                            (click)="goToPreviousWeek()"-->
+                <!--                          >-->
+                <!--                            <span class="sr-only">Previous week</span>-->
+                <!--                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+                <!--                              <path-->
+                <!--                                fill-rule="evenodd"-->
+                <!--                                d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"-->
+                <!--                                clip-rule="evenodd"-->
+                <!--                              />-->
+                <!--                            </svg>-->
+                <!--                          </button>-->
+                <!--                          &lt;!&ndash;                      nút về tuần hiện tại&ndash;&gt;-->
+                <!--                          <button-->
+                <!--                            type="button"-->
+                <!--                            class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"-->
+                <!--                            (click)="goToThisWeek()"-->
+                <!--                          >-->
+                <!--                            Tuần này-->
+                <!--                          </button>-->
+                <!--                          &lt;!&ndash;                      nút qua tuần kế&ndash;&gt;-->
+                <!--                          <button-->
+                <!--                            type="button"-->
+                <!--                            class="flex h-9 w-20 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"-->
+                <!--                            (click)="goToNextWeek()"-->
+                <!--                          >-->
+                <!--                            <span class="sr-only">Next week</span>-->
+                <!--                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+                <!--                              <path-->
+                <!--                                fill-rule="evenodd"-->
+                <!--                                d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"-->
+                <!--                                clip-rule="evenodd"-->
+                <!--                              />-->
+                <!--                            </svg>-->
+                <!--                          </button>-->
+                <!--                        </div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                    <div class="relative mt-6 flex flex-auto flex-col">-->
+                <!--                      &lt;!&ndash;            Hình ảnh mẹ&ndash;&gt;-->
+                <!--                      <img class="" [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'" [alt]="'mẹ tuần ' + countWeek" />-->
 
-                  <!--            Hình ảnh thai nhi-->
-                  @if (countWeek > '0002') {
-                    <div
-                      class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3"
-                      style="
-                        box-shadow:
-                          inset 0 1px 2px rgba(0, 0, 0, 0.05),
-                          0 10px 15px -3px rgba(236, 72, 153, 0.5),
-                          0 4px 6px -2px rgba(236, 72, 153, 0.5);
-                      "
-                    >
-                      <img
-                        class="rounded-full"
-                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
-                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
-                        [alt]="'con tuần ' + countWeek"
-                      />
-                    </div>
+                <!--                      &lt;!&ndash;            Hình ảnh thai nhi&ndash;&gt;-->
+                <!--                      @if (countWeek > '0002') {-->
+                <!--                        <div-->
+                <!--                          class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3"-->
+                <!--                          style="-->
+                <!--                            box-shadow:-->
+                <!--                              inset 0 1px 2px rgba(0, 0, 0, 0.05),-->
+                <!--                              0 10px 15px -3px rgba(236, 72, 153, 0.5),-->
+                <!--                              0 4px 6px -2px rgba(236, 72, 153, 0.5);-->
+                <!--                          "-->
+                <!--                        >-->
+                <!--                          <img-->
+                <!--                            class="rounded-full"-->
+                <!--                            style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"-->
+                <!--                            [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"-->
+                <!--                            [alt]="'con tuần ' + countWeek"-->
+                <!--                          />-->
+                <!--                        </div>-->
+                <!--                      }-->
+                <!--                      &lt;!&ndash;            Câu nhắc tuần xuất khám&ndash;&gt;-->
+
+                <!--                      &lt;!&ndash;            <apx-chart&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              class="h-80 w-full flex-auto"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [chart]="chartTaskDistribution.chart"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [labels]="chartTaskDistribution.labels"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [legend]="chartTaskDistribution.legend"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [plotOptions]="chartTaskDistribution.plotOptions"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [states]="chartTaskDistribution.states"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [stroke]="chartTaskDistribution.stroke"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [theme]="chartTaskDistribution.theme"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [tooltip]="chartTaskDistribution.tooltip"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;              [yaxis]="chartTaskDistribution.yaxis"&ndash;&gt;-->
+                <!--                      &lt;!&ndash;            ></apx-chart>&ndash;&gt;-->
+                <!--                    </div>-->
+
+                <!--                    <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">-->
+                <!--                      <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
+                <!--                        <div class="text-5xl font-semibold leading-none tracking-tighter">-->
+                <!--                          &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}&ndash;&gt;-->
+                <!--                          &lt;!&ndash;                Data của ngày dự sinh&ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                        <div class="text-secondary mt-1 text-center">Dự sinh</div>-->
+                <!--                        <div class="text-secondary mt-1 text-center">Ngày xxx</div>-->
+                <!--                      </div>-->
+                <!--                      <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
+                <!--                        <div class="text-5xl font-semibold leading-none tracking-tighter">-->
+                <!--                          &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}&ndash;&gt;-->
+                <!--                          &lt;!&ndash;                Data của &ndash;&gt;-->
+                <!--                        </div>-->
+                <!--                        <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>-->
+                <!--                        <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </splide-slide>-->
+                <!--                </splide>-->
+
+                <!--                test-->
+
+                <splide>
+                  @for (week of weeks; track $index) {
+                    <!--                  @for (let i; i<= 40; i++) {}-->
+                    <splide-slide>
+                      <!--                      <div class="flex flex-col items-start justify-between sm:flex-row">-->
+                      <!--                        <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi tuần {{ week }}</div>-->
+                      <!--                        <div class="mt-3 sm:ml-2 sm:mt-0">-->
+                      <!--                          <div class="relative flex flex-auto items-center shadow-sm md:items-stretch">-->
+                      <!--                            <button type="button" class)="goToPreviousWeek()">-->
+                      <!--                              <span class="sr-only">Previous week</span>-->
+                      <!--                              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+                      <!--                                <path-->
+                      <!--                                  fill-rule="evenodd"-->
+                      <!--                                  d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"-->
+                      <!--                                  clip-rule="evenodd"-->
+                      <!--                                />-->
+                      <!--                              </svg>-->
+                      <!--                            </button>-->
+                      <!--                            <button-->
+                      <!--                              type="button"-->
+                      <!--                              class="hidden border-y border-gray-300 px-3.5 text-sm font-semibold text-gray-900 hover:bg-gray-50 focus:relative md:block"-->
+                      <!--                              (click)="goToThisWeek()"-->
+                      <!--                            >-->
+                      <!--                              Tuần này-->
+                      <!--                            </button>-->
+                      <!--                            <button-->
+                      <!--                              type="button"-->
+                      <!--                              class="flex h-9 w-20 items-center justify-center rounded-r-md border-y border-r border-gray-300 pl-1 text-gray-400 hover:text-gray-500 focus:relative md:w-9 md:pl-0 md:hover:bg-gray-50"-->
+                      <!--                              (click)="goToNextWeek()"-->
+                      <!--                            >-->
+                      <!--                              <span class="sr-only">Next week</span>-->
+                      <!--                              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">-->
+                      <!--                                <path-->
+                      <!--                                  fill-rule="evenodd"-->
+                      <!--                                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"-->
+                      <!--                                  clip-rule="evenodd"-->
+                      <!--                                />-->
+                      <!--                              </svg>-->
+                      <!--                            </button>-->
+                      <!--                          </div>-->
+                      <!--                        </div>-->
+                      <!--                      </div>-->
+                      <div class="relative mt-6 flex flex-auto flex-col">
+                        <img [src]="'/images/fetal-growth/Female_View_' + week + '.jpg'" [alt]="'mẹ tuần ' + week" />
+
+                        @if (week > '0002') {
+                          <div
+                            class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3"
+                            style="
+                              box-shadow:
+                                inset 0 1px 2px rgba(0, 0, 0, 0.05),
+                                0 10px 15px -3px rgba(236, 72, 153, 0.5),
+                                0 4px 6px -2px rgba(236, 72, 153, 0.5);
+                            "
+                          >
+                            <img
+                              class="rounded-full"
+                              style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
+                              [src]="'/images/fetal-growth/Baby_View_' + week + '.jpg'"
+                              [alt]="'con tuần ' + week"
+                            />
+                          </div>
+                        }
+                      </div>
+
+                      <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
+                        <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                          <div class="text-5xl font-semibold leading-none tracking-tighter">{{ weekData[week]?.dueDate }}</div>
+                          <div class="text-secondary mt-1 text-center">Dự sinh</div>
+                          <div class="text-secondary mt-1 text-center">Ngày {{ weekData[week]?.dueDateFormatted }}</div>
+                        </div>
+                        <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                          <div class="text-5xl font-semibold leading-none tracking-tighter">{{ weekData[week]?.size }}</div>
+                          <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
+                          <div class="text-secondary mt-1 text-center">{{ weekData[week]?.sizeDescription }}</div>
+                        </div>
+                      </div>
+                    </splide-slide>
                   }
-                  <!--            Câu nhắc tuần xuất khám-->
-
-                  <!--            <apx-chart-->
-                  <!--              class="h-80 w-full flex-auto"-->
-                  <!--              [chart]="chartTaskDistribution.chart"-->
-                  <!--              [labels]="chartTaskDistribution.labels"-->
-                  <!--              [legend]="chartTaskDistribution.legend"-->
-                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
-                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
-                  <!--              [states]="chartTaskDistribution.states"-->
-                  <!--              [stroke]="chartTaskDistribution.stroke"-->
-                  <!--              [theme]="chartTaskDistribution.theme"-->
-                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
-                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
-                  <!--            ></apx-chart>-->
-                </div>
-                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
-                      <!--                Data của ngày dự sinh-->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
-                    <div class="text-secondary mt-1 text-center">Ngày xxx</div>
-                  </div>
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
-                      <!--                Data của -->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
-                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>
-                  </div>
-                </div>
+                </splide>
               </div>
 
               <!-- Schedule -->
