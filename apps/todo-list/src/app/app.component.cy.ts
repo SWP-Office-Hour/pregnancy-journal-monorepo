@@ -1,17 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { RouterOutlet } from '@angular/router';
+import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
+import { routes } from './app.routes';
 
 describe(AppComponent.name, () => {
-  beforeEach(() => {
-    TestBed.overrideComponent(AppComponent, {
-      add: {
-        imports: [RouterOutlet],
-        providers: [],
-      },
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      providers: [provideRouter(routes)],
+    }).compileComponents();
   });
-
   it('renders', () => {
     cy.mount(AppComponent);
   });

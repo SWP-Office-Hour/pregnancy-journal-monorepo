@@ -1,14 +1,14 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { routes } from '../../app.routes';
 import { HeaderComponent } from './header.component';
 
 describe(HeaderComponent.name, () => {
-  beforeEach(() => {
-    TestBed.overrideComponent(HeaderComponent, {
-      add: {
-        imports: [],
-        providers: [],
-      },
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [HeaderComponent],
+      providers: [provideRouter(routes)],
+    }).compileComponents();
   });
 
   it('renders', () => {
