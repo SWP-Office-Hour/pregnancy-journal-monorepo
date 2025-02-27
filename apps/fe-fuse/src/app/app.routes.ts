@@ -53,6 +53,10 @@ export const appRoutes: Route[] = [
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
       { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
       { path: 'sign-in-with-google', loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes') },
+      {
+        path: 'blog',
+        loadChildren: () => blogMasonryRoutes,
+      },
     ],
   },
 
@@ -143,10 +147,6 @@ export const appRoutes: Route[] = [
       {
         path: 'user-profile',
         loadComponent: () => UserProfileComponent,
-      },
-      {
-        path: 'blog',
-        loadChildren: () => blogMasonryRoutes,
       },
     ],
   },
