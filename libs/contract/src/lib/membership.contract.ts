@@ -21,10 +21,15 @@ const membershipCreateRequestContract = membershipResponeContract.omit({
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật membership
-const membershipUpdateRequestContract = membershipResponeContract.omit({
-  created_at: true,
-  updated_at: true,
-});
+const membershipUpdateRequestContract = membershipResponeContract
+  .omit({
+    created_at: true,
+    updated_at: true,
+  })
+  .partial()
+  .extend({
+    membership_id: z.string(),
+  });
 
 export type Membership = z.infer<typeof membershipResponeContract>;
 export type MembershipCreateRequest = z.infer<typeof membershipCreateRequestContract>;
