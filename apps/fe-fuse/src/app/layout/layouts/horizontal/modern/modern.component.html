@@ -14,7 +14,7 @@
     <ng-container fuseVerticalNavigationContentHeader>
       <!-- Logo -->
       <div class="flex h-20 items-center px-8 pt-6">
-        <img class="w-24" src="/images/logo/logo-text-on-dark.svg" alt="Logo image" />
+        <img class="w-24" ngSrc="/images/logo/logo-text-on-dark.svg" alt="Logo image" height="96" width="96" />
       </div>
     </ng-container>
   </fuse-vertical-navigation>
@@ -30,13 +30,23 @@
       <!-- Logo -->
       <div class="mx-2 flex items-center lg:mr-8">
         <div class="hidden lg:flex">
-          <img class="w-24 dark:hidden" src="/images/logo/logo-text.svg" />
-          <img class="hidden w-24 dark:flex" src="/images/logo/logo-text-on-dark.svg" />
+          <!-- Light version -->
+          <img class="w-10 dark:hidden" ngSrc="/images/logo/logo-text.svg" alt="Logo image" height="96" width="96" />
+          <!-- Dark version -->
+          <img class="hidden w-10 dark:flex" ngSrc="/images/logo/logo-text-on-dark.svg" alt="Logo image" height="96" width="96" />
+          <div
+            class="ml-1 self-center text-2xl font-extrabold leading-tight tracking-tight"
+            style="color: #fcedd8; font-family: 'Niconne', cursive; text-shadow: 1px 1px 0px #eb452b"
+          >
+            <i>Pregnancy Journal</i>
+          </div>
         </div>
-        <img class="flex w-8 lg:hidden" src="/images/logo/logo.svg" />
+        <img class="flex w-8 lg:hidden" ngSrc="/images/logo/logo.svg" alt="" height="96" width="96" />
       </div>
+      <!-- Small version -->
+      <img class="flex w-8 lg:hidden" ngSrc="/images/logo/logo.svg" alt="Logo image" height="96" width="96" />
       <!-- Horizontal navigation -->
-      <fuse-horizontal-navigation class="mr-2" [name]="'mainNavigation'" [navigation]="navigation.horizontal"></fuse-horizontal-navigation>
+      <fuse-horizontal-navigation class="mr-2" [name]="'mainNavigation'" [navigation]="navigation.default"></fuse-horizontal-navigation>
     }
     <!-- Navigation toggle button -->
     @if (isScreenSmall) {
@@ -48,8 +58,8 @@
     <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
       <languages></languages>
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-      <search [appearance]="'bar'"></search>
-      <shortcuts></shortcuts>
+      <!--      <search [appearance]="'bar'"></search>-->
+      <!--      <shortcuts></shortcuts>-->
       <messages></messages>
       <notifications></notifications>
       <button class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
