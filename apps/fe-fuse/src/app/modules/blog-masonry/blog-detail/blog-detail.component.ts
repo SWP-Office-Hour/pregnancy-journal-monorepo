@@ -1,8 +1,8 @@
-import { CommonModule, DatePipe, Location } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlogResponseType } from '@pregnancy-journal-monorepo/contract';
 import { environment } from '../../../../environments/environment';
 
@@ -24,9 +24,9 @@ export class BlogDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private _http: HttpClient,
     private sanitizer: DomSanitizer,
-    private location: Location,
     private metaService: Meta,
     private titleService: Title,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -119,7 +119,6 @@ export class BlogDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    // this.router.navigate(['/blogs']);
-    this.location.back();
+    this.router.navigate(['/blog']);
   }
 }
