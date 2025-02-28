@@ -219,6 +219,9 @@
             <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Cấu trúc thai -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+                <mat-slider min="0" max="40" step="1" showTickMarks discrete (input)="onSliderChange($event)">
+                  <input matSliderThumb value="{{ countWeek }}}" />
+                </mat-slider>
                 <div class="relative mt-6 flex flex-auto flex-col">
                   <!--            Hình ảnh mẹ-->
                   <img class="" [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'" [alt]="'mẹ tuần ' + countWeek" />
@@ -243,20 +246,6 @@
                     </div>
                   }
                   <!--            Câu nhắc tuần xuất khám-->
-
-                  <!--            <apx-chart-->
-                  <!--              class="h-80 w-full flex-auto"-->
-                  <!--              [chart]="chartTaskDistribution.chart"-->
-                  <!--              [labels]="chartTaskDistribution.labels"-->
-                  <!--              [legend]="chartTaskDistribution.legend"-->
-                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
-                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
-                  <!--              [states]="chartTaskDistribution.states"-->
-                  <!--              [stroke]="chartTaskDistribution.stroke"-->
-                  <!--              [theme]="chartTaskDistribution.theme"-->
-                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
-                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
-                  <!--            ></apx-chart>-->
                 </div>
 
                 <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
@@ -273,102 +262,13 @@
                       <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
                       <!--                Data của -->
                     </div>
-                    <div class="text-secondary mt-1 text-center">Cân nặng chuẩn: {{ standardResource.at(Number(countWeek) - 1)?.weight }}</div>
-                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>
-                  </div>
-                </div>
-                <mat-slider min="0" max="40" step="1" showTickMarks discrete (input)="onSliderChange($event)">
-                  <input matSliderThumb value="{{ countWeek }}}" />
-                </mat-slider>
-              </div>
-
-              <!-- Schedule -->
-              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Quản lý thai nhi</div>
-                  <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">
-                      <mat-button-toggle value="today">Today</mat-button-toggle>
-                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>
-                    </mat-button-toggle-group>
-                  </div>
-                </div>
-                <div class="mt-2 flex flex-col divide-y">
-                  <!--            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {-->
-                  <!--              <div class="flex flex-row items-center justify-between px-0.5 py-4">-->
-                  <!--                <div class="flex flex-col">-->
-                  <!--                  <div class="font-medium">-->
-                  <!--                    {{ scheduleItem.title }}-->
-                  <!--                  </div>-->
-                  <!--                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">-->
-                  <!--                    @if (scheduleItem.time) {-->
-                  <!--                      <div class="flex items-center">-->
-                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>-->
-                  <!--                        <div class="text-secondary text-md ml-1.5">-->
-                  <!--                          {{ scheduleItem.time }}-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    }-->
-                  <!--                    @if (scheduleItem.location) {-->
-                  <!--                      <div class="flex items-center">-->
-                  <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>-->
-                  <!--                        <div class="text-secondary text-md ml-1.5">-->
-                  <!--                          {{ scheduleItem.location }}-->
-                  <!--                        </div>-->
-                  <!--                      </div>-->
-                  <!--                    }-->
-                  <!--                  </div>-->
-                  <!--                </div>-->
-                  <!--                <button mat-icon-button>-->
-                  <!--                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>-->
-                  <!--                </button>-->
-                  <!--              </div>-->
-                  <!--            }-->
-                </div>
-              </div>
-
-                  <!--            <apx-chart-->
-                  <!--              class="h-80 w-full flex-auto"-->
-                  <!--              [chart]="chartTaskDistribution.chart"-->
-                  <!--              [labels]="chartTaskDistribution.labels"-->
-                  <!--              [legend]="chartTaskDistribution.legend"-->
-                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
-                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
-                  <!--              [states]="chartTaskDistribution.states"-->
-                  <!--              [stroke]="chartTaskDistribution.stroke"-->
-                  <!--              [theme]="chartTaskDistribution.theme"-->
-                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
-                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
-                  <!--            ></apx-chart>-->
-                </div>
-                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
-                      <!--                Data của ngày dự sinh-->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
-                    <div class="text-secondary mt-1 text-center">Ngày xxx</div>
-                  </div>
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
-                      <!--                Data của -->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
-                    <div class="text-secondary mt-1 text-center">
-                      @if (countWeek > '0007') {
-                        {{ standardResource.at(countWeekNumber - 8)?.weight }} gam
-                      } @else {
-                        Chưa có dữ liệu
-                      }
-                    </div>
+                    <div class="text-secondary mt-1 text-center">Cân nặng chuẩn: {{ weekData[countWeek].size }}</div>
+                    <div class="text-secondary mt-1 text-center">{{ weekData[countWeek].sizeDescription }}</div>
                   </div>
                 </div>
               </div>
-
               <!-- Quan lý thai nhi -->
-              <div class="bg-card flex flex-auto flex-col rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>
               </div>
             </div>

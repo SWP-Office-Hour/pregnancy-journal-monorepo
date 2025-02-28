@@ -60,7 +60,7 @@ export class RecommendedBlogsComponent {
   responsiveOptions: any[] | undefined;
   constructor() {
     this.blogs = blogsMockData;
-    console.log(this.blogs);
+    // console.log(this.blogs);
   }
 
   // private _fuseCards: QueryList<ElementRef>;

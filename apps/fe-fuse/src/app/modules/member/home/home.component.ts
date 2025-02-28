@@ -23,6 +23,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
@@ -267,8 +268,6 @@ export class HomeComponent {
   onSliderChange(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     this._countWeek = Number(inputElement.value) <= 1 ? 1 : Number(inputElement.value);
-
-    console.log(this._countWeek);
   }
   // protected readonly TrackedIncrementalBuildStrategy = TrackedIncrementalBuildStrategy;
   protected readonly Number = Number;
