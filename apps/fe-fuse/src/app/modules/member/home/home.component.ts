@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -102,6 +103,8 @@ export class DialogContentPriceComponent {
     MatExpansionModule,
     FuseCardComponent,
     NgxSplideModule,
+    MatSlider,
+    MatSliderThumb,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
@@ -110,7 +113,6 @@ export class DialogContentPriceComponent {
 })
 export class HomeComponent {
   //Thai nhi
-  weeks: string[] = Array.from({ length: 40 }, (_, i) => (i + 1).toString().padStart(4, '0'));
 
   weekData = {
     '0001': { dueDate: '280', dueDateFormatted: '01/01/2025', size: '0.1mm', sizeDescription: 'Bằng hạt anh túc' },
@@ -192,6 +194,13 @@ export class HomeComponent {
     return this._countWeek.toString().padStart(4, '0');
   }
   standardResource = [
+    { week: 1, weight: 0 },
+    { week: 2, weight: 0 },
+    { week: 3, weight: 0 },
+    { week: 4, weight: 0 },
+    { week: 5, weight: 0 },
+    { week: 6, weight: 0 },
+    { week: 7, weight: 0 },
     { week: 8, weight: 1 },
     { week: 9, weight: 2 },
     { week: 10, weight: 4 },
@@ -224,7 +233,7 @@ export class HomeComponent {
     { week: 37, weight: 2859 },
     { week: 38, weight: 3083 },
     { week: 39, weight: 3288 },
-    { week: 40, weight: 3462 },
+    { week: 40, weight: 3290 },
   ];
   //chưa có data bên database
   // standardResource = resource<Standard[], {}>({
@@ -299,5 +308,13 @@ export class HomeComponent {
     });
   }
 
+  //hàm thay đổi giá trị của slider
+  onSliderChange(event: Event): void {
+    const inputElement = event.target as HTMLInputElement;
+    this._countWeek = Number(inputElement.value) <= 1 ? 1 : Number(inputElement.value);
+
+    console.log(this._countWeek);
+  }
   // protected readonly TrackedIncrementalBuildStrategy = TrackedIncrementalBuildStrategy;
+  protected readonly Number = Number;
 }
