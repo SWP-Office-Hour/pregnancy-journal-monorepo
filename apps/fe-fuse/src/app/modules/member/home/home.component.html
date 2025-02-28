@@ -1,7 +1,9 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
-  <div class="bg-card">
-    <div class="relative mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
+
+  <div class="flex grid w-full min-w-0 grid-cols-1 overflow-auto sm:grid-cols-2 md:grid-cols-4">
+    <!-- Welcome -->
+    <div class="bg-card mx-auto flex w-full flex-auto flex-col p-6 sm:col-span-2 md:col-span-4 lg:col-span-2">
       <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
         <!-- Avatar and name -->
         <div class="flex min-w-0 flex-auto items-center">
@@ -18,243 +20,69 @@
             </div>
           </div>
         </div>
-        <!-- Actions -->
-        <div class="mt-6 flex items-center space-x-3 sm:ml-2 sm:mt-0">
-          <button class="bg-accent" mat-flat-button [color]="'accent'" (click)="openDialog()">
-            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:fire'"></mat-icon>
-            <span class="ml-2">Nâng cấp</span>
-          </button>
-          <!--bấm vào thì đi tới page price-->
+      </div>
+    </div>
+    <!-- Notification -->
+    <div class="bg-card flex flex-auto flex-col p-6 sm:col-span-2 md:col-span-4 lg:col-span-2">
+      <div class="flex flex-col items-start justify-between sm:flex-row">
+        <div class="truncate text-lg font-medium leading-6 tracking-tight">Thông báo</div>
+        <div class="mt-3 sm:ml-2 sm:mt-0">
+          <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">
+            <mat-button-toggle value="today">Today</mat-button-toggle>
+            <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>
+          </mat-button-toggle-group>
         </div>
       </div>
-      <!-- Visit record Button -->
-      <div
-        class="bg-default relative z-20 -mb-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4 border-indigo-600"
-        matRipple
-        matTooltip="Hôm nay mẹ đi khám"
-        [matTooltipPosition]="'right'!"
-      >
-        <mat-icon class="icon-size -10" [svgIcon]="'heroicons_mini:pencil-square'"></mat-icon>
+      <div class="mt-2 flex flex-col divide-y">
+        <!--            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {-->
+        <!--              <div class="flex flex-row items-center justify-between px-0.5 py-4">-->
+        <!--                <div class="flex flex-col">-->
+        <!--                  <div class="font-medium">-->
+        <!--                    {{ scheduleItem.title }}-->
+        <!--                  </div>-->
+        <!--                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">-->
+        <!--                    @if (scheduleItem.time) {-->
+        <!--                      <div class="flex items-center">-->
+        <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>-->
+        <!--                        <div class="text-secondary text-md ml-1.5">-->
+        <!--                          {{ scheduleItem.time }}-->
+        <!--                        </div>-->
+        <!--                      </div>-->
+        <!--                    }-->
+        <!--                    @if (scheduleItem.location) {-->
+        <!--                      <div class="flex items-center">-->
+        <!--                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>-->
+        <!--                        <div class="text-secondary text-md ml-1.5">-->
+        <!--                          {{ scheduleItem.location }}-->
+        <!--                        </div>-->
+        <!--                      </div>-->
+        <!--                    }-->
+        <!--                  </div>-->
+        <!--                </div>-->
+        <!--                <button mat-icon-button>-->
+        <!--                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>-->
+        <!--                </button>-->
+        <!--              </div>-->
+        <!--            }-->
       </div>
     </div>
   </div>
 
   <!-- Main -->
   <div class="-mt-px flex-auto border-t pt-4 sm:pt-6">
+    <!-- Visit record Button -->
+    <div class="relative flex w-full max-w-screen-xl justify-center">
+      <div
+        class="bg-default border-primary absolute -top-16 flex h-20 w-20 cursor-pointer items-center justify-center rounded-full border-4"
+        matRipple
+        pTooltip="Hôm nay mẹ đi khám"
+        tooltipPosition="top"
+      >
+        <mat-icon class="icon-size -10" [svgIcon]="'heroicons_mini:pencil-square'"></mat-icon>
+      </div>
+    </div>
     <div class="mx-auto w-full max-w-screen-xl">
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
-        <!-- Home -->
-        <!--        <mat-tab label="Thông báo">-->
-        <!--          <ng-template matTabContent>-->
-        <!--            &lt;!&ndash;Thông báo&ndash;&gt;-->
-        <!--            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">-->
-        <!--              &lt;!&ndash; Task distribution &ndash;&gt;-->
-        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
-        <!--                <div class="flex flex-col items-start justify-between sm:flex-row">-->
-        <!--                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Thai nhi</div>-->
-        <!--                  <div class="mt-3 sm:ml-2 sm:mt-0">-->
-        <!--                    <button-->
-        <!--                      mat-raised-button-->
-        <!--                      matTooltip="(Ngày hiện tại)"-->
-        <!--                      aria-label="Button that displays a tooltip when focused or hovered over and the value of tooltip is current date"-->
-        <!--                    >-->
-        <!--                      Tuần nay-->
-        <!--                    </button>-->
-        <!--                    <mat-button-toggle-group value="this-week" #taskDistributionWeekSelector="matButtonToggleGroup">-->
-        <!--                      <mat-button-toggle value="last-week"-->
-        <!--                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-left'"></mat-icon-->
-        <!--                      ></mat-button-toggle>-->
-        <!--                      <mat-button-toggle value="last-week"-->
-        <!--                        ><mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:chevron-right'"></mat-icon-->
-        <!--                      ></mat-button-toggle>-->
-        <!--                    </mat-button-toggle-group>-->
-        <!--                    <div class="ValueOfWeek">Tuần 5</div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--                <div class="mt-6 flex flex-auto flex-col">-->
-        <!--                  &lt;!&ndash;            Hình ảnh thai nhi&ndash;&gt;-->
-        <!--                  &lt;!&ndash;            Câu nhắc tuần xuất khám&ndash;&gt;-->
-
-        <!--                  &lt;!&ndash;            <apx-chart&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              class="h-80 w-full flex-auto"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [chart]="chartTaskDistribution.chart"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [labels]="chartTaskDistribution.labels"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [legend]="chartTaskDistribution.legend"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [plotOptions]="chartTaskDistribution.plotOptions"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [states]="chartTaskDistribution.states"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [stroke]="chartTaskDistribution.stroke"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [theme]="chartTaskDistribution.theme"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [tooltip]="chartTaskDistribution.tooltip"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              [yaxis]="chartTaskDistribution.yaxis"&ndash;&gt;-->
-        <!--                  &lt;!&ndash;            ></apx-chart>&ndash;&gt;-->
-        <!--                </div>-->
-        <!--                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">-->
-        <!--                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
-        <!--                    <div class="text-5xl font-semibold leading-none tracking-tighter">-->
-        <!--                      &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}&ndash;&gt;-->
-        <!--                      &lt;!&ndash;                Data của ngày dự sinh&ndash;&gt;-->
-        <!--                    </div>-->
-        <!--                    <div class="text-secondary mt-1 text-center">Dự sinh</div>-->
-        <!--                    <div class="text-secondary mt-1 text-center">Còn xxx day</div>-->
-        <!--                  </div>-->
-        <!--                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">-->
-        <!--                    <div class="text-5xl font-semibold leading-none tracking-tighter">-->
-        <!--                      &lt;!&ndash;                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}&ndash;&gt;-->
-        <!--                      &lt;!&ndash;                Data của &ndash;&gt;-->
-        <!--                    </div>-->
-        <!--                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>-->
-        <!--                    <div class="text-secondary mt-1 text-center">Con bằng hat anh túc</div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-
-        <!--              &lt;!&ndash; Schedule &ndash;&gt;-->
-        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
-        <!--                <div class="flex flex-col items-start justify-between sm:flex-row">-->
-        <!--                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Schedule</div>-->
-        <!--                  <div class="mt-3 sm:ml-2 sm:mt-0">-->
-        <!--                    <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">-->
-        <!--                      <mat-button-toggle value="today">Today</mat-button-toggle>-->
-        <!--                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>-->
-        <!--                    </mat-button-toggle-group>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--                <div class="mt-2 flex flex-col divide-y">-->
-        <!--                  &lt;!&ndash;            @for (scheduleItem of data.schedule[scheduleDaySelector.value]; track trackByFn($index, scheduleItem)) {&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              <div class="flex flex-row items-center justify-between px-0.5 py-4">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                <div class="flex flex-col">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                  <div class="font-medium">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                    {{ scheduleItem.title }}&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                  <div class="-ml-0.5 mt-2 flex flex-col space-y-1 sm:mt-1 sm:flex-row sm:items-center sm:space-x-3 sm:space-y-0">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                    @if (scheduleItem.time) {&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                      <div class="flex items-center">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:clock'"></mat-icon>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        <div class="text-secondary text-md ml-1.5">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                          {{ scheduleItem.time }}&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                    }&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                    @if (scheduleItem.location) {&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                      <div class="flex items-center">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:map-pin'"></mat-icon>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        <div class="text-secondary text-md ml-1.5">&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                          {{ scheduleItem.location }}&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                    }&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                  </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                <button mat-icon-button>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                  <mat-icon [svgIcon]="'heroicons_mini:chevron-right'"></mat-icon>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;                </button>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;              </div>&ndash;&gt;-->
-        <!--                  &lt;!&ndash;            }&ndash;&gt;-->
-        <!--                </div>-->
-        <!--              </div>-->
-
-        <!--              &lt;!&ndash; Summary &ndash;&gt;-->
-        <!--              &lt;!&ndash; Github issues summary &ndash;&gt;-->
-        <!--              &lt;!&ndash;              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                <div class="flex flex-col items-start justify-between sm:flex-row">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Github Issues Summary</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  <div class="mt-3 sm:ml-2 sm:mt-0">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <mat-button-toggle value="last-week">Last Week</mat-button-toggle>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    </mat-button-toggle-group>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  &lt;!&ndash; New vs. Closed &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  <div class="flex flex-auto flex-col">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    <div class="text-secondary font-medium">New vs. Closed</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    <div class="flex flex-auto flex-col">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                      <apx-chart&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        class="h-80 w-full flex-auto"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [chart]="chartGithubIssues.chart"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [colors]="chartGithubIssues.colors"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [dataLabels]="chartGithubIssues.dataLabels"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [grid]="chartGithubIssues.grid"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [labels]="chartGithubIssues.labels"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [legend]="chartGithubIssues.legend"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [plotOptions]="chartGithubIssues.plotOptions"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [series]="chartGithubIssues.series[githubIssuesWeekSelector.value]"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [states]="chartGithubIssues.states"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [stroke]="chartGithubIssues.stroke"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [tooltip]="chartGithubIssues.tooltip"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [xaxis]="chartGithubIssues.xaxis"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                        [yaxis]="chartGithubIssues.yaxis"&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash;                      ></apx-chart>&ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  &lt;!&ndash; Overview &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  <div class="flex flex-col">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    <div class="text-secondary font-medium">Overview</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    <div class="mt-6 grid flex-auto grid-cols-4 gap-4">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; New issues &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; Closed &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; Fixed &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Fixed</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; Won't fix &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; Re-opened &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Re-opened</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      &lt;!&ndash; Needs triage &ndash;&gt;&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      <div&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      >&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="text-5xl font-semibold leading-none tracking-tight">&ndash;&gt;-->
-        <!--              &lt;!&ndash;                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                        <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                      </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                    </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                  </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;                </div>&ndash;&gt;-->
-        <!--              &lt;!&ndash;              </div>&ndash;&gt;-->
-        <!--            </div>-->
-        <!--          </ng-template>-->
-        <!--        </mat-tab>-->
-
         <mat-tab label="Bé con">
           <ng-template matTabContent>
             <!--Tính ngày dự sinh-->
@@ -319,19 +147,6 @@
                       </mat-form-field>
                     </div>
                   </div>
-                  <!-- Email field -->
-                  <!--                        <mat-form-field class="w-full">-->
-                  <!--                          <mat-label>Email</mat-label>-->
-                  <!--                          <input id="expectedDate" matInput [formControlName]="'expectedDate'" />-->
-                  <!--                          @if (signInForm.get('email').hasError('required')) {-->
-                  <!--                            <mat-error> Vui lòng nhập địa chỉ email</mat-error>-->
-                  <!--                          }-->
-                  <!--                          @if (signInForm.get('email').hasError('email')) {-->
-                  <!--                            <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>-->
-                  <!--                          }-->
-                  <!--                        </mat-form-field>-->
-
-                  <!-- Submit button -->
                   <button
                     class="fuse-mat-button-large mt-6 w-full"
                     mat-flat-button
@@ -398,69 +213,9 @@
                   <div class="h-6 w-6 rounded-full bg-pink-200"></div>
                 </div>
               </div>
-              <!--              &lt;!&ndash; Tuần  &ndash;&gt;-->
-              <!--              <div-->
-              <!--                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"-->
-              <!--                style="-->
-              <!--                  box-shadow:-->
-              <!--                    0 1px 1px rgba(0, 0, 0, 0.15),-->
-              <!--                    0 10px 0 -5px #eee,-->
-              <!--                    0 10px 1px -4px rgba(0, 0, 0, 0.15),-->
-              <!--                    0 20px 0 -10px #eee,-->
-              <!--                    0 20px 1px -9px rgba(0, 0, 0, 0.15);-->
-              <!--                "-->
-              <!--              >-->
-              <!--                <div class="flex h-full flex-col">-->
-              <!--                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>-->
-              <!--                  <div class="flex h-3/4 w-full items-center justify-center">-->
-              <!--                    <div class="flex flex-col items-center">-->
-              <!--                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-9xl">3</div>-->
-              <!--                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Tuần</div>-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                </div>-->
-
-              <!--                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">-->
-              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-              <!--                </div>-->
-              <!--                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">-->
-              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-              <!--                </div>-->
-              <!--              </div>-->
-              <!--              &lt;!&ndash; Ngày  &ndash;&gt;-->
-              <!--              <div-->
-              <!--                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"-->
-              <!--                style="-->
-              <!--                  box-shadow:-->
-              <!--                    0 1px 1px rgba(0, 0, 0, 0.15),-->
-              <!--                    0 10px 0 -5px #eee,-->
-              <!--                    0 10px 1px -4px rgba(0, 0, 0, 0.15),-->
-              <!--                    0 20px 0 -10px #eee,-->
-              <!--                    0 20px 1px -9px rgba(0, 0, 0, 0.15);-->
-              <!--                "-->
-              <!--              >-->
-              <!--                <div class="flex h-full flex-col">-->
-              <!--                  <div class="h-1/4 w-full self-start rounded-t-2xl bg-pink-500"></div>-->
-              <!--                  <div class="flex h-3/4 w-full items-center justify-center">-->
-              <!--                    <div class="flex flex-col items-center">-->
-              <!--                      <div class="text-7xl font-bold leading-none tracking-tight text-amber-500 sm:text-9xl">6</div>-->
-              <!--                      <div class="text-xl font-medium text-amber-600 dark:text-amber-500">Ngày</div>-->
-              <!--                    </div>-->
-              <!--                  </div>-->
-              <!--                </div>-->
-
-              <!--                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">-->
-              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-              <!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-              <!--                </div>-->
-              <!--                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">-->
-              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-              <!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-              <!--                </div>-->
-              <!--              </div>-->
             </div>
+
+            <!--Thai nhi-->
             <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Cấu trúc thai -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
@@ -572,395 +327,53 @@
                 </div>
               </div>
 
-              <!-- Summary -->
-              <!-- Github issues summary -->
-              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">
-                <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Biểu đồ cân nặng</div>
-                  <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <!--                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">-->
-                    <!--                      <mat-button-toggle value="last-week">Last Week</mat-button-toggle>-->
-                    <!--                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>-->
-                    <!--                    </mat-button-toggle-group>-->
-                  </div>
+                  <!--            <apx-chart-->
+                  <!--              class="h-80 w-full flex-auto"-->
+                  <!--              [chart]="chartTaskDistribution.chart"-->
+                  <!--              [labels]="chartTaskDistribution.labels"-->
+                  <!--              [legend]="chartTaskDistribution.legend"-->
+                  <!--              [plotOptions]="chartTaskDistribution.plotOptions"-->
+                  <!--              [series]="chartTaskDistribution.series[taskDistributionWeekSelector.value]"-->
+                  <!--              [states]="chartTaskDistribution.states"-->
+                  <!--              [stroke]="chartTaskDistribution.stroke"-->
+                  <!--              [theme]="chartTaskDistribution.theme"-->
+                  <!--              [tooltip]="chartTaskDistribution.tooltip"-->
+                  <!--              [yaxis]="chartTaskDistribution.yaxis"-->
+                  <!--            ></apx-chart>-->
                 </div>
-                <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">
-                  <!-- New vs. Closed -->
-                  <div class="flex flex-auto flex-col">
-                    <div class="text-secondary font-medium">Em bé & Tiêu chuẩn</div>
-                    <div class="flex flex-auto flex-col">
-                      <!--                      <apx-chart-->
-                      <!--                        class="h-80 w-full flex-auto"-->
-                      <!--&lt;!&ndash;                        [chart]="chartWeightOfFetal.chart"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [colors]="chartWeightOfFetal.colors"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [dataLabels]="chartWeightOfFetal.dataLabels"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [grid]="chartWeightOfFetal.grid"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [labels]="chartWeightOfFetal.labels"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [legend]="chartWeightOfFetal.legend"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [plotOptions]="chartWeightOfFetal.plotOptions"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [series]="chartWeightOfFetal.series[githubIssuesWeekSelector.value]"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [states]="chartWeightOfFetal.states"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [stroke]="chartWeightOfFetal.stroke"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [tooltip]="chartWeightOfFetal.tooltip"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [xaxis]="chartWeightOfFetal.xaxis"&ndash;&gt;-->
-                      <!--&lt;!&ndash;                        [yaxis]="chartWeightOfFetal.yaxis"&ndash;&gt;-->
-                      <!--                      ></apx-chart>-->
+                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
+                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                    <div class="text-5xl font-semibold leading-none tracking-tighter">
+                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
+                      <!--                Data của ngày dự sinh-->
                     </div>
+                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
+                    <div class="text-secondary mt-1 text-center">Ngày xxx</div>
                   </div>
-                  <!-- Overview -->
-                  <div class="flex flex-col">
-                    <div class="text-secondary font-medium">Overview</div>
-                    <div class="mt-6 grid flex-auto grid-cols-4 gap-4">
-                      <!-- New issues -->
-                      <div
-                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}-->
-                        </div>
-                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>
-                      </div>
-                      <!-- Closed -->
-                      <div
-                        class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}-->
-                        </div>
-                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>
-                      </div>
-                      <!-- Fixed -->
-                      <div
-                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['fixed'] }}-->
-                        </div>
-                        <div class="mt-1 text-center text-sm font-medium">Fixed</div>
-                      </div>
-                      <!-- Won't fix -->
-                      <div
-                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['wont-fix'] }}-->
-                        </div>
-                        <div class="mt-1 text-center text-sm font-medium">Won't Fix</div>
-                      </div>
-                      <!-- Re-opened -->
-                      <div
-                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['re-opened'] }}-->
-                        </div>
-                        <div class="mt-1 text-center text-sm font-medium">Re-opened</div>
-                      </div>
-                      <!-- Needs triage -->
-                      <div
-                        class="text-secondary col-span-2 flex flex-col items-center justify-center rounded-2xl bg-gray-100 px-1 py-8 sm:col-span-1 dark:bg-white dark:bg-opacity-5"
-                      >
-                        <div class="text-5xl font-semibold leading-none tracking-tight">
-                          <!--                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['needs-triage'] }}-->
-                        </div>
-                        <div class="mt-1 text-center text-sm font-medium">Needs Triage</div>
-                      </div>
+                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
+                    <div class="text-5xl font-semibold leading-none tracking-tighter">
+                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
+                      <!--                Data của -->
+                    </div>
+                    <div class="text-secondary mt-1 text-center">Kích thước chuẩn</div>
+                    <div class="text-secondary mt-1 text-center">
+                      @if (countWeek > '0007') {
+                        {{ standardResource.at(countWeekNumber - 8)?.weight }} gam
+                      } @else {
+                        Chưa có dữ liệu
+                      }
                     </div>
                   </div>
                 </div>
               </div>
+
+              <!-- Quan lý thai nhi -->
+              <div class="bg-card flex flex-auto flex-col rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>
+              </div>
             </div>
           </ng-template>
         </mat-tab>
-
-        <!--        &lt;!&ndash; Budget &ndash;&gt;-->
-        <!--        <mat-tab label="Budget">-->
-        <!--          <ng-template matTabContent>-->
-        <!--            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-6">-->
-        <!--              &lt;!&ndash; Budget distribution &ndash;&gt;-->
-        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-3 lg:col-span-4">-->
-        <!--                <div class="truncate text-lg font-medium leading-6 tracking-tight">Budget Distribution</div>-->
-        <!--                <div class="flex flex-auto flex-col">-->
-        <!--                  <apx-chart-->
-        <!--                    class="h-80 w-full flex-auto"-->
-        <!--                    [chart]="chartBudgetDistribution.chart"-->
-        <!--                    [colors]="chartBudgetDistribution.colors"-->
-        <!--                    [dataLabels]="chartBudgetDistribution.dataLabels"-->
-        <!--                    [markers]="chartBudgetDistribution.markers"-->
-        <!--                    [plotOptions]="chartBudgetDistribution.plotOptions"-->
-        <!--                    [series]="chartBudgetDistribution.series"-->
-        <!--                    [stroke]="chartBudgetDistribution.stroke"-->
-        <!--                    [tooltip]="chartBudgetDistribution.tooltip"-->
-        <!--                    [xaxis]="chartBudgetDistribution.xaxis"-->
-        <!--                    [yaxis]="chartBudgetDistribution.yaxis"-->
-        <!--                  ></apx-chart>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              &lt;!&ndash; Expense &ndash;&gt;-->
-        <!--              <div class="grid grid-cols-1 gap-y-6 sm:col-span-3 lg:col-span-2">-->
-        <!--                &lt;!&ndash; Weekly expenses &ndash;&gt;-->
-        <!--                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2">-->
-        <!--                  <div class="flex items-start justify-between">-->
-        <!--                    <div class="truncate text-lg font-medium leading-6 tracking-tight">Weekly Expenses</div>-->
-        <!--                    <div class="-mr-3 -mt-2 ml-2">-->
-        <!--                      <button mat-icon-button [matMenuTriggerFor]="weeklyExpensesMenu">-->
-        <!--                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:ellipsis-vertical'"></mat-icon>-->
-        <!--                      </button>-->
-        <!--                      <mat-menu #weeklyExpensesMenu="matMenu">-->
-        <!--                        <button mat-menu-item>This week</button>-->
-        <!--                        <button mat-menu-item>Last week</button>-->
-        <!--                        <button mat-menu-item>2 weeks ago</button>-->
-        <!--                      </mat-menu>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                  <div class="mt-1 flex items-center">-->
-        <!--                    <div class="flex flex-col">-->
-        <!--                      <div class="text-3xl font-semibold leading-tight tracking-tight">-->
-        <!--                        {{ data.weeklyExpenses.amount | currency: 'USD' }}-->
-        <!--                      </div>-->
-        <!--                      <div class="flex items-center">-->
-        <!--                        <mat-icon class="icon-size-5 mr-1 text-green-500" [svgIcon]="'heroicons_solid:arrow-trending-down'"></mat-icon>-->
-        <!--                        <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">-->
-        <!--                          <span class="text-green-500">2%</span>-->
-        <!--                          below projected-->
-        <!--                        </div>-->
-        <!--                      </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="ml-8 flex flex-auto flex-col">-->
-        <!--                      <apx-chart-->
-        <!--                        class="h-16 w-full flex-auto"-->
-        <!--                        [chart]="chartWeeklyExpenses.chart"-->
-        <!--                        [colors]="chartWeeklyExpenses.colors"-->
-        <!--                        [series]="chartWeeklyExpenses.series"-->
-        <!--                        [stroke]="chartWeeklyExpenses.stroke"-->
-        <!--                        [tooltip]="chartWeeklyExpenses.tooltip"-->
-        <!--                        [xaxis]="chartWeeklyExpenses.xaxis"-->
-        <!--                        [yaxis]="chartWeeklyExpenses.yaxis"-->
-        <!--                      ></apx-chart>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--                &lt;!&ndash; Monthly expenses &ndash;&gt;-->
-        <!--                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2">-->
-        <!--                  <div class="flex items-start justify-between">-->
-        <!--                    <div class="truncate text-lg font-medium leading-6 tracking-tight">Monthly Expenses</div>-->
-        <!--                    <div class="-mr-3 -mt-2 ml-2">-->
-        <!--                      <button mat-icon-button [matMenuTriggerFor]="monthlyExpensesMenu">-->
-        <!--                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:ellipsis-vertical'"></mat-icon>-->
-        <!--                      </button>-->
-        <!--                      <mat-menu #monthlyExpensesMenu="matMenu">-->
-        <!--                        <button mat-menu-item>This week</button>-->
-        <!--                        <button mat-menu-item>Last week</button>-->
-        <!--                        <button mat-menu-item>2 weeks ago</button>-->
-        <!--                      </mat-menu>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                  <div class="mt-1 flex items-center">-->
-        <!--                    <div class="flex flex-col">-->
-        <!--                      <div class="text-3xl font-semibold leading-tight tracking-tight">-->
-        <!--                        {{ data.monthlyExpenses.amount | currency: 'USD' }}-->
-        <!--                      </div>-->
-        <!--                      <div class="flex items-center">-->
-        <!--                        <mat-icon class="icon-size-5 mr-1 text-red-500" [svgIcon]="'heroicons_solid:arrow-trending-up'"></mat-icon>-->
-        <!--                        <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">-->
-        <!--                          <span class="text-red-500">4%</span>-->
-        <!--                          above projected-->
-        <!--                        </div>-->
-        <!--                      </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="ml-8 flex flex-auto flex-col">-->
-        <!--                      <apx-chart-->
-        <!--                        class="h-16 w-full flex-auto"-->
-        <!--                        [chart]="chartMonthlyExpenses.chart"-->
-        <!--                        [colors]="chartMonthlyExpenses.colors"-->
-        <!--                        [series]="chartMonthlyExpenses.series"-->
-        <!--                        [stroke]="chartMonthlyExpenses.stroke"-->
-        <!--                        [tooltip]="chartMonthlyExpenses.tooltip"-->
-        <!--                        [xaxis]="chartMonthlyExpenses.xaxis"-->
-        <!--                        [yaxis]="chartMonthlyExpenses.yaxis"-->
-        <!--                      ></apx-chart>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--                &lt;!&ndash; Yearly expenses &ndash;&gt;-->
-        <!--                <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2">-->
-        <!--                  <div class="flex items-start justify-between">-->
-        <!--                    <div class="truncate text-lg font-medium leading-6 tracking-tight">Yearly Expenses</div>-->
-        <!--                    <div class="-mr-3 -mt-2 ml-2">-->
-        <!--                      <button mat-icon-button [matMenuTriggerFor]="yearlyExpensesMenu">-->
-        <!--                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:ellipsis-vertical'"></mat-icon>-->
-        <!--                      </button>-->
-        <!--                      <mat-menu #yearlyExpensesMenu="matMenu">-->
-        <!--                        <button mat-menu-item>This week</button>-->
-        <!--                        <button mat-menu-item>Last week</button>-->
-        <!--                        <button mat-menu-item>2 weeks ago</button>-->
-        <!--                      </mat-menu>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                  <div class="mt-1 flex items-center">-->
-        <!--                    <div class="flex flex-col">-->
-        <!--                      <div class="text-3xl font-semibold leading-tight tracking-tight">-->
-        <!--                        {{ data.yearlyExpenses.amount | currency: 'USD' }}-->
-        <!--                      </div>-->
-        <!--                      <div class="flex items-center">-->
-        <!--                        <mat-icon class="icon-size-5 mr-1 text-red-500" [svgIcon]="'heroicons_solid:arrow-trending-up'"></mat-icon>-->
-        <!--                        <div class="text-secondary whitespace-nowrap text-sm font-medium leading-none">-->
-        <!--                          <span class="text-red-500">3%</span>-->
-        <!--                          above projected-->
-        <!--                        </div>-->
-        <!--                      </div>-->
-        <!--                    </div>-->
-        <!--                    <div class="ml-8 flex flex-auto flex-col">-->
-        <!--                      <apx-chart-->
-        <!--                        class="h-16 w-full flex-auto"-->
-        <!--                        [chart]="chartYearlyExpenses.chart"-->
-        <!--                        [colors]="chartYearlyExpenses.colors"-->
-        <!--                        [series]="chartYearlyExpenses.series"-->
-        <!--                        [stroke]="chartYearlyExpenses.stroke"-->
-        <!--                        [tooltip]="chartYearlyExpenses.tooltip"-->
-        <!--                        [xaxis]="chartYearlyExpenses.xaxis"-->
-        <!--                        [yaxis]="chartYearlyExpenses.yaxis"-->
-        <!--                      ></apx-chart>-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--              &lt;!&ndash; Budget details &ndash;&gt;-->
-        <!--              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-6">-->
-        <!--                <div class="truncate text-lg font-medium leading-6 tracking-tight">Budget Details</div>-->
-        <!--                <div class="mt-2 flex flex-auto flex-col overflow-x-auto">-->
-        <!--                  <table class="min-w-240 overflow-y-visible" mat-table [dataSource]="data.budgetDetails.rows">-->
-        <!--                    &lt;!&ndash; Type &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="type" sticky>-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Type</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">-->
-        <!--                        <span class="flex items-center">-->
-        <!--                          <span-->
-        <!--                            class="h-2 w-2 rounded-full"-->
-        <!--                            [ngClass]="{-->
-        <!--                              'bg-blue-500': budget.id === 1,-->
-        <!--                              'bg-red-500': budget.id === 2,-->
-        <!--                              'bg-green-500': budget.id === 3,-->
-        <!--                              'bg-amber-500': budget.id === 4,-->
-        <!--                              'bg-indigo-500': budget.id === 5,-->
-        <!--                            }"-->
-        <!--                          ></span>-->
-        <!--                          <span class="ml-3 leading-4">{{ budget.type }}</span>-->
-        <!--                        </span>-->
-        <!--                      </td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    &lt;!&ndash; Total &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="total">-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Total Budget</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">-->
-        <!--                        <span class="text-right font-medium">-->
-        <!--                          {{ budget.total | currency: 'USD' }}-->
-        <!--                        </span>-->
-        <!--                      </td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    &lt;!&ndash; Expenses amount &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="expensesAmount">-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Expenses (USD)</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">-->
-        <!--                        {{ budget.expensesAmount | currency: 'USD' }}-->
-        <!--                      </td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    &lt;!&ndash; Expenses percentage &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="expensesPercentage">-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Expenses (%)</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">{{ budget.expensesPercentage }}%</td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    &lt;!&ndash; Remaining amount &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="remainingAmount">-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Remaining (USD)</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">-->
-        <!--                        {{ budget.remainingAmount | currency: 'USD' }}-->
-        <!--                      </td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    &lt;!&ndash; Remaining percentage &ndash;&gt;-->
-        <!--                    <ng-container matColumnDef="remainingPercentage">-->
-        <!--                      <th mat-header-cell *matHeaderCellDef>Remaining (%)</th>-->
-        <!--                      <td mat-cell *matCellDef="let budget">-->
-        <!--                        <span class="flex items-center">-->
-        <!--                          <span>-->
-        <!--                            &lt;!&ndash; Low &ndash;&gt;-->
-        <!--                            @if (budget.remainingPercentage < 30) {-->
-        <!--                              <span class="flex h-4 w-1 items-end overflow-hidden rounded bg-red-200">-->
-        <!--                                <span class="flex h-1/3 w-full bg-red-600"></span>-->
-        <!--                              </span>-->
-        <!--                            }-->
-        <!--                            &lt;!&ndash; Medium &ndash;&gt;-->
-        <!--                            @if (budget.remainingPercentage >= 30 && budget.remainingPercentage < 80) {-->
-        <!--                              <span class="flex h-4 w-1 items-end overflow-hidden rounded bg-orange-200">-->
-        <!--                                <span class="flex h-2/4 w-full bg-orange-400"></span>-->
-        <!--                              </span>-->
-        <!--                            }-->
-        <!--                            &lt;!&ndash; High &ndash;&gt;-->
-        <!--                            @if (budget.remainingPercentage >= 80) {-->
-        <!--                              <span class="flex h-4 w-1 items-end overflow-hidden rounded bg-green-100">-->
-        <!--                                <span class="flex h-full w-full bg-green-400"></span>-->
-        <!--                              </span>-->
-        <!--                            }-->
-        <!--                          </span>-->
-        <!--                          <span class="ml-3 leading-4">{{ budget.remainingPercentage }}%</span>-->
-        <!--                        </span>-->
-        <!--                      </td>-->
-        <!--                    </ng-container>-->
-
-        <!--                    <tr mat-header-row *matHeaderRowDef="data.budgetDetails.columns"></tr>-->
-        <!--                    <tr mat-row *matRowDef="let row; columns: data.budgetDetails.columns"></tr>-->
-        <!--                  </table>-->
-        <!--                </div>-->
-        <!--              </div>-->
-        <!--            </div>-->
-        <!--          </ng-template>-->
-        <!--        </mat-tab>-->
-
-        <!-- Team -->
-        <!--        <mat-tab>-->
-        <!--          <ng-template mat-tab-label>-->
-        <!--            <span class="inline-flex items-center space-x-2">-->
-        <!--              <span class="">Team</span>-->
-        <!--              <span class="bg-primary-100 text-on-primary-100 rounded-full px-2 py-1 text-sm">9</span>-->
-        <!--            </span>-->
-        <!--          </ng-template>-->
-        <!--          <ng-template matTabContent>-->
-        <!--            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">-->
-        <!--              @for (member of data.teamMembers; track member) {-->
-        <!--                <div class="bg-card flex flex-auto flex-col items-center overflow-hidden rounded-2xl shadow">-->
-        <!--                  &lt;!&ndash; Avatar & Info &ndash;&gt;-->
-        <!--                  <div class="flex w-full flex-auto flex-col p-8 text-center">-->
-        <!--                    <div class="mx-auto h-32 w-32 overflow-hidden rounded-full">-->
-        <!--                      <img class="h-full w-full object-cover" [src]="member.avatar" />-->
-        <!--                    </div>-->
-        <!--                    <div class="mt-6 font-medium">-->
-        <!--                      {{ member.name }}-->
-        <!--                    </div>-->
-        <!--                    <div class="text-secondary">-->
-        <!--                      {{ member.title }}-->
-        <!--                    </div>-->
-        <!--                  </div>-->
-        <!--                  &lt;!&ndash; Email & Phone &ndash;&gt;-->
-        <!--                  <div class="flex w-full items-center divide-x border-t">-->
-        <!--                    <a class="hover:bg-hover flex flex-auto items-center justify-center py-4" [href]="'mailto:' + member.email">-->
-        <!--                      <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:envelope'"></mat-icon>-->
-        <!--                      <span class="ml-2">Email</span>-->
-        <!--                    </a>-->
-        <!--                    <a class="hover:bg-hover flex flex-auto items-center justify-center py-4" [href]="'tel:' + member.phone">-->
-        <!--                      <mat-icon class="text-hint icon-size-5" [svgIcon]="'heroicons_solid:phone'"></mat-icon>-->
-        <!--                      <span class="ml-2">Call</span>-->
-        <!--                    </a>-->
-        <!--                  </div>-->
-        <!--                </div>-->
-        <!--              }-->
-        <!--            </div>-->
-        <!--          </ng-template>-->
-        <!--        </mat-tab>-->
       </mat-tab-group>
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <mat-tab label="Bài viết nên đọc">

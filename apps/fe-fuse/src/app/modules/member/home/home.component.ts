@@ -1,7 +1,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
-
-import { ChangeDetectionStrategy, Component, inject, Input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -9,10 +8,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule, MatRippleModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -24,54 +23,12 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
-import { NgxSplideModule } from 'ngx-splide';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnancy-record.service';
+import { PregnancyWeekInfoComponent } from '../pregnancy-week-info/pregnancy-week-info.component';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
-//
-// @Component({
-//   selector: 'expansion-duedate',
-//   templateUrl: 'expansion-overview-example.html',
-//   imports: [MatExpansionModule],
-//   changeDetection: ChangeDetectionStrategy.OnPush,
-// })
-// export class ExpansionOverviewExample {
-//   readonly panelOpenState = signal(false);
-// }
-
-@Component({
-  selector: 'app-dialog-content-price',
-  imports: [MatDialogModule, MatButtonModule, FuseCardComponent, MatIcon],
-  templateUrl: './dialog-content-price.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DialogContentPriceComponent {
-  // constructor(
-  //   private scroller: ViewportScroller,
-  //   private router: Router,
-  // ) {}
-  // ngOnInit() {
-  //   this.router.navigate(['/home']);
-  // }
-
-  // //Scroll
-  // goDown1() {
-  //   this.scroller.scrollToAnchor('listCard');
-  // }
-
-  goDown2() {
-    //this.scroller.scrollToAnchor("targetGreen");
-    document.getElementById('header')!.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-      inline: 'nearest',
-    });
-  }
-  //
-  // goDown3() {
-  //   this.router.navigate([], { fragment: 'targetBlue' });
-  // }
-}
 
 @Component({
   selector: 'app-home',
@@ -102,6 +59,9 @@ export class DialogContentPriceComponent {
     MatDatepickerModule,
     MatExpansionModule,
     FuseCardComponent,
+    TooltipModule,
+    PregnancyWeekInfoComponent,
+    ButtonModule,
     NgxSplideModule,
     MatSlider,
     MatSliderThumb,
@@ -192,6 +152,9 @@ export class HomeComponent {
   private _countWeek: number = this._currentPregnancyWeek;
   public get countWeek(): string {
     return this._countWeek.toString().padStart(4, '0');
+  }
+  public get countWeekNumber(): number {
+    return this._countWeek;
   }
   standardResource = [
     { week: 1, weight: 0 },
@@ -288,14 +251,6 @@ export class HomeComponent {
     }
   }
 
-  //tooltip for Hôm nay mẹ đi khám
-  @Input() tooltip: string;
-  readonly dialog = inject(MatDialog);
-  openDialog() {
-    this.dialog.open(DialogContentPriceComponent);
-  }
-  //end Tooltip
-
   constructor(private _recordService: PregnancyRecordService) {
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
@@ -304,7 +259,7 @@ export class HomeComponent {
           this.weightMetricId = metric.metric_id;
         }
       });
-      console.log(this.metrics);
+      // console.log(this.metrics);
     });
   }
 

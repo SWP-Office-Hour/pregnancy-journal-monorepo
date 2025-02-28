@@ -1,0 +1,74 @@
+.book-title {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: capitalize;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+
+/* Nội dung sách */
+.book-content p {
+  max-width: 700px; /* Giới hạn chiều rộng */
+  width: 90%; /* Đảm bảo hiển thị tốt trên màn hình nhỏ */
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 auto 20px; /* Căn giữa nội dung */
+  line-height: 1.6; /* Khoảng cách dòng hợp lý */
+  text-align: justify;
+}
+
+/* Highlight từ quan trọng */
+.highlight {
+  background-color: #ffc107;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 14px;
+  color: #fff;
+  box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+  margin: 0 2px;
+}
+/* Danh sách (ul) */
+.book-content ul {
+  list-style: none; /* Bỏ dấu chấm mặc định */
+  padding: 0;
+  margin-left: 20px;
+}
+
+/* Danh sách (li) */
+.book-content li {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 10px;
+  background: #fce4ec; /* Nền hồng nhạt */
+  border-left: 5px solid #ec4899; /* Viền trái đỏ */
+  border-radius: 6px;
+  margin-bottom: 6px;
+}
+/* Style cho tiêu đề h3 */
+.book-content h3 {
+  font-size: 16px;
+  font-weight: 700;
+  color: #d35400; /* Màu cam đậm */
+  text-transform: uppercase;
+  padding-left: 12px; /* Tạo khoảng cách giữa chữ và viền */
+  border-radius: 6px;
+}
+
+.highlight-warning {
+  background-color: #d32f2f;
+} /* Đỏ đậm */
+
+/* Hiệu ứng hover */
+.highlight:hover {
+  transform: scale(1.05);
+  filter: brightness(1.2);
+}
+.warning {
+  background-color: #ffebee;
+  padding: 12px;
+  border-left: 5px solid #d32f2f;
+  font-weight: bold;
+  /*color: #d32f2f;*/
+}
