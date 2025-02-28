@@ -69,6 +69,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
+  styleUrl: 'home.component.css',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
