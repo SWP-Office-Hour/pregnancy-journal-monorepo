@@ -244,7 +244,7 @@ export class QuickChatComponent implements OnInit, AfterViewInit, OnDestroy {
     // Create the backdrop element
     this._overlay = this._renderer2.createElement('div');
 
-    // Return if overlay couldn't be create for some reason
+    // Return if overlay couldn't be created for some reason
     if (!this._overlay) {
       return;
     }
@@ -277,7 +277,9 @@ export class QuickChatComponent implements OnInit, AfterViewInit, OnDestroy {
     // If the backdrop still exists...
     if (this._overlay) {
       // Remove the backdrop
+      // @ts-ignore
       this._overlay.parentNode.removeChild(this._overlay);
+      // @ts-ignore
       this._overlay = null;
     }
 

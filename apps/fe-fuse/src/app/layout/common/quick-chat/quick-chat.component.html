@@ -1,7 +1,7 @@
-<div class="fixed bottom-0 top-0 w-full sm:w-96 lg:sticky lg:left-full lg:h-screen lg:w-16 lg:shadow">
+<div class="fixed bottom-0 top-0 w-full sm:w-96 lg:sticky lg:left-full lg:h-screen lg:w-0 lg:shadow">
   <div
     [ngClass]="{
-      '-translate-x-full shadow sm:-translate-x-96 lg:-translate-x-80': opened,
+      'lg:-translate-x-100 -translate-x-full shadow sm:-translate-x-96': opened,
       'translate-x-0': !opened,
     }"
     class="bg-card duration-400 ease-drawer flex h-full w-full flex-col transition-transform sm:w-96"
@@ -14,7 +14,7 @@
           <div class="flex-0 flex w-16 items-center justify-center">
             <mat-icon class="icon-size-6" [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
           </div>
-          <div class="text-secondary text-lg font-medium">Team Chat</div>
+          <div class="text-secondary text-lg font-medium">Quick Chat</div>
           <button class="ml-auto mr-4" mat-icon-button>
             <mat-icon [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
           </button>
