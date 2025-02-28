@@ -5,6 +5,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
+import { blogAuthGuard, blogNoAuthGuard } from './modules/blog-masonry/blog-auth.guard';
 import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
 import { CalendarService } from './modules/calendar/calendar.service';
@@ -53,11 +54,17 @@ export const appRoutes: Route[] = [
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
       { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
       { path: 'sign-in-with-google', loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes') },
-      {
-        path: 'blog',
-        loadChildren: () => blogMasonryRoutes,
-      },
     ],
+  },
+
+  {
+    path: 'blog',
+    component: LayoutComponent,
+    canActivate: [blogNoAuthGuard],
+    data: {
+      layout: 'empty',
+    },
+    loadChildren: () => blogMasonryRoutes,
   },
 
   // Auth routes for authenticated users
@@ -149,6 +156,15 @@ export const appRoutes: Route[] = [
         loadComponent: () => UserProfileComponent,
       },
     ],
+  },
+  {
+    path: 'authenticated/blog',
+    component: LayoutComponent,
+    canActivate: [blogAuthGuard],
+    resolve: {
+      initialData: initialDataResolver,
+    },
+    loadChildren: () => blogMasonryRoutes,
   },
 
   {
