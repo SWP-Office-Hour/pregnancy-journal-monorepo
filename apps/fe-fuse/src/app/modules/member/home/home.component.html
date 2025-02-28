@@ -1,39 +1,54 @@
 <div class="flex min-w-0 flex-auto flex-col">
   <!-- Header -->
 
-  <div class="bg-card">
-    <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
-      <!--Wellcome-->
-      <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
-        <!-- Avatar and name -->
-        <div class="flex min-w-0 flex-auto items-center">
-          <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">
-            <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />
-          </div>
-          <div class="ml-4 flex min-w-0 flex-col">
-            <ng-container *transloco="let t">
-              <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">{{ t('welcome-back') }}, Brian!</div>
-            </ng-container>
-            <div class="flex items-center">
-              <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
-              <div class="text-secondary ml-1.5 truncate leading-6">You have 2 new messages and 15 new tasks</div>
+  <div class="flex flex-col bg-transparent">
+    <div class="box bottom z-90 w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100" [class.box-hover]="isButtonHovered">
+      <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
+        <!--Wellcome-->
+        <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
+          <!-- Avatar and name -->
+          <div class="flex min-w-0 flex-auto items-center">
+            <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">
+              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />
+            </div>
+            <div class="ml-4 flex min-w-0 flex-col">
+              <ng-container *transloco="let t">
+                <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">
+                  {{ t('welcome-back') }}, Brian!
+                </div>
+              </ng-container>
+              <div class="flex items-center">
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
+                <div class="text-secondary ml-1.5 truncate leading-6">You have 2 new messages and 15 new tasks</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- Visit record Button -->
-      <div
-        class="bg-default border-primary -mb-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"
-        matRipple
-        pTooltip="Hôm nay mẹ đi khám"
-        tooltipPosition="top"
-      >
-        <mat-icon class="icon-size -10" [svgIcon]="'heroicons_mini:pencil-square'"></mat-icon>
-      </div>
     </div>
+    <!-- Visit record Button -->
+    <a
+      class="trackingButton bg-default border-primary z-90 -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"
+      matRipple
+      pTooltip="Hôm nay mẹ đi khám"
+      tooltipPosition="top"
+      [routerLink]="'/record'"
+      (mouseenter)="isButtonHovered = true"
+      (mouseleave)="isButtonHovered = false"
+    >
+      <i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+          <path
+            fill="#fff"
+            d="m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0"
+          />
+        </svg>
+      </i>
+    </a>
+  </div>
 
-    <!-- Main -->
-    <div class="-mt-px flex-auto border-t pt-4 sm:pt-6"></div>
+  <!-- Main -->
+  <div class="-mt-px flex-auto pt-4 sm:pt-6">
     <div class="mx-auto w-full max-w-screen-xl">
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <mat-tab label="Bé con">
@@ -174,38 +189,38 @@
                 <div class="list">
                   <div class="item">
                     <img src="images/fetal-growth/Female_View_0001.jpg" />
-                    <div class="content">
-                      <div class="author">LUNDEV</div>
-                      <div class="title">DESIGN SLIDER</div>
-                      <div class="topic">ANIMAL</div>
-                      <div class="des">
-                        <!-- lorem 50 -->
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque
-                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,
-                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
-                      </div>
-                      <div class="buttons">
-                        <button>SEE MORE</button>
-                        <button>SUBSCRIBE</button>
-                      </div>
-                    </div>
+                    <!--                    <div class="content">-->
+                    <!--                      <div class="author">LUNDEV</div>-->
+                    <!--                      <div class="title">DESIGN SLIDER</div>-->
+                    <!--                      <div class="topic">ANIMAL</div>-->
+                    <!--                      <div class="des">-->
+                    <!--                        &lt;!&ndash; lorem 50 &ndash;&gt;-->
+                    <!--                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque-->
+                    <!--                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,-->
+                    <!--                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
+                    <!--                      </div>-->
+                    <!--                      <div class="buttons">-->
+                    <!--                        <button>SEE MORE</button>-->
+                    <!--                        <button>SUBSCRIBE</button>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
                   </div>
                   <div class="item">
                     <img src="images/fetal-growth/Female_View_0002.jpg" />
-                    <div class="content">
-                      <div class="author">LUNDEV</div>
-                      <div class="title">DESIGN SLIDER</div>
-                      <div class="topic">ANIMAL</div>
-                      <div class="des">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque
-                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,
-                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
-                      </div>
-                      <div class="buttons">
-                        <button>SEE MORE</button>
-                        <button>SUBSCRIBE</button>
-                      </div>
-                    </div>
+                    <!--                    <div class="content">-->
+                    <!--                      <div class="author">LUNDEV</div>-->
+                    <!--                      <div class="title">DESIGN SLIDER</div>-->
+                    <!--                      <div class="topic">ANIMAL</div>-->
+                    <!--                      <div class="des">-->
+                    <!--                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque-->
+                    <!--                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,-->
+                    <!--                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
+                    <!--                      </div>-->
+                    <!--                      <div class="buttons">-->
+                    <!--                        <button>SEE MORE</button>-->
+                    <!--                        <button>SUBSCRIBE</button>-->
+                    <!--                      </div>-->
+                    <!--                    </div>-->
                   </div>
                   <div class="item">
                     <img src="images/fetal-growth/Female_View_0003.jpg" />

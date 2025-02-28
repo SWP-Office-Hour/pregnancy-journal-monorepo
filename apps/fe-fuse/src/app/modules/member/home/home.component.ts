@@ -20,6 +20,7 @@ import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@ngneat/transloco';
 import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -66,6 +67,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     NgxSplideModule,
     MatSlider,
     MatSliderThumb,
+    RouterLink,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
@@ -272,4 +274,5 @@ export class HomeComponent {
   }
   // protected readonly TrackedIncrementalBuildStrategy = TrackedIncrementalBuildStrategy;
   protected readonly Number = Number;
+  isButtonHovered = false;
 }
