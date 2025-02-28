@@ -1,11 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+.box {
+  --r: 50px; /* control the rounded part*/
+  --s: 50px; /* control the size of the cut */
+  --a: 30deg; /* control the depth of the curvature*/
+  background: linear-gradient(180deg, #fff, #d91656);
+  --_m: 0 / calc(2 * var(--r)) calc(2 * var(--r)) no-repeat radial-gradient(50% 50%, #000 calc(100% - 1px), #0000);
+  --_d: (var(--s) + var(--r)) * cos(var(--a));
+  mask:
+    calc(50% + var(--_d)) var(--_m),
+    calc(50% - var(--_d)) var(--_m),
+    radial-gradient(var(--s) at 50% calc(-1 * sin(var(--a)) * var(--s)), #0000 100%, #000 calc(100% + 1px)) 0 calc(var(--r) * (1 - sin(var(--a))))
+      no-repeat,
+    linear-gradient(90deg, #000 calc(50% - var(--_d)), #0000 0 calc(50% + var(--_d)), #000 0);
+}
+
+.box-hover {
+  --r: 40px;
+  --s: 80px;
+  --a: 25deg;
+}
+.bottom {
+  --_m: 100% / calc(2 * var(--r)) calc(2 * var(--r)) no-repeat radial-gradient(50% 50%, #000 calc(100% - 1px), #0000);
+  mask:
+    calc(50% + var(--_d)) var(--_m),
+    calc(50% - var(--_d)) var(--_m),
+    radial-gradient(var(--s) at 50% calc(100% + sin(var(--a)) * var(--s)), #0000 100%, #000 calc(100% + 1px)) 0 calc(var(--r) * (sin(var(--a)) - 1))
+      no-repeat,
+    linear-gradient(90deg, #000 calc(50% - var(--_d)), #0000 0 calc(50% + var(--_d)), #000 0);
+}
+
 body {
   margin: 0;
-  background-color: #000;
-  color: #eee;
-  font-family: Poppins;
-  font-size: 12px;
 }
+
 a {
   text-decoration: none;
 }
@@ -305,5 +331,211 @@ header a {
   }
   .carousel .list .item .content .title {
     font-size: 30px;
+  }
+}
+/*Tracking Button*/
+.trackingButton {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-image: linear-gradient(
+    120deg,
+    #7afffb,
+    #79fcff,
+    #75eaff,
+    #6eccff,
+    #67a4ff,
+    #5f73ff,
+    #7156ff,
+    #9b4eff,
+    #c547ff,
+    #e940ff,
+    #ff3cfc,
+    #ff3bf2
+  );
+  background-position: top left;
+  background-size: 100%;
+  box-shadow:
+    0px 0px 400px rgba(255, 59, 242, 1),
+    0px 0px 200px rgba(255, 59, 242, 0.75),
+    0px 0px 100px rgba(255, 59, 242, 0.5),
+    0px 0px 50px rgba(255, 59, 242, 0.35),
+    0px 0px 25px rgba(255, 59, 242, 0.2);
+  border-radius: 100%;
+  border: none;
+  margin: 0;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.trackingButton:hover {
+  box-shadow:
+    0px 0px 400px rgba(122, 255, 251, 1),
+    0px 0px 200px rgba(122, 255, 251, 0.75),
+    0px 0px 100px rgba(122, 255, 251, 0.5),
+    0px 0px 50px rgba(122, 255, 251, 0.35),
+    0px 0px 25px rgba(122, 255, 251, 0.2);
+  padding: 20px;
+  background-size: 180%;
+  transition: all 0.3s ease;
+}
+
+.trackingButton:active {
+  transform: scale(0.9);
+  transition: all 0.05s ease;
+}
+
+.trackingButton::before {
+  position: absolute;
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  border: 1px solid rgba(255, 59, 242, 0.8);
+  border-radius: 100%;
+  pointer-events: none;
+  content: '';
+  transition: all 0.3s ease;
+}
+
+.trackingButton:hover::before {
+  border: 1px solid rgba(122, 255, 251, 0.6);
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  transition: all 0.3s ease;
+}
+
+.trackingButton:active::before {
+  width: calc(100% + 20px);
+  height: calc(100% + 20px);
+  transition: all 0.07s ease;
+}
+
+.trackingButton::after {
+  position: absolute;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  border: 2px dashed rgba(255, 59, 242, 0.4);
+  box-shadow: 0px 0px 100px rgba(122, 255, 251, 0.1);
+  border-radius: 100%;
+  pointer-events: none;
+  animation: rotate 30s linear infinite;
+  content: '';
+  transition: all 0.3s ease;
+}
+
+@keyframes rotate {
+  to {
+    transform: rotateZ(-360deg);
+  }
+}
+
+.trackingButton:hover::after {
+  border: 2px dashed rgba(122, 255, 251, 0.3);
+  width: calc(100% + 80px);
+  height: calc(100% + 80px);
+  transition: all 0.3s ease;
+}
+
+.trackingButton:active::after {
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  transition: all 0.07s ease;
+}
+
+.trackingButton i {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.trackingButton i svg {
+  position: relative;
+  width: 100%;
+  height: auto;
+  mix-blend-mode: overlay;
+}
+
+.trackingButton:hover i svg {
+  animation: shake 0.5s linear infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+}
+
+.trackingButton span {
+  position: absolute;
+  top: -7px;
+  right: -11px;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 2;
+}
+
+.trackingButton:hover span {
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+
+.trackingButton span p {
+  font:
+    normal normal 400 14pt / 2cap 'Roboto Mono',
+    monospace;
+  color: #ccc;
+  margin: 0;
+  position: relative;
+  left: 1px;
+}
+
+.trackingButton span svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+aside {
+  position: absolute;
+  font:
+    normal normal 900 14pt / 2cap 'Architects Daughter',
+    cursive;
+  bottom: 10%;
+  color: #777;
+  transition: all 0.3s ease;
+}
+
+.trackingButton:hover ~ aside {
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+@media (max-height: 270px) {
+  aside {
+    display: none;
   }
 }
