@@ -8,8 +8,7 @@ import { FUSE_VERSION } from '@fuse/version';
 import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';
-import { CenteredLayoutComponent } from './layouts/horizontal/centered/centered.component';
-import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
+import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.component';
 
 @Component({
   selector: 'layout',
@@ -19,14 +18,14 @@ import { DenseLayoutComponent } from './layouts/vertical/dense/dense.component';
   standalone: true,
   imports: [
     EmptyLayoutComponent,
-    CenteredLayoutComponent,
+    // CenteredLayoutComponent,
     // EnterpriseLayoutComponent,
     // MaterialLayoutComponent,
-    // ModernLayoutComponent,
+    ModernLayoutComponent,
     // ClassicLayoutComponent,
     // ClassyLayoutComponent,
     // CompactLayoutComponent,
-    DenseLayoutComponent,
+    // DenseLayoutComponent,
     // FuturisticLayoutComponent,
     // ThinLayoutComponent,
     AdminLayoutComponent,

@@ -1,4 +1,6 @@
 import { AuthMockApi } from 'app/mock-api/common/auth/api';
+import { ChatMockApi } from 'app/mock-api/common/chat/api';
+import { MessagesMockApi } from 'app/mock-api/common/messages/api';
 import { NavigationMockApi } from 'app/mock-api/common/navigation/api';
 import { NotificationsMockApi } from 'app/mock-api/common/notifications/api';
 import { UserMockApi } from 'app/mock-api/common/user/api';
@@ -10,12 +12,12 @@ export const mockApiServices = [
   // ActivitiesMockApi,
   // AnalyticsMockApi,
   AuthMockApi,
-  // ChatMockApi,
+  ChatMockApi,
   // ContactsMockApi,
   // CryptoMockApi,
   // FinanceMockApi,
   IconsMockApi,
-  // MessagesMockApi,
+  MessagesMockApi,
   NavigationMockApi,
   NotificationsMockApi,
   // ProjectMockApi,

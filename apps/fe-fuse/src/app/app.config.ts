@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
 import { provideTransloco, TranslocoService } from '@ngneat/transloco';
-import Aura from '@primeng/themes/aura';
+import Material from '@primeng/themes/material';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     ),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: Material,
         options: {
           darkModeSelector: 'none',
         },
@@ -101,7 +101,7 @@ export const appConfig: ApplicationConfig = {
         services: mockApiServices,
       },
       fuse: {
-        layout: 'centered',
+        layout: 'modern',
         scheme: 'light',
         screens: {
           sm: '600px',
