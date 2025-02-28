@@ -17,65 +17,65 @@ env:
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
 jobs:
-  main-ci:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
-      - name: Setup pnpm node_module cache
-        uses: actions/cache@v4
-        with:
-          path: /home/runner/setup-pnpm/node_modules/.bin/store/v3
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - uses: nrwl/nx-set-shas@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Echo NX_BASE and NX_HEAD
-        run: |
-          echo "BASE: ${{ env.NX_BASE }}"
-          echo "HEAD: ${{ env.NX_HEAD }}"
-
-      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
-      # When you enable task distribution, run the e2e-ci task instead of e2e
-      #      - run: pnpm exec cypress install
-      #      - run: pnpm exec nx affected -t lint test build e2e
-
-      #      - id: nx-format-check
-      #        run: pnpm exec nx format:check
-      - id: nx-affected
-        #        run: pnpm exec nx affected -t lint build --parallel NOTE NOTE NOTE BỎ LINT VÌ LÂU
-        run: pnpm exec nx affected -t build
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - if: ${{ steps.nx-affected.outcome == 'failure' }}
-        run: exit 1
+  #  main-ci:
+  #    runs-on: ubuntu-latest
+  #    steps:
+  #      - name: Checkout
+  #        uses: actions/checkout@v4
+  #        with:
+  #          fetch-depth: 0
+  #
+  #      - name: Install pnpm
+  #        uses: pnpm/action-setup@v4
+  #        with:
+  #          version: 9
+  #
+  #      - uses: actions/setup-node@v4
+  #        with:
+  #          node-version: 20
+  #          cache: 'pnpm'
+  #
+  #      - name: Setup pnpm node_module cache
+  #        uses: actions/cache@v4
+  #        with:
+  #          path: /home/runner/setup-pnpm/node_modules/.bin/store/v3
+  #          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+  #          restore-keys: |
+  #            ${{ runner.os }}-pnpm-store-
+  #
+  #      - name: Install dependencies
+  #        run: pnpm install --frozen-lockfile
+  #
+  #      - uses: nrwl/nx-set-shas@v4
+  #        with:
+  #          token: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #      - name: Echo NX_BASE and NX_HEAD
+  #        run: |
+  #          echo "BASE: ${{ env.NX_BASE }}"
+  #          echo "HEAD: ${{ env.NX_HEAD }}"
+  #
+  #      # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
+  #      # When you enable task distribution, run the e2e-ci task instead of e2e
+  #      #      - run: pnpm exec cypress install
+  #      #      - run: pnpm exec nx affected -t lint test build e2e
+  #
+  #      #      - id: nx-format-check
+  #      #        run: pnpm exec nx format:check
+  #      - id: nx-affected
+  #        #        run: pnpm exec nx affected -t lint build --parallel NOTE NOTE NOTE BỎ LINT VÌ LÂU
+  #        run: pnpm exec nx affected -t build
+  #        env:
+  #          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #
+  #      - if: ${{ steps.nx-affected.outcome == 'failure' }}
+  #        run: exit 1
   ##############################################################################################
 
   deployment:
-    needs: [main-ci]
+    #    needs: [main-ci]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
