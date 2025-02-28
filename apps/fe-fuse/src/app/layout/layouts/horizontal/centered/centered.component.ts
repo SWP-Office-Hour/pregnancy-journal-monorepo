@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
 import { FuseFullscreenComponent } from '@fuse/components/fullscreen';
 import { FuseLoadingBarComponent } from '@fuse/components/loading-bar';
@@ -13,6 +14,26 @@ import { MessagesComponent } from 'app/layout/common/messages/messages.component
 import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { FuseCardComponent } from '../../../../../@fuse/components/card';
+import { UserService } from '../../../../core/user/user.service';
+import { User } from '../../../../core/user/user.types';
+
+@Component({
+  selector: 'app-dialog-content-price',
+  imports: [MatDialogModule, MatButtonModule, FuseCardComponent, MatIcon],
+  templateUrl: './dialog-content-price.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DialogContentPriceComponent {
+  goDown2() {
+    //this.scroller.scrollToAnchor("header");
+    document.getElementById('header')!.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }
+}
 
 @Component({
   selector: 'centered-layout',
@@ -38,6 +59,7 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy {
   navigation: Navigation;
   isScreenSmall: boolean;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
+  user: User;
 
   /**
    * Constructor
@@ -48,7 +70,13 @@ export class CenteredLayoutComponent implements OnInit, OnDestroy {
     private _navigationService: NavigationService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
+    private _userService: UserService,
   ) {}
+
+  readonly dialog = inject(MatDialog);
+  openDialog() {
+    this.dialog.open(DialogContentPriceComponent);
+  }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
