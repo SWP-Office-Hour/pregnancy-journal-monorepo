@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterLink } from '@angular/router';
 import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -12,7 +13,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
   selector: 'app-record-table',
-  imports: [TableModule, ToastModule, ButtonModule, CommonModule, Ripple],
+  imports: [TableModule, ToastModule, ButtonModule, CommonModule, Ripple, RouterLink],
   providers: [MessageService],
   templateUrl: './record-table.component.html',
   styleUrl: './record-table.component.css',

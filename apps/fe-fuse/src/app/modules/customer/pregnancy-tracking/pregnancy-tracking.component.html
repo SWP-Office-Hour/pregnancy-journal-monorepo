@@ -3,14 +3,10 @@
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
 
-  @if (recordsData().length > 0) {
-    <app-line-chart [multi_data]="getRecordDataForChart()"></app-line-chart>
-  }
-  <div>
-    <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'../record'">
-      <span>Tạo record</span>
-      <mat-icon class="icon-size-5 ml-2" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>
-    </a>
+  <div class="w-full">
+    @if (recordsData().length > 0) {
+      <app-line-chart [multi_data]="getRecordDataForChart()"></app-line-chart>
+    }
   </div>
   <app-record-table></app-record-table>
 </div>

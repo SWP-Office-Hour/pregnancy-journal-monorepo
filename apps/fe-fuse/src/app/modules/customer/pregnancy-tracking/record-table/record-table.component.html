@@ -4,6 +4,12 @@
     <h2 class="text-lg font-medium text-pink-500">Weekly Records</h2>
     <div class="flex flex-wrap justify-end gap-2">
       <p-button
+        label="New Record"
+        icon="pi pi-plus-circle"
+        [routerLink]="'/record'"
+        styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
+      />
+      <p-button
         label="Expand All"
         icon="pi pi-expand"
         (onClick)="expandAll()"
