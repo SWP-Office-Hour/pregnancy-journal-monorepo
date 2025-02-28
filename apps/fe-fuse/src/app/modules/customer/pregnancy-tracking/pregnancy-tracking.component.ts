@@ -1,7 +1,4 @@
 import { Component, signal, WritableSignal } from '@angular/core';
-import { MatAnchor } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
-import { RouterLink } from '@angular/router';
 import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { LineChartComponent } from '../../../common/line-chart/line-chart.component';
@@ -10,7 +7,7 @@ import { RecordTableComponent } from './record-table/record-table.component';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [RouterLink, MatAnchor, MatIcon, LineChartComponent, RecordTableComponent],
+  imports: [LineChartComponent, RecordTableComponent],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
