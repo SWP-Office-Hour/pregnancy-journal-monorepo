@@ -83,7 +83,7 @@ export class RecordFormComponent {
     }
     const data = this.metricsFormArray.controls.map((control, index) => ({
       metric_id: this.metrics[index].metric_id,
-      value: control.value as number,
+      value: Number(control.value),
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.recordForm.value;
     const formData = {
