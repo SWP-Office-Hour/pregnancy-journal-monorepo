@@ -1,5 +1,9 @@
-<p-toast />
 <div class="flex w-full flex-col">
+  @if (isLoading) {
+    <div class="absolute inset-x-0 top-0">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+  }
   <p-toolbar styleClass="mb-6" class="">
     <ng-template #start>
       <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" />
@@ -84,24 +88,24 @@
     </ng-template>
   </p-table>
 
-  <p-dialog [(visible)]="metricDialog" [modal]="true" [style]="{ width: '450px', height: '700px' }" header="Metric Details">
+  <p-dialog [(visible)]="metricDialogToggle" [modal]="true" [style]="{ width: '450px', height: '700px' }" header="Metric Details">
     <ng-template #content>
-      <form [formGroup]="metricForm" class="flex flex-col gap-6">
+      <form [formGroup]="metricForm" class="flex flex-col gap-4">
         <!--Title-->
         <div>
-          <label class="mb-3 block font-bold" for="title">Title</label>
+          <label class="block font-bold" for="title">Title</label>
           <input formControlName="title" autofocus fluid="true" id="title" pInputText type="text" />
-          <small *ngIf="submitted && f['title'].errors?.['required']" class="text-red-500">Title is required.</small>
+          <small *ngIf="isSubmittedForm && f['title'].errors?.['required']" class="text-red-500">Title is required.</small>
         </div>
         <!-- Unit -->
         <div>
-          <label class="mb-3 block font-bold" for="measurement_unit">Unit</label>
+          <label class="block font-bold" for="measurement_unit">Unit</label>
           <input formControlName="measurement_unit" fluid="true" id="measurement_unit" pInputText type="text" />
-          <small *ngIf="submitted && f['measurement_unit'].errors?.['required']" class="text-red-500">Unit is required.</small>
+          <small *ngIf="isSubmittedForm && f['measurement_unit'].errors?.['required']" class="text-red-500">Unit is required.</small>
         </div>
         <!--Status-->
         <div>
-          <label class="mb-3 block font-bold" for="status">Status</label>
+          <label class="block font-bold" for="status">Status</label>
           <p-select
             formControlName="status"
             [options]="[
@@ -114,11 +118,11 @@
             optionValue="value"
             placeholder="Select a Status"
           />
-          <small *ngIf="submitted && f['status'].errors?.['required']" class="text-red-500">Status is required.</small>
+          <small *ngIf="isSubmittedForm && f['status'].errors?.['required']" class="text-red-500">Status is required.</small>
         </div>
         <!--Required-->
         <div>
-          <label class="mb-3 block font-bold" for="required">Require</label>
+          <label class="block font-bold" for="required">Require</label>
           <p-select
             formControlName="required"
             [options]="[
@@ -132,19 +136,19 @@
             optionValue="valueReq"
             placeholder="Select a Option"
           />
-          <small *ngIf="submitted && f['required'].errors?.['required']" class="text-red-500">This field is required.</small>
+          <small *ngIf="isSubmittedForm && f['required'].errors?.['required']" class="text-red-500">This field is required.</small>
         </div>
         <!--upperbound_msg-->
         <div>
-          <label class="mb-3 block font-bold" for="upperbound_msg">Upperbound Message</label>
+          <label class="block font-bold" for="upperbound_msg">Upperbound Message</label>
           <input formControlName="upperbound_msg" fluid="true" id="upperbound_msg" pInputText type="text" />
-          <small *ngIf="submitted && f['upperbound_msg'].errors?.['required']" class="text-red-500">Upperbound Message is required.</small>
+          <small *ngIf="isSubmittedForm && f['upperbound_msg'].errors?.['required']" class="text-red-500">Upperbound Message is required.</small>
         </div>
         <!--lowerbound_msg-->
         <div>
-          <label class="mb-3 block font-bold" for="lowerbound_msg">Lowerbound Message</label>
+          <label class="block font-bold" for="lowerbound_msg">Lowerbound Message</label>
           <input formControlName="lowerbound_msg" fluid="true" id="lowerbound_msg" pInputText type="text" />
-          <small *ngIf="submitted && f['lowerbound_msg'].errors?.['required']" class="text-red-500">Lowerbound Message is required.</small>
+          <small *ngIf="isSubmittedForm && f['lowerbound_msg'].errors?.['required']" class="text-red-500">Lowerbound Message is required.</small>
         </div>
       </form>
     </ng-template>
@@ -157,6 +161,5 @@
     </ng-template>
   </p-dialog>
 </div>
-<p-confirm-popup baseZIndex="99" />
 <p-toast />
-
+<p-confirm-popup baseZIndex="99" />
