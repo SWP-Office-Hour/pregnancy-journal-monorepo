@@ -9,8 +9,8 @@ import {
   TagResponse,
 } from '@pregnancy-journal-monorepo/contract';
 import { map, of, throwError } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
+import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class BlogsService {

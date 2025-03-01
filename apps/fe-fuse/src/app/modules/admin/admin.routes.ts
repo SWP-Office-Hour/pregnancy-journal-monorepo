@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
-import { BlogRoutes } from '../blog/blog.routes';
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
+import { BlogRoutes } from './blog/blog.routes';
 import { CategoryTableComponent } from './category-table/category-table.component';
 import { HealthMetricTableComponent } from './health-metric-table/health-metric-table.component';
 import { HospitalTableComponent } from './hospital-table/hospital-table.component';
