@@ -7,7 +7,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemoryScrolling, withPreloading } from '@angular/router';
 import { provideFuse } from '@fuse';
 import { provideTransloco, TranslocoService } from '@ngneat/transloco';
-import Material from '@primeng/themes/material';
+import Aura from '@primeng/themes/aura';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
@@ -32,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     ),
     providePrimeNG({
       theme: {
-        preset: Material,
+        preset: Aura,
         options: {
           darkModeSelector: 'none',
         },
