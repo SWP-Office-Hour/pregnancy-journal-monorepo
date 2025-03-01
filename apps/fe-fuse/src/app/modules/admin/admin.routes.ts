@@ -1,9 +1,9 @@
 import { inject } from '@angular/core';
 import { Routes } from '@angular/router';
 import { BlogRoutes } from '../blog/blog.routes';
+import { MembershipTableComponent } from '../membership/membership-table/membership-table.component';
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
-import { UserTableComponent } from './user-table/user-table.component';
 
 export default [
   {
@@ -58,7 +58,7 @@ export default [
     children: [
       {
         path: '',
-        loadChildren: () => import('app/modules/membership/membership.route'),
+        loadComponent: () => MembershipTableComponent,
       },
     ],
   },
@@ -67,7 +67,7 @@ export default [
     children: [
       {
         path: '',
-        loadComponent: () => UserTableComponent,
+        loadComponent: () => MembershipTableComponent,
       },
     ],
   },

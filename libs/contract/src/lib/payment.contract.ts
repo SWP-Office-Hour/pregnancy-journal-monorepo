@@ -1,11 +1,11 @@
-import { membershipResponeContract, payMethodSchema, payStatusSchema } from '@pregnancy-journal-monorepo/contract';
+import { membershipResponseContract, payMethodSchema, payStatusSchema } from '@pregnancy-journal-monorepo/contract';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
 const paymentSchema = z.object({
   payment_history_id: z.string(),
   user_id: z.string(),
-  membership: membershipResponeContract,
+  membership: membershipResponseContract,
   value: z.number(),
   created_at: z.date(),
   status: payStatusSchema,

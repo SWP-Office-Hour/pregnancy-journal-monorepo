@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import { PricingModernComponent } from './membership-user/membership.component';
 
 export const membershipsRoute = [
   {
     path: '',
-    component: PricingModernComponent,
+    // component:  CHỖ NÀY LÀ ROUTE CỦA THẰNG CUSTOMER CUSTOMER ĐÓ
     // children: [
     //   {
     //     path: '/table',
