@@ -69,8 +69,8 @@ export class BlogEditorComponent implements OnInit {
     ],
     imageCompress: {
       quality: 0.7, // default
-      maxWidth: 1024, // default
-      maxHeight: 1024, // default
+      maxWidth: 500, // default
+      maxHeight: 500, // default
       imageType: 'image/jpeg', // default
       debug: false, // default
     },

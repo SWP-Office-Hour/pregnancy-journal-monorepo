@@ -49,7 +49,8 @@ export class BlogDetailComponent implements OnInit {
         this.blog = data;
 
         // Sanitize HTML content to prevent XSS attacks but allow HTML rendering
-        this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.blog.content);
+        this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.styleHtmlWithTailwind(this.blog.content));
+        console.log(this.blog.content);
         this.titleService.setTitle(this.blog.title);
         this.updateMetaTags();
 
@@ -63,6 +64,62 @@ export class BlogDetailComponent implements OnInit {
         this.blog = null;
       },
     );
+  }
+
+  styleHtmlWithTailwind(content) {
+    content = content.replaceAll('&nbsp;', ' ');
+    // Style headings
+    content = content.replaceAll(/<h1>(.*?)<\/h1>/g, '<h1 class="text-4xl font-bold mt-10 mb-6 text-gray-900 leading-tight">$1</h1>');
+    content = content.replaceAll(/<h2>(.*?)<\/h2>/g, '<h2 class="text-3xl font-bold mt-8 mb-5 text-gray-900 leading-snug">$1</h2>');
+    content = content.replaceAll(/<h3>(.*?)<\/h3>/g, '<h3 class="text-2xl font-semibold mt-7 mb-4 text-gray-900 leading-relaxed">$1</h3>');
+    content = content.replaceAll(/<h4>(.*?)<\/h4>/g, '<h4 class="text-xl font-semibold mt-6 mb-3 text-gray-900">$1</h4>');
+
+    // Style paragraphs
+    content = content.replaceAll(/<p>(.*?)<\/p>/g, '<p class="mb-6 text-gray-700 leading-relaxed text-lg">$1</p>');
+
+    // Style lists
+    content = content.replaceAll(/<ul>(.*?)<\/ul>/gs, '<ul class="list-disc ml-6 mb-6">$1</ul>');
+    content = content.replaceAll(/<ol>(.*?)<\/ol>/gs, '<ol class="list-decimal ml-6 mb-6">$1</ol>');
+    content = content.replaceAll(/<li>(.*?)<\/li>/g, '<li class="mb-2">$1</li>');
+
+    // Style blockquotes
+    content = content.replaceAll(
+      /<blockquote>(.*?)<\/blockquote>/gs,
+      '<blockquote class="border-l-4 border-indigo-400 pl-4 italic text-gray-600 my-6 bg-gray-50 p-4 rounded">$1</blockquote>',
+    );
+
+    // Style links
+    content = content.replaceAll(
+      /<a(.*?)>(.*?)<\/a>/g,
+      '<a$1 class="text-indigo-600 underline transition-colors duration-200 hover:text-indigo-800">$2</a>',
+    );
+
+    // Style code blocks and inline code
+    content = content.replaceAll(
+      /<pre>(.*?)<\/pre>/gs,
+      '<pre class="bg-gray-800 text-gray-50 p-4 rounded-lg overflow-x-auto my-6 font-mono">$1</pre>',
+    );
+    content = content.replaceAll(/<code>((?!<\/pre>).)*?<\/code>/gs, '<code class="bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono">$1</code>');
+
+    // Make sure code inside pre tags doesn't get double-styled
+    content = content.replaceAll(
+      /<pre class=".*?"><code class=".*?">(.*?)<\/code><\/pre>/gs,
+      '<pre class="bg-gray-800 text-gray-50 p-4 rounded-lg overflow-x-auto my-6 font-mono"><code class="bg-transparent p-0 text-gray-50">$1</code></pre>',
+    );
+
+    // Style images
+    content = content.replaceAll(/<img(.*?)>/g, '<img$1 class="max-w-[500px] h-auto rounded-lg my-6">');
+
+    // Style tables
+    content = content.replaceAll(/<table>(.*?)<\/table>/gs, '<table class="w-full border-collapse my-6">$1</table>');
+    content = content.replaceAll(/<th>(.*?)<\/th>/g, '<th class="bg-gray-100 p-3 text-left font-semibold border border-gray-200">$1</th>');
+    content = content.replaceAll(/<td>(.*?)<\/td>/g, '<td class="p-3 border border-gray-200">$1</td>');
+    content = content.replaceAll(/<tr>((?!<\/thead>).)*?<\/tr>/g, '<tr class="even:bg-gray-50">$1</tr>');
+
+    // Style horizontal rules
+    content = content.replaceAll(/<hr>/g, '<hr class="border-0 h-px bg-gray-200 my-8">');
+
+    return content;
   }
 
   updateMetaTags(): void {

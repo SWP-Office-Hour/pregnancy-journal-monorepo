@@ -118,7 +118,7 @@
 
 /* Images */
 .blog-content img {
-  max-width: 100%;
+  max-width: 200px !important;
   height: auto;
   border-radius: 0.5rem;
   margin: 1.5rem 0;
