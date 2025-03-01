@@ -14,8 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { fuseAnimations } from '@fuse/animations';
-import { Hospital } from '@pregnancy-journal-monorepo/contract';
+import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -23,18 +22,23 @@ import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { RadioButtonModule } from 'primeng/radiobutton';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
+import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { fuseAnimations } from '../../../../@fuse/animations';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-hospital-table',
-  templateUrl: './hospital-table.component.html',
-  styleUrl: './hospital-table.component.css',
+  selector: 'app-health-metric-table',
+  templateUrl: './health-metric-table.component.html',
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -57,8 +61,15 @@ import { environment } from '../../../../environments/environment';
     ToolbarModule,
     TableModule,
     ButtonModule,
+    RippleModule,
     ToastModule,
+    ToolbarModule,
+    RatingModule,
     InputTextModule,
+    TextareaModule,
+    SelectModule,
+    RadioButtonModule,
+    InputNumberModule,
     DialogModule,
     TagModule,
     InputIconModule,
@@ -66,33 +77,35 @@ import { environment } from '../../../../environments/environment';
     ConfirmDialogModule,
     NgIf,
     ConfirmPopup,
-    SelectModule,
   ],
   providers: [MessageService, ConfirmationService],
 })
-export class HospitalTableComponent implements OnInit {
+export class HealthMetricTableComponent implements OnInit {
+  // Constants
+  protected readonly Status = Status;
+
   // Component state
   isLoading = false;
-  hospitalDialogToggle = false;
+  metricDialogToggle = false;
   isSubmittedForm = false;
 
   // Form
-  hospitalForm!: FormGroup;
-  hospital!: Hospital;
+  metricForm!: FormGroup;
+  metric!: HealthMetric;
 
   // ViewChild
   @ViewChild('dt') dt!: Table;
 
   // Resource
-  hospitalResource = resource<Hospital[], {}>({
+  metricResource = resource<HealthMetric[], {}>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
       try {
-        const response = await fetch(`${environment.apiUrl}hospitals`, {
+        const response = await fetch(`${environment.apiUrl}metrics`, {
           signal: abortSignal,
         });
         if (!response.ok) {
-          throw new Error(`Failed to fetch hospitals: ${response.status}`);
+          throw new Error(`Failed to fetch metrics: ${response.status}`);
         }
         return await response.json();
       } catch (error) {
@@ -113,7 +126,7 @@ export class HospitalTableComponent implements OnInit {
     private messageService: MessageService,
   ) {
     effect(() => {
-      console.log('Hospitals loaded:', this.hospitalResource.value());
+      console.log('Metrics loaded:', this.metricResource.value());
     });
   }
 
@@ -128,105 +141,147 @@ export class HospitalTableComponent implements OnInit {
    * Public Methods
    */
   openNew(): void {
-    this.hospitalForm.reset({
-      hospital_id: '',
-      name: '',
-      city: '',
+    this.metricForm.reset({
+      metric_id: '',
+      title: '',
+      measurement_unit: '',
+      status: Status.INACTIVE,
+      required: false,
+      upperbound_msg: '',
+      lowerbound_msg: '',
     });
     this.isSubmittedForm = false;
-    this.hospitalDialogToggle = true;
+    this.metricDialogToggle = true;
   }
 
   hideDialog(): void {
-    this.hospitalDialogToggle = false;
+    this.metricDialogToggle = false;
     this.isSubmittedForm = false;
-    this.hospitalForm.reset();
+    this.metricForm.reset();
   }
 
-  saveHospital(event: Event): void {
+  saveMetric(event: Event): void {
     this.isSubmittedForm = true;
-    if (this.hospitalForm.invalid) {
-      this.hospitalForm.markAllAsTouched();
+    if (this.metricForm.invalid) {
+      this.metricForm.markAllAsTouched();
       return;
     }
 
-    const _hospital: Hospital = this.hospitalForm.value;
-    const isUpdate = !!_hospital.hospital_id;
+    const _metric: HealthMetric = this.metricForm.value;
+    const isUpdate = !!_metric.metric_id;
     const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Are you sure you want to ${actionType} the hospital?`,
+      message: `Are you sure you want to ${actionType} the metric?`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.saveHospitalToServer(_hospital, method, actionType);
+        this.saveMetricToServer(_metric, method, actionType);
       },
     });
   }
 
-  editHospital(hospitalToEdit: Hospital): void {
-    this.hospitalForm.patchValue({
-      hospital_id: hospitalToEdit.hospital_id,
-      name: hospitalToEdit.name,
-      city: hospitalToEdit.city,
+  editProduct(metricToEdit: HealthMetric): void {
+    this.metricForm.patchValue({
+      metric_id: metricToEdit.metric_id,
+      title: metricToEdit.title,
+      measurement_unit: metricToEdit.measurement_unit,
+      status: metricToEdit.status,
+      required: metricToEdit.required,
+      upperbound_msg: metricToEdit.upperbound_msg,
+      lowerbound_msg: metricToEdit.lowerbound_msg,
     });
 
-    this.hospital = { ...hospitalToEdit };
-    this.hospitalDialogToggle = true;
+    this.metric = { ...metricToEdit };
+    this.metricDialogToggle = true;
   }
 
   onGlobalFilter(table: Table, event: Event): void {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
+  getSeverityStatus(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'success';
+      case Status.INACTIVE:
+        return 'warn';
+      default:
+        return 'info';
+    }
+  }
+
+  convertStatusToReadable(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'ACTIVE';
+      case Status.INACTIVE:
+        return 'INACTIVE';
+      default:
+        return 'UNKNOWN';
+    }
+  }
+
+  getSeverityRequired(required: boolean): string {
+    return required ? 'success' : 'warn';
+  }
+
+  convertRequireToReadable(required: boolean): string {
+    return required ? 'REQUIRED' : 'OPTIONAL';
+  }
+
   /**
    * Form accessor
    */
   get f(): { [key: string]: AbstractControl } {
-    return this.hospitalForm.controls;
+    return this.metricForm.controls;
   }
 
   /**
    * Private Methods
    */
   private initForm(): void {
-    this.hospitalForm = this.formBuilder.group({
-      hospital_id: [''],
-      name: ['', Validators.required],
-      city: ['', Validators.required],
+    this.metricForm = this.formBuilder.group({
+      metric_id: [''],
+      title: ['', Validators.required],
+      measurement_unit: ['', Validators.required],
+      status: [Status.INACTIVE, Validators.required],
+      required: [false, Validators.required],
+      upperbound_msg: ['', Validators.required],
+      lowerbound_msg: ['', Validators.required],
     });
   }
 
-  private async saveHospitalToServer(hospital: Hospital, method: string, actionType: string): Promise<void> {
+  private async saveMetricToServer(metric: HealthMetric, method: string, actionType: string): Promise<void> {
     this.isLoading = true;
 
     try {
-      const response = await fetch(`${environment.apiUrl}hospitals`, {
+      const response = await fetch(`${environment.apiUrl}metrics`, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(hospital),
+        body: JSON.stringify(metric),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${method.toLowerCase()} hospital`);
+        throw new Error(`Failed to ${method.toLowerCase()} metric`);
       }
 
       const result = await response.json();
       console.log('Server response:', result);
 
-      this.hospitalDialogToggle = false;
-      this.hospitalForm.reset();
-      this.hospital = {} as Hospital;
-      this.hospitalResource.reload();
+      this.metricDialogToggle = false;
+      this.metricForm.reset();
+      this.metric = {} as HealthMetric;
+      this.metricResource.reload();
 
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: `Hospital ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        detail: `Metric ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
         life: 4000,
       });
     } catch (error) {
@@ -237,7 +292,7 @@ export class HospitalTableComponent implements OnInit {
   }
 
   private notifyError(error: any): void {
-    console.error('Error in HospitalTableComponent:', error);
+    console.error('Error in HealthMetricTableComponent:', error);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',

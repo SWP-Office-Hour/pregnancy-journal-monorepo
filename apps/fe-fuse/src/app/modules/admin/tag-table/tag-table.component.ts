@@ -14,8 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { fuseAnimations } from '@fuse/animations';
-import { Category, Status } from '@pregnancy-journal-monorepo/contract';
+import { Status, Tag } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -29,11 +28,12 @@ import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { fuseAnimations } from '../../../../@fuse/animations';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-category-table',
-  templateUrl: './category-table.component.html',
+  selector: 'app-tag-table',
+  templateUrl: './tag-table.component.html',
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -69,32 +69,32 @@ import { environment } from '../../../../environments/environment';
   ],
   providers: [MessageService, ConfirmationService],
 })
-export class CategoryTableComponent implements OnInit {
+export class TagTableComponent implements OnInit {
   // Constants
   protected readonly Status = Status;
 
   // Component state
   isLoading = false;
-  categoryDialogToggle = false;
+  tagDialogToggle = false;
   isSubmittedForm = false;
 
   // Form
-  categoryForm!: FormGroup;
-  category!: Category;
+  tagForm!: FormGroup;
+  tag!: Tag;
 
   // ViewChild
   @ViewChild('dt') dt!: Table;
 
   // Resource
-  categoryResource = resource<Category[], {}>({
+  tagResource = resource<Tag[], {}>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
       try {
-        const response = await fetch(`${environment.apiUrl}categories`, {
+        const response = await fetch(`${environment.apiUrl}tags`, {
           signal: abortSignal,
         });
         if (!response.ok) {
-          throw new Error(`Failed to fetch categories: ${response.status}`);
+          throw new Error(`Failed to fetch tags: ${response.status}`);
         }
         return await response.json();
       } catch (error) {
@@ -115,7 +115,7 @@ export class CategoryTableComponent implements OnInit {
     private messageService: MessageService,
   ) {
     effect(() => {
-      console.log('Categories loaded:', this.categoryResource.value());
+      console.log('Tags loaded:', this.tagResource.value());
     });
   }
 
@@ -130,53 +130,53 @@ export class CategoryTableComponent implements OnInit {
    * Public Methods
    */
   openNew(): void {
-    this.categoryForm.reset({
-      category_id: '',
+    this.tagForm.reset({
+      tag_id: '',
       title: '',
       status: Status.INACTIVE,
     });
     this.isSubmittedForm = false;
-    this.categoryDialogToggle = true;
+    this.tagDialogToggle = true;
   }
 
   hideDialog(): void {
-    this.categoryDialogToggle = false;
+    this.tagDialogToggle = false;
     this.isSubmittedForm = false;
-    this.categoryForm.reset();
+    this.tagForm.reset();
   }
 
-  saveCategory(event: Event): void {
+  saveTag(event: Event): void {
     this.isSubmittedForm = true;
-    if (this.categoryForm.invalid) {
-      this.categoryForm.markAllAsTouched();
+    if (this.tagForm.invalid) {
+      this.tagForm.markAllAsTouched();
       return;
     }
 
-    const _category: Category = this.categoryForm.value;
-    const isUpdate = !!_category.category_id;
+    const _tag: Tag = this.tagForm.value;
+    const isUpdate = !!_tag.tag_id;
     const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Are you sure you want to ${actionType} the category?`,
+      message: `Are you sure you want to ${actionType} the tag?`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.saveCategoryToServer(_category, method, actionType);
+        this.saveTagToServer(_tag, method, actionType);
       },
     });
   }
 
-  editCategory(categoryToEdit: Category): void {
-    this.categoryForm.patchValue({
-      category_id: categoryToEdit.category_id,
-      title: categoryToEdit.title,
-      status: categoryToEdit.status,
+  editTag(tagToEdit: Tag): void {
+    this.tagForm.patchValue({
+      tag_id: tagToEdit.tag_id,
+      title: tagToEdit.title,
+      status: tagToEdit.status,
     });
 
-    this.category = { ...categoryToEdit };
-    this.categoryDialogToggle = true;
+    this.tag = { ...tagToEdit };
+    this.tagDialogToggle = true;
   }
 
   onGlobalFilter(table: Table, event: Event): void {
@@ -209,48 +209,48 @@ export class CategoryTableComponent implements OnInit {
    * Form accessor
    */
   get f(): { [key: string]: AbstractControl } {
-    return this.categoryForm.controls;
+    return this.tagForm.controls;
   }
 
   /**
    * Private Methods
    */
   private initForm(): void {
-    this.categoryForm = this.formBuilder.group({
-      category_id: [''],
+    this.tagForm = this.formBuilder.group({
+      tag_id: [''],
       title: ['', Validators.required],
       status: [Status.INACTIVE, Validators.required],
     });
   }
 
-  private async saveCategoryToServer(category: Category, method: string, actionType: string): Promise<void> {
+  private async saveTagToServer(tag: Tag, method: string, actionType: string): Promise<void> {
     this.isLoading = true;
 
     try {
-      const response = await fetch(`${environment.apiUrl}categories`, {
+      const response = await fetch(`${environment.apiUrl}tags`, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(category),
+        body: JSON.stringify(tag),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${method.toLowerCase()} category`);
+        throw new Error(`Failed to ${method.toLowerCase()} tag`);
       }
 
       const result = await response.json();
       console.log('Server response:', result);
 
-      this.categoryDialogToggle = false;
-      this.categoryForm.reset();
-      this.category = {} as Category;
-      this.categoryResource.reload();
+      this.tagDialogToggle = false;
+      this.tagForm.reset();
+      this.tag = {} as Tag;
+      this.tagResource.reload();
 
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: `Category ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        detail: `Tag ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
         life: 4000,
       });
     } catch (error) {
@@ -261,7 +261,7 @@ export class CategoryTableComponent implements OnInit {
   }
 
   private notifyError(error: any): void {
-    console.error('Error in CategoryTableComponent:', error);
+    console.error('Error in TagTableComponent:', error);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
