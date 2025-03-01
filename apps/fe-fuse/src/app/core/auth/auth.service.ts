@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AuthResponse, RegisterRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
+import { AuthResponse, RegisterRequest, UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
@@ -184,9 +184,10 @@ export class AuthService {
           user_id: response.user.id,
           name: response.user.name,
           role: response.user.role,
-          status: 'active',
+          status: UserStatus.ACTIVE,
           avatar: '',
           email: user.email,
+          onlineStatus: '',
         };
         return response;
       }),
