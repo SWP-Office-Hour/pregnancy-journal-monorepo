@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
-import { ChangeDetectorRef, Component, effect, inject, resource, ViewChild } from '@angular/core';
-import { FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { ChangeDetectorRef, Component, effect, inject, OnInit, resource, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -81,8 +81,10 @@ import { environment } from '../../../../environments/environment';
   ],
   providers: [MessageService, ConfirmationService],
 })
-export class HealthMetricTableComponent {
+export class HealthMetricTableComponent implements OnInit {
   private _fuseLoadingService = inject(FuseLoadingService);
+  private _formBuilder = inject(FormBuilder);
+  
   protected readonly Status = Status;
   @ViewChild('dt') dt!: Table;
   metricDialog: boolean = false;
@@ -94,7 +96,9 @@ export class HealthMetricTableComponent {
   isLoading: boolean = false;
   selectedMetricForm: UntypedFormGroup;
   searchInputControl: UntypedFormControl = new UntypedFormControl();
-  // metricList = signal<Array<HealthMetric>>([]);
+  
+  // Reactive form for the metric dialog
+  metricForm: FormGroup;
 
   metricResource = resource<HealthMetric[], {}>({
     loader: async ({ abortSignal }) => {
@@ -119,6 +123,26 @@ export class HealthMetricTableComponent {
       console.log(this.metricResource.value());
     });
   }
+  
+  ngOnInit(): void {
+    // Initialize the reactive form with validation rules
+    this.initForm();
+  }
+  
+  /**
+   * Initialize the metric form with validation rules
+   */
+  private initForm(): void {
+    this.metricForm = this._formBuilder.group({
+      metric_id: [''],
+      title: ['', Validators.required],
+      measurement_unit: ['', Validators.required],
+      status: [Status.INACTIVE, Validators.required],
+      required: [false, Validators.required],
+      upperbound_msg: ['', Validators.required],
+      lowerbound_msg: ['', Validators.required]
+    });
+  }
 
   /**
    * Method
@@ -129,8 +153,16 @@ export class HealthMetricTableComponent {
     console.log(event);
 
     this.submitted = true;
-    // @ts-ignore
-    let _metric: HealthMetric = this.metric;
+    
+    // Stop here if form is invalid
+    if (this.metricForm.invalid) {
+      // Mark all fields as touched to trigger validation messages
+      this.metricForm.markAllAsTouched();
+      return;
+    }
+    
+    // Get form values
+    const _metric: HealthMetric = this.metricForm.value;
 
     const messageAction = _metric.metric_id != '' ? 'update' : 'create new';
     console.log('messageAction');
@@ -138,7 +170,7 @@ export class HealthMetricTableComponent {
 
     const messageDetail = messageAction.charAt(0).toUpperCase() + messageAction.slice(1) + 'd';
     const method = _metric.metric_id != '' ? 'PATCH' : 'POST';
-    //THIS IS UPDATE
+    
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: `Are you sure you want to ${messageAction} the metric?`,
@@ -167,6 +199,9 @@ export class HealthMetricTableComponent {
           console.log(rsJson);
 
           this.metricDialog = false;
+          // Reset form after successful save
+          this.metricForm.reset();
+          // For backward compatibility
           // @ts-ignore
           this.metric = {};
           this.metricResource.reload();
@@ -185,11 +220,32 @@ export class HealthMetricTableComponent {
   hideDialog() {
     this.metricDialog = false;
     this.submitted = false;
+    this.metricForm.reset();
+  }
+  
+  /**
+   * Get form control for easy access in template
+   */
+  get f(): { [key: string]: AbstractControl } {
+    return this.metricForm.controls;
   }
 
   editProduct(metricInp: HealthMetric) {
     console.log('editProduct');
     console.log(metricInp);
+    
+    // Set the form values from the metric being edited
+    this.metricForm.patchValue({
+      metric_id: metricInp.metric_id,
+      title: metricInp.title,
+      measurement_unit: metricInp.measurement_unit,
+      status: metricInp.status,
+      required: metricInp.required,
+      upperbound_msg: metricInp.upperbound_msg,
+      lowerbound_msg: metricInp.lowerbound_msg
+    });
+    
+    // For backward compatibility
     this.metric = { ...metricInp };
     this.metricDialog = true;
   }
@@ -239,12 +295,23 @@ export class HealthMetricTableComponent {
   }
 
   openNew() {
-    // CHỌN DEFAULT OPTION Ở ĐÂY
+    // Reset form and set default values
+    this.metricForm.reset({
+      metric_id: '',
+      title: '',
+      measurement_unit: '',
+      status: Status.INACTIVE,
+      required: false,
+      upperbound_msg: '',
+      lowerbound_msg: ''
+    });
+    
+    // For backward compatibility, also reset the template-driven form
     // @ts-ignore
     this.metric = {
       status: Status.INACTIVE,
     };
-    // this.metric = null;
+    
     this.submitted = false;
     this.metricDialog = true;
   }
