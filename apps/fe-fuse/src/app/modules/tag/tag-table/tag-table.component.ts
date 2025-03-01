@@ -176,4 +176,3 @@ export class TagTableComponent {
     }, 3000);
   }
 }
-
