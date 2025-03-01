@@ -22,7 +22,6 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-health-metric-table',
   templateUrl: './user-table.component.html',
-  styleUrl: './user-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [

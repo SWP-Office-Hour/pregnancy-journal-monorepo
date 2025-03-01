@@ -1,7 +1,9 @@
-import { UserRole } from '@pregnancy-journal-monorepo/contract';
+import { UserRole, UserTypeFromContract } from '@pregnancy-journal-monorepo/contract';
+
+let test: UserTypeFromContract;
 
 export interface User {
-  id?: string;
+  user_id?: string;
   name?: string;
   email?: string;
   avatar?: string;

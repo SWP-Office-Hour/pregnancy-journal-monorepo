@@ -22,7 +22,7 @@ export const baseUserSchema = z.object({
 });
 
 // User response schema
-export const userResSchema = baseUserSchema.extend({
+export const userResponseSchema = baseUserSchema.extend({
   user_id: z.string(),
   expected_birth_date: z.date(),
   membershipId: z.string().optional(),
@@ -30,7 +30,7 @@ export const userResSchema = baseUserSchema.extend({
 });
 
 // User create request schema
-const userCreateReqSchema = userResSchema
+const userCreateRequestSchema = userResponseSchema
   .extend({
     password: z.string(), // Add password field
     expected_birth_date: z.string().datetime(), // Change expected_birth_date to string
@@ -38,7 +38,7 @@ const userCreateReqSchema = userResSchema
   .omit({ user_id: true, created_at: true }); // Omit fields not needed for creation
 
 // User update request schema
-const userUpdateReqSchema = baseUserSchema
+const userUpdateRequestSchema = baseUserSchema
   .partial()
   .extend({
     expected_birth_date: z.string().datetime().optional(), // Change expected_birth_date to string and make it optional
@@ -49,7 +49,7 @@ const userUpdateReqSchema = baseUserSchema
 // Make all fields optional for updates
 
 //user profile
-const userProfileSchema = userResSchema
+const userProfileSchema = userResponseSchema
   .extend({
     expected_birth_date: z.date(), // Change expected_birth_date to string
   })
@@ -63,10 +63,11 @@ const userProfileUpdateSchema = userProfileSchema
   })
   .partial()
   .extend({ expected_birth_date: z.string().datetime().optional() });
-
-export type UserCreateRequestType = z.infer<typeof userCreateReqSchema>;
-export type UserUpdateRequestType = z.infer<typeof userUpdateReqSchema>;
-export type UserResponseType = z.infer<typeof userResSchema>;
+// const test: UserResponseType
+export type UserTypeFromContract = z.infer<typeof userResponseSchema>;
+export type UserCreateRequestType = z.infer<typeof userCreateRequestSchema>;
+export type UserUpdateRequestType = z.infer<typeof userUpdateRequestSchema>;
+export type UserResponseType = z.infer<typeof userResponseSchema>;
 export type UserProfileResponseType = z.infer<typeof userProfileSchema>;
 export type UserProfileUpdateType = z.infer<typeof userProfileUpdateSchema>;
 
@@ -76,7 +77,7 @@ export const userContract = c.router({
     path: '/users',
     description: 'Get all users (đã xong)',
     responses: {
-      200: z.array(userResSchema),
+      200: z.array(userResponseSchema),
       // 404: object({ message: string() }),
     },
   },
@@ -84,20 +85,20 @@ export const userContract = c.router({
   create: {
     method: 'POST',
     path: '/users',
-    body: userCreateReqSchema,
+    body: userCreateRequestSchema,
     description: 'Create a new user (đã xong)',
     responses: {
-      200: userResSchema,
+      200: userResponseSchema,
       // 404: object({ message: string() }),
     },
   },
   update: {
     method: 'PATCH',
     path: '/users',
-    body: userUpdateReqSchema,
+    body: userUpdateRequestSchema,
     description: 'Update a user (đã xong)',
     responses: {
-      200: userResSchema,
+      200: userResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -129,7 +130,7 @@ export const userContract = c.router({
       id: z.string(),
     }),
     responses: {
-      200: userResSchema,
+      200: userResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
