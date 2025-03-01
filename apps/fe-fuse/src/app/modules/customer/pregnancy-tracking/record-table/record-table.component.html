@@ -1,7 +1,30 @@
 <div class="card overflow-hidden rounded-xl bg-white shadow-sm">
   <p-toast />
-  <div class="flex items-center justify-between bg-pink-50 p-4">
+  <div class="flex flex-col items-center justify-between gap-4 bg-pink-50 p-4 md:flex-row">
     <h2 class="text-lg font-medium text-pink-500">Weekly Records</h2>
+
+    <div class="flex w-full items-center md:w-auto">
+      <span class="p-input-icon-left w-full md:w-auto">
+        <i class="pi pi-search"></i>
+        <input
+          type="text"
+          pInputText
+          [(ngModel)]="searchText"
+          (input)="searchRecords()"
+          placeholder="Search records..."
+          class="p-inputtext-sm w-full rounded-lg border-pink-200 focus:border-pink-400 md:w-64"
+        />
+      </span>
+      <button
+        *ngIf="searchText"
+        pButton
+        type="button"
+        icon="pi pi-times"
+        (click)="clearSearch()"
+        class="p-button-rounded p-button-text p-button-sm ml-2 text-pink-500"
+      ></button>
+    </div>
+
     <div class="flex flex-wrap justify-end gap-2">
       <p-button
         label="New Record"
@@ -121,7 +144,8 @@
                   <td colspan="6" class="p-4 text-center text-gray-500">
                     <div class="flex flex-col items-center justify-center p-6">
                       <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-                      <span>There is no record in this week yet.</span>
+                      <span *ngIf="!searchText">There is no record in this week yet.</span>
+                      <span *ngIf="searchText">No records matching '{{ searchText }}' in this week.</span>
                     </div>
                   </td>
                 </tr>
@@ -136,7 +160,17 @@
         <td colspan="3" class="p-4 text-center text-gray-500">
           <div class="flex flex-col items-center justify-center p-6">
             <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-            <span>No records found</span>
+            <span *ngIf="!searchText">No records found</span>
+            <span *ngIf="searchText">No records matching '{{ searchText }}'</span>
+            <button
+              *ngIf="searchText"
+              pButton
+              type="button"
+              label="Clear search"
+              icon="pi pi-times"
+              (click)="clearSearch()"
+              class="p-button-text p-button-sm mt-3 text-pink-500"
+            ></button>
           </div>
         </td>
       </tr>
