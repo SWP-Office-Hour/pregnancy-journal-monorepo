@@ -1,7 +1,6 @@
 // noinspection ExceptionCaughtLocallyJS
 
-import { DecimalPipe, NgIf, registerLocaleData } from '@angular/common';
-import localeVi from '@angular/common/locales/vi'; // Import Vietnamese locale
+import { NgIf } from '@angular/common';
 import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,8 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { fuseAnimations } from '@fuse/animations';
-import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
+import { Hospital } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -24,24 +22,22 @@ import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
-import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { fuseAnimations } from '../../../../@fuse/animations';
 import { environment } from '../../../../environments/environment';
 
-registerLocaleData(localeVi); // Add this near the top of your file, after import
 @Component({
-  selector: 'app-membership-table',
-  templateUrl: './membership-table.component.html',
+  selector: 'app-hospital-table',
+  templateUrl: './hospital-table.component.html',
+  styleUrl: './hospital-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
-    TextareaModule,
     ConfirmPopupModule,
     TableModule,
     MatProgressBarModule,
@@ -71,37 +67,32 @@ registerLocaleData(localeVi); // Add this near the top of your file, after impor
     NgIf,
     ConfirmPopup,
     SelectModule,
-    DecimalPipe,
-    InputNumber,
   ],
   providers: [MessageService, ConfirmationService],
 })
-export class MembershipTableComponent implements OnInit {
-  // Constants
-  protected readonly Status = Status;
-
+export class HospitalTableComponent implements OnInit {
   // Component state
   isLoading = false;
-  membershipDialogToggle = false;
+  hospitalDialogToggle = false;
   isSubmittedForm = false;
 
   // Form
-  membershipForm!: FormGroup;
-  membership!: Membership;
+  hospitalForm!: FormGroup;
+  hospital!: Hospital;
 
   // ViewChild
   @ViewChild('dt') dt!: Table;
 
   // Resource
-  membershipResource = resource<Membership[], {}>({
+  hospitalResource = resource<Hospital[], {}>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
       try {
-        const response = await fetch(`${environment.apiUrl}memberships`, {
+        const response = await fetch(`${environment.apiUrl}hospitals`, {
           signal: abortSignal,
         });
         if (!response.ok) {
-          throw new Error(`Failed to fetch memberships: ${response.status}`);
+          throw new Error(`Failed to fetch hospitals: ${response.status}`);
         }
         return await response.json();
       } catch (error) {
@@ -122,7 +113,7 @@ export class MembershipTableComponent implements OnInit {
     private messageService: MessageService,
   ) {
     effect(() => {
-      console.log('Memberships loaded:', this.membershipResource.value());
+      console.log('Hospitals loaded:', this.hospitalResource.value());
     });
   }
 
@@ -137,133 +128,105 @@ export class MembershipTableComponent implements OnInit {
    * Public Methods
    */
   openNew(): void {
-    this.membershipForm.reset({
-      membership_id: '',
-      title: '',
-      description: '',
-      price: 0,
-      status: Status.INACTIVE,
+    this.hospitalForm.reset({
+      hospital_id: '',
+      name: '',
+      city: '',
     });
     this.isSubmittedForm = false;
-    this.membershipDialogToggle = true;
+    this.hospitalDialogToggle = true;
   }
 
   hideDialog(): void {
-    this.membershipDialogToggle = false;
+    this.hospitalDialogToggle = false;
     this.isSubmittedForm = false;
-    this.membershipForm.reset();
+    this.hospitalForm.reset();
   }
 
-  saveMembership(event: Event): void {
+  saveHospital(event: Event): void {
     this.isSubmittedForm = true;
-    if (this.membershipForm.invalid) {
-      this.membershipForm.markAllAsTouched();
+    if (this.hospitalForm.invalid) {
+      this.hospitalForm.markAllAsTouched();
       return;
     }
 
-    const _membership: Membership = this.membershipForm.value;
-    const isUpdate = !!_membership.membership_id;
+    const _hospital: Hospital = this.hospitalForm.value;
+    const isUpdate = !!_hospital.hospital_id;
     const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Are you sure you want to ${actionType} the membership?`,
+      message: `Are you sure you want to ${actionType} the hospital?`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.saveMembershipToServer(_membership, method, actionType);
+        this.saveHospitalToServer(_hospital, method, actionType);
       },
     });
   }
 
-  editMembership(membershipToEdit: Membership): void {
-    this.membershipForm.patchValue({
-      membership_id: membershipToEdit.membership_id,
-      title: membershipToEdit.title,
-      description: membershipToEdit.description,
-      price: membershipToEdit.price,
-      status: membershipToEdit.status,
+  editHospital(hospitalToEdit: Hospital): void {
+    this.hospitalForm.patchValue({
+      hospital_id: hospitalToEdit.hospital_id,
+      name: hospitalToEdit.name,
+      city: hospitalToEdit.city,
     });
 
-    this.membership = { ...membershipToEdit };
-    this.membershipDialogToggle = true;
+    this.hospital = { ...hospitalToEdit };
+    this.hospitalDialogToggle = true;
   }
 
   onGlobalFilter(table: Table, event: Event): void {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: Status): string {
-    switch (status) {
-      case Status.ACTIVE:
-        return 'success';
-      case Status.INACTIVE:
-        return 'warn';
-      default:
-        return 'info';
-    }
-  }
-
-  convertStatusToReadable(status: Status): string {
-    switch (status) {
-      case Status.ACTIVE:
-        return 'ACTIVE';
-      case Status.INACTIVE:
-        return 'INACTIVE';
-      default:
-        return 'UNKNOWN';
-    }
-  }
-
   /**
    * Form accessor
    */
   get f(): { [key: string]: AbstractControl } {
-    return this.membershipForm.controls;
+    return this.hospitalForm.controls;
   }
 
   /**
    * Private Methods
    */
   private initForm(): void {
-    this.membershipForm = this.formBuilder.group({
-      membership_id: [''],
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      price: [0, [Validators.required, Validators.min(0)]],
-      status: [Status.INACTIVE, Validators.required],
+    this.hospitalForm = this.formBuilder.group({
+      hospital_id: [''],
+      name: ['', Validators.required],
+      city: ['', Validators.required],
     });
   }
 
-  private async saveMembershipToServer(membership: Membership, method: string, actionType: string): Promise<void> {
+  private async saveHospitalToServer(hospital: Hospital, method: string, actionType: string): Promise<void> {
     this.isLoading = true;
 
     try {
-      const response = await fetch(`${environment.apiUrl}memberships`, {
+      const response = await fetch(`${environment.apiUrl}hospitals`, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(membership),
+        body: JSON.stringify(hospital),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${method.toLowerCase()} membership`);
+        throw new Error(`Failed to ${method.toLowerCase()} hospital`);
       }
 
       const result = await response.json();
       console.log('Server response:', result);
 
-      this.membershipDialogToggle = false;
-      this.membershipForm.reset();
-      this.membership = {} as Membership;
-      this.membershipResource.reload();
+      this.hospitalDialogToggle = false;
+      this.hospitalForm.reset();
+      this.hospital = {} as Hospital;
+      this.hospitalResource.reload();
 
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: `Membership ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        detail: `Hospital ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
         life: 4000,
       });
     } catch (error) {
@@ -274,7 +237,7 @@ export class MembershipTableComponent implements OnInit {
   }
 
   private notifyError(error: any): void {
-    console.error('Error in MembershipTableComponent:', error);
+    console.error('Error in HospitalTableComponent:', error);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',

@@ -13,7 +13,6 @@ import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pr
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
-import { membershipsRoute } from './modules/membership/membership.route';
 import { postRoutes } from './modules/post/post.routes';
 import { UserProfileComponent } from './modules/profile/user-profile.component';
 
@@ -147,10 +146,10 @@ export const appRoutes: Route[] = [
         path: 'community',
         loadChildren: () => postRoutes,
       },
-      {
-        path: 'membership',
-        loadChildren: () => membershipsRoute,
-      },
+      // {
+      //   path: 'membership',
+      //   // loadChildren: () => membershipsRoute, CHƯA CODE của CUSTOMER
+      // },
       {
         path: 'user-profile',
         loadComponent: () => UserProfileComponent,

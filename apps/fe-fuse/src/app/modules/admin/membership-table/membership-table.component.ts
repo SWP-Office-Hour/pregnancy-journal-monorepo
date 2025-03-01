@@ -1,6 +1,7 @@
 // noinspection ExceptionCaughtLocallyJS
 
-import { NgIf } from '@angular/common';
+import { DecimalPipe, NgIf, registerLocaleData } from '@angular/common';
+import localeVi from '@angular/common/locales/vi'; // Import Vietnamese locale
 import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,8 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { fuseAnimations } from '@fuse/animations';
-import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
+import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -23,25 +23,25 @@ import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
 import { DialogModule } from 'primeng/dialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
-import { InputNumberModule } from 'primeng/inputnumber';
+import { InputNumber } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
-import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { fuseAnimations } from '../../../../@fuse/animations';
 import { environment } from '../../../../environments/environment';
 
+registerLocaleData(localeVi); // Add this near the top of your file, after import
 @Component({
-  selector: 'app-health-metric-table',
-  templateUrl: './health-metric-table.component.html',
+  selector: 'app-membership-table',
+  templateUrl: './membership-table.component.html',
   animations: fuseAnimations,
   standalone: true,
   imports: [
+    TextareaModule,
     ConfirmPopupModule,
     TableModule,
     MatProgressBarModule,
@@ -61,15 +61,8 @@ import { environment } from '../../../../environments/environment';
     ToolbarModule,
     TableModule,
     ButtonModule,
-    RippleModule,
     ToastModule,
-    ToolbarModule,
-    RatingModule,
     InputTextModule,
-    TextareaModule,
-    SelectModule,
-    RadioButtonModule,
-    InputNumberModule,
     DialogModule,
     TagModule,
     InputIconModule,
@@ -77,35 +70,38 @@ import { environment } from '../../../../environments/environment';
     ConfirmDialogModule,
     NgIf,
     ConfirmPopup,
+    SelectModule,
+    DecimalPipe,
+    InputNumber,
   ],
   providers: [MessageService, ConfirmationService],
 })
-export class HealthMetricTableComponent implements OnInit {
+export class MembershipTableComponent implements OnInit {
   // Constants
   protected readonly Status = Status;
 
   // Component state
   isLoading = false;
-  metricDialogToggle = false;
+  membershipDialogToggle = false;
   isSubmittedForm = false;
 
   // Form
-  metricForm!: FormGroup;
-  metric!: HealthMetric;
+  membershipForm!: FormGroup;
+  membership!: Membership;
 
   // ViewChild
   @ViewChild('dt') dt!: Table;
 
   // Resource
-  metricResource = resource<HealthMetric[], {}>({
+  membershipResource = resource<Membership[], {}>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
       try {
-        const response = await fetch(`${environment.apiUrl}metrics`, {
+        const response = await fetch(`${environment.apiUrl}memberships`, {
           signal: abortSignal,
         });
         if (!response.ok) {
-          throw new Error(`Failed to fetch metrics: ${response.status}`);
+          throw new Error(`Failed to fetch memberships: ${response.status}`);
         }
         return await response.json();
       } catch (error) {
@@ -126,7 +122,7 @@ export class HealthMetricTableComponent implements OnInit {
     private messageService: MessageService,
   ) {
     effect(() => {
-      console.log('Metrics loaded:', this.metricResource.value());
+      console.log('Memberships loaded:', this.membershipResource.value());
     });
   }
 
@@ -141,61 +137,57 @@ export class HealthMetricTableComponent implements OnInit {
    * Public Methods
    */
   openNew(): void {
-    this.metricForm.reset({
-      metric_id: '',
+    this.membershipForm.reset({
+      membership_id: '',
       title: '',
-      measurement_unit: '',
+      description: '',
+      price: 0,
       status: Status.INACTIVE,
-      required: false,
-      upperbound_msg: '',
-      lowerbound_msg: '',
     });
     this.isSubmittedForm = false;
-    this.metricDialogToggle = true;
+    this.membershipDialogToggle = true;
   }
 
   hideDialog(): void {
-    this.metricDialogToggle = false;
+    this.membershipDialogToggle = false;
     this.isSubmittedForm = false;
-    this.metricForm.reset();
+    this.membershipForm.reset();
   }
 
-  saveMetric(event: Event): void {
+  saveMembership(event: Event): void {
     this.isSubmittedForm = true;
-    if (this.metricForm.invalid) {
-      this.metricForm.markAllAsTouched();
+    if (this.membershipForm.invalid) {
+      this.membershipForm.markAllAsTouched();
       return;
     }
 
-    const _metric: HealthMetric = this.metricForm.value;
-    const isUpdate = !!_metric.metric_id;
+    const _membership: Membership = this.membershipForm.value;
+    const isUpdate = !!_membership.membership_id;
     const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
-      message: `Are you sure you want to ${actionType} the metric?`,
+      message: `Are you sure you want to ${actionType} the membership?`,
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.saveMetricToServer(_metric, method, actionType);
+        this.saveMembershipToServer(_membership, method, actionType);
       },
     });
   }
 
-  editProduct(metricToEdit: HealthMetric): void {
-    this.metricForm.patchValue({
-      metric_id: metricToEdit.metric_id,
-      title: metricToEdit.title,
-      measurement_unit: metricToEdit.measurement_unit,
-      status: metricToEdit.status,
-      required: metricToEdit.required,
-      upperbound_msg: metricToEdit.upperbound_msg,
-      lowerbound_msg: metricToEdit.lowerbound_msg,
+  editMembership(membershipToEdit: Membership): void {
+    this.membershipForm.patchValue({
+      membership_id: membershipToEdit.membership_id,
+      title: membershipToEdit.title,
+      description: membershipToEdit.description,
+      price: membershipToEdit.price,
+      status: membershipToEdit.status,
     });
 
-    this.metric = { ...metricToEdit };
-    this.metricDialogToggle = true;
+    this.membership = { ...membershipToEdit };
+    this.membershipDialogToggle = true;
   }
 
   onGlobalFilter(table: Table, event: Event): void {
@@ -224,64 +216,54 @@ export class HealthMetricTableComponent implements OnInit {
     }
   }
 
-  getSeverityRequired(required: boolean): string {
-    return required ? 'success' : 'warn';
-  }
-
-  convertRequireToReadable(required: boolean): string {
-    return required ? 'REQUIRED' : 'OPTIONAL';
-  }
-
   /**
    * Form accessor
    */
   get f(): { [key: string]: AbstractControl } {
-    return this.metricForm.controls;
+    return this.membershipForm.controls;
   }
 
   /**
    * Private Methods
    */
   private initForm(): void {
-    this.metricForm = this.formBuilder.group({
-      metric_id: [''],
+    this.membershipForm = this.formBuilder.group({
+      membership_id: [''],
       title: ['', Validators.required],
-      measurement_unit: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
       status: [Status.INACTIVE, Validators.required],
-      required: [false, Validators.required],
-      upperbound_msg: ['', Validators.required],
-      lowerbound_msg: ['', Validators.required],
     });
   }
 
-  private async saveMetricToServer(metric: HealthMetric, method: string, actionType: string): Promise<void> {
+  private async saveMembershipToServer(membership: Membership, method: string, actionType: string): Promise<void> {
     this.isLoading = true;
 
     try {
-      const response = await fetch(`${environment.apiUrl}metrics`, {
+      const response = await fetch(`${environment.apiUrl}memberships`, {
         method,
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(metric),
+        body: JSON.stringify(membership),
       });
 
       if (!response.ok) {
-        throw new Error(`Failed to ${method.toLowerCase()} metric`);
+        throw new Error(`Failed to ${method.toLowerCase()} membership`);
       }
 
       const result = await response.json();
       console.log('Server response:', result);
 
-      this.metricDialogToggle = false;
-      this.metricForm.reset();
-      this.metric = {} as HealthMetric;
-      this.metricResource.reload();
+      this.membershipDialogToggle = false;
+      this.membershipForm.reset();
+      this.membership = {} as Membership;
+      this.membershipResource.reload();
 
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: `Metric ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        detail: `Membership ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
         life: 4000,
       });
     } catch (error) {
@@ -292,7 +274,7 @@ export class HealthMetricTableComponent implements OnInit {
   }
 
   private notifyError(error: any): void {
-    console.error('Error in HealthMetricTableComponent:', error);
+    console.error('Error in MembershipTableComponent:', error);
     this.messageService.add({
       severity: 'error',
       summary: 'Error',
