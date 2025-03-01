@@ -1,21 +1,23 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
-export const hospitalResSchema = z.object({
+export const hospitalResponseSchema = z.object({
   hospital_id: z.string(),
   name: z.string(),
   city: z.string(),
 });
 
-export const hospitalGetAllResSchema = z.array(hospitalResSchema);
+export const hospitalGetAllResponseSchema = z.array(hospitalResponseSchema);
 
-export const hospitalCreateRequestSchema = hospitalResSchema.omit({ hospital_id: true });
-export const hospitalUpdateRequestSchema = hospitalResSchema.extend({
+export const hospitalCreateRequestSchema = hospitalResponseSchema.omit({ hospital_id: true });
+export const hospitalUpdateRequestSchema = hospitalResponseSchema.extend({
   name: z.string().optional(),
   city: z.string().optional(),
 });
 
-export type HospitalResponse = z.infer<typeof hospitalResSchema>;
+export type Hospital = z.infer<typeof hospitalResponseSchema>;
+
+export type HospitalResponse = z.infer<typeof hospitalResponseSchema>;
 export type HospitalCreateRequestType = z.infer<typeof hospitalCreateRequestSchema>;
 export type HospitalUpdateRequestType = z.infer<typeof hospitalUpdateRequestSchema>;
 
@@ -27,7 +29,7 @@ export const hospitalContract = c.router({
     path: '/hospitals',
     description: 'Get all hospitals (đã xong)',
     responses: {
-      200: hospitalGetAllResSchema,
+      200: hospitalGetAllResponseSchema,
     },
   },
   getOne: {
@@ -38,7 +40,7 @@ export const hospitalContract = c.router({
       id: z.string(),
     }),
     responses: {
-      200: hospitalResSchema,
+      200: hospitalResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -49,7 +51,7 @@ export const hospitalContract = c.router({
 
     body: hospitalCreateRequestSchema,
     responses: {
-      200: hospitalResSchema,
+      200: hospitalResponseSchema,
     },
   },
   update: {
@@ -58,7 +60,7 @@ export const hospitalContract = c.router({
     description: 'Update a hospital by id (đã xong)',
     body: hospitalUpdateRequestSchema,
     responses: {
-      200: hospitalResSchema,
+      200: hospitalResponseSchema,
     },
   },
 });
