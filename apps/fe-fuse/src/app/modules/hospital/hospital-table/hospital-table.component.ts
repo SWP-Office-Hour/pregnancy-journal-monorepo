@@ -1,5 +1,8 @@
-import { ChangeDetectorRef, Component, effect, inject, resource } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+// noinspection ExceptionCaughtLocallyJS
+
+import { NgIf } from '@angular/common';
+import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -12,9 +15,20 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { HospitalResponse, Status } from '@pregnancy-journal-monorepo/contract';
-import { FuseAlertService } from '../../../../@fuse/components/alert';
-import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
+import { Hospital } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { Table, TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -24,6 +38,8 @@ import { environment } from '../../../../environments/environment';
   animations: fuseAnimations,
   standalone: true,
   imports: [
+    ConfirmPopupModule,
+    TableModule,
     MatProgressBarModule,
     MatFormFieldModule,
     MatIconModule,
@@ -38,28 +54,53 @@ import { environment } from '../../../../environments/environment';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
-    // NgTemplateOutlet,
+    ToolbarModule,
+    TableModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    DialogModule,
+    TagModule,
+    InputIconModule,
+    IconFieldModule,
+    ConfirmDialogModule,
+    NgIf,
+    ConfirmPopup,
+    SelectModule,
   ],
+  providers: [MessageService, ConfirmationService],
 })
-export class HospitalTableComponent {
-  private _fuseAlertService = inject(FuseAlertService);
-  private _fuseConfirmationService: FuseConfirmationService;
-  protected readonly Status = Status;
-  flashMessage: 'success' | 'error' | null = null;
-  isLoading: boolean = false;
-  selectedHospital: HospitalResponse | null = null;
-  selectedHospitalForm: UntypedFormGroup;
-  searchInputControl: UntypedFormControl = new UntypedFormControl();
+export class HospitalTableComponent implements OnInit {
+  // Component state
+  isLoading = false;
+  hospitalDialogToggle = false;
+  isSubmittedForm = false;
 
-  // hospitalList = signal<Array<HealthMetric>>([]);
+  // Form
+  hospitalForm!: FormGroup;
+  hospital!: Hospital;
 
-  hospitalResource = resource<HospitalResponse[], {}>({
+  // ViewChild
+  @ViewChild('dt') dt!: Table;
+
+  // Resource
+  hospitalResource = resource<Hospital[], {}>({
     loader: async ({ abortSignal }) => {
-      const response = await fetch(environment.apiUrl + 'hospitals', {
-        signal: abortSignal,
-      });
-      if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}hospitals`, {
+          signal: abortSignal,
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch hospitals: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        this.notifyError(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
     },
   });
 
@@ -67,152 +108,141 @@ export class HospitalTableComponent {
    * Constructor
    */
   constructor(
-    private _formBuilder: FormBuilder,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) {
-    // Create the selected product form
-    this.selectedHospitalForm = this._formBuilder.group({
-      hospital_id: [''],
-      name: ['New Hospital'],
-      city: [''],
-    });
     effect(() => {
-      console.log('hospitalResource');
-      console.log(this.hospitalResource.value());
-      // console.log('hospitalList');
-      // console.log(this.hospitalList());
+      console.log('Hospitals loaded:', this.hospitalResource.value());
     });
-  }
-
-  toggleDetails(hospitalId: string): void {
-    // If the metric is already selected...
-    if (this.selectedHospital && this.selectedHospital.hospital_id === hospitalId) {
-      // Close the details
-      this.closeDetails();
-      return;
-    }
-    const resultOfFindInList: HospitalResponse | undefined = this.hospitalResource.value()!.find((item) => item.hospital_id === hospitalId);
-    if (resultOfFindInList) {
-      this.selectedHospital = resultOfFindInList;
-    } else {
-      return;
-    }
-    // Fill the form
-    this.selectedHospitalForm.patchValue(this.selectedHospital);
-    console.log(this.selectedHospitalForm.value);
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
-  }
-
-  closeDetails(): void {
-    this.selectedHospital = null;
-  }
-
-  createMetric() {
-    //   this.closeDetails();
-    //   console.log(this.selectedHospital);
-    //
-    //   const rawDataFromForm = this.selectedMetricForm.getRawValue();
-    //   console.log('I JUST RUN createMetric AND this.selectedMetricForm.getRawValue(); is ');
-    //   console.log(rawDataFromForm);
-    //   console.log('stringify');
-    //   console.log(JSON.stringify(rawDataFromForm));
-    //
-    //   (async () => {
-    //     const response = await fetch(environment.apiUrl + 'metrics', {
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(rawDataFromForm),
-    //     });
-    //     if (!response.ok) throw Error(`Could not fetch...`);
-    //
-    //     const rsJson = await response.json();
-    //     console.log('rsJson');
-    //     console.log(rsJson);
-    //
-    //     this.hospitalResource.reload();
-    //     this.selectedHospital = rsJson;
-    //     this.selectedProductForm.patchValue(newProduct);
-    //   })();
-    //   // Mark for check
-    //   this._changeDetectorRef.markForCheck();
-  }
-
-  updateSelectedHospital(): void {
-    //   // Get the metric object
-    //   const metric = this.selectedHospitalForm.getRawValue();
-    //   // console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
-    //   // console.log(metric);
-    //   // console.log('stringify');
-    //   // console.log(JSON.stringify(metric));
-    //
-    //   (async () => {
-    //     const response = await fetch(environment.apiUrl + 'metrics', {
-    //       method: 'PATCH',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //       body: JSON.stringify(metric),
-    //     });
-    //     if (!response.ok) throw Error(`Could not fetch...`);
-    //
-    //     const rsJson = await response.json();
-    //     console.log('rsJson');
-    //     console.log(rsJson);
-    //
-    //     this.hospitalResource.reload();
-    //   })();
-    //
-    //   //   // Show a success message
-    //   this.showFlashMessage('success');
-  }
-
-  deleteSelectedProduct(): void {
-    //   // Open the confirmation dialog
-    //   const confirmation = this._fuseConfirmationService.open({
-    //     title: 'Delete product',
-    //     message: 'Are you sure you want to remove this product? This action cannot be undone!',
-    //     actions: {
-    //       confirm: {
-    //         label: 'Delete',
-    //       },
-    //     },
-    //   });
-    //
-    //   // Subscribe to the confirmation dialog closed action
-    //   confirmation.afterClosed().subscribe((result) => {
-    //     // If the confirm button pressed...
-    //     if (result === 'confirmed') {
-    //       // Get the product object
-    //       const product = this.selectedHospitalForm.getRawValue();
-    //
-    //       // Delete the product on the server
-    //       // this._inventoryService.deleteProduct(product.id).subscribe(() => {
-    //       // Close the details
-    //       this.closeDetails();
-    //       // });
-    //     }
-    //   });
   }
 
   /**
-   * Show flash message
+   * Lifecycle Methods
    */
-  showFlashMessage(type: 'success' | 'error'): void {
-    // Show the message
-    this.flashMessage = type;
+  ngOnInit(): void {
+    this.initForm();
+  }
 
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
+  /**
+   * Public Methods
+   */
+  openNew(): void {
+    this.hospitalForm.reset({
+      hospital_id: '',
+      name: '',
+      city: '',
+    });
+    this.isSubmittedForm = false;
+    this.hospitalDialogToggle = true;
+  }
 
-    // Hide it after 3 seconds
-    setTimeout(() => {
-      this.flashMessage = null;
+  hideDialog(): void {
+    this.hospitalDialogToggle = false;
+    this.isSubmittedForm = false;
+    this.hospitalForm.reset();
+  }
 
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    }, 3000);
+  saveHospital(event: Event): void {
+    this.isSubmittedForm = true;
+    if (this.hospitalForm.invalid) {
+      this.hospitalForm.markAllAsTouched();
+      return;
+    }
+
+    const _hospital: Hospital = this.hospitalForm.value;
+    const isUpdate = !!_hospital.hospital_id;
+    const actionType = isUpdate ? 'update' : 'create';
+    const method = isUpdate ? 'PATCH' : 'POST';
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to ${actionType} the hospital?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.saveHospitalToServer(_hospital, method, actionType);
+      },
+    });
+  }
+
+  editHospital(hospitalToEdit: Hospital): void {
+    this.hospitalForm.patchValue({
+      hospital_id: hospitalToEdit.hospital_id,
+      name: hospitalToEdit.name,
+      city: hospitalToEdit.city,
+    });
+
+    this.hospital = { ...hospitalToEdit };
+    this.hospitalDialogToggle = true;
+  }
+
+  onGlobalFilter(table: Table, event: Event): void {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  /**
+   * Form accessor
+   */
+  get f(): { [key: string]: AbstractControl } {
+    return this.hospitalForm.controls;
+  }
+
+  /**
+   * Private Methods
+   */
+  private initForm(): void {
+    this.hospitalForm = this.formBuilder.group({
+      hospital_id: [''],
+      name: ['', Validators.required],
+      city: ['', Validators.required],
+    });
+  }
+
+  private async saveHospitalToServer(hospital: Hospital, method: string, actionType: string): Promise<void> {
+    this.isLoading = true;
+
+    try {
+      const response = await fetch(`${environment.apiUrl}hospitals`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(hospital),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to ${method.toLowerCase()} hospital`);
+      }
+
+      const result = await response.json();
+      console.log('Server response:', result);
+
+      this.hospitalDialogToggle = false;
+      this.hospitalForm.reset();
+      this.hospital = {} as Hospital;
+      this.hospitalResource.reload();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: `Hospital ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        life: 4000,
+      });
+    } catch (error) {
+      this.notifyError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private notifyError(error: any): void {
+    console.error('Error in HospitalTableComponent:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: error.message || 'An unexpected error occurred',
+      life: 4000,
+    });
   }
 }

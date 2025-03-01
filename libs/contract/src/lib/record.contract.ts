@@ -1,7 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
-import { hospitalResSchema } from './hospital.contract';
+import { hospitalResponseSchema } from './hospital.contract';
 import { mediaResSchema } from './media.contract';
 import { tagResponseSchema } from './tag.contract';
 
@@ -66,7 +66,7 @@ const recordResSchema = recordBaseSchema
     week: z.number(),
     visit_doctor_date: z.date(),
     next_visit_doctor_date: z.date(),
-    hospital: hospitalResSchema,
+    hospital: hospitalResponseSchema,
     media: z.array(mediaResSchema),
   });
 
