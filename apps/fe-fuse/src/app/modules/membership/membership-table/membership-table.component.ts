@@ -1,5 +1,9 @@
-import { ChangeDetectorRef, Component, resource, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+// noinspection ExceptionCaughtLocallyJS
+
+import { DecimalPipe, NgIf, registerLocaleData } from '@angular/common';
+import localeVi from '@angular/common/locales/vi'; // Import Vietnamese locale
+import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -12,17 +16,34 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
-import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
+import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputNumber } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { Table, TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { TextareaModule } from 'primeng/textarea';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { environment } from '../../../../environments/environment';
 
+registerLocaleData(localeVi); // Add this near the top of your file, after import
 @Component({
-  selector: 'app-health-metric-table',
+  selector: 'app-membership-table',
   templateUrl: './membership-table.component.html',
-  styleUrl: './membership-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
+    TextareaModule,
+    ConfirmPopupModule,
+    TableModule,
     MatProgressBarModule,
     MatFormFieldModule,
     MatIconModule,
@@ -37,25 +58,58 @@ import { environment } from '../../../../environments/environment';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
+    ToolbarModule,
+    TableModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    DialogModule,
+    TagModule,
+    InputIconModule,
+    IconFieldModule,
+    ConfirmDialogModule,
+    NgIf,
+    ConfirmPopup,
+    SelectModule,
+    DecimalPipe,
+    InputNumber,
   ],
+  providers: [MessageService, ConfirmationService],
 })
-export class MembershipTableComponent {
+export class MembershipTableComponent implements OnInit {
+  // Constants
   protected readonly Status = Status;
-  flashMessage: 'success' | 'error' | null = null;
-  isLoading: boolean = false;
-  selectedMetric: HealthMetric | null = null;
-  selectedMetricForm: UntypedFormGroup;
-  searchInputControl: UntypedFormControl = new UntypedFormControl();
 
-  metricList = signal<Array<HealthMetric>>([]);
+  // Component state
+  isLoading = false;
+  membershipDialogToggle = false;
+  isSubmittedForm = false;
 
-  metricResource = resource<HealthMetric[], {}>({
+  // Form
+  membershipForm!: FormGroup;
+  membership!: Membership;
+
+  // ViewChild
+  @ViewChild('dt') dt!: Table;
+
+  // Resource
+  membershipResource = resource<Membership[], {}>({
     loader: async ({ abortSignal }) => {
-      const response = await fetch(environment.apiUrl + 'metrics', {
-        signal: abortSignal,
-      });
-      if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}memberships`, {
+          signal: abortSignal,
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch memberships: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        this.notifyError(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
     },
   });
 
@@ -63,116 +117,169 @@ export class MembershipTableComponent {
    * Constructor
    */
   constructor(
-    private _formBuilder: FormBuilder,
-    private _fuseConfirmationService: FuseConfirmationService,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) {
-    // Create the selected product form
-    this.selectedMetricForm = this._formBuilder.group({
-      metric_id: [''],
-      title: [''],
-      measurement_unit: ['', [Validators.required]],
-      status: Status,
-      required: [false],
-      upperbound_msg: [''],
-      lowerbound_msg: [''],
-      tag: [''],
+    effect(() => {
+      console.log('Memberships loaded:', this.membershipResource.value());
     });
-    // effect(() => {
-    //   console.log('metricResource');
-    //   console.log(this.metricResource.value());
-    // });
-  }
-
-  toggleDetails(metricId: string): void {
-    // If the metric is already selected...
-    if (this.selectedMetric && this.selectedMetric.metric_id === metricId) {
-      // Close the details
-      this.closeDetails();
-      return;
-    }
-
-    const resultOfFindInList: HealthMetric | undefined = this.metricResource.value()!.find((item) => item.metric_id === metricId);
-    if (resultOfFindInList) {
-      this.selectedMetric = resultOfFindInList;
-    } else {
-      return;
-    }
-    // Fill the form
-    this.selectedMetricForm.patchValue(this.selectedMetric);
-    console.log(this.selectedMetricForm.value);
-
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
-  }
-
-  closeDetails(): void {
-    this.selectedMetric = null;
-  }
-
-  createMetric() {
-    console.log('Create metric');
-  }
-
-  deleteSelectedProduct(): void {
-    // Open the confirmation dialog
-    const confirmation = this._fuseConfirmationService.open({
-      title: 'Delete product',
-      message: 'Are you sure you want to remove this product? This action cannot be undone!',
-      actions: {
-        confirm: {
-          label: 'Delete',
-        },
-      },
-    });
-
-    // Subscribe to the confirmation dialog closed action
-    confirmation.afterClosed().subscribe((result) => {
-      // If the confirm button pressed...
-      if (result === 'confirmed') {
-        // Get the product object
-        const product = this.selectedMetricForm.getRawValue();
-
-        // Delete the product on the server
-        // this._inventoryService.deleteProduct(product.id).subscribe(() => {
-        // Close the details
-        this.closeDetails();
-        // });
-      }
-    });
-  }
-
-  updateSelectedMetric(): void {
-    // Get the product object
-    const metric = this.selectedMetricForm.getRawValue();
-    console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
-    console.log(metric);
-    // Remove the currentImageIndex field
-    delete metric.currentImageIndex;
-
-    // Update the product on the server
-    // this._inventoryService.updateProduct(product.id, product).subscribe(() => {
-    //   // Show a success message
-    //   this.showFlashMessage('success');
-    // });
   }
 
   /**
-   * Show flash message
+   * Lifecycle Methods
    */
-  showFlashMessage(type: 'success' | 'error'): void {
-    // Show the message
-    this.flashMessage = type;
+  ngOnInit(): void {
+    this.initForm();
+  }
 
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
+  /**
+   * Public Methods
+   */
+  openNew(): void {
+    this.membershipForm.reset({
+      membership_id: '',
+      title: '',
+      description: '',
+      price: 0,
+      status: Status.INACTIVE,
+    });
+    this.isSubmittedForm = false;
+    this.membershipDialogToggle = true;
+  }
 
-    // Hide it after 3 seconds
-    setTimeout(() => {
-      this.flashMessage = null;
+  hideDialog(): void {
+    this.membershipDialogToggle = false;
+    this.isSubmittedForm = false;
+    this.membershipForm.reset();
+  }
 
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    }, 3000);
+  saveMembership(event: Event): void {
+    this.isSubmittedForm = true;
+    if (this.membershipForm.invalid) {
+      this.membershipForm.markAllAsTouched();
+      return;
+    }
+
+    const _membership: Membership = this.membershipForm.value;
+    const isUpdate = !!_membership.membership_id;
+    const actionType = isUpdate ? 'update' : 'create';
+    const method = isUpdate ? 'PATCH' : 'POST';
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to ${actionType} the membership?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.saveMembershipToServer(_membership, method, actionType);
+      },
+    });
+  }
+
+  editMembership(membershipToEdit: Membership): void {
+    this.membershipForm.patchValue({
+      membership_id: membershipToEdit.membership_id,
+      title: membershipToEdit.title,
+      description: membershipToEdit.description,
+      price: membershipToEdit.price,
+      status: membershipToEdit.status,
+    });
+
+    this.membership = { ...membershipToEdit };
+    this.membershipDialogToggle = true;
+  }
+
+  onGlobalFilter(table: Table, event: Event): void {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  getSeverityStatus(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'success';
+      case Status.INACTIVE:
+        return 'warn';
+      default:
+        return 'info';
+    }
+  }
+
+  convertStatusToReadable(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'ACTIVE';
+      case Status.INACTIVE:
+        return 'INACTIVE';
+      default:
+        return 'UNKNOWN';
+    }
+  }
+
+  /**
+   * Form accessor
+   */
+  get f(): { [key: string]: AbstractControl } {
+    return this.membershipForm.controls;
+  }
+
+  /**
+   * Private Methods
+   */
+  private initForm(): void {
+    this.membershipForm = this.formBuilder.group({
+      membership_id: [''],
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [0, [Validators.required, Validators.min(0)]],
+      status: [Status.INACTIVE, Validators.required],
+    });
+  }
+
+  private async saveMembershipToServer(membership: Membership, method: string, actionType: string): Promise<void> {
+    this.isLoading = true;
+
+    try {
+      const response = await fetch(`${environment.apiUrl}memberships`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(membership),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to ${method.toLowerCase()} membership`);
+      }
+
+      const result = await response.json();
+      console.log('Server response:', result);
+
+      this.membershipDialogToggle = false;
+      this.membershipForm.reset();
+      this.membership = {} as Membership;
+      this.membershipResource.reload();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: `Membership ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        life: 4000,
+      });
+    } catch (error) {
+      this.notifyError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private notifyError(error: any): void {
+    console.error('Error in MembershipTableComponent:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: error.message || 'An unexpected error occurred',
+      life: 4000,
+    });
   }
 }

@@ -118,7 +118,6 @@ export const adminNavigation: FuseNavigationItem[] = [
     id: 'membership',
     title: 'Membership',
     type: 'basic',
-    // icon: 'heroicons_outline:user-group',
     icon: 'heroicons_outline:identification',
     link: 'admin/membership',
   },
