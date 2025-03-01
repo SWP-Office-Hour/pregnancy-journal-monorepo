@@ -1,5 +1,8 @@
-import { ChangeDetectorRef, Component, resource, signal } from '@angular/core';
-import { FormBuilder, FormsModule, ReactiveFormsModule, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+// noinspection ExceptionCaughtLocallyJS
+
+import { NgIf } from '@angular/common';
+import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatRippleModule } from '@angular/material/core';
@@ -12,17 +15,30 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
 import { fuseAnimations } from '@fuse/animations';
-import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
-import { FuseConfirmationService } from '../../../../@fuse/services/confirmation';
+import { Category, Status } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmPopup, ConfirmPopupModule } from 'primeng/confirmpopup';
+import { DialogModule } from 'primeng/dialog';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
+import { SelectModule } from 'primeng/select';
+import { Table, TableModule } from 'primeng/table';
+import { TagModule } from 'primeng/tag';
+import { ToastModule } from 'primeng/toast';
+import { ToolbarModule } from 'primeng/toolbar';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-category-table',
   templateUrl: './category-table.component.html',
-  styleUrl: './category-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
+    ConfirmPopupModule,
+    TableModule,
     MatProgressBarModule,
     MatFormFieldModule,
     MatIconModule,
@@ -37,25 +53,56 @@ import { environment } from '../../../../environments/environment';
     MatOptionModule,
     MatCheckboxModule,
     MatRippleModule,
+    ToolbarModule,
+    TableModule,
+    ButtonModule,
+    ToastModule,
+    InputTextModule,
+    DialogModule,
+    TagModule,
+    InputIconModule,
+    IconFieldModule,
+    ConfirmDialogModule,
+    NgIf,
+    ConfirmPopup,
+    SelectModule,
   ],
+  providers: [MessageService, ConfirmationService],
 })
-export class CategoryTableComponent {
+export class CategoryTableComponent implements OnInit {
+  // Constants
   protected readonly Status = Status;
-  flashMessage: 'success' | 'error' | null = null;
-  isLoading: boolean = false;
-  selectedMetric: HealthMetric | null = null;
-  selectedMetricForm: UntypedFormGroup;
-  searchInputControl: UntypedFormControl = new UntypedFormControl();
 
-  metricList = signal<Array<HealthMetric>>([]);
+  // Component state
+  isLoading = false;
+  categoryDialogToggle = false;
+  isSubmittedForm = false;
 
-  metricResource = resource<HealthMetric[], {}>({
+  // Form
+  categoryForm!: FormGroup;
+  category!: Category;
+
+  // ViewChild
+  @ViewChild('dt') dt!: Table;
+
+  // Resource
+  categoryResource = resource<Category[], {}>({
     loader: async ({ abortSignal }) => {
-      const response = await fetch(environment.apiUrl + 'metrics', {
-        signal: abortSignal,
-      });
-      if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}categories`, {
+          signal: abortSignal,
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch categories: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        this.notifyError(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
     },
   });
 
@@ -63,116 +110,163 @@ export class CategoryTableComponent {
    * Constructor
    */
   constructor(
-    private _formBuilder: FormBuilder,
-    private _fuseConfirmationService: FuseConfirmationService,
-    private _changeDetectorRef: ChangeDetectorRef,
+    private formBuilder: FormBuilder,
+    private confirmationService: ConfirmationService,
+    private messageService: MessageService,
   ) {
-    // Create the selected product form
-    this.selectedMetricForm = this._formBuilder.group({
-      metric_id: [''],
-      title: [''],
-      measurement_unit: ['', [Validators.required]],
-      status: Status,
-      required: [false],
-      upperbound_msg: [''],
-      lowerbound_msg: [''],
-      tag: [''],
+    effect(() => {
+      console.log('Categories loaded:', this.categoryResource.value());
     });
-    // effect(() => {
-    //   console.log('metricResource');
-    //   console.log(this.metricResource.value());
-    // });
-  }
-
-  toggleDetails(metricId: string): void {
-    // If the metric is already selected...
-    if (this.selectedMetric && this.selectedMetric.metric_id === metricId) {
-      // Close the details
-      this.closeDetails();
-      return;
-    }
-
-    const resultOfFindInList: HealthMetric | undefined = this.metricResource.value()!.find((item) => item.metric_id === metricId);
-    if (resultOfFindInList) {
-      this.selectedMetric = resultOfFindInList;
-    } else {
-      return;
-    }
-    // Fill the form
-    this.selectedMetricForm.patchValue(this.selectedMetric);
-    console.log(this.selectedMetricForm.value);
-
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
-  }
-
-  closeDetails(): void {
-    this.selectedMetric = null;
-  }
-
-  createMetric() {
-    console.log('Create metric');
-  }
-
-  deleteSelectedProduct(): void {
-    // Open the confirmation dialog
-    const confirmation = this._fuseConfirmationService.open({
-      title: 'Delete product',
-      message: 'Are you sure you want to remove this product? This action cannot be undone!',
-      actions: {
-        confirm: {
-          label: 'Delete',
-        },
-      },
-    });
-
-    // Subscribe to the confirmation dialog closed action
-    confirmation.afterClosed().subscribe((result) => {
-      // If the confirm button pressed...
-      if (result === 'confirmed') {
-        // Get the product object
-        const product = this.selectedMetricForm.getRawValue();
-
-        // Delete the product on the server
-        // this._inventoryService.deleteProduct(product.id).subscribe(() => {
-        // Close the details
-        this.closeDetails();
-        // });
-      }
-    });
-  }
-
-  updateSelectedMetric(): void {
-    // Get the product object
-    const metric = this.selectedMetricForm.getRawValue();
-    console.log('I JUST RUN updateSelectedProduct AND this.selectedMetricForm.getRawValue(); is ');
-    console.log(metric);
-    // Remove the currentImageIndex field
-    delete metric.currentImageIndex;
-
-    // Update the product on the server
-    // this._inventoryService.updateProduct(product.id, product).subscribe(() => {
-    //   // Show a success message
-    //   this.showFlashMessage('success');
-    // });
   }
 
   /**
-   * Show flash message
+   * Lifecycle Methods
    */
-  showFlashMessage(type: 'success' | 'error'): void {
-    // Show the message
-    this.flashMessage = type;
+  ngOnInit(): void {
+    this.initForm();
+  }
 
-    // Mark for check
-    this._changeDetectorRef.markForCheck();
+  /**
+   * Public Methods
+   */
+  openNew(): void {
+    this.categoryForm.reset({
+      category_id: '',
+      title: '',
+      status: Status.INACTIVE,
+    });
+    this.isSubmittedForm = false;
+    this.categoryDialogToggle = true;
+  }
 
-    // Hide it after 3 seconds
-    setTimeout(() => {
-      this.flashMessage = null;
+  hideDialog(): void {
+    this.categoryDialogToggle = false;
+    this.isSubmittedForm = false;
+    this.categoryForm.reset();
+  }
 
-      // Mark for check
-      this._changeDetectorRef.markForCheck();
-    }, 3000);
+  saveCategory(event: Event): void {
+    this.isSubmittedForm = true;
+    if (this.categoryForm.invalid) {
+      this.categoryForm.markAllAsTouched();
+      return;
+    }
+
+    const _category: Category = this.categoryForm.value;
+    const isUpdate = !!_category.category_id;
+    const actionType = isUpdate ? 'update' : 'create';
+    const method = isUpdate ? 'PATCH' : 'POST';
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to ${actionType} the category?`,
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.saveCategoryToServer(_category, method, actionType);
+      },
+    });
+  }
+
+  editCategory(categoryToEdit: Category): void {
+    this.categoryForm.patchValue({
+      category_id: categoryToEdit.category_id,
+      title: categoryToEdit.title,
+      status: categoryToEdit.status,
+    });
+
+    this.category = { ...categoryToEdit };
+    this.categoryDialogToggle = true;
+  }
+
+  onGlobalFilter(table: Table, event: Event): void {
+    table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  getSeverityStatus(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'success';
+      case Status.INACTIVE:
+        return 'warn';
+      default:
+        return 'info';
+    }
+  }
+
+  convertStatusToReadable(status: Status): string {
+    switch (status) {
+      case Status.ACTIVE:
+        return 'ACTIVE';
+      case Status.INACTIVE:
+        return 'INACTIVE';
+      default:
+        return 'UNKNOWN';
+    }
+  }
+
+  /**
+   * Form accessor
+   */
+  get f(): { [key: string]: AbstractControl } {
+    return this.categoryForm.controls;
+  }
+
+  /**
+   * Private Methods
+   */
+  private initForm(): void {
+    this.categoryForm = this.formBuilder.group({
+      category_id: [''],
+      title: ['', Validators.required],
+      status: [Status.INACTIVE, Validators.required],
+    });
+  }
+
+  private async saveCategoryToServer(category: Category, method: string, actionType: string): Promise<void> {
+    this.isLoading = true;
+
+    try {
+      const response = await fetch(`${environment.apiUrl}categories`, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(category),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to ${method.toLowerCase()} category`);
+      }
+
+      const result = await response.json();
+      console.log('Server response:', result);
+
+      this.categoryDialogToggle = false;
+      this.categoryForm.reset();
+      this.category = {} as Category;
+      this.categoryResource.reload();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: `Category ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
+        life: 4000,
+      });
+    } catch (error) {
+      this.notifyError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  private notifyError(error: any): void {
+    console.error('Error in CategoryTableComponent:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: error.message || 'An unexpected error occurred',
+      life: 4000,
+    });
   }
 }

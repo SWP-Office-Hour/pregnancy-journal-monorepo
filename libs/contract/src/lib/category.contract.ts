@@ -2,24 +2,25 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
-export const categoryResSchema = z.object({
+export const categoryResponseSchema = z.object({
   category_id: z.string(),
   title: z.string(),
   status: statusSchema,
 });
 
 // Sử dụng omit để loại bỏ trường `category_id` khi tạo mới category
-export const categoryCreateReqSchema = categoryResSchema.omit({ category_id: true });
+export const categoryCreateRequestSchema = categoryResponseSchema.omit({ category_id: true });
 
 // Sử dụng omit để loại bỏ trường không cần thiết khi cập nhật category
-export const categoryUpdateReqSchema = categoryResSchema.extend({
+export const categoryUpdateRequestSchema = categoryResponseSchema.extend({
   title: z.string().optional(),
   status: statusSchema.optional(),
 });
 
-export type CategoryResponse = z.infer<typeof categoryResSchema>;
-export type CategoryCreateRequest = z.infer<typeof categoryCreateReqSchema>;
-export type CategoryUpdateRequest = z.infer<typeof categoryUpdateReqSchema>;
+export type Category = z.infer<typeof categoryResponseSchema>;
+export type CategoryResponse = z.infer<typeof categoryResponseSchema>;
+export type CategoryCreateRequest = z.infer<typeof categoryCreateRequestSchema>;
+export type CategoryUpdateRequest = z.infer<typeof categoryUpdateRequestSchema>;
 
 const c = initContract();
 
@@ -28,9 +29,9 @@ export const categoryContract = c.router({
     method: 'POST',
     path: '/categories',
     description: 'Create a new category (đã xong)',
-    body: categoryCreateReqSchema,
+    body: categoryCreateRequestSchema,
     responses: {
-      201: categoryResSchema,
+      201: categoryResponseSchema,
     },
   },
   getAll: {
@@ -38,7 +39,7 @@ export const categoryContract = c.router({
     path: '/categories',
     description: 'Get all categories (đã xong)',
     responses: {
-      200: z.array(categoryResSchema),
+      200: z.array(categoryResponseSchema),
       404: z.object({ message: z.string() }),
     },
   },
@@ -47,7 +48,7 @@ export const categoryContract = c.router({
     path: '/categories/:id',
     description: 'Get a category by id (đã xong)',
     responses: {
-      200: categoryResSchema,
+      200: categoryResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -55,9 +56,9 @@ export const categoryContract = c.router({
     method: 'PATCH',
     path: '/categories',
     description: 'Update a category by category id (đã xong)',
-    body: categoryUpdateReqSchema,
+    body: categoryUpdateRequestSchema,
     responses: {
-      200: categoryResSchema,
+      200: categoryResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -66,7 +67,7 @@ export const categoryContract = c.router({
     path: '/categories/:id',
     description: 'Delete a category by id (đã xong)',
     responses: {
-      200: categoryResSchema,
+      200: categoryResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },

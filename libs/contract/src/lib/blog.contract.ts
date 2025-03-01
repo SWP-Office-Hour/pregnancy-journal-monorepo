@@ -1,6 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import { categoryResSchema } from './category.contract';
+import { categoryResponseSchema } from './category.contract';
 import { tagResponseSchema } from './tag.contract';
 
 const blogResponeSchema = z.object({
@@ -13,7 +13,7 @@ const blogResponeSchema = z.object({
   updated_at: z.date(),
   blog_cover: z.string(),
   tags: z.array(tagResponseSchema.optional()).optional(),
-  category: categoryResSchema,
+  category: categoryResponseSchema,
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới blog
