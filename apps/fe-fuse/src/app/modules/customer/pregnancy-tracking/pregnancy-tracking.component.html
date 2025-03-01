@@ -1,4 +1,4 @@
-<div class="flex w-screen flex-col items-center">
+<div class="flex w-full max-w-full flex-col items-center px-4 md:px-6">
   <div class="my-5 text-center">
     <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
   </div>
@@ -8,5 +8,7 @@
       <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
     }
   </div>
-  <app-record-table></app-record-table>
+  <div class="w-full">
+    <app-record-table></app-record-table>
+  </div>
 </div>
