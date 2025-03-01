@@ -181,7 +181,7 @@ export class AuthService {
         this.accessToken = response.access_token;
         this._authenticated = true;
         this._userService.user = {
-          id: response.user.id,
+          user_id: response.user.id,
           name: response.user.name,
           role: response.user.role,
           status: 'active',
