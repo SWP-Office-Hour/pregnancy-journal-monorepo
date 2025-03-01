@@ -63,7 +63,9 @@ const userProfileUpdateSchema = userProfileSchema
   })
   .partial()
   .extend({ expected_birth_date: z.string().datetime().optional() });
-// const test: UserResponseType
+
+// const test: UserResponseType;
+
 export type UserTypeFromContract = z.infer<typeof userResponseSchema>;
 export type UserCreateRequestType = z.infer<typeof userCreateRequestSchema>;
 export type UserUpdateRequestType = z.infer<typeof userUpdateRequestSchema>;

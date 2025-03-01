@@ -11,10 +11,10 @@
       class="absolute bottom-0 right-0 h-2 w-2 rounded-full"
       [ngClass]="{
         'mb-px mr-px': !showAvatar || !user.avatar,
-        'bg-green-500': user.status === 'online',
-        'bg-amber-500': user.status === 'away',
-        'bg-red-500': user.status === 'busy',
-        'bg-gray-400': user.status === 'not-visible',
+        'bg-green-500': user.onlineStatus === 'online',
+        'bg-amber-500': user.onlineStatus === 'away',
+        'bg-red-500': user.onlineStatus === 'busy',
+        'bg-gray-400': user.onlineStatus === 'not-visible',
       }"
     ></span>
   </span>
