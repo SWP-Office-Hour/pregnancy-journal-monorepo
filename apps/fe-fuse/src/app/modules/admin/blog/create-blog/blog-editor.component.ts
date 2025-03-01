@@ -12,8 +12,9 @@ import { Router } from '@angular/router';
 import { BlogResponseType, BlogUpdateRequestType, CategoryResponse, MediaResponse, TagResponse } from '@pregnancy-journal-monorepo/contract';
 import { QuillEditorComponent } from 'ngx-quill';
 import { imageCompressor } from 'quill-image-compress';
-import { FileUploadComponent } from '../../../common/file-upload/file-upload.component';
-import { ImagePreviewComponent } from '../../../common/image-preview/image-preview.component';
+
+import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
+import { ImagePreviewComponent } from '../../../../common/image-preview/image-preview.component';
 import { BlogsService } from '../blogs.service';
 
 @Component({
