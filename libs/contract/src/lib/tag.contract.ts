@@ -2,24 +2,25 @@ import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 
-export const tagResSchema = z.object({
+export const tagResponseSchema = z.object({
   tag_id: z.string(),
   title: z.string(),
   status: statusSchema,
 });
 
 // Sử dụng omit để loại bỏ trường `tag_id` từ `tagResSchema` khi tạo mới tag
-export const tagCreateReqSchema = tagResSchema.omit({ tag_id: true });
+export const tagCreateRequestSchema = tagResponseSchema.omit({ tag_id: true });
 
-export const tagUpdateReqSchema = tagResSchema.extend({
+export const tagUpdateRequestSchema = tagResponseSchema.extend({
   title: z.string().optional(),
   status: statusSchema.optional(),
 });
-const tagGetAllResSchema = z.array(tagResSchema);
+const tagGetAllResSchema = z.array(tagResponseSchema);
 
-export type TagResponse = z.infer<typeof tagResSchema>;
-export type TagCreateRequest = z.infer<typeof tagCreateReqSchema>;
-export type TagUpdateRequest = z.infer<typeof tagUpdateReqSchema>;
+export type Tag = z.infer<typeof tagResponseSchema>;
+export type TagResponse = z.infer<typeof tagResponseSchema>;
+export type TagCreateRequest = z.infer<typeof tagCreateRequestSchema>;
+export type TagUpdateRequest = z.infer<typeof tagUpdateRequestSchema>;
 const c = initContract();
 
 export const tagContract = c.router({
@@ -40,7 +41,7 @@ export const tagContract = c.router({
     }),
     description: 'Get a tag by tag id (đã xong)',
     responses: {
-      200: tagResSchema,
+      200: tagResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },
@@ -61,19 +62,19 @@ export const tagContract = c.router({
   create: {
     method: 'POST',
     path: '/tags',
-    body: tagCreateReqSchema,
+    body: tagCreateRequestSchema,
     description: 'Create a new tag (đã xong)',
     responses: {
-      201: tagResSchema,
+      201: tagResponseSchema,
     },
   },
   update: {
     method: 'PATCH',
     path: '/tags',
-    body: tagUpdateReqSchema,
+    body: tagUpdateRequestSchema,
     description: 'Update a tag (đã xong)',
     responses: {
-      200: tagResSchema,
+      200: tagResponseSchema,
     },
   },
   delete: {

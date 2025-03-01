@@ -1,7 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
-import { tagResSchema } from './tag.contract';
+import { tagResponseSchema } from './tag.contract';
 
 // METRIC ============================================
 
@@ -13,7 +13,7 @@ export const metricResponseSchema = z.object({
   required: z.boolean(),
   upperbound_msg: z.string(),
   lowerbound_msg: z.string(),
-  tag: tagResSchema.optional(),
+  tag: tagResponseSchema.optional(),
 });
 
 // Create Request Schema

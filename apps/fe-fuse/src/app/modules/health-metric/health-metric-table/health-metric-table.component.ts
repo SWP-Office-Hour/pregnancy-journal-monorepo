@@ -1,3 +1,5 @@
+// noinspection ExceptionCaughtLocallyJS
+
 import { NgIf } from '@angular/common';
 import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -37,7 +39,6 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-health-metric-table',
   templateUrl: './health-metric-table.component.html',
-  styleUrl: './health-metric-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -108,7 +109,7 @@ export class HealthMetricTableComponent implements OnInit {
         }
         return await response.json();
       } catch (error) {
-        this.handleError(error);
+        this.notifyError(error);
         return [];
       } finally {
         this.isLoading = false;
@@ -153,6 +154,12 @@ export class HealthMetricTableComponent implements OnInit {
     this.metricDialogToggle = true;
   }
 
+  hideDialog(): void {
+    this.metricDialogToggle = false;
+    this.isSubmittedForm = false;
+    this.metricForm.reset();
+  }
+
   saveMetric(event: Event): void {
     this.isSubmittedForm = true;
     if (this.metricForm.invalid) {
@@ -162,8 +169,7 @@ export class HealthMetricTableComponent implements OnInit {
 
     const _metric: HealthMetric = this.metricForm.value;
     const isUpdate = !!_metric.metric_id;
-    const actionType = isUpdate ? 'update' : 'create new';
-    const actionPast = isUpdate ? 'Updated' : 'Created';
+    const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
 
     this.confirmationService.confirm({
@@ -172,15 +178,9 @@ export class HealthMetricTableComponent implements OnInit {
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.saveMetricToServer(_metric, method, actionPast);
+        this.saveMetricToServer(_metric, method, actionType);
       },
     });
-  }
-
-  hideDialog(): void {
-    this.metricDialogToggle = false;
-    this.isSubmittedForm = false;
-    this.metricForm.reset();
   }
 
   editProduct(metricToEdit: HealthMetric): void {
@@ -254,7 +254,7 @@ export class HealthMetricTableComponent implements OnInit {
     });
   }
 
-  private async saveMetricToServer(metric: HealthMetric, method: string, actionPast: string): Promise<void> {
+  private async saveMetricToServer(metric: HealthMetric, method: string, actionType: string): Promise<void> {
     this.isLoading = true;
 
     try {
@@ -281,17 +281,17 @@ export class HealthMetricTableComponent implements OnInit {
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
-        detail: `Metric ${actionPast.toLowerCase()}`,
+        detail: `Metric ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
         life: 4000,
       });
     } catch (error) {
-      this.handleError(error);
+      this.notifyError(error);
     } finally {
       this.isLoading = false;
     }
   }
 
-  private handleError(error: any): void {
+  private notifyError(error: any): void {
     console.error('Error in HealthMetricTableComponent:', error);
     this.messageService.add({
       severity: 'error',

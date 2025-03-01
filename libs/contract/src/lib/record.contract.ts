@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { statusSchema } from './enum.contract';
 import { hospitalResSchema } from './hospital.contract';
 import { mediaResSchema } from './media.contract';
-import { tagResSchema } from './tag.contract';
+import { tagResponseSchema } from './tag.contract';
 
 export const recordMetricSchema = z.object({
   value: z.number(),
@@ -16,7 +16,7 @@ export const recordMetricSchema = z.object({
   standard_upperbound: z.number(),
   standard_week: z.number(),
   whoStandardValue: z.number(),
-  tags: tagResSchema,
+  tags: tagResponseSchema,
   status: statusSchema,
 });
 

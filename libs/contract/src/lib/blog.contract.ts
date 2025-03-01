@@ -1,7 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { categoryResSchema } from './category.contract';
-import { tagResSchema } from './tag.contract';
+import { tagResponseSchema } from './tag.contract';
 
 const blogResponeSchema = z.object({
   blog_id: z.string(),
@@ -12,7 +12,7 @@ const blogResponeSchema = z.object({
   created_at: z.date(),
   updated_at: z.date(),
   blog_cover: z.string(),
-  tags: z.array(tagResSchema.optional()).optional(),
+  tags: z.array(tagResponseSchema.optional()).optional(),
   category: categoryResSchema,
 });
 
