@@ -5,7 +5,7 @@
 
   <div class="w-full">
     @if (recordsData().length > 0) {
-      <app-line-chart [multi_data]="getRecordDataForChart()"></app-line-chart>
+      <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
     }
   </div>
   <app-record-table></app-record-table>
