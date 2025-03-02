@@ -10,7 +10,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'fuseFullscreen',
-  standalone: true,
   imports: [MatButtonModule, MatTooltipModule, NgTemplateOutlet, MatIconModule],
 })
 export class FuseFullscreenComponent {

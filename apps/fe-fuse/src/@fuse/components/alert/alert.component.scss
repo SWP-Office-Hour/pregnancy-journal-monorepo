@@ -627,7 +627,7 @@ fuse-alert {
     /* Primary */
     &.fuse-alert-type-primary {
       .fuse-alert-container {
-        @apply bg-primary-50 ring-primary-400 ring-1 ring-inset;
+        @apply bg-primary-50 ring-1 ring-inset ring-primary-400;
 
         .fuse-alert-icon {
           @apply text-primary-600;
@@ -668,7 +668,7 @@ fuse-alert {
     /* Accent */
     &.fuse-alert-type-accent {
       .fuse-alert-container {
-        @apply bg-accent-100 ring-accent-400 ring-1 ring-inset;
+        @apply bg-accent-100 ring-1 ring-inset ring-accent-400;
 
         .fuse-alert-icon {
           @apply text-accent-600;
@@ -709,7 +709,7 @@ fuse-alert {
     /* Warn */
     &.fuse-alert-type-warn {
       .fuse-alert-container {
-        @apply bg-warn-50 ring-warn-400 ring-1 ring-inset;
+        @apply bg-warn-50 ring-1 ring-inset ring-warn-400;
 
         .fuse-alert-icon {
           @apply text-warn-600;

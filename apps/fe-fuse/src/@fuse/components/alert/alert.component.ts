@@ -31,7 +31,6 @@ import { Subject, filter, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: fuseAnimations,
   exportAs: 'fuseAlert',
-  standalone: true,
   imports: [MatIconModule, MatButtonModule],
 })
 export class FuseAlertComponent implements OnChanges, OnInit, OnDestroy {
