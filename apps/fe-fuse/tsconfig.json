@@ -1,10 +1,15 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
+    "declaration": false,
+    "sourceMap": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
     "useDefineForClassFields": false,
@@ -13,19 +18,6 @@
       "@pregnancy-journal-monorepo/contract": ["../../../libs/contract/src/index.ts"]
     }
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.editor.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.spec.json"
-    }
-  ],
-  "extends": "../../tsconfig.base.json",
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false
   }
