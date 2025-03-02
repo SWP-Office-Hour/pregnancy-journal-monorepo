@@ -1,3 +1,4 @@
+import { inject, Injectable } from '@angular/core';
 import { AcademyMockApi } from 'app/mock-api/apps/academy/api';
 import { ChatMockApi } from 'app/mock-api/apps/chat/api';
 import { ContactsMockApi } from 'app/mock-api/apps/contacts/api';
@@ -22,28 +23,29 @@ import { ProjectMockApi } from 'app/mock-api/dashboards/project/api';
 import { ActivitiesMockApi } from 'app/mock-api/pages/activities/api';
 import { IconsMockApi } from 'app/mock-api/ui/icons/api';
 
-export const mockApiServices = [
-  AcademyMockApi,
-  ActivitiesMockApi,
-  AnalyticsMockApi,
-  AuthMockApi,
-  ChatMockApi,
-  ContactsMockApi,
-  CryptoMockApi,
-  ECommerceInventoryMockApi,
-  FileManagerMockApi,
-  FinanceMockApi,
-  HelpCenterMockApi,
-  IconsMockApi,
-  MailboxMockApi,
-  MessagesMockApi,
-  NavigationMockApi,
-  NotesMockApi,
-  NotificationsMockApi,
-  ProjectMockApi,
-  SearchMockApi,
-  ScrumboardMockApi,
-  ShortcutsMockApi,
-  TasksMockApi,
-  UserMockApi,
-];
+@Injectable({ providedIn: 'root' })
+export class MockApiService {
+  academyMockApi = inject(AcademyMockApi);
+  activitiesMockApi = inject(ActivitiesMockApi);
+  analyticsMockApi = inject(AnalyticsMockApi);
+  authMockApi = inject(AuthMockApi);
+  chatMockApi = inject(ChatMockApi);
+  contactsMockApi = inject(ContactsMockApi);
+  cryptoMockApi = inject(CryptoMockApi);
+  eCommerceInventoryMockApi = inject(ECommerceInventoryMockApi);
+  fileManagerMockApi = inject(FileManagerMockApi);
+  financeMockApi = inject(FinanceMockApi);
+  helpCenterMockApi = inject(HelpCenterMockApi);
+  iconsMockApi = inject(IconsMockApi);
+  mailboxMockApi = inject(MailboxMockApi);
+  messagesMockApi = inject(MessagesMockApi);
+  navigationMockApi = inject(NavigationMockApi);
+  notesMockApi = inject(NotesMockApi);
+  notificationsMockApi = inject(NotificationsMockApi);
+  projectMockApi = inject(ProjectMockApi);
+  searchMockApi = inject(SearchMockApi);
+  scrumboardMockApi = inject(ScrumboardMockApi);
+  shortcutsMockApi = inject(ShortcutsMockApi);
+  tasksMockApi = inject(TasksMockApi);
+  userMockApi = inject(UserMockApi);
+}
