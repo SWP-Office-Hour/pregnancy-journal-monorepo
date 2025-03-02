@@ -2,17 +2,8 @@
 import { NgIf } from '@angular/common';
 import { Component, effect, OnInit, resource, signal, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatOptionModule, MatRippleModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSortModule } from '@angular/material/sort';
 import { HealthMetric, Standard, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -23,8 +14,8 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
+import { Message } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
-import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
 import { Table, TableModule } from 'primeng/table';
@@ -44,26 +35,15 @@ import { environment } from '../../../../environments/environment';
     ConfirmPopupModule,
     TableModule,
     MatProgressBarModule,
-    MatFormFieldModule,
-    MatIconModule,
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatSlideToggleModule,
-    MatSelectModule,
-    MatOptionModule,
-    MatCheckboxModule,
-    MatRippleModule,
     ToolbarModule,
     TableModule,
     ButtonModule,
     RippleModule,
     ToastModule,
     ToolbarModule,
-    RatingModule,
     InputTextModule,
     TextareaModule,
     SelectModule,
@@ -76,6 +56,7 @@ import { environment } from '../../../../environments/environment';
     ConfirmDialogModule,
     NgIf,
     ConfirmPopup,
+    Message,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -84,7 +65,11 @@ export class StandardTableComponent implements OnInit {
   isLoading = false;
   standardDialogToggle = false;
   isSubmittedForm = false;
-  // selectedMetricId = '';
+
+  // New batch editing state
+  batchMode = false;
+  newStandards: Standard[] = [];
+  clonedStandards: { [s: string]: Standard } = {};
 
   // Form
   standardForm!: FormGroup;
@@ -185,6 +170,148 @@ export class StandardTableComponent implements OnInit {
     });
     this.isSubmittedForm = false;
     this.standardDialogToggle = true;
+  }
+
+  // New batch mode methods
+  openBatchMode(): void {
+    if (!this.currentMetric().metric_id) {
+      return;
+    }
+    this.batchMode = true;
+    this.newStandards = [this.createNewStandardRow()];
+  }
+
+  createNewStandardRow(): Standard {
+    return {
+      standard_id: this.generateTempId(),
+      week: 0,
+      lowerbound: 0,
+      upperbound: 0,
+      who_standard_value: null,
+      metric_id: this.currentMetric().metric_id,
+    };
+  }
+
+  generateTempId(): string {
+    return 'temp_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000);
+  }
+
+  addRow(): void {
+    this.newStandards.push(this.createNewStandardRow());
+  }
+
+  onRowEditInit(standard: Standard): void {
+    this.clonedStandards[standard.standard_id] = { ...standard };
+  }
+
+  onRowEditSave(standard: Standard): void {
+    delete this.clonedStandards[standard.standard_id];
+  }
+
+  onRowEditCancel(standard: Standard, index: number): void {
+    this.newStandards[index] = this.clonedStandards[standard.standard_id];
+    delete this.clonedStandards[standard.standard_id];
+  }
+
+  cancelBatchMode(): void {
+    this.batchMode = false;
+    this.newStandards = [];
+    this.clonedStandards = {};
+  }
+
+  validateStandards(): boolean {
+    for (const standard of this.newStandards) {
+      if (standard.week < 0 || standard.week > 50) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Validation Error',
+          detail: 'Week must be between 0 and 50',
+          life: 4000,
+        });
+        return false;
+      }
+
+      if (standard.lowerbound === null || standard.upperbound === null) {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Validation Error',
+          detail: 'Lower bound and upper bound are required',
+          life: 4000,
+        });
+        return false;
+      }
+    }
+    return true;
+  }
+
+  saveBatchStandards(event: Event): void {
+    if (!this.validateStandards()) {
+      return;
+    }
+
+    this.confirmationService.confirm({
+      target: event.target as EventTarget,
+      message: `Are you sure you want to create ${this.newStandards.length} standards?`,
+      header: 'Confirm Batch Creation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.saveBatchToServer();
+      },
+    });
+  }
+
+  async saveBatchToServer(): Promise<void> {
+    this.isLoading = true;
+    const successCount = 0;
+    const failCount = 0;
+
+    try {
+      // Create array of promises for all standard creations
+      const promises = this.newStandards.map(async (standard) => {
+        // Remove the temporary ID before sending to server
+        const standardToSave = { ...standard };
+        // delete standardToSave.standard_id;
+
+        const response = await fetch(`${environment.apiUrl}standards`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(standardToSave),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to create standard for week ${standard.week}`);
+        }
+
+        return await response.json();
+      });
+
+      // Wait for all promises to resolve
+      await Promise.all(promises);
+
+      this.batchMode = false;
+      this.newStandards = [];
+      this.standardResource.reload();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Successful',
+        detail: `${promises.length} standards created successfully`,
+        life: 4000,
+      });
+    } catch (error) {
+      this.notifyError(error);
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  deleteNewStandard(index: number): void {
+    this.newStandards.splice(index, 1);
+    if (this.newStandards.length === 0) {
+      this.addRow(); // Always keep at least one row
+    }
   }
 
   hideDialog(): void {
