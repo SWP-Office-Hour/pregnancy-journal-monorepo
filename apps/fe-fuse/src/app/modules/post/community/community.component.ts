@@ -12,7 +12,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { PostType } from '@pregnancy-journal-monorepo/contract';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
-import { FuseCardComponent } from '../../../../../../fuse-example/src/@fuse/components/card';
+import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
