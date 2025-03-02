@@ -21,7 +21,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
-import { TranslocoModule } from '@ngneat/transloco';
+import { TranslocoModule } from '@jsverse/transloco';
 import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxSplideModule } from 'ngx-splide';
