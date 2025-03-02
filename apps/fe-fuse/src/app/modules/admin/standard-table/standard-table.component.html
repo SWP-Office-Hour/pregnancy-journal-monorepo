@@ -1,0 +1,140 @@
+<!--standard-table.component.html-->
+<div class="flex w-full flex-col">
+  @if (isLoading) {
+    <div class="absolute inset-x-0 top-0">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+  }
+
+  <div class="mb-6 flex items-center">
+    <p-select [options]="metricsResource.value()" optionLabel="title" placeholder="Select a Metric" class="mr-4 w-72" [(ngModel)]="currentMetric">
+    </p-select>
+
+    <p-toolbar styleClass="mb-0 ml-4" class="flex-grow">
+      <ng-template #start>
+        <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" [disabled]="!currentMetric" />
+      </ng-template>
+    </p-toolbar>
+  </div>
+
+  <p-table
+    #dt
+    [value]="standardResource.value()"
+    [globalFilterFields]="['week', 'lowerbound', 'upperbound', 'who_standard_value']"
+    [paginator]="true"
+    [rowHover]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
+    dataKey="standard_id"
+    [loading]="isLoading"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Manage Standards</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="week" style="min-width: 8rem">
+          Week
+          <p-sortIcon field="week" />
+        </th>
+        <th pSortableColumn="lowerbound" style="min-width: 8rem">
+          Lower Bound
+          <p-sortIcon field="lowerbound" />
+        </th>
+        <th pSortableColumn="upperbound" style="min-width: 8rem">
+          Upper Bound
+          <p-sortIcon field="upperbound" />
+        </th>
+        <th pSortableColumn="who_standard_value" style="min-width: 12rem">
+          WHO Standard Value
+          <p-sortIcon field="who_standard_value" />
+        </th>
+        <th style="min-width: 8rem">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-standard>
+      <tr>
+        <td>{{ standard.week }}</td>
+        <td>{{ standard.lowerbound }}</td>
+        <td>{{ standard.upperbound }}</td>
+        <td>{{ standard.who_standard_value !== null ? standard.who_standard_value : 'N/A' }}</td>
+        <td>
+          <p-button (click)="editStandard(standard)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
+          <p-button (click)="deleteStandard(standard, $event)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5" class="p-4 text-center">
+          @if (currentMetric) {
+            No standards found for this metric.
+          } @else {
+            Please select a metric to view its standards.
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <p-dialog [(visible)]="standardDialogToggle" [modal]="true" [style]="{ width: '450px' }" header="Standard Details">
+    <ng-template #content>
+      <form [formGroup]="standardForm" class="flex flex-col gap-4">
+        <!-- Week -->
+        <div>
+          <label class="block font-bold" for="week">Week</label>
+          <p-inputNumber formControlName="week" id="week" [min]="0" [max]="50" [showButtons]="true" [style]="{ width: '100%' }" inputId="week">
+          </p-inputNumber>
+          <small *ngIf="isSubmittedForm && f['week'].errors?.['required']" class="text-red-500">Week is required.</small>
+          <small *ngIf="isSubmittedForm && f['week'].errors?.['min']" class="text-red-500">Week must be at least 0.</small>
+          <small *ngIf="isSubmittedForm && f['week'].errors?.['max']" class="text-red-500">Week cannot exceed 50.</small>
+        </div>
+
+        <!-- Lower Bound -->
+        <div>
+          <label class="block font-bold" for="lowerbound">Lower Bound</label>
+          <p-inputNumber formControlName="lowerbound" id="lowerbound" [style]="{ width: '100%' }" inputId="lowerbound"> </p-inputNumber>
+          <small *ngIf="isSubmittedForm && f['lowerbound'].errors?.['required']" class="text-red-500">Lower bound is required.</small>
+        </div>
+
+        <!-- Upper Bound -->
+        <div>
+          <label class="block font-bold" for="upperbound">Upper Bound</label>
+          <p-inputNumber formControlName="upperbound" id="upperbound" [style]="{ width: '100%' }" inputId="upperbound"> </p-inputNumber>
+          <small *ngIf="isSubmittedForm && f['upperbound'].errors?.['required']" class="text-red-500">Upper bound is required.</small>
+        </div>
+
+        <!-- WHO Standard Value -->
+        <div>
+          <label class="block font-bold" for="who_standard_value">WHO Standard Value</label>
+          <p-inputNumber
+            formControlName="who_standard_value"
+            id="who_standard_value"
+            [style]="{ width: '100%' }"
+            inputId="who_standard_value"
+            [allowEmpty]="true"
+          >
+          </p-inputNumber>
+        </div>
+      </form>
+    </ng-template>
+
+    <ng-template #footer>
+      <div class="flex justify-end gap-2">
+        <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" styleClass="p-button-text" />
+        <p-button (click)="saveStandard($event)" icon="pi pi-check" label="Save" />
+      </div>
+    </ng-template>
+  </p-dialog>
+</div>
+<p-toast />
+<p-confirm-popup baseZIndex="99" />

@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Standard, StandardCreateReq, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { Standard, StandardCreateRequest, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MetricService } from '../metric/metric.service';
 
@@ -10,7 +10,7 @@ export class StandardService {
     private readonly metricService: MetricService,
   ) {}
 
-  async create(createStandardDto: StandardCreateReq) {
+  async create(createStandardDto: StandardCreateRequest) {
     const metric = await this.metricService.findOne(createStandardDto.metric_id);
 
     if (!metric) {
