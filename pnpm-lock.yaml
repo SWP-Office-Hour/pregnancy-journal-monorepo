@@ -99,8 +99,8 @@ importers:
         specifier: ^1.0.10
         version: 1.0.10
       '@primeng/themes':
-        specifier: ^19.0.6
-        version: 19.0.6
+        specifier: ^19.0.9
+        version: 19.0.9
       '@prisma/client':
         specifier: ^6.1.0
         version: 6.3.1(typescript@5.7.3)
@@ -189,8 +189,8 @@ importers:
         specifier: ^7.0.0
         version: 7.0.0
       primeng:
-        specifier: ^19.0.6
-        version: 19.0.6(92b73b21190b5fb468935d34998ef4fe)
+        specifier: ^19.0.9
+        version: 19.0.9(92b73b21190b5fb468935d34998ef4fe)
       quill:
         specifier: ^2.0.3
         version: 2.0.3
@@ -3352,8 +3352,8 @@ packages:
     resolution: {integrity: sha512-+1VkjdD0QBLPodGrJUeqarH8VAIvQODIbwh9XpP5Syisf7YoQgsJKPNFoqqLQlu+VQ/tVSshMR6loPMn8U+dPg==}
     engines: {node: '>=14'}
 
-  '@primeng/themes@19.0.6':
-    resolution: {integrity: sha512-TZCMh8amw1u8tu1EyXe4TzYXp1dQpyf/kRIhdxASJLwOQJW74RUwT3U9NuT0BOPpU1uvAJEMndEr0PZO2CX5Wg==}
+  '@primeng/themes@19.0.9':
+    resolution: {integrity: sha512-8oITYftt/0v6sXKth/6n1mEw4UY88acNow0/aAF5yi29N6cpBaOiH/MEvj4nCoYjNCCGUSFhPrGdkTJH/GNo6A==}
 
   '@primeuix/styled@0.3.2':
     resolution: {integrity: sha512-ColZes0+/WKqH4ob2x8DyNYf1NENpe5ZguOvx5yCLxaP8EIMVhLjWLO/3umJiDnQU4XXMLkn2mMHHw+fhTX/mw==}
@@ -8569,8 +8569,8 @@ packages:
   primeicons@7.0.0:
     resolution: {integrity: sha512-jK3Et9UzwzTsd6tzl2RmwrVY/b8raJ3QZLzoDACj+oTJ0oX7L9Hy+XnVwgo4QVKlKpnP/Ur13SXV/pVh4LzaDw==}
 
-  primeng@19.0.6:
-    resolution: {integrity: sha512-IyzkI12VlR3cy2wy47VtPzVzugs2QI6o0qI369RD6gFN9SI5K9pM/dAFn4v6MfaN+AtnVuPrfjH96gxj6CrbcA==}
+  primeng@19.0.9:
+    resolution: {integrity: sha512-Y994f4JDsdjwe1uK1J8Gvq94Mk2qQfV+M1zdW+XClXHK8EXzZp7kvBzfrlk607valJmUhLr/5DxSkVfVQGZhxA==}
     peerDependencies:
       '@angular/animations': ^19.0.0
       '@angular/cdk': ^19.0.0
@@ -14714,7 +14714,7 @@ snapshots:
   '@pkgjs/parseargs@0.11.0':
     optional: true
 
-  '@primeng/themes@19.0.6':
+  '@primeng/themes@19.0.9':
     dependencies:
       '@primeuix/styled': 0.3.2
 
@@ -20971,7 +20971,7 @@ snapshots:
 
   primeicons@7.0.0: {}
 
-  primeng@19.0.6(92b73b21190b5fb468935d34998ef4fe):
+  primeng@19.0.9(92b73b21190b5fb468935d34998ef4fe):
     dependencies:
       '@angular/animations': 19.2.0(@angular/core@19.2.0(rxjs@7.8.1)(zone.js@0.15.0))
       '@angular/cdk': 19.1.2(@angular/common@19.2.0(@angular/core@19.2.0(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1))(@angular/core@19.2.0(rxjs@7.8.1)(zone.js@0.15.0))(rxjs@7.8.1)

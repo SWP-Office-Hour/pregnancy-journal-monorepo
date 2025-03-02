@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
-import { AvailableLangs, TranslocoService } from '@ngneat/transloco';
+import { AvailableLangs, TranslocoService } from '@jsverse/transloco';
 import { take } from 'rxjs';
 
 @Component({

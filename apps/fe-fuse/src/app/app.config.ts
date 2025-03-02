@@ -4,32 +4,29 @@ import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { PreloadAllModules, provideRouter, withComponentInputBinding, withInMemoryScrolling, withPreloading } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideFuse } from '@fuse';
-import { provideTransloco, TranslocoService } from '@ngneat/transloco';
+
+import { provideTransloco, TranslocoService } from '@jsverse/transloco';
 import Aura from '@primeng/themes/aura';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
-import { mockApiServices } from 'app/mock-api';
+import { MockApiService } from 'app/mock-api';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
 import { appRoutes } from './app.routes';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
+// @ts-ignore
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
     provideOAuthClient(),
     provideAnimations(),
     provideHttpClient(),
-    provideRouter(
-      appRoutes,
-      withPreloading(PreloadAllModules),
-      withInMemoryScrolling({ scrollPositionRestoration: 'enabled' }),
-      withComponentInputBinding(),
-    ),
+    provideRouter(appRoutes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     providePrimeNG({
       theme: {
         preset: Aura,
@@ -98,7 +95,7 @@ export const appConfig: ApplicationConfig = {
     provideFuse({
       mockApi: {
         delay: 0,
-        services: mockApiServices,
+        service: MockApiService,
       },
       fuse: {
         layout: 'modern',
