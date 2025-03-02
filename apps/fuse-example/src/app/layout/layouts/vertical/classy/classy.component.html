@@ -22,6 +22,7 @@
         <user [showAvatar]="false"></user>
       </div>
     </div>
+
     <!-- User -->
     <div class="flex w-full flex-col items-center p-4">
       <div class="relative h-24 w-24">
@@ -43,11 +44,14 @@
     </div>
   </ng-container>
   <!-- Navigation footer hook -->
-  <ng-container fuseVerticalNavigationContentFooter>
-    <div class="flex-0 opacity-12 mb-4 mt-2 flex h-16 items-center justify-center pl-2 pr-6">
-      <img class="max-w-36" src="images/logo/logo-text-on-dark.svg" />
-    </div>
-  </ng-container>
+
+  <!-- <ng-container fuseVerticalNavigationContentFooter>
+        <div
+            class="mb-4 mt-2 flex h-16 flex-0 items-center justify-center pl-2 pr-6 opacity-12"
+        >
+            <img class="max-w-36" src="images/logo/logo-text-on-dark.svg" />
+        </div>
+    </ng-container> -->
 </fuse-vertical-navigation>
 
 <!-- Wrapper -->
@@ -62,14 +66,7 @@
     </button>
     <!-- Components -->
     <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
-      <languages></languages>
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
-      <search [appearance]="'bar'"></search>
-      <shortcuts></shortcuts>
-      <messages></messages>
-      <button class="lg:hidden" mat-icon-button (click)="quickChat.toggle()">
-        <mat-icon [svgIcon]="'heroicons_outline:chat-bubble-left-right'"></mat-icon>
-      </button>
     </div>
   </div>
 
@@ -81,12 +78,4 @@
       <router-outlet></router-outlet>
     }
   </div>
-
-  <!-- Footer -->
-  <!--<div class="relative flex flex-0 items-center justify-start w-full h-14 px-4 md:px-6 z-49 border-t bg-card dark:bg-transparent print:hidden">
-        <span class="font-medium text-secondary">Fuse &copy; {{currentYear}}</span>
-    </div>-->
 </div>
-
-<!-- Quick chat -->
-<quick-chat #quickChat="quickChat"></quick-chat>

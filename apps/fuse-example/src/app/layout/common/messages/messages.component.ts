@@ -26,7 +26,6 @@ import { Subject, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'messages',
-  standalone: true,
   imports: [MatButtonModule, MatIconModule, MatTooltipModule, NgClass, NgTemplateOutlet, RouterLink, DatePipe],
 })
 export class MessagesComponent implements OnInit, OnDestroy {

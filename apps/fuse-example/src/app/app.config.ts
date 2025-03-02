@@ -1,15 +1,15 @@
 import { provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, inject } from '@angular/core';
+import { ApplicationConfig, inject, isDevMode, provideAppInitializer } from '@angular/core';
 import { LuxonDateAdapter } from '@angular/material-luxon-adapter';
 import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { PreloadAllModules, provideRouter, withInMemoryScrolling, withPreloading } from '@angular/router';
+import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideFuse } from '@fuse';
-import { TranslocoService, provideTransloco } from '@ngneat/transloco';
+import { TranslocoService, provideTransloco } from '@jsverse/transloco';
 import { appRoutes } from 'app/app.routes';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
-import { mockApiServices } from 'app/mock-api';
+import { MockApiService } from 'app/mock-api';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimations(),
     provideHttpClient(),
-    provideRouter(appRoutes, withPreloading(PreloadAllModules), withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
+    provideRouter(appRoutes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
 
     // Material Date Adapter
     {
@@ -55,22 +55,17 @@ export const appConfig: ApplicationConfig = {
         defaultLang: 'en',
         fallbackLang: 'en',
         reRenderOnLangChange: true,
-        prodMode: true,
+        prodMode: !isDevMode(),
       },
       loader: TranslocoHttpLoader,
     }),
-    {
-      // Preload the default language before the app starts to prevent empty/jumping content
-      provide: APP_INITIALIZER,
-      useFactory: () => {
-        const translocoService = inject(TranslocoService);
-        const defaultLang = translocoService.getDefaultLang();
-        translocoService.setActiveLang(defaultLang);
+    provideAppInitializer(() => {
+      const translocoService = inject(TranslocoService);
+      const defaultLang = translocoService.getDefaultLang();
+      translocoService.setActiveLang(defaultLang);
 
-        return () => firstValueFrom(translocoService.load(defaultLang));
-      },
-      multi: true,
-    },
+      return firstValueFrom(translocoService.load(defaultLang));
+    }),
 
     // Fuse
     provideAuth(),
@@ -78,7 +73,7 @@ export const appConfig: ApplicationConfig = {
     provideFuse({
       mockApi: {
         delay: 0,
-        services: mockApiServices,
+        service: MockApiService,
       },
       fuse: {
         layout: 'classy',

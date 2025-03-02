@@ -30,7 +30,6 @@ import { Subject, takeUntil } from 'rxjs';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'shortcuts',
-  standalone: true,
   imports: [
     MatButtonModule,
     MatIconModule,

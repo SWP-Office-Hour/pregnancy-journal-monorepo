@@ -16,7 +16,6 @@ import { UserService } from 'app/core/user/user.service';
   templateUrl: './unlock-session.component.html',
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
-  standalone: true,
   imports: [
     FuseAlertComponent,
     FormsModule,

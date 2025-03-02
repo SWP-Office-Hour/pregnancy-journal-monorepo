@@ -16,7 +16,6 @@ import { AuthService } from 'app/core/auth/auth.service';
   templateUrl: './sign-up.component.html',
   encapsulation: ViewEncapsulation.None,
   animations: fuseAnimations,
-  standalone: true,
   imports: [
     RouterLink,
     FuseAlertComponent,
