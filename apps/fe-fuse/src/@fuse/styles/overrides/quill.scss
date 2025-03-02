@@ -113,10 +113,10 @@
 
     .ql-action,
     .ql-remove {
-      @apply text-primary border-gray-300;
+      @apply border-gray-300 text-primary;
 
       .dark & {
-        @apply text-primary-400 border-gray-300;
+        @apply border-gray-300 text-primary-400;
       }
     }
 

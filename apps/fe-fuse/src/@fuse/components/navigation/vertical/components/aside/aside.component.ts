@@ -18,7 +18,6 @@ import { Subject, filter, takeUntil } from 'rxjs';
   selector: 'fuse-vertical-navigation-aside-item',
   templateUrl: './aside.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  standalone: true,
   imports: [
     NgClass,
     MatTooltipModule,

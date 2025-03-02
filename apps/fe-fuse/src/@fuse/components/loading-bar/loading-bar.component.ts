@@ -11,7 +11,6 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./loading-bar.component.scss'],
   encapsulation: ViewEncapsulation.None,
   exportAs: 'fuseLoadingBar',
-  standalone: true,
   imports: [MatProgressBarModule],
 })
 export class FuseLoadingBarComponent implements OnChanges, OnInit, OnDestroy {
