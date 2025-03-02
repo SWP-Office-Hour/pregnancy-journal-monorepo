@@ -1,5 +1,5 @@
 import { Body, Controller, Param } from '@nestjs/common';
-import { standardContract, StandardCreateReq, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
+import { standardContract, StandardCreateRequest, StandardUpdateReq } from '@pregnancy-journal-monorepo/contract';
 import { TsRestHandler, tsRestHandler } from '@ts-rest/nest';
 import { StandardService } from './standard.service';
 
@@ -8,7 +8,7 @@ export class StandardController {
   constructor(private readonly standardService: StandardService) {}
 
   @TsRestHandler(standardContract.create)
-  handleCreate(@Body() createStandardDto: StandardCreateReq) {
+  handleCreate(@Body() createStandardDto: StandardCreateRequest) {
     return tsRestHandler(standardContract.create, async () => {
       const standard = await this.standardService.create(createStandardDto);
       return {

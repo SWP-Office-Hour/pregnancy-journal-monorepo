@@ -1,3 +1,4 @@
+// standard.contract.ts
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 
@@ -12,7 +13,7 @@ export const standardSchema = z.object({
 });
 
 // Create request schema
-export const standardCreateReqSchema = standardSchema
+export const standardCreateRequestSchema = standardSchema
   .omit({
     standard_id: true, // Loại bỏ trường `standard_id`
   })
@@ -21,7 +22,7 @@ export const standardCreateReqSchema = standardSchema
   });
 
 // Update request schema
-export const standardUpdateReqSchema = standardSchema
+export const standardUpdateRequestSchema = standardSchema
   .omit({
     metric_id: true, // Loại bỏ trường `metric_id`
   })
@@ -33,8 +34,8 @@ export const standardUpdateReqSchema = standardSchema
   });
 
 export type Standard = z.infer<typeof standardSchema>;
-export type StandardCreateReq = z.infer<typeof standardCreateReqSchema>;
-export type StandardUpdateReq = z.infer<typeof standardUpdateReqSchema>;
+export type StandardCreateRequest = z.infer<typeof standardCreateRequestSchema>;
+export type StandardUpdateReq = z.infer<typeof standardUpdateRequestSchema>;
 
 const c = initContract();
 
@@ -55,7 +56,7 @@ export const standardContract = c.router({
     method: 'POST',
     path: '/standards',
     description: 'Create a standard',
-    body: standardCreateReqSchema,
+    body: standardCreateRequestSchema,
     responses: {
       201: standardSchema,
       400: z.object({ message: z.string() }),
@@ -65,7 +66,7 @@ export const standardContract = c.router({
     method: 'PATCH',
     path: '/standards',
     description: 'Update a standard',
-    body: standardUpdateReqSchema,
+    body: standardUpdateRequestSchema,
     responses: {
       200: standardSchema,
       400: z.object({ message: z.string() }),

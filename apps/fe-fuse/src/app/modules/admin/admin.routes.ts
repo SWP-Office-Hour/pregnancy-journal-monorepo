@@ -7,6 +7,7 @@ import { CategoryTableComponent } from './category-table/category-table.componen
 import { HealthMetricTableComponent } from './health-metric-table/health-metric-table.component';
 import { HospitalTableComponent } from './hospital-table/hospital-table.component';
 import { MembershipTableComponent } from './membership-table/membership-table.component';
+import { StandardTableComponent } from './standard-table/standard-table.component';
 import { TagTableComponent } from './tag-table/tag-table.component';
 import { UserTableComponent } from './user-table/user-table.component';
 
@@ -24,6 +25,15 @@ export default [
       {
         path: '',
         loadComponent: () => HealthMetricTableComponent,
+      },
+    ],
+  },
+  {
+    path: 'standard',
+    children: [
+      {
+        path: '',
+        loadComponent: () => StandardTableComponent,
       },
     ],
   },
