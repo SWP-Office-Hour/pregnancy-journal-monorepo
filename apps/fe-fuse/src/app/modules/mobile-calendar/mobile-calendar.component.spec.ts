@@ -8,9 +8,8 @@ describe('MobileCalendarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MobileCalendarComponent]
-    })
-    .compileComponents();
+      imports: [MobileCalendarComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(MobileCalendarComponent);
     component = fixture.componentInstance;

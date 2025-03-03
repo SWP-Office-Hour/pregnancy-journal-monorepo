@@ -23,12 +23,12 @@
 <mat-menu [xPosition]="'before'" #userActions="matMenu">
   <button mat-menu-item>
     <span class="flex flex-col leading-none">
-      <span>Signed in as</span>
+      <span>Signed in as {{ user.name }}</span>
       <span class="text-md mt-1.5 font-medium">{{ user.email }}</span>
     </span>
   </button>
   <mat-divider class="my-2"></mat-divider>
-  <button mat-menu-item (click)="profile()">
+  <button mat-menu-item [matMenuTriggerFor]="profile_menu">
     <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
     <span>Profile</span>
   </button>
@@ -63,5 +63,14 @@
   <button mat-menu-item (click)="updateUserStatus('not-visible')">
     <span class="mr-3 inline-flex h-4 w-4 rounded-full bg-gray-400"></span>
     <span>Invisible</span>
+  </button>
+</mat-menu>
+
+<mat-menu class="user-status-menu" #profile_menu="matMenu">
+  <button mat-menu-item (click)="profile()">
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item (click)="changePassword()">
+    <span>Change Password</span>
   </button>
 </mat-menu>
