@@ -60,6 +60,7 @@ export class UsersController {
       if (!user) {
         throw new NotFoundException('Token is invalid');
       }
+      console.log('user', user);
       return { status: 201, body: user };
     });
   }

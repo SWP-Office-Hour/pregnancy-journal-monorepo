@@ -1,5 +1,6 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,20 +17,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSlider, MatSliderThumb } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { RouterLink } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
-import { MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
+import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
+import { environment } from '../../../../environments/environment';
+import { UserService } from '../../../core/user/user.service';
+import { User } from '../../../core/user/user.types';
 import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnancy-record.service';
-import { PregnancyWeekInfoComponent } from '../pregnancy-week-info/pregnancy-week-info.component';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
 
 @Component({
@@ -62,11 +64,8 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     MatExpansionModule,
     FuseCardComponent,
     TooltipModule,
-    PregnancyWeekInfoComponent,
     ButtonModule,
     NgxSplideModule,
-    MatSlider,
-    MatSliderThumb,
     RouterLink,
   ],
   providers: [provideNativeDateAdapter()],
@@ -124,12 +123,18 @@ export class HomeComponent {
   protected metrics: MetricResponseType[];
   protected weightMetricId: string;
   protected readonly Status = Status;
-
+  protected lastRecord: RecordResponse | null = null;
   //1. Lấy User
   //2. Lấy ngày đẻ
   private _expectedDate: Date = new Date();
   //3. Tính tuần thai
   private _currentPregnancyWeek: number = 4;
+
+  remainingDays() {
+    const expectedDate = new Date(this._expectedDate);
+    const currentDate = new Date();
+    return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+  }
   //Hàm tính tuần thai
   calculateCurrentPregnancyWeek() {
     // Chuyển đổi ngày dự sinh từ chuỗi sang Date
@@ -255,7 +260,19 @@ export class HomeComponent {
     }
   }
 
-  constructor(private _recordService: PregnancyRecordService) {
+  constructor(
+    private _recordService: PregnancyRecordService,
+    private _httpClient: HttpClient,
+    private _userService: UserService,
+  ) {
+    this._userService.user$.subscribe((user) => {
+      if (user) {
+        this.user = user;
+        this._expectedDate = new Date(user.expected_birth_date) || new Date();
+        this.calculateCurrentPregnancyWeek();
+        this._countWeek = this._currentPregnancyWeek;
+      }
+    });
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
@@ -263,16 +280,17 @@ export class HomeComponent {
           this.weightMetricId = metric.metric_id;
         }
       });
-      // console.log(this.metrics);
+    });
+
+    this._httpClient.get<{ total: number; data: RecordResponse[] }>(`${environment.apiUrl}record`).subscribe((records) => {
+      if (records.total > 0) {
+        this.lastRecord = records.data[0];
+        this.calculateCurrentPregnancyWeek();
+        this._countWeek = this._currentPregnancyWeek;
+      }
     });
   }
 
-  //hàm thay đổi giá trị của slider
-  onSliderChange(event: Event): void {
-    const inputElement = event.target as HTMLInputElement;
-    this._countWeek = Number(inputElement.value) <= 1 ? 1 : Number(inputElement.value);
-  }
-  // protected readonly TrackedIncrementalBuildStrategy = TrackedIncrementalBuildStrategy;
-  protected readonly Number = Number;
   isButtonHovered = false;
+  protected user: User | null = null;
 }

@@ -121,6 +121,9 @@ export class RecordsService {
         media: true,
         hospital: true,
       },
+      orderBy: {
+        visit_doctor_date: 'asc',
+      },
     });
 
     if (!records) {

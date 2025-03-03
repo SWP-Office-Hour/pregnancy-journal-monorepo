@@ -230,6 +230,8 @@ export class UsersService {
         id: user.user_id,
         name: user.name,
         role: user.role,
+        email: user.email,
+        expected_birth_date: user.expected_birth_date.toISOString(),
       },
     };
   }
@@ -255,6 +257,8 @@ export class UsersService {
         id: user.user_id,
         name: user.name,
         role: user.role,
+        email: user.email,
+        expected_birth_date: user.expected_birth_date.toISOString(),
       },
     };
   }
@@ -393,6 +397,8 @@ export class UsersService {
         id: userAfter.user_id,
         name: userAfter.name,
         role: userAfter.role,
+        email: userAfter.email,
+        expected_birth_date: userAfter.expected_birth_date.toISOString(),
       },
     };
   }
