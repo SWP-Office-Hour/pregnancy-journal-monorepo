@@ -23,7 +23,7 @@ const themes = {
   default: {
     primary: {
       ...colors.pink,
-      DEFAULT: colors.pink[500],
+      DEFAULT: colors.pink[450],
     },
     accent: {
       ...colors.slate,
@@ -101,6 +101,9 @@ module.exports = {
       },
       colors: {
         gray: colors.slate,
+        pink: {
+          450: '#EA7A9A',
+        },
       },
       flex: {
         0: '0 0 auto',

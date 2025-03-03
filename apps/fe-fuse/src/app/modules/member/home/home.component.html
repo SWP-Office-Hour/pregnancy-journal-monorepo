@@ -53,8 +53,148 @@
       <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
         <mat-tab label="Bé con">
           <ng-template matTabContent>
-            <!--Tính ngày dự sinh-->
+            <!--Thai nhi-->
             <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <!-- Cấu trúc thai -->
+              <div
+                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+              >
+                <div class="flex items-center justify-between">
+                  <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>
+                  <div class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm">
+                    <span class="text-sm font-medium">Tuần thứ</span>
+                    <span class="ml-1 text-xl font-bold">{{ countWeek }}</span>
+                  </div>
+                </div>
+
+                <div class="relative mt-6 flex flex-auto flex-col">
+                  <!-- Hình ảnh mẹ -->
+                  <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">
+                    <img
+                      class="w-full transition-transform duration-500 hover:scale-105"
+                      [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'"
+                      [alt]="'mẹ tuần ' + countWeek"
+                      style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+                    />
+                  </div>
+
+                  <!-- Hình ảnh thai nhi -->
+                  <div
+                    class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"
+                    style="
+                      box-shadow:
+                        inset 0 1px 2px rgba(0, 0, 0, 0.05),
+                        0 10px 15px -3px rgba(236, 72, 153, 0.5),
+                        0 4px 6px -2px rgba(236, 72, 153, 0.5);
+                      animation: gentle-pulse 3s infinite ease-in-out;
+                    "
+                  >
+                    <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">
+                      <img
+                        class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"
+                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
+                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
+                        [alt]="'con tuần ' + countWeek"
+                      />
+                    </div>
+                    <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
+                      <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{ countWeek }}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-8 flex flex-col">
+                  <div class="mb-2 text-center text-sm font-medium text-pink-500">Chọn tuần thai để xem sự phát triển của bé</div>
+                  <div class="flex flex-wrap items-center justify-center gap-2">
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">1</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 1">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">2</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 2">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">3-38</span>
+                      <div
+                        class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300"
+                        [class.opacity-100]="countWeek >= 3 && countWeek <= 38"
+                      >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">39</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 39">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">40</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 40">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Quan lý thai nhi -->
+              <!--              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
+              <!--&lt;!&ndash;                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>&ndash;&gt;-->
+              <!--              </div>-->
+            </div>
+
+            <!--Tính ngày dự sinh-->
+            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
               <!-- Content -->
               <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">
                 <!--              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">-->
@@ -181,181 +321,6 @@
                 </div>
               </div>
             </div>
-
-            <!-- carousel -->
-            <div class="bg-card mb-6 flex flex-auto flex-col overflow-hidden rounded-2xl shadow sm:col-span-2 md:col-span-4">
-              <div class="carousel">
-                <!-- list item -->
-                <div class="list">
-                  <div class="item">
-                    <img src="images/fetal-growth/Female_View_0001.jpg" />
-                    <!--                    <div class="content">-->
-                    <!--                      <div class="author">LUNDEV</div>-->
-                    <!--                      <div class="title">DESIGN SLIDER</div>-->
-                    <!--                      <div class="topic">ANIMAL</div>-->
-                    <!--                      <div class="des">-->
-                    <!--                        &lt;!&ndash; lorem 50 &ndash;&gt;-->
-                    <!--                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque-->
-                    <!--                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,-->
-                    <!--                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
-                    <!--                      </div>-->
-                    <!--                      <div class="buttons">-->
-                    <!--                        <button>SEE MORE</button>-->
-                    <!--                        <button>SUBSCRIBE</button>-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Female_View_0002.jpg" />
-                    <!--                    <div class="content">-->
-                    <!--                      <div class="author">LUNDEV</div>-->
-                    <!--                      <div class="title">DESIGN SLIDER</div>-->
-                    <!--                      <div class="topic">ANIMAL</div>-->
-                    <!--                      <div class="des">-->
-                    <!--                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque-->
-                    <!--                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,-->
-                    <!--                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?-->
-                    <!--                      </div>-->
-                    <!--                      <div class="buttons">-->
-                    <!--                        <button>SEE MORE</button>-->
-                    <!--                        <button>SUBSCRIBE</button>-->
-                    <!--                      </div>-->
-                    <!--                    </div>-->
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Female_View_0003.jpg" />
-                    <div class="content">
-                      <div class="author">LUNDEV</div>
-                      <div class="title">DESIGN SLIDER</div>
-                      <div class="topic">ANIMAL</div>
-                      <div class="des">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque
-                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,
-                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
-                      </div>
-                      <div class="buttons">
-                        <button>SEE MORE</button>
-                        <button>SUBSCRIBE</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Female_View_0004.jpg" />
-                    <div class="content">
-                      <div class="author">LUNDEV</div>
-                      <div class="title">DESIGN SLIDER</div>
-                      <div class="topic">ANIMAL</div>
-                      <div class="des">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque
-                        officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo,
-                        laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
-                      </div>
-                      <div class="buttons">
-                        <button>SEE MORE</button>
-                        <button>SUBSCRIBE</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <!-- list thumnail -->
-                <div class="thumbnail">
-                  <div class="item">
-                    <img src="images/fetal-growth/Baby_View_0001.jpg" />
-                    <div class="content">
-                      <div class="title">Name Slider</div>
-                      <div class="description">Description</div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Baby_View_0002.jpg" />
-                    <div class="content">
-                      <div class="title">Name Slider</div>
-                      <div class="description">Description</div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Baby_View_0003.jpg" />
-                    <div class="content">
-                      <div class="title">Name Slider</div>
-                      <div class="description">Description</div>
-                    </div>
-                  </div>
-                  <div class="item">
-                    <img src="images/fetal-growth/Baby_View_0004.jpg" />
-                    <div class="content">
-                      <div class="title">Name Slider</div>
-                      <div class="description">Description</div>
-                    </div>
-                  </div>
-                </div>
-                <!-- next prev -->
-
-                <div class="arrows">
-                  <button id="prev"><</button>
-                  <button id="next">></button>
-                </div>
-                <!-- time running -->
-                <div class="time"></div>
-              </div>
-            </div>
-
-            <!--Thai nhi-->
-            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-              <!-- Cấu trúc thai -->
-              <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <mat-slider min="0" max="40" step="1" showTickMarks discrete (input)="onSliderChange($event)">
-                  <input matSliderThumb value="{{ countWeek }}}" />
-                </mat-slider>
-                <div class="relative mt-6 flex flex-auto flex-col">
-                  <!--            Hình ảnh mẹ-->
-                  <img class="" [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'" [alt]="'mẹ tuần ' + countWeek" />
-
-                  <!--            Hình ảnh thai nhi-->
-                  @if (countWeek > '0002') {
-                    <div
-                      class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3"
-                      style="
-                        box-shadow:
-                          inset 0 1px 2px rgba(0, 0, 0, 0.05),
-                          0 10px 15px -3px rgba(236, 72, 153, 0.5),
-                          0 4px 6px -2px rgba(236, 72, 153, 0.5);
-                      "
-                    >
-                      <img
-                        class="rounded-full"
-                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
-                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
-                        [alt]="'con tuần ' + countWeek"
-                      />
-                    </div>
-                  }
-                  <!--            Câu nhắc tuần xuất khám-->
-                </div>
-
-                <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['new'] }}-->
-                      <!--                Data của ngày dự sinh-->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Dự sinh</div>
-                    <div class="text-secondary mt-1 text-center">Ngày xxx</div>
-                  </div>
-                  <div class="flex flex-col items-center justify-center p-6 sm:p-8">
-                    <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      <!--                {{ data.taskDistribution.overview[taskDistributionWeekSelector.value]['completed'] }}-->
-                      <!--                Data của -->
-                    </div>
-                    <div class="text-secondary mt-1 text-center">Cân nặng chuẩn: {{ weekData[countWeek].size }}</div>
-                    <div class="text-secondary mt-1 text-center">{{ weekData[countWeek].sizeDescription }}</div>
-                  </div>
-                </div>
-              </div>
-              <!-- Quan lý thai nhi -->
-              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
-                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>
-              </div>
-            </div>
           </ng-template>
         </mat-tab>
       </mat-tab-group>
@@ -369,3 +334,17 @@
     </div>
   </div>
 </div>
+
+<style>
+  @keyframes gentle-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>
