@@ -22,7 +22,7 @@ export class UserService {
     this._user.next(value);
   }
 
-  get user$(): Observable<any> {
+  get user$(): Observable<User> {
     return this._user.asObservable();
   }
 

@@ -8,6 +8,7 @@ export interface User {
   role?: UserRole;
   status?: UserStatus;
   onlineStatus?: string;
+  expected_birth_date?: string;
 }
 
 //HOÀNG TRY TO FIX BUT DON'T UNDERSTAND

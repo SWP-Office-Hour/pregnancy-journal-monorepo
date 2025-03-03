@@ -58,6 +58,8 @@ const authResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
     role: userRoleSchema,
+    email: z.string(),
+    expected_birth_date: z.string(),
   }),
 });
 
