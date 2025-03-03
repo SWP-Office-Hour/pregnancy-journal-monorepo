@@ -9,7 +9,9 @@ describe('TodosService', () => {
   let service: TodosService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient()],
+    });
     service = TestBed.inject(TodosService);
   });
 
