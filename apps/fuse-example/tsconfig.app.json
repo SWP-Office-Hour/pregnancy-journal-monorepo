@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "outDir": "../../dist/out-tsc/app/fe-fuse",
+    "outDir": "../../dist/out-tsc/app/fuse-example",
     "types": []
   },
   "files": ["src/main.ts"],
