@@ -195,10 +195,12 @@
 <!--    </div>-->
 <!--  </div>-->
 <!--</div>-->
-<div class="h-180 my-auto grid w-full grid-cols-6 gap-4 px-4">
-  <div class="bg-card col-span-1 hidden flex-auto flex-col overflow-y-auto rounded-xl p-4 shadow-lg lg:flex">
-    <app-mini-calendar></app-mini-calendar>
-    <app-type-of-event-in-calendar></app-type-of-event-in-calendar>
+<div class="grid h-full w-full grid-cols-6 overflow-hidden">
+  <div class="bg-card h-c-vh col-span-1 hidden lg:flex">
+    <div class="flex flex-auto flex-col overflow-hidden overflow-y-scroll p-4" id="custom-scrollbar">
+      <app-mini-calendar></app-mini-calendar>
+      <app-type-of-event-in-calendar></app-type-of-event-in-calendar>
+    </div>
   </div>
-  <div class="col-span-5"><app-mobile-calendar></app-mobile-calendar></div>
+  <div class="col-span-5 p-4"><app-mobile-calendar></app-mobile-calendar></div>
 </div>

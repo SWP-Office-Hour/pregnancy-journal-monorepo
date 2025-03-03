@@ -95,3 +95,22 @@
 .mat-calendar-body-cell-content {
   @apply transition-colors duration-200;
 }
+/*!*Scroll bar*!*/
+/*#custom-scrollbar {*/
+/*  scrollbar-width: thin;*/
+/*  scrollbar-color: #888 #f1f1f1;*/
+/*}*/
+
+/*#custom-scrollbar::-webkit-scrollbar {*/
+/*  width: 8px;*/
+/*  height: 90%;*/
+/*}*/
+
+/*#custom-scrollbar::-webkit-scrollbar-track {*/
+/*  background: #f1f1f1;*/
+/*}*/
+
+/*#custom-scrollbar::-webkit-scrollbar-thumb {*/
+/*  border-radius: 10px;*/
+/*  border: 2px solid #f1f1f1;*/
+/*}*/

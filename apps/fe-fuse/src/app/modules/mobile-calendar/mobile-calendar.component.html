@@ -1,4 +1,4 @@
-<div class="w-full rounded-xl bg-white p-4 shadow-lg md:h-full">
+<div class="flex h-full w-full flex-col justify-between rounded-xl bg-white p-4 shadow-lg">
   <div class="mb-2 flex w-full items-center justify-between">
     <div class="flex gap-4">
       <button (click)="previousMonth()" class="rounded-lg p-2 transition-all hover:bg-purple-50">
@@ -16,12 +16,12 @@
     <button (click)="goToToday()" class="rounded-lg bg-purple-50 px-4 py-2 text-sm text-purple-600 transition-all hover:bg-purple-100">Today</button>
   </div>
 
-  <div class="grid w-full grid-cols-1 gap-4 lg:h-5/6 lg:grid-cols-7">
-    <div class="lg:col-span-5">
+  <div class="grid flex-auto grid-cols-1 gap-4 lg:grid-cols-7">
+    <div class="flex h-full flex-col pb-4 lg:col-span-5">
       <div class="mb-4 grid grid-cols-7 gap-2">
         <div *ngFor="let day of weekDays" class="py-2 text-center font-medium text-gray-500">{{ day }}</div>
       </div>
-      <div class="grid grid-cols-7 gap-2">
+      <div class="grid h-full grid-cols-7 grid-rows-6 gap-2">
         <div
           *ngFor="let date of calendarDays"
           [ngClass]="{
@@ -29,11 +29,14 @@
             'text-pink-450': isCurrentDate(date),
             'hover:bg-pink-50': !isCurrentDate(date),
           }"
-          class="cursor-pointer rounded-lg p-2 text-center transition-all md:pb-12"
+          class="flex cursor-pointer flex-col rounded-lg text-center transition-all"
           (click)="selectDate(date)"
         >
           <span>{{ date | date: 'd' }}</span>
-          <div *ngIf="hasEvents(date)" class="mx-auto mt-1 h-1.5 w-1.5 rounded-full bg-purple-500"></div>
+          <div class="mx-auto mt-1 flex items-center justify-center">
+            <div *ngIf="hasEvents(date)" class="mr-2 h-1.5 w-1.5 rounded-full bg-purple-500"></div>
+            <span *ngIf="hasEvents(date)">Meeting</span>
+          </div>
         </div>
       </div>
     </div>
@@ -62,7 +65,7 @@
 
   <button
     (click)="openCreateEventModal()"
-    class="bg-pink-450 hover:bg-pink-450/90 mt-6 w-full transform rounded-lg py-3 text-white transition-all hover:scale-[1.01] active:scale-[0.99]"
+    class="bg-pink-450 hover:bg-pink-450/90 w-full transform rounded-lg py-3 text-white transition-all hover:scale-[1.01] active:scale-[0.99]"
   >
     Tạo nhắc nhở
   </button>
