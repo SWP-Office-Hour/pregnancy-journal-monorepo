@@ -1,4 +1,4 @@
-<div class="container mx-auto w-full p-4">
+<div class="container mx-auto w-full">
   <div class="mb-6 flex w-full flex-col">
     <h2 class="mb-4 text-xl font-semibold text-gray-800">Event Themes</h2>
 
@@ -25,7 +25,7 @@
 
   <div cdkDropListGroup class="w-full">
     <div class="w-full">
-      <div *ngFor="let theme of themes" cdkDrag class="theme-block rounded-lg" [style.background-color]="theme.color">
+      <div *ngFor="let theme of themes" cdkDrag class="theme-block mb-2 rounded-lg" [style.background-color]="theme.color">
         <div class="cursor-move rounded-lg p-4 shadow-md" cdkDragHandle>
           <div class="flex items-center justify-between">
             <span class="font-medium text-gray-800">{{ theme.name }}</span>
@@ -41,6 +41,44 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div class="w-full max-w-md rounded-lg bg-white p-6">
+      <h3 class="mb-4 text-xl font-semibold">Create New Theme</h3>
+      <form [formGroup]="themeForm" (ngSubmit)="createTheme()">
+        <div class="mb-4">
+          <label class="mb-2 block text-gray-700">Theme Name</label>
+          <input type="text" formControlName="name" class="w-full rounded-lg border px-3 py-2 focus:ring-2 focus:ring-blue-500" />
+          <div *ngIf="themeForm.get('name')?.errors?.['required'] && themeForm.get('name')?.touched" class="mt-1 text-red-500">
+            Theme name is required
+          </div>
+        </div>
+        <div class="mb-4">
+          <label class="mb-2 block text-gray-700">Select Color</label>
+          <div class="grid grid-cols-5 gap-2">
+            <button
+              *ngFor="let color of predefinedColors"
+              type="button"
+              [style.background-color]="color"
+              (click)="selectColor(color)"
+              class="h-8 w-8 rounded-full border-2"
+              [class.border-blue-500]="themeForm.get('color')?.value === color"
+            ></button>
+          </div>
+        </div>
+        <div class="flex justify-end gap-2">
+          <button type="button" (click)="closeModal()" class="rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-100">Cancel</button>
+          <button
+            type="submit"
+            [disabled]="!themeForm.valid"
+            class="rounded-lg bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 disabled:opacity-50"
+          >
+            Create
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
