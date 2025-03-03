@@ -5,6 +5,7 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
+import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
 import { blogAuthGuard, blogNoAuthGuard } from './modules/blog-masonry/blog-auth.guard';
 import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
@@ -48,7 +49,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'forgot-password',
-        loadChildren: () => import('app/modules/auth/forgot-password/forgot-password.routes'),
+        loadComponent: () => ForgotPasswordComponent,
       },
       { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes') },
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
