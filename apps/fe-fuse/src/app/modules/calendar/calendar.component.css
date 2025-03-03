@@ -95,22 +95,53 @@
 .mat-calendar-body-cell-content {
   @apply transition-colors duration-200;
 }
-/*!*Scroll bar*!*/
-/*#custom-scrollbar {*/
-/*  scrollbar-width: thin;*/
-/*  scrollbar-color: #888 #f1f1f1;*/
-/*}*/
 
-/*#custom-scrollbar::-webkit-scrollbar {*/
-/*  width: 8px;*/
-/*  height: 90%;*/
-/*}*/
+/* Beautiful Mini Scrollbar */
+#custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #9ba3bf transparent;
+}
 
-/*#custom-scrollbar::-webkit-scrollbar-track {*/
-/*  background: #f1f1f1;*/
-/*}*/
+/* Chrome, Edge, and Safari */
+#custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+}
 
-/*#custom-scrollbar::-webkit-scrollbar-thumb {*/
-/*  border-radius: 10px;*/
-/*  border: 2px solid #f1f1f1;*/
-/*}*/
+#custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+#custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #9ba3bf;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+#custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #7986cb;
+}
+
+/* Ẩn triệt để mũi tên trên dưới scrollbar */
+#custom-scrollbar::-webkit-scrollbar-button {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+}
+
+/* Cách ẩn khắc phục cho Chrome */
+#custom-scrollbar::-webkit-scrollbar-button:vertical:start:decrement,
+#custom-scrollbar::-webkit-scrollbar-button:vertical:end:increment,
+#custom-scrollbar::-webkit-scrollbar-button:horizontal:start:decrement,
+#custom-scrollbar::-webkit-scrollbar-button:horizontal:end:increment {
+  display: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Đảm bảo bo tròn 4 góc */
+#custom-scrollbar::-webkit-scrollbar-corner {
+  background: transparent;
+}
