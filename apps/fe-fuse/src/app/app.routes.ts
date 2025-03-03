@@ -9,6 +9,7 @@ import { blogAuthGuard, blogNoAuthGuard } from './modules/blog-masonry/blog-auth
 import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
 import { CalendarService } from './modules/calendar/calendar.service';
+import { ChangePasswordComponent } from './modules/change-password/change-password.component';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { LandingComponent } from './modules/landing/landing.component';
@@ -153,6 +154,10 @@ export const appRoutes: Route[] = [
       {
         path: 'user-profile',
         loadComponent: () => UserProfileComponent,
+      },
+      {
+        path: 'change-password',
+        loadComponent: () => ChangePasswordComponent,
       },
     ],
   },
