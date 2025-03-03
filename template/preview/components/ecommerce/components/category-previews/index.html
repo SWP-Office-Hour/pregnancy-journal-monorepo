@@ -1,0 +1,1413 @@
+<!doctype html>
+<html lang="en" class="h-full bg-[color:var(--html-bg-color,theme(colors.white))]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link rel="preload" href="/fonts/Inter-roman.var.woff2?v=3.18" as="font" type="font/woff2" crossorigin="" />
+    <script src="https://cdn.usefathom.com/script.js" data-site="SOXJJCZQ" data-auto="false" defer></script>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <link rel="preload" as="style" href="https://tailwindui.com/build/assets/app-2d0319e7.css" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/app-32827a4c.js" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/client-78148df7.js" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" />
+    <link rel="stylesheet" href="https://tailwindui.com/build/assets/app-2d0319e7.css" />
+    <script type="module" src="https://tailwindui.com/build/assets/app-32827a4c.js"></script>
+    <meta name="twitter:card" content="summary_large_image" inertia />
+    <meta name="twitter:site" content="@tailwindcss" inertia />
+    <meta name="twitter:title" content="Category Previews - Official Tailwind CSS UI Components" inertia />
+    <meta
+      name="twitter:description"
+      content="Ecommerce category preview examples for Tailwind CSS, designed and built by the creators of the framework."
+      inertia
+    />
+    <meta name="twitter:image" content="https://tailwindui.com/img/og-default.png" inertia />
+    <meta name="twitter:creator" content="@tailwindcss" inertia />
+    <meta property="og:url" content="https://www.tailwindui.com/" inertia />
+    <meta property="og:type" content="article" inertia />
+    <meta property="og:title" content="Category Previews - Official Tailwind CSS UI Components" inertia />
+    <meta
+      property="og:description"
+      content="Ecommerce category preview examples for Tailwind CSS, designed and built by the creators of the framework."
+      inertia
+    />
+    <meta property="og:image" content="https://tailwindui.com/img/og-default.png" inertia />
+    <meta
+      property="description"
+      content="Ecommerce category preview examples for Tailwind CSS, designed and built by the creators of the framework."
+      inertia
+    />
+    <title inertia>Category Previews - Official Tailwind CSS UI Components</title>
+  </head>
+  <body class="flex min-h-full flex-col font-sans text-gray-600 antialiased [overflow-anchor:none]" scroll-region>
+    <div
+      id="app"
+      data-page='{"component":"ComponentCategory","props":{"tailwindVersion":"3.4","versionPrefix":"","errors":{},"copyrightYear":"2024","auth":{"user":{"email":"Licensed User","teams":[],"firstOwnedTeamWithNoMembersUrl":null,"can":{"accessV1":false,"upgradeToTeamLicense":true,"canUpgradeToStandardAllAccess":false}}},"snippetLang":"html","commandPalette":[{"url":"/components/application-ui/application-shells/stacked","name":"Stacked Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/application-shells/sidebar","name":"Sidebar Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/application-shells/multi-column","name":"Multi-Column Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/headings/page-headings","name":"Page Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/headings/card-headings","name":"Card Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/headings/section-headings","name":"Section Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/data-display/description-lists","name":"Description Lists","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/data-display/stats","name":"Stats","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/data-display/calendars","name":"Calendars","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/lists/tables","name":"Tables","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/stacked-lists","name":"Stacked Lists","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/grid-lists","name":"Grid Lists","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/feeds","name":"Feeds","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/forms/form-layouts","name":"Form Layouts","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/input-groups","name":"Input Groups","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/select-menus","name":"Select Menus","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/textareas","name":"Textareas","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/radio-groups","name":"Radio Groups","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/checkboxes","name":"Checkboxes","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/toggles","name":"Toggles","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/sign-in-forms","name":"Sign-in and Registration","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/action-panels","name":"Action Panels","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/comboboxes","name":"Comboboxes","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/feedback/alerts","name":"Alerts","keywords":null,"category":"Application UI / Feedback"},{"url":"/components/application-ui/feedback/empty-states","name":"Empty States","keywords":null,"category":"Application UI / Feedback"},{"url":"/components/application-ui/navigation/tabs","name":"Tabs","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/navbars","name":"Navbars","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/vertical-navigation","name":"Vertical Navigation","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/pagination","name":"Pagination","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/sidebar-navigation","name":"Sidebar Navigation","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/breadcrumbs","name":"Breadcrumbs","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/progress-bars","name":"Progress Bars","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/command-palettes","name":"Command Palettes","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/overlays/dialogs","name":"Dialogs","keywords":"modals alerts","category":"Application UI / Overlays"},{"url":"/components/application-ui/overlays/slide-overs","name":"Slide-overs","keywords":null,"category":"Application UI / Overlays"},{"url":"/components/application-ui/overlays/notifications","name":"Notifications","keywords":null,"category":"Application UI / Overlays"},{"url":"/components/application-ui/elements/avatars","name":"Avatars","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/badges","name":"Badges","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/buttons","name":"Buttons","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/button-groups","name":"Button Groups","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/dropdowns","name":"Dropdowns","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/layout/containers","name":"Containers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/panels","name":"Panels","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/list-containers","name":"List containers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/media-objects","name":"Media Objects","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/dividers","name":"Dividers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/page-examples/home-screens","name":"Home Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/application-ui/page-examples/detail-screens","name":"Detail Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/application-ui/page-examples/settings-screens","name":"Settings Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/ecommerce/components/product-overviews","name":"Product Overviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-lists","name":"Product Lists","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/category-previews","name":"Category Previews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/shopping-carts","name":"Shopping Carts","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/checkout-forms","name":"Checkout Forms","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/category-filters","name":"Category Filters","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/reviews","name":"Reviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-quickviews","name":"Product Quickviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-features","name":"Product Features","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/store-navigation","name":"Store Navigation","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/order-summaries","name":"Order Summaries","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/order-history","name":"Order History","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/promo-sections","name":"Promo Sections","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/incentives","name":"Incentives","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/page-examples/storefront-pages","name":"Storefront Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/product-pages","name":"Product Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/category-pages","name":"Category Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/shopping-cart-pages","name":"Shopping Cart Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/checkout-pages","name":"Checkout Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/order-detail-pages","name":"Order Detail Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/order-history-pages","name":"Order History Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/marketing/sections/heroes","name":"Hero Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/feature-sections","name":"Feature Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/cta-sections","name":"CTA Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/pricing","name":"Pricing Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/header","name":"Header Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/faq-sections","name":"FAQs","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/newsletter-sections","name":"Newsletter Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/stats-sections","name":"Stats","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/testimonials","name":"Testimonials","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/blog-sections","name":"Blog Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/contact-sections","name":"Contact Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/team-sections","name":"Team Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/content-sections","name":"Content Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/footers","name":"Footers","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/logo-clouds","name":"Logo Clouds","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/elements/headers","name":"Headers","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/elements/flyout-menus","name":"Flyout Menus","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/elements/banners","name":"Banners","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/feedback/404-pages","name":"404 Pages","keywords":null,"category":"Marketing / Feedback"},{"url":"/components/marketing/page-examples/landing-pages","name":"Landing Pages","keywords":null,"category":"Marketing / Page Examples"},{"url":"/components/marketing/page-examples/pricing-pages","name":"Pricing Pages","keywords":null,"category":"Marketing / Page Examples"},{"url":"/components/marketing/page-examples/about-pages","name":"About Pages","keywords":null,"category":"Marketing / Page Examples"}],"isImpersonating":false,"blackFriday":null,"archiveAvailable":false,"subcategory":{"name":"Category Previews","description":"Ecommerce category preview examples for Tailwind CSS, designed and built by the creators of the framework.","introduction":null,"url":"/components/ecommerce/components/category-previews","category":{"name":"Components","url":"/components#product-ecommerce-components","product":{"name":"Ecommerce","url":"/components#product-ecommerce"}},"components":[{"name":"With image backgrounds","uuid":"0bccd1058690fa6d03a79564f992f609","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  \n  &lt;div class=\"bg-gray-50\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8\"&gt;\n      &lt;div class=\"sm:flex sm:items-baseline sm:justify-between\"&gt;\n        &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n        &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8\"&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg\" alt=\"Two models wearing women&#x27;s black cotton crewneck tee and off-white cotton crewneck tee.\" class=\"object-cover object-center group-hover:opacity-75\"&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50\"&gt;&lt;/div&gt;\n          &lt;div class=\"flex items-end p-6\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  New Arrivals\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg\" alt=\"Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"&gt;&lt;/div&gt;\n          &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  Accessories\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg\" alt=\"Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"&gt;&lt;/div&gt;\n          &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  Workspace\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 sm:hidden\"&gt;\n        &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;div class=\"bg-gray-50\"&gt;\n  &lt;div class=\"mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8\"&gt;\n    &lt;div class=\"sm:flex sm:items-baseline sm:justify-between\"&gt;\n      &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n      &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n        Browse all categories\n        &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n\n    &lt;div class=\"mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8\"&gt;\n      &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2\"&gt;\n        &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg\" alt=\"Two models wearing women&#x27;s black cotton crewneck tee and off-white cotton crewneck tee.\" class=\"object-cover object-center group-hover:opacity-75\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50\"&gt;&lt;/div&gt;\n        &lt;div class=\"flex items-end p-6\"&gt;\n          &lt;div&gt;\n            &lt;h3 class=\"font-semibold text-white\"&gt;\n              &lt;a href=\"#\"&gt;\n                &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                New Arrivals\n              &lt;/a&gt;\n            &lt;/h3&gt;\n            &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n      &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n        &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg\" alt=\"Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"&gt;&lt;/div&gt;\n        &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n          &lt;div&gt;\n            &lt;h3 class=\"font-semibold text-white\"&gt;\n              &lt;a href=\"#\"&gt;\n                &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                Accessories\n              &lt;/a&gt;\n            &lt;/h3&gt;\n            &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n      &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n        &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg\" alt=\"Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"&gt;&lt;/div&gt;\n        &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n          &lt;div&gt;\n            &lt;h3 class=\"font-semibold text-white\"&gt;\n              &lt;a href=\"#\"&gt;\n                &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                Workspace\n              &lt;/a&gt;\n            &lt;/h3&gt;\n            &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n\n    &lt;div class=\"mt-6 sm:hidden\"&gt;\n      &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n        Browse all categories\n        &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"/*\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n*/\nexport default function Example() {\n  return (\n    &lt;div className=\"bg-gray-50\"&gt;\n      &lt;div className=\"mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8\"&gt;\n        &lt;div className=\"sm:flex sm:items-baseline sm:justify-between\"&gt;\n          &lt;h2 className=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n          &lt;a href=\"#\" className=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n            Browse all categories\n            &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n          &lt;/a&gt;\n        &lt;/div&gt;\n\n        &lt;div className=\"mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8\"&gt;\n          &lt;div className=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2\"&gt;\n            &lt;img\n              src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg\"\n              alt=\"Two models wearing women&#x27;s black cotton crewneck tee and off-white cotton crewneck tee.\"\n              className=\"object-cover object-center group-hover:opacity-75\"\n            /&gt;\n            &lt;div aria-hidden=\"true\" className=\"bg-gradient-to-b from-transparent to-black opacity-50\" /&gt;\n            &lt;div className=\"flex items-end p-6\"&gt;\n              &lt;div&gt;\n                &lt;h3 className=\"font-semibold text-white\"&gt;\n                  &lt;a href=\"#\"&gt;\n                    &lt;span className=\"absolute inset-0\" /&gt;\n                    New Arrivals\n                  &lt;/a&gt;\n                &lt;/h3&gt;\n                &lt;p aria-hidden=\"true\" className=\"mt-1 text-sm text-white\"&gt;\n                  Shop now\n                &lt;/p&gt;\n              &lt;/div&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n          &lt;div className=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n            &lt;img\n              src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg\"\n              alt=\"Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.\"\n              className=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"\n            /&gt;\n            &lt;div\n              aria-hidden=\"true\"\n              className=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"\n            /&gt;\n            &lt;div className=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n              &lt;div&gt;\n                &lt;h3 className=\"font-semibold text-white\"&gt;\n                  &lt;a href=\"#\"&gt;\n                    &lt;span className=\"absolute inset-0\" /&gt;\n                    Accessories\n                  &lt;/a&gt;\n                &lt;/h3&gt;\n                &lt;p aria-hidden=\"true\" className=\"mt-1 text-sm text-white\"&gt;\n                  Shop now\n                &lt;/p&gt;\n              &lt;/div&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n          &lt;div className=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n            &lt;img\n              src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg\"\n              alt=\"Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk.\"\n              className=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\"\n            /&gt;\n            &lt;div\n              aria-hidden=\"true\"\n              className=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\"\n            /&gt;\n            &lt;div className=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n              &lt;div&gt;\n                &lt;h3 className=\"font-semibold text-white\"&gt;\n                  &lt;a href=\"#\"&gt;\n                    &lt;span className=\"absolute inset-0\" /&gt;\n                    Workspace\n                  &lt;/a&gt;\n                &lt;/h3&gt;\n                &lt;p aria-hidden=\"true\" className=\"mt-1 text-sm text-white\"&gt;\n                  Shop now\n                &lt;/p&gt;\n              &lt;/div&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n\n        &lt;div className=\"mt-6 sm:hidden\"&gt;\n          &lt;a href=\"#\" className=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n            Browse all categories\n            &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n          &lt;/a&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;template&gt;\n  &lt;div class=\"bg-gray-50\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8\"&gt;\n      &lt;div class=\"sm:flex sm:items-baseline sm:justify-between\"&gt;\n        &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n        &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8\"&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg\" alt=\"Two models wearing women&#x27;s black cotton crewneck tee and off-white cotton crewneck tee.\" class=\"object-cover object-center group-hover:opacity-75\" /&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50\" /&gt;\n          &lt;div class=\"flex items-end p-6\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\" /&gt;\n                  New Arrivals\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg\" alt=\"Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\" /&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\" /&gt;\n          &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\" /&gt;\n                  Accessories\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg\" alt=\"Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk.\" class=\"object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full\" /&gt;\n          &lt;div aria-hidden=\"true\" class=\"bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0\" /&gt;\n          &lt;div class=\"flex items-end p-6 sm:absolute sm:inset-0\"&gt;\n            &lt;div&gt;\n              &lt;h3 class=\"font-semibold text-white\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\" /&gt;\n                  Workspace\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p aria-hidden=\"true\" class=\"mt-1 text-sm text-white\"&gt;Shop now&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 sm:hidden\"&gt;\n        &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n"}],"largeWidth":1280,"largeHeight":840,"smallWidth":375,"smallHeight":791,"smallScreenshotUrl":"/img/components/category-previews.01-with-image-backgrounds-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.01-with-image-backgrounds-xl.jpg"},{"name":"Three-column","uuid":"37995021e5cdf0c643346920ff40b13b","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  \n  &lt;div class=\"bg-gray-100\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8\"&gt;\n      &lt;div class=\"mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32\"&gt;\n        &lt;h2 class=\"text-2xl font-bold text-gray-900\"&gt;Collections&lt;/h2&gt;\n\n        &lt;div class=\"mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0\"&gt;\n          &lt;div class=\"group relative\"&gt;\n              &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\" alt=\"Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/div&gt;\n              &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  Desk and Office\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Work from home accessories&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;div class=\"group relative\"&gt;\n              &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\" alt=\"Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/div&gt;\n              &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  Self-Improvement\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Journals and note-taking&lt;/p&gt;\n            &lt;/div&gt;\n          &lt;div class=\"group relative\"&gt;\n              &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg\" alt=\"Collection of four insulated travel bottles on wooden shelf.\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/div&gt;\n              &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n                &lt;a href=\"#\"&gt;\n                  &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n                  Travel\n                &lt;/a&gt;\n              &lt;/h3&gt;\n              &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Daily commute essentials&lt;/p&gt;\n            &lt;/div&gt;\n          \n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;div class=\"bg-gray-100\"&gt;\n  &lt;div class=\"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8\"&gt;\n    &lt;div class=\"mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32\"&gt;\n      &lt;h2 class=\"text-2xl font-bold text-gray-900\"&gt;Collections&lt;/h2&gt;\n\n      &lt;div class=\"mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0\"&gt;\n        &lt;div class=\"group relative\"&gt;\n          &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n            &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\" alt=\"Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.\" class=\"h-full w-full object-cover object-center\"&gt;\n          &lt;/div&gt;\n          &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n            &lt;a href=\"#\"&gt;\n              &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n              Desk and Office\n            &lt;/a&gt;\n          &lt;/h3&gt;\n          &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Work from home accessories&lt;/p&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group relative\"&gt;\n          &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n            &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\" alt=\"Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.\" class=\"h-full w-full object-cover object-center\"&gt;\n          &lt;/div&gt;\n          &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n            &lt;a href=\"#\"&gt;\n              &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n              Self-Improvement\n            &lt;/a&gt;\n          &lt;/h3&gt;\n          &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Journals and note-taking&lt;/p&gt;\n        &lt;/div&gt;\n        &lt;div class=\"group relative\"&gt;\n          &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n            &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg\" alt=\"Collection of four insulated travel bottles on wooden shelf.\" class=\"h-full w-full object-cover object-center\"&gt;\n          &lt;/div&gt;\n          &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n            &lt;a href=\"#\"&gt;\n              &lt;span class=\"absolute inset-0\"&gt;&lt;/span&gt;\n              Travel\n            &lt;/a&gt;\n          &lt;/h3&gt;\n          &lt;p class=\"text-base font-semibold text-gray-900\"&gt;Daily commute essentials&lt;/p&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"/*\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n*/\nconst callouts = [\n  {\n    name: &#x27;Desk and Office&#x27;,\n    description: &#x27;Work from home accessories&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg&#x27;,\n    imageAlt: &#x27;Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n  {\n    name: &#x27;Self-Improvement&#x27;,\n    description: &#x27;Journals and note-taking&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg&#x27;,\n    imageAlt: &#x27;Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n  {\n    name: &#x27;Travel&#x27;,\n    description: &#x27;Daily commute essentials&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg&#x27;,\n    imageAlt: &#x27;Collection of four insulated travel bottles on wooden shelf.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n]\n\nexport default function Example() {\n  return (\n    &lt;div className=\"bg-gray-100\"&gt;\n      &lt;div className=\"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8\"&gt;\n        &lt;div className=\"mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32\"&gt;\n          &lt;h2 className=\"text-2xl font-bold text-gray-900\"&gt;Collections&lt;/h2&gt;\n\n          &lt;div className=\"mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0\"&gt;\n            {callouts.map((callout) =&gt; (\n              &lt;div key={callout.name} className=\"group relative\"&gt;\n                &lt;div className=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n                  &lt;img\n                    src={callout.imageSrc}\n                    alt={callout.imageAlt}\n                    className=\"h-full w-full object-cover object-center\"\n                  /&gt;\n                &lt;/div&gt;\n                &lt;h3 className=\"mt-6 text-sm text-gray-500\"&gt;\n                  &lt;a href={callout.href}&gt;\n                    &lt;span className=\"absolute inset-0\" /&gt;\n                    {callout.name}\n                  &lt;/a&gt;\n                &lt;/h3&gt;\n                &lt;p className=\"text-base font-semibold text-gray-900\"&gt;{callout.description}&lt;/p&gt;\n              &lt;/div&gt;\n            ))}\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;template&gt;\n  &lt;div class=\"bg-gray-100\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl px-4 sm:px-6 lg:px-8\"&gt;\n      &lt;div class=\"mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32\"&gt;\n        &lt;h2 class=\"text-2xl font-bold text-gray-900\"&gt;Collections&lt;/h2&gt;\n\n        &lt;div class=\"mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0\"&gt;\n          &lt;div v-for=\"callout in callouts\" :key=\"callout.name\" class=\"group relative\"&gt;\n            &lt;div class=\"relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64\"&gt;\n              &lt;img :src=\"callout.imageSrc\" :alt=\"callout.imageAlt\" class=\"h-full w-full object-cover object-center\" /&gt;\n            &lt;/div&gt;\n            &lt;h3 class=\"mt-6 text-sm text-gray-500\"&gt;\n              &lt;a :href=\"callout.href\"&gt;\n                &lt;span class=\"absolute inset-0\" /&gt;\n                {{ callout.name }}\n              &lt;/a&gt;\n            &lt;/h3&gt;\n            &lt;p class=\"text-base font-semibold text-gray-900\"&gt;{{ callout.description }}&lt;/p&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nconst callouts = [\n  {\n    name: &#x27;Desk and Office&#x27;,\n    description: &#x27;Work from home accessories&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg&#x27;,\n    imageAlt: &#x27;Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n  {\n    name: &#x27;Self-Improvement&#x27;,\n    description: &#x27;Journals and note-taking&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg&#x27;,\n    imageAlt: &#x27;Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n  {\n    name: &#x27;Travel&#x27;,\n    description: &#x27;Daily commute essentials&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg&#x27;,\n    imageAlt: &#x27;Collection of four insulated travel bottles on wooden shelf.&#x27;,\n    href: &#x27;#&#x27;,\n  },\n]\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":770,"smallWidth":375,"smallHeight":1444,"smallScreenshotUrl":"/img/components/category-previews.02-three-column-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.02-three-column-xl.jpg"},{"name":"With background image and detail overlay","uuid":"1f407cdd33b17a2fc24966b27bea7890","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  \n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl\"&gt;\n      &lt;div class=\"relative overflow-hidden rounded-lg lg:h-96\"&gt;\n        &lt;div class=\"absolute inset-0\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/category-page-01-featured-collection.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n        &lt;/div&gt;\n        &lt;div aria-hidden=\"true\" class=\"relative h-96 w-full lg:hidden\"&gt;&lt;/div&gt;\n        &lt;div aria-hidden=\"true\" class=\"relative h-32 w-full lg:hidden\"&gt;&lt;/div&gt;\n        &lt;div class=\"absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg\"&gt;\n          &lt;div&gt;\n            &lt;h2 class=\"text-xl font-bold text-white\"&gt;Workspace Collection&lt;/h2&gt;\n            &lt;p class=\"mt-1 text-sm text-gray-300\"&gt;Upgrade your desk with objects that keep you organized and clear-minded.&lt;/p&gt;\n          &lt;/div&gt;\n          &lt;a href=\"#\" class=\"mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full\"&gt;View the collection&lt;/a&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;div class=\"bg-white\"&gt;\n  &lt;div class=\"mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl\"&gt;\n    &lt;div class=\"relative overflow-hidden rounded-lg lg:h-96\"&gt;\n      &lt;div class=\"absolute inset-0\"&gt;\n        &lt;img src=\"https://tailwindui.com/img/ecommerce-images/category-page-01-featured-collection.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n      &lt;/div&gt;\n      &lt;div aria-hidden=\"true\" class=\"relative h-96 w-full lg:hidden\"&gt;&lt;/div&gt;\n      &lt;div aria-hidden=\"true\" class=\"relative h-32 w-full lg:hidden\"&gt;&lt;/div&gt;\n      &lt;div class=\"absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg\"&gt;\n        &lt;div&gt;\n          &lt;h2 class=\"text-xl font-bold text-white\"&gt;Workspace Collection&lt;/h2&gt;\n          &lt;p class=\"mt-1 text-sm text-gray-300\"&gt;Upgrade your desk with objects that keep you organized and clear-minded.&lt;/p&gt;\n        &lt;/div&gt;\n        &lt;a href=\"#\" class=\"mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full\"&gt;View the collection&lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"export default function Example() {\n  return (\n    &lt;div className=\"bg-white\"&gt;\n      &lt;div className=\"mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl\"&gt;\n        &lt;div className=\"relative overflow-hidden rounded-lg lg:h-96\"&gt;\n          &lt;div className=\"absolute inset-0\"&gt;\n            &lt;img\n              src=\"https://tailwindui.com/img/ecommerce-images/category-page-01-featured-collection.jpg\"\n              alt=\"\"\n              className=\"h-full w-full object-cover object-center\"\n            /&gt;\n          &lt;/div&gt;\n          &lt;div aria-hidden=\"true\" className=\"relative h-96 w-full lg:hidden\" /&gt;\n          &lt;div aria-hidden=\"true\" className=\"relative h-32 w-full lg:hidden\" /&gt;\n          &lt;div className=\"absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg\"&gt;\n            &lt;div&gt;\n              &lt;h2 className=\"text-xl font-bold text-white\"&gt;Workspace Collection&lt;/h2&gt;\n              &lt;p className=\"mt-1 text-sm text-gray-300\"&gt;\n                Upgrade your desk with objects that keep you organized and clear-minded.\n              &lt;/p&gt;\n            &lt;/div&gt;\n            &lt;a\n              href=\"#\"\n              className=\"mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full\"\n            &gt;\n              View the collection\n            &lt;/a&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl\"&gt;\n      &lt;div class=\"relative overflow-hidden rounded-lg lg:h-96\"&gt;\n        &lt;div class=\"absolute inset-0\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/category-page-01-featured-collection.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\" /&gt;\n        &lt;/div&gt;\n        &lt;div aria-hidden=\"true\" class=\"relative h-96 w-full lg:hidden\" /&gt;\n        &lt;div aria-hidden=\"true\" class=\"relative h-32 w-full lg:hidden\" /&gt;\n        &lt;div class=\"absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg\"&gt;\n          &lt;div&gt;\n            &lt;h2 class=\"text-xl font-bold text-white\"&gt;Workspace Collection&lt;/h2&gt;\n            &lt;p class=\"mt-1 text-sm text-gray-300\"&gt;Upgrade your desk with objects that keep you organized and clear-minded.&lt;/p&gt;\n          &lt;/div&gt;\n          &lt;a href=\"#\" class=\"mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full\"&gt;View the collection&lt;/a&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n"}],"largeWidth":1280,"largeHeight":576,"smallWidth":375,"smallHeight":640,"smallScreenshotUrl":"/img/components/category-previews.03-with-background-image-and-detail-overlay-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.03-with-background-image-and-detail-overlay-xl.jpg"},{"name":"Three-column with description","uuid":"2ddbae849fc5ea4b75d75509101c14f5","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  \n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8\"&gt;\n      &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Collection&lt;/h2&gt;\n      &lt;p class=\"mt-4 text-base text-gray-500\"&gt;Each season, we collaborate with world-class designers to create a collection inspired by the natural world.&lt;/p&gt;\n\n      &lt;div class=\"mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0\"&gt;\n        &lt;a href=\"#\" class=\"group block\"&gt;\n            &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n              &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg\" alt=\"Brown leather key ring with brass metal loops and rivets on wood table.\" class=\"h-full w-full object-cover object-center\"&gt;\n            &lt;/div&gt;\n            &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Handcrafted Collection&lt;/h3&gt;\n            &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;Keep your phone, keys, and wallet together, so you can lose everything at once.&lt;/p&gt;\n          &lt;/a&gt;\n        &lt;a href=\"#\" class=\"group block\"&gt;\n            &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n              &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg\" alt=\"Natural leather mouse pad on white desk next to porcelain mug and keyboard.\" class=\"h-full w-full object-cover object-center\"&gt;\n            &lt;/div&gt;\n            &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Organized Desk Collection&lt;/h3&gt;\n            &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;The rest of the house will still be a mess, but your desk will look great.&lt;/p&gt;\n          &lt;/a&gt;\n        &lt;a href=\"#\" class=\"group block\"&gt;\n            &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n              &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg\" alt=\"Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.\" class=\"h-full w-full object-cover object-center\"&gt;\n            &lt;/div&gt;\n            &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Focus Collection&lt;/h3&gt;\n            &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;Be more productive than enterprise project managers with a single piece of paper.&lt;/p&gt;\n          &lt;/a&gt;\n        \n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;div class=\"bg-white\"&gt;\n  &lt;div class=\"mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8\"&gt;\n    &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Collection&lt;/h2&gt;\n    &lt;p class=\"mt-4 text-base text-gray-500\"&gt;Each season, we collaborate with world-class designers to create a collection inspired by the natural world.&lt;/p&gt;\n\n    &lt;div class=\"mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0\"&gt;\n      &lt;a href=\"#\" class=\"group block\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg\" alt=\"Brown leather key ring with brass metal loops and rivets on wood table.\" class=\"h-full w-full object-cover object-center\"&gt;\n        &lt;/div&gt;\n        &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Handcrafted Collection&lt;/h3&gt;\n        &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;Keep your phone, keys, and wallet together, so you can lose everything at once.&lt;/p&gt;\n      &lt;/a&gt;\n      &lt;a href=\"#\" class=\"group block\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg\" alt=\"Natural leather mouse pad on white desk next to porcelain mug and keyboard.\" class=\"h-full w-full object-cover object-center\"&gt;\n        &lt;/div&gt;\n        &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Organized Desk Collection&lt;/h3&gt;\n        &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;The rest of the house will still be a mess, but your desk will look great.&lt;/p&gt;\n      &lt;/a&gt;\n      &lt;a href=\"#\" class=\"group block\"&gt;\n        &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n          &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg\" alt=\"Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.\" class=\"h-full w-full object-cover object-center\"&gt;\n        &lt;/div&gt;\n        &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;Focus Collection&lt;/h3&gt;\n        &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;Be more productive than enterprise project managers with a single piece of paper.&lt;/p&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"/*\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n*/\nconst categories = [\n  {\n    name: &#x27;Handcrafted Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg&#x27;,\n    imageAlt: &#x27;Brown leather key ring with brass metal loops and rivets on wood table.&#x27;,\n    description: &#x27;Keep your phone, keys, and wallet together, so you can lose everything at once.&#x27;,\n  },\n  {\n    name: &#x27;Organized Desk Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg&#x27;,\n    imageAlt: &#x27;Natural leather mouse pad on white desk next to porcelain mug and keyboard.&#x27;,\n    description: &#x27;The rest of the house will still be a mess, but your desk will look great.&#x27;,\n  },\n  {\n    name: &#x27;Focus Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg&#x27;,\n    imageAlt: &#x27;Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.&#x27;,\n    description: &#x27;Be more productive than enterprise project managers with a single piece of paper.&#x27;,\n  },\n]\n\nexport default function Example() {\n  return (\n    &lt;div className=\"bg-white\"&gt;\n      &lt;div className=\"mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8\"&gt;\n        &lt;h2 className=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Collection&lt;/h2&gt;\n        &lt;p className=\"mt-4 text-base text-gray-500\"&gt;\n          Each season, we collaborate with world-class designers to create a collection inspired by the natural world.\n        &lt;/p&gt;\n\n        &lt;div className=\"mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0\"&gt;\n          {categories.map((category) =&gt; (\n            &lt;a key={category.name} href={category.href} className=\"group block\"&gt;\n              &lt;div\n                aria-hidden=\"true\"\n                className=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"\n              &gt;\n                &lt;img\n                  src={category.imageSrc}\n                  alt={category.imageAlt}\n                  className=\"h-full w-full object-cover object-center\"\n                /&gt;\n              &lt;/div&gt;\n              &lt;h3 className=\"mt-4 text-base font-semibold text-gray-900\"&gt;{category.name}&lt;/h3&gt;\n              &lt;p className=\"mt-2 text-sm text-gray-500\"&gt;{category.description}&lt;/p&gt;\n            &lt;/a&gt;\n          ))}\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;!--\n  This example requires some changes to your config:\n  \n  ```\n  // tailwind.config.js\n  module.exports = {\n    // ...\n    plugins: [\n      // ...\n      require(&#x27;@tailwindcss/aspect-ratio&#x27;),\n    ],\n  }\n  ```\n--&gt;\n&lt;template&gt;\n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8\"&gt;\n      &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Collection&lt;/h2&gt;\n      &lt;p class=\"mt-4 text-base text-gray-500\"&gt;Each season, we collaborate with world-class designers to create a collection inspired by the natural world.&lt;/p&gt;\n\n      &lt;div class=\"mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0\"&gt;\n        &lt;a v-for=\"category in categories\" :key=\"category.name\" :href=\"category.href\" class=\"group block\"&gt;\n          &lt;div aria-hidden=\"true\" class=\"aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75\"&gt;\n            &lt;img :src=\"category.imageSrc\" :alt=\"category.imageAlt\" class=\"h-full w-full object-cover object-center\" /&gt;\n          &lt;/div&gt;\n          &lt;h3 class=\"mt-4 text-base font-semibold text-gray-900\"&gt;{{ category.name }}&lt;/h3&gt;\n          &lt;p class=\"mt-2 text-sm text-gray-500\"&gt;{{ category.description }}&lt;/p&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nconst categories = [\n  {\n    name: &#x27;Handcrafted Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg&#x27;,\n    imageAlt: &#x27;Brown leather key ring with brass metal loops and rivets on wood table.&#x27;,\n    description: &#x27;Keep your phone, keys, and wallet together, so you can lose everything at once.&#x27;,\n  },\n  {\n    name: &#x27;Organized Desk Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg&#x27;,\n    imageAlt: &#x27;Natural leather mouse pad on white desk next to porcelain mug and keyboard.&#x27;,\n    description: &#x27;The rest of the house will still be a mess, but your desk will look great.&#x27;,\n  },\n  {\n    name: &#x27;Focus Collection&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg&#x27;,\n    imageAlt: &#x27;Person placing task list card into walnut card holder next to felt carrying case on leather desk pad.&#x27;,\n    description: &#x27;Be more productive than enterprise project managers with a single piece of paper.&#x27;,\n  },\n]\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":853,"smallWidth":375,"smallHeight":1334,"smallScreenshotUrl":"/img/components/category-previews.04-three-column-with-description-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.04-three-column-with-description-xl.jpg"},{"name":"With scrolling cards","uuid":"6ebe66c8103e943e840fd4dbf1cf8ab7","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  \n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8\"&gt;\n      &lt;div class=\"px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0\"&gt;\n        &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n        &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-4 flow-root\"&gt;\n        &lt;div class=\"-my-2\"&gt;\n          &lt;div class=\"relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible\"&gt;\n            &lt;div class=\"absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0\"&gt;\n              &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n                  &lt;/span&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n                  &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;New Arrivals&lt;/span&gt;\n                &lt;/a&gt;\n              &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n                  &lt;/span&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n                  &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Productivity&lt;/span&gt;\n                &lt;/a&gt;\n              &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n                  &lt;/span&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n                  &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Workspace&lt;/span&gt;\n                &lt;/a&gt;\n              &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n                  &lt;/span&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n                  &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Accessories&lt;/span&gt;\n                &lt;/a&gt;\n              &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n                  &lt;/span&gt;\n                  &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n                  &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Sale&lt;/span&gt;\n                &lt;/a&gt;\n              \n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 px-4 sm:hidden\"&gt;\n        &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;div class=\"bg-white\"&gt;\n  &lt;div class=\"py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8\"&gt;\n    &lt;div class=\"px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0\"&gt;\n      &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n      &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n        Browse all categories\n        &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n\n    &lt;div class=\"mt-4 flow-root\"&gt;\n      &lt;div class=\"-my-2\"&gt;\n        &lt;div class=\"relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible\"&gt;\n          &lt;div class=\"absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0\"&gt;\n            &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/span&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n              &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;New Arrivals&lt;/span&gt;\n            &lt;/a&gt;\n            &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/span&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n              &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Productivity&lt;/span&gt;\n            &lt;/a&gt;\n            &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/span&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n              &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Workspace&lt;/span&gt;\n            &lt;/a&gt;\n            &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/span&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n              &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Accessories&lt;/span&gt;\n            &lt;/a&gt;\n            &lt;a href=\"#\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg\" alt=\"\" class=\"h-full w-full object-cover object-center\"&gt;\n              &lt;/span&gt;\n              &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"&gt;&lt;/span&gt;\n              &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;Sale&lt;/span&gt;\n            &lt;/a&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n\n    &lt;div class=\"mt-6 px-4 sm:hidden\"&gt;\n      &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n        Browse all categories\n        &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"const categories = [\n  {\n    name: &#x27;New Arrivals&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg&#x27;,\n  },\n  {\n    name: &#x27;Productivity&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg&#x27;,\n  },\n  {\n    name: &#x27;Workspace&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg&#x27;,\n  },\n  {\n    name: &#x27;Accessories&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg&#x27;,\n  },\n  { name: &#x27;Sale&#x27;, href: &#x27;#&#x27;, imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg&#x27; },\n]\n\nexport default function Example() {\n  return (\n    &lt;div className=\"bg-white\"&gt;\n      &lt;div className=\"py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8\"&gt;\n        &lt;div className=\"px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0\"&gt;\n          &lt;h2 className=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n          &lt;a href=\"#\" className=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n            Browse all categories\n            &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n          &lt;/a&gt;\n        &lt;/div&gt;\n\n        &lt;div className=\"mt-4 flow-root\"&gt;\n          &lt;div className=\"-my-2\"&gt;\n            &lt;div className=\"relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible\"&gt;\n              &lt;div className=\"absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0\"&gt;\n                {categories.map((category) =&gt; (\n                  &lt;a\n                    key={category.name}\n                    href={category.href}\n                    className=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"\n                  &gt;\n                    &lt;span aria-hidden=\"true\" className=\"absolute inset-0\"&gt;\n                      &lt;img src={category.imageSrc} alt=\"\" className=\"h-full w-full object-cover object-center\" /&gt;\n                    &lt;/span&gt;\n                    &lt;span\n                      aria-hidden=\"true\"\n                      className=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\"\n                    /&gt;\n                    &lt;span className=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;{category.name}&lt;/span&gt;\n                  &lt;/a&gt;\n                ))}\n              &lt;/div&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n\n        &lt;div className=\"mt-6 px-4 sm:hidden\"&gt;\n          &lt;a href=\"#\" className=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n            Browse all categories\n            &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n          &lt;/a&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8\"&gt;\n      &lt;div class=\"px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0\"&gt;\n        &lt;h2 class=\"text-2xl font-bold tracking-tight text-gray-900\"&gt;Shop by Category&lt;/h2&gt;\n        &lt;a href=\"#\" class=\"hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-4 flow-root\"&gt;\n        &lt;div class=\"-my-2\"&gt;\n          &lt;div class=\"relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible\"&gt;\n            &lt;div class=\"absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0\"&gt;\n              &lt;a v-for=\"category in categories\" :key=\"category.name\" :href=\"category.href\" class=\"relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto\"&gt;\n                &lt;span aria-hidden=\"true\" class=\"absolute inset-0\"&gt;\n                  &lt;img :src=\"category.imageSrc\" alt=\"\" class=\"h-full w-full object-cover object-center\" /&gt;\n                &lt;/span&gt;\n                &lt;span aria-hidden=\"true\" class=\"absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50\" /&gt;\n                &lt;span class=\"relative mt-auto text-center text-xl font-bold text-white\"&gt;{{ category.name }}&lt;/span&gt;\n              &lt;/a&gt;\n            &lt;/div&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n\n      &lt;div class=\"mt-6 px-4 sm:hidden\"&gt;\n        &lt;a href=\"#\" class=\"block text-sm font-semibold text-indigo-600 hover:text-indigo-500\"&gt;\n          Browse all categories\n          &lt;span aria-hidden=\"true\"&gt; &amp;rarr;&lt;/span&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nconst categories = [\n  {\n    name: &#x27;New Arrivals&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg&#x27;,\n  },\n  {\n    name: &#x27;Productivity&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg&#x27;,\n  },\n  {\n    name: &#x27;Workspace&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg&#x27;,\n  },\n  {\n    name: &#x27;Accessories&#x27;,\n    href: &#x27;#&#x27;,\n    imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg&#x27;,\n  },\n  { name: &#x27;Sale&#x27;, href: &#x27;#&#x27;, imageSrc: &#x27;https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg&#x27; },\n]\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":560,"smallWidth":375,"smallHeight":540,"smallScreenshotUrl":"/img/components/category-previews.05-with-scrolling-cards-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.05-with-scrolling-cards-xl.jpg"},{"name":"With split images","uuid":"fb276b5490d5ef7ebd8352e50043a5de","isNew":false,"downloadable":true,"imageCreditsHtml":"&lt;p class=\"mt-4 text-xs text-slate-500\"&gt;Images provided by &lt;a href=\"https://ugmonk.com/\" class=\"font-medium text-sky-600 hover:text-sky-700\"&gt;Ugmonk&lt;/a&gt;&lt;/p&gt;","requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  &lt;div class=\"h-0 min-h-[896px]\"&gt;\n    \n  &lt;!--\n  This example requires updating your template:\n\n  ```\n  &lt;html class=\"h-full bg-gray-50\"&gt;\n  &lt;body class=\"h-full\"&gt;\n  ```\n  --&gt;\n  &lt;div class=\"grid min-h-full grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1\"&gt;\n    &lt;div class=\"relative flex\"&gt;\n      &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\"&gt;\n      &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n        &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Self-Improvement&lt;/h2&gt;\n        &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Journals and note-taking&lt;/p&gt;\n        &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n    &lt;div class=\"relative flex\"&gt;\n      &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\"&gt;\n      &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n        &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Desk and Office&lt;/h2&gt;\n        &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Work from home accessories&lt;/p&gt;\n        &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n  &lt;/div&gt;\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;!--\n  This example requires updating your template:\n\n  ```\n  &lt;html class=\"h-full bg-gray-50\"&gt;\n  &lt;body class=\"h-full\"&gt;\n  ```\n--&gt;\n&lt;div class=\"grid min-h-full grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1\"&gt;\n  &lt;div class=\"relative flex\"&gt;\n    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\"&gt;\n    &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n      &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Self-Improvement&lt;/h2&gt;\n      &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Journals and note-taking&lt;/p&gt;\n      &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n  &lt;div class=\"relative flex\"&gt;\n    &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\"&gt;\n    &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n      &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Desk and Office&lt;/h2&gt;\n      &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Work from home accessories&lt;/p&gt;\n      &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"export default function Example() {\n  return (\n    &lt;&gt;\n      {/*\n        This example requires updating your template:\n\n        ```\n        &lt;html class=\"h-full bg-gray-50\"&gt;\n        &lt;body class=\"h-full\"&gt;\n        ```\n      */}\n      &lt;div className=\"grid min-h-full grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1\"&gt;\n        &lt;div className=\"relative flex\"&gt;\n          &lt;img\n            src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\"\n            alt=\"\"\n            className=\"absolute inset-0 h-full w-full object-cover object-center\"\n          /&gt;\n          &lt;div className=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n            &lt;h2 className=\"text-lg font-medium text-white text-opacity-75\"&gt;Self-Improvement&lt;/h2&gt;\n            &lt;p className=\"mt-1 text-2xl font-medium text-white\"&gt;Journals and note-taking&lt;/p&gt;\n            &lt;a\n              href=\"#\"\n              className=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"\n            &gt;\n              Shop now\n            &lt;/a&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n        &lt;div className=\"relative flex\"&gt;\n          &lt;img\n            src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\"\n            alt=\"\"\n            className=\"absolute inset-0 h-full w-full object-cover object-center\"\n          /&gt;\n          &lt;div className=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n            &lt;h2 className=\"text-lg font-medium text-white text-opacity-75\"&gt;Desk and Office&lt;/h2&gt;\n            &lt;p className=\"mt-1 text-2xl font-medium text-white\"&gt;Work from home accessories&lt;/p&gt;\n            &lt;a\n              href=\"#\"\n              className=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"\n            &gt;\n              Shop now\n            &lt;/a&gt;\n          &lt;/div&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;!--\n    This example requires updating your template:\n\n    ```\n    &lt;html class=\"h-full bg-gray-50\"&gt;\n    &lt;body class=\"h-full\"&gt;\n    ```\n  --&gt;\n  &lt;div class=\"grid min-h-full grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1\"&gt;\n    &lt;div class=\"relative flex\"&gt;\n      &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\" /&gt;\n      &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n        &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Self-Improvement&lt;/h2&gt;\n        &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Journals and note-taking&lt;/p&gt;\n        &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n    &lt;div class=\"relative flex\"&gt;\n      &lt;img src=\"https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg\" alt=\"\" class=\"absolute inset-0 h-full w-full object-cover object-center\" /&gt;\n      &lt;div class=\"relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12\"&gt;\n        &lt;h2 class=\"text-lg font-medium text-white text-opacity-75\"&gt;Desk and Office&lt;/h2&gt;\n        &lt;p class=\"mt-1 text-2xl font-medium text-white\"&gt;Work from home accessories&lt;/p&gt;\n        &lt;a href=\"#\" class=\"mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50\"&gt;Shop now&lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n"}],"largeWidth":1280,"largeHeight":896,"smallWidth":375,"smallHeight":896,"smallScreenshotUrl":"/img/components/category-previews.06-with-split-images-xs.jpg","largeScreenshotUrl":"/img/components/category-previews.06-with-split-images-xl.jpg"}]}},"url":"/components/ecommerce/components/category-previews","version":"d8502680cffa6d2389d0e0e84e0ae012"}'
+    >
+      <header class="relative z-50 w-full flex-none text-sm font-semibold leading-6 text-slate-900">
+        <nav aria-label="Global" class="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="relative flex items-center py-[2.125rem]">
+            <div class="absolute inset-x-0 bottom-0 h-px bg-slate-900/5"></div>
+            <a class="flex-none text-slate-900" href="/"
+              ><span class="sr-only">Tailwind UI</span
+              ><svg class="h-6 w-auto" aria-hidden="true" viewBox="0 0 160 24" fill="none">
+                <path
+                  d="M18.724 1.714c-4.538 0-7.376 2.286-8.51 6.857 1.702-2.285 3.687-3.143 5.957-2.57 1.296.325 2.22 1.271 3.245 2.318 1.668 1.706 3.6 3.681 7.819 3.681 4.539 0 7.376-2.286 8.51-6.857-1.701 2.286-3.687 3.143-5.957 2.571-1.294-.325-2.22-1.272-3.245-2.32-1.668-1.705-3.6-3.68-7.819-3.68zM10.214 12c-4.539 0-7.376 2.286-8.51 6.857 1.701-2.286 3.687-3.143 5.957-2.571 1.294.325 2.22 1.272 3.245 2.32 1.668 1.705 3.6 3.68 7.818 3.68 4.54 0 7.377-2.286 8.511-6.857-1.702 2.286-3.688 3.143-5.957 2.571-1.295-.326-2.22-1.272-3.245-2.32-1.669-1.705-3.6-3.68-7.82-3.68z"
+                  class="fill-sky-400"
+                ></path>
+                <path
+                  d="M51.285 9.531V6.857h-3.166v-3.6l-2.758.823v2.777h-2.348v2.674h2.348v6.172c0 3.343 1.686 4.526 5.924 4.011V17.22c-2.094.103-3.166.129-3.166-1.517V9.53h3.166zm12.087-2.674v1.826c-.97-1.337-2.476-2.16-4.468-2.16-3.472 0-6.357 2.931-6.357 6.763 0 3.805 2.885 6.763 6.357 6.763 1.992 0 3.498-.823 4.468-2.186v1.851h2.758V6.857h-2.758zM59.338 17.4c-2.297 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115s4.034 1.723 4.034 4.115c0 2.391-1.736 4.114-4.034 4.114zM70.723 4.929c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm5.96 0h2.757V.943h-2.758v18.771zM95.969 6.857l-2.502 8.872-2.655-8.872h-2.63L85.5 15.73l-2.477-8.872h-2.91l4.008 12.857h2.707l2.68-8.665 2.656 8.665h2.706L98.88 6.857h-2.911zm6.32-1.928c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm12.674-13.191c-1.736 0-3.115.643-3.957 1.98V6.857h-2.758v12.857h2.758v-6.891c0-2.623 1.43-3.703 3.242-3.703 1.737 0 2.86 1.029 2.86 2.983v7.611h2.757V11.82c0-3.343-2.042-5.297-4.902-5.297zm17.982-4.809v6.969c-.971-1.337-2.477-2.16-4.468-2.16-3.473 0-6.358 2.931-6.358 6.763 0 3.805 2.885 6.763 6.358 6.763 1.991 0 3.497-.823 4.468-2.186v1.851h2.757v-18h-2.757zM127.532 17.4c-2.298 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115 2.297 0 4.034 1.723 4.034 4.115 0 2.391-1.737 4.114-4.034 4.114z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M145.532 3.429h8.511c.902 0 1.768.36 2.407 1.004.638.643.997 1.515.997 2.424v8.572c0 .909-.359 1.781-.997 2.424a3.394 3.394 0 01-2.407 1.004h-8.511a3.39 3.39 0 01-2.407-1.004 3.438 3.438 0 01-.997-2.424V6.857c0-.91.358-1.781.997-2.424a3.39 3.39 0 012.407-1.004zm-5.106 3.428c0-1.364.538-2.672 1.495-3.636a5.09 5.09 0 013.611-1.507h8.511c1.354 0 2.653.542 3.61 1.507a5.16 5.16 0 011.496 3.636v8.572a5.16 5.16 0 01-1.496 3.636 5.086 5.086 0 01-3.61 1.506h-8.511a5.09 5.09 0 01-3.611-1.506 5.164 5.164 0 01-1.495-3.636V6.857zm10.907 6.251c0 1.812-1.359 2.916-3.193 2.916-1.823 0-3.182-1.104-3.182-2.916v-5.65h1.633v5.52c0 .815.429 1.427 1.549 1.427 1.12 0 1.549-.612 1.549-1.428v-5.52h1.644v5.652zm1.72 2.748V7.457h1.644v8.4h-1.644z"
+                  fill="currentColor"
+                ></path></svg></a
+            ><a
+              href="https://tailwindcss.com/blog/introducing-catalyst"
+              class="group -my-2 ml-6 hidden items-center gap-2 rounded-full bg-white/25 px-3 py-2 text-xs text-slate-900 ring-1 ring-inset ring-black/[0.08] hover:bg-white/50 hover:ring-black/[0.13] sm:flex md:ml-8 lg:hidden min-[1300px]:flex"
+              ><svg class="h-4 w-4 fill-sky-500" viewBox="0 0 24 24">
+                <path
+                  fill-rule="evenodd"
+                  d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
+                  clip-rule="evenodd"
+                ></path></svg
+              ><span class="font-semibold">Introducing Catalyst</span
+              ><svg width="2" height="2" aria-hidden="true" class="fill-slate-900"><circle cx="1" cy="1" r="1"></circle></svg
+              ><span class="font-medium"
+                ><span class="md:hidden">Our new React UI kit</span><span class="hidden md:inline">A modern application UI kit for React</span></span
+              ><svg
+                viewBox="0 0 5 8"
+                class="h-2 w-[5px] fill-black/30 group-hover:fill-black/60"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                aria-hidden="true"
+              >
+                <path
+                  d="M.2.24A.75.75 0 0 1 1.26.2l3.5 3.25a.75.75 0 0 1 0 1.1L1.26 7.8A.75.75 0 0 1 .24 6.7L3.148 4 .24 1.3A.75.75 0 0 1 .2.24Z"
+                ></path></svg
+            ></a>
+            <div class="ml-auto hidden lg:flex lg:items-center">
+              <a href="/components">Components</a><a class="ml-8" href="/templates">Templates</a><a class="ml-8" href="/documentation">Docs</a>
+            </div>
+            <button type="button" class="-my-1 ml-auto flex h-8 w-8 items-center justify-center rounded-lg lg:ml-8">
+              <span class="sr-only">Search components</span
+              ><svg fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-gray-900 hover:fill-gray-900">
+                <path
+                  d="M20.47 21.53a.75.75 0 1 0 1.06-1.06l-1.06 1.06Zm-9.97-4.28a6.75 6.75 0 0 1-6.75-6.75h-1.5a8.25 8.25 0 0 0 8.25 8.25v-1.5ZM3.75 10.5a6.75 6.75 0 0 1 6.75-6.75v-1.5a8.25 8.25 0 0 0-8.25 8.25h1.5Zm6.75-6.75a6.75 6.75 0 0 1 6.75 6.75h1.5a8.25 8.25 0 0 0-8.25-8.25v1.5Zm11.03 16.72-5.196-5.197-1.061 1.06 5.197 5.197 1.06-1.06Zm-4.28-9.97c0 1.864-.755 3.55-1.977 4.773l1.06 1.06A8.226 8.226 0 0 0 18.75 10.5h-1.5Zm-1.977 4.773A6.727 6.727 0 0 1 10.5 17.25v1.5a8.226 8.226 0 0 0 5.834-2.416l-1.061-1.061Z"
+                ></path>
+              </svg></button
+            ><button type="button" class="-my-1 -mr-1 ml-6 flex h-8 w-8 items-center justify-center lg:hidden">
+              <span class="sr-only">Open navigation</span
+              ><svg viewBox="0 0 24 24" class="h-6 w-6 stroke-slate-900">
+                <path d="M3.75 12h16.5M3.75 6.75h16.5M3.75 17.25h16.5" fill="none" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <div class="hidden lg:ml-8 lg:flex lg:items-center lg:border-l lg:border-slate-900/15 lg:pl-8">
+              <div class="relative" data-headlessui-state="">
+                <button
+                  class="flex items-center font-semibold hover:text-gray-900"
+                  id="headlessui-menu-button-:R7q:"
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  data-headlessui-state=""
+                >
+                  <span class="hidden items-center sm:flex"
+                    >Account<svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-3 h-3 w-3 stroke-slate-400">
+                      <path d="M9.75 4.125 6 7.875l-3.75-3.75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span
+                  ><span class="-my-1 flex h-8 w-8 items-center justify-center rounded-lg sm:hidden"
+                    ><svg aria-hidden="true" width="20" height="20" fill="none" class="text-slate-900">
+                      <path
+                        d="M3.75 4.75h12.5M3.75 9.75h12.5M3.75 14.75h12.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path></svg
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="relative -mt-[5.75rem] overflow-hidden pt-[5.75rem]">
+        <img src="/img/beams-basic.png" alt="" class="absolute left-1/2 top-0 -ml-[39rem] w-[113.125rem] max-w-none" />
+        <div class="max-w-container relative mx-auto mt-20 w-full px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col">
+            <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900">Category Previews</h1>
+            <nav aria-label="Breadcrumbs" class="order-first flex space-x-2 text-sm font-semibold">
+              <a class="text-slate-500 hover:text-slate-600" href="/components#product-ecommerce">Ecommerce</a>
+              <div aria-hidden="true" class="select-none text-slate-400">/</div>
+              <a class="text-slate-500 hover:text-slate-600" href="/components#product-ecommerce-components">Components</a>
+            </nav>
+          </div>
+          <div class="mt-10 space-y-24 pb-px">
+            <section id="component-0bccd1058690fa6d03a79564f992f609">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-0bccd1058690fa6d03a79564f992f609">With image backgrounds</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d4qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd4qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l4qj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-0bccd1058690fa6d03a79564f992f609" class="relative">
+                      <style>
+                        #frame-0bccd1058690fa6d03a79564f992f609 {
+                          height: 791px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-0bccd1058690fa6d03a79564f992f609 {
+                            height: 840px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-0bccd1058690fa6d03a79564f992f609"
+                        title="With image backgrounds preview"
+                        aria-label="With image backgrounds preview"
+                        name="frame-0bccd1058690fa6d03a79564f992f609"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  
+  &lt;div class="bg-gray-50"&gt;
+    &lt;div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8"&gt;
+      &lt;div class="sm:flex sm:items-baseline sm:justify-between"&gt;
+        &lt;h2 class="text-2xl font-bold tracking-tight text-gray-900"&gt;Shop by Category&lt;/h2&gt;
+        &lt;a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"&gt;
+          Browse all categories
+          &lt;span aria-hidden="true"&gt; &amp;rarr;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div class="mt-6 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:grid-rows-2 sm:gap-x-6 lg:gap-8"&gt;
+        &lt;div class="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-h-1 sm:aspect-w-1 sm:row-span-2"&gt;
+          &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-03-featured-category.jpg" alt="Two models wearing women&#x27;s black cotton crewneck tee and off-white cotton crewneck tee." class="object-cover object-center group-hover:opacity-75"&gt;
+          &lt;div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50"&gt;&lt;/div&gt;
+          &lt;div class="flex items-end p-6"&gt;
+            &lt;div&gt;
+              &lt;h3 class="font-semibold text-white"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  New Arrivals
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p aria-hidden="true" class="mt-1 text-sm text-white"&gt;Shop now&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full"&gt;
+          &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-01.jpg" alt="Wooden shelf with gray and olive drab green baseball caps, next to wooden clothes hanger with sweaters." class="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"&gt;
+          &lt;div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"&gt;&lt;/div&gt;
+          &lt;div class="flex items-end p-6 sm:absolute sm:inset-0"&gt;
+            &lt;div&gt;
+              &lt;h3 class="font-semibold text-white"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  Accessories
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p aria-hidden="true" class="mt-1 text-sm text-white"&gt;Shop now&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class="group aspect-h-1 aspect-w-2 overflow-hidden rounded-lg sm:aspect-none sm:relative sm:h-full"&gt;
+          &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-03-category-02.jpg" alt="Walnut desk organizer set with white modular trays, next to porcelain mug on wooden desk." class="object-cover object-center group-hover:opacity-75 sm:absolute sm:inset-0 sm:h-full sm:w-full"&gt;
+          &lt;div aria-hidden="true" class="bg-gradient-to-b from-transparent to-black opacity-50 sm:absolute sm:inset-0"&gt;&lt;/div&gt;
+          &lt;div class="flex items-end p-6 sm:absolute sm:inset-0"&gt;
+            &lt;div&gt;
+              &lt;h3 class="font-semibold text-white"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  Workspace
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p aria-hidden="true" class="mt-1 text-sm text-white"&gt;Shop now&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="mt-6 sm:hidden"&gt;
+        &lt;a href="#" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"&gt;
+          Browse all categories
+          &lt;span aria-hidden="true"&gt; &amp;rarr;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+            <section id="component-37995021e5cdf0c643346920ff40b13b">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-37995021e5cdf0c643346920ff40b13b">Three-column</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d5aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd5aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l5aj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-37995021e5cdf0c643346920ff40b13b" class="relative">
+                      <style>
+                        #frame-37995021e5cdf0c643346920ff40b13b {
+                          height: 1444px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-37995021e5cdf0c643346920ff40b13b {
+                            height: 770px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-37995021e5cdf0c643346920ff40b13b"
+                        title="Three-column preview"
+                        aria-label="Three-column preview"
+                        name="frame-37995021e5cdf0c643346920ff40b13b"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  
+  &lt;div class="bg-gray-100"&gt;
+    &lt;div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"&gt;
+      &lt;div class="mx-auto max-w-2xl py-16 sm:py-24 lg:max-w-none lg:py-32"&gt;
+        &lt;h2 class="text-2xl font-bold text-gray-900"&gt;Collections&lt;/h2&gt;
+
+        &lt;div class="mt-6 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-6 lg:space-y-0"&gt;
+          &lt;div class="group relative"&gt;
+              &lt;div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64"&gt;
+                &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg" alt="Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug." class="h-full w-full object-cover object-center"&gt;
+              &lt;/div&gt;
+              &lt;h3 class="mt-6 text-sm text-gray-500"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  Desk and Office
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p class="text-base font-semibold text-gray-900"&gt;Work from home accessories&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;div class="group relative"&gt;
+              &lt;div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64"&gt;
+                &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg" alt="Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant." class="h-full w-full object-cover object-center"&gt;
+              &lt;/div&gt;
+              &lt;h3 class="mt-6 text-sm text-gray-500"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  Self-Improvement
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p class="text-base font-semibold text-gray-900"&gt;Journals and note-taking&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;div class="group relative"&gt;
+              &lt;div class="relative h-80 w-full overflow-hidden rounded-lg bg-white sm:aspect-h-1 sm:aspect-w-2 lg:aspect-h-1 lg:aspect-w-1 group-hover:opacity-75 sm:h-64"&gt;
+                &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-03.jpg" alt="Collection of four insulated travel bottles on wooden shelf." class="h-full w-full object-cover object-center"&gt;
+              &lt;/div&gt;
+              &lt;h3 class="mt-6 text-sm text-gray-500"&gt;
+                &lt;a href="#"&gt;
+                  &lt;span class="absolute inset-0"&gt;&lt;/span&gt;
+                  Travel
+                &lt;/a&gt;
+              &lt;/h3&gt;
+              &lt;p class="text-base font-semibold text-gray-900"&gt;Daily commute essentials&lt;/p&gt;
+            &lt;/div&gt;
+          
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+            <section id="component-1f407cdd33b17a2fc24966b27bea7890">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-1f407cdd33b17a2fc24966b27bea7890">With background image and detail overlay</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d5qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd5qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l5qj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-1f407cdd33b17a2fc24966b27bea7890" class="relative">
+                      <style>
+                        #frame-1f407cdd33b17a2fc24966b27bea7890 {
+                          height: 640px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-1f407cdd33b17a2fc24966b27bea7890 {
+                            height: 576px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-1f407cdd33b17a2fc24966b27bea7890"
+                        title="With background image and detail overlay preview"
+                        aria-label="With background image and detail overlay preview"
+                        name="frame-1f407cdd33b17a2fc24966b27bea7890"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  
+  &lt;div class="bg-white"&gt;
+    &lt;div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl"&gt;
+      &lt;div class="relative overflow-hidden rounded-lg lg:h-96"&gt;
+        &lt;div class="absolute inset-0"&gt;
+          &lt;img src="https://tailwindui.com/img/ecommerce-images/category-page-01-featured-collection.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+        &lt;/div&gt;
+        &lt;div aria-hidden="true" class="relative h-96 w-full lg:hidden"&gt;&lt;/div&gt;
+        &lt;div aria-hidden="true" class="relative h-32 w-full lg:hidden"&gt;&lt;/div&gt;
+        &lt;div class="absolute inset-x-0 bottom-0 rounded-bl-lg rounded-br-lg bg-black bg-opacity-75 p-6 backdrop-blur backdrop-filter sm:flex sm:items-center sm:justify-between lg:inset-x-auto lg:inset-y-0 lg:w-96 lg:flex-col lg:items-start lg:rounded-br-none lg:rounded-tl-lg"&gt;
+          &lt;div&gt;
+            &lt;h2 class="text-xl font-bold text-white"&gt;Workspace Collection&lt;/h2&gt;
+            &lt;p class="mt-1 text-sm text-gray-300"&gt;Upgrade your desk with objects that keep you organized and clear-minded.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;a href="#" class="mt-6 flex flex-shrink-0 items-center justify-center rounded-md border border-white border-opacity-25 bg-white bg-opacity-0 px-4 py-3 text-base font-medium text-white hover:bg-opacity-10 sm:ml-8 sm:mt-0 lg:ml-0 lg:w-full"&gt;View the collection&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+            <section id="component-2ddbae849fc5ea4b75d75509101c14f5">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-2ddbae849fc5ea4b75d75509101c14f5">Three-column with description</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d6aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd6aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l6aj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-2ddbae849fc5ea4b75d75509101c14f5" class="relative">
+                      <style>
+                        #frame-2ddbae849fc5ea4b75d75509101c14f5 {
+                          height: 1334px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-2ddbae849fc5ea4b75d75509101c14f5 {
+                            height: 853px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-2ddbae849fc5ea4b75d75509101c14f5"
+                        title="Three-column with description preview"
+                        aria-label="Three-column with description preview"
+                        name="frame-2ddbae849fc5ea4b75d75509101c14f5"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  
+  &lt;div class="bg-white"&gt;
+    &lt;div class="mx-auto max-w-xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"&gt;
+      &lt;h2 class="text-2xl font-bold tracking-tight text-gray-900"&gt;Shop by Collection&lt;/h2&gt;
+      &lt;p class="mt-4 text-base text-gray-500"&gt;Each season, we collaborate with world-class designers to create a collection inspired by the natural world.&lt;/p&gt;
+
+      &lt;div class="mt-10 space-y-12 lg:grid lg:grid-cols-3 lg:gap-x-8 lg:space-y-0"&gt;
+        &lt;a href="#" class="group block"&gt;
+            &lt;div aria-hidden="true" class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75"&gt;
+              &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-collection-01.jpg" alt="Brown leather key ring with brass metal loops and rivets on wood table." class="h-full w-full object-cover object-center"&gt;
+            &lt;/div&gt;
+            &lt;h3 class="mt-4 text-base font-semibold text-gray-900"&gt;Handcrafted Collection&lt;/h3&gt;
+            &lt;p class="mt-2 text-sm text-gray-500"&gt;Keep your phone, keys, and wallet together, so you can lose everything at once.&lt;/p&gt;
+          &lt;/a&gt;
+        &lt;a href="#" class="group block"&gt;
+            &lt;div aria-hidden="true" class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75"&gt;
+              &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-collection-02.jpg" alt="Natural leather mouse pad on white desk next to porcelain mug and keyboard." class="h-full w-full object-cover object-center"&gt;
+            &lt;/div&gt;
+            &lt;h3 class="mt-4 text-base font-semibold text-gray-900"&gt;Organized Desk Collection&lt;/h3&gt;
+            &lt;p class="mt-2 text-sm text-gray-500"&gt;The rest of the house will still be a mess, but your desk will look great.&lt;/p&gt;
+          &lt;/a&gt;
+        &lt;a href="#" class="group block"&gt;
+            &lt;div aria-hidden="true" class="aspect-h-2 aspect-w-3 overflow-hidden rounded-lg lg:aspect-h-6 lg:aspect-w-5 group-hover:opacity-75"&gt;
+              &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-collection-03.jpg" alt="Person placing task list card into walnut card holder next to felt carrying case on leather desk pad." class="h-full w-full object-cover object-center"&gt;
+            &lt;/div&gt;
+            &lt;h3 class="mt-4 text-base font-semibold text-gray-900"&gt;Focus Collection&lt;/h3&gt;
+            &lt;p class="mt-2 text-sm text-gray-500"&gt;Be more productive than enterprise project managers with a single piece of paper.&lt;/p&gt;
+          &lt;/a&gt;
+        
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+            <section id="component-6ebe66c8103e943e840fd4dbf1cf8ab7">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-6ebe66c8103e943e840fd4dbf1cf8ab7">With scrolling cards</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d6qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd6qj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l6qj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-6ebe66c8103e943e840fd4dbf1cf8ab7" class="relative">
+                      <style>
+                        #frame-6ebe66c8103e943e840fd4dbf1cf8ab7 {
+                          height: 540px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-6ebe66c8103e943e840fd4dbf1cf8ab7 {
+                            height: 560px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-6ebe66c8103e943e840fd4dbf1cf8ab7"
+                        title="With scrolling cards preview"
+                        aria-label="With scrolling cards preview"
+                        name="frame-6ebe66c8103e943e840fd4dbf1cf8ab7"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  
+  &lt;div class="bg-white"&gt;
+    &lt;div class="py-16 sm:py-24 xl:mx-auto xl:max-w-7xl xl:px-8"&gt;
+      &lt;div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0"&gt;
+        &lt;h2 class="text-2xl font-bold tracking-tight text-gray-900"&gt;Shop by Category&lt;/h2&gt;
+        &lt;a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block"&gt;
+          Browse all categories
+          &lt;span aria-hidden="true"&gt; &amp;rarr;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;div class="mt-4 flow-root"&gt;
+        &lt;div class="-my-2"&gt;
+          &lt;div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible"&gt;
+            &lt;div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0"&gt;
+              &lt;a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-0"&gt;
+                    &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-category-01.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+                  &lt;/span&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"&gt;&lt;/span&gt;
+                  &lt;span class="relative mt-auto text-center text-xl font-bold text-white"&gt;New Arrivals&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-0"&gt;
+                    &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-category-02.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+                  &lt;/span&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"&gt;&lt;/span&gt;
+                  &lt;span class="relative mt-auto text-center text-xl font-bold text-white"&gt;Productivity&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-0"&gt;
+                    &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-category-04.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+                  &lt;/span&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"&gt;&lt;/span&gt;
+                  &lt;span class="relative mt-auto text-center text-xl font-bold text-white"&gt;Workspace&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-0"&gt;
+                    &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-category-05.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+                  &lt;/span&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"&gt;&lt;/span&gt;
+                  &lt;span class="relative mt-auto text-center text-xl font-bold text-white"&gt;Accessories&lt;/span&gt;
+                &lt;/a&gt;
+              &lt;a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto"&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-0"&gt;
+                    &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-01-category-03.jpg" alt="" class="h-full w-full object-cover object-center"&gt;
+                  &lt;/span&gt;
+                  &lt;span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"&gt;&lt;/span&gt;
+                  &lt;span class="relative mt-auto text-center text-xl font-bold text-white"&gt;Sale&lt;/span&gt;
+                &lt;/a&gt;
+              
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;div class="mt-6 px-4 sm:hidden"&gt;
+        &lt;a href="#" class="block text-sm font-semibold text-indigo-600 hover:text-indigo-500"&gt;
+          Browse all categories
+          &lt;span aria-hidden="true"&gt; &amp;rarr;&lt;/span&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+            <section id="component-fb276b5490d5ef7ebd8352e50043a5de">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-fb276b5490d5ef7ebd8352e50043a5de">With split images</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R9d7aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:Rhd7aj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:R1l7aj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-fb276b5490d5ef7ebd8352e50043a5de" class="relative">
+                      <style>
+                        #frame-fb276b5490d5ef7ebd8352e50043a5de {
+                          height: 896px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-fb276b5490d5ef7ebd8352e50043a5de {
+                            height: 896px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-fb276b5490d5ef7ebd8352e50043a5de"
+                        title="With split images preview"
+                        aria-label="With split images preview"
+                        name="frame-fb276b5490d5ef7ebd8352e50043a5de"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  &lt;div class="h-0 min-h-[896px]"&gt;
+    
+  &lt;!--
+  This example requires updating your template:
+
+  ```
+  &lt;html class="h-full bg-gray-50"&gt;
+  &lt;body class="h-full"&gt;
+  ```
+  --&gt;
+  &lt;div class="grid min-h-full grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1"&gt;
+    &lt;div class="relative flex"&gt;
+      &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-01.jpg" alt="" class="absolute inset-0 h-full w-full object-cover object-center"&gt;
+      &lt;div class="relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12"&gt;
+        &lt;h2 class="text-lg font-medium text-white text-opacity-75"&gt;Self-Improvement&lt;/h2&gt;
+        &lt;p class="mt-1 text-2xl font-medium text-white"&gt;Journals and note-taking&lt;/p&gt;
+        &lt;a href="#" class="mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50"&gt;Shop now&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="relative flex"&gt;
+      &lt;img src="https://tailwindui.com/img/ecommerce-images/home-page-02-edition-02.jpg" alt="" class="absolute inset-0 h-full w-full object-cover object-center"&gt;
+      &lt;div class="relative flex w-full flex-col items-start justify-end bg-black bg-opacity-40 p-8 sm:p-12"&gt;
+        &lt;h2 class="text-lg font-medium text-white text-opacity-75"&gt;Desk and Office&lt;/h2&gt;
+        &lt;p class="mt-1 text-2xl font-medium text-white"&gt;Work from home accessories&lt;/p&gt;
+        &lt;a href="#" class="mt-4 rounded-md bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-50"&gt;Shop now&lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <p class="mt-4 text-xs text-slate-500">
+                  Images provided by <a href="https://ugmonk.com/" class="font-medium text-sky-600 hover:text-sky-700">Ugmonk</a>
+                </p>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <footer class="max-w-container mx-auto mt-32 w-full px-4 sm:px-6 lg:px-8">
+        <div class="border-t border-slate-900/5 py-10">
+          <svg class="mx-auto h-5 w-auto text-slate-900" aria-hidden="true" viewBox="0 0 160 24" fill="none">
+            <path
+              d="M18.724 1.714c-4.538 0-7.376 2.286-8.51 6.857 1.702-2.285 3.687-3.143 5.957-2.57 1.296.325 2.22 1.271 3.245 2.318 1.668 1.706 3.6 3.681 7.819 3.681 4.539 0 7.376-2.286 8.51-6.857-1.701 2.286-3.687 3.143-5.957 2.571-1.294-.325-2.22-1.272-3.245-2.32-1.668-1.705-3.6-3.68-7.819-3.68zM10.214 12c-4.539 0-7.376 2.286-8.51 6.857 1.701-2.286 3.687-3.143 5.957-2.571 1.294.325 2.22 1.272 3.245 2.32 1.668 1.705 3.6 3.68 7.818 3.68 4.54 0 7.377-2.286 8.511-6.857-1.702 2.286-3.688 3.143-5.957 2.571-1.295-.326-2.22-1.272-3.245-2.32-1.669-1.705-3.6-3.68-7.82-3.68z"
+              class="fill-sky-400"
+            ></path>
+            <path
+              d="M51.285 9.531V6.857h-3.166v-3.6l-2.758.823v2.777h-2.348v2.674h2.348v6.172c0 3.343 1.686 4.526 5.924 4.011V17.22c-2.094.103-3.166.129-3.166-1.517V9.53h3.166zm12.087-2.674v1.826c-.97-1.337-2.476-2.16-4.468-2.16-3.472 0-6.357 2.931-6.357 6.763 0 3.805 2.885 6.763 6.357 6.763 1.992 0 3.498-.823 4.468-2.186v1.851h2.758V6.857h-2.758zM59.338 17.4c-2.297 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115s4.034 1.723 4.034 4.115c0 2.391-1.736 4.114-4.034 4.114zM70.723 4.929c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm5.96 0h2.757V.943h-2.758v18.771zM95.969 6.857l-2.502 8.872-2.655-8.872h-2.63L85.5 15.73l-2.477-8.872h-2.91l4.008 12.857h2.707l2.68-8.665 2.656 8.665h2.706L98.88 6.857h-2.911zm6.32-1.928c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm12.674-13.191c-1.736 0-3.115.643-3.957 1.98V6.857h-2.758v12.857h2.758v-6.891c0-2.623 1.43-3.703 3.242-3.703 1.737 0 2.86 1.029 2.86 2.983v7.611h2.757V11.82c0-3.343-2.042-5.297-4.902-5.297zm17.982-4.809v6.969c-.971-1.337-2.477-2.16-4.468-2.16-3.473 0-6.358 2.931-6.358 6.763 0 3.805 2.885 6.763 6.358 6.763 1.991 0 3.497-.823 4.468-2.186v1.851h2.757v-18h-2.757zM127.532 17.4c-2.298 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115 2.297 0 4.034 1.723 4.034 4.115 0 2.391-1.737 4.114-4.034 4.114z"
+              fill="currentColor"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M145.532 3.429h8.511c.902 0 1.768.36 2.407 1.004.638.643.997 1.515.997 2.424v8.572c0 .909-.359 1.781-.997 2.424a3.394 3.394 0 01-2.407 1.004h-8.511a3.39 3.39 0 01-2.407-1.004 3.438 3.438 0 01-.997-2.424V6.857c0-.91.358-1.781.997-2.424a3.39 3.39 0 012.407-1.004zm-5.106 3.428c0-1.364.538-2.672 1.495-3.636a5.09 5.09 0 013.611-1.507h8.511c1.354 0 2.653.542 3.61 1.507a5.16 5.16 0 011.496 3.636v8.572a5.16 5.16 0 01-1.496 3.636 5.086 5.086 0 01-3.61 1.506h-8.511a5.09 5.09 0 01-3.611-1.506 5.164 5.164 0 01-1.495-3.636V6.857zm10.907 6.251c0 1.812-1.359 2.916-3.193 2.916-1.823 0-3.182-1.104-3.182-2.916v-5.65h1.633v5.52c0 .815.429 1.427 1.549 1.427 1.12 0 1.549-.612 1.549-1.428v-5.52h1.644v5.652zm1.72 2.748V7.457h1.644v8.4h-1.644z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          <p class="mt-5 text-center text-sm leading-6 text-slate-500">
+            ©
+            <!-- -->2024<!-- -->
+            Tailwind Labs Inc. All rights reserved.
+          </p>
+          <div class="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
+            <a href="/privacy-policy">Privacy policy</a>
+            <div class="h-4 w-px bg-slate-500/20"></div>
+            <a href="/changelog">Changelog</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

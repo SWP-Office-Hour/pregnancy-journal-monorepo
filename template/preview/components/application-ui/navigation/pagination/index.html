@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en" class="h-full bg-[color:var(--html-bg-color,theme(colors.white))]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+
+    <link rel="preload" href="/fonts/Inter-roman.var.woff2?v=3.18" as="font" type="font/woff2" crossorigin="" />
+    <script src="https://cdn.usefathom.com/script.js" data-site="SOXJJCZQ" data-auto="false" defer></script>
+    <script src="https://cdn.paddle.com/paddle/paddle.js"></script>
+    <link rel="preload" as="style" href="https://tailwindui.com/build/assets/app-2d0319e7.css" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/app-32827a4c.js" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/client-78148df7.js" />
+    <link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" />
+    <link rel="stylesheet" href="https://tailwindui.com/build/assets/app-2d0319e7.css" />
+    <script type="module" src="https://tailwindui.com/build/assets/app-32827a4c.js"></script>
+    <meta name="twitter:card" content="summary_large_image" inertia />
+    <meta name="twitter:site" content="@tailwindcss" inertia />
+    <meta name="twitter:title" content="Pagination - Official Tailwind CSS UI Components" inertia />
+    <meta name="twitter:description" content="Pagination examples for Tailwind CSS, designed and built by the creators of the framework." inertia />
+    <meta name="twitter:image" content="https://tailwindui.com/img/og-default.png" inertia />
+    <meta name="twitter:creator" content="@tailwindcss" inertia />
+    <meta property="og:url" content="https://www.tailwindui.com/" inertia />
+    <meta property="og:type" content="article" inertia />
+    <meta property="og:title" content="Pagination - Official Tailwind CSS UI Components" inertia />
+    <meta property="og:description" content="Pagination examples for Tailwind CSS, designed and built by the creators of the framework." inertia />
+    <meta property="og:image" content="https://tailwindui.com/img/og-default.png" inertia />
+    <meta property="description" content="Pagination examples for Tailwind CSS, designed and built by the creators of the framework." inertia />
+    <title inertia>Pagination - Official Tailwind CSS UI Components</title>
+  </head>
+  <body class="flex min-h-full flex-col font-sans text-gray-600 antialiased [overflow-anchor:none]" scroll-region>
+    <div
+      id="app"
+      data-page='{"component":"ComponentCategory","props":{"tailwindVersion":"3.4","versionPrefix":"","errors":{},"copyrightYear":"2024","auth":{"user":{"email":"Licensed User","teams":[],"firstOwnedTeamWithNoMembersUrl":null,"can":{"accessV1":false,"upgradeToTeamLicense":true,"canUpgradeToStandardAllAccess":false}}},"snippetLang":"html","commandPalette":[{"url":"/components/application-ui/application-shells/stacked","name":"Stacked Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/application-shells/sidebar","name":"Sidebar Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/application-shells/multi-column","name":"Multi-Column Layouts","keywords":null,"category":"Application UI / Application Shells"},{"url":"/components/application-ui/headings/page-headings","name":"Page Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/headings/card-headings","name":"Card Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/headings/section-headings","name":"Section Headings","keywords":null,"category":"Application UI / Headings"},{"url":"/components/application-ui/data-display/description-lists","name":"Description Lists","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/data-display/stats","name":"Stats","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/data-display/calendars","name":"Calendars","keywords":null,"category":"Application UI / Data Display"},{"url":"/components/application-ui/lists/tables","name":"Tables","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/stacked-lists","name":"Stacked Lists","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/grid-lists","name":"Grid Lists","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/lists/feeds","name":"Feeds","keywords":null,"category":"Application UI / Lists"},{"url":"/components/application-ui/forms/form-layouts","name":"Form Layouts","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/input-groups","name":"Input Groups","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/select-menus","name":"Select Menus","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/textareas","name":"Textareas","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/radio-groups","name":"Radio Groups","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/checkboxes","name":"Checkboxes","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/toggles","name":"Toggles","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/sign-in-forms","name":"Sign-in and Registration","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/action-panels","name":"Action Panels","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/forms/comboboxes","name":"Comboboxes","keywords":null,"category":"Application UI / Forms"},{"url":"/components/application-ui/feedback/alerts","name":"Alerts","keywords":null,"category":"Application UI / Feedback"},{"url":"/components/application-ui/feedback/empty-states","name":"Empty States","keywords":null,"category":"Application UI / Feedback"},{"url":"/components/application-ui/navigation/tabs","name":"Tabs","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/navbars","name":"Navbars","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/vertical-navigation","name":"Vertical Navigation","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/pagination","name":"Pagination","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/sidebar-navigation","name":"Sidebar Navigation","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/breadcrumbs","name":"Breadcrumbs","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/progress-bars","name":"Progress Bars","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/navigation/command-palettes","name":"Command Palettes","keywords":null,"category":"Application UI / Navigation"},{"url":"/components/application-ui/overlays/dialogs","name":"Dialogs","keywords":"modals alerts","category":"Application UI / Overlays"},{"url":"/components/application-ui/overlays/slide-overs","name":"Slide-overs","keywords":null,"category":"Application UI / Overlays"},{"url":"/components/application-ui/overlays/notifications","name":"Notifications","keywords":null,"category":"Application UI / Overlays"},{"url":"/components/application-ui/elements/avatars","name":"Avatars","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/badges","name":"Badges","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/buttons","name":"Buttons","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/button-groups","name":"Button Groups","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/elements/dropdowns","name":"Dropdowns","keywords":null,"category":"Application UI / Elements"},{"url":"/components/application-ui/layout/containers","name":"Containers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/panels","name":"Panels","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/list-containers","name":"List containers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/media-objects","name":"Media Objects","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/layout/dividers","name":"Dividers","keywords":null,"category":"Application UI / Layout"},{"url":"/components/application-ui/page-examples/home-screens","name":"Home Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/application-ui/page-examples/detail-screens","name":"Detail Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/application-ui/page-examples/settings-screens","name":"Settings Screens","keywords":null,"category":"Application UI / Page Examples"},{"url":"/components/ecommerce/components/product-overviews","name":"Product Overviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-lists","name":"Product Lists","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/category-previews","name":"Category Previews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/shopping-carts","name":"Shopping Carts","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/checkout-forms","name":"Checkout Forms","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/category-filters","name":"Category Filters","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/reviews","name":"Reviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-quickviews","name":"Product Quickviews","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/product-features","name":"Product Features","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/store-navigation","name":"Store Navigation","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/order-summaries","name":"Order Summaries","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/order-history","name":"Order History","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/promo-sections","name":"Promo Sections","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/components/incentives","name":"Incentives","keywords":null,"category":"Ecommerce / Components"},{"url":"/components/ecommerce/page-examples/storefront-pages","name":"Storefront Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/product-pages","name":"Product Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/category-pages","name":"Category Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/shopping-cart-pages","name":"Shopping Cart Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/checkout-pages","name":"Checkout Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/order-detail-pages","name":"Order Detail Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/ecommerce/page-examples/order-history-pages","name":"Order History Pages","keywords":null,"category":"Ecommerce / Page Examples"},{"url":"/components/marketing/sections/heroes","name":"Hero Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/feature-sections","name":"Feature Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/cta-sections","name":"CTA Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/pricing","name":"Pricing Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/header","name":"Header Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/faq-sections","name":"FAQs","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/newsletter-sections","name":"Newsletter Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/stats-sections","name":"Stats","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/testimonials","name":"Testimonials","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/blog-sections","name":"Blog Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/contact-sections","name":"Contact Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/team-sections","name":"Team Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/content-sections","name":"Content Sections","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/footers","name":"Footers","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/sections/logo-clouds","name":"Logo Clouds","keywords":null,"category":"Marketing / Page Sections"},{"url":"/components/marketing/elements/headers","name":"Headers","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/elements/flyout-menus","name":"Flyout Menus","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/elements/banners","name":"Banners","keywords":null,"category":"Marketing / Elements"},{"url":"/components/marketing/feedback/404-pages","name":"404 Pages","keywords":null,"category":"Marketing / Feedback"},{"url":"/components/marketing/page-examples/landing-pages","name":"Landing Pages","keywords":null,"category":"Marketing / Page Examples"},{"url":"/components/marketing/page-examples/pricing-pages","name":"Pricing Pages","keywords":null,"category":"Marketing / Page Examples"},{"url":"/components/marketing/page-examples/about-pages","name":"About Pages","keywords":null,"category":"Marketing / Page Examples"}],"isImpersonating":false,"blackFriday":null,"archiveAvailable":false,"subcategory":{"name":"Pagination","description":"Pagination examples for Tailwind CSS, designed and built by the creators of the framework.","introduction":null,"url":"/components/application-ui/navigation/pagination","category":{"name":"Navigation","url":"/components#product-application-ui-navigation","product":{"name":"Application UI","url":"/components#product-application-ui"}},"components":[{"name":"Card footer with page buttons","uuid":"69eb9381f977800aa890ce8f7d9e2d20","isNew":false,"downloadable":true,"imageCreditsHtml":null,"requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  &lt;div class=\"bg-gray-100\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl py-6 sm:px-6 lg:px-8\"&gt;\n      &lt;div class=\"mx-auto max-w-none\"&gt;\n        &lt;div class=\"overflow-hidden bg-white shadow sm:rounded-lg\"&gt;\n          &lt;ul role=\"list\" class=\"divide-y divide-gray-200 opacity-25\"&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;Back End Developer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Engineering\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;Front End Developer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Engineering\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;User Interface Designer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Design\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            \n          &lt;/ul&gt;\n          \n  &lt;div class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\"&gt;\n    &lt;div class=\"flex flex-1 justify-between sm:hidden\"&gt;\n      &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Previous&lt;/a&gt;\n      &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Next&lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"hidden sm:flex sm:flex-1 sm:items-center sm:justify-between\"&gt;\n      &lt;div&gt;\n        &lt;p class=\"text-sm text-gray-700\"&gt;\n          Showing\n          &lt;!-- space --&gt;\n          &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n          &lt;!-- space --&gt;\n          to\n          &lt;!-- space --&gt;\n          &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n          &lt;!-- space --&gt;\n          of\n          &lt;!-- space --&gt;\n          &lt;span class=\"font-medium\"&gt;97&lt;/span&gt;\n          &lt;!-- space --&gt;\n          results\n        &lt;/p&gt;\n      &lt;/div&gt;\n      &lt;div&gt;\n        &lt;nav class=\"isolate inline-flex -space-x-px rounded-md shadow-sm\" aria-label=\"Pagination\"&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n            &lt;span class=\"sr-only\"&gt;Previous&lt;/span&gt;\n            &lt;svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n          &lt;/a&gt;\n          &lt;!-- Current: \"z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\", Default: \"text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0\" --&gt;\n          &lt;a href=\"#\" aria-current=\"page\" class=\"relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\"&gt;1&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;2&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;3&lt;/a&gt;\n          &lt;span class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0\"&gt;...&lt;/span&gt;\n          &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;8&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;9&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;10&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n            &lt;span class=\"sr-only\"&gt;Next&lt;/span&gt;\n            &lt;svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n          &lt;/a&gt;\n        &lt;/nav&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;div class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\"&gt;\n  &lt;div class=\"flex flex-1 justify-between sm:hidden\"&gt;\n    &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Previous&lt;/a&gt;\n    &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Next&lt;/a&gt;\n  &lt;/div&gt;\n  &lt;div class=\"hidden sm:flex sm:flex-1 sm:items-center sm:justify-between\"&gt;\n    &lt;div&gt;\n      &lt;p class=\"text-sm text-gray-700\"&gt;\n        Showing\n        &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n        to\n        &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n        of\n        &lt;span class=\"font-medium\"&gt;97&lt;/span&gt;\n        results\n      &lt;/p&gt;\n    &lt;/div&gt;\n    &lt;div&gt;\n      &lt;nav class=\"isolate inline-flex -space-x-px rounded-md shadow-sm\" aria-label=\"Pagination\"&gt;\n        &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n          &lt;span class=\"sr-only\"&gt;Previous&lt;/span&gt;\n          &lt;svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n            &lt;path fill-rule=\"evenodd\" d=\"M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z\" clip-rule=\"evenodd\" /&gt;\n          &lt;/svg&gt;\n        &lt;/a&gt;\n        &lt;!-- Current: \"z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\", Default: \"text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0\" --&gt;\n        &lt;a href=\"#\" aria-current=\"page\" class=\"relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\"&gt;1&lt;/a&gt;\n        &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;2&lt;/a&gt;\n        &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;3&lt;/a&gt;\n        &lt;span class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0\"&gt;...&lt;/span&gt;\n        &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;8&lt;/a&gt;\n        &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;9&lt;/a&gt;\n        &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;10&lt;/a&gt;\n        &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n          &lt;span class=\"sr-only\"&gt;Next&lt;/span&gt;\n          &lt;svg class=\"h-5 w-5\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n            &lt;path fill-rule=\"evenodd\" d=\"M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z\" clip-rule=\"evenodd\" /&gt;\n          &lt;/svg&gt;\n        &lt;/a&gt;\n      &lt;/nav&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"import { ChevronLeftIcon, ChevronRightIcon } from &#x27;@heroicons/react/20/solid&#x27;\n\nconst items = [\n  { id: 1, title: &#x27;Back End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 2, title: &#x27;Front End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 3, title: &#x27;User Interface Designer&#x27;, department: &#x27;Design&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n]\n\nexport default function Example() {\n  return (\n    &lt;div className=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\"&gt;\n      &lt;div className=\"flex flex-1 justify-between sm:hidden\"&gt;\n        &lt;a\n          href=\"#\"\n          className=\"relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"\n        &gt;\n          Previous\n        &lt;/a&gt;\n        &lt;a\n          href=\"#\"\n          className=\"relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"\n        &gt;\n          Next\n        &lt;/a&gt;\n      &lt;/div&gt;\n      &lt;div className=\"hidden sm:flex sm:flex-1 sm:items-center sm:justify-between\"&gt;\n        &lt;div&gt;\n          &lt;p className=\"text-sm text-gray-700\"&gt;\n            Showing &lt;span className=\"font-medium\"&gt;1&lt;/span&gt; to &lt;span className=\"font-medium\"&gt;10&lt;/span&gt; of{&#x27; &#x27;}\n            &lt;span className=\"font-medium\"&gt;97&lt;/span&gt; results\n          &lt;/p&gt;\n        &lt;/div&gt;\n        &lt;div&gt;\n          &lt;nav className=\"isolate inline-flex -space-x-px rounded-md shadow-sm\" aria-label=\"Pagination\"&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"\n            &gt;\n              &lt;span className=\"sr-only\"&gt;Previous&lt;/span&gt;\n              &lt;ChevronLeftIcon className=\"h-5 w-5\" aria-hidden=\"true\" /&gt;\n            &lt;/a&gt;\n            {/* Current: \"z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\", Default: \"text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0\" */}\n            &lt;a\n              href=\"#\"\n              aria-current=\"page\"\n              className=\"relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\"\n            &gt;\n              1\n            &lt;/a&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"\n            &gt;\n              2\n            &lt;/a&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"\n            &gt;\n              3\n            &lt;/a&gt;\n            &lt;span className=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0\"&gt;\n              ...\n            &lt;/span&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"\n            &gt;\n              8\n            &lt;/a&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"\n            &gt;\n              9\n            &lt;/a&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"\n            &gt;\n              10\n            &lt;/a&gt;\n            &lt;a\n              href=\"#\"\n              className=\"relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"\n            &gt;\n              &lt;span className=\"sr-only\"&gt;Next&lt;/span&gt;\n              &lt;ChevronRightIcon className=\"h-5 w-5\" aria-hidden=\"true\" /&gt;\n            &lt;/a&gt;\n          &lt;/nav&gt;\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;div class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\"&gt;\n    &lt;div class=\"flex flex-1 justify-between sm:hidden\"&gt;\n      &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Previous&lt;/a&gt;\n      &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50\"&gt;Next&lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"hidden sm:flex sm:flex-1 sm:items-center sm:justify-between\"&gt;\n      &lt;div&gt;\n        &lt;p class=\"text-sm text-gray-700\"&gt;\n          Showing\n          {{ &#x27; &#x27; }}\n          &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n          {{ &#x27; &#x27; }}\n          to\n          {{ &#x27; &#x27; }}\n          &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n          {{ &#x27; &#x27; }}\n          of\n          {{ &#x27; &#x27; }}\n          &lt;span class=\"font-medium\"&gt;97&lt;/span&gt;\n          {{ &#x27; &#x27; }}\n          results\n        &lt;/p&gt;\n      &lt;/div&gt;\n      &lt;div&gt;\n        &lt;nav class=\"isolate inline-flex -space-x-px rounded-md shadow-sm\" aria-label=\"Pagination\"&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n            &lt;span class=\"sr-only\"&gt;Previous&lt;/span&gt;\n            &lt;ChevronLeftIcon class=\"h-5 w-5\" aria-hidden=\"true\" /&gt;\n          &lt;/a&gt;\n          &lt;!-- Current: \"z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\", Default: \"text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0\" --&gt;\n          &lt;a href=\"#\" aria-current=\"page\" class=\"relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600\"&gt;1&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;2&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;3&lt;/a&gt;\n          &lt;span class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0\"&gt;...&lt;/span&gt;\n          &lt;a href=\"#\" class=\"relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex\"&gt;8&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;9&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;10&lt;/a&gt;\n          &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0\"&gt;\n            &lt;span class=\"sr-only\"&gt;Next&lt;/span&gt;\n            &lt;ChevronRightIcon class=\"h-5 w-5\" aria-hidden=\"true\" /&gt;\n          &lt;/a&gt;\n        &lt;/nav&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nimport { ChevronLeftIcon, ChevronRightIcon } from &#x27;@heroicons/vue/20/solid&#x27;\n\nconst items = [\n  { id: 1, title: &#x27;Back End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 2, title: &#x27;Front End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 3, title: &#x27;User Interface Designer&#x27;, department: &#x27;Design&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n]\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":363,"smallWidth":375,"smallHeight":365,"smallScreenshotUrl":"/img/components/pagination.01-card-footer-with-page-buttons-xs.png","largeScreenshotUrl":"/img/components/pagination.01-card-footer-with-page-buttons-xl.png"},{"name":"Centered page numbers","uuid":"f9a9347de5384a492c79c34cf6ce3ccf","isNew":false,"downloadable":true,"imageCreditsHtml":null,"requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  &lt;div class=\"bg-white\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl py-8 sm:px-6 lg:px-8\"&gt;\n      \n  &lt;nav class=\"flex items-center justify-between border-t border-gray-200 px-4 sm:px-0\"&gt;\n    &lt;div class=\"-mt-px flex w-0 flex-1\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n        &lt;svg class=\"mr-3 h-5 w-5 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n        Previous\n      &lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"hidden md:-mt-px md:flex\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;1&lt;/a&gt;\n      &lt;!-- Current: \"border-indigo-500 text-indigo-600\", Default: \"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300\" --&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600\" aria-current=\"page\"&gt;2&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;3&lt;/a&gt;\n      &lt;span class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500\"&gt;...&lt;/span&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;8&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;9&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;10&lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"-mt-px flex w-0 flex-1 justify-end\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n        Next\n        &lt;svg class=\"ml-3 h-5 w-5 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/nav&gt;\n\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;nav class=\"flex items-center justify-between border-t border-gray-200 px-4 sm:px-0\"&gt;\n  &lt;div class=\"-mt-px flex w-0 flex-1\"&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n      &lt;svg class=\"mr-3 h-5 w-5 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n        &lt;path fill-rule=\"evenodd\" d=\"M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z\" clip-rule=\"evenodd\" /&gt;\n      &lt;/svg&gt;\n      Previous\n    &lt;/a&gt;\n  &lt;/div&gt;\n  &lt;div class=\"hidden md:-mt-px md:flex\"&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;1&lt;/a&gt;\n    &lt;!-- Current: \"border-indigo-500 text-indigo-600\", Default: \"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300\" --&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600\" aria-current=\"page\"&gt;2&lt;/a&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;3&lt;/a&gt;\n    &lt;span class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500\"&gt;...&lt;/span&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;8&lt;/a&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;9&lt;/a&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;10&lt;/a&gt;\n  &lt;/div&gt;\n  &lt;div class=\"-mt-px flex w-0 flex-1 justify-end\"&gt;\n    &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n      Next\n      &lt;svg class=\"ml-3 h-5 w-5 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n        &lt;path fill-rule=\"evenodd\" d=\"M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z\" clip-rule=\"evenodd\" /&gt;\n      &lt;/svg&gt;\n    &lt;/a&gt;\n  &lt;/div&gt;\n&lt;/nav&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"import { ArrowLongLeftIcon, ArrowLongRightIcon } from &#x27;@heroicons/react/20/solid&#x27;\n\nexport default function Example() {\n  return (\n    &lt;nav className=\"flex items-center justify-between border-t border-gray-200 px-4 sm:px-0\"&gt;\n      &lt;div className=\"-mt-px flex w-0 flex-1\"&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          &lt;ArrowLongLeftIcon className=\"mr-3 h-5 w-5 text-gray-400\" aria-hidden=\"true\" /&gt;\n          Previous\n        &lt;/a&gt;\n      &lt;/div&gt;\n      &lt;div className=\"hidden md:-mt-px md:flex\"&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          1\n        &lt;/a&gt;\n        {/* Current: \"border-indigo-500 text-indigo-600\", Default: \"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300\" */}\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600\"\n          aria-current=\"page\"\n        &gt;\n          2\n        &lt;/a&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          3\n        &lt;/a&gt;\n        &lt;span className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500\"&gt;\n          ...\n        &lt;/span&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          8\n        &lt;/a&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          9\n        &lt;/a&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          10\n        &lt;/a&gt;\n      &lt;/div&gt;\n      &lt;div className=\"-mt-px flex w-0 flex-1 justify-end\"&gt;\n        &lt;a\n          href=\"#\"\n          className=\"inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"\n        &gt;\n          Next\n          &lt;ArrowLongRightIcon className=\"ml-3 h-5 w-5 text-gray-400\" aria-hidden=\"true\" /&gt;\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/nav&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;nav class=\"flex items-center justify-between border-t border-gray-200 px-4 sm:px-0\"&gt;\n    &lt;div class=\"-mt-px flex w-0 flex-1\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n        &lt;ArrowLongLeftIcon class=\"mr-3 h-5 w-5 text-gray-400\" aria-hidden=\"true\" /&gt;\n        Previous\n      &lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"hidden md:-mt-px md:flex\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;1&lt;/a&gt;\n      &lt;!-- Current: \"border-indigo-500 text-indigo-600\", Default: \"border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300\" --&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600\" aria-current=\"page\"&gt;2&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;3&lt;/a&gt;\n      &lt;span class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500\"&gt;...&lt;/span&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;8&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;9&lt;/a&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;10&lt;/a&gt;\n    &lt;/div&gt;\n    &lt;div class=\"-mt-px flex w-0 flex-1 justify-end\"&gt;\n      &lt;a href=\"#\" class=\"inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700\"&gt;\n        Next\n        &lt;ArrowLongRightIcon class=\"ml-3 h-5 w-5 text-gray-400\" aria-hidden=\"true\" /&gt;\n      &lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/nav&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nimport { ArrowLongLeftIcon, ArrowLongRightIcon } from &#x27;@heroicons/vue/20/solid&#x27;\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":102,"smallWidth":375,"smallHeight":102,"smallScreenshotUrl":"/img/components/pagination.02-centered-page-numbers-xs.png","largeScreenshotUrl":"/img/components/pagination.02-centered-page-numbers-xl.png"},{"name":"Simple card footer","uuid":"0797a02a34692167c369d134e7a6f9c5","isNew":false,"downloadable":true,"imageCreditsHtml":null,"requiresJavaScript":false,"archived":false,"iframeHtml":"&lt;!doctype html&gt;&lt;meta charset=\"utf-8\"&gt;&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"&gt;&lt;link rel=\"stylesheet\" href=\"/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b\"&gt;&lt;script src=\"/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1\"&gt;&lt;/script&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js\" /&gt;&lt;link rel=\"modulepreload\" href=\"https://tailwindui.com/build/assets/iframe-a81dc9a8.js\" /&gt;&lt;script type=\"module\" src=\"https://tailwindui.com/build/assets/iframe-alpine-65828d82.js\"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class=\"\" style=\"\"&gt;\n  &lt;div class=\"bg-gray-100\"&gt;\n    &lt;div class=\"mx-auto max-w-7xl py-6 sm:px-6 lg:px-8\"&gt;\n      &lt;div class=\"mx-auto max-w-none\"&gt;\n        &lt;div class=\"overflow-hidden bg-white shadow sm:rounded-lg\"&gt;\n          &lt;ul role=\"list\" class=\"opacity-25\"&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;Back End Developer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Engineering\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;Front End Developer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Engineering\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            &lt;li&gt;\n                &lt;a href=\"#\" class=\"block hover:bg-gray-50\"&gt;\n                  &lt;div class=\"px-4 py-4 sm:px-6\"&gt;\n                    &lt;div class=\"flex items-center justify-between\"&gt;\n                      &lt;div class=\"truncate text-sm font-medium text-indigo-600\"&gt;User Interface Designer&lt;/div&gt;\n                      &lt;div class=\"ml-2 flex flex-shrink-0\"&gt;\n                        &lt;span class=\"inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20\"&gt;Full-time&lt;/span&gt;\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                    &lt;div class=\"mt-2 flex justify-between\"&gt;\n                      &lt;div class=\"sm:flex\"&gt;\n                        &lt;div class=\"mr-6 flex items-center text-sm text-gray-500\"&gt;\n                          &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path d=\"M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                          Design\n                        &lt;/div&gt;\n                      &lt;/div&gt;\n                      &lt;div class=\"flex items-center text-sm text-gray-500\"&gt;\n                        &lt;svg class=\"mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400\" viewBox=\"0 0 20 20\" fill=\"currentColor\" aria-hidden=\"true\"&gt;\n  &lt;path fill-rule=\"evenodd\" d=\"M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z\" clip-rule=\"evenodd\"&gt;&lt;/path&gt;\n&lt;/svg&gt;\n                        Remote\n                      &lt;/div&gt;\n                    &lt;/div&gt;\n                  &lt;/div&gt;\n                &lt;/a&gt;\n              &lt;/li&gt;\n            \n          &lt;/ul&gt;\n          \n  &lt;nav class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\" aria-label=\"Pagination\"&gt;\n    &lt;div class=\"hidden sm:block\"&gt;\n      &lt;p class=\"text-sm text-gray-700\"&gt;\n        Showing\n        &lt;!-- space --&gt;\n        &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n        &lt;!-- space --&gt;\n        to\n        &lt;!-- space --&gt;\n        &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n        &lt;!-- space --&gt;\n        of\n        &lt;!-- space --&gt;\n        &lt;span class=\"font-medium\"&gt;20&lt;/span&gt;\n        &lt;!-- space --&gt;\n        results\n      &lt;/p&gt;\n    &lt;/div&gt;\n    &lt;div class=\"flex flex-1 justify-between sm:justify-end\"&gt;\n      &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Previous&lt;/a&gt;\n      &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Next&lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/nav&gt;\n\n        &lt;/div&gt;\n      &lt;/div&gt;\n    &lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;&lt;/body&gt;","previewHtml":null,"snippets":[{"language":"html","highlight":"html","label":"HTML","snippet":"&lt;nav class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\" aria-label=\"Pagination\"&gt;\n  &lt;div class=\"hidden sm:block\"&gt;\n    &lt;p class=\"text-sm text-gray-700\"&gt;\n      Showing\n      &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n      to\n      &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n      of\n      &lt;span class=\"font-medium\"&gt;20&lt;/span&gt;\n      results\n    &lt;/p&gt;\n  &lt;/div&gt;\n  &lt;div class=\"flex flex-1 justify-between sm:justify-end\"&gt;\n    &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Previous&lt;/a&gt;\n    &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Next&lt;/a&gt;\n  &lt;/div&gt;\n&lt;/nav&gt;\n"},{"language":"react","highlight":"jsx","label":"React","snippet":"const items = [\n  { id: 1, title: &#x27;Back End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 2, title: &#x27;Front End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 3, title: &#x27;User Interface Designer&#x27;, department: &#x27;Design&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n]\n\nexport default function Example() {\n  return (\n    &lt;nav\n      className=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\"\n      aria-label=\"Pagination\"\n    &gt;\n      &lt;div className=\"hidden sm:block\"&gt;\n        &lt;p className=\"text-sm text-gray-700\"&gt;\n          Showing &lt;span className=\"font-medium\"&gt;1&lt;/span&gt; to &lt;span className=\"font-medium\"&gt;10&lt;/span&gt; of{&#x27; &#x27;}\n          &lt;span className=\"font-medium\"&gt;20&lt;/span&gt; results\n        &lt;/p&gt;\n      &lt;/div&gt;\n      &lt;div className=\"flex flex-1 justify-between sm:justify-end\"&gt;\n        &lt;a\n          href=\"#\"\n          className=\"relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"\n        &gt;\n          Previous\n        &lt;/a&gt;\n        &lt;a\n          href=\"#\"\n          className=\"relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"\n        &gt;\n          Next\n        &lt;/a&gt;\n      &lt;/div&gt;\n    &lt;/nav&gt;\n  )\n}\n"},{"language":"vue","highlight":"html","label":"Vue","snippet":"&lt;template&gt;\n  &lt;nav class=\"flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6\" aria-label=\"Pagination\"&gt;\n    &lt;div class=\"hidden sm:block\"&gt;\n      &lt;p class=\"text-sm text-gray-700\"&gt;\n        Showing\n        {{ &#x27; &#x27; }}\n        &lt;span class=\"font-medium\"&gt;1&lt;/span&gt;\n        {{ &#x27; &#x27; }}\n        to\n        {{ &#x27; &#x27; }}\n        &lt;span class=\"font-medium\"&gt;10&lt;/span&gt;\n        {{ &#x27; &#x27; }}\n        of\n        {{ &#x27; &#x27; }}\n        &lt;span class=\"font-medium\"&gt;20&lt;/span&gt;\n        {{ &#x27; &#x27; }}\n        results\n      &lt;/p&gt;\n    &lt;/div&gt;\n    &lt;div class=\"flex flex-1 justify-between sm:justify-end\"&gt;\n      &lt;a href=\"#\" class=\"relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Previous&lt;/a&gt;\n      &lt;a href=\"#\" class=\"relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0\"&gt;Next&lt;/a&gt;\n    &lt;/div&gt;\n  &lt;/nav&gt;\n&lt;/template&gt;\n\n&lt;script setup&gt;\nconst items = [\n  { id: 1, title: &#x27;Back End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 2, title: &#x27;Front End Developer&#x27;, department: &#x27;Engineering&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n  { id: 3, title: &#x27;User Interface Designer&#x27;, department: &#x27;Design&#x27;, type: &#x27;Full-time&#x27;, location: &#x27;Remote&#x27; },\n]\n&lt;/script&gt;"}],"largeWidth":1280,"largeHeight":361,"smallWidth":375,"smallHeight":361,"smallScreenshotUrl":"/img/components/pagination.03-simple-card-footer-xs.jpg","largeScreenshotUrl":"/img/components/pagination.03-simple-card-footer-xl.png"}]}},"url":"/components/application-ui/navigation/pagination","version":"d8502680cffa6d2389d0e0e84e0ae012"}'
+    >
+      <header class="relative z-50 w-full flex-none text-sm font-semibold leading-6 text-slate-900">
+        <nav aria-label="Global" class="max-w-container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="relative flex items-center py-[2.125rem]">
+            <div class="absolute inset-x-0 bottom-0 h-px bg-slate-900/5"></div>
+            <a class="flex-none text-slate-900" href="/"
+              ><span class="sr-only">Tailwind UI</span
+              ><svg class="h-6 w-auto" aria-hidden="true" viewBox="0 0 160 24" fill="none">
+                <path
+                  d="M18.724 1.714c-4.538 0-7.376 2.286-8.51 6.857 1.702-2.285 3.687-3.143 5.957-2.57 1.296.325 2.22 1.271 3.245 2.318 1.668 1.706 3.6 3.681 7.819 3.681 4.539 0 7.376-2.286 8.51-6.857-1.701 2.286-3.687 3.143-5.957 2.571-1.294-.325-2.22-1.272-3.245-2.32-1.668-1.705-3.6-3.68-7.819-3.68zM10.214 12c-4.539 0-7.376 2.286-8.51 6.857 1.701-2.286 3.687-3.143 5.957-2.571 1.294.325 2.22 1.272 3.245 2.32 1.668 1.705 3.6 3.68 7.818 3.68 4.54 0 7.377-2.286 8.511-6.857-1.702 2.286-3.688 3.143-5.957 2.571-1.295-.326-2.22-1.272-3.245-2.32-1.669-1.705-3.6-3.68-7.82-3.68z"
+                  class="fill-sky-400"
+                ></path>
+                <path
+                  d="M51.285 9.531V6.857h-3.166v-3.6l-2.758.823v2.777h-2.348v2.674h2.348v6.172c0 3.343 1.686 4.526 5.924 4.011V17.22c-2.094.103-3.166.129-3.166-1.517V9.53h3.166zm12.087-2.674v1.826c-.97-1.337-2.476-2.16-4.468-2.16-3.472 0-6.357 2.931-6.357 6.763 0 3.805 2.885 6.763 6.357 6.763 1.992 0 3.498-.823 4.468-2.186v1.851h2.758V6.857h-2.758zM59.338 17.4c-2.297 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115s4.034 1.723 4.034 4.115c0 2.391-1.736 4.114-4.034 4.114zM70.723 4.929c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm5.96 0h2.757V.943h-2.758v18.771zM95.969 6.857l-2.502 8.872-2.655-8.872h-2.63L85.5 15.73l-2.477-8.872h-2.91l4.008 12.857h2.707l2.68-8.665 2.656 8.665h2.706L98.88 6.857h-2.911zm6.32-1.928c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm12.674-13.191c-1.736 0-3.115.643-3.957 1.98V6.857h-2.758v12.857h2.758v-6.891c0-2.623 1.43-3.703 3.242-3.703 1.737 0 2.86 1.029 2.86 2.983v7.611h2.757V11.82c0-3.343-2.042-5.297-4.902-5.297zm17.982-4.809v6.969c-.971-1.337-2.477-2.16-4.468-2.16-3.473 0-6.358 2.931-6.358 6.763 0 3.805 2.885 6.763 6.358 6.763 1.991 0 3.497-.823 4.468-2.186v1.851h2.757v-18h-2.757zM127.532 17.4c-2.298 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115 2.297 0 4.034 1.723 4.034 4.115 0 2.391-1.737 4.114-4.034 4.114z"
+                  fill="currentColor"
+                ></path>
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M145.532 3.429h8.511c.902 0 1.768.36 2.407 1.004.638.643.997 1.515.997 2.424v8.572c0 .909-.359 1.781-.997 2.424a3.394 3.394 0 01-2.407 1.004h-8.511a3.39 3.39 0 01-2.407-1.004 3.438 3.438 0 01-.997-2.424V6.857c0-.91.358-1.781.997-2.424a3.39 3.39 0 012.407-1.004zm-5.106 3.428c0-1.364.538-2.672 1.495-3.636a5.09 5.09 0 013.611-1.507h8.511c1.354 0 2.653.542 3.61 1.507a5.16 5.16 0 011.496 3.636v8.572a5.16 5.16 0 01-1.496 3.636 5.086 5.086 0 01-3.61 1.506h-8.511a5.09 5.09 0 01-3.611-1.506 5.164 5.164 0 01-1.495-3.636V6.857zm10.907 6.251c0 1.812-1.359 2.916-3.193 2.916-1.823 0-3.182-1.104-3.182-2.916v-5.65h1.633v5.52c0 .815.429 1.427 1.549 1.427 1.12 0 1.549-.612 1.549-1.428v-5.52h1.644v5.652zm1.72 2.748V7.457h1.644v8.4h-1.644z"
+                  fill="currentColor"
+                ></path></svg></a
+            ><a
+              href="https://tailwindcss.com/blog/introducing-catalyst"
+              class="group -my-2 ml-6 hidden items-center gap-2 rounded-full bg-white/25 px-3 py-2 text-xs text-slate-900 ring-1 ring-inset ring-black/[0.08] hover:bg-white/50 hover:ring-black/[0.13] sm:flex md:ml-8 lg:hidden min-[1300px]:flex"
+              ><svg class="h-4 w-4 fill-sky-500" viewBox="0 0 24 24">
+                <path
+                  fill-rule="evenodd"
+                  d="M9 4.5a.75.75 0 01.721.544l.813 2.846a3.75 3.75 0 002.576 2.576l2.846.813a.75.75 0 010 1.442l-2.846.813a3.75 3.75 0 00-2.576 2.576l-.813 2.846a.75.75 0 01-1.442 0l-.813-2.846a3.75 3.75 0 00-2.576-2.576l-2.846-.813a.75.75 0 010-1.442l2.846-.813A3.75 3.75 0 007.466 7.89l.813-2.846A.75.75 0 019 4.5zM18 1.5a.75.75 0 01.728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 010 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 01-1.456 0l-.258-1.036a2.625 2.625 0 00-1.91-1.91l-1.036-.258a.75.75 0 010-1.456l1.036-.258a2.625 2.625 0 001.91-1.91l.258-1.036A.75.75 0 0118 1.5zM16.5 15a.75.75 0 01.712.513l.394 1.183c.15.447.5.799.948.948l1.183.395a.75.75 0 010 1.422l-1.183.395c-.447.15-.799.5-.948.948l-.395 1.183a.75.75 0 01-1.422 0l-.395-1.183a1.5 1.5 0 00-.948-.948l-1.183-.395a.75.75 0 010-1.422l1.183-.395c.447-.15.799-.5.948-.948l.395-1.183A.75.75 0 0116.5 15z"
+                  clip-rule="evenodd"
+                ></path></svg
+              ><span class="font-semibold">Introducing Catalyst</span
+              ><svg width="2" height="2" aria-hidden="true" class="fill-slate-900"><circle cx="1" cy="1" r="1"></circle></svg
+              ><span class="font-medium"
+                ><span class="md:hidden">Our new React UI kit</span><span class="hidden md:inline">A modern application UI kit for React</span></span
+              ><svg
+                viewBox="0 0 5 8"
+                class="h-2 w-[5px] fill-black/30 group-hover:fill-black/60"
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                aria-hidden="true"
+              >
+                <path
+                  d="M.2.24A.75.75 0 0 1 1.26.2l3.5 3.25a.75.75 0 0 1 0 1.1L1.26 7.8A.75.75 0 0 1 .24 6.7L3.148 4 .24 1.3A.75.75 0 0 1 .2.24Z"
+                ></path></svg
+            ></a>
+            <div class="ml-auto hidden lg:flex lg:items-center">
+              <a href="/components">Components</a><a class="ml-8" href="/templates">Templates</a><a class="ml-8" href="/documentation">Docs</a>
+            </div>
+            <button type="button" class="-my-1 ml-auto flex h-8 w-8 items-center justify-center rounded-lg lg:ml-8">
+              <span class="sr-only">Search components</span
+              ><svg fill="none" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 fill-gray-900 hover:fill-gray-900">
+                <path
+                  d="M20.47 21.53a.75.75 0 1 0 1.06-1.06l-1.06 1.06Zm-9.97-4.28a6.75 6.75 0 0 1-6.75-6.75h-1.5a8.25 8.25 0 0 0 8.25 8.25v-1.5ZM3.75 10.5a6.75 6.75 0 0 1 6.75-6.75v-1.5a8.25 8.25 0 0 0-8.25 8.25h1.5Zm6.75-6.75a6.75 6.75 0 0 1 6.75 6.75h1.5a8.25 8.25 0 0 0-8.25-8.25v1.5Zm11.03 16.72-5.196-5.197-1.061 1.06 5.197 5.197 1.06-1.06Zm-4.28-9.97c0 1.864-.755 3.55-1.977 4.773l1.06 1.06A8.226 8.226 0 0 0 18.75 10.5h-1.5Zm-1.977 4.773A6.727 6.727 0 0 1 10.5 17.25v1.5a8.226 8.226 0 0 0 5.834-2.416l-1.061-1.061Z"
+                ></path>
+              </svg></button
+            ><button type="button" class="-my-1 -mr-1 ml-6 flex h-8 w-8 items-center justify-center lg:hidden">
+              <span class="sr-only">Open navigation</span
+              ><svg viewBox="0 0 24 24" class="h-6 w-6 stroke-slate-900">
+                <path d="M3.75 12h16.5M3.75 6.75h16.5M3.75 17.25h16.5" fill="none" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </button>
+            <div class="hidden lg:ml-8 lg:flex lg:items-center lg:border-l lg:border-slate-900/15 lg:pl-8">
+              <div class="relative" data-headlessui-state="">
+                <button
+                  class="flex items-center font-semibold hover:text-gray-900"
+                  id="headlessui-menu-button-:R7q:"
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded="false"
+                  data-headlessui-state=""
+                >
+                  <span class="hidden items-center sm:flex"
+                    >Account<svg aria-hidden="true" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-3 h-3 w-3 stroke-slate-400">
+                      <path d="M9.75 4.125 6 7.875l-3.75-3.75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span
+                  ><span class="-my-1 flex h-8 w-8 items-center justify-center rounded-lg sm:hidden"
+                    ><svg aria-hidden="true" width="20" height="20" fill="none" class="text-slate-900">
+                      <path
+                        d="M3.75 4.75h12.5M3.75 9.75h12.5M3.75 14.75h12.5"
+                        stroke="currentColor"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path></svg
+                  ></span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </nav>
+      </header>
+      <div class="relative -mt-[5.75rem] overflow-hidden pt-[5.75rem]">
+        <img src="/img/beams-basic.png" alt="" class="absolute left-1/2 top-0 -ml-[39rem] w-[113.125rem] max-w-none" />
+        <div class="max-w-container relative mx-auto mt-20 w-full px-4 sm:px-6 lg:px-8">
+          <div class="flex flex-col">
+            <h1 class="mt-3 text-3xl font-extrabold tracking-tight text-slate-900">Pagination</h1>
+            <nav aria-label="Breadcrumbs" class="order-first flex space-x-2 text-sm font-semibold">
+              <a class="text-slate-500 hover:text-slate-600" href="/components#product-application-ui">Application UI</a>
+              <div aria-hidden="true" class="select-none text-slate-400">/</div>
+              <a class="text-slate-500 hover:text-slate-600" href="/components#product-application-ui-navigation">Navigation</a>
+            </nav>
+          </div>
+          <div class="mt-10 space-y-24 pb-px">
+            <section id="component-69eb9381f977800aa890ce8f7d9e2d20">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-69eb9381f977800aa890ce8f7d9e2d20">Card footer with page buttons</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R4miqj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:R8miqj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:Rqiqj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-69eb9381f977800aa890ce8f7d9e2d20" class="relative">
+                      <style>
+                        #frame-69eb9381f977800aa890ce8f7d9e2d20 {
+                          height: 365px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-69eb9381f977800aa890ce8f7d9e2d20 {
+                            height: 363px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-69eb9381f977800aa890ce8f7d9e2d20"
+                        title="Card footer with page buttons preview"
+                        aria-label="Card footer with page buttons preview"
+                        name="frame-69eb9381f977800aa890ce8f7d9e2d20"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  &lt;div class="bg-gray-100"&gt;
+    &lt;div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"&gt;
+      &lt;div class="mx-auto max-w-none"&gt;
+        &lt;div class="overflow-hidden bg-white shadow sm:rounded-lg"&gt;
+          &lt;ul role="list" class="divide-y divide-gray-200 opacity-25"&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;Back End Developer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Engineering
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;Front End Developer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Engineering
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;User Interface Designer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Design
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            
+          &lt;/ul&gt;
+          
+  &lt;div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"&gt;
+    &lt;div class="flex flex-1 justify-between sm:hidden"&gt;
+      &lt;a href="#" class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"&gt;Previous&lt;/a&gt;
+      &lt;a href="#" class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"&gt;Next&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between"&gt;
+      &lt;div&gt;
+        &lt;p class="text-sm text-gray-700"&gt;
+          Showing
+          &lt;!-- space --&gt;
+          &lt;span class="font-medium"&gt;1&lt;/span&gt;
+          &lt;!-- space --&gt;
+          to
+          &lt;!-- space --&gt;
+          &lt;span class="font-medium"&gt;10&lt;/span&gt;
+          &lt;!-- space --&gt;
+          of
+          &lt;!-- space --&gt;
+          &lt;span class="font-medium"&gt;97&lt;/span&gt;
+          &lt;!-- space --&gt;
+          results
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination"&gt;
+          &lt;a href="#" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"&gt;
+            &lt;span class="sr-only"&gt;Previous&lt;/span&gt;
+            &lt;svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+          &lt;/a&gt;
+          &lt;!-- Current: "z-10 bg-indigo-600 text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600", Default: "text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:outline-offset-0" --&gt;
+          &lt;a href="#" aria-current="page" class="relative z-10 inline-flex items-center bg-indigo-600 px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"&gt;1&lt;/a&gt;
+          &lt;a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"&gt;2&lt;/a&gt;
+          &lt;a href="#" class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"&gt;3&lt;/a&gt;
+          &lt;span class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-700 ring-1 ring-inset ring-gray-300 focus:outline-offset-0"&gt;...&lt;/span&gt;
+          &lt;a href="#" class="relative hidden items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 md:inline-flex"&gt;8&lt;/a&gt;
+          &lt;a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"&gt;9&lt;/a&gt;
+          &lt;a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"&gt;10&lt;/a&gt;
+          &lt;a href="#" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"&gt;
+            &lt;span class="sr-only"&gt;Next&lt;/span&gt;
+            &lt;svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+          &lt;/a&gt;
+        &lt;/nav&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="component-f9a9347de5384a492c79c34cf6ce3ccf">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-f9a9347de5384a492c79c34cf6ce3ccf">Centered page numbers</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R4mjaj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:R8mjaj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:Rqjaj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-f9a9347de5384a492c79c34cf6ce3ccf" class="relative">
+                      <style>
+                        #frame-f9a9347de5384a492c79c34cf6ce3ccf {
+                          height: 102px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-f9a9347de5384a492c79c34cf6ce3ccf {
+                            height: 102px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-f9a9347de5384a492c79c34cf6ce3ccf"
+                        title="Centered page numbers preview"
+                        aria-label="Centered page numbers preview"
+                        name="frame-f9a9347de5384a492c79c34cf6ce3ccf"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  &lt;div class="bg-white"&gt;
+    &lt;div class="mx-auto max-w-7xl py-8 sm:px-6 lg:px-8"&gt;
+      
+  &lt;nav class="flex items-center justify-between border-t border-gray-200 px-4 sm:px-0"&gt;
+    &lt;div class="-mt-px flex w-0 flex-1"&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent pr-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;
+        &lt;svg class="mr-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M18 10a.75.75 0 01-.75.75H4.66l2.1 1.95a.75.75 0 11-1.02 1.1l-3.5-3.25a.75.75 0 010-1.1l3.5-3.25a.75.75 0 111.02 1.1l-2.1 1.95h12.59A.75.75 0 0118 10z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+        Previous
+      &lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="hidden md:-mt-px md:flex"&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;1&lt;/a&gt;
+      &lt;!-- Current: "border-indigo-500 text-indigo-600", Default: "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300" --&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-indigo-500 px-4 pt-4 text-sm font-medium text-indigo-600" aria-current="page"&gt;2&lt;/a&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;3&lt;/a&gt;
+      &lt;span class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500"&gt;...&lt;/span&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;8&lt;/a&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;9&lt;/a&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent px-4 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;10&lt;/a&gt;
+    &lt;/div&gt;
+    &lt;div class="-mt-px flex w-0 flex-1 justify-end"&gt;
+      &lt;a href="#" class="inline-flex items-center border-t-2 border-transparent pl-1 pt-4 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"&gt;
+        Next
+        &lt;svg class="ml-3 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M2 10a.75.75 0 01.75-.75h12.59l-2.1-1.95a.75.75 0 111.02-1.1l3.5 3.25a.75.75 0 010 1.1l-3.5 3.25a.75.75 0 11-1.02-1.1l2.1-1.95H2.75A.75.75 0 012 10z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            <section id="component-0797a02a34692167c369d134e7a6f9c5">
+              <div class="grid grid-cols-[1fr,auto] items-center">
+                <div class="flex min-w-0">
+                  <h2 class="truncate text-base font-medium leading-7 text-slate-900">
+                    <a href="#component-0797a02a34692167c369d134e7a6f9c5">Simple card footer</a>
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  aria-hidden="true"
+                  style="
+                    position: fixed;
+                    top: 1px;
+                    left: 1px;
+                    width: 1px;
+                    height: 0;
+                    padding: 0;
+                    margin: -1px;
+                    overflow: hidden;
+                    clip: rect(0, 0, 0, 0);
+                    white-space: nowrap;
+                    border-width: 0;
+                  "
+                ></button>
+                <div class="ml-6 flex items-center">
+                  <div class="flex space-x-1 rounded-lg bg-slate-100 p-0.5" role="tablist" aria-orientation="horizontal">
+                    <button
+                      class="flex items-center rounded-md bg-white py-[0.4375rem] pl-2 pr-2 text-sm font-semibold shadow lg:pr-3"
+                      id="headlessui-tabs-tab-:R4mjqj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="true"
+                      tabindex="0"
+                      data-headlessui-state="selected"
+                      data-selected=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-sky-500"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="M17.25 10c0 1-1.75 6.25-7.25 6.25S2.75 11 2.75 10 4.5 3.75 10 3.75 17.25 9 17.25 10Z"></path>
+                        <circle cx="10" cy="10" r="2.25"></circle></svg
+                      ><span class="sr-only text-slate-900 lg:not-sr-only lg:ml-2">Preview</span></button
+                    ><button
+                      class="flex items-center rounded-md py-[0.4375rem] pl-2 pr-2 text-sm font-semibold lg:pr-3"
+                      id="headlessui-tabs-tab-:R8mjqj:"
+                      role="tab"
+                      type="button"
+                      aria-selected="false"
+                      tabindex="-1"
+                      data-headlessui-state=""
+                    >
+                      <svg
+                        class="h-5 w-5 flex-none stroke-slate-600"
+                        fill="none"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path d="m13.75 6.75 3.5 3.25-3.5 3.25M6.25 13.25 2.75 10l3.5-3.25"></path></svg
+                      ><span class="sr-only text-slate-600 lg:not-sr-only lg:ml-2">Code</span>
+                    </button>
+                  </div>
+                  <div class="ml-6 mr-3 hidden h-5 w-px bg-slate-900/10 sm:block"></div>
+                  <div class="relative hidden sm:block">
+                    <select
+                      class="form-select h-9 w-full rounded-lg border-0 bg-transparent bg-none p-0 pl-3.5 pr-[1.875rem] font-medium text-slate-900 focus:shadow-none focus-visible:ring-2 focus-visible:ring-sky-500 sm:text-sm"
+                    >
+                      <option value="html" selected="">HTML</option>
+                      <option value="react">React</option>
+                      <option value="vue">Vue</option></select
+                    ><svg
+                      aria-hidden="true"
+                      viewBox="0 0 8 6"
+                      width="8"
+                      height="6"
+                      fill="none"
+                      class="pointer-events-none absolute inset-y-0 right-3.5 h-full stroke-slate-500"
+                    >
+                      <path d="M7 1.5l-3 3-3-3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  </div>
+                  <button class="group relative ml-2 hidden h-9 w-9 items-center justify-center sm:flex">
+                    <svg
+                      class="h-8 w-8 stroke-slate-400 transition group-hover:rotate-[-4deg] group-hover:stroke-slate-600"
+                      fill="none"
+                      viewBox="0 0 32 32"
+                      xmlns="http://www.w3.org/2000/svg"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="M12.9975 10.7499L11.7475 10.7499C10.6429 10.7499 9.74747 11.6453 9.74747 12.7499L9.74747 21.2499C9.74747 22.3544 10.6429 23.2499 11.7475 23.2499L20.2475 23.2499C21.352 23.2499 22.2475 22.3544 22.2475 21.2499L22.2475 12.7499C22.2475 11.6453 21.352 10.7499 20.2475 10.7499L18.9975 10.7499"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path
+                        d="M17.9975 12.2499L13.9975 12.2499C13.4452 12.2499 12.9975 11.8022 12.9975 11.2499L12.9975 9.74988C12.9975 9.19759 13.4452 8.74988 13.9975 8.74988L17.9975 8.74988C18.5498 8.74988 18.9975 9.19759 18.9975 9.74988L18.9975 11.2499C18.9975 11.8022 18.5498 12.2499 17.9975 12.2499Z"
+                        stroke-width="1.5"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      ></path>
+                      <path d="M13.7475 16.2499L18.2475 16.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <path d="M13.7475 19.2499L18.2475 19.2499" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      <g class="opacity-0">
+                        <path d="M15.9975 5.99988L15.9975 3.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M19.9975 5.99988L20.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                        <path d="M11.9975 5.99988L10.9975 4.99988" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </g>
+                    </svg>
+                  </button>
+                </div>
+                <div class="col-span-2 row-start-2 min-w-0">
+                  <div
+                    class="mt-4 focus:outline-none"
+                    id="headlessui-tabs-panel-:Rqjqj:"
+                    role="tabpanel"
+                    tabindex="0"
+                    data-headlessui-state="selected"
+                    data-selected=""
+                  >
+                    <div id="frame-0797a02a34692167c369d134e7a6f9c5" class="relative">
+                      <style>
+                        #frame-0797a02a34692167c369d134e7a6f9c5 {
+                          height: 361px;
+                        }
+                        @media (min-width: 704px) {
+                          #frame-0797a02a34692167c369d134e7a6f9c5 {
+                            height: 361px;
+                          }
+                        }</style
+                      ><iframe
+                        class="w-full overflow-hidden rounded-lg ring-1 ring-slate-900/10"
+                        id="frame-0797a02a34692167c369d134e7a6f9c5"
+                        title="Simple card footer preview"
+                        aria-label="Simple card footer preview"
+                        name="frame-0797a02a34692167c369d134e7a6f9c5"
+                        srcdoc='&lt;!doctype html&gt;&lt;meta charset="utf-8"&gt;&lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;&lt;link rel="stylesheet" href="/v2-assets/components.css?hash=6b2515f59f0c1c0e039cb010d4f3a03b"&gt;&lt;script src="/v2-assets/components.js?hash=25df7d34d043de1c316a31211aa744b1"&gt;&lt;/script&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/_commonjsHelpers-de833af9.js" /&gt;&lt;link rel="modulepreload" href="https://tailwindui.com/build/assets/iframe-a81dc9a8.js" /&gt;&lt;script type="module" src="https://tailwindui.com/build/assets/iframe-alpine-65828d82.js"&gt;&lt;/script&gt;&lt;body&gt;&lt;div class="" style=""&gt;
+  &lt;div class="bg-gray-100"&gt;
+    &lt;div class="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8"&gt;
+      &lt;div class="mx-auto max-w-none"&gt;
+        &lt;div class="overflow-hidden bg-white shadow sm:rounded-lg"&gt;
+          &lt;ul role="list" class="opacity-25"&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;Back End Developer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Engineering
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;Front End Developer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Engineering
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            &lt;li&gt;
+                &lt;a href="#" class="block hover:bg-gray-50"&gt;
+                  &lt;div class="px-4 py-4 sm:px-6"&gt;
+                    &lt;div class="flex items-center justify-between"&gt;
+                      &lt;div class="truncate text-sm font-medium text-indigo-600"&gt;User Interface Designer&lt;/div&gt;
+                      &lt;div class="ml-2 flex flex-shrink-0"&gt;
+                        &lt;span class="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20"&gt;Full-time&lt;/span&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                    &lt;div class="mt-2 flex justify-between"&gt;
+                      &lt;div class="sm:flex"&gt;
+                        &lt;div class="mr-6 flex items-center text-sm text-gray-500"&gt;
+                          &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path d="M7 8a3 3 0 100-6 3 3 0 000 6zM14.5 9a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM1.615 16.428a1.224 1.224 0 01-.569-1.175 6.002 6.002 0 0111.908 0c.058.467-.172.92-.57 1.174A9.953 9.953 0 017 18a9.953 9.953 0 01-5.385-1.572zM14.5 16h-.106c.07-.297.088-.611.048-.933a7.47 7.47 0 00-1.588-3.755 4.502 4.502 0 015.874 2.636.818.818 0 01-.36.98A7.465 7.465 0 0114.5 16z"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                          Design
+                        &lt;/div&gt;
+                      &lt;/div&gt;
+                      &lt;div class="flex items-center text-sm text-gray-500"&gt;
+                        &lt;svg class="mr-1.5 h-5 w-5 flex-shrink-0 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"&gt;
+  &lt;path fill-rule="evenodd" d="M9.69 18.933l.003.001C9.89 19.02 10 19 10 19s.11.02.308-.066l.002-.001.006-.003.018-.008a5.741 5.741 0 00.281-.14c.186-.096.446-.24.757-.433.62-.384 1.445-.966 2.274-1.765C15.302 14.988 17 12.493 17 9A7 7 0 103 9c0 3.492 1.698 5.988 3.355 7.584a13.731 13.731 0 002.273 1.765 11.842 11.842 0 00.976.544l.062.029.018.008.006.003zM10 11.25a2.25 2.25 0 100-4.5 2.25 2.25 0 000 4.5z" clip-rule="evenodd"&gt;&lt;/path&gt;
+&lt;/svg&gt;
+                        Remote
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/a&gt;
+              &lt;/li&gt;
+            
+          &lt;/ul&gt;
+          
+  &lt;nav class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6" aria-label="Pagination"&gt;
+    &lt;div class="hidden sm:block"&gt;
+      &lt;p class="text-sm text-gray-700"&gt;
+        Showing
+        &lt;!-- space --&gt;
+        &lt;span class="font-medium"&gt;1&lt;/span&gt;
+        &lt;!-- space --&gt;
+        to
+        &lt;!-- space --&gt;
+        &lt;span class="font-medium"&gt;10&lt;/span&gt;
+        &lt;!-- space --&gt;
+        of
+        &lt;!-- space --&gt;
+        &lt;span class="font-medium"&gt;20&lt;/span&gt;
+        &lt;!-- space --&gt;
+        results
+      &lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class="flex flex-1 justify-between sm:justify-end"&gt;
+      &lt;a href="#" class="relative inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"&gt;Previous&lt;/a&gt;
+      &lt;a href="#" class="relative ml-3 inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus-visible:outline-offset-0"&gt;Next&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/nav&gt;
+
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;&lt;/body&gt;'
+                      ></iframe>
+                      <div class="absolute inset-y-0 left-full hidden cursor-ew-resize items-center px-2 sm:flex">
+                        <div class="h-8 w-1.5 rounded-full bg-slate-400"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+      <footer class="max-w-container mx-auto mt-32 w-full px-4 sm:px-6 lg:px-8">
+        <div class="border-t border-slate-900/5 py-10">
+          <svg class="mx-auto h-5 w-auto text-slate-900" aria-hidden="true" viewBox="0 0 160 24" fill="none">
+            <path
+              d="M18.724 1.714c-4.538 0-7.376 2.286-8.51 6.857 1.702-2.285 3.687-3.143 5.957-2.57 1.296.325 2.22 1.271 3.245 2.318 1.668 1.706 3.6 3.681 7.819 3.681 4.539 0 7.376-2.286 8.51-6.857-1.701 2.286-3.687 3.143-5.957 2.571-1.294-.325-2.22-1.272-3.245-2.32-1.668-1.705-3.6-3.68-7.819-3.68zM10.214 12c-4.539 0-7.376 2.286-8.51 6.857 1.701-2.286 3.687-3.143 5.957-2.571 1.294.325 2.22 1.272 3.245 2.32 1.668 1.705 3.6 3.68 7.818 3.68 4.54 0 7.377-2.286 8.511-6.857-1.702 2.286-3.688 3.143-5.957 2.571-1.295-.326-2.22-1.272-3.245-2.32-1.669-1.705-3.6-3.68-7.82-3.68z"
+              class="fill-sky-400"
+            ></path>
+            <path
+              d="M51.285 9.531V6.857h-3.166v-3.6l-2.758.823v2.777h-2.348v2.674h2.348v6.172c0 3.343 1.686 4.526 5.924 4.011V17.22c-2.094.103-3.166.129-3.166-1.517V9.53h3.166zm12.087-2.674v1.826c-.97-1.337-2.476-2.16-4.468-2.16-3.472 0-6.357 2.931-6.357 6.763 0 3.805 2.885 6.763 6.357 6.763 1.992 0 3.498-.823 4.468-2.186v1.851h2.758V6.857h-2.758zM59.338 17.4c-2.297 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115s4.034 1.723 4.034 4.115c0 2.391-1.736 4.114-4.034 4.114zM70.723 4.929c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm5.96 0h2.757V.943h-2.758v18.771zM95.969 6.857l-2.502 8.872-2.655-8.872h-2.63L85.5 15.73l-2.477-8.872h-2.91l4.008 12.857h2.707l2.68-8.665 2.656 8.665h2.706L98.88 6.857h-2.911zm6.32-1.928c.97 0 1.762-.823 1.762-1.775 0-.977-.792-1.774-1.762-1.774s-1.762.797-1.762 1.774c0 .952.792 1.775 1.762 1.775zm-1.379 14.785h2.758V6.857h-2.758v12.857zm12.674-13.191c-1.736 0-3.115.643-3.957 1.98V6.857h-2.758v12.857h2.758v-6.891c0-2.623 1.43-3.703 3.242-3.703 1.737 0 2.86 1.029 2.86 2.983v7.611h2.757V11.82c0-3.343-2.042-5.297-4.902-5.297zm17.982-4.809v6.969c-.971-1.337-2.477-2.16-4.468-2.16-3.473 0-6.358 2.931-6.358 6.763 0 3.805 2.885 6.763 6.358 6.763 1.991 0 3.497-.823 4.468-2.186v1.851h2.757v-18h-2.757zM127.532 17.4c-2.298 0-4.034-1.723-4.034-4.114 0-2.392 1.736-4.115 4.034-4.115 2.297 0 4.034 1.723 4.034 4.115 0 2.391-1.737 4.114-4.034 4.114z"
+              fill="currentColor"
+            ></path>
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M145.532 3.429h8.511c.902 0 1.768.36 2.407 1.004.638.643.997 1.515.997 2.424v8.572c0 .909-.359 1.781-.997 2.424a3.394 3.394 0 01-2.407 1.004h-8.511a3.39 3.39 0 01-2.407-1.004 3.438 3.438 0 01-.997-2.424V6.857c0-.91.358-1.781.997-2.424a3.39 3.39 0 012.407-1.004zm-5.106 3.428c0-1.364.538-2.672 1.495-3.636a5.09 5.09 0 013.611-1.507h8.511c1.354 0 2.653.542 3.61 1.507a5.16 5.16 0 011.496 3.636v8.572a5.16 5.16 0 01-1.496 3.636 5.086 5.086 0 01-3.61 1.506h-8.511a5.09 5.09 0 01-3.611-1.506 5.164 5.164 0 01-1.495-3.636V6.857zm10.907 6.251c0 1.812-1.359 2.916-3.193 2.916-1.823 0-3.182-1.104-3.182-2.916v-5.65h1.633v5.52c0 .815.429 1.427 1.549 1.427 1.12 0 1.549-.612 1.549-1.428v-5.52h1.644v5.652zm1.72 2.748V7.457h1.644v8.4h-1.644z"
+              fill="currentColor"
+            ></path>
+          </svg>
+          <p class="mt-5 text-center text-sm leading-6 text-slate-500">
+            ©
+            <!-- -->2024<!-- -->
+            Tailwind Labs Inc. All rights reserved.
+          </p>
+          <div class="mt-16 flex items-center justify-center space-x-4 text-sm font-semibold leading-6 text-slate-700">
+            <a href="/privacy-policy">Privacy policy</a>
+            <div class="h-4 w-px bg-slate-500/20"></div>
+            <a href="/changelog">Changelog</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
