@@ -33,4 +33,12 @@ export class NavigationService {
       }),
     );
   }
+
+  getLanding(): Observable<Navigation> {
+    return this._httpClient.get<Navigation>('api/common/navigation/landing').pipe(
+      tap((navigation) => {
+        this._navigation.next(navigation);
+      }),
+    );
+  }
 }

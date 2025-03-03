@@ -6,4 +6,5 @@ export interface Navigation {
   horizontal: FuseNavigationItem[];
   compact: FuseNavigationItem[];
   futuristic: FuseNavigationItem[];
+  landing: FuseNavigationItem[];
 }

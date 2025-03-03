@@ -1,0 +1,21 @@
+/* Add this to your component's style file or global styles */
+.landing-nav-theme {
+  background: linear-gradient(to bottom, #ff6b98, #ff97b7);
+}
+
+.landing-nav-theme .fuse-vertical-navigation-item-wrapper {
+  color: white;
+}
+
+.landing-nav-theme .fuse-vertical-navigation-item-wrapper:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.landing-nav-theme .fuse-vertical-navigation-item-active {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  color: white !important;
+}
+
+.landing-nav-theme .fuse-vertical-navigation-item-icon {
+  color: rgba(255, 255, 255, 0.8) !important;
+}

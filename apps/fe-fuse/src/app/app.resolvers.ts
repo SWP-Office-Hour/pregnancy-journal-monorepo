@@ -21,3 +21,8 @@ export const initialDataResolver = () => {
     // shortcutsService.getAll(),
   ]);
 };
+
+export const landingDataResolver = () => {
+  const navigationService = inject(NavigationService);
+  return navigationService.getLanding();
+};
