@@ -4,13 +4,8 @@ import { NgIf } from '@angular/common';
 import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatOptionModule, MatRippleModule } from '@angular/material/core';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatOptionModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -25,13 +20,16 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
-import { Table, TableModule } from 'primeng/table';
+import { Table, TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { fuseAnimations } from '../../../../@fuse/animations';
+import { FuseCardComponent } from '../../../../@fuse/components/card';
+import { FuseScrollbarDirective } from '../../../../@fuse/directives/scrollbar';
 import { environment } from '../../../../environments/environment';
+import { StandardTableComponent } from '../standard-table/standard-table.component';
 
 @Component({
   selector: 'app-health-metric-table',
@@ -42,16 +40,10 @@ import { environment } from '../../../../environments/environment';
     ConfirmPopupModule,
     TableModule,
     MatProgressBarModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSlideToggleModule,
-    MatSelectModule,
     MatOptionModule,
     MatCheckboxModule,
-    MatRippleModule,
     ToolbarModule,
     TableModule,
     ButtonModule,
@@ -71,6 +63,9 @@ import { environment } from '../../../../environments/environment';
     ConfirmDialogModule,
     NgIf,
     ConfirmPopup,
+    StandardTableComponent,
+    FuseScrollbarDirective,
+    FuseCardComponent,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -82,6 +77,7 @@ export class HealthMetricTableComponent implements OnInit {
   isLoading = false;
   metricDialogToggle = false;
   isSubmittedForm = false;
+  expandedRows = {};
 
   // Form
   metricForm!: FormGroup;
@@ -224,6 +220,14 @@ export class HealthMetricTableComponent implements OnInit {
 
   convertRequireToReadable(required: boolean): string {
     return required ? 'REQUIRED' : 'OPTIONAL';
+  }
+
+  onRowExpand(event: TableRowExpandEvent) {
+    this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
+  }
+
+  onRowCollapse(event: TableRowCollapseEvent) {
+    this.messageService.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
   }
 
   /**

@@ -1,10 +1,10 @@
 // standard-table.component.ts
 import { NgIf } from '@angular/common';
-import { Component, effect, OnInit, resource, signal, ViewChild } from '@angular/core';
+import { Component, effect, model, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HealthMetric, Standard, Status } from '@pregnancy-journal-monorepo/contract';
+import { HealthMetric, Standard } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -24,6 +24,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
 import { fuseAnimations } from '../../../../@fuse/animations';
+import { FuseScrollbarDirective } from '../../../../@fuse/directives/scrollbar';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -57,10 +58,13 @@ import { environment } from '../../../../environments/environment';
     NgIf,
     ConfirmPopup,
     Message,
+    FuseScrollbarDirective,
   ],
   providers: [MessageService, ConfirmationService],
 })
 export class StandardTableComponent implements OnInit {
+  currentMetric = model<HealthMetric>();
+
   // Component state
   isLoading = false;
   standardDialogToggle = false;
@@ -79,15 +83,16 @@ export class StandardTableComponent implements OnInit {
   @ViewChild('dt') dt!: Table;
 
   // Resources
-  currentMetric = signal<HealthMetric>({
-    metric_id: '',
-    required: false,
-    upperbound_msg: '',
-    lowerbound_msg: '',
-    status: Status.INACTIVE,
-    title: '',
-    measurement_unit: '',
-  });
+  // currentMetric = signal<HealthMetric>({
+  //   metric_id: '',
+  //   required: false,
+  //   upperbound_msg: '',
+  //   lowerbound_msg: '',
+  //   status: Status.INACTIVE,
+  //   title: '',
+  //   measurement_unit: '',
+  // });
+
   standardResource = resource<Standard[], { metricId: string } | undefined>({
     request: () => {
       if (this.currentMetric().metric_id === '') {
@@ -115,25 +120,25 @@ export class StandardTableComponent implements OnInit {
     },
   });
 
-  metricsResource = resource<HealthMetric[], {}>({
-    loader: async ({ abortSignal }) => {
-      this.isLoading = true;
-      try {
-        const response = await fetch(`${environment.apiUrl}metrics`, {
-          signal: abortSignal,
-        });
-        if (!response.ok) {
-          throw new Error(`Failed to fetch metrics: ${response.status}`);
-        }
-        return await response.json();
-      } catch (error) {
-        this.notifyError(error);
-        return [];
-      } finally {
-        this.isLoading = false;
-      }
-    },
-  });
+  // metricsResource = resource<HealthMetric[], {}>({
+  //   loader: async ({ abortSignal }) => {
+  //     this.isLoading = true;
+  //     try {
+  //       const response = await fetch(`${environment.apiUrl}metrics`, {
+  //         signal: abortSignal,
+  //       });
+  //       if (!response.ok) {
+  //         throw new Error(`Failed to fetch metrics: ${response.status}`);
+  //       }
+  //       return await response.json();
+  //     } catch (error) {
+  //       this.notifyError(error);
+  //       return [];
+  //     } finally {
+  //       this.isLoading = false;
+  //     }
+  //   },
+  // });
 
   /**
    * Constructor

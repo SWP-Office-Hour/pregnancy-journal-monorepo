@@ -53,7 +53,7 @@
   </div>
 
   <!-- Content -->
-  <div class="flex flex-auto flex-col">
+  <div class="flex flex-auto flex-col" [fuseScrollbar]="false">
     <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
     @if (true) {

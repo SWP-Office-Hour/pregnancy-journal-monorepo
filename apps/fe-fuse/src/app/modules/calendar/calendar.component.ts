@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, Signal, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialog } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +21,6 @@ import { ReminderEditorComponent } from './reminder-editor/reminder-editor.compo
     MatSelectModule,
     CommonModule,
     FormsModule,
-    MatButton,
     MatDatepickerModule,
     MatFormFieldModule,
     MatIconModule,
