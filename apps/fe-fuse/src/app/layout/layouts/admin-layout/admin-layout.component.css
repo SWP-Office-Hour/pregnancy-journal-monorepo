@@ -1,0 +1,9 @@
+/*.element-class {*/
+/*  scrollbar-gutter: stable both-edges;*/
+/*}*/
+ps__rail-y {
+  display: none !important;
+}
+.ps__rail-y {
+  display: none !important;
+}

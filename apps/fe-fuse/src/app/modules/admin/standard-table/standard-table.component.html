@@ -1,15 +1,14 @@
 <!--standard-table.component.html-->
-<div class="flex w-full flex-col">
-  @if (isLoading) {
-    <div class="absolute inset-x-0 top-0">
-      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
-    </div>
-  }
+@if (isLoading) {
+  <div class="absolute inset-x-0 top-0">
+    <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+  </div>
+}
 
+<div class="w-full bg-red-500" *ngIf="!isLoading" @expandCollapse [fuseScrollbar]="false">
   <div class="mb-6 flex items-center">
-    <p-select [options]="metricsResource.value()" optionLabel="title" placeholder="Select a Metric" class="mr-4 w-72" [(ngModel)]="currentMetric">
-    </p-select>
-
+    <!--    <p-select [options]="metricsResource.value()" optionLabel="title" placeholder="Select a Metric" class="mr-4 w-72" [(ngModel)]="currentMetric">-->
+    <!--    </p-select>-->
     <p-toolbar styleClass="mb-0 ml-4" class="flex-grow">
       <ng-template #start>
         <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" [disabled]="!currentMetric" />
@@ -123,75 +122,76 @@
       </div>
     </div>
   }
-
-  <p-table
-    #dt
-    [value]="standardResource.value()"
-    [globalFilterFields]="['week', 'lowerbound', 'upperbound', 'who_standard_value']"
-    [paginator]="true"
-    [rowHover]="true"
-    [rowsPerPageOptions]="[10, 20, 30]"
-    [rows]="10"
-    [showCurrentPageReport]="true"
-    [tableStyle]="{ 'min-width': '75rem' }"
-    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
-    dataKey="standard_id"
-    [loading]="isLoading"
-  >
-    <ng-template #caption>
-      <div class="flex items-center justify-between">
-        <h5 class="m-0">Manage Standards</h5>
-        <p-iconfield>
-          <p-inputicon styleClass="pi pi-search" />
-          <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
-        </p-iconfield>
-      </div>
-    </ng-template>
-    <ng-template #header>
-      <tr>
-        <th pSortableColumn="week" style="min-width: 8rem">
-          Week
-          <p-sortIcon field="week" />
-        </th>
-        <th pSortableColumn="lowerbound" style="min-width: 8rem">
-          Lower Bound
-          <p-sortIcon field="lowerbound" />
-        </th>
-        <th pSortableColumn="upperbound" style="min-width: 8rem">
-          Upper Bound
-          <p-sortIcon field="upperbound" />
-        </th>
-        <th pSortableColumn="who_standard_value" style="min-width: 12rem">
-          WHO Standard Value
-          <p-sortIcon field="who_standard_value" />
-        </th>
-        <th style="min-width: 8rem">Actions</th>
-      </tr>
-    </ng-template>
-    <ng-template #body let-standard>
-      <tr>
-        <td>{{ standard.week }}</td>
-        <td>{{ standard.lowerbound }}</td>
-        <td>{{ standard.upperbound }}</td>
-        <td>{{ standard.who_standard_value !== null ? standard.who_standard_value : 'N/A' }}</td>
-        <td>
-          <p-button (click)="editStandard(standard)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
-          <p-button (click)="deleteStandard(standard, $event)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
-        </td>
-      </tr>
-    </ng-template>
-    <ng-template #emptymessage>
-      <tr>
-        <td colspan="5" class="p-4 text-center">
-          @if (currentMetric) {
-            No standards found for this metric.
-          } @else {
-            Please select a metric to view its standards.
-          }
-        </td>
-      </tr>
-    </ng-template>
-  </p-table>
+  <div [fuseScrollbar]="false">
+    <p-table
+      #dt
+      [value]="standardResource.value()"
+      [globalFilterFields]="['week', 'lowerbound', 'upperbound', 'who_standard_value']"
+      [paginator]="true"
+      [rowHover]="true"
+      [rowsPerPageOptions]="[10, 20, 30]"
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      [tableStyle]="{ 'min-width': '75rem' }"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
+      dataKey="standard_id"
+      [loading]="isLoading"
+    >
+      <ng-template #caption>
+        <div class="flex items-center justify-between">
+          <h5 class="m-0">Manage Standards</h5>
+          <p-iconfield>
+            <p-inputicon styleClass="pi pi-search" />
+            <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
+          </p-iconfield>
+        </div>
+      </ng-template>
+      <ng-template #header>
+        <tr>
+          <th pSortableColumn="week" style="min-width: 8rem">
+            Week
+            <p-sortIcon field="week" />
+          </th>
+          <th pSortableColumn="lowerbound" style="min-width: 8rem">
+            Lower Bound
+            <p-sortIcon field="lowerbound" />
+          </th>
+          <th pSortableColumn="upperbound" style="min-width: 8rem">
+            Upper Bound
+            <p-sortIcon field="upperbound" />
+          </th>
+          <th pSortableColumn="who_standard_value" style="min-width: 12rem">
+            WHO Standard Value
+            <p-sortIcon field="who_standard_value" />
+          </th>
+          <th style="min-width: 8rem">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template #body let-standard>
+        <tr>
+          <td>{{ standard.week }}</td>
+          <td>{{ standard.lowerbound }}</td>
+          <td>{{ standard.upperbound }}</td>
+          <td>{{ standard.who_standard_value !== null ? standard.who_standard_value : 'N/A' }}</td>
+          <td>
+            <p-button (click)="editStandard(standard)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
+            <p-button (click)="deleteStandard(standard, $event)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template #emptymessage>
+        <tr>
+          <td colspan="5" class="p-4 text-center">
+            @if (currentMetric) {
+              No standards found for this metric.
+            } @else {
+              Please select a metric to view its standards.
+            }
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
 
   <p-dialog [(visible)]="standardDialogToggle" [modal]="true" [style]="{ width: '450px' }" header="Standard Details">
     <ng-template #content>

@@ -11,10 +11,12 @@ import { Navigation } from 'app/core/navigation/navigation.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { FuseScrollbarDirective } from '../../../../@fuse/directives/scrollbar';
 
 @Component({
   selector: 'admin-layout',
   templateUrl: './admin-layout.component.html',
+  styleUrl: './admin-layout.component.css',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
@@ -27,6 +29,7 @@ import { Subject, takeUntil } from 'rxjs';
     UserComponent,
     RouterOutlet,
     RouterLink,
+    FuseScrollbarDirective,
   ],
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
