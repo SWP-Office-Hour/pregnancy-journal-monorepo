@@ -137,6 +137,43 @@ export const adminNavigation: FuseNavigationItem[] = [
   },
 ];
 
+export const landingNavigation: FuseNavigationItem[] = [
+  {
+    id: 'blog',
+    title: 'Blog',
+    type: 'basic',
+    icon: 'heroicons_outline:pencil-square',
+    link: '/blog',
+  },
+  {
+    id: 'features',
+    title: 'Features',
+    type: 'basic',
+    icon: 'heroicons_outline:sparkles',
+    link: '/features',
+  },
+  {
+    id: 'about',
+    title: 'About Us',
+    type: 'basic',
+    icon: 'heroicons_outline:information-circle',
+    link: '/about',
+  },
+  {
+    id: 'pricing',
+    title: 'Pricing',
+    type: 'basic',
+    icon: 'heroicons_outline:currency-dollar',
+    link: '/membership',
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    type: 'basic',
+    icon: 'heroicons_outline:envelope',
+    link: '/contact',
+  },
+];
 //
 // export const compactNavigation: FuseNavigationItem[] = [
 //   {

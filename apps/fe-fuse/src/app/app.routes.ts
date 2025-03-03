@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Route } from '@angular/router';
-import { initialDataResolver } from 'app/app.resolvers';
+import { initialDataResolver, landingDataResolver } from 'app/app.resolvers';
 import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
@@ -63,7 +63,7 @@ export const appRoutes: Route[] = [
     component: LayoutComponent,
     canActivate: [blogNoAuthGuard],
     data: {
-      layout: 'empty',
+      layout: 'landing', // Changed from 'empty' to 'landing'
     },
     loadChildren: () => blogMasonryRoutes,
   },
@@ -85,16 +85,20 @@ export const appRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     data: {
-      layout: 'empty',
+      layout: 'landing', // Changed from 'empty' to 'landing'
     },
     resolve: {
-      initialData: initialDataResolver,
+      initialData: landingDataResolver,
     },
     children: [
       { path: 'landing', loadComponent: () => LandingComponent },
       {
         path: 'about',
         redirectTo: 'landing',
+      },
+      {
+        path: 'features',
+        redirectTo: 'landing', // Temporary redirect until features page is created
       },
     ],
   },

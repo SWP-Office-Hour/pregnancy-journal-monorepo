@@ -1,144 +1,315 @@
-<div class="flex h-full w-full flex-col items-center justify-center">
-  <header class="absolute inset-x-0 top-0 z-50">
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
-      <div class="flex lg:flex-1">
-        <a href="#" class="-m-1.5 p-1.5">
-          <span class="sr-only">Your Company</span>
-          <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-        </a>
-      </div>
-      <div class="flex lg:hidden">
-        <button type="button" class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700">
-          <span class="sr-only">Open main menu</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
-      </div>
-      <div class="hidden lg:flex lg:gap-x-12">
-        <a href="blog" class="text-sm font-semibold leading-6 text-gray-900">Blog</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Features</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Marketplace</a>
-        <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Company</a>
-      </div>
-      <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-        <a href="home" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></a>
-      </div>
-    </nav>
-    <!-- Mobile menu, show/hide based on menu open state. -->
-    <div class="lg:hidden" role="dialog" aria-modal="true">
-      <!-- Background backdrop, show/hide based on slide-over state. -->
-      <div class="fixed inset-0 z-50"></div>
-      <div class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-white px-6 py-6 sm:max-w-sm sm:ring-1 sm:ring-gray-900/10">
-        <div class="flex items-center justify-between">
-          <a href="#" class="-m-1.5 p-1.5">
-            <span class="sr-only">Your Company</span>
-            <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600" alt="" />
-          </a>
-          <button type="button" class="-m-2.5 rounded-md p-2.5 text-gray-700">
-            <span class="sr-only">Close menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-        <div class="mt-6 flow-root">
-          <div class="-my-6 divide-y divide-gray-500/10">
-            <div class="space-y-2 py-6">
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Product</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Features</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Marketplace</a>
-              <a href="#" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Company</a>
-            </div>
-            <div class="py-6">
-              <a href="home" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <div class="relative isolate overflow-hidden bg-gradient-to-b from-indigo-100/20 pt-14">
+<div class="flex h-full w-full flex-col">
+  <!-- Hero Section -->
+  <div class="relative isolate overflow-hidden bg-gradient-to-b from-pink-50 via-white to-pink-50 pt-14">
     <div
-      class="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-indigo-600/10 ring-1 ring-indigo-50 sm:-mr-80 lg:-mr-96"
+      class="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-pink-600/10 ring-1 ring-pink-50 sm:-mr-80 lg:-mr-96"
       aria-hidden="true"
     ></div>
     <div class="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">
         <h1 class="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto">
-          We’re changing the way people connect.
+          Theo dõi hành trình mang thai của bạn một cách dễ dàng
         </h1>
         <div class="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">
           <p class="text-lg leading-8 text-gray-600">
-            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet fugiat veniam occaecat fugiat
-            aliqua. Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo.
+            Pregnancy Journal giúp bạn ghi lại và theo dõi quá trình mang thai, nhận thông tin hữu ích từ các chuyên gia, và kết nối với cộng đồng các
+            bà mẹ khác. Luôn đồng hành cùng bạn trong hành trình làm mẹ tuyệt vời.
           </p>
           <div class="mt-10 flex items-center gap-x-6">
             <a
-              href="#"
-              class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              >Get started</a
+              routerLink="/sign-up"
+              class="bg-pink-450 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"
+              >Đăng ký ngay</a
             >
-            <a href="#" class="text-sm font-semibold leading-6 text-gray-900">Learn more <span aria-hidden="true">→</span></a>
+            <a routerLink="/features" class="text-sm font-semibold leading-6 text-gray-900">Tìm hiểu thêm <span aria-hidden="true">→</span></a>
           </div>
         </div>
         <img
-          src="https://images.unsplash.com/photo-1567532900872-f4e906cbf06a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80"
-          alt=""
-          class="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-cover sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"
+          src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg"
+          alt="Pregnant woman illustration"
+          class="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-contain sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"
         />
       </div>
     </div>
-    <div class="absolute inset-x-0 bottom-0 -z-10 h-24 bg-gradient-to-t from-white sm:h-32"></div>
+    <!-- SVG Wave -->
+    <svg class="absolute inset-x-0 bottom-0 -z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path
+        fill="#ff597d"
+        fill-opacity="0.1"
+        d="M0,96L48,106.7C96,117,192,139,288,144C384,149,480,139,576,122.7C672,107,768,85,864,96C960,107,1056,149,1152,144C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+      ></path>
+    </svg>
   </div>
 
-  <!--  <div class="w-full max-w-3xl">-->
-  <!--    <div class="prose prose-sm mx-auto max-w-none">-->
-  <!--      <img class="w-20" src="/images/logo/logo.svg" alt="Logo image" />-->
-  <!--      <h1>Landing Module</h1>-->
-  <!--      <p>-->
-  <!--        This can be the landing or the welcome page of your application. If you have an SSR (Server Side Rendering) setup, or if you don't need to-->
-  <!--        have Search engine visibility and optimizations, you can even use this page as your primary landing page.-->
-  <!--      </p>-->
-  <!--      <p>-->
-  <!--        This is a separate "module", it has its own directory and routing setup and also it's completely separated from the actual application. This-->
-  <!--        is also a simple example of a multiple applications setup that uses the same codebase. You can have different entry points and essentially-->
-  <!--        have different applications within the same codebase.-->
-  <!--      </p>-->
-  <!--      <div class="card flex justify-center">-->
-  <!--        <p-button label="Check" />-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--    <div>-->
-  <!--      <a class="mt-8" mat-flat-button [color]="'primary'" [routerLink]="'/home'">-->
-  <!--        <span>Home</span>-->
-  <!--        <mat-icon class="icon-size-5 ml-2" [svgIcon]="'heroicons_mini:arrow-long-right'"></mat-icon>-->
-  <!--      </a>-->
-  <!--    </div>-->
-  <!--  </div>-->
+  <!-- Features Section -->
+  <div class="bg-white py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:text-center">
+        <h2 class="text-pink-450 text-base font-semibold leading-7">Theo dõi chu kỳ thai kỳ</h2>
+        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mọi thứ bạn cần cho hành trình mang thai</p>
+        <p class="mt-6 text-lg leading-8 text-gray-600">
+          Pregnancy Journal giúp bạn dễ dàng theo dõi sự phát triển của thai nhi, ghi lại các mốc quan trọng, và nhận lời khuyên từ các chuyên gia.
+        </p>
+      </div>
+      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
+        <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              Theo dõi sự phát triển của thai nhi
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">Cập nhật hàng tuần về sự phát triển của em bé và những thay đổi của cơ thể mẹ.</dd>
+          </div>
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"
+                  />
+                </svg>
+              </div>
+              Lời khuyên của chuyên gia
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">
+              Nhận lời khuyên từ các bác sĩ sản khoa, chuyên gia dinh dưỡng và các chuyên gia khác.
+            </dd>
+          </div>
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"
+                  />
+                </svg>
+              </div>
+              Nhật ký thai kỳ
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">Ghi lại các khoảnh khắc đặc biệt, cảm giác và mốc quan trọng trong suốt thai kỳ.</dd>
+          </div>
+          <div class="relative pl-16">
+            <dt class="text-base font-semibold leading-7 text-gray-900">
+              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">
+                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                  />
+                </svg>
+              </div>
+              Cộng đồng hỗ trợ
+            </dt>
+            <dd class="mt-2 text-base leading-7 text-gray-600">
+              Kết nối với các bà mẹ khác, chia sẻ trải nghiệm và nhận sự hỗ trợ trong hành trình làm mẹ.
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial Section -->
+  <div class="bg-pink-50 py-24 sm:py-32">
+    <div class="mx-auto max-w-7xl px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:text-center">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Được tin dùng bởi hơn 10,000 bà mẹ</h2>
+        <p class="mt-6 text-lg leading-8 text-gray-600">Xem những gì các bà mẹ khác nói về trải nghiệm của họ với Pregnancy Journal</p>
+      </div>
+
+      <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+        <!-- Testimonial 1 -->
+        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">
+          <div class="mb-4 flex items-center gap-x-4">
+            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-01.jpg" alt="User avatar" />
+            <div>
+              <h3 class="text-lg font-semibold">Thanh Mai</h3>
+              <p class="text-sm text-gray-600">Mẹ của bé Minh, 2 tháng tuổi</p>
+            </div>
+          </div>
+          <p class="text-gray-700">
+            "Pregnancy Journal đã giúp tôi theo dõi thai kỳ một cách dễ dàng. Những lời khuyên hữu ích và cộng đồng tuyệt vời!"
+          </p>
+          <div class="mt-4 flex">
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">
+          <div class="mb-4 flex items-center gap-x-4">
+            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-11.jpg" alt="User avatar" />
+            <div>
+              <h3 class="text-lg font-semibold">Hoài An</h3>
+              <p class="text-sm text-gray-600">Mẹ bầu tháng thứ 7</p>
+            </div>
+          </div>
+          <p class="text-gray-700">
+            "Tôi đã sử dụng ứng dụng này từ tuần đầu tiên mang thai. Thông tin chính xác và lời khuyên của chuyên gia rất hữu ích."
+          </p>
+          <div class="mt-4 flex">
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">
+          <div class="mb-4 flex items-center gap-x-4">
+            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-18.jpg" alt="User avatar" />
+            <div>
+              <h3 class="text-lg font-semibold">Minh Thư</h3>
+              <p class="text-sm text-gray-600">Mẹ của bé Linh, 4 tháng tuổi</p>
+            </div>
+          </div>
+          <p class="text-gray-700">
+            "Tôi thích cách ứng dụng đưa ra các lời nhắc và thông tin liên quan đến từng giai đoạn thai kỳ. Đây thực sự là người bạn đồng hành tuyệt
+            vời!"
+          </p>
+          <div class="mt-4 flex">
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+              <path
+                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial View More Button -->
+      <div class="mt-12 flex justify-center">
+        <a
+          href="#"
+          class="bg-pink-450 inline-flex items-center justify-center rounded-md border border-transparent px-5 py-3 text-base font-medium text-white transition-colors hover:bg-pink-500"
+        >
+          Xem thêm đánh giá
+          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <div class="bg-white">
+    <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">
+      <div
+        class="bg-pink-450 relative isolate overflow-hidden px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"
+      >
+        <svg
+          viewBox="0 0 1024 1024"
+          class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"
+          aria-hidden="true"
+        >
+          <circle cx="512" cy="512" r="512" fill="url(#gradient)" fill-opacity="0.7" />
+          <defs>
+            <radialGradient id="gradient">
+              <stop stop-color="white" />
+              <stop offset="1" stop-color="white" />
+            </radialGradient>
+          </defs>
+        </svg>
+        <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">
+          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Bắt đầu hành trình làm mẹ<br />của bạn ngay hôm nay</h2>
+          <p class="mt-6 text-lg leading-8 text-gray-50">
+            Đăng ký ngay để sử dụng đầy đủ các tính năng của Pregnancy Journal và nhận hỗ trợ tốt nhất trong suốt thai kỳ của bạn.
+          </p>
+          <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">
+            <a
+              routerLink="/sign-up"
+              class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-pink-500 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+              >Đăng ký ngay</a
+            >
+            <a routerLink="/features" class="text-sm font-semibold leading-6 text-white">Tìm hiểu thêm <span aria-hidden="true">→</span></a>
+          </div>
+        </div>
+        <div class="relative mt-16 h-80 lg:mt-8">
+          <img
+            class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"
+            src="/images/logo/logo.svg"
+            alt="App screenshot"
+            width="1824"
+            height="1080"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!--<div class="-z-10">-->
-<!--  <div-->
-<!--    class="absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-violet-400/75 via-pink-500/75 to-red-300/75 leading-5"-->
-<!--  ></div>-->
-<!--  <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320">-->
-<!--    <path-->
-<!--      fill="#ff597d"-->
-<!--      fill-opacity="1"-->
-<!--      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"-->
-<!--    ></path>-->
-<!--  </svg>-->
-<!--  <svg-->
-<!--    class="pointer-events-none absolute inset-0"-->
-<!--    viewBox="0 0 960 540"-->
-<!--    width="100%"-->
-<!--    height="100%"-->
-<!--    preserveAspectRatio="xMidYMax slice"-->
-<!--    xmlns="http://www.w3.org/2000/svg"-->
-<!--  >-->
-<!--    <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">-->
-<!--      <circle r="234" cx="196" cy="23"></circle>-->
-<!--      <circle r="234" cx="790" cy="491"></circle>-->
-<!--    </g>-->
-<!--  </svg>-->
-<!--</div>-->

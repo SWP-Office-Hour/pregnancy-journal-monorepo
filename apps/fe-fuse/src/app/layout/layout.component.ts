@@ -9,6 +9,7 @@ import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { EmptyLayoutComponent } from './layouts/empty/empty.component';
 import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.component';
+import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 
 @Component({
   selector: 'layout',
@@ -29,6 +30,7 @@ import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.compon
     // FuturisticLayoutComponent,
     // ThinLayoutComponent,
     AdminLayoutComponent,
+    LandingLayoutComponent,
   ],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
