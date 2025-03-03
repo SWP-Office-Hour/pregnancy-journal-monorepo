@@ -17,6 +17,6 @@
 
 <ul class="todos">
   @for (todo of todoItems() | filterTodos: searchTerm(); track todo.id) {
-    <app-todo-item (todoToggled)="updateTodoItem($event)" [todo]="todo" />
+    <app-todo-item [id]="'todo_' + todo.id" (deleteTodo)="deleteTodo($event)" (todoToggled)="updateTodoItem($event)" [todo]="todo" />
   }
 </ul>

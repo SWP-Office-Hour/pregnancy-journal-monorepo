@@ -13,8 +13,13 @@ import { Todo } from '../../model/todo.type';
 export class TodoItemComponent {
   todo = input.required<Todo>();
   todoToggled = output<Todo>();
+  deleteTodo = output<Todo>();
 
   todoClicked() {
     this.todoToggled.emit(this.todo());
+  }
+
+  delete() {
+    this.deleteTodo.emit(this.todo());
   }
 }
