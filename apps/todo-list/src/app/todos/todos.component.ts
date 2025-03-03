@@ -46,6 +46,12 @@ export class TodosComponent implements OnInit {
     });
   }
 
+  deleteTodo(todo: Todo) {
+    this.todoItems.update((todos) => {
+      return todos.filter((_todo) => _todo == todo);
+    });
+  }
+
   updateTodoItem(todoItem: Todo) {
     this.todoItems.update((todos) => {
       return todos.map((todo) => {

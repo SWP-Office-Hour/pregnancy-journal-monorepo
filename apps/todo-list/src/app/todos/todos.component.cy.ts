@@ -11,6 +11,13 @@ describe(TodosComponent.name, () => {
     }).compileComponents();
   });
 
+  it('should delete todo item', async () => {
+    cy.mount(TodosComponent);
+    cy.get('#search_todo').clear();
+    cy.get('#todo_1 > li > button').click();
+    cy.get(`#todo_1`).should('not.exist');
+  });
+
   it('renders', () => {
     cy.mount(TodosComponent);
   });
@@ -31,5 +38,14 @@ describe(TodosComponent.name, () => {
     cy.mount(TodosComponent);
     cy.get('app-todo-item').children().first().children('input').click();
     cy.get('app-todo-item').children().first().should('have.css', 'text-decoration', 'line-through solid rgb(108, 117, 125)');
+  });
+
+  it('should found', () => {
+    cy.mount(TodosComponent);
+    cy.get('#search_todo')
+      .type('DELECTUS A')
+      .then(() => {
+        cy.get('app-todo-item').should('exist').and('have.length', 1);
+      });
   });
 });
