@@ -10,6 +10,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReminderResponse, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime, Info, Interval } from 'luxon';
+import { MiniCalendarComponent } from '../mini-calendar/mini-calendar.component';
+import { MobileCalendarComponent } from '../mobile-calendar/mobile-calendar.component';
+import { TypeOfEventInCalendarComponent } from '../type-of-event-in-calendar/type-of-event-in-calendar.component';
 import { CalendarService } from './calendar.service';
 import { ReminderEditorComponent } from './reminder-editor/reminder-editor.component';
 
@@ -25,6 +28,9 @@ import { ReminderEditorComponent } from './reminder-editor/reminder-editor.compo
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
+    MobileCalendarComponent,
+    MiniCalendarComponent,
+    TypeOfEventInCalendarComponent,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
