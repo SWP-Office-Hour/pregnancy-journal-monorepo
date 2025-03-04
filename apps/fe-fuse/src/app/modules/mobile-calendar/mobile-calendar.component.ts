@@ -107,6 +107,9 @@ export class MobileCalendarComponent implements OnInit {
     const today = new Date();
     return date.toDateString() === today.toDateString();
   }
+  isMonth(date: Date): boolean {
+    return this.currentDate ? date.getMonth() === this.currentDate.getMonth() && date.getFullYear() === this.currentDate.getFullYear() : false;
+  }
 
   hasEvents(date: Date): boolean {
     return this.events.some((event) => event.date.toDateString() === date.toDateString());
