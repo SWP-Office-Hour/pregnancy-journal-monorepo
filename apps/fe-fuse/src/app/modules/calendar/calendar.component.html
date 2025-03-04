@@ -197,10 +197,180 @@
 <!--</div>-->
 <div class="grid h-full w-full grid-cols-6 overflow-hidden">
   <div class="bg-card h-c-vh col-span-1 hidden lg:flex">
-    <div class="flex flex-auto flex-col overflow-hidden overflow-y-scroll p-4" id="custom-scrollbar">
-      <app-mini-calendar></app-mini-calendar>
+    <div class="flex flex-auto flex-col overflow-y-auto p-6" style="scrollbar-width: none; -ms-overflow-style: none" id="custom-scrollbar">
+      <!--      Minicalendar-->
+      <div class="container mb-4 w-full max-w-4xl">
+        <div class="mb-2 flex w-full items-center justify-between">
+          <h2 class="text-xl font-semibold text-gray-800">{{ currentDate | date: 'MMMM yyyy' }}</h2>
+          <div class="">
+            <button (click)="navigateMonth(-1)" class="rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Previous month">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+
+            <button (click)="navigateMonth(1)" class="-mr-2 rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Next month">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="mb-2 grid grid-cols-7 gap-1 text-center">
+          <div *ngFor="let day of weekDays" class="text-sm font-medium text-gray-600">
+            {{ day }}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-7 gap-1">
+          <div
+            *ngFor="let date of calendarDays"
+            [class.bg-pink-50]="isSelected(date)"
+            [class.!text-pink-450]="isSelected(date)"
+            [class.bg-pink-450]="isToday(date)"
+            [class.text-white]="isToday(date)"
+            (click)="selectDate(date)"
+            class="aspect-square cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.02] hover:bg-gray-100"
+            [attr.aria-selected]="isSelected(date)"
+          >
+            <div class="flex h-full items-center justify-center">
+              <span class="text-sm md:text-base" [class.font-bold]="isToday(date)">
+                {{ date | date: 'd' }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--      <app-mini-calendar></app-mini-calendar>-->
       <app-type-of-event-in-calendar></app-type-of-event-in-calendar>
     </div>
   </div>
-  <div class="col-span-6 p-4 lg:col-span-5"><app-mobile-calendar></app-mobile-calendar></div>
+
+  <!--  Mobile Calendar-->
+  <div class="col-span-6 p-4 lg:col-span-5">
+    <div class="flex h-full w-full flex-col justify-between rounded-xl bg-white p-6 shadow-lg">
+      <div class="flex w-full items-center justify-between">
+        <div class="flex items-center">
+          <button (click)="navigateMonth(-1)" class="rounded-lg p-2 transition-all hover:bg-purple-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button (click)="navigateMonth(1)" class="rounded-lg p-2 transition-all hover:bg-purple-50">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+          <h2 class="text-xl font-semibold">{{ currentDate | date: 'MMMM yyyy' }}</h2>
+        </div>
+        <p-button label="Hôm nay" variant="text" variant="outlined" [rounded]="true" severity="secondary" />
+      </div>
+
+      <div class="grid flex-auto grid-cols-1 gap-4 lg:grid-cols-7">
+        <div class="flex h-full flex-col pb-4 lg:col-span-5">
+          <div class="mb-4 grid grid-cols-7 gap-2">
+            <div *ngFor="let day of weekDays" class="py-2 text-center font-medium text-gray-500">{{ day }}</div>
+          </div>
+          <div class="grid h-full grid-cols-7 grid-rows-6 gap-1 rounded-lg">
+            <div
+              *ngFor="let date of calendarDays"
+              [ngClass]="{
+                'text-gray-300': !isMonth(date),
+                '!bg-pink-50': isSelected(date),
+                '!bg-white shadow-md': isToday(date),
+              }"
+              class="relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-white transition-all hover:bg-gray-50 hover:shadow-lg hover:shadow-pink-500/50"
+              (click)="selectDate(date)"
+            >
+              <span
+                [ngClass]="{
+                  'text-pink-450 font-semibold': isMonth(date),
+                  'text-2xl': isToday(date),
+                }"
+                >{{ date | date: 'd' }}
+              </span>
+              <div class="absolute bottom-2 left-0 right-0 flex items-center justify-center text-sm">
+                <div *ngIf="hasEvents(date)">{{ events.length }} lịch hẹn</div>
+              </div>
+              @if (isToday(date)) {
+                <img class="-rotate-15 absolute -right-6 -top-6 w-20" src="/images/ui/doodles/d9.svg" alt="doobles background" />
+                <img class="absolute -left-6 -top-5 w-20 -rotate-6" src="/images/ui/doodles/d17.svg" alt="doobles background" />
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="my-2 mb-4 rounded-xl p-4 shadow-xl lg:col-span-2">
+          <h3 class="mb-4 text-xl font-semibold">Lịch hẹn {{ selectedDate | date: 'mediumDate' }}</h3>
+          <div *ngIf="selectedDateEvents.length === 0" class="py-4 text-center text-gray-500">No events scheduled for this date</div>
+          <div *ngFor="let event of selectedDateEvents" class="mb-3 last:mb-0">
+            <div [ngClass]="getEventTypeClass(event.type)" class="rounded-lg p-3">
+              <div class="flex items-start justify-between text-sm">
+                <div>
+                  <span class="rounded-full px-2 py-1 text-sm font-medium" [ngClass]="getEventTagClass(event.type)">{{ event.type }}</span>
+                  <h4 class="mt-2 font-medium">{{ event.title }}</h4>
+                  <p class="mt-1 text-gray-600">{{ event.time }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button
+        (click)="openCreateEventModal()"
+        class="w-full transform rounded-lg bg-gradient-to-b from-pink-500 to-pink-400 py-3 text-white transition-all hover:scale-[1.01] active:scale-[0.99]"
+      >
+        Tạo nhắc nhở
+      </button>
+
+      <div *ngIf="showEventModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+        <div class="w-full max-w-md rounded-xl bg-white p-6">
+          <h3 class="mb-4 text-xl font-semibold">Create New Event</h3>
+          <form (ngSubmit)="createEvent()" #eventForm="ngForm">
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Title</label>
+              <input
+                type="text"
+                [(ngModel)]="newEvent.title"
+                name="title"
+                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                required
+              />
+            </div>
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Type</label>
+              <select
+                [(ngModel)]="newEvent.type"
+                name="type"
+                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+              >
+                <option value="All Day Event">All Day Event</option>
+                <option value="Conference">Conference</option>
+                <option value="Dinner">Dinner</option>
+              </select>
+            </div>
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Time</label>
+              <input
+                type="time"
+                [(ngModel)]="newEvent.time"
+                name="time"
+                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                required
+              />
+            </div>
+            <div class="flex justify-end gap-4">
+              <button type="button" (click)="closeCreateEventModal()" class="rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100">
+                Cancel
+              </button>
+              <button type="submit" class="rounded-lg bg-purple-500 px-4 py-2 text-white transition-all hover:bg-purple-600">Create Event</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
