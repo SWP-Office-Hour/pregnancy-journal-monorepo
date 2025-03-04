@@ -281,22 +281,30 @@
                 '!bg-pink-50': isSelected(date),
                 '!bg-white shadow-md': isToday(date),
               }"
-              class="relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-white transition-all hover:bg-gray-50 hover:shadow-lg hover:shadow-pink-500/50"
+              class="min-h-15 relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-white transition-all hover:bg-gray-50 hover:shadow-lg hover:shadow-pink-500/50 md:h-20"
               (click)="selectDate(date)"
             >
               <span
                 [ngClass]="{
                   'text-pink-450 font-semibold': isMonth(date),
-                  'text-2xl': isToday(date),
+                  'lg:text-2xl': isToday(date),
                 }"
                 >{{ date | date: 'd' }}
               </span>
-              <div class="absolute bottom-2 left-0 right-0 flex items-center justify-center text-sm">
+              <div class="absolute bottom-2 left-0 right-0 hidden items-center justify-center text-sm lg:flex">
                 <div *ngIf="hasEvents(date)">{{ events.length }} lịch hẹn</div>
               </div>
               @if (isToday(date)) {
-                <img class="-rotate-15 absolute -right-6 -top-6 w-20" src="/images/ui/doodles/d9.svg" alt="doobles background" />
-                <img class="absolute -left-6 -top-5 w-20 -rotate-6" src="/images/ui/doodles/d17.svg" alt="doobles background" />
+                <img
+                  class="-rotate-15 w-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6"
+                  src="/images/ui/doodles/d9.svg"
+                  alt="doobles background"
+                />
+                <img
+                  class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5"
+                  src="/images/ui/doodles/d17.svg"
+                  alt="doobles background"
+                />
               }
             </div>
           </div>
