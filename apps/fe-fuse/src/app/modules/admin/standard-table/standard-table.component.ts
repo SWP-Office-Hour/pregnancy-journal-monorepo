@@ -64,9 +64,9 @@ import { environment } from '../../../../environments/environment';
 })
 export class StandardTableComponent implements OnInit {
   currentMetric = model<HealthMetric>();
-
+  isLoadingStandard = model<boolean>();
   // Component state
-  isLoading = false;
+  // isLoading = false;
   standardDialogToggle = false;
   isSubmittedForm = false;
 
@@ -101,7 +101,7 @@ export class StandardTableComponent implements OnInit {
       return { metricId: this.currentMetric().metric_id };
     },
     loader: async ({ request, abortSignal }) => {
-      this.isLoading = true;
+      this.isLoadingStandard.set(true);
       try {
         console.log('Fetching standards for metric:', request!.metricId);
         const response = await fetch(`${environment.apiUrl}standards/${request!.metricId}`, {
@@ -115,7 +115,7 @@ export class StandardTableComponent implements OnInit {
         this.notifyError(error);
         return [];
       } finally {
-        this.isLoading = false;
+        this.isLoadingStandard.set(false);
       }
     },
   });
@@ -266,7 +266,7 @@ export class StandardTableComponent implements OnInit {
   }
 
   async saveBatchToServer(): Promise<void> {
-    this.isLoading = true;
+    this.isLoadingStandard.set(true);
     const successCount = 0;
     const failCount = 0;
 
@@ -308,7 +308,7 @@ export class StandardTableComponent implements OnInit {
     } catch (error) {
       this.notifyError(error);
     } finally {
-      this.isLoading = false;
+      this.isLoadingStandard.set(false);
     }
   }
 
@@ -406,7 +406,7 @@ export class StandardTableComponent implements OnInit {
   }
 
   private async saveStandardToServer(standard: Standard, method: string, actionType: string): Promise<void> {
-    this.isLoading = true;
+    this.isLoadingStandard.set(true);
 
     try {
       const response = await fetch(`${environment.apiUrl}standards`, {
@@ -438,12 +438,12 @@ export class StandardTableComponent implements OnInit {
     } catch (error) {
       this.notifyError(error);
     } finally {
-      this.isLoading = false;
+      this.isLoadingStandard.set(false);
     }
   }
 
   private async deleteStandardFromServer(standardId: string): Promise<void> {
-    this.isLoading = true;
+    this.isLoadingStandard.set(true);
 
     try {
       const response = await fetch(`${environment.apiUrl}standards/${standardId}`, {
@@ -465,7 +465,7 @@ export class StandardTableComponent implements OnInit {
     } catch (error) {
       this.notifyError(error);
     } finally {
-      this.isLoading = false;
+      this.isLoadingStandard.set(false);
     }
   }
 

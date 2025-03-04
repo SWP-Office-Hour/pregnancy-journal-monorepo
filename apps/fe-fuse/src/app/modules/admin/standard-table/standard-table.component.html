@@ -1,11 +1,6 @@
 <!--standard-table.component.html-->
-@if (isLoading) {
-  <div class="absolute inset-x-0 top-0">
-    <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
-  </div>
-}
 
-<div class="w-full bg-red-500" *ngIf="!isLoading" @expandCollapse [fuseScrollbar]="false">
+<div class="w-full bg-red-500" *ngIf="!isLoadingStandard()" @expandCollapse [fuseScrollbar]="false">
   <div class="mb-6 flex items-center">
     <!--    <p-select [options]="metricsResource.value()" optionLabel="title" placeholder="Select a Metric" class="mr-4 w-72" [(ngModel)]="currentMetric">-->
     <!--    </p-select>-->
@@ -135,7 +130,7 @@
       [tableStyle]="{ 'min-width': '75rem' }"
       currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
       dataKey="standard_id"
-      [loading]="isLoading"
+      [loading]="isLoadingStandard()"
     >
       <ng-template #caption>
         <div class="flex items-center justify-between">
