@@ -93,7 +93,6 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'blog',
-        component: LayoutComponent,
         canActivate: [blogNoAuthGuard],
         loadChildren: () => blogMasonryRoutes,
       },
