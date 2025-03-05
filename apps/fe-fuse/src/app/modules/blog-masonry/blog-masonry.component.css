@@ -42,3 +42,21 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.landing-page {
+  /* Add padding to account for fixed header */
+  padding-top: 4.5rem !important; /* Default padding for smaller screens */
+}
+
+/* Responsive adjustments for the landing page padding */
+@media (min-width: 640px) {
+  .landing-page {
+    padding-top: 5rem !important; /* More padding for sm screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .landing-page {
+    padding-top: 5.5rem !important; /* Even more padding for lg screens */
+  }
+}

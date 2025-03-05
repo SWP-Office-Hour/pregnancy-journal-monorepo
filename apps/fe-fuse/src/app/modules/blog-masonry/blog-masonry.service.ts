@@ -8,7 +8,14 @@ export class BlogMasonryService {
   constructor(private _httpClient: HttpClient) {}
 
   getBlogs(categoryId: string) {
-    return this._httpClient.get<{ blogs: BlogResponseType[]; total_page: number }>(environment.apiUrl + 'blogs');
+    if (!categoryId) {
+      return this._httpClient.get<{ blogs: BlogResponseType[]; total_page: number }>(environment.apiUrl + 'blogs');
+    } else {
+      return this._httpClient.get<{
+        blogs: BlogResponseType[];
+        total_page: number;
+      }>(environment.apiUrl + 'blogs/category/' + categoryId);
+    }
   }
 
   getCategories() {

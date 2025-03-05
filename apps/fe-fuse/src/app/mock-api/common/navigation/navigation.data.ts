@@ -139,6 +139,13 @@ export const adminNavigation: FuseNavigationItem[] = [
 
 export const landingNavigation: FuseNavigationItem[] = [
   {
+    id: 'sign-in',
+    title: 'Sign In',
+    type: 'basic',
+    icon: 'heroicons_outline:identification',
+    link: '/sign-in',
+  },
+  {
     id: 'blog',
     title: 'Blog',
     type: 'basic',

@@ -13,6 +13,7 @@ import { CalendarService } from './modules/calendar/calendar.service';
 import { ChangePasswordComponent } from './modules/change-password/change-password.component';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
+import { FeaturesComponent } from './modules/features/features.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
 import { postRoutes } from './modules/post/post.routes';
@@ -58,16 +59,6 @@ export const appRoutes: Route[] = [
     ],
   },
 
-  {
-    path: 'blog',
-    component: LayoutComponent,
-    canActivate: [blogNoAuthGuard],
-    data: {
-      layout: 'landing', // Changed from 'empty' to 'landing'
-    },
-    loadChildren: () => blogMasonryRoutes,
-  },
-
   // Auth routes for authenticated users
   {
     path: '',
@@ -98,7 +89,13 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'features',
-        redirectTo: 'landing', // Temporary redirect until features page is created
+        loadComponent: () => FeaturesComponent,
+      },
+      {
+        path: 'blog',
+        component: LayoutComponent,
+        canActivate: [blogNoAuthGuard],
+        loadChildren: () => blogMasonryRoutes,
       },
     ],
   },
