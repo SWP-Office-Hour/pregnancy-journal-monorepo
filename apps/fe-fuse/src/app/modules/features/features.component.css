@@ -1,0 +1,32 @@
+.features-page {
+  padding-top: 4.5rem; /* Default padding for smaller screens */
+}
+
+@media (min-width: 640px) {
+  .features-page {
+    padding-top: 5rem; /* More padding for sm screens */
+  }
+}
+
+@media (min-width: 1024px) {
+  .features-page {
+    padding-top: 5.5rem; /* Even more padding for lg screens */
+  }
+}
+
+.feature-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  width: 3rem;
+  height: 3rem;
+}
+
+.feature-section:nth-child(odd) .feature-icon-circle {
+  background: linear-gradient(to right, #ec4899, #f472b6);
+}
+
+.feature-section:nth-child(even) .feature-icon-circle {
+  background: linear-gradient(to right, #8b5cf6, #a78bfa);
+}

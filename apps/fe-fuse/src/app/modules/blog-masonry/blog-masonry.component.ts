@@ -1,12 +1,13 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BlogResponseType, CategoryResponse } from '@pregnancy-journal-monorepo/contract';
+import { AuthService } from '../../core/auth/auth.service';
 import { BlogMasonryService } from './blog-masonry.service';
 
 @Component({
   selector: 'app-blog-masonry',
-  imports: [RouterLink, DatePipe, CommonModule],
+  imports: [RouterLink, DatePipe, CommonModule, NgClass],
   templateUrl: './blog-masonry.component.html',
   styleUrl: './blog-masonry.component.css',
 })
@@ -16,7 +17,10 @@ export class BlogMasonryComponent implements OnInit {
 
   selectedCategory: string = '';
 
-  constructor(private blogService: BlogMasonryService) {}
+  constructor(
+    private blogService: BlogMasonryService,
+    private _authService: AuthService,
+  ) {}
 
   ngOnInit(): void {
     this.loadCategories();
@@ -44,5 +48,9 @@ export class BlogMasonryComponent implements OnInit {
   filterByCategory(categoryId: string): void {
     this.selectedCategory = categoryId;
     this.loadBlogs(categoryId);
+  }
+
+  isLandingPage() {
+    return !this._authService.accessToken;
   }
 }
