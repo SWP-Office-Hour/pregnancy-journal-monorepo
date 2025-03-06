@@ -26,7 +26,7 @@ const dashboardRevenueResSchema = z.array(
   }),
 );
 
-const githubIssues = z.object({
+const githubIssuesSchema = z.object({
   overview: z.object({
     data: z.object({
       newIssues: z.number(),
@@ -45,7 +45,7 @@ const githubIssues = z.object({
   }),
 });
 
-const taskDistribution = z.object({
+const taskDistributionSchema = z.object({
   overview: z.object({
     data: z.object({
       new: z.number(),
@@ -58,7 +58,7 @@ const taskDistribution = z.object({
   }),
 });
 
-const schedule = z.object({
+const scheduleSchema = z.object({
   today: z.array(
     z.object({
       title: z.string(),
@@ -68,6 +68,17 @@ const schedule = z.object({
   ),
 });
 
+const projectSchema = z.object({
+  githubIssues: githubIssuesSchema,
+  taskDistribution: taskDistributionSchema,
+  schedule: scheduleSchema,
+});
+
+export type GithubIssuesType = z.infer<typeof githubIssuesSchema>;
+export type TaskDistribution = z.infer<typeof taskDistributionSchema>;
+export type Schedule = z.infer<typeof scheduleSchema>;
+export type Project = z.infer<typeof projectSchema>;
+
 const c = initContract();
 
 export const dashboardContract = c.router({
@@ -76,7 +87,7 @@ export const dashboardContract = c.router({
     path: '/admin/dashboard',
     description: 'Get dashboard data about users, revenue, and blogs',
     responses: {
-      200: dashboardResSchema,
+      200: projectSchema,
       400: z.object({
         message: z.string(),
       }),
