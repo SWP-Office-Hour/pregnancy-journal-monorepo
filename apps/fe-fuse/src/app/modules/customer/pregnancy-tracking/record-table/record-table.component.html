@@ -57,7 +57,6 @@
       (onRowCollapse)="onRowCollapse($event)"
       styleClass="p-datatable-sm"
       [rowHover]="true"
-      [responsive]="true"
     >
       <ng-template pTemplate="header">
         <tr class="bg-gray-50">
@@ -78,7 +77,6 @@
               [pRowToggler]="row"
               [text]="true"
               [rounded]="true"
-              [plain]="true"
               [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
               styleClass="text-pink-500 hover:text-pink-600 focus:shadow-none"
             />
