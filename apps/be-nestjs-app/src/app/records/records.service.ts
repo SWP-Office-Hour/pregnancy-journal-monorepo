@@ -138,7 +138,7 @@ export class RecordsService {
     };
   }
 
-  async checkRecordValue({
+  private async checkRecordValue({
     value,
     metric_id,
     userExpectBirthDate,
@@ -156,25 +156,39 @@ export class RecordsService {
 
     const metric = await this.dataService.Metric.findUnique({
       where: { metric_id },
-      include: {
-        standard: {
-          where: {
-            week,
-          },
-        },
-      },
     });
 
     if (!metric) {
-      throw new NotFoundException('Metric not found');
-    }
-
-    if (!metric.standard || metric.standard.length === 0) {
       return null;
     }
 
-    if (value < metric.standard[0].lowerbound || value > metric.standard[0].upperbound) {
-      return metric.tag_id;
+    const standards = await this.dataService.Standard.findMany({
+      where: { metric_id },
+      orderBy: { week: 'asc' }, // Ensure standards are sorted
+    });
+
+    if (standards.length === 0) {
+      return null;
+    }
+
+    // Handle case where week is before first standard
+    if (week < standards[0].week) {
+      return null;
+    }
+
+    // Find exact match first
+    const exactMatch = standards.find((s) => s.week === week);
+    if (exactMatch) {
+      const { lowerbound, upperbound } = exactMatch;
+      return value < lowerbound || value > upperbound ? metric.tag_id : null;
+    }
+
+    // Find the last standard with week less than current week
+    const applicableStandard = standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0]; // Get the highest applicable week
+
+    if (applicableStandard) {
+      const { lowerbound, upperbound } = applicableStandard;
+      return value < lowerbound || value > upperbound ? metric.tag_id : null;
     }
 
     return null;
@@ -266,6 +280,7 @@ export class RecordsService {
   }
 
   async updateRecord(record: RecordUpdateRequest) {
+    // Check if record exists
     const newRecord = await this.dataService.Record.update({
       where: { visit_record_id: record.visit_record_id },
       data: {
@@ -275,6 +290,7 @@ export class RecordsService {
       },
     });
 
+    // Update reminder
     if (record.next_visit_doctor_date) {
       await this.reminderService.updateByNextVisitDoctorDate({
         next_visit_doctor_date: record.next_visit_doctor_date,
@@ -283,37 +299,63 @@ export class RecordsService {
       });
     }
 
+    // Update record metric
     if (record.data) {
-      for (const data of record.data) {
+      for (const record_metric of record.data) {
+        // Check if metric exists
         const metric = await this.dataService.Metric.findUnique({
-          where: { metric_id: data.metric_id },
+          where: { metric_id: record_metric.metric_id },
         });
         if (!metric) {
           throw new NotFoundException('Metric not found');
         }
 
+        // Check if user exists
         const user = await this.userService.getUserById(newRecord.user_id);
         if (!user) {
           throw new NotFoundException('User not found');
         }
 
+        // Check if this record metric should have a tag
         const tag_id = await this.checkRecordValue({
-          value: data.value,
-          metric_id: data.metric_id,
+          value: record_metric.value,
+          metric_id: record_metric.metric_id,
           userExpectBirthDate: user.expected_birth_date,
           visit_doctor_date: new Date(newRecord.visit_doctor_date),
         });
 
-        await this.dataService.RecordMetric.updateMany({
+        // Check if this record metric already exists
+        const is_existed = await this.dataService.RecordMetric.findFirst({
           where: {
-            metric_id: data.metric_id,
+            metric_id: record_metric.metric_id,
             visit_record_id: record.visit_record_id,
           },
-          data: {
-            value: data.value,
-            tag_id: tag_id ? tag_id : null,
-          },
         });
+
+        // Create record metric if not existed
+        if (!is_existed) {
+          await this.dataService.RecordMetric.create({
+            data: {
+              value: record_metric.value,
+              created_at: new Date(),
+              updated_at: new Date(),
+              metric_id: record_metric.metric_id,
+              visit_record_id: record.visit_record_id,
+              tag_id: tag_id ? tag_id : null,
+            },
+          });
+        } else {
+          // Update record metric if existed
+          await this.dataService.RecordMetric.update({
+            where: {
+              visit_record_metric_id: is_existed.visit_record_metric_id,
+            },
+            data: {
+              value: record_metric.value,
+              tag_id: tag_id ? tag_id : null,
+            },
+          });
+        }
       }
       return await this.getRecordById(record.visit_record_id);
     }
@@ -355,5 +397,74 @@ export class RecordsService {
       }),
     ]);
     return { message: 'Record deleted' };
+  }
+
+  /**
+   * Updates record metrics data within a transaction
+   */
+  private async updateRecordMetrics(
+    visitRecordId: string,
+    metricsData: Array<{ metric_id: string; value: number }>,
+    userExpectBirthDate: Date,
+    visitDoctorDate: Date,
+  ): Promise<void> {
+    // Fetch all metrics at once to validate
+    const metricIds = metricsData.map((m) => m.metric_id);
+    const metrics = await this.dataService.Metric.findMany({
+      where: { metric_id: { in: metricIds } },
+    });
+
+    if (metrics.length !== metricIds.length) {
+      throw new NotFoundException('One or more metrics not found');
+    }
+
+    // Get existing record metrics to determine create vs update
+    const existingMetrics = await this.dataService.RecordMetric.findMany({
+      where: {
+        visit_record_id: visitRecordId,
+        metric_id: { in: metricIds },
+      },
+    });
+
+    const existingMetricMap = new Map(existingMetrics.map((m) => [m.metric_id, m]));
+
+    // Process each metric
+    for (const metricData of metricsData) {
+      // Check value and determine tag
+      const tagId = await this.checkRecordValue({
+        value: metricData.value,
+        metric_id: metricData.metric_id,
+        userExpectBirthDate: userExpectBirthDate,
+        visit_doctor_date: visitDoctorDate,
+      });
+
+      const existingMetric = existingMetricMap.get(metricData.metric_id);
+
+      if (existingMetric) {
+        // Update existing metric
+        await this.dataService.RecordMetric.update({
+          where: {
+            visit_record_metric_id: existingMetric.visit_record_metric_id,
+          },
+          data: {
+            value: metricData.value,
+            tag_id: tagId || null,
+            updated_at: new Date(),
+          },
+        });
+      } else {
+        // Create new metric
+        await this.dataService.RecordMetric.create({
+          data: {
+            value: metricData.value,
+            created_at: new Date(),
+            updated_at: new Date(),
+            metric_id: metricData.metric_id,
+            visit_record_id: visitRecordId,
+            tag_id: tagId || null,
+          },
+        });
+      }
+    }
   }
 }

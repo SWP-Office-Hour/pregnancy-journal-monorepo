@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Standard } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -83,6 +83,14 @@ export class PregnancyTrackingService {
           return this._metrics;
         }),
       );
+  }
+
+  getStandardValue({ week, metric_id }: { metric_id: string; week: number }) {
+    return this._httpClient.get<Standard[]>(environment.apiUrl + 'standards/' + metric_id).pipe(
+      map((res: Standard[]) => {
+        return res.find((standard) => standard.week === week);
+      }),
+    );
   }
 
   deleteImage(id: string) {
