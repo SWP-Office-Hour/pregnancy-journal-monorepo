@@ -1,0 +1,111 @@
+<div class="relative flex min-w-0 flex-auto flex-col overflow-hidden">
+  <!-- Header & Cards -->
+  <div class="relative overflow-hidden px-6 pb-12 pt-8 sm:px-16 sm:pb-24 sm:pt-20">
+    <!-- Background -->
+    <!-- prettier-ignore -->
+    <svg class="-z-1 absolute inset-0"
+         viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+      <g class="opacity-40 text-gray-200 dark:text-gray-800" fill="none" stroke="currentColor" stroke-width="100">
+        <circle r="234" cx="196" cy="23"></circle>
+        <circle r="234" cx="790" cy="491"></circle>
+      </g>
+    </svg>
+    <!-- Header -->
+    <div class="flex flex-col items-center">
+      <h2 class="text-xl font-semibold">PRICING</h2>
+      <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">Take control of your productivity</div>
+      <div class="text-secondary mt-3 text-center tracking-tight sm:text-2xl">
+        <div class="">Start small and free, upgrade as you go.</div>
+        <div class="">Take control of everything.</div>
+      </div>
+      <!-- ĐÂY LÀ MONTHLY / YEAR ĐỒ  -->
+      <!--      <div class="mt-8 flex items-center overflow-hidden rounded-full bg-gray-200 p-0.5 sm:mt-16 dark:bg-gray-700">-->
+      <!--        <button-->
+      <!--          class="px-6"-->
+      <!--          [ngClass]="{-->
+      <!--            'bg-card pointer-events-none shadow': yearlyBilling,-->
+      <!--            'bg-transparent': !yearlyBilling,-->
+      <!--          }"-->
+      <!--          mat-flat-button-->
+      <!--          (click)="yearlyBilling = true"-->
+      <!--          disableRipple-->
+      <!--        >-->
+      <!--          Yearly billing-->
+      <!--        </button>-->
+      <!--        <button-->
+      <!--          class="px-6"-->
+      <!--          [ngClass]="{-->
+      <!--            'bg-card pointer-events-none shadow': !yearlyBilling,-->
+      <!--            'bg-transparent': yearlyBilling,-->
+      <!--          }"-->
+      <!--          mat-flat-button-->
+      <!--          (click)="yearlyBilling = false"-->
+      <!--          disableRipple-->
+      <!--        >-->
+      <!--          Monthly billing-->
+      <!--        </button>-->
+      <!--      </div>-->
+    </div>
+
+    <!-- Carousel-->
+    <div class="card">
+      <div class="mt-10 flex justify-center sm:mt-20">
+        <div class="w-full max-w-sm md:max-w-7xl">
+          <p-carousel [value]="membershipResource.value()!" [numVisible]="2" [numScroll]="1" [circular]="true" autoplayInterval="3000">
+            <ng-template #item let-membership>
+              <div style="margin: 2rem">
+                <fuse-card class="ring-primary max-w-sm flex-col overflow-visible p-6 ring-2 sm:px-10 sm:py-12 md:max-w-none">
+                  <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
+                    <div class="bg-primary text-on-primary flex h-8 items-center rounded-full px-8 text-center font-medium leading-none">POPULAR</div>
+                  </div>
+                  <div class="text-4xl font-bold leading-tight tracking-tight">Premium</div>
+                  <div class="text-secondary mt-2 text-lg font-medium tracking-tight">Perfect for growing teams wanting to be in more control</div>
+                  <div class="bg-accent my-10 h-1 w-8 rounded"></div>
+                  <!-- Price -->
+                  <div class="flex items-baseline whitespace-nowrap">
+                    <div class="mr-2 text-2xl">VND</div>
+                    <div class="text-6xl font-semibold leading-tight tracking-tight">
+                      {{ membership.price }}
+                    </div>
+                  </div>
+                  <!-- Price details -->
+                  <div class="text-secondary mt-2 flex flex-col">
+                    <!--                      <div>{{ membership.price }}</div>-->
+                  </div>
+                  <!--                          &lt;!&ndash; CTA &ndash;&gt;-->
+                  <!--                          <button class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">Start a free 14-day trial</button>-->
+                  <!-- Features -->
+                  <div class="mt-12 flex flex-col">
+                    <div class="font-semibold">Personal features, plus:</div>
+                    <div class="mt-4 space-y-2">
+                      <div class="flex">
+                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                        <div class="ml-2 leading-5"><b>Unlimited</b> projects</div>
+                      </div>
+                      <div class="flex">
+                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                        <div class="ml-2 leading-5"><b>Unlimited</b> storage</div>
+                      </div>
+                      <div class="flex">
+                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                        <div class="ml-2 leading-5">Custom domains</div>
+                      </div>
+                      <div class="flex">
+                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                        <div class="ml-2 leading-5">Bulk editing</div>
+                      </div>
+                      <div class="flex">
+                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
+                        <div class="ml-2 leading-5">12 / 5 support</div>
+                      </div>
+                    </div>
+                  </div>
+                </fuse-card>
+              </div>
+            </ng-template>
+          </p-carousel>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
