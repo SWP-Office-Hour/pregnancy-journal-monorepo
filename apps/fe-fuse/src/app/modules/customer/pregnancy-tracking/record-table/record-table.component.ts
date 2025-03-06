@@ -60,7 +60,7 @@ export class RecordTableComponent implements OnInit {
       this.rows.forEach((row) => (row.records = []));
 
       this.recordsData.forEach((record) => {
-        this.rows.find((r) => r.week <= record.week)!.records.push(record);
+        this.rows.find((r) => r.week >= record.week)!.records.push(record);
       });
 
       // Store the original rows structure after populating
