@@ -31,7 +31,7 @@ export class RecordsController {
   handleGetRecordByUserId(@Req() request: RequestWithJWT) {
     return tsRestHandler(recordContract.updateRecord, async () => {
       if (!request.decoded_authorization) {
-        throw new UnauthorizedException('UnAuthorized');
+        throw new UnauthorizedException('Unauthorized');
       }
       const id = request.decoded_authorization.user_id;
       const record = await this.recordService.getRecordByUserId(id);
