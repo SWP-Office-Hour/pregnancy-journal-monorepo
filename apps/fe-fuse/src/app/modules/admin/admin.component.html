@@ -11,7 +11,7 @@
               <!-- Summary -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
                 <div class="flex items-start justify-between">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Summary</div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Tổng member</div>
                 </div>
                 <div class="mt-2 flex flex-col items-center">
                   <div class="text-7xl font-bold leading-none tracking-tight text-blue-500 sm:text-8xl">21</div>
@@ -25,17 +25,7 @@
               <!-- Overdue -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
                 <div class="flex items-start justify-between">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Overdue</div>
-                  <div class="-mr-3 -mt-2 ml-2">
-                    <button mat-icon-button [matMenuTriggerFor]="overdueMenu">
-                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:ellipsis-vertical'"></mat-icon>
-                    </button>
-                    <mat-menu #overdueMenu="matMenu">
-                      <button mat-menu-item>Yesterday</button>
-                      <button mat-menu-item>2 days ago</button>
-                      <button mat-menu-item>3 days ago</button>
-                    </mat-menu>
-                  </div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Tổng người đăng kí</div>
                 </div>
                 <div class="mt-2 flex flex-col items-center">
                   <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">17</div>
@@ -49,17 +39,7 @@
               <!-- Issues -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow">
                 <div class="flex items-start justify-between">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Issues</div>
-                  <div class="-mr-3 -mt-2 ml-2">
-                    <button mat-icon-button [matMenuTriggerFor]="issuesMenu">
-                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_mini:ellipsis-vertical'"></mat-icon>
-                    </button>
-                    <mat-menu #issuesMenu="matMenu">
-                      <button mat-menu-item>Yesterday</button>
-                      <button mat-menu-item>2 days ago</button>
-                      <button mat-menu-item>3 days ago</button>
-                    </mat-menu>
-                  </div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Số lược mua gói</div>
                 </div>
                 <div class="mt-2 flex flex-col items-center">
                   <div class="text-7xl font-bold leading-none tracking-tight text-amber-500 sm:text-8xl">24</div>
@@ -98,17 +78,16 @@
               <!--              dashboard của payment-->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Github Issues Summary</div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Biểu đồ thống kê số tiền</div>
                   <div class="mt-3 sm:ml-2 sm:mt-0">
-                    <mat-button-toggle-group value="this-week" #githubIssuesWeekSelector="matButtonToggleGroup">
-                      <mat-button-toggle value="this-week">This Week</mat-button-toggle>
+                    <mat-button-toggle-group value="data" #githubIssuesWeekSelector="matButtonToggleGroup">
+                      <mat-button-toggle value="data">This Week</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                 </div>
                 <div class="mt-8 grid w-full grid-flow-row grid-cols-1 gap-6 sm:mt-4 lg:grid-cols-2">
                   <!-- New vs. Closed -->
                   <div class="flex flex-auto flex-col">
-                    <div class="text-secondary font-medium">New vs. Closed</div>
                     <div class="flex flex-auto flex-col">
                       <apx-chart
                         class="h-80 w-full flex-auto"
@@ -119,7 +98,7 @@
                         [labels]="chartGithubIssues.labels"
                         [legend]="chartGithubIssues.legend"
                         [plotOptions]="chartGithubIssues.plotOptions"
-                        [series]="chartGithubIssues.series['this-week']"
+                        [series]="chartGithubIssues.series['data']"
                         [states]="chartGithubIssues.states"
                         [stroke]="chartGithubIssues.stroke"
                         [tooltip]="chartGithubIssues.tooltip"
@@ -137,18 +116,18 @@
                         class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-indigo-50 px-1 py-8 text-indigo-800 dark:bg-white dark:bg-opacity-5 dark:text-indigo-400"
                       >
                         <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
-                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['new-issues'] }}
+                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['newIssues'] }}
                         </div>
-                        <div class="mt-1 text-sm font-medium sm:text-lg">New Issues</div>
+                        <div class="mt-1 text-sm font-medium sm:text-lg">Tháng cao nhất</div>
                       </div>
                       <!-- Closed -->
                       <div
                         class="col-span-2 flex flex-col items-center justify-center rounded-2xl bg-green-50 px-1 py-8 text-green-800 dark:bg-white dark:bg-opacity-5 dark:text-green-500"
                       >
                         <div class="text-5xl font-semibold leading-none tracking-tight sm:text-7xl">
-                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closed-issues'] }}
+                          {{ data.githubIssues.overview[githubIssuesWeekSelector.value]['closedIssues'] }}
                         </div>
-                        <div class="mt-1 text-sm font-medium sm:text-lg">Closed</div>
+                        <div class="mt-1 text-sm font-medium sm:text-lg">Tháng thấp nhất</div>
                       </div>
                     </div>
                   </div>
@@ -157,7 +136,7 @@
               <!-- Task distribution -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Task Distribution</div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Biểu đồ số lượng gói người dùng đăng kí</div>
                 </div>
                 <div class="mt-6 flex flex-auto flex-col">
                   <apx-chart
@@ -166,7 +145,7 @@
                     [labels]="chartTaskDistribution.labels"
                     [legend]="chartTaskDistribution.legend"
                     [plotOptions]="chartTaskDistribution.plotOptions"
-                    [series]="chartTaskDistribution.series['this-week']"
+                    [series]="chartTaskDistribution.series['data']"
                     [states]="chartTaskDistribution.states"
                     [stroke]="chartTaskDistribution.stroke"
                     [theme]="chartTaskDistribution.theme"
@@ -177,26 +156,25 @@
                 <div class="-m-6 mt-4 grid grid-cols-2 divide-x border-t bg-gray-50 dark:bg-transparent">
                   <div class="flex flex-col items-center justify-center p-6 sm:p-8">
                     <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      {{ data.taskDistribution.overview['this-week']['new'] }}
+                      {{ data.taskDistribution.overview['data']['new'] }}
                     </div>
-                    <div class="text-secondary mt-1 text-center">New tasks</div>
+                    <div class="text-secondary mt-1 text-center">Số lượng của gói cao nhất</div>
                   </div>
                   <div class="flex flex-col items-center justify-center p-6 sm:p-8">
                     <div class="text-5xl font-semibold leading-none tracking-tighter">
-                      {{ data.taskDistribution.overview['this-week']['completed'] }}
+                      {{ data.taskDistribution.overview['data']['completed'] }}
                     </div>
-                    <div class="text-secondary mt-1 text-center">Completed tasks</div>
+                    <div class="text-secondary mt-1 text-center">Số lượng của gói thấp nhất</div>
                   </div>
                 </div>
               </div>
               <!-- Schedule -->
               <div class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
                 <div class="flex flex-col items-start justify-between sm:flex-row">
-                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Schedule</div>
+                  <div class="truncate text-lg font-medium leading-6 tracking-tight">Lịch sử thanh toán</div>
                   <div class="mt-3 sm:ml-2 sm:mt-0">
                     <mat-button-toggle-group value="today" #scheduleDaySelector="matButtonToggleGroup">
-                      <mat-button-toggle value="today">Today</mat-button-toggle>
-                      <mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>
+                      <mat-button-toggle value="today">Total</mat-button-toggle>
                     </mat-button-toggle-group>
                   </div>
                 </div>

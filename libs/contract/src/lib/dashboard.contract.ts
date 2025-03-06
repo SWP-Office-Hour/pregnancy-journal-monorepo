@@ -1,5 +1,7 @@
 import { initContract } from '@ts-rest/core';
+import { Info } from 'luxon';
 import { z } from 'zod';
+import weekdays = Info.weekdays;
 
 const dashboardResSchema = z.object({
   date: z.date(),
@@ -23,6 +25,48 @@ const dashboardRevenueResSchema = z.array(
     currency: z.string(),
   }),
 );
+
+const githubIssues = z.object({
+  overview: z.object({
+    data: z.object({
+      newIssues: z.number(),
+      closedIssues: z.number(),
+    }),
+  }),
+  labels: z.array(z.string()),
+  series: z.object({
+    data: z.array(
+      z.object({
+        name: z.string(),
+        type: z.string(),
+        data: z.array(z.number()),
+      }),
+    ),
+  }),
+});
+
+const taskDistribution = z.object({
+  overview: z.object({
+    data: z.object({
+      new: z.number(),
+      completed: z.number(),
+    }),
+  }),
+  labels: z.array(z.string()),
+  series: z.object({
+    data: z.array(z.number()),
+  }),
+});
+
+const schedule = z.object({
+  today: z.array(
+    z.object({
+      title: z.string(),
+      time: z.date(),
+      location: z.string().optional(),
+    }),
+  ),
+});
 
 const c = initContract();
 
