@@ -14,15 +14,17 @@ import { ImagePreviewComponent } from '../../../common/image-preview/image-previ
 })
 export class CreatePostComponent {
   @Output() postCreated = new EventEmitter<any>();
-  protected postForm: FormGroup = this._formBuilder.group({
-    content: [''],
-  });
+  protected postForm: FormGroup;
   protected images: MediaResponse[] = [];
 
   constructor(
     private _formBuilder: FormBuilder,
     protected dialogRef: MatDialogRef<CreatePostComponent>,
-  ) {}
+  ) {
+    this.postForm = this._formBuilder.group({
+      content: [''],
+    });
+  }
 
   insertImg(media: MediaResponse) {
     this.images.push(media);
