@@ -1,6 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CheckoutRequestType } from '@payos/node/lib/type';
-import { PaymentCreateRequestType, PaymentResponseType, PaymentUpdateRequestType, PayMethod, PayStatus } from '@pregnancy-journal-monorepo/contract';
+import {
+  PaymentCreateRequestType,
+  PaymentResponseWithLinkType,
+  PaymentType,
+  PaymentUpdateRequestType,
+  PayMethod,
+  PayStatus,
+} from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MembershipsService } from '../memberships/memberships.service';
 import { PayosService } from '../payos/payos.service';
@@ -15,7 +22,7 @@ export class PaymentService {
     private readonly membershipService: MembershipsService,
   ) {}
 
-  async createPayment(paymentRequest: PaymentCreateRequestType, userId: string): Promise<PaymentResponseType> {
+  async createPayment(paymentRequest: PaymentCreateRequestType, userId: string): Promise<PaymentResponseWithLinkType> {
     const user = await this.userService.getUserById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
@@ -60,6 +67,14 @@ export class PaymentService {
       data: {
         status: PayStatus.SUCCESS,
       },
+      include: {
+        membership: true,
+      },
+    });
+  }
+
+  async getAllPayments(): Promise<PaymentType[]> {
+    return await this.databaseService.Payment.findMany({
       include: {
         membership: true,
       },
