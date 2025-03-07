@@ -88,8 +88,6 @@ export class TrackingFormComponent {
       )
       .subscribe(() => {
         this._trackingService.SelectedRecordData.data.forEach((data) => {
-          console.log(data);
-          console.log(this.metrics);
           // Compare data value with standard value
           const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
           if (metric) {
@@ -133,19 +131,19 @@ export class TrackingFormComponent {
     };
 
     console.log(formData);
-    // this._trackingService.updateRecord(formData).subscribe({
-    //   next: (res) => {
-    //     this._trackingService.updateImage(visit_record_id).subscribe((res) => {
-    //       this.submitSuccess();
-    //       this.closeForm();
-    //     });
-    //   },
-    //   error: (err) => {
-    //     console.log(err);
-    //     this.submitFail();
-    //     this.closeForm();
-    //   },
-    // });
+    this._trackingService.updateRecord(formData).subscribe({
+      next: (res) => {
+        this._trackingService.updateImage(visit_record_id).subscribe((res) => {
+          this.submitSuccess();
+          this.closeForm();
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.submitFail();
+        this.closeForm();
+      },
+    });
   }
 
   deleteImg(id: string) {
