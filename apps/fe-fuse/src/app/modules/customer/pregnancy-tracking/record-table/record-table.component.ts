@@ -91,7 +91,6 @@ export class RecordTableComponent implements OnInit {
 
   editTracking(record_id: string) {
     this.recordService.SelectedRecordData = record_id;
-    console.log(this.recordService.SelectedRecordData);
     this._dialog.open(TrackingFormComponent, {
       autoFocus: false,
     });
