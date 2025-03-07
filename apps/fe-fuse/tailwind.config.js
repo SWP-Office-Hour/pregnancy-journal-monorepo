@@ -4,7 +4,7 @@ const path = require('path');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const generatePalette = require(path.resolve(__dirname, 'src/@fuse/tailwind/utils/generate-palette'));
-
+import PrimeUI from 'tailwindcss-primeui';
 /**
  * Custom palettes
  *
@@ -71,6 +71,7 @@ module.exports = {
   content: [join(__dirname, 'src/**/!(*.stories|*.spec).{ts,html,scss}'), ...createGlobPatternsForDependencies(__dirname)],
   darkMode: 'class',
   important: true,
+
   theme: {
     fontSize: {
       xs: '0.625rem',
@@ -308,6 +309,6 @@ module.exports = {
 
     // Other third party and/or custom plugins
     require('@tailwindcss/typography')({ modifiers: ['sm', 'lg'] }),
-    require('tailwindcss-primeui'),
+    PrimeUI,
   ],
 };

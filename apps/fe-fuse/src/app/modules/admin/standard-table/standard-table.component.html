@@ -1,21 +1,99 @@
 <!--standard-table.component.html-->
 
-<div class="w-full bg-red-500" *ngIf="!isLoadingStandard()" @expandCollapse [fuseScrollbar]="false">
-  <div class="mb-6 flex items-center">
-    <!--    <p-select [options]="metricsResource.value()" optionLabel="title" placeholder="Select a Metric" class="mr-4 w-72" [(ngModel)]="currentMetric">-->
-    <!--    </p-select>-->
-    <p-toolbar styleClass="mb-0 ml-4" class="flex-grow">
-      <ng-template #start>
-        <p-button (onClick)="openNew()" class="mr-2" icon="pi pi-plus" label="New" severity="secondary" [disabled]="!currentMetric" />
-        <p-button (onClick)="openBatchMode()" class="mr-2" icon="pi pi-list" label="Batch Add" severity="secondary" [disabled]="!currentMetric" />
-      </ng-template>
-    </p-toolbar>
-  </div>
+<div class="w-full" *ngIf="!isLoadingStandard()" @expandCollapse [fuseScrollbar]="false">
+  <p-table
+    #dt
+    [value]="standardResource.value()"
+    [globalFilterFields]="['week', 'lowerbound', 'upperbound', 'who_standard_value']"
+    [paginator]="true"
+    [rowHover]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
+    dataKey="standard_id"
+    [loading]="isLoadingStandard()"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Manage Standards of {{ currentMetric().title }}</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
+        </p-iconfield>
+      </div>
+    </ng-template>
+
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="week" style="min-width: 8rem">
+          Week
+          <p-sortIcon field="week" />
+        </th>
+        <th pSortableColumn="lowerbound" style="min-width: 8rem">
+          Lower Bound
+          <p-sortIcon field="lowerbound" />
+        </th>
+        <th pSortableColumn="upperbound" style="min-width: 8rem">
+          Upper Bound
+          <p-sortIcon field="upperbound" />
+        </th>
+        <th pSortableColumn="who_standard_value" style="min-width: 12rem">
+          WHO Standard Value
+          <p-sortIcon field="who_standard_value" />
+        </th>
+        <th style="min-width: 8rem">Actions</th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-standard>
+      <tr>
+        <td>{{ standard.week }}</td>
+        <td>{{ standard.lowerbound }}</td>
+        <td>{{ standard.upperbound }}</td>
+        <td>{{ standard.who_standard_value !== null ? standard.who_standard_value : 'N/A' }}</td>
+        <td>
+          <p-button (click)="editStandard(standard)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
+          <p-button (click)="deleteStandard(standard, $event)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5" class="text-center">
+          @if (currentMetric) {
+            No standards found for this metric.
+          } @else {
+            Please select a metric to view its standards.
+          }
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #paginatorleft>
+      <p-button (onClick)="openBatchMode()" class="mr-2" icon="pi pi-list" label="Batch Add" severity="secondary" [disabled]="!currentMetric" />
+    </ng-template>
+    <ng-template #paginatorright> </ng-template>
+  </p-table>
 
   <!-- Batch Mode Editing Table -->
   @if (batchMode) {
-    <div class="mb-6">
-      <p-message severity="warn">Batch Add Standards</p-message>
+    <div class="rounded-lg border bg-amber-100 pb-1">
+      <div class="mb-3 flex items-center justify-center rounded-md border border-amber-300 bg-amber-100 p-3 text-amber-700">
+        <span class="mr-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+            />
+          </svg>
+        </span>
+        <span class="font-medium">Batch Add Standards</span>
+      </div>
       <p-table [value]="newStandards" dataKey="standard_id" editMode="row">
         <ng-template #header>
           <tr>
@@ -27,7 +105,7 @@
           </tr>
         </ng-template>
         <ng-template #body let-standard let-editing="editing" let-ri="rowIndex">
-          <tr [pEditableRow]="standard">
+          <tr [pEditableRow]="standard" class="">
             <td>
               <p-cellEditor>
                 <ng-template #input>
@@ -108,85 +186,20 @@
         </ng-template>
       </p-table>
 
-      <div class="mt-4 flex justify-between">
-        <p-button (click)="addRow()" icon="pi pi-plus" label="Add Row" severity="secondary"></p-button>
-        <div class="flex gap-2">
+      <div class="flex w-full items-center justify-between px-4 pt-1">
+        <div>
+          <p-button (click)="addRow()" icon="pi pi-plus" label="Add Row" severity="secondary"></p-button>
+        </div>
+        <div class="mx-auto flex gap-2">
           <p-button (click)="cancelBatchMode()" icon="pi pi-times" label="Cancel" styleClass="p-button-text"></p-button>
           <p-button (click)="saveBatchStandards($event)" icon="pi pi-check" label="Save All"></p-button>
+        </div>
+        <div class="invisible">
+          <!-- This empty div helps maintain the layout balance -->
         </div>
       </div>
     </div>
   }
-  <div [fuseScrollbar]="false">
-    <p-table
-      #dt
-      [value]="standardResource.value()"
-      [globalFilterFields]="['week', 'lowerbound', 'upperbound', 'who_standard_value']"
-      [paginator]="true"
-      [rowHover]="true"
-      [rowsPerPageOptions]="[10, 20, 30]"
-      [rows]="10"
-      [showCurrentPageReport]="true"
-      [tableStyle]="{ 'min-width': '75rem' }"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} standards"
-      dataKey="standard_id"
-      [loading]="isLoadingStandard()"
-    >
-      <ng-template #caption>
-        <div class="flex items-center justify-between">
-          <h5 class="m-0">Manage Standards</h5>
-          <p-iconfield>
-            <p-inputicon styleClass="pi pi-search" />
-            <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
-          </p-iconfield>
-        </div>
-      </ng-template>
-      <ng-template #header>
-        <tr>
-          <th pSortableColumn="week" style="min-width: 8rem">
-            Week
-            <p-sortIcon field="week" />
-          </th>
-          <th pSortableColumn="lowerbound" style="min-width: 8rem">
-            Lower Bound
-            <p-sortIcon field="lowerbound" />
-          </th>
-          <th pSortableColumn="upperbound" style="min-width: 8rem">
-            Upper Bound
-            <p-sortIcon field="upperbound" />
-          </th>
-          <th pSortableColumn="who_standard_value" style="min-width: 12rem">
-            WHO Standard Value
-            <p-sortIcon field="who_standard_value" />
-          </th>
-          <th style="min-width: 8rem">Actions</th>
-        </tr>
-      </ng-template>
-      <ng-template #body let-standard>
-        <tr>
-          <td>{{ standard.week }}</td>
-          <td>{{ standard.lowerbound }}</td>
-          <td>{{ standard.upperbound }}</td>
-          <td>{{ standard.who_standard_value !== null ? standard.who_standard_value : 'N/A' }}</td>
-          <td>
-            <p-button (click)="editStandard(standard)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
-            <p-button (click)="deleteStandard(standard, $event)" [outlined]="true" [rounded]="true" icon="pi pi-trash" severity="danger" />
-          </td>
-        </tr>
-      </ng-template>
-      <ng-template #emptymessage>
-        <tr>
-          <td colspan="5" class="p-4 text-center">
-            @if (currentMetric) {
-              No standards found for this metric.
-            } @else {
-              Please select a metric to view its standards.
-            }
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
 
   <p-dialog [(visible)]="standardDialogToggle" [modal]="true" [style]="{ width: '450px' }" header="Standard Details">
     <ng-template #content>
@@ -229,7 +242,6 @@
         </div>
       </form>
     </ng-template>
-
     <ng-template #footer>
       <div class="flex justify-end gap-2">
         <p-button (click)="hideDialog()" icon="pi pi-times" label="Cancel" styleClass="p-button-text" />
