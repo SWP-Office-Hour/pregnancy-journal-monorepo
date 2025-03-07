@@ -1,0 +1,208 @@
+<div class="-m-6 flex flex-auto flex-col md:w-160 md:min-w-160">
+    @if (note$ | async; as note) {
+        <!-- Image -->
+        @if (note.image) {
+            <div class="relative w-full">
+                <div class="absolute bottom-0 right-0 p-4">
+                    <button mat-icon-button (click)="removeImage(note)">
+                        <mat-icon
+                            class="text-white"
+                            [svgIcon]="'heroicons_outline:trash'"
+                        ></mat-icon>
+                    </button>
+                </div>
+                <img class="w-full object-cover" [src]="note.image" />
+            </div>
+        }
+        <div class="m-4">
+            <!-- Title -->
+            <div>
+                <input
+                    class="w-full p-2 text-2xl"
+                    [placeholder]="'Title'"
+                    [(ngModel)]="note.title"
+                    (input)="updateNoteDetails(note)"
+                />
+            </div>
+            <!-- Note -->
+            <div class="flex w-full px-2 py-5">
+                <textarea
+                    class="w-full"
+                    [placeholder]="'Note'"
+                    [(ngModel)]="note.content"
+                    (input)="updateNoteDetails(note)"
+                    cdkTextareaAutosize
+                ></textarea>
+            </div>
+            <!-- Tasks -->
+            @if (note.tasks) {
+                <div class="mx-2 mt-4 space-y-1.5">
+                    @for (task of note.tasks; track trackByFn($index, task)) {
+                        <div class="group flex items-center">
+                            <mat-checkbox
+                                class="flex items-center"
+                                [color]="'primary'"
+                                [(ngModel)]="task.completed"
+                                (change)="updateTaskOnNote(note, task)"
+                            ></mat-checkbox>
+                            <input
+                                class="w-full px-1 py-0.5"
+                                [ngClass]="{
+                                    'text-secondary line-through':
+                                        task.completed,
+                                }"
+                                [placeholder]="'Task'"
+                                [(ngModel)]="task.content"
+                                (input)="updateTaskOnNote(note, task)"
+                            />
+                            <mat-icon
+                                class="ml-auto hidden cursor-pointer icon-size-5 group-hover:flex"
+                                [svgIcon]="'heroicons_solid:x-mark'"
+                                (click)="removeTaskFromNote(note, task)"
+                            ></mat-icon>
+                        </div>
+                    }
+                    <div class="flex items-center">
+                        <mat-icon
+                            class="text-hint -ml-0.5 icon-size-5"
+                            [svgIcon]="'heroicons_solid:plus'"
+                        ></mat-icon>
+                        <input
+                            class="ml-1.5 w-full px-1 py-0.5"
+                            [placeholder]="'Add task'"
+                            (keydown.enter)="
+                                addTaskToNote(note, newTaskInput.value);
+                                newTaskInput.value = ''
+                            "
+                            #newTaskInput
+                        />
+                    </div>
+                </div>
+            }
+            <!-- Labels -->
+            @if (note.labels && note.labels.length) {
+                <div class="mx-1 mt-6 flex flex-wrap items-center">
+                    @for (
+                        label of note.labels;
+                        track trackByFn($index, label)
+                    ) {
+                        <div
+                            class="m-1 flex items-center rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300"
+                        >
+                            <div>
+                                {{ label.title }}
+                            </div>
+                            <mat-icon
+                                class="ml-1 cursor-pointer icon-size-4"
+                                [svgIcon]="'heroicons_solid:x-circle'"
+                                (click)="toggleLabelOnNote(note, label)"
+                            ></mat-icon>
+                        </div>
+                    }
+                </div>
+            }
+            <!-- Add Actions -->
+            @if (!note.id) {
+                <div class="mt-4 flex items-center justify-end">
+                    <!-- Save -->
+                    <button
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="!note.title && !note.content"
+                        (click)="createNote(note)"
+                    >
+                        Save
+                    </button>
+                </div>
+            }
+            <!-- Edit Actions -->
+            @if (note.id) {
+                <div class="mt-4 flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <!-- Image -->
+                        <div>
+                            <input
+                                id="image-file-input"
+                                class="pointer-events-none invisible absolute h-0 w-0 opacity-0"
+                                type="file"
+                                [multiple]="false"
+                                [accept]="'image/jpeg, image/png'"
+                                (change)="
+                                    uploadImage(note, imageFileInput.files)
+                                "
+                                #imageFileInput
+                            />
+                            <label
+                                class="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full hover:bg-gray-400 hover:bg-opacity-20 dark:hover:bg-black dark:hover:bg-opacity-5"
+                                for="image-file-input"
+                                matRipple
+                            >
+                                <mat-icon
+                                    [svgIcon]="'heroicons_outline:photo'"
+                                ></mat-icon>
+                            </label>
+                        </div>
+                        <!-- Checklist -->
+                        <button mat-icon-button (click)="addTasksToNote(note)">
+                            <mat-icon
+                                [svgIcon]="
+                                    'heroicons_outline:clipboard-document-list'
+                                "
+                            ></mat-icon>
+                        </button>
+                        <!-- Labels -->
+                        <button
+                            mat-icon-button
+                            [matMenuTriggerFor]="labelsMenu"
+                        >
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:tag'"
+                            ></mat-icon>
+                        </button>
+                        <mat-menu #labelsMenu="matMenu">
+                            @if (labels$ | async; as labels) {
+                                @for (label of labels; track label) {
+                                    <button
+                                        mat-menu-item
+                                        (click)="toggleLabelOnNote(note, label)"
+                                    >
+                                        <span class="flex items-center">
+                                            <mat-checkbox
+                                                class="pointer-events-none flex items-center"
+                                                [color]="'primary'"
+                                                [checked]="
+                                                    isNoteHasLabel(note, label)
+                                                "
+                                                disableRipple
+                                            ></mat-checkbox>
+                                            <span class="ml-1 leading-5">{{
+                                                label.title
+                                            }}</span>
+                                        </span>
+                                    </button>
+                                }
+                            }
+                        </mat-menu>
+                        <!-- Archive -->
+                        <button
+                            mat-icon-button
+                            (click)="toggleArchiveOnNote(note)"
+                        >
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:archive-box'"
+                            ></mat-icon>
+                        </button>
+                        <!-- Delete -->
+                        <button mat-icon-button (click)="deleteNote(note)">
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:trash'"
+                            ></mat-icon>
+                        </button>
+                    </div>
+                    <!-- Close -->
+                    <button mat-flat-button matDialogClose>Close</button>
+                </div>
+            }
+        </div>
+    }
+</div>
