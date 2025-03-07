@@ -70,7 +70,7 @@
       </tr>
     </ng-template>
     <ng-template #body let-metric let-expanded="expanded">
-      <tr [ngClass]="expanded ? 'bg-green-100 text-2xl font-bold text-red-600' : ''">
+      <tr [ngClass]="expanded ? 'bg-green-100 text-2xl font-bold text-red-600' : ' '">
         <td>
           <p-button
             type="button"
@@ -78,8 +78,8 @@
             [pRowToggler]="metric"
             [text]="true"
             [rounded]="true"
-            [plain]="true"
             [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
+            [styleClass]="expanded ? 'bg-white' : 'p-button-secondary'"
           />
         </td>
         <td style="min-width: 16rem">{{ metric.title }}</td>
