@@ -1,0 +1,138 @@
+<div class="-m-6 flex max-h-screen max-w-240 flex-col md:min-w-160">
+    <!-- Header -->
+    <div
+        class="flex h-16 flex-0 items-center justify-between bg-primary pl-6 pr-3 text-on-primary sm:pl-8 sm:pr-5"
+    >
+        <div class="text-lg font-medium">New Message</div>
+        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+            <mat-icon
+                class="text-current"
+                [svgIcon]="'heroicons_outline:x-mark'"
+            ></mat-icon>
+        </button>
+    </div>
+
+    <!-- Compose form -->
+    <form
+        class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8"
+        [formGroup]="composeForm"
+    >
+        <!-- To -->
+        <mat-form-field>
+            <mat-label>To</mat-label>
+            <input matInput [formControlName]="'to'" />
+            <div class="copy-fields-toggles" matSuffix>
+                @if (!copyFields.cc) {
+                    <span
+                        class="cursor-pointer select-none text-sm font-medium hover:underline"
+                        (click)="showCopyField('cc')"
+                    >
+                        Cc
+                    </span>
+                }
+                @if (!copyFields.bcc) {
+                    <span
+                        class="ml-2 cursor-pointer select-none text-sm font-medium hover:underline"
+                        (click)="showCopyField('bcc')"
+                    >
+                        Bcc
+                    </span>
+                }
+            </div>
+        </mat-form-field>
+
+        <!-- Cc -->
+        @if (copyFields.cc) {
+            <mat-form-field>
+                <mat-label>Cc</mat-label>
+                <input matInput [formControlName]="'cc'" />
+            </mat-form-field>
+        }
+
+        <!-- Bcc -->
+        @if (copyFields.bcc) {
+            <mat-form-field>
+                <mat-label>Bcc</mat-label>
+                <input matInput [formControlName]="'bcc'" />
+            </mat-form-field>
+        }
+
+        <!-- Subject -->
+        <mat-form-field>
+            <mat-label>Subject</mat-label>
+            <input matInput [formControlName]="'subject'" />
+        </mat-form-field>
+
+        <!-- Body -->
+        <quill-editor
+            class="mt-2"
+            [formControlName]="'body'"
+            [bounds]="'self'"
+            [modules]="quillModules"
+        ></quill-editor>
+
+        <!-- Actions -->
+        <div
+            class="mt-4 flex flex-col justify-between sm:mt-6 sm:flex-row sm:items-center"
+        >
+            <div class="-ml-2">
+                <!-- Attach file -->
+                <button mat-icon-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:paper-clip'"
+                    ></mat-icon>
+                </button>
+                <!-- Insert link -->
+                <button mat-icon-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:link'"
+                    ></mat-icon>
+                </button>
+                <!-- Insert emoji -->
+                <button mat-icon-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:face-smile'"
+                    ></mat-icon>
+                </button>
+                <!-- Insert image -->
+                <button mat-icon-button>
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:photo'"
+                    ></mat-icon>
+                </button>
+            </div>
+
+            <div class="mt-4 flex items-center sm:mt-0">
+                <!-- Discard -->
+                <button
+                    class="ml-auto sm:ml-0"
+                    mat-stroked-button
+                    (click)="discard()"
+                >
+                    Discard
+                </button>
+                <!-- Save as draft -->
+                <button
+                    class="sm:mx-3"
+                    mat-stroked-button
+                    (click)="saveAsDraft()"
+                >
+                    <span>Save as draft</span>
+                </button>
+                <!-- Send -->
+                <button
+                    class="order-first sm:order-last"
+                    mat-flat-button
+                    [color]="'primary'"
+                    (click)="send()"
+                >
+                    Send
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

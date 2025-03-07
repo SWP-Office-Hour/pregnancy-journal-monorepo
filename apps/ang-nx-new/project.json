@@ -16,13 +16,26 @@
         "polyfills": ["zone.js"],
         "tsConfig": "apps/ang-nx-new/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
+        "allowedCommonJsDependencies": ["apexcharts", "crypto-js/enc-utf8", "crypto-js/hmac-sha256", "crypto-js/enc-base64", "quill-delta"],
         "assets": [
           {
             "glob": "**/*",
             "input": "apps/ang-nx-new/public"
           }
         ],
-        "styles": ["apps/ang-nx-new/src/styles.scss"],
+        "styles": [
+          "apps/ang-nx-new/src/styles/splash-screen.css",
+          "apps/ang-nx-new/src/styles/inter.css",
+          "apps/ang-nx-new/src/@fuse/styles/tailwind.scss",
+          "apps/ang-nx-new/src/@fuse/styles/themes.scss",
+          "apps/ang-nx-new/src/styles/vendors.scss",
+          "apps/ang-nx-new/src/@fuse/styles/main.scss",
+          "apps/ang-nx-new/src/styles/styles.scss",
+          "apps/ang-nx-new/src/styles/tailwind.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/ang-nx-new/src/@fuse/styles"]
+        },
         "scripts": []
       },
       "configurations": {

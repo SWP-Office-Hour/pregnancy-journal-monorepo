@@ -1,0 +1,84 @@
+<div
+    class="absolute inset-0 flex min-w-0 flex-col overflow-y-auto"
+    cdkScrollable
+>
+    <!-- Main -->
+    <div class="flex flex-auto flex-col items-center p-6 sm:p-10">
+        <!-- Title -->
+        <div
+            class="mt-4 text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:mt-24 md:text-6xl"
+        >
+            Scrumboard Boards
+        </div>
+
+        <!-- Boards -->
+        <div
+            class="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 lg:grid-cols-4"
+        >
+            @for (board of boards; track trackByFn($index, board)) {
+                <a
+                    class="bg-card flex w-56 flex-col items-start rounded-lg p-6 shadow transition-shadow duration-150 ease-in-out hover:shadow-xl"
+                    [routerLink]="[board.id]"
+                >
+                    <div
+                        class="flex items-center justify-center rounded-full bg-primary-50 p-4 text-primary-700 dark:bg-primary dark:text-on-primary"
+                    >
+                        <mat-icon
+                            class="text-current"
+                            [svgIcon]="board.icon"
+                        ></mat-icon>
+                    </div>
+                    <!-- Title -->
+                    <div class="mt-5 text-lg font-medium leading-5">
+                        {{ board.title }}
+                    </div>
+                    <!-- Description -->
+                    <div class="text-secondary mt-0.5 line-clamp-2">
+                        {{ board.description }}
+                    </div>
+                    <!-- Members -->
+                    @if (board.members?.length) {
+                        <div class="mt-6 h-1 w-12 border-t-2"></div>
+                        <div class="mt-6 flex items-center -space-x-1.5">
+                            @for (
+                                member of board.members.slice(0, 5);
+                                track trackByFn($index, member)
+                            ) {
+                                <img
+                                    class="ring-bg-card h-8 w-8 flex-0 rounded-full object-cover ring ring-offset-1 ring-offset-transparent"
+                                    [src]="member.avatar"
+                                    alt="Member avatar"
+                                />
+                            }
+                            @if (board.members.length > 5) {
+                                <div
+                                    class="ring-bg-card flex h-8 w-8 flex-0 items-center justify-center rounded-full bg-gray-200 text-gray-500 ring ring-offset-1 ring-offset-transparent"
+                                >
+                                    <div class="text-md font-semibold">
+                                        +{{ board.members.slice(5).length }}
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                    <!-- Last activity -->
+                    <div class="font-md mt-4 flex items-center text-md">
+                        <div class="text-secondary">Edited:</div>
+                        <div class="ml-1">
+                            {{ formatDateAsRelative(board.lastActivity) }}
+                        </div>
+                    </div>
+                </a>
+            }
+            <!-- New board -->
+            <div
+                class="flex w-56 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 transition-colors duration-150 ease-in-out hover:bg-hover"
+            >
+                <mat-icon
+                    class="text-hint icon-size-12"
+                    [svgIcon]="'heroicons_outline:plus'"
+                ></mat-icon>
+            </div>
+        </div>
+    </div>
+</div>

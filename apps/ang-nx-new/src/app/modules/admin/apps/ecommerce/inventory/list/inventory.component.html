@@ -1,0 +1,761 @@
+<div
+    class="bg-card flex min-w-0 flex-auto flex-col dark:bg-transparent sm:absolute sm:inset-0 sm:overflow-hidden"
+>
+    <!-- Header -->
+    <div
+        class="relative flex flex-0 flex-col border-b px-6 py-8 sm:flex-row sm:items-center sm:justify-between md:px-8"
+    >
+        <!-- Loader -->
+        @if (isLoading) {
+            <div class="absolute inset-x-0 bottom-0">
+                <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+            </div>
+        }
+        <!-- Title -->
+        <div class="text-4xl font-extrabold tracking-tight">Inventory</div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+            <!-- Search -->
+            <mat-form-field
+                class="fuse-mat-dense fuse-mat-rounded min-w-64"
+                [subscriptSizing]="'dynamic'"
+            >
+                <mat-icon
+                    class="icon-size-5"
+                    matPrefix
+                    [svgIcon]="'heroicons_solid:magnifying-glass'"
+                ></mat-icon>
+                <input
+                    matInput
+                    [formControl]="searchInputControl"
+                    [autocomplete]="'off'"
+                    [placeholder]="'Search products'"
+                />
+            </mat-form-field>
+            <!-- Add product button -->
+            <button
+                class="ml-4"
+                mat-flat-button
+                [color]="'primary'"
+                (click)="createProduct()"
+            >
+                <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                <span class="ml-2 mr-1">Add</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex flex-auto overflow-hidden">
+        <!-- Products list -->
+        <div
+            class="flex flex-auto flex-col overflow-hidden sm:mb-18 sm:overflow-y-auto"
+        >
+            @if (products$ | async; as products) {
+                @if (products.length > 0) {
+                    <div class="grid">
+                        <!-- Header -->
+                        <div
+                            class="inventory-grid text-secondary sticky top-0 z-10 grid gap-4 bg-gray-50 px-6 py-4 text-md font-semibold shadow dark:bg-black dark:bg-opacity-5 md:px-8"
+                            matSort
+                            matSortDisableClear
+                        >
+                            <div></div>
+                            <div
+                                class="hidden md:block"
+                                [mat-sort-header]="'sku'"
+                            >
+                                SKU
+                            </div>
+                            <div [mat-sort-header]="'name'">Name</div>
+                            <div
+                                class="hidden sm:block"
+                                [mat-sort-header]="'price'"
+                            >
+                                Price
+                            </div>
+                            <div
+                                class="hidden lg:block"
+                                [mat-sort-header]="'stock'"
+                            >
+                                Stock
+                            </div>
+                            <div
+                                class="hidden lg:block"
+                                [mat-sort-header]="'active'"
+                            >
+                                Active
+                            </div>
+                            <div class="hidden sm:block">Details</div>
+                        </div>
+                        <!-- Rows -->
+                        @if (products$ | async; as products) {
+                            @for (
+                                product of products;
+                                track trackByFn($index, product)
+                            ) {
+                                <div
+                                    class="inventory-grid grid items-center gap-4 border-b px-6 py-3 md:px-8"
+                                >
+                                    <!-- Image -->
+                                    <div class="flex items-center">
+                                        <div
+                                            class="relative mr-6 flex h-12 w-12 flex-0 items-center justify-center overflow-hidden rounded border"
+                                        >
+                                            @if (product.thumbnail) {
+                                                <img
+                                                    class="w-8"
+                                                    [alt]="
+                                                        'Product thumbnail image'
+                                                    "
+                                                    [src]="product.thumbnail"
+                                                />
+                                            }
+                                            @if (!product.thumbnail) {
+                                                <div
+                                                    class="flex h-full w-full items-center justify-center text-center text-xs font-semibold uppercase leading-none"
+                                                >
+                                                    NO THUMB
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+
+                                    <!-- SKU -->
+                                    <div class="hidden truncate md:block">
+                                        {{ product.sku }}
+                                    </div>
+
+                                    <!-- Name -->
+                                    <div class="truncate">
+                                        {{ product.name }}
+                                    </div>
+
+                                    <!-- Price -->
+                                    <div class="hidden sm:block">
+                                        {{
+                                            product.price
+                                                | currency
+                                                    : 'USD'
+                                                    : 'symbol'
+                                                    : '1.2-2'
+                                        }}
+                                    </div>
+
+                                    <!-- Stock -->
+                                    <div class="hidden items-center lg:flex">
+                                        <div class="min-w-4">
+                                            {{ product.stock }}
+                                        </div>
+                                        <!-- Low stock -->
+                                        @if (product.stock < 20) {
+                                            <div
+                                                class="ml-2 flex h-4 w-1 items-end overflow-hidden rounded bg-red-200"
+                                            >
+                                                <div
+                                                    class="flex h-1/3 w-full bg-red-600"
+                                                ></div>
+                                            </div>
+                                        }
+                                        <!-- Medium stock -->
+                                        @if (
+                                            product.stock >= 20 &&
+                                            product.stock < 30
+                                        ) {
+                                            <div
+                                                class="ml-2 flex h-4 w-1 items-end overflow-hidden rounded bg-orange-200"
+                                            >
+                                                <div
+                                                    class="flex h-2/4 w-full bg-orange-400"
+                                                ></div>
+                                            </div>
+                                        }
+                                        <!-- High stock -->
+                                        @if (product.stock >= 30) {
+                                            <div
+                                                class="ml-2 flex h-4 w-1 items-end overflow-hidden rounded bg-green-100"
+                                            >
+                                                <div
+                                                    class="flex h-full w-full bg-green-400"
+                                                ></div>
+                                            </div>
+                                        }
+                                    </div>
+
+                                    <!-- Active -->
+                                    <div class="hidden lg:block">
+                                        @if (product.active) {
+                                            <mat-icon
+                                                class="text-green-400 icon-size-5"
+                                                [svgIcon]="
+                                                    'heroicons_solid:check'
+                                                "
+                                            ></mat-icon>
+                                        }
+                                        @if (!product.active) {
+                                            <mat-icon
+                                                class="text-gray-400 icon-size-5"
+                                                [svgIcon]="
+                                                    'heroicons_solid:x-mark'
+                                                "
+                                            ></mat-icon>
+                                        }
+                                    </div>
+
+                                    <!-- Details button -->
+                                    <div>
+                                        <button
+                                            class="h-7 min-h-7 min-w-10 px-2 leading-6"
+                                            mat-stroked-button
+                                            (click)="toggleDetails(product.id)"
+                                        >
+                                            <mat-icon
+                                                class="icon-size-5"
+                                                [svgIcon]="
+                                                    selectedProduct?.id ===
+                                                    product.id
+                                                        ? 'heroicons_solid:chevron-up'
+                                                        : 'heroicons_solid:chevron-down'
+                                                "
+                                            ></mat-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="grid">
+                                    @if (selectedProduct?.id === product.id) {
+                                        <ng-container
+                                            *ngTemplateOutlet="
+                                                rowDetailsTemplate;
+                                                context: { $implicit: product }
+                                            "
+                                        ></ng-container>
+                                    }
+                                </div>
+                            }
+                        }
+                    </div>
+
+                    <mat-paginator
+                        class="z-10 border-b bg-gray-50 dark:bg-transparent sm:absolute sm:inset-x-0 sm:bottom-0 sm:border-b-0 sm:border-t"
+                        [ngClass]="{ 'pointer-events-none': isLoading }"
+                        [length]="pagination.length"
+                        [pageIndex]="pagination.page"
+                        [pageSize]="pagination.size"
+                        [pageSizeOptions]="[5, 10, 25, 100]"
+                        [showFirstLastButtons]="true"
+                    ></mat-paginator>
+                } @else {
+                    <div
+                        class="border-t p-8 text-center text-4xl font-semibold tracking-tight sm:p-16"
+                    >
+                        There are no products!
+                    </div>
+                }
+            }
+
+            <ng-template #rowDetailsTemplate let-product>
+                <div class="overflow-hidden shadow-lg">
+                    <div class="flex border-b">
+                        <!-- Selected product form -->
+                        <form
+                            class="flex w-full flex-col"
+                            [formGroup]="selectedProductForm"
+                        >
+                            <div class="flex flex-col p-8 sm:flex-row">
+                                <!-- Product images and status -->
+                                <div
+                                    class="mb-8 flex flex-col items-center sm:mb-0 sm:items-start"
+                                >
+                                    <div class="flex flex-col items-center">
+                                        <div
+                                            class="h-44 w-32 overflow-hidden rounded border"
+                                        >
+                                            @if (
+                                                selectedProductForm.get(
+                                                    'images'
+                                                ).value.length
+                                            ) {
+                                                <img
+                                                    class="h-full w-full object-cover"
+                                                    [src]="
+                                                        selectedProductForm.get(
+                                                            'images'
+                                                        ).value[
+                                                            selectedProductForm.get(
+                                                                'currentImageIndex'
+                                                            ).value
+                                                        ]
+                                                    "
+                                                />
+                                            } @else {
+                                                <span
+                                                    class="flex min-h-20 items-center text-lg font-semibold"
+                                                    >NO IMAGE</span
+                                                >
+                                            }
+                                        </div>
+                                        @if (
+                                            selectedProductForm.get('images')
+                                                .value.length
+                                        ) {
+                                            <div
+                                                class="mt-2 flex items-center whitespace-nowrap"
+                                            >
+                                                <button
+                                                    mat-icon-button
+                                                    (click)="cycleImages(false)"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'heroicons_mini:arrow-long-left'
+                                                        "
+                                                    ></mat-icon>
+                                                </button>
+                                                <span class="font-sm mx-2">
+                                                    {{
+                                                        selectedProductForm.get(
+                                                            'currentImageIndex'
+                                                        ).value + 1
+                                                    }}
+                                                    of
+                                                    {{
+                                                        selectedProductForm.get(
+                                                            'images'
+                                                        ).value.length
+                                                    }}
+                                                </span>
+                                                <button
+                                                    mat-icon-button
+                                                    (click)="cycleImages(true)"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'heroicons_mini:arrow-long-right'
+                                                        "
+                                                    ></mat-icon>
+                                                </button>
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="mt-8 flex flex-col">
+                                        <span class="mb-2 font-semibold"
+                                            >Product status</span
+                                        >
+                                        <mat-slide-toggle
+                                            [formControlName]="'active'"
+                                            [color]="'primary'"
+                                        >
+                                            {{
+                                                selectedProductForm.get(
+                                                    'active'
+                                                ).value === true
+                                                    ? 'Active'
+                                                    : 'Disabled'
+                                            }}
+                                        </mat-slide-toggle>
+                                    </div>
+                                </div>
+
+                                <div class="flex flex-auto flex-wrap">
+                                    <!-- Name, SKU & etc. -->
+                                    <div
+                                        class="flex w-full flex-col sm:pl-8 lg:w-2/4"
+                                    >
+                                        <!-- Name -->
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Name</mat-label>
+                                            <input
+                                                matInput
+                                                [formControlName]="'name'"
+                                            />
+                                        </mat-form-field>
+
+                                        <!-- SKU and Barcode -->
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/3 pr-2">
+                                                <mat-label>SKU</mat-label>
+                                                <input
+                                                    matInput
+                                                    [formControlName]="'sku'"
+                                                />
+                                            </mat-form-field>
+                                            <mat-form-field class="w-2/3 pl-2">
+                                                <mat-label>Barcode</mat-label>
+                                                <input
+                                                    matInput
+                                                    [formControlName]="
+                                                        'barcode'
+                                                    "
+                                                />
+                                            </mat-form-field>
+                                        </div>
+
+                                        <!-- Category, Brand & Vendor -->
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/3 pr-2">
+                                                <mat-label>Category</mat-label>
+                                                <mat-select
+                                                    [formControlName]="
+                                                        'category'
+                                                    "
+                                                >
+                                                    @for (
+                                                        category of categories;
+                                                        track category
+                                                    ) {
+                                                        <mat-option
+                                                            [value]="
+                                                                category.id
+                                                            "
+                                                        >
+                                                            {{ category.name }}
+                                                        </mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 px-2">
+                                                <mat-label>Brand</mat-label>
+                                                <mat-select
+                                                    [formControlName]="'brand'"
+                                                >
+                                                    @for (
+                                                        brand of brands;
+                                                        track brand
+                                                    ) {
+                                                        <mat-option
+                                                            [value]="brand.id"
+                                                        >
+                                                            {{ brand.name }}
+                                                        </mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-2">
+                                                <mat-label>Vendor</mat-label>
+                                                <mat-select
+                                                    [formControlName]="'vendor'"
+                                                >
+                                                    @for (
+                                                        vendor of vendors;
+                                                        track vendor
+                                                    ) {
+                                                        <mat-option
+                                                            [value]="vendor.id"
+                                                        >
+                                                            {{ vendor.name }}
+                                                        </mat-option>
+                                                    }
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+
+                                        <!-- Stock and Reserved -->
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/3 pr-2">
+                                                <mat-label>Stock</mat-label>
+                                                <input
+                                                    type="number"
+                                                    matInput
+                                                    [formControlName]="'stock'"
+                                                />
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-2">
+                                                <mat-label>Reserved</mat-label>
+                                                <input
+                                                    type="number"
+                                                    matInput
+                                                    [formControlName]="
+                                                        'reserved'
+                                                    "
+                                                />
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <!-- Cost, Base price, Tax & Price -->
+                                    <div
+                                        class="flex w-full flex-col sm:pl-8 lg:w-1/4"
+                                    >
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Cost</mat-label>
+                                            <span matPrefix>$</span>
+                                            <input
+                                                matInput
+                                                [formControlName]="'cost'"
+                                            />
+                                        </mat-form-field>
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Base Price</mat-label>
+                                            <span matPrefix>$</span>
+                                            <input
+                                                matInput
+                                                [formControlName]="'basePrice'"
+                                            />
+                                        </mat-form-field>
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Tax</mat-label>
+                                            <span matSuffix>%</span>
+                                            <input
+                                                type="number"
+                                                matInput
+                                                [formControlName]="'taxPercent'"
+                                            />
+                                        </mat-form-field>
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Price</mat-label>
+                                            <span matSuffix>$</span>
+                                            <input
+                                                matInput
+                                                [formControlName]="'price'"
+                                            />
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!-- Weight & Tags -->
+                                    <div
+                                        class="flex w-full flex-col sm:pl-8 lg:w-1/4"
+                                    >
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Weight</mat-label>
+                                            <span matSuffix>lbs.</span>
+                                            <input
+                                                matInput
+                                                [formControlName]="'weight'"
+                                            />
+                                        </mat-form-field>
+
+                                        <!-- Tags -->
+                                        <span
+                                            class="mb-px font-medium leading-tight"
+                                            >Tags</span
+                                        >
+                                        <div
+                                            class="mt-1.5 overflow-hidden rounded-md border border-gray-300 shadow-sm dark:border-gray-500"
+                                        >
+                                            <!-- Header -->
+                                            <div
+                                                class="-my-px flex items-center px-3 py-2"
+                                            >
+                                                <div
+                                                    class="flex min-w-0 flex-auto items-center"
+                                                >
+                                                    <mat-icon
+                                                        class="icon-size-5"
+                                                        [svgIcon]="
+                                                            'heroicons_solid:magnifying-glass'
+                                                        "
+                                                    ></mat-icon>
+                                                    <input
+                                                        class="ml-2 min-w-0 border-0 py-1"
+                                                        type="text"
+                                                        placeholder="Enter tag name"
+                                                        (input)="
+                                                            filterTags($event)
+                                                        "
+                                                        (keydown)="
+                                                            filterTagsInputKeyDown(
+                                                                $event
+                                                            )
+                                                        "
+                                                        [maxLength]="50"
+                                                        #newTagInput
+                                                    />
+                                                </div>
+                                                <button
+                                                    class="ml-3 h-8 min-h-8 w-8"
+                                                    mat-icon-button
+                                                    (click)="
+                                                        toggleTagsEditMode()
+                                                    "
+                                                >
+                                                    @if (!tagsEditMode) {
+                                                        <mat-icon
+                                                            class="icon-size-5"
+                                                            [svgIcon]="
+                                                                'heroicons_solid:pencil-square'
+                                                            "
+                                                        ></mat-icon>
+                                                    }
+                                                    @if (tagsEditMode) {
+                                                        <mat-icon
+                                                            class="icon-size-5"
+                                                            [svgIcon]="
+                                                                'heroicons_solid:check'
+                                                            "
+                                                        ></mat-icon>
+                                                    }
+                                                </button>
+                                            </div>
+                                            <!-- Available tags -->
+                                            <div
+                                                class="h-44 overflow-y-auto border-t border-gray-300 leading-none dark:border-gray-500"
+                                            >
+                                                <!-- Tags -->
+                                                @if (!tagsEditMode) {
+                                                    @for (
+                                                        tag of filteredTags;
+                                                        track trackByFn(
+                                                            $index,
+                                                            tag
+                                                        )
+                                                    ) {
+                                                        <mat-checkbox
+                                                            class="flex h-10 min-h-10 items-center pl-1 pr-4"
+                                                            [color]="'primary'"
+                                                            [checked]="
+                                                                selectedProduct.tags.includes(
+                                                                    tag.id
+                                                                )
+                                                            "
+                                                            (change)="
+                                                                toggleProductTag(
+                                                                    tag,
+                                                                    $event
+                                                                )
+                                                            "
+                                                        >
+                                                            {{ tag.title }}
+                                                        </mat-checkbox>
+                                                    }
+                                                }
+                                                <!-- Tags editing -->
+                                                @if (tagsEditMode) {
+                                                    <div class="space-y-2 p-4">
+                                                        @for (
+                                                            tag of filteredTags;
+                                                            track trackByFn(
+                                                                $index,
+                                                                tag
+                                                            )
+                                                        ) {
+                                                            <mat-form-field
+                                                                class="fuse-mat-dense w-full"
+                                                                [subscriptSizing]="
+                                                                    'dynamic'
+                                                                "
+                                                            >
+                                                                <input
+                                                                    matInput
+                                                                    [value]="
+                                                                        tag.title
+                                                                    "
+                                                                    (input)="
+                                                                        updateTagTitle(
+                                                                            tag,
+                                                                            $event
+                                                                        )
+                                                                    "
+                                                                />
+                                                                <button
+                                                                    mat-icon-button
+                                                                    (click)="
+                                                                        deleteTag(
+                                                                            tag
+                                                                        )
+                                                                    "
+                                                                    matSuffix
+                                                                >
+                                                                    <mat-icon
+                                                                        class="icon-size-5"
+                                                                        [svgIcon]="
+                                                                            'heroicons_solid:trash'
+                                                                        "
+                                                                    ></mat-icon>
+                                                                </button>
+                                                            </mat-form-field>
+                                                        }
+                                                    </div>
+                                                }
+                                                @if (
+                                                    shouldShowCreateTagButton(
+                                                        newTagInput.value
+                                                    )
+                                                ) {
+                                                    <div
+                                                        class="-ml-0.5 flex h-10 min-h-10 cursor-pointer items-center border-t pl-4 pr-3 leading-none dark:hover:bg-hover hover:bg-gray-50"
+                                                        (click)="
+                                                            createTag(
+                                                                newTagInput.value
+                                                            );
+                                                            newTagInput.value =
+                                                                ''
+                                                        "
+                                                        matRipple
+                                                    >
+                                                        <mat-icon
+                                                            class="mr-2 icon-size-5"
+                                                            [svgIcon]="
+                                                                'heroicons_solid:plus-circle'
+                                                            "
+                                                        ></mat-icon>
+                                                        <div class="break-all">
+                                                            Create "<b>{{
+                                                                newTagInput.value
+                                                            }}</b
+                                                            >"
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div
+                                class="flex w-full items-center justify-between border-t px-8 py-4"
+                            >
+                                <button
+                                    class="-ml-4"
+                                    mat-button
+                                    [color]="'warn'"
+                                    (click)="deleteSelectedProduct()"
+                                >
+                                    Delete
+                                </button>
+                                <div class="flex items-center">
+                                    @if (flashMessage) {
+                                        <div class="mr-4 flex items-center">
+                                            @if (flashMessage === 'success') {
+                                                <mat-icon
+                                                    class="text-green-500"
+                                                    [svgIcon]="
+                                                        'heroicons_outline:check'
+                                                    "
+                                                ></mat-icon>
+                                                <span class="ml-2"
+                                                    >Product updated</span
+                                                >
+                                            }
+                                            @if (flashMessage === 'error') {
+                                                <mat-icon
+                                                    class="text-red-500"
+                                                    [svgIcon]="
+                                                        'heroicons_outline:x-mark'
+                                                    "
+                                                ></mat-icon>
+                                                <span class="ml-2"
+                                                    >An error occurred, try
+                                                    again!</span
+                                                >
+                                            }
+                                        </div>
+                                    }
+                                    <button
+                                        mat-flat-button
+                                        [color]="'primary'"
+                                        (click)="updateSelectedProduct()"
+                                    >
+                                        Update
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</div>
