@@ -22,4 +22,3 @@ USER node
 EXPOSE 3000
 # Generate Prisma client during the build phase
 CMD ["dumb-init", "node", "main.js"]
-

@@ -1,0 +1,103 @@
+{
+  "name": "fuse-theme-example",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/fuse-theme-example/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/fuse-theme-example",
+        "index": "apps/fuse-theme-example/src/index.html",
+        "browser": "apps/fuse-theme-example/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/fuse-theme-example/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "allowedCommonJsDependencies": ["apexcharts", "crypto-js/enc-utf8", "crypto-js/hmac-sha256", "crypto-js/enc-base64", "quill-delta"],
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/fuse-theme-example/public"
+          }
+        ],
+        "styles": [
+          "apps/fuse-theme-example/src/styles/splash-screen.css",
+          "apps/fuse-theme-example/src/styles/inter.css",
+          "apps/fuse-theme-example/src/@fuse/styles/tailwind.scss",
+          "apps/fuse-theme-example/src/@fuse/styles/themes.scss",
+          "apps/fuse-theme-example/src/styles/vendors.scss",
+          "apps/fuse-theme-example/src/@fuse/styles/main.scss",
+          "apps/fuse-theme-example/src/styles/styles.scss",
+          "apps/fuse-theme-example/src/styles/tailwind.scss"
+        ],
+        "stylePreprocessorOptions": {
+          "includePaths": ["apps/fuse-theme-example/src/@fuse/styles"]
+        },
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "fuse-theme-example:build:production"
+        },
+        "development": {
+          "buildTarget": "fuse-theme-example:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "fuse-theme-example:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
+      "options": {
+        "reportsDirectory": "../../coverage/apps/fuse-theme-example"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "fuse-theme-example:build",
+        "port": 4200,
+        "staticFilePath": "dist/apps/fuse-theme-example/browser",
+        "spa": true
+      }
+    }
+  }
+}
