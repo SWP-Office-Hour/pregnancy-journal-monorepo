@@ -42,7 +42,8 @@ const paymentResSchema = z.object({
 
 export type PaymentCreateRequestType = z.infer<typeof paymentCreateReqSchema>;
 export type PaymentUpdateRequestType = z.infer<typeof paymentUpdateReqSchema>;
-export type PaymentResponseType = z.infer<typeof paymentResSchema>;
+export type PaymentResponseWithLinkType = z.infer<typeof paymentResSchema>;
+export type PaymentType = z.infer<typeof paymentSchema>;
 
 const c = initContract();
 
@@ -63,6 +64,14 @@ export const paymentContract = c.router({
     body: paymentUpdateReqSchema,
     responses: {
       200: paymentSchema,
+    },
+  },
+  getAll: {
+    method: 'GET',
+    path: '/payments',
+    description: 'Get all payments',
+    responses: {
+      200: z.array(paymentSchema),
     },
   },
   // getLinkPayment: {

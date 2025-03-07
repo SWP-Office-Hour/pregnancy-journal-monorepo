@@ -30,4 +30,12 @@ export class PaymentController {
       return { status: 200, body: payment };
     });
   }
+
+  @TsRestHandler(paymentContract.getAll)
+  handleGetAllPayments() {
+    return tsRestHandler(paymentContract.getAll, async () => {
+      const payments = await this.paymentService.getAllPayments();
+      return { status: 200, body: payments };
+    });
+  }
 }
