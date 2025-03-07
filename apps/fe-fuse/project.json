@@ -119,7 +119,7 @@
       "executor": "@nx/vite:test",
       "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "reportsDirectory": "../../coverage/apps/fuse-theme-example"
+        "reportsDirectory": "../../coverage/apps/fe-fuse"
       }
     },
     "serve-static": {

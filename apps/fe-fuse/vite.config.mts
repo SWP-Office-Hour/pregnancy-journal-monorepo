@@ -6,7 +6,7 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => ({
   root: __dirname,
-  cacheDir: '../../node_modules/.vite/apps/fuse-theme-example',
+  cacheDir: '../../node_modules/.vite/apps/fe-fuse',
   plugins: [angular(), nxViteTsPaths(), nxCopyAssetsPlugin(['*.md'])],
   // Uncomment this if you are using workers.
   // worker: {
@@ -20,7 +20,7 @@ export default defineConfig(() => ({
     setupFiles: ['src/test-setup.ts'],
     reporters: ['default'],
     coverage: {
-      reportsDirectory: '../../coverage/apps/fuse-theme-example',
+      reportsDirectory: '../../coverage/apps/fe-fuse',
       provider: 'v8' as const,
     },
   },
