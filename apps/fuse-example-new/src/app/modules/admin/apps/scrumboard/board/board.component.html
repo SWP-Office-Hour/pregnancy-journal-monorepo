@@ -1,0 +1,229 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <!-- Title -->
+        <div class="min-w-0 flex-1">
+            <h2
+                class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+            >
+                {{ board.title }}
+            </h2>
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+            <a mat-stroked-button [routerLink]="['..']">
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:view-columns'"
+                ></mat-icon>
+                <span class="ml-2">Boards</span>
+            </a>
+            <button class="ml-3" mat-stroked-button>
+                <mat-icon
+                    class="icon-size-5"
+                    [svgIcon]="'heroicons_solid:cog-8-tooth'"
+                ></mat-icon>
+                <span class="ml-2">Settings</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="flex-auto overflow-y-auto p-6 sm:p-8 sm:pt-4" cdkScrollable>
+        <!-- Lists -->
+        <div
+            class="flex"
+            cdkDropList
+            [cdkDropListData]="board.lists"
+            [cdkDropListOrientation]="'horizontal'"
+            (cdkDropListDropped)="listDropped($event)"
+        >
+            <!-- Group all cdkDropList's after this point together so that the cards can be transferred between lists -->
+            <div class="flex items-start" cdkDropListGroup>
+                <!-- List -->
+                @for (list of board.lists; track trackByFn($index, list)) {
+                    <div
+                        class="bg-default w-72 flex-0 rounded-2xl p-2"
+                        cdkDrag
+                        [cdkDragLockAxis]="'x'"
+                    >
+                        <div
+                            class="flex items-center justify-between"
+                            cdkDragHandle
+                        >
+                            <div
+                                class="flex w-full cursor-text items-center rounded-md border border-transparent px-3 py-2 focus-within:border-primary focus-within:bg-white focus-within:shadow-sm dark:focus-within:bg-gray-900"
+                            >
+                                <input
+                                    class="w-full bg-transparent font-medium leading-5"
+                                    [spellcheck]="'false'"
+                                    [value]="list.title"
+                                    (focusout)="updateListTitle($event, list)"
+                                    (keydown.enter)="listTitleInput.blur()"
+                                    #listTitleInput
+                                />
+                            </div>
+                            <div
+                                class="text-secondary ml-4 flex min-w-6 items-center justify-center rounded-full bg-gray-300 text-sm font-semibold leading-6 dark:bg-gray-700"
+                            >
+                                {{ list.cards.length }}
+                            </div>
+                            <div class="ml-1">
+                                <button
+                                    class="h-8 min-h-8 w-8"
+                                    mat-icon-button
+                                    [matMenuTriggerFor]="listMenu"
+                                >
+                                    <mat-icon
+                                        class="icon-size-5"
+                                        [svgIcon]="
+                                            'heroicons_solid:ellipsis-vertical'
+                                        "
+                                    ></mat-icon>
+                                </button>
+                                <mat-menu #listMenu="matMenu">
+                                    <button
+                                        mat-menu-item
+                                        (click)="renameList(listTitleInput)"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="
+                                                'heroicons_solid:pencil-square'
+                                            "
+                                        ></mat-icon>
+                                        Rename list
+                                    </button>
+                                    <button
+                                        mat-menu-item
+                                        (click)="deleteList(list.id)"
+                                    >
+                                        <mat-icon
+                                            class="icon-size-5"
+                                            [svgIcon]="'heroicons_solid:trash'"
+                                        ></mat-icon>
+                                        Delete list
+                                    </button>
+                                </mat-menu>
+                            </div>
+                        </div>
+
+                        <!-- Cards -->
+                        <div
+                            class="mt-2 rounded-xl bg-gray-400 bg-opacity-12 dark:border dark:bg-transparent"
+                        >
+                            <div
+                                [id]="list.id"
+                                class="p-3 pb-0"
+                                cdkDropList
+                                [cdkDropListData]="list.cards"
+                                (cdkDropListDropped)="cardDropped($event)"
+                            >
+                                <!-- Card -->
+                                @for (
+                                    card of list.cards;
+                                    track trackByFn($index, card)
+                                ) {
+                                    <a
+                                        class="bg-card mb-3 flex flex-col items-start space-y-3 overflow-hidden rounded-lg p-5 shadow"
+                                        [routerLink]="['card', card.id]"
+                                        cdkDrag
+                                    >
+                                        <!-- Cover image -->
+                                        @if (card.coverImage) {
+                                            <div class="-mx-5 -mt-5 mb-2">
+                                                <img
+                                                    class="w-full object-cover"
+                                                    [src]="card.coverImage"
+                                                />
+                                            </div>
+                                        }
+                                        <!-- Title -->
+                                        <div
+                                            class="text-lg font-medium leading-5"
+                                        >
+                                            {{ card.title }}
+                                        </div>
+                                        <!-- Labels -->
+                                        @if (card.labels.length) {
+                                            <div>
+                                                <div
+                                                    class="-mx-1 -mb-2 flex flex-wrap"
+                                                >
+                                                    @for (
+                                                        label of card.labels;
+                                                        track trackByFn(
+                                                            $index,
+                                                            label
+                                                        )
+                                                    ) {
+                                                        <div
+                                                            class="mx-1 mb-2 rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300"
+                                                        >
+                                                            {{ label.title }}
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                        <!-- Due date -->
+                                        @if (card.dueDate) {
+                                            <div
+                                                class="text-secondary flex items-center rounded text-sm font-medium leading-5"
+                                                [ngClass]="{
+                                                    'text-red-600': isOverdue(
+                                                        card.dueDate
+                                                    ),
+                                                }"
+                                            >
+                                                <mat-icon
+                                                    class="text-current icon-size-4"
+                                                    [svgIcon]="
+                                                        'heroicons_outline:clock'
+                                                    "
+                                                ></mat-icon>
+                                                <div class="ml-1">
+                                                    {{
+                                                        card.dueDate
+                                                            | date: 'longDate'
+                                                    }}
+                                                </div>
+                                            </div>
+                                        }
+                                    </a>
+                                }
+                            </div>
+
+                            <!-- New card -->
+                            <scrumboard-board-add-card
+                                (saved)="addCard(list, $event)"
+                                [buttonTitle]="
+                                    list.cards.length
+                                        ? 'Add another card'
+                                        : 'Add a card'
+                                "
+                            >
+                            </scrumboard-board-add-card>
+                        </div>
+                    </div>
+                }
+
+                <!-- New list -->
+                <scrumboard-board-add-list
+                    (saved)="addList($event)"
+                    [buttonTitle]="
+                        board.lists.length ? 'Add another list' : 'Add a list'
+                    "
+                >
+                </scrumboard-board-add-list>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Invisible router-outlet for ScrumboardCard component -->
+<div class="pointer-events-none invisible absolute h-0 w-0 opacity-0">
+    <router-outlet></router-outlet>
+</div>

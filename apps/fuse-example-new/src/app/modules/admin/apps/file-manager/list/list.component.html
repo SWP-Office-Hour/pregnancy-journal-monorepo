@@ -1,0 +1,273 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
+    <mat-drawer-container
+        class="bg-card h-full flex-auto dark:bg-transparent"
+        (backdropClick)="onBackdropClicked()"
+    >
+        <!-- Drawer -->
+        <mat-drawer
+            class="w-full dark:bg-gray-900 sm:w-100"
+            [mode]="drawerMode"
+            [opened]="false"
+            [position]="'end'"
+            [disableClose]="true"
+            #matDrawer
+        >
+            <router-outlet></router-outlet>
+        </mat-drawer>
+
+        <mat-drawer-content
+            class="flex flex-col bg-gray-100 dark:bg-transparent"
+        >
+            <!-- Main -->
+            <div class="flex flex-auto flex-col">
+                <!-- Header -->
+                <div
+                    class="bg-card flex flex-col items-start border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:py-12 md:px-8"
+                >
+                    <!-- Title -->
+                    <div>
+                        <div
+                            class="text-4xl font-extrabold leading-none tracking-tight"
+                        >
+                            File Manager
+                        </div>
+                        <div
+                            class="text-secondary mt-0.5 flex items-center font-medium"
+                        >
+                            @if (!items.path.length) {
+                                {{ items.folders.length }} folders,
+                                {{ items.files.length }} files
+                            }
+                            <!-- Breadcrumbs -->
+                            @if (items.path.length) {
+                                <div class="flex items-center space-x-2">
+                                    <a
+                                        class="cursor-pointer text-primary"
+                                        [routerLink]="['/apps/file-manager']"
+                                        >Home
+                                    </a>
+                                    <div class="">/</div>
+                                    @for (
+                                        path of items.path;
+                                        track trackByFn($index, path);
+                                        let last = $last
+                                    ) {
+                                        @if (!last) {
+                                            <a
+                                                class="cursor-pointer text-primary"
+                                                [routerLink]="[
+                                                    '/apps/file-manager/folders/',
+                                                    path.id,
+                                                ]"
+                                                >{{ path.name }}</a
+                                            >
+                                        }
+                                        @if (last) {
+                                            <div>{{ path.name }}</div>
+                                        }
+                                        @if (!last) {
+                                            <div class="">/</div>
+                                        }
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- Actions -->
+                    <div class="mt-4 sm:mt-0">
+                        <!-- Upload button -->
+                        <button mat-flat-button [color]="'primary'">
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:plus'"
+                            ></mat-icon>
+                            <span class="ml-2 mr-1">Upload file</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Items list -->
+                @if (
+                    items &&
+                    (items.folders.length > 0 || items.files.length > 0)
+                ) {
+                    <div class="space-y-8 p-6 md:p-8">
+                        <!-- Folders -->
+                        @if (items.folders.length > 0) {
+                            <div>
+                                <div class="font-medium">Folders</div>
+                                <div class="-m-2 mt-2 flex flex-wrap">
+                                    @for (
+                                        folder of items.folders;
+                                        track trackByFn($index, folder)
+                                    ) {
+                                        <div
+                                            class="bg-card relative m-2 h-40 w-40 rounded-2xl p-4 shadow"
+                                        >
+                                            <a
+                                                class="absolute right-1.5 top-1.5 z-20 h-8 min-h-8 w-8"
+                                                (click)="
+                                                    $event.preventDefault()
+                                                "
+                                                [routerLink]="[
+                                                    './details/',
+                                                    folder.id,
+                                                ]"
+                                                mat-icon-button
+                                            >
+                                                <mat-icon
+                                                    class="icon-size-5"
+                                                    [svgIcon]="
+                                                        'heroicons_solid:information-circle'
+                                                    "
+                                                ></mat-icon>
+                                            </a>
+                                            <a
+                                                class="absolute inset-0 z-10 flex cursor-pointer flex-col p-4"
+                                                [routerLink]="[
+                                                    '/apps/file-manager/folders/',
+                                                    folder.id,
+                                                ]"
+                                            >
+                                                <div class="aspect-[9/6]">
+                                                    <div
+                                                        class="flex h-full items-center justify-center"
+                                                    >
+                                                        <!-- Icon -->
+                                                        <mat-icon
+                                                            class="text-hint opacity-50 icon-size-14"
+                                                            [svgIcon]="
+                                                                'heroicons_solid:folder'
+                                                            "
+                                                        ></mat-icon>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="flex flex-auto flex-col justify-center text-center text-sm font-medium"
+                                                >
+                                                    <div
+                                                        class="truncate"
+                                                        [matTooltip]="
+                                                            folder.name
+                                                        "
+                                                    >
+                                                        {{ folder.name }}
+                                                    </div>
+                                                    @if (folder.contents) {
+                                                        <div
+                                                            class="text-secondary truncate"
+                                                        >
+                                                            {{
+                                                                folder.contents
+                                                            }}
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </a>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        }
+
+                        <!-- Files -->
+                        @if (items.files.length > 0) {
+                            <div>
+                                <div class="font-medium">Files</div>
+                                <div class="-m-2 mt-2 flex flex-wrap">
+                                    @for (
+                                        file of items.files;
+                                        track trackByFn($index, file)
+                                    ) {
+                                        <a
+                                            class="bg-card m-2 flex h-40 w-40 cursor-pointer flex-col rounded-2xl p-4 shadow"
+                                            [routerLink]="[
+                                                './details/',
+                                                file.id,
+                                            ]"
+                                        >
+                                            <div class="aspect-[9/6]">
+                                                <div
+                                                    class="flex h-full items-center justify-center"
+                                                >
+                                                    <!-- Icons -->
+                                                    <div class="relative">
+                                                        <mat-icon
+                                                            class="text-hint opacity-50 icon-size-14"
+                                                            [svgIcon]="
+                                                                'heroicons_solid:document'
+                                                            "
+                                                        ></mat-icon>
+                                                        <div
+                                                            class="absolute bottom-0 left-0 rounded px-1.5 text-sm font-semibold leading-5 text-white"
+                                                            [class.bg-red-600]="
+                                                                file.type ===
+                                                                'PDF'
+                                                            "
+                                                            [class.bg-blue-600]="
+                                                                file.type ===
+                                                                'DOC'
+                                                            "
+                                                            [class.bg-green-600]="
+                                                                file.type ===
+                                                                'XLS'
+                                                            "
+                                                            [class.bg-gray-600]="
+                                                                file.type ===
+                                                                'TXT'
+                                                            "
+                                                            [class.bg-amber-600]="
+                                                                file.type ===
+                                                                'JPG'
+                                                            "
+                                                        >
+                                                            {{
+                                                                file.type.toUpperCase()
+                                                            }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="flex flex-auto flex-col justify-center text-center text-sm font-medium"
+                                            >
+                                                <div
+                                                    class="truncate"
+                                                    [matTooltip]="file.name"
+                                                >
+                                                    {{ file.name }}
+                                                </div>
+                                                @if (file.contents) {
+                                                    <div
+                                                        class="text-secondary truncate"
+                                                    >
+                                                        {{ file.contents }}
+                                                    </div>
+                                                }
+                                            </div>
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                } @else {
+                    <div
+                        class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent"
+                    >
+                        <mat-icon
+                            class="icon-size-24"
+                            [svgIcon]="'heroicons_outline:folder-open'"
+                        ></mat-icon>
+                        <div
+                            class="text-secondary mt-4 text-2xl font-semibold tracking-tight"
+                        >
+                            There are no items!
+                        </div>
+                    </div>
+                }
+
+                <!-- No items template -->
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>
