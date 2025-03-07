@@ -46,7 +46,7 @@ export class BlogEditorComponent implements OnInit {
   tagsChips = signal<TagResponse[]>([]);
   tagsOptions: TagResponse[] = [];
   categories: CategoryResponse[] = [];
-  images: MediaResponse[] = this._blogService.Media;
+  images: MediaResponse[] = [];
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -92,6 +92,7 @@ export class BlogEditorComponent implements OnInit {
     this._blogService.getCategories().subscribe((categories) => {
       this.categories = categories;
     });
+    this.images = this._blogService.Media;
     this._blog = this._blogService.getBlog();
   }
 

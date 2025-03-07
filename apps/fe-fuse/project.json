@@ -116,10 +116,10 @@
       "executor": "@nx/eslint:lint"
     },
     "test": {
-      "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "executor": "@nx/vite:test",
+      "outputs": ["{options.reportsDirectory}"],
       "options": {
-        "jestConfig": "apps/fe-fuse/jest.config.ts"
+        "reportsDirectory": "../../coverage/apps/fuse-theme-example"
       }
     },
     "serve-static": {

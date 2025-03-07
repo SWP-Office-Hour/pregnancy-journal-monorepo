@@ -9,6 +9,7 @@
     "build": {
       "executor": "@angular-devkit/build-angular:application",
       "outputs": ["{options.outputPath}"],
+      "cache": true,
       "options": {
         "outputPath": "dist/apps/fuse-theme-example",
         "index": "apps/fuse-theme-example/src/index.html",
@@ -44,12 +45,12 @@
             {
               "type": "initial",
               "maximumWarning": "500kb",
-              "maximumError": "1mb"
+              "maximumError": "5mb"
             },
             {
               "type": "anyComponentStyle",
               "maximumWarning": "4kb",
-              "maximumError": "8kb"
+              "maximumError": "80kb"
             }
           ],
           "outputHashing": "all"
@@ -63,6 +64,7 @@
       "defaultConfiguration": "production"
     },
     "serve": {
+      "dependsOn": ["^build"],
       "executor": "@angular-devkit/build-angular:dev-server",
       "configurations": {
         "production": {

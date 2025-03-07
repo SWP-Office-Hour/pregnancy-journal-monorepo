@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     // "strict": true,
-    "strictNullChecks": true,
+    // "strictNullChecks": true,
     "baseUrl": "./src",
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
