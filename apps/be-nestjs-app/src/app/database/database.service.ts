@@ -5,6 +5,10 @@ import { PrismaClient } from '@prisma/client';
 export class DatabaseService {
   private readonly prisma = new PrismaClient();
 
+  get $transaction() {
+    return this.prisma.$transaction;
+  }
+
   get Token() {
     return this.prisma.token;
   }
