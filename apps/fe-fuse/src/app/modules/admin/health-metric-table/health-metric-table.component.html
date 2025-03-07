@@ -28,8 +28,7 @@
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} metric"
     dataKey="metric_id"
     [expandedRowKeys]="expandedRows"
-    (onRowExpand)="onRowExpand($event)"
-    (onRowCollapse)="onRowCollapse($event)"
+    [loading]="isLoading"
   >
     <ng-template #caption>
       <div class="flex items-center justify-between" [fuseScrollbar]="false">
@@ -47,7 +46,7 @@
           Title
           <p-sortIcon field="title" />
         </th>
-        <th pSortableColumn="measurement_unit" style="min-width: 6rem">
+        <th pSortableColumn="measurement_unit" style="min-width: 6rem" class="p">
           Unit
           <p-sortIcon field="measurement_unit" />
         </th>
@@ -71,7 +70,7 @@
       </tr>
     </ng-template>
     <ng-template #body let-metric let-expanded="expanded">
-      <tr>
+      <tr [ngClass]="expanded ? 'bg-green-100 text-2xl font-bold text-red-600' : ''">
         <td>
           <p-button
             type="button"
@@ -105,7 +104,7 @@
     </ng-template>
 
     <ng-template #expandedrow let-metric>
-      <tr class="bg-blue-400">
+      <tr class="bg-green-100">
         <td colspan="8">
           <fuse-card class="flex-col">
             <app-standard-table class="" [currentMetric]="metric" [fuseScrollbar]="false" [(isLoadingStandard)]="isLoading"></app-standard-table>

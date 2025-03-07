@@ -71,13 +71,6 @@ export const adminNavigation: FuseNavigationItem[] = [
     link: 'admin/health-metric',
   },
   {
-    id: 'standard',
-    title: 'Standard of Health Metric',
-    type: 'basic',
-    icon: 'heroicons_outline:check',
-    link: 'admin/standard',
-  },
-  {
     id: 'tag',
     title: 'Tag',
     type: 'basic',

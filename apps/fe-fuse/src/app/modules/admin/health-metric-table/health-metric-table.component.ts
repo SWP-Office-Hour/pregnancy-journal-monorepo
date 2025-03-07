@@ -1,6 +1,6 @@
 // health-metric-table.component.ts
 // noinspection ExceptionCaughtLocallyJS
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Component, effect, OnInit, resource, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -20,7 +20,7 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
-import { Table, TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { Table, TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { TextareaModule } from 'primeng/textarea';
 import { ToastModule } from 'primeng/toast';
@@ -66,6 +66,7 @@ import { StandardTableComponent } from '../standard-table/standard-table.compone
     StandardTableComponent,
     FuseScrollbarDirective,
     FuseCardComponent,
+    NgClass,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -220,14 +221,6 @@ export class HealthMetricTableComponent implements OnInit {
 
   convertRequireToReadable(required: boolean): string {
     return required ? 'REQUIRED' : 'OPTIONAL';
-  }
-
-  onRowExpand(event: TableRowExpandEvent) {
-    this.messageService.add({ severity: 'info', summary: 'Product Expanded', detail: event.data.name, life: 3000 });
-  }
-
-  onRowCollapse(event: TableRowCollapseEvent) {
-    this.messageService.add({ severity: 'success', summary: 'Product Collapsed', detail: event.data.name, life: 3000 });
   }
 
   /**

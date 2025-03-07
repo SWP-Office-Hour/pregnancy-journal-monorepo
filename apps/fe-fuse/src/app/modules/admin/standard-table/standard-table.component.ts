@@ -14,7 +14,6 @@ import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
-import { Message } from 'primeng/message';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { RippleModule } from 'primeng/ripple';
 import { SelectModule } from 'primeng/select';
@@ -57,7 +56,7 @@ import { environment } from '../../../../environments/environment';
     ConfirmDialogModule,
     NgIf,
     ConfirmPopup,
-    Message,
+
     FuseScrollbarDirective,
   ],
   providers: [MessageService, ConfirmationService],
@@ -183,13 +182,14 @@ export class StandardTableComponent implements OnInit {
       return;
     }
     this.batchMode = true;
-    this.newStandards = [this.createNewStandardRow()];
+    const nextWeek = this.findLatestWeek() + 1;
+    this.newStandards = [this.createNewStandardRow(nextWeek)];
   }
 
-  createNewStandardRow(): Standard {
+  createNewStandardRow(week: number = 0): Standard {
     return {
       standard_id: this.generateTempId(),
-      week: 0,
+      week: week,
       lowerbound: 0,
       upperbound: 0,
       who_standard_value: null,
@@ -197,12 +197,25 @@ export class StandardTableComponent implements OnInit {
     };
   }
 
+  /**
+   * Finds the latest (highest) week number from existing standards
+   * @returns the highest week number, or -1 if no standards exist
+   */
+  findLatestWeek(): number {
+    const standards = this.standardResource.value();
+    if (!standards || standards.length === 0) {
+      return -1;
+    }
+    return Math.max(...standards.map((s) => s.week));
+  }
+
   generateTempId(): string {
     return 'temp_' + new Date().getTime() + '_' + Math.floor(Math.random() * 1000);
   }
 
   addRow(): void {
-    this.newStandards.push(this.createNewStandardRow());
+    const nextWeek = this.newStandards.length > 0 ? Math.max(...this.newStandards.map((s) => s.week)) + 1 : this.findLatestWeek() + 1;
+    this.newStandards.push(this.createNewStandardRow(nextWeek));
   }
 
   onRowEditInit(standard: Standard): void {
