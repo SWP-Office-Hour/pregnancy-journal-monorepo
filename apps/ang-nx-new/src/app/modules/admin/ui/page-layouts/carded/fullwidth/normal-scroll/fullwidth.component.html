@@ -1,0 +1,78 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-default flex flex-0 flex-col p-6 pb-22 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:pb-28 sm:pt-12"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div>
+                <div class="hidden flex-wrap items-center font-medium sm:flex">
+                    <div>
+                        <a class="whitespace-nowrap text-primary-500"
+                            >Projects</a
+                        >
+                    </div>
+                    <div class="ml-1 flex items-center whitespace-nowrap">
+                        <mat-icon
+                            class="text-secondary icon-size-5"
+                            [svgIcon]="'heroicons_mini:chevron-right'"
+                        ></mat-icon>
+                        <a class="ml-1 text-primary-500">Weekend Project</a>
+                    </div>
+                    <div class="ml-1 flex items-center whitespace-nowrap">
+                        <mat-icon
+                            class="text-secondary icon-size-5"
+                            [svgIcon]="'heroicons_mini:chevron-right'"
+                        ></mat-icon>
+                        <span class="text-secondary ml-1">Overview</span>
+                    </div>
+                </div>
+                <div class="flex sm:hidden">
+                    <a
+                        class="text-secondary -ml-1.5 inline-flex items-center font-medium"
+                        [routerLink]="'./..'"
+                    >
+                        <mat-icon
+                            class="text-secondary icon-size-5"
+                            [svgIcon]="'heroicons_solid:chevron-left'"
+                        ></mat-icon>
+                        <span class="ml-1">Back</span>
+                    </a>
+                </div>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Page heading
+                </h2>
+            </div>
+        </div>
+        <!-- Actions -->
+        <div class="mt-6 flex shrink-0 items-center sm:ml-4 sm:mt-0">
+            <button mat-stroked-button>
+                <mat-icon
+                    class="icon-size-4"
+                    [svgIcon]="'heroicons_mini:pencil-square'"
+                ></mat-icon>
+                <span class="ml-2">Edit</span>
+            </button>
+            <button class="ml-3" mat-flat-button [color]="'primary'">
+                <mat-icon
+                    class="icon-size-4"
+                    [svgIcon]="'heroicons_mini:link'"
+                ></mat-icon>
+                <span class="ml-2">View</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main -->
+    <div class="bg-card -mt-16 flex-auto rounded-t-2xl p-6 shadow sm:p-10">
+        <!-- CONTENT GOES HERE -->
+        <div
+            class="h-400 max-h-400 min-h-400 rounded-2xl border-2 border-dashed border-gray-300"
+        ></div>
+    </div>
+</div>

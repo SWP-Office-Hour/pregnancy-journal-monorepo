@@ -1,0 +1,56 @@
+<div class="flex min-w-0 flex-auto flex-col">
+    <!-- Header -->
+    <div
+        class="bg-card flex flex-0 flex-col border-b p-6 dark:bg-transparent sm:flex-row sm:items-center sm:justify-between sm:px-10 sm:py-8"
+    >
+        <div class="min-w-0 flex-1">
+            <!-- Breadcrumbs -->
+            <div class="flex flex-wrap items-center font-medium">
+                <a class="whitespace-nowrap text-primary-500">Documentation</a>
+            </div>
+            <!-- Title -->
+            <div class="mt-2">
+                <h2
+                    class="truncate text-3xl font-extrabold leading-7 tracking-tight sm:leading-10 md:text-4xl"
+                >
+                    Changelog
+                </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-auto p-6 sm:p-10">
+        <div class="prose prose-sm max-w-5xl">
+            @for (item of changelog; track item) {
+
+            <div class="bg-card mb-12 rounded-2xl p-8 shadow">
+                <div>
+                    <h2 class="my-0">{{item.version}}</h2>
+                    <div class="text-secondary text-md font-semibold">
+                        {{item.releaseDate}}
+                    </div>
+                </div>
+                <hr class="mt-6" />
+                @for (change of item.changes; track change) {
+
+                <div class="mt-8">
+                    <span
+                        class="text-secondary bg-default inline-flex rounded px-3 py-1 font-bold"
+                        >{{change.type}}</span
+                    >
+                    <ul>
+                        @for (listItem of change.list; track listItem) {
+
+                        <li>{{listItem}}</li>
+
+                        }
+                    </ul>
+                </div>
+
+                }
+            </div>
+
+            }
+        </div>
+    </div>
+</div>

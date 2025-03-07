@@ -1,0 +1,324 @@
+<div class="absolute inset-0 flex min-w-0 flex-col overflow-hidden">
+    <mat-drawer-container class="bg-card h-full flex-auto dark:bg-transparent">
+        <!-- Drawer -->
+        <mat-drawer
+            class="bg-default w-2/3 border-r-0 sm:w-72 lg:w-56"
+            [mode]="drawerMode"
+            [opened]="drawerOpened"
+            #drawer
+        >
+            <div class="p-6 lg:py-8 lg:pl-4 lg:pr-0">
+                <!-- Filters -->
+                <div class="space-y-2">
+                    <!-- Notes -->
+                    <div
+                        class="relative flex cursor-pointer items-center rounded-full px-4 py-2 font-medium"
+                        [ngClass]="{
+                            'bg-gray-200 text-primary dark:bg-gray-700 dark:text-primary-400':
+                                filterStatus === 'notes',
+                            'text-hint hover:bg-hover':
+                                filterStatus !== 'notes',
+                        }"
+                        (click)="resetFilter()"
+                        matRipple
+                        [matRippleDisabled]="filterStatus === 'notes'"
+                    >
+                        <mat-icon
+                            class="text-current"
+                            [svgIcon]="'heroicons_outline:pencil-square'"
+                        ></mat-icon>
+                        <div class="text-default ml-3 select-none leading-5">
+                            Notes
+                        </div>
+                    </div>
+                    <!-- Archive -->
+                    <div
+                        class="relative flex cursor-pointer items-center rounded-full px-4 py-2 font-medium"
+                        [ngClass]="{
+                            'bg-gray-200 text-primary dark:bg-gray-700 dark:text-primary-400':
+                                filterStatus === 'archived',
+                            'text-hint hover:bg-hover':
+                                filterStatus !== 'archived',
+                        }"
+                        (click)="filterByArchived()"
+                        matRipple
+                        [matRippleDisabled]="filterStatus === 'archived'"
+                    >
+                        <mat-icon
+                            class="text-current"
+                            [svgIcon]="'heroicons_outline:archive-box'"
+                        ></mat-icon>
+                        <div class="text-default ml-3 select-none leading-5">
+                            Archive
+                        </div>
+                    </div>
+                    <!-- Labels -->
+                    @if (labels$ | async; as labels) {
+                        @for (label of labels; track trackByFn($index, label)) {
+                            <div
+                                class="relative flex cursor-pointer items-center rounded-full px-4 py-2 font-medium"
+                                [ngClass]="{
+                                    'bg-gray-200 text-primary dark:bg-gray-700 dark:text-primary-400':
+                                        'label:' + label.id === filterStatus,
+                                    'text-hint hover:bg-hover':
+                                        'label:' + label.id !== filterStatus,
+                                }"
+                                (click)="filterByLabel(label.id)"
+                                matRipple
+                                [matRippleDisabled]="
+                                    'label:' + label.id === filterStatus
+                                "
+                            >
+                                <mat-icon
+                                    class="text-current"
+                                    [svgIcon]="'heroicons_outline:tag'"
+                                ></mat-icon>
+                                <div
+                                    class="text-default ml-3 select-none leading-5"
+                                >
+                                    {{ label.title }}
+                                </div>
+                            </div>
+                        }
+                    }
+                    <!-- Edit Labels -->
+                    <div
+                        class="relative flex cursor-pointer items-center rounded-full px-4 py-2 font-medium hover:bg-hover"
+                        (click)="openEditLabelsDialog()"
+                        matRipple
+                    >
+                        <mat-icon
+                            class="text-hint"
+                            [svgIcon]="'heroicons_outline:pencil'"
+                        ></mat-icon>
+                        <div class="ml-3 select-none leading-5">
+                            Edit labels
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </mat-drawer>
+
+        <mat-drawer-content
+            class="flex flex-col bg-gray-100 dark:bg-transparent"
+        >
+            <!-- Main -->
+            <div class="flex flex-auto flex-col p-6 md:p-8">
+                <!-- Header -->
+                <div class="flex items-center">
+                    <div class="flex flex-auto items-center">
+                        <button
+                            class="-ml-2 flex lg:hidden"
+                            mat-icon-button
+                            (click)="drawer.toggle()"
+                        >
+                            <mat-icon
+                                [svgIcon]="'heroicons_outline:bars-3'"
+                            ></mat-icon>
+                        </button>
+                        <mat-form-field
+                            class="fuse-mat-rounded fuse-mat-dense ml-4 flex-auto lg:ml-0"
+                            [subscriptSizing]="'dynamic'"
+                        >
+                            <mat-icon
+                                class="icon-size-5"
+                                [svgIcon]="'heroicons_solid:magnifying-glass'"
+                                matPrefix
+                            ></mat-icon>
+                            <input
+                                matInput
+                                [autocomplete]="'off'"
+                                [placeholder]="'Search notes'"
+                                (input)="filterByQuery(searchInput.value)"
+                                #searchInput
+                            />
+                        </mat-form-field>
+                    </div>
+                    <!-- New note -->
+                    <button
+                        class="ml-4 min-w-10 px-1 sm:px-4"
+                        mat-flat-button
+                        [color]="'primary'"
+                        (click)="addNewNote()"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:plus-circle'"
+                        ></mat-icon>
+                        <span class="ml-2 hidden sm:inline-block"
+                            >New note</span
+                        >
+                    </button>
+                </div>
+
+                <!-- Notes -->
+                @if (notes$ | async; as notes) {
+                    @if (notes.length) {
+                        <!-- Masonry layout -->
+                        <fuse-masonry
+                            class="-mx-2 mt-8"
+                            [items]="notes"
+                            [columns]="masonryColumns"
+                            [columnsTemplate]="columnsTemplate"
+                        >
+                            <!-- Columns template -->
+                            <ng-template #columnsTemplate let-columns>
+                                <!-- Columns -->
+                                @for (
+                                    column of columns;
+                                    track trackByFn($index, column)
+                                ) {
+                                    <!-- Column -->
+                                    <div class="flex-1 space-y-4 px-2">
+                                        @for (
+                                            note of column.items;
+                                            track trackByFn($index, note)
+                                        ) {
+                                            <!-- Note -->
+                                            <div
+                                                class="bg-card flex cursor-pointer flex-col overflow-hidden rounded-2xl shadow"
+                                                (click)="openNoteDialog(note)"
+                                            >
+                                                <!-- Image -->
+                                                @if (note.image) {
+                                                    <img
+                                                        class="w-full object-cover"
+                                                        [src]="note.image"
+                                                    />
+                                                }
+                                                <div
+                                                    class="flex flex-auto flex-col space-y-4 p-6"
+                                                >
+                                                    <!-- Title -->
+                                                    @if (note.title) {
+                                                        <div
+                                                            class="line-clamp-3 font-semibold"
+                                                        >
+                                                            {{ note.title }}
+                                                        </div>
+                                                    }
+                                                    <!-- Content -->
+                                                    @if (note.content) {
+                                                        <div
+                                                            [class.text-xl]="
+                                                                note.content
+                                                                    .length < 70
+                                                            "
+                                                        >
+                                                            {{ note.content }}
+                                                        </div>
+                                                    }
+                                                    <!-- Tasks -->
+                                                    @if (note.tasks) {
+                                                        <div
+                                                            class="space-y-1.5"
+                                                        >
+                                                            @for (
+                                                                task of note.tasks;
+                                                                track trackByFn(
+                                                                    $index,
+                                                                    task
+                                                                )
+                                                            ) {
+                                                                <div
+                                                                    class="flex items-center"
+                                                                >
+                                                                    @if (
+                                                                        !task.completed
+                                                                    ) {
+                                                                        <div
+                                                                            class="flex h-5 w-5 items-center justify-center"
+                                                                        >
+                                                                            <div
+                                                                                class="h-4 w-4 rounded-full border-2"
+                                                                            ></div>
+                                                                        </div>
+                                                                    }
+                                                                    @if (
+                                                                        task.completed
+                                                                    ) {
+                                                                        <mat-icon
+                                                                            class="text-hint icon-size-5"
+                                                                            [svgIcon]="
+                                                                                'heroicons_solid:check-circle'
+                                                                            "
+                                                                        ></mat-icon>
+                                                                    }
+                                                                    <div
+                                                                        class="ml-1.5 leading-5"
+                                                                        [ngClass]="{
+                                                                            'text-secondary line-through':
+                                                                                task.completed,
+                                                                        }"
+                                                                    >
+                                                                        {{
+                                                                            task.content
+                                                                        }}
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                    <!-- Labels -->
+                                                    @if (note.labels) {
+                                                        <div
+                                                            class="-m-1 flex flex-wrap items-center"
+                                                        >
+                                                            @for (
+                                                                label of note.labels;
+                                                                track trackByFn(
+                                                                    $index,
+                                                                    label
+                                                                )
+                                                            ) {
+                                                                <div
+                                                                    class="m-1 rounded-full bg-gray-100 px-3 py-0.5 text-sm font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300"
+                                                                >
+                                                                    {{
+                                                                        label.title
+                                                                    }}
+                                                                </div>
+                                                            }
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                }
+                            </ng-template>
+                        </fuse-masonry>
+                    } @else {
+                        <div
+                            class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent"
+                        >
+                            <mat-icon
+                                class="icon-size-24"
+                                [svgIcon]="'heroicons_outline:document'"
+                            ></mat-icon>
+                            <div
+                                class="text-secondary mt-4 text-2xl font-semibold tracking-tight"
+                            >
+                                There are no notes!
+                            </div>
+                        </div>
+                    }
+                } @else {
+                    <div
+                        class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent"
+                    >
+                        <div
+                            class="text-secondary mt-4 text-2xl font-semibold tracking-tight"
+                        >
+                            Loading...
+                        </div>
+                    </div>
+                }
+
+                <!-- Loading template -->
+
+                <!-- No notes template -->
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</div>

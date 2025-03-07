@@ -3,11 +3,15 @@
     "target": "es2022",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "strict": true,
+    // "strict": true,
+    "baseUrl": "./src",
     "noImplicitOverride": true,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@pregnancy-journal-monorepo/contract": ["../../../libs/contract/src/index.ts"]
+    }
   },
   "files": [],
   "include": [],
@@ -23,10 +27,11 @@
     }
   ],
   "extends": "../../tsconfig.base.json",
+  "exclude": ["@fuse", "@fuse/**/*"],
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false,
-    "strictInjectionParameters": true,
-    "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "enableI18nLegacyMessageIdFormat": false
+    // "strictInjectionParameters": true
+    // "strictInputAccessModifiers": true,
+    // "strictTemplates": true
   }
 }

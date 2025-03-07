@@ -1,0 +1,151 @@
+<div class="flex flex-auto flex-col overflow-y-auto p-8">
+    <div class="flex items-center">
+        <!-- Sidebar toggle button -->
+        <div class="-ml-2 mr-3 md:hidden">
+            <button mat-icon-button (click)="mailboxComponent.drawer.toggle()">
+                <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
+            </button>
+        </div>
+        <!-- Title -->
+        <div>
+            <div class="text-3xl font-extrabold tracking-tight">
+                Manage Labels
+            </div>
+            <div class="text-secondary">Create, update and delete labels</div>
+        </div>
+    </div>
+
+    <!-- Labels form -->
+    <form class="mt-8" [formGroup]="labelsForm">
+        <!-- New label -->
+        <div
+            class="mt-6 flex w-full max-w-80 items-center justify-start"
+            [formGroupName]="'newLabel'"
+        >
+            <mat-form-field class="w-full">
+                <mat-label>New Label</mat-label>
+                <input
+                    matInput
+                    [formControlName]="'title'"
+                    [placeholder]="'Label title'"
+                />
+                <mat-select
+                    [formControlName]="'color'"
+                    [disableOptionCentering]="true"
+                    matPrefix
+                >
+                    <mat-select-trigger class="h-6">
+                        <mat-icon
+                            [ngClass]="
+                                labelColorDefs[
+                                    labelsForm.get('newLabel.color').value
+                                ].text
+                            "
+                            [svgIcon]="'heroicons_outline:tag'"
+                        ></mat-icon>
+                    </mat-select-trigger>
+                    <div class="px-4 pt-5 text-xl font-semibold">
+                        Label color
+                    </div>
+                    <div class="mx-3 my-4 -mr-5 flex w-48 flex-wrap">
+                        @for (color of labelColors; track color) {
+                            <mat-option
+                                class="relative flex h-12 w-12 cursor-pointer rounded-full bg-transparent p-0"
+                                [value]="color"
+                                #matOption="matOption"
+                            >
+                                @if (matOption.selected) {
+                                    <mat-icon
+                                        class="absolute m-3 text-white"
+                                        [svgIcon]="'heroicons_outline:check'"
+                                    ></mat-icon>
+                                }
+                                <span
+                                    class="m-1 flex h-10 w-10 rounded-full"
+                                    [ngClass]="labelColorDefs[color].bg"
+                                ></span>
+                            </mat-option>
+                        }
+                    </div>
+                </mat-select>
+                <button
+                    mat-icon-button
+                    matSuffix
+                    [disabled]="
+                        !labelsForm.get('newLabel').valid ||
+                        !labelsForm.get('newLabel').dirty
+                    "
+                    (click)="addLabel()"
+                >
+                    <mat-icon
+                        class="icon-size-5"
+                        [svgIcon]="'heroicons_solid:plus-circle'"
+                    ></mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+
+        <!-- Labels -->
+        <div
+            class="mt-4 flex w-full max-w-80 flex-col"
+            [formArrayName]="'labels'"
+        >
+            <!-- Label -->
+            @for (label of labelsForm.get('labels')['controls']; track label) {
+                <mat-form-field class="w-full">
+                    <input matInput [formControl]="label.get('title')" />
+                    <mat-select
+                        [formControl]="label.get('color')"
+                        [disableOptionCentering]="true"
+                        matPrefix
+                    >
+                        <mat-select-trigger class="h-6">
+                            <mat-icon
+                                [ngClass]="
+                                    labelColorDefs[label.get('color').value]
+                                        .text
+                                "
+                                [svgIcon]="'heroicons_outline:tag'"
+                            ></mat-icon>
+                        </mat-select-trigger>
+                        <div class="px-4 pt-5 text-xl font-semibold">
+                            Label color
+                        </div>
+                        <div class="mx-3 my-4 -mr-5 flex w-48 flex-wrap">
+                            @for (color of labelColors; track color) {
+                                <mat-option
+                                    class="relative flex h-12 w-12 cursor-pointer rounded-full bg-transparent p-0"
+                                    [value]="color"
+                                    #matOption="matOption"
+                                >
+                                    @if (matOption.selected) {
+                                        <mat-icon
+                                            class="absolute m-3 text-white"
+                                            [svgIcon]="
+                                                'heroicons_outline:check'
+                                            "
+                                        ></mat-icon>
+                                    }
+                                    <span
+                                        class="m-1 flex h-10 w-10 rounded-full"
+                                        [ngClass]="labelColorDefs[color].bg"
+                                    ></span>
+                                </mat-option>
+                            }
+                        </div>
+                    </mat-select>
+                    <button
+                        mat-icon-button
+                        matSuffix
+                        (click)="deleteLabel(label.get('id').value)"
+                    >
+                        <mat-icon
+                            class="icon-size-5"
+                            [svgIcon]="'heroicons_solid:trash'"
+                        ></mat-icon>
+                    </button>
+                </mat-form-field>
+            }
+        </div>
+    </form>
+</div>
