@@ -3,6 +3,7 @@ import { recordContract, RecordCreateRequest, RecordUpdateRequest } from '@pregn
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
+import { JwtPayload } from '../utils/jwt/jwt.interface';
 import { RecordsService } from './records.service';
 
 @Controller()
@@ -13,11 +14,7 @@ export class RecordsController {
   @TsRestHandler(recordContract.createRecord)
   handleCreateRecord(@Body() record: RecordCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(recordContract.createRecord, async () => {
-      if (!req.decoded_authorization) {
-        throw new UnauthorizedException('UnAuthorized');
-      }
-
-      const userId = req.decoded_authorization.user_id;
+      const userId = (req.decoded_authorization as JwtPayload).user_id;
       const result = await this.recordService.createRecord({ record, userId });
       return {
         status: 200,

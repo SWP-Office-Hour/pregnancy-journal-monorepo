@@ -1,26 +1,33 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
-import { MetricService } from '../metric/metric.service';
 import { ReminderService } from '../reminder/reminder.service';
+import { UserEntity } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
 import { TimeUtilsService } from '../utils/time/timeUtils.service';
+import { VisitRecordIncludeOtherTables } from './entities/record.entity';
 
 @Injectable()
 export class RecordsService {
   constructor(
     private readonly dataService: DatabaseService,
     private readonly timeUtilsService: TimeUtilsService,
-    private readonly metricService: MetricService,
     private readonly userService: UsersService,
     private readonly reminderService: ReminderService,
   ) {}
 
-  async createRecord({ record, userId }: { record: RecordCreateRequest; userId: string }): Promise<RecordResponse> {
-    if (!userId) {
-      throw new UnauthorizedException('access token is required');
-    }
+  //================================================================================================
+  //                          PUBLIC FUNCTIONS - CRUD OPERATIONS
+  //================================================================================================
 
+  /**
+   * Create a new record and return formatted response
+   * @param record
+   * @param userId
+   * @returns Promise<RecordResponse>
+   * @throws NotFoundException
+   */
+  async createRecord({ record, userId }: { record: RecordCreateRequest; userId: string }): Promise<RecordResponse> {
     const user = await this.dataService.User.findUnique({
       where: { user_id: userId },
     });
@@ -48,50 +55,52 @@ export class RecordsService {
       }
     }
 
-    const newRecord = await this.dataService.Record.create({
-      data: {
-        visit_doctor_date: record.visit_doctor_date,
-        next_visit_doctor_date: record.next_visit_doctor_date,
-        doctor_name: record.doctor_name,
-        created_at: new Date(),
-        user: {
-          connect: {
-            user_id: userId,
+    const newRecord = await this.dataService.$transaction(async (prisma) => {
+      const createdRecord = await prisma.visit_record.create({
+        data: {
+          visit_doctor_date: record.visit_doctor_date,
+          next_visit_doctor_date: record.next_visit_doctor_date,
+          doctor_name: record.doctor_name,
+          created_at: new Date(),
+          user: {
+            connect: {
+              user_id: userId,
+            },
+          },
+          hospital: {
+            connect: {
+              hospital_id: record.hospital_id,
+            },
           },
         },
-        hospital: {
-          connect: {
-            hospital_id: record.hospital_id,
-          },
+        include: {
+          media: true,
+          hospital: true,
         },
-        visit_record_metric: {
-          createMany: {
-            data: await Promise.all(
-              record.data.map(async (data) => {
-                const tag_id = await this.checkRecordValue({
-                  value: data.value,
-                  metric_id: data.metric_id,
-                  userExpectBirthDate: user.expected_birth_date,
-                  visit_doctor_date: new Date(record.visit_doctor_date),
-                });
+      });
 
-                return {
-                  value: data.value,
-                  created_at: new Date(),
-                  updated_at: new Date(),
-                  metric_id: data.metric_id,
-                  tag_id: tag_id ? tag_id : null,
-                };
-              }),
-            ),
+      // Process metrics sequentially to avoid any race conditions
+      for (const data of record.data) {
+        const tag_id = await this.checkRecordValue({
+          value: data.value,
+          metric_id: data.metric_id,
+          userExpectBirthDate: user.expected_birth_date,
+          visit_doctor_date: new Date(record.visit_doctor_date),
+        });
+
+        await prisma.visit_record_metric.create({
+          data: {
+            value: data.value,
+            created_at: new Date(),
+            updated_at: new Date(),
+            metric_id: data.metric_id,
+            visit_record_id: createdRecord.visit_record_id,
+            tag_id: tag_id ? tag_id : null,
           },
-        },
-      },
-      include: {
-        visit_record_metric: true,
-        media: true,
-        hospital: true,
-      },
+        });
+      }
+
+      return createdRecord;
     });
 
     // Create reminder
@@ -105,8 +114,15 @@ export class RecordsService {
     return formatRecord[0];
   }
 
+  /**
+   * Get all records by user ID and return formatted response
+   * @param userId
+   * @returns Promise<{ total: number; data: RecordResponse[] }>
+   * @throws NotFoundException
+   * @async
+   */
   async getRecordByUserId(userId: string): Promise<{ total: number; data: RecordResponse[] }> {
-    const user = await this.dataService.User.findUnique({
+    const user: UserEntity | null = await this.dataService.User.findUnique({
       where: { user_id: userId },
     });
 
@@ -114,7 +130,7 @@ export class RecordsService {
       throw new NotFoundException('User not found');
     }
 
-    const records = await this.dataService.Record.findMany({
+    const records: VisitRecordIncludeOtherTables[] = await this.dataService.Record.findMany({
       where: { user_id: userId },
       include: {
         visit_record_metric: true,
@@ -126,8 +142,8 @@ export class RecordsService {
       },
     });
 
-    if (!records) {
-      throw new NotFoundException('Record not found');
+    if (records.length === 0) {
+      return { total: 0, data: [] };
     }
 
     const result = await this.formatRecord(records, user);
@@ -138,6 +154,190 @@ export class RecordsService {
     };
   }
 
+  /**
+   * Update record by record ID and return formatted response
+   * @functions-used getUserById(), updateRecordMetrics(), getRecordById(), updateByNextVisitDoctorDate()
+   * @param record
+   * @returns Promise<RecordResponse>
+   * @throws NotFoundException
+   * @returns Promise<RecordResponse>
+   * @async
+   */
+  async updateRecord(record: RecordUpdateRequest): Promise<RecordResponse> {
+    // Find existing record to get user ID
+    const existingRecord = await this.dataService.Record.findUnique({
+      where: { visit_record_id: record.visit_record_id },
+      select: { user_id: true },
+    });
+
+    if (!existingRecord) {
+      throw new NotFoundException('Record not found');
+    }
+
+    // Get user details (needed for metric updates)
+    const user = await this.userService.getUserById(existingRecord.user_id);
+
+    // Verify hospital exists before connecting
+    const hospital = await this.dataService.Hospital.findUnique({
+      where: { hospital_id: record.hospital_id },
+    });
+
+    if (!hospital) {
+      throw new NotFoundException('Hospital not found');
+    }
+
+    // Update base record
+    const newRecord = await this.dataService.Record.update({
+      where: { visit_record_id: record.visit_record_id },
+      data: {
+        visit_doctor_date: record.visit_doctor_date,
+        next_visit_doctor_date: record.next_visit_doctor_date,
+        doctor_name: record.doctor_name,
+        hospital: {
+          connect: {
+            hospital_id: hospital.hospital_id,
+          },
+        },
+      },
+    });
+
+    // Update reminder if needed
+    if (record.next_visit_doctor_date) {
+      await this.reminderService.updateByNextVisitDoctorDate({
+        next_visit_doctor_date: record.next_visit_doctor_date,
+        visit_record_id: record.visit_record_id,
+        user_id: newRecord.user_id,
+      });
+    }
+
+    // Update record metrics if provided
+    if (record.data && record.data.length > 0) {
+      await this.updateRecordMetrics(record.visit_record_id, record.data, user.expected_birth_date, new Date(newRecord.visit_doctor_date));
+    }
+
+    // Return formatted record
+    const formatRecord = await this.getRecordById(record.visit_record_id);
+    return formatRecord[0];
+  }
+
+  /**
+   * Delete record by record ID and return success message
+   * @param recordId
+   * @returns Promise<{ message: string }>
+   * @throws NotFoundException
+   * @async
+   */
+  async deleteRecord(recordId: string) {
+    await this.dataService.$transaction(async (prisma) => {
+      // Delete related records first (foreign key constraints)
+      await prisma.visit_record_metric.deleteMany({
+        where: { visit_record_id: recordId },
+      });
+
+      await prisma.media.deleteMany({
+        where: { visit_record_id: recordId },
+      });
+
+      await prisma.reminder.deleteMany({
+        where: { visit_record_id: recordId },
+      });
+
+      // Delete the main record last
+      await prisma.visit_record.delete({
+        where: { visit_record_id: recordId },
+      });
+    });
+    return { message: 'Record deleted' };
+  }
+
+  //================================================================================================
+  //                          PRIVATE FUNCTIONS - HELPER FUNCTIONS
+  //================================================================================================
+
+  /**
+   * Format records for response
+   * @param records
+   * @param user
+   * @returns Promise<RecordResponse[]>
+   * @async
+   * @private
+   */
+  private async formatRecord(records: VisitRecordIncludeOtherTables[], user: UserEntity): Promise<RecordResponse[]> {
+    return await Promise.all(
+      records.map(async (record) => {
+        // Calculate pregnancy week for this record
+        const week = this.timeUtilsService.calculatePregnancyWeeks({
+          expectedBirthDate: user.expected_birth_date,
+          visitDate: record.visit_doctor_date,
+        });
+
+        // Extract just the values and metric IDs from the metrics
+        const data = record.visit_record_metric.map((metricRecord) => ({
+          value: metricRecord.value,
+          metric_id: metricRecord.metric_id,
+        }));
+
+        // Return the simplified record structure
+        return {
+          week,
+          visit_record_id: record.visit_record_id,
+          visit_doctor_date: record.visit_doctor_date,
+          next_visit_doctor_date: record.next_visit_doctor_date as Date,
+          hospital: record.hospital,
+          doctor_name: record.doctor_name,
+          media: record.media.map((m) => ({
+            media_id: m.media_id,
+            media_url: m.media_url,
+          })),
+          data,
+        };
+      }),
+    );
+  }
+
+  /**
+   * Get record by record ID and return formatted response
+   * @param recordId
+   * @returns Promise<RecordResponse>
+   * @throws NotFoundException
+   * @private
+   * @async
+   */
+  private async getRecordById(recordId: string) {
+    const record = await this.dataService.Record.findUnique({
+      where: { visit_record_id: recordId },
+      include: {
+        visit_record_metric: true,
+        media: true,
+        hospital: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException('Record not found');
+    }
+
+    const user = await this.dataService.User.findUnique({
+      where: { user_id: record.user_id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return await this.formatRecord([record], user);
+  }
+
+  /**
+   * Checks the value of a record metric against the standard
+   * Returns the tag ID if the value is out of bounds
+   * @param value
+   * @param metric_id
+   * @param userExpectBirthDate
+   * @param visit_doctor_date
+   * @private
+   * @async
+   */
   private async checkRecordValue({
     value,
     metric_id,
@@ -159,6 +359,7 @@ export class RecordsService {
     });
 
     if (!metric) {
+      console.warn(`Metric with ID ${metric_id} not found when checking record value`);
       return null;
     }
 
@@ -168,6 +369,7 @@ export class RecordsService {
     });
 
     if (standards.length === 0) {
+      console.warn(`No standards found for metric ${metric_id} (${metric.title || 'unnamed'})`);
       return null;
     }
 
@@ -194,213 +396,16 @@ export class RecordsService {
     return null;
   }
 
-  async formatRecord(records, user): Promise<RecordResponse[]> {
-    return await Promise.all(
-      records
-        .map(async (record) => {
-          const week = this.timeUtilsService.calculatePregnancyWeeks({
-            expectedBirthDate: user.expected_birth_date,
-            visitDate: record.visit_doctor_date,
-          });
-
-          const data = await Promise.all(
-            record.visit_record_metric.map(async (metricRecord) => {
-              const metric = await this.metricService.findByMetricIdAndWeek({
-                metricId: metricRecord.metric_id,
-                week,
-              });
-
-              const tag = metricRecord.tag_id
-                ? await this.dataService.Tag.findUnique({
-                    where: { tag_id: metricRecord.tag_id },
-                  })
-                : undefined;
-
-              if (metric) {
-                return {
-                  record_id: record.visit_record_id,
-                  value: metricRecord.value,
-                  metric_id: metricRecord.metric_id,
-                  metric_title: metric.title,
-                  metric_measure: metric.measurement_unit,
-                  metric_upperBoundMsg: metric.upperbound_msg,
-                  metric_lowerBoundMsg: metric.lowerbound_msg,
-                  standard_lowerbound: metric.standard?.[0]?.lowerbound,
-                  standard_upperbound: metric.standard?.[0]?.upperbound,
-                  standard_week: metric.standard?.[0]?.week,
-                  whoStandardValue: metric.standard?.[0]?.who_standard_value,
-                  tag,
-                  status: metric.status,
-                };
-              }
-            }),
-          );
-
-          return {
-            visit_record_id: record.visit_record_id,
-            week,
-            visit_doctor_date: record.visit_doctor_date,
-            next_visit_doctor_date: record.next_visit_doctor_date,
-            doctor_name: record.doctor_name,
-            hospital: record.hospital,
-            user_id: record.user_id,
-            data,
-            media: record.media,
-          };
-        })
-        .sort((a, b) => {
-          return new Date(a.visit_doctor_date).getTime() - new Date(b.visit_doctor_date).getTime();
-        }), // sort by visit_doctor_date
-    );
-  }
-
-  async getRecordById(recordId: string) {
-    const record = await this.dataService.Record.findUnique({
-      where: { visit_record_id: recordId },
-      include: {
-        visit_record_metric: true,
-        media: true,
-        hospital: true,
-      },
-    });
-
-    if (!record) {
-      throw new NotFoundException('Record not found');
-    }
-
-    const user = await this.dataService.User.findUnique({
-      where: { user_id: record.user_id },
-    });
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    return await this.formatRecord([record], user);
-  }
-
-  async updateRecord(record: RecordUpdateRequest) {
-    // Check if record exists
-    const newRecord = await this.dataService.Record.update({
-      where: { visit_record_id: record.visit_record_id },
-      data: {
-        visit_doctor_date: record.visit_doctor_date,
-        next_visit_doctor_date: record.next_visit_doctor_date,
-        doctor_name: record.doctor_name,
-      },
-    });
-
-    // Update reminder
-    if (record.next_visit_doctor_date) {
-      await this.reminderService.updateByNextVisitDoctorDate({
-        next_visit_doctor_date: record.next_visit_doctor_date,
-        visit_record_id: record.visit_record_id,
-        user_id: newRecord.user_id,
-      });
-    }
-
-    // Update record metric
-    if (record.data) {
-      for (const record_metric of record.data) {
-        // Check if metric exists
-        const metric = await this.dataService.Metric.findUnique({
-          where: { metric_id: record_metric.metric_id },
-        });
-        if (!metric) {
-          throw new NotFoundException('Metric not found');
-        }
-
-        // Check if user exists
-        const user = await this.userService.getUserById(newRecord.user_id);
-        if (!user) {
-          throw new NotFoundException('User not found');
-        }
-
-        // Check if this record metric should have a tag
-        const tag_id = await this.checkRecordValue({
-          value: record_metric.value,
-          metric_id: record_metric.metric_id,
-          userExpectBirthDate: user.expected_birth_date,
-          visit_doctor_date: new Date(newRecord.visit_doctor_date),
-        });
-
-        // Check if this record metric already exists
-        const is_existed = await this.dataService.RecordMetric.findFirst({
-          where: {
-            metric_id: record_metric.metric_id,
-            visit_record_id: record.visit_record_id,
-          },
-        });
-
-        // Create record metric if not existed
-        if (!is_existed) {
-          await this.dataService.RecordMetric.create({
-            data: {
-              value: record_metric.value,
-              created_at: new Date(),
-              updated_at: new Date(),
-              metric_id: record_metric.metric_id,
-              visit_record_id: record.visit_record_id,
-              tag_id: tag_id ? tag_id : null,
-            },
-          });
-        } else {
-          // Update record metric if existed
-          await this.dataService.RecordMetric.update({
-            where: {
-              visit_record_metric_id: is_existed.visit_record_metric_id,
-            },
-            data: {
-              value: record_metric.value,
-              tag_id: tag_id ? tag_id : null,
-            },
-          });
-        }
-      }
-      return await this.getRecordById(record.visit_record_id);
-    }
-
-    if (record.hospital_id) {
-      const check = await this.dataService.Hospital.findUnique({ where: { hospital_id: record.hospital_id } });
-      if (!check) {
-        throw new NotFoundException('Hospital not found');
-      }
-
-      await this.dataService.Record.update({
-        where: { visit_record_id: record.visit_record_id },
-        data: {
-          hospital: {
-            connect: {
-              hospital_id: record.hospital_id,
-            },
-          },
-        },
-      });
-    }
-    const formatRecord = await this.getRecordById(record.visit_record_id);
-    return formatRecord[0];
-  }
-
-  async deleteRecord(recordId: string) {
-    await Promise.all([
-      this.dataService.RecordMetric.deleteMany({
-        where: { visit_record_id: recordId },
-      }),
-      this.dataService.Media.deleteMany({
-        where: { visit_record_id: recordId },
-      }),
-      this.dataService.Record.delete({
-        where: { visit_record_id: recordId },
-      }),
-      this.dataService.Reminder.deleteMany({
-        where: { visit_record_id: recordId },
-      }),
-    ]);
-    return { message: 'Record deleted' };
-  }
-
   /**
-   * Updates record metrics data within a transaction
+   * Updates record metrics data based on provided data and creates new record metrics if not found
+   * @param visitRecordId Visit record ID
+   * @param metricsData Array of metric data to update
+   * @param userExpectBirthDate User expected birthdate
+   * @param visitDoctorDate Visit doctor date
+   * @returns Promise<void>
+   * @throws NotFoundException
+   * @private
+   * @async
    */
   private async updateRecordMetrics(
     visitRecordId: string,
@@ -415,7 +420,8 @@ export class RecordsService {
     });
 
     if (metrics.length !== metricIds.length) {
-      throw new NotFoundException('One or more metrics not found');
+      const missingMetricIds = metricIds.filter((id) => !metrics.find((m) => m.metric_id === id));
+      throw new NotFoundException(`The following metrics were not found: ${missingMetricIds.join(', ')}`);
     }
 
     // Get existing record metrics to determine create vs update

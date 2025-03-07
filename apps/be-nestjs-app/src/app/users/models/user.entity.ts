@@ -6,7 +6,7 @@ interface User {
   email: string;
   password: string;
   lastOvulationDate?: Date;
-  expectedBirthDate?: Date;
+  expectedBirthDate: Date;
   phone: string;
   province: string;
   district: string;
@@ -24,7 +24,7 @@ export class UserEntity {
   email: string;
   password: string;
   last_ovulation_date?: Date;
-  expected_birth_date?: Date;
+  expected_birth_date: Date;
   phone: string;
   province: string;
   district: string;
