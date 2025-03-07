@@ -26,6 +26,7 @@
     [tableStyle]="{ 'min-width': '75rem' }"
     currentPageReportTemplate="Showing {first} to {last} of {totalRecords} memberships"
     dataKey="membership_id"
+    [loading]="isLoading"
   >
     <ng-template #caption>
       <div class="flex items-center justify-between">

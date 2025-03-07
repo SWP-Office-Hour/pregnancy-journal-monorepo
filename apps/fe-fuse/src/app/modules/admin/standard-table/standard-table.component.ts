@@ -29,6 +29,7 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-standard-table',
   templateUrl: './standard-table.component.html',
+  styleUrls: ['./standard-table.component.css'],
   animations: fuseAnimations,
   standalone: true,
   imports: [
@@ -288,7 +289,6 @@ export class StandardTableComponent implements OnInit {
       const promises = this.newStandards.map(async (standard) => {
         // Remove the temporary ID before sending to server
         const standardToSave = { ...standard };
-        // delete standardToSave.standard_id;
 
         const response = await fetch(`${environment.apiUrl}standards`, {
           method: 'POST',
@@ -376,11 +376,14 @@ export class StandardTableComponent implements OnInit {
   }
 
   deleteStandard(standard: Standard, event: Event): void {
+    console.log('target');
+    console.log(event.target);
     this.confirmationService.confirm({
       target: event.target as EventTarget,
       message: 'Are you sure you want to delete this standard?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
+
       accept: () => {
         this.deleteStandardFromServer(standard.standard_id);
       },
