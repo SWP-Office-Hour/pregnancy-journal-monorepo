@@ -32,6 +32,7 @@ import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
 import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnancy-record.service';
+import { HomeReminderComponent } from '../home-reminder/home-reminder.component';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
 
 @Component({
@@ -67,6 +68,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     ButtonModule,
     NgxSplideModule,
     RouterLink,
+    HomeReminderComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',

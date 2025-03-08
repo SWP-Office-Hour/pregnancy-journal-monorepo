@@ -16,7 +16,7 @@ export class CalendarService {
   deleteReminder(reminderId: string) {
     return this._httpClient.delete(environment.apiUrl + 'reminders/' + reminderId).pipe(
       map((res) => {
-        this._meetings.set(this.meetings().filter((meeting) => meeting.reminder_id !== reminderId));
+        this._meetings.set(this.meetings.value().filter((meeting) => meeting.reminder_id !== reminderId));
         return res;
       }),
     );
@@ -24,7 +24,7 @@ export class CalendarService {
 
   reloadMeetings() {
     this._meetings.reload();
-    console.log('reloaded', this.meetings());
+    console.log('reloaded', this.meetings.value());
   }
 
   private _reminder: ReminderResponse | null;
@@ -61,7 +61,7 @@ export class CalendarService {
   });
 
   get meetings() {
-    return this._meetings.value;
+    return this._meetings;
   }
 
   clearReminder() {
@@ -69,7 +69,7 @@ export class CalendarService {
   }
 
   getMeetingByDate(date: DateTime) {
-    return this.meetings()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
+    return this.meetings.value()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
   }
 
   createReminder(reminder: ReminderCreateRequest) {
@@ -81,7 +81,7 @@ export class CalendarService {
       })
       .pipe(
         map((response: ReminderResponse) => {
-          this._meetings.set([...this.meetings(), { ...response, remind_date: new Date(response.remind_date) }]);
+          this._meetings.set([...this.meetings.value(), { ...response, remind_date: new Date(response.remind_date) }]);
           return response;
         }),
       );
@@ -90,7 +90,7 @@ export class CalendarService {
   updateReminder(reminder: ReminderUpdateRequest) {
     return this._httpClient.patch<ReminderResponse>(environment.apiUrl + 'reminders/', reminder).pipe(
       map((response: ReminderResponse) => {
-        const updatedMeetings = this.meetings().map((meeting) => {
+        const updatedMeetings = this.meetings.value().map((meeting) => {
           if (meeting.reminder_id === response.reminder_id) {
             return { ...response, remind_date: new Date(response.remind_date) };
           }
