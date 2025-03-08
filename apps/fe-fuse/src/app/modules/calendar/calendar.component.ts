@@ -1,19 +1,24 @@
+import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Button, ButtonModule } from 'primeng/button';
-import { TypeOfEventInCalendarComponent } from '../type-of-event-in-calendar/type-of-event-in-calendar.component';
 
 interface Event {
   title: string;
   type: string;
   time: string;
   date: Date;
+}
+interface Theme {
+  id: number;
+  name: string;
+  color: string;
 }
 
 @Component({
@@ -27,10 +32,12 @@ interface Event {
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
-    TypeOfEventInCalendarComponent,
+    DragDropModule,
     FormsModule,
     Button,
     ButtonModule,
+    CdkDrag,
+    CdkDropList,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
@@ -156,6 +163,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.generateCalendarDays();
     this.loadEvents();
+    this.loadThemes();
   }
 
   generateCalendarDays() {
@@ -188,6 +196,10 @@ export class CalendarComponent implements OnInit {
 
   navigateMonth(offset: number) {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + offset);
+    this.generateCalendarDays();
+  }
+  navigateThisMonth() {
+    this.currentDate = new Date();
     this.generateCalendarDays();
   }
 
@@ -281,40 +293,6 @@ export class CalendarComponent implements OnInit {
     }
   }
 
-  getEventDotClass(type: string): string {
-    switch (type) {
-      case 'All Day Event':
-        return 'bg-sky-300 shadow-sm shadow-sky-100';
-      case 'Conference':
-        return 'bg-violet-300 shadow-sm shadow-violet-100';
-      case 'Dinner':
-        return 'bg-rose-300 shadow-sm shadow-rose-100';
-      case 'Meeting':
-        return 'bg-emerald-300 shadow-sm shadow-emerald-100';
-      case 'Birthday':
-        return 'bg-amber-300 shadow-sm shadow-amber-100';
-      default:
-        return 'bg-slate-300 shadow-sm shadow-slate-100';
-    }
-  }
-
-  getEventGradient(type: string): string {
-    switch (type) {
-      case 'All Day Event':
-        return 'from-sky-100/50 to-sky-200/30';
-      case 'Conference':
-        return 'from-violet-100/50 to-violet-200/30';
-      case 'Dinner':
-        return 'from-rose-100/50 to-rose-200/30';
-      case 'Meeting':
-        return 'from-emerald-100/50 to-emerald-200/30';
-      case 'Birthday':
-        return 'from-amber-100/50 to-amber-200/30';
-      default:
-        return 'from-slate-100/50 to-slate-200/30';
-    }
-  }
-
   openCreateEventModal() {
     this.showEventModal = true;
     this.newEvent.date = this.selectedDate;
@@ -337,4 +315,101 @@ export class CalendarComponent implements OnInit {
       this.closeCreateEventModal();
     }
   }
+
+  //Drag and drop
+  themes: Theme[] = [];
+  showModal = false;
+  themeForm: FormGroup;
+  removeAfterDrop = false;
+
+  predefinedColors = ['#A0C4FF', '#CAFFBF', '#D8C4FF', '#FFD4A0', '#FFBFCB'];
+
+  constructor(private fb: FormBuilder) {
+    this.themeForm = this.fb.group({
+      name: ['', [Validators.required]],
+      color: ['', [Validators.required]],
+    });
+  }
+
+  loadThemes(): void {
+    const savedThemes = localStorage.getItem('themes');
+    if (savedThemes) {
+      this.themes = JSON.parse(savedThemes);
+    }
+  }
+
+  saveThemes(): void {
+    localStorage.setItem('themes', JSON.stringify(this.themes));
+  }
+
+  openThemeModal(): void {
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
+    this.themeForm.reset();
+  }
+
+  selectColor(color: string): void {
+    this.themeForm.patchValue({ color });
+  }
+
+  createTheme(): void {
+    if (this.themeForm.valid) {
+      const newTheme: Theme = {
+        id: Date.now(),
+        name: this.themeForm.value.name,
+        color: this.themeForm.value.color,
+      };
+
+      this.themes.push(newTheme);
+      this.saveThemes();
+      this.closeModal();
+    }
+  }
+
+  deleteTheme(theme: Theme): void {
+    this.themes = this.themes.filter((t) => t.id !== theme.id);
+    this.saveThemes();
+  }
+
+  drop(event: CdkDragDrop<Theme[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+    }
+    this.saveThemes(); // Save the updated order to localStorage
+  }
+
+  /**
+   * Handle drop event when a theme is dropped on a calendar date
+   * @param event The drop event
+   */
+  // dropInCalendar(event: CdkDragDrop<any>): void {
+  //   const reminderDate = DateTime.local();
+  //   // Get the theme that was dragged
+  //   const theme = this.themes[event.previousIndex];
+
+  //   // Create a new event using the theme's name and color
+  //   const newEvent = {
+  //     title: theme.name,
+  //     type: 'All Day Event', // Default event type
+  //     time: '12:00', // Default time
+  //     date: date,
+  //     color: theme.color,
+  //   };
+
+  //   // Add the event to the collection
+  //   this.selectedDateEvents.push(newEvent);
+
+  //   // If removeAfterDrop is true, remove the theme
+  //   if (this.removeAfterDrop) {
+  //     this.themes.splice(event.previousIndex, 1);
+  //   }
+
+  //   // Update the UI to show the new event
+  //   this.selectDate(date);
+  // }
 }
