@@ -88,7 +88,7 @@ export class PregnancyTrackingService {
   getStandardValue({ week, metric_id }: { metric_id: string; week: number }) {
     return this._httpClient.get<Standard[]>(environment.apiUrl + 'standards/' + metric_id).pipe(
       map((res: Standard[]) => {
-        return res.find((standard) => standard.week === week);
+        return res.find((standard) => standard.metric_id === metric_id);
       }),
     );
   }

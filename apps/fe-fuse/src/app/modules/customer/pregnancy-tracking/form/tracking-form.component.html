@@ -107,6 +107,11 @@
           }
         </div>
       </div>
+      <div class="mt-8">
+        @for (msg of messages(); track $index) {
+          <p>{{ msg }}</p>
+        }
+      </div>
     </div>
   </div>
 
