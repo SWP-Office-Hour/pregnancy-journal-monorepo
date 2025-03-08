@@ -47,8 +47,8 @@ export class UserEntity {
     this.district = userData.district;
     this.ward = userData.ward;
     this.address = userData.address;
-    this.created_at = userData.created_at || new Date();
-    this.updated_at = userData.updated_at || new Date();
+    this.created_at = userData.created_at || new Date(Date.now());
+    this.updated_at = userData.updated_at || new Date(Date.now());
     this.role = userData.role || UserRole.MEMBER;
     this.status = userData.status || UserStatus.ACTIVE;
   }

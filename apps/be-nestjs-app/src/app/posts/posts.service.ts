@@ -16,8 +16,8 @@ export class PostsService {
     return await this.databaseService.Post.create({
       data: {
         content: createPostDto.content,
-        created_at: new Date(),
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
+        created_at: new Date(Date.now()),
         user: {
           connect: { user_id: user_id },
         },
@@ -57,7 +57,7 @@ export class PostsService {
       },
       data: {
         content: updatePostDto.content,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
   }

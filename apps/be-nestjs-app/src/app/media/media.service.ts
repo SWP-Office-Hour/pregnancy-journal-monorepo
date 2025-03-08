@@ -46,7 +46,7 @@ export class MediaService {
     return await this.databaseService.Media.create({
       data: {
         media_url: media_url,
-        created_at: new Date(),
+        created_at: new Date(Date.now()),
         post: {
           connect: { post_id: post_id },
         },
@@ -68,7 +68,7 @@ export class MediaService {
     return await this.databaseService.Media.create({
       data: {
         media_url: media_url,
-        created_at: new Date(),
+        created_at: new Date(Date.now()),
         visit_record: {
           connect: { visit_record_id: record_id },
         },

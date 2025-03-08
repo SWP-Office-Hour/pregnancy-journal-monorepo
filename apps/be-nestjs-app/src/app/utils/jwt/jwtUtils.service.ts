@@ -31,7 +31,7 @@ export class JwtUtilsService {
 
   generateNewRefreshTokenExpiry({ created_at, old_expires_in }: { created_at: Date; old_expires_in: string }) {
     const created_time = created_at.getTime();
-    const now = new Date().getTime();
+    const now = new Date(Date.now()).getTime();
     const expiresIn = Number(old_expires_in.replace('d', '')) * 24 * 60 * 60 * 1000;
     const newExpiresIn = ((created_time + expiresIn - now) / 1000).toFixed(0);
     return `${newExpiresIn}s`;

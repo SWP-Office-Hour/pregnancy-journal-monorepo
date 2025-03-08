@@ -61,7 +61,7 @@ export class RecordsService {
           visit_doctor_date: record.visit_doctor_date,
           next_visit_doctor_date: record.next_visit_doctor_date,
           doctor_name: record.doctor_name,
-          created_at: new Date(),
+          created_at: new Date(Date.now()),
           user: {
             connect: {
               user_id: userId,
@@ -91,8 +91,8 @@ export class RecordsService {
         await prisma.visit_record_metric.create({
           data: {
             value: data.value,
-            created_at: new Date(),
-            updated_at: new Date(),
+            created_at: new Date(Date.now()),
+            updated_at: new Date(Date.now()),
             metric_id: data.metric_id,
             visit_record_id: createdRecord.visit_record_id,
             tag_id: tag_id ? tag_id : null,
@@ -462,7 +462,7 @@ export class RecordsService {
           data: {
             value: metricData.value,
             tag_id: tagId || null,
-            updated_at: new Date(),
+            updated_at: new Date(Date.now()),
           },
         });
       } else {
@@ -470,8 +470,8 @@ export class RecordsService {
         await this.dataService.RecordMetric.create({
           data: {
             value: metricData.value,
-            created_at: new Date(),
-            updated_at: new Date(),
+            created_at: new Date(Date.now()),
+            updated_at: new Date(Date.now()),
             metric_id: metricData.metric_id,
             visit_record_id: visitRecordId,
             tag_id: tagId || null,

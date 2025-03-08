@@ -23,8 +23,8 @@ export class BlogsService {
         content: createBlogDto.content,
         author: createBlogDto.author,
         summary: createBlogDto.summary,
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
         blog_cover: createBlogDto.blog_cover,
         category: {
           connect: {

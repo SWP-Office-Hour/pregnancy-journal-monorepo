@@ -13,8 +13,8 @@ export class MembershipsService {
         description: createMembershipDto.description,
         status: createMembershipDto.status,
         price: createMembershipDto.price,
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
       },
     });
   }

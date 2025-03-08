@@ -145,8 +145,8 @@ export class UsersService {
         role: UserRole.MEMBER,
         expected_birth_date: data.expected_birth_date,
         status: Status.ACTIVE,
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
       },
     });
     // const email_verify_token = await this.signEmailToken({
@@ -326,7 +326,7 @@ export class UsersService {
       },
       data: {
         refresh_token: refresh_token,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
 
@@ -353,7 +353,7 @@ export class UsersService {
       },
       data: {
         password: String(code),
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
 
@@ -383,7 +383,7 @@ export class UsersService {
       },
       data: {
         password: data.password,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
 
@@ -417,8 +417,8 @@ export class UsersService {
         role: userCreateRequest.role,
         status: userCreateRequest.status,
         expected_birth_date: new Date(userCreateRequest.expected_birth_date),
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
       },
     });
     return user;
@@ -446,7 +446,7 @@ export class UsersService {
       },
       data: {
         ...updateUser,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
   }
@@ -485,7 +485,7 @@ export class UsersService {
       },
       data: {
         ...updateProfile,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
 
