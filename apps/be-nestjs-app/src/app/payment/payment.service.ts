@@ -40,7 +40,7 @@ export class PaymentService {
         value: membership.price,
         status: PayStatus.FAILED,
         payment_method: PayMethod.PAYOS,
-        created_at: new Date(),
+        created_at: new Date(Date.now()),
       },
 
       include: {
@@ -49,7 +49,7 @@ export class PaymentService {
     });
 
     const payRequest: CheckoutRequestType = {
-      orderCode: Number(new Date()),
+      orderCode: Number(new Date(Date.now())),
       amount: membership.price,
       returnUrl: 'http://localhost:3000/payment/success',
       cancelUrl: 'http://localhost:3000/payment/cancel',

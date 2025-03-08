@@ -182,6 +182,13 @@ export const adminNavigation: FuseNavigationItem[] = [
       },
     ],
   },
+  {
+    id: 'payment',
+    title: 'Payment History',
+    type: 'basic',
+    icon: 'heroicons_outline:credit-card',
+    link: 'admin/payment',
+  },
 ];
 
 export const landingNavigation: FuseNavigationItem[] = [

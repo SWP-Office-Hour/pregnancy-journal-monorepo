@@ -29,6 +29,11 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-standard-table',
   templateUrl: './standard-table.component.html',
+  styles: `
+    img {
+      border-radius: 50%;
+    }
+  `,
   animations: fuseAnimations,
   standalone: true,
   imports: [
