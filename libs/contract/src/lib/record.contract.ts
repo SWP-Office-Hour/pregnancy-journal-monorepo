@@ -23,6 +23,8 @@ export const recordMetricSchema = z.object({
 const recordMetricCreateReqSchema = z.object({
   value: z.number(),
   metric_id: z.string(),
+  tag_id: z.string().nullable().optional(),
+  standard_id: z.string().nullable().optional(),
 });
 
 const recordMetricUpdateReqSchema = recordMetricCreateReqSchema;

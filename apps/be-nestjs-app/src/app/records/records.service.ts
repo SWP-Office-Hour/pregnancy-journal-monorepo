@@ -81,7 +81,7 @@ export class RecordsService {
 
       // Process metrics sequentially to avoid any race conditions
       for (const data of record.data) {
-        const tag_id = await this.checkRecordValue({
+        const tag_id = await this.getTagIdByValue({
           value: data.value,
           metric_id: data.metric_id,
           userExpectBirthDate: user.expected_birth_date,
@@ -272,10 +272,17 @@ export class RecordsService {
         });
 
         // Extract just the values and metric IDs from the metrics
-        const data = record.visit_record_metric.map((metricRecord) => ({
-          value: metricRecord.value,
-          metric_id: metricRecord.metric_id,
-        }));
+        const data = await Promise.all(
+          record.visit_record_metric.map(async (metricRecord) => {
+            const standardId = await this.getStandardIdByWeek({ week, metric_id: metricRecord.metric_id });
+            return {
+              metric_id: metricRecord.metric_id,
+              value: metricRecord.value,
+              tag_id: metricRecord.tag_id,
+              standard_id: standardId,
+            };
+          }),
+        );
 
         // Return the simplified record structure
         return {
@@ -338,7 +345,7 @@ export class RecordsService {
    * @private
    * @async
    */
-  private async checkRecordValue({
+  private async getTagIdByValue({
     value,
     metric_id,
     userExpectBirthDate,
@@ -437,7 +444,7 @@ export class RecordsService {
     // Process each metric
     for (const metricData of metricsData) {
       // Check value and determine tag
-      const tagId = await this.checkRecordValue({
+      const tagId = await this.getTagIdByValue({
         value: metricData.value,
         metric_id: metricData.metric_id,
         userExpectBirthDate: userExpectBirthDate,
@@ -472,5 +479,32 @@ export class RecordsService {
         });
       }
     }
+  }
+
+  private async getStandardIdByWeek({ week, metric_id }: { week: number; metric_id: string }): Promise<string | null> {
+    const standards = await this.dataService.Standard.findMany({
+      where: {
+        metric_id,
+      },
+    });
+
+    if (standards.length === 0) {
+      return null;
+    }
+
+    if (week < standards[0].week) {
+      return null;
+    }
+
+    if (week > standards[standards.length - 1].week) {
+      return standards[standards.length - 1].standard_id;
+    }
+
+    const standard = standards.find((s) => s.week === week);
+    if (standard) {
+      return standard.standard_id;
+    }
+
+    return standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0].standard_id;
   }
 }
