@@ -29,7 +29,7 @@ export class ReminderService {
         title: 'Ngày tái khám',
         content: reminder_content,
         status: Status.ACTIVE,
-        type: ReminderType.MEETING,
+        type: ReminderType.FOLLOW_UP_MEETING,
         remind_date,
         user: {
           connect: {
@@ -53,7 +53,7 @@ export class ReminderService {
         title: createReminderDto.title,
         content: createReminderDto.content,
         status: Status.ACTIVE,
-        type: ReminderType.EVENT,
+        type: ReminderType.USER_CREATED_EVENT,
         remind_date: new Date(createReminderDto.remind_date),
         user: {
           connect: {
