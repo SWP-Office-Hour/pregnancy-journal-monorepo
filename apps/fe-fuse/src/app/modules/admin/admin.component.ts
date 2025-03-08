@@ -9,12 +9,24 @@ import { Router } from '@angular/router';
 import { ApexOptions, NgApexchartsModule } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from './admin.service';
+import { RevenueStreamWidget } from './revenuestreamwidget';
+import { StatsWidget } from './statswidget';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
   templateUrl: './admin.component.html',
-  imports: [MatButtonModule, MatIconModule, MatMenuModule, MatButtonToggleModule, NgApexchartsModule, MatTooltipModule, MatTabsModule],
+  imports: [
+    MatButtonModule,
+    MatIconModule,
+    MatMenuModule,
+    MatButtonToggleModule,
+    NgApexchartsModule,
+    MatTooltipModule,
+    MatTabsModule,
+    StatsWidget,
+    RevenueStreamWidget,
+  ],
 })
 export class AdminComponent implements OnInit, OnDestroy {
   chartGithubIssues: ApexOptions = {};

@@ -18,8 +18,9 @@ html {
 //  @tailwind components;
 //  @tailwind utilities;
 //}
---p-confirmpopup-gutter {
-  display: none;
+
+:root {
+  --p-confirmpopup-gutter: 0 !important;
 }
 
 .style-script-regular {
