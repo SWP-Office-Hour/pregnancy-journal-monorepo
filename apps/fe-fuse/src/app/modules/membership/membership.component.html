@@ -51,56 +51,78 @@
     <div class="card">
       <div class="mt-10 flex justify-center sm:mt-20">
         <div class="w-full max-w-sm md:max-w-7xl">
-          <p-carousel [value]="membershipResource.value()!" [numVisible]="2" [numScroll]="1" [circular]="true" autoplayInterval="3000">
+          <p-carousel [value]="membershipResource.value()!" [numVisible]="3" [numScroll]="1" [circular]="true" autoplayInterval="6000">
             <ng-template #item let-membership>
               <div style="margin: 2rem">
-                <fuse-card class="ring-primary max-w-sm flex-col overflow-visible p-6 ring-2 sm:px-10 sm:py-12 md:max-w-none">
-                  <div class="absolute inset-x-0 -top-4 flex items-center justify-center">
-                    <div class="bg-primary text-on-primary flex h-8 items-center rounded-full px-8 text-center font-medium leading-none">POPULAR</div>
-                  </div>
-                  <div class="text-4xl font-bold leading-tight tracking-tight">Premium</div>
-                  <div class="text-secondary mt-2 text-lg font-medium tracking-tight">Perfect for growing teams wanting to be in more control</div>
-                  <div class="bg-accent my-10 h-1 w-8 rounded"></div>
-                  <!-- Price -->
-                  <div class="flex items-baseline whitespace-nowrap">
-                    <div class="mr-2 text-2xl">VND</div>
-                    <div class="text-6xl font-semibold leading-tight tracking-tight">
-                      {{ membership.price }}
+                <!--                <fuse-card class="ring-primary max-w-sm flex-col overflow-visible p-6 ring-2 sm:px-10 sm:py-12 md:max-w-none">-->
+                <!--                  <div class="absolute inset-x-0 -top-4 flex items-center justify-center">-->
+                <!--                    <div class="bg-primary text-on-primary flex h-8 items-center rounded-full px-8 text-center font-medium leading-none">-->
+                <!--                      MEMBERSHIP-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  <div class="text-4xl font-bold leading-tight tracking-tight">{{ membership.title }}</div>-->
+                <!--                  &lt;!&ndash;                  <div class="text-secondary mt-2 text-lg font-medium tracking-tight">Perfect for growing teams wanting to be in more control</div>&ndash;&gt;-->
+                <!--                  <div class="bg-accent my-10 h-1 w-8 rounded"></div>-->
+                <!--                  &lt;!&ndash; Price &ndash;&gt;-->
+                <!--                  <div class="flex items-baseline whitespace-nowrap">-->
+                <!--                    <div class="mr-2 text-2xl">VND</div>-->
+                <!--                    <div class="text-6xl font-semibold leading-tight tracking-tight">-->
+                <!--                      {{ membership.price }}-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                  &lt;!&ndash; Price details &ndash;&gt;-->
+                <!--                  <div class="text-secondary mt-2 flex flex-col">-->
+                <!--                    &lt;!&ndash;                    <div>{{ membership.price }}</div>&ndash;&gt;-->
+                <!--                  </div>-->
+                <!--                  &lt;!&ndash; CTA &ndash;&gt;-->
+
+                <!--                  <button class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">Buy</button>-->
+
+                <!--                  &lt;!&ndash;                  Features&ndash;&gt;-->
+                <!--                  <div class="mt-12 flex flex-col">-->
+                <!--                    <div class="font-semibold">Personal features, plus:</div>-->
+                <!--                    <div class="mt-4 space-y-2">-->
+                <!--                      <div class="flex">-->
+                <!--                        &lt;!&ndash;                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>&ndash;&gt;-->
+                <!--                        <div class="ml-2 leading-5" style="width: 200px; height: 100px; overflow: hidden">{{ membership.description }}</div>-->
+                <!--                      </div>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </fuse-card>-->
+
+                <div class="group relative">
+                  <fuse-card
+                    class="group-hover:ring-primary max-w-sm flex-col overflow-visible p-6 ring-2 ring-white transition duration-300 sm:px-10 sm:py-12 md:max-w-none"
+                  >
+                    <div
+                      class="absolute inset-x-0 -top-4 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    >
+                      <div class="bg-primary text-on-primary flex h-8 items-center rounded-full px-8 text-center font-medium leading-none">
+                        MEMBERSHIP
+                      </div>
                     </div>
-                  </div>
-                  <!-- Price details -->
-                  <div class="text-secondary mt-2 flex flex-col">
-                    <!--                      <div>{{ membership.price }}</div>-->
-                  </div>
-                  <!--                          &lt;!&ndash; CTA &ndash;&gt;-->
-                  <!--                          <button class="fuse-mat-button-large mt-10" mat-flat-button [color]="'primary'">Start a free 14-day trial</button>-->
-                  <!-- Features -->
-                  <div class="mt-12 flex flex-col">
-                    <div class="font-semibold">Personal features, plus:</div>
-                    <div class="mt-4 space-y-2">
-                      <div class="flex">
-                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                        <div class="ml-2 leading-5"><b>Unlimited</b> projects</div>
-                      </div>
-                      <div class="flex">
-                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                        <div class="ml-2 leading-5"><b>Unlimited</b> storage</div>
-                      </div>
-                      <div class="flex">
-                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                        <div class="ml-2 leading-5">Custom domains</div>
-                      </div>
-                      <div class="flex">
-                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                        <div class="ml-2 leading-5">Bulk editing</div>
-                      </div>
-                      <div class="flex">
-                        <mat-icon class="icon-size-5 text-green-600" [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                        <div class="ml-2 leading-5">12 / 5 support</div>
+                    <div class="text-4xl font-bold leading-tight tracking-tight">{{ membership.title }}</div>
+                    <div class="bg-accent my-10 h-1 w-8 rounded"></div>
+                    <div class="flex items-baseline whitespace-nowrap">
+                      <div class="mr-2 text-2xl">VND</div>
+                      <div class="text-6xl font-semibold leading-tight tracking-tight">
+                        {{ membership.price }}
                       </div>
                     </div>
-                  </div>
-                </fuse-card>
+                    <div class="text-secondary mt-2 flex flex-col"></div>
+                    <button class="fuse-mat-button-large mt-10 text-white" mat-flat-button [color]="'primary'" (click)="openDialog(membership.title)">
+                      BUY
+                    </button>
+                    <div class="mt-12 flex flex-col">
+                      <div class="font-semibold">Personal features, plus:</div>
+                      <div class="mt-4 space-y-2">
+                        <div class="flex">
+                          <div class="ml-2 leading-5" style="width: 200px; height: 100px; overflow: hidden">{{ membership.description }}</div>
+                        </div>
+                      </div>
+                    </div>
+                  </fuse-card>
+                </div>
               </div>
             </ng-template>
           </p-carousel>
