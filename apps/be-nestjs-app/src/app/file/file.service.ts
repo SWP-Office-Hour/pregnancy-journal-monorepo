@@ -175,5 +175,5 @@ function streamToBuffer(stream: IncomingMessage): Promise<Buffer> {
 
 export const blobToFile = (blob: Blob, fileName: string): File => {
   //Cast to a File() type
-  return new File([blob], fileName, { lastModified: new Date().getTime() });
+  return new File([blob], fileName, { lastModified: new Date(Date.now()).getTime() });
 };

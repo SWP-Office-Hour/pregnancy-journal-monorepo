@@ -16,7 +16,7 @@ export class TokenDto {
   constructor(tokenData: TokenDataType) {
     this.user = tokenData.user_id;
     this.refresh_token = tokenData.refresh_token;
-    this.created_at = tokenData.created_at || new Date();
-    this.updated_at = tokenData.updated_at || new Date();
+    this.created_at = tokenData.created_at || new Date(Date.now());
+    this.updated_at = tokenData.updated_at || new Date(Date.now());
   }
 }

@@ -18,8 +18,8 @@ export class CommentsService {
     return await this.dataService.Comment.create({
       data: {
         content: comment.content,
-        created_at: new Date(),
-        updated_at: new Date(),
+        created_at: new Date(Date.now()),
+        updated_at: new Date(Date.now()),
         post: {
           connect: {
             post_id: comment.post_id,
@@ -59,7 +59,7 @@ export class CommentsService {
       },
       data: {
         content: comment.content,
-        updated_at: new Date(),
+        updated_at: new Date(Date.now()),
       },
     });
   }
