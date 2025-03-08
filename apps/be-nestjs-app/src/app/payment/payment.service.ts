@@ -1,9 +1,9 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CheckoutRequestType } from '@payos/node/lib/type';
 import {
+  PayIncludeUserInfo,
   PaymentCreateRequestType,
   PaymentResponseWithLinkType,
-  PaymentType,
   PaymentUpdateRequestType,
   PayMethod,
   PayStatus,
@@ -73,10 +73,17 @@ export class PaymentService {
     });
   }
 
-  async getAllPayments(): Promise<PaymentType[]> {
+  async getAllPayments(): Promise<PayIncludeUserInfo[]> {
     return await this.databaseService.Payment.findMany({
       include: {
         membership: true,
+        user: {
+          select: {
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
       },
     });
   }

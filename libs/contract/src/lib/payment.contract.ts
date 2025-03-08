@@ -12,6 +12,14 @@ const paymentSchema = z.object({
   payment_method: payMethodSchema,
 });
 
+const paymentIncludeUserInfoSchema = paymentSchema.extend({
+  user: z.object({
+    name: z.string(),
+    email: z.string(),
+    phone: z.string(),
+  }),
+});
+
 const paymentCreateReqSchema = paymentSchema
   .omit({
     payment_history_id: true,
@@ -44,6 +52,7 @@ export type PaymentCreateRequestType = z.infer<typeof paymentCreateReqSchema>;
 export type PaymentUpdateRequestType = z.infer<typeof paymentUpdateReqSchema>;
 export type PaymentResponseWithLinkType = z.infer<typeof paymentResSchema>;
 export type PaymentType = z.infer<typeof paymentSchema>;
+export type PayIncludeUserInfo = z.infer<typeof paymentIncludeUserInfoSchema>;
 
 const c = initContract();
 
@@ -71,7 +80,7 @@ export const paymentContract = c.router({
     path: '/payments',
     description: 'Get all payments',
     responses: {
-      200: z.array(paymentSchema),
+      200: z.array(paymentIncludeUserInfoSchema),
     },
   },
   // getLinkPayment: {
