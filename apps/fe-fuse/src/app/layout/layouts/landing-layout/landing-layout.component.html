@@ -1,6 +1,6 @@
 <fuse-loading-bar></fuse-loading-bar>
 
-<!-- Navigation -->
+<!-- Điều hướng -->
 @if (isScreenSmall) {
   <fuse-vertical-navigation
     class="bg-gradient-to-b from-pink-500 to-pink-300 text-white print:hidden"
@@ -9,13 +9,13 @@
     [navigation]="navigation.landing"
     [opened]="false"
   >
-    <!-- Navigation header hook -->
+    <!-- Móc tiêu đề điều hướng -->
     <ng-container fuseVerticalNavigationContentHeader>
       <!-- Logo -->
       <a routerLink="/">
         <div class="flex h-20 items-center px-8 pt-6">
           <div class="flex items-center">
-            <img class="h-10 w-auto" src="/images/logo/logo.svg" alt="Pregnancy Journal Logo" />
+            <img class="h-10 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
             <div class="ml-2 self-center text-xl font-extrabold leading-tight tracking-tight text-white" style="font-family: 'Niconne', cursive">
               <i>Pregnancy Journal</i>
             </div>
@@ -27,7 +27,7 @@
 }
 
 <div class="flex h-full w-full flex-col">
-  <!-- Header/Navigation -->
+  <!-- Tiêu đề/Điều hướng -->
   <header
     class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
     [ngClass]="{
@@ -40,9 +40,9 @@
       <div class="flex lg:flex-1">
         <a routerLink="/" class="-m-1.5 flex items-center p-1.5">
           <span class="sr-only">Pregnancy Journal</span>
-          <!-- Small logo for all screens -->
-          <img class="h-8 w-auto" src="/images/logo/logo.svg" alt="Pregnancy Journal Logo" />
-          <!-- Text logo only on larger screens -->
+          <!-- Logo nhỏ cho tất cả màn hình -->
+          <img class="h-8 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
+          <!-- Logo chữ chỉ hiển thị trên màn hình lớn hơn -->
           <div
             class="ml-2 hidden self-center text-xl font-extrabold leading-tight tracking-tight text-pink-500 sm:flex"
             style="font-family: 'Niconne', cursive"
@@ -52,7 +52,7 @@
         </a>
       </div>
 
-      <!-- Mobile navigation toggle -->
+      <!-- Nút chuyển đổi điều hướng trên điện thoại -->
       @if (isScreenSmall) {
         <button
           class="mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-pink-100"
@@ -64,7 +64,7 @@
         </button>
       }
 
-      <!-- Desktop navigation -->
+      <!-- Điều hướng máy tính để bàn -->
       @if (!isScreenSmall) {
         <div class="flex items-center lg:justify-between lg:gap-x-8 xl:gap-x-12">
           <a
@@ -77,13 +77,13 @@
             routerLink="/features"
             class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
-            Features
+            Tính năng
           </a>
           <a
             routerLink="/about"
             class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
-            About Us
+            Về chúng tôi
           </a>
           <div class="px-2">
             <languages></languages>
@@ -94,34 +94,34 @@
             routerLink="/sign-in"
             class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
-            Log in
+            Đăng nhập
           </a>
           <a
             routerLink="/sign-up"
             class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 text-sm font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
           >
-            Sign up
+            Đăng ký
           </a>
         </div>
       }
     </nav>
   </header>
 
-  <!-- Main Content -->
+  <!-- Nội dung chính -->
   <main class="flex-auto">
-    <!-- Add router-outlet to properly display child routes -->
+    <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
     <router-outlet></router-outlet>
     <ng-content></ng-content>
   </main>
 
-  <!-- Footer remains unchanged -->
-  <!-- Footer -->
+  <!-- Chân trang giữ nguyên không thay đổi -->
+  <!-- Chân trang -->
   <footer class="bg-gray-900" aria-labelledby="footer-heading">
-    <h2 id="footer-heading" class="sr-only">Footer</h2>
+    <h2 id="footer-heading" class="sr-only">Chân trang</h2>
     <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
-          <img class="h-12" src="/images/logo/logo.svg" alt="Pregnancy Journal Logo" />
+          <img class="h-12" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
           <p class="text-sm leading-6 text-gray-300">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
           <div class="flex space-x-6">
             <a href="#" class="text-gray-400 hover:text-gray-300">

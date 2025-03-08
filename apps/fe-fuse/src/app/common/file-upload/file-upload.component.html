@@ -1,2 +1,2 @@
-<button type="button" mat-raised-button (click)="fileInput.click()">{{ buttonText || 'Choose File' }}</button>
+<button type="button" mat-raised-button (click)="fileInput.click()">{{ buttonText || 'Chọn hình' }}</button>
 <input accept="image/*" type="file" [formControl]="control" (change)="onFileChange($event)" hidden #fileInput />

@@ -1,7 +1,7 @@
 <div class="card w-full overflow-hidden rounded-xl bg-white shadow-sm">
   <p-toast />
   <div class="flex flex-col items-center justify-between gap-4 bg-pink-50 p-4 md:flex-row">
-    <h2 class="text-lg font-medium text-pink-500">Weekly Records</h2>
+    <h2 class="text-lg font-medium text-pink-500">Hồ Sơ Theo Tuần</h2>
 
     <div class="flex w-full items-center md:w-auto">
       <span class="p-input-icon-left w-full md:w-auto">
@@ -11,7 +11,7 @@
           pInputText
           [(ngModel)]="searchText"
           (input)="searchRecords()"
-          placeholder="Search records..."
+          placeholder="Tìm kiếm hồ sơ..."
           class="p-inputtext-sm w-full rounded-lg border-pink-200 focus:border-pink-400 md:w-64"
         />
       </span>
@@ -27,19 +27,19 @@
 
     <div class="flex flex-wrap justify-end gap-2">
       <p-button
-        label="New Record"
+        label="Hồ Sơ Mới"
         icon="pi pi-plus-circle"
         [routerLink]="'/record'"
         styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
       />
       <p-button
-        label="Expand All"
+        label="Mở Rộng Tất Cả"
         icon="pi pi-expand"
         (onClick)="expandAll()"
         styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
       />
       <p-button
-        label="Collapse All"
+        label="Thu Gọn Tất Cả"
         icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
         (onClick)="collapseAll()"
         styleClass="p-button-rounded p-button-sm p-button-text text-pink-500 hover:text-pink-600"
@@ -62,10 +62,10 @@
         <tr class="bg-gray-50">
           <th style="width: 5rem" class="text-gray-700"></th>
           <th pSortableColumn="week" class="p-3 text-gray-700">
-            Week
+            Tuần
             <p-sortIcon field="name" />
           </th>
-          <th class="p-3 text-gray-700">Size</th>
+          <th class="p-3 text-gray-700">Kích Thước</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-row let-expanded="expanded">
@@ -146,8 +146,8 @@
                       <td colspan="6" class="p-4 text-center text-gray-500">
                         <div class="flex flex-col items-center justify-center p-6">
                           <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-                          <span *ngIf="!searchText">There is no record in this week yet.</span>
-                          <span *ngIf="searchText">No records matching '{{ searchText }}' in this week.</span>
+                          <span *ngIf="!searchText">Chưa có hồ sơ nào trong tuần này.</span>
+                          <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}' trong tuần này.</span>
                         </div>
                       </td>
                     </tr>
@@ -163,13 +163,13 @@
           <td colspan="3" class="p-4 text-center text-gray-500">
             <div class="flex flex-col items-center justify-center p-6">
               <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-              <span *ngIf="!searchText">No records found</span>
-              <span *ngIf="searchText">No records matching '{{ searchText }}'</span>
+              <span *ngIf="!searchText">Không tìm thấy hồ sơ nào</span>
+              <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}'</span>
               <button
                 *ngIf="searchText"
                 pButton
                 type="button"
-                label="Clear search"
+                label="Xóa tìm kiếm"
                 icon="pi pi-times"
                 (click)="clearSearch()"
                 class="p-button-text p-button-sm mt-3 text-pink-500"

@@ -1,204 +1,248 @@
 /* eslint-disable */
 import { FuseNavigationItem } from '@fuse/components/navigation';
 
-//*********** defaultNavigation là route cho tất cả mọi người, GUEST, ADMIN, MEMBER *************/
+//*********** defaultNavigation là định tuyến cho tất cả mọi người, KHÁCH, QUẢN TRỊ VIÊN, THÀNH VIÊN *************/
 export const defaultNavigation: FuseNavigationItem[] = [
   {
     id: 'home',
-    title: 'Home',
+    title: 'Trang chủ',
     type: 'basic',
     icon: 'heroicons_outline:home',
     link: '/home',
   },
+  // Nhóm tính năng theo dõi sức khỏe
   {
-    id: 'tracking',
-    title: 'Tracking',
-    type: 'basic',
+    id: 'health-tracking',
+    title: 'Theo dõi sức khỏe',
+    type: 'collapsable',
     icon: 'heroicons_outline:chart-bar',
-    link: '/tracking',
+    children: [
+      {
+        id: 'tracking',
+        title: 'Theo dõi',
+        type: 'basic',
+        icon: 'heroicons_outline:chart-bar',
+        link: '/tracking',
+      },
+      {
+        id: 'calendar',
+        title: 'Lịch',
+        type: 'basic',
+        icon: 'heroicons_outline:calendar',
+        link: '/calendar',
+      },
+    ],
   },
+  // Nhóm nội dung cộng đồng
   {
-    id: 'calendar',
-    title: 'Calendar',
-    type: 'basic',
-    icon: 'heroicons_outline:calendar',
-    link: '/calendar',
-  },
-  {
-    id: 'blog',
-    title: 'Blog',
-    type: 'basic',
-    icon: 'heroicons_outline:pencil-square',
-    link: '/blog',
-  },
-  {
-    id: 'community',
-    title: 'Community',
-    type: 'basic',
+    id: 'content-community',
+    title: 'Cộng đồng & Nội dung',
+    type: 'collapsable',
     icon: 'heroicons_outline:user-group',
-    link: '/community',
+    children: [
+      {
+        id: 'blog',
+        title: 'Blog',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil-square',
+        link: '/blog',
+      },
+      {
+        id: 'community',
+        title: 'Cộng đồng',
+        type: 'basic',
+        icon: 'heroicons_outline:user-group',
+        link: '/community',
+      },
+    ],
   },
+  // Nhóm thông tin
   {
-    id: 'pricing',
-    title: 'Pricing',
-    type: 'basic',
-    icon: 'heroicons_outline:currency-dollar',
-    link: '/membership',
-  },
-  {
-    id: 'about',
-    title: 'About',
-    type: 'basic',
+    id: 'info-group',
+    title: 'Thông tin',
+    type: 'collapsable',
     icon: 'heroicons_outline:information-circle',
-    link: '/about',
+    children: [
+      {
+        id: 'pricing',
+        title: 'Bảng giá',
+        type: 'basic',
+        icon: 'heroicons_outline:currency-dollar',
+        link: '/membership',
+      },
+      {
+        id: 'about',
+        title: 'Giới thiệu',
+        type: 'basic',
+        icon: 'heroicons_outline:information-circle',
+        link: '/about',
+      },
+    ],
   },
 ];
 
-//*********** adminNavigation là route cho ADMIN *************/
+//*********** adminNavigation là định tuyến cho QUẢN TRỊ VIÊN *************/
 export const adminNavigation: FuseNavigationItem[] = [
   {
     id: 'home',
-    title: 'Home',
+    title: 'Trang chủ',
     type: 'basic',
     icon: 'heroicons_outline:home',
     link: '/admin',
   },
+  // Nhóm quản lý sức khỏe
   {
-    id: 'health-metric',
-    title: 'Health Metric',
-    type: 'basic',
+    id: 'health-management',
+    title: 'Quản lý sức khỏe',
+    type: 'collapsable',
     icon: 'heroicons_outline:chart-bar',
-    link: 'admin/health-metric',
-  },
-  {
-    id: 'tag',
-    title: 'Tag',
-    type: 'basic',
-    icon: 'heroicons_outline:tag',
-    link: 'admin/tag',
-  },
-  {
-    id: 'hospital',
-    title: 'Hospital',
-    type: 'basic',
-    icon: 'heroicons_outline:building-office',
-    link: 'admin/hospital',
-  },
-  {
-    id: 'admin_blog',
-    title: 'Blog',
-    type: 'aside',
-    icon: 'heroicons_outline:pencil-square',
-    link: 'admin/blog',
     children: [
       {
-        id: 'blog-all',
-        title: 'All',
+        id: 'health-metric',
+        title: 'Chỉ số sức khỏe',
         type: 'basic',
-        link: 'admin/blog',
-        icon: 'heroicons_outline:pencil-square',
+        icon: 'heroicons_outline:chart-bar',
+        link: 'admin/health-metric',
       },
       {
-        id: 'blog-create',
-        title: 'Create',
+        id: 'hospital',
+        title: 'Bệnh viện',
         type: 'basic',
-        link: 'admin/blog/create',
-        icon: 'heroicons_outline:pencil-square',
+        icon: 'heroicons_outline:building-office',
+        link: 'admin/hospital',
       },
     ],
   },
+  // Nhóm quản lý nội dung
   {
-    id: 'category',
-    title: 'Category',
-    type: 'basic',
-    icon: 'heroicons_outline:list-bullet',
-    link: 'admin/category',
+    id: 'content-management',
+    title: 'Quản lý nội dung',
+    type: 'collapsable',
+    icon: 'heroicons_outline:pencil-square',
+    children: [
+      {
+        id: 'admin_blog',
+        title: 'Blog',
+        type: 'aside',
+        icon: 'heroicons_outline:pencil-square',
+        link: 'admin/blog',
+        children: [
+          {
+            id: 'blog-all',
+            title: 'Tất cả',
+            type: 'basic',
+            link: 'admin/blog',
+            icon: 'heroicons_outline:pencil-square',
+          },
+          {
+            id: 'blog-create',
+            title: 'Tạo mới',
+            type: 'basic',
+            link: 'admin/blog/create',
+            icon: 'heroicons_outline:pencil-square',
+          },
+        ],
+      },
+      {
+        id: 'category',
+        title: 'Danh mục',
+        type: 'basic',
+        icon: 'heroicons_outline:list-bullet',
+        link: 'admin/category',
+      },
+      {
+        id: 'tag',
+        title: 'Thẻ',
+        type: 'basic',
+        icon: 'heroicons_outline:tag',
+        link: 'admin/tag',
+      },
+    ],
   },
+  // Nhóm quản lý người dùng
   {
-    id: 'membership',
-    title: 'Membership',
-    type: 'basic',
-    icon: 'heroicons_outline:identification',
-    link: 'admin/membership',
-  },
-  {
-    id: 'users',
-    title: 'Users',
-    type: 'basic',
+    id: 'user-management',
+    title: 'Quản lý người dùng',
+    type: 'collapsable',
     icon: 'heroicons_outline:user-group',
-    link: 'admin/users',
+    children: [
+      {
+        id: 'membership',
+        title: 'Tư cách thành viên',
+        type: 'basic',
+        icon: 'heroicons_outline:identification',
+        link: 'admin/membership',
+      },
+      {
+        id: 'users',
+        title: 'Người dùng',
+        type: 'basic',
+        icon: 'heroicons_outline:user-group',
+        link: 'admin/users',
+      },
+    ],
   },
 ];
 
 export const landingNavigation: FuseNavigationItem[] = [
   {
     id: 'sign-in',
-    title: 'Sign In',
+    title: 'Đăng nhập',
     type: 'basic',
     icon: 'heroicons_outline:identification',
     link: '/sign-in',
   },
+  // Nhóm nội dung
   {
-    id: 'blog',
-    title: 'Blog',
-    type: 'basic',
+    id: 'landing-content',
+    title: 'Nội dung',
+    type: 'collapsable',
     icon: 'heroicons_outline:pencil-square',
-    link: '/blog',
+    children: [
+      {
+        id: 'blog',
+        title: 'Blog',
+        type: 'basic',
+        icon: 'heroicons_outline:pencil-square',
+        link: '/blog',
+      },
+      {
+        id: 'features',
+        title: 'Tính năng',
+        type: 'basic',
+        icon: 'heroicons_outline:sparkles',
+        link: '/features',
+      },
+    ],
   },
+  // Nhóm thông tin
   {
-    id: 'features',
-    title: 'Features',
-    type: 'basic',
-    icon: 'heroicons_outline:sparkles',
-    link: '/features',
-  },
-  {
-    id: 'about',
-    title: 'About Us',
-    type: 'basic',
+    id: 'landing-info',
+    title: 'Thông tin',
+    type: 'collapsable',
     icon: 'heroicons_outline:information-circle',
-    link: '/about',
-  },
-  {
-    id: 'pricing',
-    title: 'Pricing',
-    type: 'basic',
-    icon: 'heroicons_outline:currency-dollar',
-    link: '/membership',
-  },
-  {
-    id: 'contact',
-    title: 'Contact',
-    type: 'basic',
-    icon: 'heroicons_outline:envelope',
-    link: '/contact',
+    children: [
+      {
+        id: 'about',
+        title: 'Về chúng tôi',
+        type: 'basic',
+        icon: 'heroicons_outline:information-circle',
+        link: '/about',
+      },
+      {
+        id: 'pricing',
+        title: 'Bảng giá',
+        type: 'basic',
+        icon: 'heroicons_outline:currency-dollar',
+        link: '/membership',
+      },
+      {
+        id: 'contact',
+        title: 'Liên hệ',
+        type: 'basic',
+        icon: 'heroicons_outline:envelope',
+        link: '/contact',
+      },
+    ],
   },
 ];
-//
-// export const compactNavigation: FuseNavigationItem[] = [
-//   {
-//     id: 'example',
-//     title: 'Example',
-//     type: 'basic',
-//     icon: 'heroicons_outline:chart-pie',
-//     link: '/example',
-//   },
-// ];
-// export const futuristicNavigation: FuseNavigationItem[] = [
-//   {
-//     id: 'example',
-//     title: 'Example',
-//     type: 'basic',
-//     icon: 'heroicons_outline:chart-pie',
-//     link: '/example',
-//   },
-// ];
-// export const horizontalNavigation: FuseNavigationItem[] = [
-//   {
-//     id: 'example',
-//     title: 'Example',
-//     type: 'basic',
-//     icon: 'heroicons_outline:chart-pie',
-//     link: '/example',
-//   },
-// ];

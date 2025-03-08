@@ -1,7 +1,7 @@
-<!-- Loading bar -->
+<!-- Thanh tải -->
 <fuse-loading-bar></fuse-loading-bar>
 
-<!-- Navigation -->
+<!-- Điều hướng -->
 <fuse-vertical-navigation
   [appearance]="navigationAppearance"
   [mode]="isScreenSmall ? 'over' : 'side'"
@@ -10,34 +10,34 @@
   [opened]="!isScreenSmall"
   class="bg-gradient-to-b from-pink-500 to-pink-300 text-white print:hidden"
 >
-  <!-- Navigation header hook -->
+  <!-- Móc tiêu đề điều hướng -->
   <ng-container fuseVerticalNavigationContentHeader>
     <!-- Logo -->
     <a routerLink="/home">
       <div class="flex h-20 items-center justify-center">
-        <img alt="Logo image" class="w-8" src="/images/logo/logo.svg" />
+        <img alt="Hình ảnh logo" class="w-8" src="/images/logo/logo.svg" />
       </div>
     </a>
   </ng-container>
 </fuse-vertical-navigation>
 
-<!-- Wrapper -->
+<!-- Bọc -->
 <div class="flex w-full min-w-0 flex-auto flex-col">
-  <!-- Header -->
+  <!-- Tiêu đề -->
   <div
     class="bg-card z-49 flex-0 relative flex h-16 w-full items-center px-4 shadow md:px-6 dark:border-b dark:bg-transparent dark:shadow-none print:hidden"
   >
     <div class="flex items-center space-x-2 pr-2">
-      <!-- Navigation toggle button -->
+      <!-- Nút chuyển đổi điều hướng -->
       <button (click)="toggleNavigation('mainNavigation')" mat-icon-button>
         <mat-icon [svgIcon]="'heroicons_outline:bars-3'"></mat-icon>
       </button>
-      <!-- Navigation appearance toggle button -->
+      <!-- Nút chuyển đổi giao diện điều hướng -->
       <button (click)="toggleNavigationAppearance()" class="hidden md:inline-flex" mat-icon-button>
         <mat-icon [svgIcon]="'heroicons_outline:arrows-right-left'"></mat-icon>
       </button>
     </div>
-    <!-- Components -->
+    <!-- Các thành phần -->
     <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
       <languages></languages>
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
@@ -52,20 +52,20 @@
     </div>
   </div>
 
-  <!-- Content -->
+  <!-- Nội dung -->
   <div class="flex flex-auto flex-col" [fuseScrollbar]="false">
-    <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
-             Otherwise, layout changes won't be registered and the view won't be updated! -->
+    <!-- Hack *ngIf="true" được yêu cầu ở đây để router-outlet hoạt động chính xác.
+             Nếu không, các thay đổi bố cục sẽ không được đăng ký và giao diện sẽ không được cập nhật! -->
     @if (true) {
       <router-outlet></router-outlet>
     }
   </div>
 
-  <!-- Footer -->
+  <!-- Chân trang -->
   <div class="bg-card z-49 flex-0 relative flex h-14 w-full items-center justify-start border-t px-4 md:px-6 dark:bg-transparent print:hidden">
     <span class="text-secondary font-medium">Fuse &copy; {{ currentYear }}</span>
   </div>
 </div>
 
-<!-- Quick chat -->
+<!-- Chat nhanh -->
 <!--<quick-chat #quickChat="quickChat"></quick-chat>-->
