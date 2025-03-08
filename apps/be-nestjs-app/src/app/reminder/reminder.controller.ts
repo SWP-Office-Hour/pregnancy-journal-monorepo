@@ -50,7 +50,7 @@ export class ReminderController {
       if (!isExist) {
         return { status: 404, body: { message: 'Reminder not found' } };
       }
-      if (isExist.type == ReminderType.MEETING) {
+      if (isExist.type == ReminderType.FOLLOW_UP_MEETING) {
         return { status: 400, body: { message: 'Cannot update meeting' } };
       }
       const reminder = await this.reminderService.update(body);
@@ -65,7 +65,7 @@ export class ReminderController {
       if (!isExist) {
         return { status: 404, body: { message: 'Reminder not found' } };
       }
-      if (isExist.type == ReminderType.MEETING) {
+      if (isExist.type == ReminderType.FOLLOW_UP_MEETING) {
         return { status: 400, body: { message: 'Cannot delete meeting' } };
       }
       const deleted = await this.reminderService.remove(id);

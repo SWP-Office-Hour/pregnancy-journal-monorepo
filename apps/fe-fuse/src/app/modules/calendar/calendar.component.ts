@@ -1,6 +1,6 @@
-import { CdkDrag, CdkDragDrop, CdkDropList, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragEnter, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,7 +14,9 @@ interface Event {
   type: string;
   time: string;
   date: Date;
+  color?: string; // Add color property to Event interface
 }
+
 interface Theme {
   id: number;
   name: string;
@@ -36,8 +38,7 @@ interface Theme {
     FormsModule,
     Button,
     ButtonModule,
-    CdkDrag,
-    CdkDropList,
+    DragDropModule,
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
@@ -91,7 +92,7 @@ export class CalendarComponent implements OnInit {
   //     }
   //   });
   // }
-  //
+
   // goToPreviousMonth(): void {
   //   this.firstDayOfActiveMonth.set(this.firstDayOfActiveMonth().minus({ month: 1 }));
   //   this.selected_date.setValue(this.firstDayOfActiveMonth());
@@ -148,9 +149,10 @@ export class CalendarComponent implements OnInit {
   //MiniCalendarComponent
   currentDate: Date = new Date();
   selectedDate: Date = new Date();
-  calendarDays: Date[] = [];
+  calendarDays: Date[];
+  calendarEvents: Array<{ date: Date; events: any[] }>;
   weekDays: string[] = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  events: Event[] = [];
+  events = signal<Event[]>([]);
   selectedDateEvents: Event[] = [];
   showEventModal: boolean = false;
   newEvent: Event = {
@@ -158,6 +160,15 @@ export class CalendarComponent implements OnInit {
     type: 'All Day Event',
     time: '',
     date: new Date(),
+  };
+
+  // Event type to color mapping
+  eventTypeColors = {
+    'All Day Event': '#60a5fa',
+    Conference: '#8b5cf6',
+    Dinner: '#f43f5e',
+    Meeting: '#10b981',
+    Birthday: '#f59e0b',
   };
 
   ngOnInit() {
@@ -172,32 +183,73 @@ export class CalendarComponent implements OnInit {
     const firstDay = new Date(year, month, 1);
     const lastDay = new Date(year, month + 1, 0);
 
-    const days: Date[] = [];
+    // Create a properly typed array for calendar days
+    const dateEvents: Array<{ date: Date; events: any[] }> = [];
+
+    // Calculate days needed from previous month
     const startPadding = firstDay.getDay();
 
     // Add previous month's days
     for (let i = 0; i < startPadding; i++) {
-      days.push(new Date(year, month, -startPadding + i + 1));
+      const prevDate = new Date(year, month, -startPadding + i + 1);
+      // Check if there are existing events for this date
+      const existingEvents = this.getEventsForDate(prevDate);
+      dateEvents.push({ date: prevDate, events: existingEvents });
     }
 
     // Add current month's days
     for (let i = 1; i <= lastDay.getDate(); i++) {
-      days.push(new Date(year, month, i));
+      const currentDate = new Date(year, month, i);
+      // Check if there are existing events for this date
+      const existingEvents = this.getEventsForDate(currentDate);
+      dateEvents.push({ date: currentDate, events: existingEvents });
     }
 
-    // Add next month's days to fill grid
-    const endPadding = 42 - days.length;
+    // Calculate how many days we need from next month to complete the grid
+    // A standard calendar display needs 6 rows of 7 days = 42 total cells
+    const totalCells = 42;
+    const endPadding = totalCells - dateEvents.length;
+
+    // Add next month's days
     for (let i = 1; i <= endPadding; i++) {
-      days.push(new Date(year, month + 1, i));
+      const nextDate = new Date(year, month + 1, i);
+      // Check if there are existing events for this date
+      const existingEvents = this.getEventsForDate(nextDate);
+      dateEvents.push({ date: nextDate, events: existingEvents });
     }
 
-    this.calendarDays = days;
+    this.calendarDays = dateEvents.map((item) => item.date);
+    // You can store the events mapping if needed
+    this.calendarEvents = dateEvents;
+    console.log(this.calendarEvents);
+  }
+
+  // Helper function to find events for a specific date
+  getEventsForDate(date: Date): Event[] {
+    if (!date) return [];
+    // Find existing events
+    return !date ? [] : this.events().filter((event) => this.getDateKey(event.date) === this.getDateKey(date));
+  }
+
+  checkEventByDate({ date, event }: { date: Date; event: Event }): Boolean {
+    return this.getDateKey(event.date) === this.getDateKey(date);
+  }
+
+  // Create a unique string key for a date (without time)
+  getDateKey(date: Date): string {
+    return date ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}` : '';
+  }
+
+  // Get color for event type
+  getEventColor(type: string): string {
+    return this.eventTypeColors[type] || '#94a3b8'; // Default to slate
   }
 
   navigateMonth(offset: number) {
     this.currentDate = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + offset);
     this.generateCalendarDays();
   }
+
   navigateThisMonth() {
     this.currentDate = new Date();
     this.generateCalendarDays();
@@ -209,7 +261,7 @@ export class CalendarComponent implements OnInit {
   }
 
   private updateSelectedDateEvents() {
-    this.selectedDateEvents = this.events.filter((event) => this.isSameDay(event.date, this.selectedDate));
+    this.selectedDateEvents = this.events().filter((event) => this.isSameDay(event.date, this.selectedDate));
   }
 
   private isSameDay(date1: Date, date2: Date): boolean {
@@ -221,7 +273,7 @@ export class CalendarComponent implements OnInit {
   }
 
   loadEvents() {
-    this.events = [
+    this.events.set([
       {
         title: 'Team Meeting',
         type: 'Conference',
@@ -234,7 +286,7 @@ export class CalendarComponent implements OnInit {
         time: '19:00',
         date: new Date(),
       },
-    ];
+    ]);
     this.updateSelectedDateEvents();
   }
 
@@ -256,7 +308,7 @@ export class CalendarComponent implements OnInit {
   }
 
   hasEvents(date: Date): boolean {
-    return this.events.some((event) => event.date.toDateString() === date.toDateString());
+    return this.events().some((event) => event.date.toDateString() === date.toDateString());
   }
 
   getEventTypeClass(type: string): string {
@@ -310,7 +362,10 @@ export class CalendarComponent implements OnInit {
 
   createEvent() {
     if (this.newEvent.title && this.newEvent.time) {
-      this.events.push({ ...this.newEvent });
+      this.events.update((events) => {
+        events.push(this.newEvent);
+        return events;
+      });
       this.updateSelectedDateEvents();
       this.closeCreateEventModal();
     }
@@ -383,33 +438,91 @@ export class CalendarComponent implements OnInit {
     this.saveThemes(); // Save the updated order to localStorage
   }
 
-  /**
-   * Handle drop event when a theme is dropped on a calendar date
-   * @param event The drop event
-   */
-  // dropInCalendar(event: CdkDragDrop<any>): void {
-  //   const reminderDate = DateTime.local();
-  //   // Get the theme that was dragged
-  //   const theme = this.themes[event.previousIndex];
+  dropEvent(event: CdkDragDrop<Event[]>, targetDate: Date) {
+    if (event.previousContainer === event.container) {
+      // Reordering in the same date
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // Moving to another date
+      // Get the dragged event
+      const draggedEvent = event.previousContainer.data[event.previousIndex];
 
-  //   // Create a new event using the theme's name and color
-  //   const newEvent = {
-  //     title: theme.name,
-  //     type: 'All Day Event', // Default event type
-  //     time: '12:00', // Default time
-  //     date: date,
-  //     color: theme.color,
-  //   };
+      // Remove from previous date and add to new date
+      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
-  //   // Add the event to the collection
-  //   this.selectedDateEvents.push(newEvent);
+      // Update the date of the transferred event
+      event.container.data[event.currentIndex].date = new Date(targetDate);
 
-  //   // If removeAfterDrop is true, remove the theme
-  //   if (this.removeAfterDrop) {
-  //     this.themes.splice(event.previousIndex, 1);
-  //   }
+      // Update selected date events if we're viewing the target date
+      if (this.isSelected(targetDate)) {
+        this.updateSelectedDateEvents();
+      }
+    }
+  }
 
-  //   // Update the UI to show the new event
-  //   this.selectDate(date);
-  // }
+  dropTheme(event: CdkDragDrop<any[]>) {
+    // If dropping on a date
+    if (event.container.id.startsWith('date-')) {
+      // Extract the index from the container ID (e.g. "date-5" -> 5)
+      const dateIndex = parseInt(event.container.id.split('-')[1]);
+      if (isNaN(dateIndex) || dateIndex < 0 || dateIndex >= this.calendarDays.length) {
+        return;
+      }
+
+      // Get the target date
+      const targetDate = this.calendarDays[dateIndex];
+
+      // Get the theme
+      const theme = this.themes[event.previousIndex];
+
+      // Create a new event from the theme
+      const newEvent: Event = {
+        title: theme.name,
+        type: 'All Day Event', // Default type
+        time: '12:00', // Default time
+        date: new Date(targetDate),
+        color: theme.color,
+      };
+
+      // Add to events array
+      this.events.update((events) => {
+        events.push(newEvent);
+        return events;
+      });
+
+      // Update the UI
+      if (this.isSelected(targetDate)) {
+        this.updateSelectedDateEvents();
+      }
+
+      // If removeAfterDrop is enabled, remove the theme
+      if (this.removeAfterDrop) {
+        this.themes.splice(event.previousIndex, 1);
+        this.saveThemes();
+      }
+    } else {
+      // Regular drag and drop within themes list
+      if (event.previousContainer === event.container) {
+        moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
+        this.saveThemes();
+      }
+    }
+  }
+
+  currentHoveredList: any = null;
+
+  onDragEntered(event: CdkDragEnter, list: any) {
+    this.currentHoveredList = list;
+  }
+
+  onDrop(event: CdkDragDrop<any[]>, parentList: any) {
+    if (this.currentHoveredList && this.currentHoveredList !== parentList) {
+      // Chuyển item từ list cũ sang list con được hover
+      transferArrayItem(event.container.data, this.currentHoveredList.items, event.previousIndex, 0);
+      console.log('Item đã được drop vào:', this.currentHoveredList);
+    }
+  }
+
+  protected readonly Date = Date;
+  protected readonly console = console;
 }
