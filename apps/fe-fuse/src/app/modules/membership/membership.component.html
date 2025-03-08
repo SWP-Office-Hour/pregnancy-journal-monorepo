@@ -110,7 +110,12 @@
                       </div>
                     </div>
                     <div class="text-secondary mt-2 flex flex-col"></div>
-                    <button class="fuse-mat-button-large mt-10 text-white" mat-flat-button [color]="'primary'" (click)="openDialog(membership.title)">
+                    <button
+                      class="fuse-mat-button-large mt-10 text-white"
+                      mat-flat-button
+                      [color]="'primary'"
+                      (click)="openDialog(membership.membership_id)"
+                    >
                       BUY
                     </button>
                     <div class="mt-12 flex flex-col">
