@@ -1,0 +1,93 @@
+<!--suppress TypeScriptValidateTypes -->
+<div class="flex w-full flex-col">
+  @if (isLoading) {
+    <div class="absolute inset-x-0 top-0">
+      <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
+    </div>
+  }
+  <p-toolbar styleClass="mb-6" class="">
+    <ng-template #start>
+      <h3>Payment History</h3>
+    </ng-template>
+    <ng-template #end>
+      <!-- Export functionality could go here in the future -->
+    </ng-template>
+  </p-toolbar>
+
+  <p-table
+    #dt
+    [value]="paymentResource.value()"
+    [globalFilterFields]="['user.name', 'user.email', 'user.phone', 'membership.title', 'value', 'status', 'created_at']"
+    [paginator]="true"
+    [rowHover]="true"
+    [rowsPerPageOptions]="[10, 20, 30]"
+    [rows]="10"
+    [showCurrentPageReport]="true"
+    [tableStyle]="{ 'min-width': '75rem' }"
+    currentPageReportTemplate="Showing {first} to {last} of {totalRecords} payments"
+    dataKey="payment_history_id"
+    [loading]="isLoading"
+  >
+    <ng-template #caption>
+      <div class="flex items-center justify-between">
+        <h5 class="m-0">Payment Records</h5>
+        <p-iconfield>
+          <p-inputicon styleClass="pi pi-search" />
+          <input (input)="onGlobalFilter(dt, $event)" pInputText placeholder="Search..." type="text" />
+        </p-iconfield>
+      </div>
+    </ng-template>
+    <ng-template #header>
+      <tr>
+        <th pSortableColumn="user.name" style="min-width: 8rem">
+          User Name
+          <p-sortIcon field="user.name" />
+        </th>
+        <th pSortableColumn="user.email" style="min-width: 10rem">
+          Email
+          <p-sortIcon field="user.email" />
+        </th>
+        <th pSortableColumn="user.phone" style="min-width: 7rem">
+          Phone
+          <p-sortIcon field="user.phone" />
+        </th>
+        <th pSortableColumn="membership.title" style="min-width: 8rem">
+          Membership
+          <p-sortIcon field="membership.title" />
+        </th>
+        <th pSortableColumn="value" style="min-width: 7rem">
+          Amount
+          <p-sortIcon field="value" />
+        </th>
+        <th pSortableColumn="created_at" style="min-width: 7rem">
+          Date
+          <p-sortIcon field="created_at" />
+        </th>
+        <th pSortableColumn="status" style="min-width: 7rem">
+          Status
+          <p-sortIcon field="status" />
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template #body let-payment>
+      <tr>
+        <td style="min-width: 8rem">{{ payment.user?.name }}</td>
+        <td style="min-width: 10rem">{{ payment.user?.email }}</td>
+        <td style="min-width: 7rem">{{ payment.user?.phone }}</td>
+        <td style="min-width: 8rem">{{ payment.membership?.title }}</td>
+        <td style="min-width: 7rem">{{ payment.value | number: '1.0-0' : 'vi-VN' }} VNĐ</td>
+        <td style="min-width: 7rem">{{ formatDate(payment.created_at) }}</td>
+        <td style="min-width: 7rem">
+          <p-tag [severity]="getSeverityStatus(payment.status)" [value]="payment.status" />
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="7" class="p-4 text-center">No payment records found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<p-toast />
+<p-confirm-popup baseZIndex="99" />
