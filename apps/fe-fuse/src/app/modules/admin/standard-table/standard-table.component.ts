@@ -29,7 +29,6 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-standard-table',
   templateUrl: './standard-table.component.html',
-  styleUrls: ['./standard-table.component.css'],
   animations: fuseAnimations,
   standalone: true,
   imports: [

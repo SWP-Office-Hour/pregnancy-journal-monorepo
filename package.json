@@ -55,6 +55,7 @@
     "apexcharts": "^4.4.0",
     "api-contract": "^1.0.0",
     "axios": "^1.6.0",
+    "chart.js": "^4.4.8",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.1",
     "cors": "^2.8.5",
