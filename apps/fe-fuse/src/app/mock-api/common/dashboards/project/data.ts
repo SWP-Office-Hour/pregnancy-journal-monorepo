@@ -12,7 +12,7 @@ export const project = {
         closedIssues: 75,
       },
     },
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+    labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
     series: {
       data: [
         {
