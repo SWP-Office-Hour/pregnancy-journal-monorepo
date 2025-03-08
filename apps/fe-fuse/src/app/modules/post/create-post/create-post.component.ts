@@ -16,6 +16,7 @@ export class CreatePostComponent {
   @Output() postCreated = new EventEmitter<any>();
   protected postForm: FormGroup;
   protected images: MediaResponse[] = [];
+  isSubmitting = false;
 
   constructor(
     private _formBuilder: FormBuilder,

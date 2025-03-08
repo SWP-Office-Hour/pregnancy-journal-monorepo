@@ -1,35 +1,46 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { DomSanitizer, Meta, SafeHtml, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { BlogResponseType } from '@pregnancy-journal-monorepo/contract';
+import { Subscription } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-blog-detail',
   imports: [RouterLink, DatePipe, CommonModule],
   templateUrl: './blog-detail.component.html',
-  styleUrl: './blog-detail.component.css',
+  styleUrls: ['./blog-detail.component.scss'],
 })
-export class BlogDetailComponent implements OnInit {
+export class BlogDetailComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('blogSidebar') blogSidebar: ElementRef;
+
   blogId: string = '';
   blog: BlogResponseType | null = null;
   relatedBlogs: BlogResponseType[] = [];
   loading: boolean = true;
   sanitizedContent: SafeHtml = '';
-  url = window.location.href;
+  url: string = window.location.href;
+  isLandingLayout: boolean = false;
+  resizeObserver: ResizeObserver;
+  layoutDetectionSubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private _http: HttpClient,
     private sanitizer: DomSanitizer,
     private metaService: Meta,
     private titleService: Title,
-    private router: Router,
+    private location: Location,
+    private renderer: Renderer2,
+    private cd: ChangeDetectorRef,
+    private el: ElementRef,
   ) {}
 
   ngOnInit(): void {
+    // Load blog data from route parameters
     this.route.paramMap.subscribe((params) => {
       this.blogId = params.get('id') || '';
       if (this.blogId) {
@@ -38,19 +49,71 @@ export class BlogDetailComponent implements OnInit {
         this.loading = false;
       }
     });
+
+    // Detect which layout is currently being used
+    this.detectLayout();
   }
 
+  ngAfterViewInit(): void {
+    // Setup resize observer to adjust sticky behavior on window resize
+    this.setupResizeObserver();
+  }
+
+  ngOnDestroy(): void {
+    // Clean up observer and subscriptions
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+
+    if (this.layoutDetectionSubscription) {
+      this.layoutDetectionSubscription.unsubscribe();
+    }
+  }
+
+  /**
+   * Detects the current layout by checking for specific parent elements
+   */
+  detectLayout(): void {
+    // Use setTimeout to ensure the DOM is fully rendered
+    setTimeout(() => {
+      // Check if we're in the landing layout by looking for its characteristic elements
+      const landingLayoutElement = document.querySelector('header + .flex.h-full.w-full.flex-col');
+
+      this.isLandingLayout = !!landingLayoutElement;
+      this.cd.detectChanges();
+    }, 0);
+  }
+
+  /**
+   * Setup a resize observer to adjust the sidebar positioning on window resize
+   */
+  setupResizeObserver(): void {
+    if (typeof ResizeObserver !== 'undefined') {
+      this.resizeObserver = new ResizeObserver(() => {
+        // Re-detect layout on resize
+        this.detectLayout();
+      });
+
+      // Observe the document body for size changes
+      this.resizeObserver.observe(document.body);
+    }
+  }
+
+  /**
+   * Load blog details from API
+   */
   loadBlogDetails(): void {
     this.loading = true;
 
-    // Replace with your actual API call
+    // Real API call to fetch blog data
     this._http.get<BlogResponseType>(environment.apiUrl + 'blogs/' + this.blogId).subscribe(
       (data) => {
         this.blog = data;
 
         // Sanitize HTML content to prevent XSS attacks but allow HTML rendering
         this.sanitizedContent = this.sanitizer.bypassSecurityTrustHtml(this.styleHtmlWithTailwind(this.blog.content));
-        console.log(this.blog.content);
+
+        // Set page title and meta tags for SEO
         this.titleService.setTitle(this.blog.title || 'Blog Detail');
         this.updateMetaTags();
 
@@ -66,7 +129,10 @@ export class BlogDetailComponent implements OnInit {
     );
   }
 
-  styleHtmlWithTailwind(content) {
+  /**
+   * Apply Tailwind CSS classes to HTML content for consistent styling
+   */
+  styleHtmlWithTailwind(content): string {
     content = content.replaceAll('&nbsp;', ' ');
 
     // Style headings with improved typography and responsive sizing
@@ -141,6 +207,9 @@ export class BlogDetailComponent implements OnInit {
     return content;
   }
 
+  /**
+   * Update meta tags for SEO and social sharing
+   */
   updateMetaTags(): void {
     if (!this.blog) return;
 
@@ -161,15 +230,13 @@ export class BlogDetailComponent implements OnInit {
     ]);
   }
 
-  getEncodedUrl(): string {
-    return encodeURIComponent(this.url);
-  }
-
+  /**
+   * Load related blog posts based on the same category
+   */
   loadRelatedBlogs(): void {
     if (!this.blog) return;
 
-    // Replace with your actual API call to get related blogs
-    // Typically related by same category or tags
+    // API call to get related blogs by category
     this._http
       .get<{
         blogs: BlogResponseType[];
@@ -177,7 +244,8 @@ export class BlogDetailComponent implements OnInit {
       }>(environment.apiUrl + 'blogs/category/' + this.blog.category.category_id)
       .subscribe(
         (data) => {
-          this.relatedBlogs = data.blogs.slice(0, 3); // Limit to 3 related articles
+          // Filter out the current blog and limit to 3 related articles
+          this.relatedBlogs = data.blogs.filter((blog) => blog.blog_id !== this.blogId).slice(0, 3);
         },
         (error: any) => {
           console.error('Error loading related blogs:', error);
@@ -185,7 +253,19 @@ export class BlogDetailComponent implements OnInit {
       );
   }
 
+  /**
+   * Get URL-encoded current URL for sharing
+   */
+  getEncodedUrl(): string {
+    return encodeURIComponent(this.url);
+  }
+
+  /**
+   * Get initials from author name for avatar display
+   */
   getInitials(name: string): string {
+    if (!name) return '';
+
     return name
       .split(' ')
       .map((word) => word.charAt(0))
@@ -194,7 +274,10 @@ export class BlogDetailComponent implements OnInit {
       .slice(0, 2);
   }
 
+  /**
+   * Navigate back to blog list
+   */
   goBack(): void {
-    this.router.navigate(['/blog']);
+    this.location.back();
   }
 }

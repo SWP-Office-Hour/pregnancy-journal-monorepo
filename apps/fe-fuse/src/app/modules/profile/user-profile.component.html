@@ -27,7 +27,7 @@
       </button>
       <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
     </div>
-    <h1 class="m-0 text-2xl font-medium text-pink-500">My Profile</h1>
+    <h1 class="m-0 text-2xl font-medium text-pink-500">Hồ sơ của tôi</h1>
   </div>
 
   <!-- Form Section -->
@@ -35,7 +35,7 @@
     <!-- Personal Information Card -->
     <mat-card class="overflow-hidden rounded-xl shadow-sm">
       <mat-card-header class="bg-pink-50 p-4">
-        <mat-card-title class="text-lg font-medium text-pink-500">Personal Information</mat-card-title>
+        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin cá nhân</mat-card-title>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="p-4">
@@ -43,38 +43,38 @@
           <!-- Name Field -->
           <div>
             <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Full Name</mat-label>
-              <input matInput formControlName="name" placeholder="Enter your full name" />
-              <mat-error *ngIf="profileForm.get('name')?.invalid">Name is required</mat-error>
+              <mat-label>Họ và tên</mat-label>
+              <input matInput formControlName="name" placeholder="Nhập họ và tên của bạn" />
+              <mat-error *ngIf="profileForm.get('name')?.invalid">Vui lòng nhập họ và tên</mat-error>
             </mat-form-field>
           </div>
 
           <!-- Email Field -->
           <div>
             <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Email Address</mat-label>
-              <input matInput formControlName="email" placeholder="Enter your email" type="email" />
-              <mat-error *ngIf="profileForm.get('email')?.invalid">Valid email is required</mat-error>
+              <mat-label>Địa chỉ email</mat-label>
+              <input matInput formControlName="email" placeholder="Nhập địa chỉ email của bạn" type="email" />
+              <mat-error *ngIf="profileForm.get('email')?.invalid">Vui lòng nhập email hợp lệ</mat-error>
             </mat-form-field>
           </div>
 
           <!-- Birth Date Field -->
           <div>
             <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Expected Birth Date</mat-label>
+              <mat-label>Ngày dự sinh</mat-label>
               <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />
               <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Valid date is required</mat-error>
+              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Vui lòng nhập ngày hợp lệ</mat-error>
             </mat-form-field>
           </div>
 
           <!-- Phone Field -->
           <div>
             <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Phone Number</mat-label>
-              <input matInput formControlName="phone" placeholder="Enter your phone number" type="tel" />
-              <mat-error *ngIf="profileForm.get('phone')?.invalid">Valid phone number is required</mat-error>
+              <mat-label>Số điện thoại</mat-label>
+              <input matInput formControlName="phone" placeholder="Nhập số điện thoại của bạn" type="tel" />
+              <mat-error *ngIf="profileForm.get('phone')?.invalid">Vui lòng nhập số điện thoại hợp lệ</mat-error>
             </mat-form-field>
           </div>
         </div>
@@ -84,7 +84,7 @@
     <!-- Address Information Card -->
     <mat-card class="overflow-hidden rounded-xl shadow-sm">
       <mat-card-header class="bg-pink-50 p-4">
-        <mat-card-title class="text-lg font-medium text-pink-500">Address Details</mat-card-title>
+        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin địa chỉ</mat-card-title>
       </mat-card-header>
       <mat-divider></mat-divider>
       <mat-card-content class="p-4">
@@ -92,9 +92,9 @@
           <!-- Address Field -->
           <div>
             <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Street Address</mat-label>
-              <input matInput formControlName="address" placeholder="Enter your street address" />
-              <mat-error *ngIf="profileForm.get('address')?.invalid">Address is required</mat-error>
+              <mat-label>Địa chỉ</mat-label>
+              <input matInput formControlName="address" placeholder="Nhập địa chỉ của bạn" />
+              <mat-error *ngIf="profileForm.get('address')?.invalid">Vui lòng nhập địa chỉ</mat-error>
             </mat-form-field>
           </div>
 
@@ -102,9 +102,9 @@
             <!-- Province Field -->
             <div>
               <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Province</mat-label>
+                <mat-label>Tỉnh/Thành phố</mat-label>
                 <mat-select (selectionChange)="onProvinceSelected($event)" formControlName="province">
-                  <mat-option value="">Select Province</mat-option>
+                  <mat-option value="">Chọn Tỉnh/Thành phố</mat-option>
                   <mat-option
                     *ngFor="let province of provinces"
                     [value]="province.code"
@@ -113,20 +113,20 @@
                     {{ province.name }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="profileForm.get('province')?.invalid">Province is required</mat-error>
+                <mat-error *ngIf="profileForm.get('province')?.invalid">Vui lòng chọn Tỉnh/Thành phố</mat-error>
               </mat-form-field>
             </div>
 
             <!-- District Field -->
             <div>
               <mat-form-field appearance="outline" class="w-full">
-                <mat-label>District</mat-label>
+                <mat-label>Quận/Huyện</mat-label>
                 <mat-select
                   (selectionChange)="onDistrictSelected($event)"
                   formControlName="district"
                   [disabled]="!profileForm.get('province')?.value"
                 >
-                  <mat-option value="">Select District</mat-option>
+                  <mat-option value="">Chọn Quận/Huyện</mat-option>
                   <mat-option
                     *ngFor="let district of districts"
                     [value]="district.code"
@@ -135,21 +135,21 @@
                     {{ district.name }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="profileForm.get('district')?.invalid">District is required</mat-error>
+                <mat-error *ngIf="profileForm.get('district')?.invalid">Vui lòng chọn Quận/Huyện</mat-error>
               </mat-form-field>
             </div>
 
             <!-- Ward Field -->
             <div>
               <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Ward</mat-label>
+                <mat-label>Phường/Xã</mat-label>
                 <mat-select formControlName="ward" [disabled]="!profileForm.get('district')?.value">
-                  <mat-option value="">Select Ward</mat-option>
+                  <mat-option value="">Chọn Phường/Xã</mat-option>
                   <mat-option *ngFor="let ward of wards" [value]="ward.code" [disabled]="ward.code == profileForm.get('ward')?.value">
                     {{ ward.name }}
                   </mat-option>
                 </mat-select>
-                <mat-error *ngIf="profileForm.get('ward')?.invalid">Ward is required</mat-error>
+                <mat-error *ngIf="profileForm.get('ward')?.invalid">Vui lòng chọn Phường/Xã</mat-error>
               </mat-form-field>
             </div>
           </div>
@@ -166,7 +166,7 @@
         [disabled]="profileForm.invalid"
         class="rounded-full bg-pink-500 px-8 py-2 font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
       >
-        Save Changes
+        Lưu thay đổi
       </button>
     </div>
   </form>

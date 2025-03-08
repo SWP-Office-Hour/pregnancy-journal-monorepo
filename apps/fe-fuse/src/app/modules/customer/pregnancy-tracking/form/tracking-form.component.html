@@ -1,11 +1,11 @@
 <form
   [formGroup]="trackingForm"
-  class="mt-4 flex max-h-[600px] flex-col overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-sm"
+  class="mt-4 flex max-h-[600px] flex-col overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-md"
   (submit)="submitForm()"
 >
-  <!-- Header Section -->
-  <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-pink-50 px-6 py-4 pb-4">
-    <h2 class="text-2xl font-bold text-pink-500">Theo dõi bệnh án</h2>
+  <!-- Header Section - Enhanced with gradient background -->
+  <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-4 pb-4">
+    <h2 class="text-2xl font-bold text-pink-600">Theo dõi bệnh án</h2>
     <p class="mt-2 text-gray-600"><strong>Tuần:</strong> {{ week }}</p>
   </div>
 
@@ -26,12 +26,12 @@
             class="!pt-1 focus:ring-2 focus:ring-pink-300"
           />
           <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date">
-            <mat-icon class="text-pink-300">calendar_today</mat-icon>
+            <mat-icon class="text-pink-400">calendar_today</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #visit_doctor_date>
             <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Cancel</button>
-              <button mat-raised-button matDatepickerApply>Apply</button>
+              <button mat-button matDatepickerCancel>Hủy bỏ</button>
+              <button mat-raised-button matDatepickerApply>Xác nhận</button>
             </mat-datepicker-actions>
           </mat-datepicker>
         </mat-form-field>
@@ -47,12 +47,12 @@
             class="!pt-1 focus:ring-2 focus:ring-pink-300"
           />
           <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date">
-            <mat-icon class="text-pink-300">calendar_today</mat-icon>
+            <mat-icon class="text-pink-400">calendar_today</mat-icon>
           </mat-datepicker-toggle>
           <mat-datepicker #next_visit_doctor_date>
             <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Cancel</button>
-              <button mat-raised-button matDatepickerApply>Apply</button>
+              <button mat-button matDatepickerCancel>Hủy bỏ</button>
+              <button mat-raised-button matDatepickerApply>Xác nhận</button>
             </mat-datepicker-actions>
           </mat-datepicker>
         </mat-form-field>
@@ -69,22 +69,23 @@
             </mat-option>
           }
         </mat-select>
-        <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-300"></mat-icon>
+        <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>
       </mat-form-field>
 
       <mat-form-field class="w-full" appearance="outline">
         <mat-label class="font-medium text-gray-700">Bác sĩ</mat-label>
         <input matInput formControlName="doctor_name" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
-        <mat-icon svgIcon="heroicons_mini:identification" class="text-pink-300"></mat-icon>
+        <mat-icon svgIcon="heroicons_mini:identification" class="text-pink-400"></mat-icon>
       </mat-form-field>
 
       <!-- Metrics -->
       <div formArrayName="metrics" class="space-y-4">
+        <h3 class="text-md font-medium text-pink-600">Chỉ số sức khỏe</h3>
         @for (metric of metrics; track $index) {
           <mat-form-field class="w-full" appearance="outline">
             <mat-label class="font-medium text-gray-700">{{ metric.title }}</mat-label>
             <input matInput [formControlName]="$index" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
-            <mat-icon svgIcon="heroicons_mini:calculator" class="text-pink-300"></mat-icon>
+            <mat-icon svgIcon="heroicons_mini:calculator" class="text-pink-400"></mat-icon>
           </mat-form-field>
         }
       </div>
@@ -92,8 +93,9 @@
 
     <!-- Right Column -->
     <div class="flex-1">
-      <div class="rounded-lg border-2 border-dashed border-pink-300 bg-white p-4">
-        <h3 class="mb-4 text-lg font-medium text-pink-500">Tải lên hình ảnh</h3>
+      <div class="rounded-lg border-2 border-dashed border-pink-300 bg-white p-6 shadow-sm">
+        <h3 class="mb-4 text-lg font-medium text-pink-600">Tải lên hình ảnh</h3>
+        <p class="mb-4 text-sm text-gray-600">Tải lên hình ảnh siêu âm, xét nghiệm hoặc tài liệu y tế khác</p>
         <file-upload (insertImg)="insertImg($event)" class="w-full"></file-upload>
         <!-- Image Previews -->
         <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
@@ -101,15 +103,16 @@
             <image-preview
               [imgObj]="src"
               (deleteImg)="deleteImg($event)"
-              class="cursor-pointer overflow-hidden rounded-lg border-2 border-pink-50 transition-transform hover:scale-105"
+              class="cursor-pointer overflow-hidden rounded-lg border-2 border-pink-50 shadow-sm transition-all hover:scale-105 hover:shadow-md"
             >
             </image-preview>
           }
         </div>
       </div>
-      <div class="mt-8">
+      <div class="mt-8 rounded-lg bg-white p-4 shadow-sm" id="health_report_messages">
+        <h3 class="mb-3 text-lg font-medium text-pink-600">Ghi chú</h3>
         @for (msg of messages(); track $index) {
-          <p>{{ msg }}</p>
+          <p class="mb-2 text-gray-700">{{ msg }}</p>
         }
       </div>
     </div>
@@ -117,9 +120,20 @@
 
   <!-- Footer Buttons -->
   <div class="mt-8 flex justify-end gap-3 border-t border-gray-200 pt-6">
-    <button mat-flat-button type="submit" class="rounded-lg !bg-pink-500 px-6 py-2 !text-white transition-colors hover:!bg-pink-600">Lưu</button>
-    <button mat-stroked-button type="reset" (click)="closeForm()" class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 hover:!bg-pink-50">
-      Hủy
+    <button
+      mat-flat-button
+      type="submit"
+      class="rounded-lg !bg-gradient-to-r !from-pink-500 !to-pink-600 px-6 py-2 !text-white shadow-sm transition-all hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md"
+    >
+      Lưu bệnh án
+    </button>
+    <button
+      mat-stroked-button
+      type="reset"
+      (click)="closeForm()"
+      class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
+    >
+      Hủy bỏ
     </button>
   </div>
 

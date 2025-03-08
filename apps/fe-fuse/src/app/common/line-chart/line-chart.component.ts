@@ -124,7 +124,7 @@ export class LineChartComponent implements OnInit {
       yaxis: {
         labels: {
           formatter: function (val) {
-            return val.toFixed(0);
+            return val?.toFixed(0);
           },
         },
         tickAmount: 5,
@@ -135,7 +135,7 @@ export class LineChartComponent implements OnInit {
         },
         y: {
           formatter: function (val) {
-            return val.toFixed(0);
+            return val?.toFixed(0);
           },
         },
         theme: 'light',

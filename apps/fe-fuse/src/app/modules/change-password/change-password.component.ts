@@ -17,6 +17,7 @@ import { UserService } from '../../core/user/user.service';
 export class ChangePasswordComponent {
   isLoading = false;
   successMessage: string | null = null;
+  new_password = signal<string | null>(null);
   errorMessage = signal<string | null>(null);
   showCurrentPassword = false;
   showNewPassword = false;
@@ -26,6 +27,7 @@ export class ChangePasswordComponent {
     password: new FormControl('', [Validators.required]),
     confirm_password: new FormControl('', [Validators.required]),
   });
+  getPasswordStrength = signal<number>(0);
 
   constructor(
     private _http: HttpClient,
@@ -39,7 +41,7 @@ export class ChangePasswordComponent {
     this.isLoading = true;
     if (this.changePasswordForm.invalid) {
       this.changePasswordForm.markAllAsTouched();
-      this.errorMessage.set('Please fill in all required fields');
+      this.errorMessage.set('Vui lòng điền vào tất cả các trường bắt buộc');
       this.isLoading = false;
       return;
     }
@@ -61,6 +63,40 @@ export class ChangePasswordComponent {
         this.isLoading = false;
       },
     });
+  }
+
+  inputChange() {
+    const password = this.changePasswordForm.get('password');
+    if (!password || !password.value) return; // Return 0 for no password
+
+    const value = password.value;
+    let score = 0;
+
+    // Length checks
+    if (value.length >= 8) score += 1;
+    if (value.length >= 12) score += 1;
+    if (value.length >= 16) score += 1;
+
+    // Character type checks
+    if (value.match(/[a-z]/)) score += 1; // Lowercase
+    if (value.match(/[A-Z]/)) score += 1; // Uppercase
+    if (value.match(/[0-9]/)) score += 1; // Numbers
+    if (value.match(/[^a-zA-Z0-9]/)) score += 1; // Special characters
+    // Map the raw score to strength levels
+    if (score >= 6) {
+      this.getPasswordStrength.set(4);
+      return;
+    } // Very strong
+    if (score >= 4) {
+      this.getPasswordStrength.set(3);
+      return;
+    } // Strong
+    if (score >= 3) {
+      this.getPasswordStrength.set(2);
+      return;
+    } // Medium
+    else this.getPasswordStrength.set(1);
+    return; // Weak
   }
 
   isFieldInvalid(field: string): boolean {

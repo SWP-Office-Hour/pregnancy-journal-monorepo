@@ -39,6 +39,7 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 export class CommunityComponent {
   protected user: User;
   protected posts: PostType[] = [];
+  loading = true;
 
   constructor(
     private _userService: UserService,
