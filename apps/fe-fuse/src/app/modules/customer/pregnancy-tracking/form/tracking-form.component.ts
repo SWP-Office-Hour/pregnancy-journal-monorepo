@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
@@ -46,7 +46,7 @@ export class TrackingFormComponent {
   protected metrics: MetricResponseType[];
   protected selectedRecordData: RecordResponse;
   protected week: number;
-  private report_messages: string[] = [];
+  private report_messages = signal<string[]>([]);
 
   constructor(
     protected dialogRef: MatDialogRef<TrackingFormComponent>,
@@ -99,7 +99,8 @@ export class TrackingFormComponent {
               .subscribe((res) => {
                 if (!res) return;
                 const report_msg = data.value > res.upperbound ? metric.upperbound_msg : data.value < res.lowerbound ? metric.lowerbound_msg : '';
-                this.report_messages.push(report_msg);
+                console.log(report_msg);
+                this.report_messages.set([...this.report_messages(), report_msg]);
               });
           }
         });
@@ -108,6 +109,10 @@ export class TrackingFormComponent {
 
   get metricsFormArray() {
     return this.trackingForm.get('metrics') as FormArray;
+  }
+
+  get messages() {
+    return this.report_messages;
   }
 
   submitForm() {
