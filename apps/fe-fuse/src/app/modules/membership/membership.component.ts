@@ -43,10 +43,11 @@ export class MembershipComponent {
     });
   }
 
-  openDialog({ membershipTitle, membershipId }: { membershipTitle: string; membershipId: string }): void {
+  openDialog(membershipId: string): void {
+    console.log(membershipId);
     const dialogRef = this.dialog.open(DialogComponent, {
       width: '500px',
-      data: { title: membershipTitle, membershipId: membershipId },
+      data: { membershipId: membershipId },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
