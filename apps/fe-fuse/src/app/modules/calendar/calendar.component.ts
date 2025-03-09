@@ -1,4 +1,4 @@
-import { CdkDragDrop, CdkDragEnter, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { Component, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,19 +7,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { ReminderColor, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { Button, ButtonModule } from 'primeng/button';
 
 interface Event {
   title: string;
-  type: string;
-  time: string;
+  content?: string;
   date: Date;
   color?: string; // Add color property to Event interface
+  type?: ReminderType.USER_CREATED_EVENT;
 }
 
 interface Theme {
-  id: number;
-  name: string;
+  title: string;
   color: string;
 }
 
@@ -157,23 +157,16 @@ export class CalendarComponent implements OnInit {
   showEventModal: boolean = false;
   newEvent: Event = {
     title: '',
-    type: 'All Day Event',
-    time: '',
     date: new Date(),
+    color: ReminderColor.USER_CREATED_EVENT_COLOR,
   };
-
-  // Event type to color mapping
-  eventTypeColors = {
-    'All Day Event': '#60a5fa',
-    Conference: '#8b5cf6',
-    Dinner: '#f43f5e',
-    Meeting: '#10b981',
-    Birthday: '#f59e0b',
-  };
+  themes: Theme[] = [];
+  eventForm: FormGroup;
+  removeAfterDrop = false;
+  createThemeAfterCreateEvent = false;
 
   ngOnInit() {
     this.generateCalendarDays();
-    this.loadEvents();
     this.loadThemes();
   }
 
@@ -221,7 +214,6 @@ export class CalendarComponent implements OnInit {
     this.calendarDays = dateEvents.map((item) => item.date);
     // You can store the events mapping if needed
     this.calendarEvents = dateEvents;
-    console.log(this.calendarEvents);
   }
 
   // Helper function to find events for a specific date
@@ -238,11 +230,6 @@ export class CalendarComponent implements OnInit {
   // Create a unique string key for a date (without time)
   getDateKey(date: Date): string {
     return date ? `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}` : '';
-  }
-
-  // Get color for event type
-  getEventColor(type: string): string {
-    return this.eventTypeColors[type] || '#94a3b8'; // Default to slate
   }
 
   navigateMonth(offset: number) {
@@ -268,28 +255,6 @@ export class CalendarComponent implements OnInit {
     return date1.toDateString() === date2.toDateString();
   }
 
-  isCurrentDate(date: Date): boolean {
-    return this.isSameDay(date, new Date());
-  }
-
-  loadEvents() {
-    this.events.set([
-      {
-        title: 'Team Meeting',
-        type: 'Conference',
-        time: '10:00',
-        date: new Date(),
-      },
-      {
-        title: 'Client Dinner',
-        type: 'Dinner',
-        time: '19:00',
-        date: new Date(),
-      },
-    ]);
-    this.updateSelectedDateEvents();
-  }
-
   isSelected(date: Date): boolean {
     return this.selectedDate
       ? date.getDate() === this.selectedDate.getDate() &&
@@ -307,126 +272,125 @@ export class CalendarComponent implements OnInit {
     return this.currentDate ? date.getMonth() === this.currentDate.getMonth() && date.getFullYear() === this.currentDate.getFullYear() : false;
   }
 
-  hasEvents(date: Date): boolean {
-    return this.events().some((event) => event.date.toDateString() === date.toDateString());
-  }
-
-  getEventTypeClass(type: string): string {
-    switch (type) {
-      case 'All Day Event':
-        return 'bg-sky-50 border border-sky-100';
-      case 'Conference':
-        return 'bg-violet-50 border border-violet-100';
-      case 'Dinner':
-        return 'bg-rose-50 border border-rose-100';
-      case 'Meeting':
-        return 'bg-emerald-50 border border-emerald-100';
-      case 'Birthday':
-        return 'bg-amber-50 border border-amber-100';
-      default:
-        return 'bg-slate-50 border border-slate-100';
-    }
-  }
-
-  getEventTagClass(type: string): string {
-    switch (type) {
-      case 'All Day Event':
-        return 'bg-sky-100 text-sky-700';
-      case 'Conference':
-        return 'bg-violet-100 text-violet-700';
-      case 'Dinner':
-        return 'bg-rose-100 text-rose-700';
-      case 'Meeting':
-        return 'bg-emerald-100 text-emerald-700';
-      case 'Birthday':
-        return 'bg-amber-100 text-amber-700';
-      default:
-        return 'bg-slate-100 text-slate-700';
-    }
-  }
-
-  openCreateEventModal() {
-    this.showEventModal = true;
-    this.newEvent.date = this.selectedDate;
-  }
-
-  closeCreateEventModal() {
-    this.showEventModal = false;
-    this.newEvent = {
-      title: '',
-      type: 'All Day Event',
-      time: '',
-      date: new Date(),
-    };
-  }
-
   createEvent() {
-    if (this.newEvent.title && this.newEvent.time) {
+    // Using the template-driven form validation
+    if (this.newEvent.title && this.newEvent.title.length >= 3) {
+      // Make a deep copy of the event to avoid reference issues
+      const eventCopy: Event = {
+        title: this.newEvent.title,
+        content: this.newEvent.content || '',
+        date: new Date(this.selectedDate), // Ensure we use the selected date
+        color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
+        type: ReminderType.USER_CREATED_EVENT,
+      };
+
+      // Add the event to our events array
       this.events.update((events) => {
-        events.push(this.newEvent);
+        events.push(eventCopy);
         return events;
       });
+
+      // Create a theme if the checkbox is checked
+      if (this.createThemeAfterCreateEvent) {
+        this.createTheme();
+      }
+
+      // Update the UI to show the new event
       this.updateSelectedDateEvents();
+
+      // Show success feedback (optional)
+      console.log('Event created successfully!', eventCopy);
+
+      // Close the modal
       this.closeCreateEventModal();
+    } else {
+      // Handle invalid event - show error message or highlight required fields
+      console.error('Invalid event data. Please check form fields.');
     }
   }
 
-  //Drag and drop
-  themes: Theme[] = [];
-  showModal = false;
-  themeForm: FormGroup;
-  removeAfterDrop = false;
-
-  predefinedColors = ['#A0C4FF', '#CAFFBF', '#D8C4FF', '#FFD4A0', '#FFBFCB'];
+  //lấy list màu từ enum
+  getReminderColors(): ReminderColor[] {
+    return Object.values(ReminderColor);
+  }
 
   constructor(private fb: FormBuilder) {
-    this.themeForm = this.fb.group({
-      name: ['', [Validators.required]],
+    this.eventForm = this.fb.group({
+      title: ['', [Validators.required]],
       color: ['', [Validators.required]],
     });
   }
-
   loadThemes(): void {
-    const savedThemes = localStorage.getItem('themes');
-    if (savedThemes) {
-      this.themes = JSON.parse(savedThemes);
-    }
+    const uniqueTitles = new Set();
+    this.events().forEach((event) => {
+      if (event.type === ReminderType.USER_CREATED_EVENT && !uniqueTitles.has(event.title)) {
+        uniqueTitles.add(event.title);
+        this.themes.push({
+          title: event.title,
+          color: event.color,
+        });
+      }
+    });
   }
 
-  saveThemes(): void {
-    localStorage.setItem('themes', JSON.stringify(this.themes));
+  openCreateEventModal() {
+    // Prepare the new event with the selected date
+    this.newEvent.date = new Date(this.selectedDate);
+
+    // Set a timeout before showing the modal for a smoother effect
+    setTimeout(() => {
+      this.showEventModal = true;
+    }, 10);
   }
 
-  openThemeModal(): void {
-    this.showModal = true;
+  closeCreateEventModal() {
+    // Hide the modal first
+    this.showEventModal = false;
+
+    // Reset the form after the animation completes
+    setTimeout(() => {
+      this.newEvent = {
+        title: '',
+        date: new Date(),
+        color: ReminderColor.USER_CREATED_EVENT_COLOR,
+      };
+      this.eventForm.reset();
+    }, 300);
   }
 
-  closeModal(): void {
-    this.showModal = false;
-    this.themeForm.reset();
-  }
-
-  selectColor(color: string): void {
-    this.themeForm.patchValue({ color });
+  chooseColor(color: string): string {
+    return '#' + color;
   }
 
   createTheme(): void {
-    if (this.themeForm.valid) {
-      const newTheme: Theme = {
-        id: Date.now(),
-        name: this.themeForm.value.name,
-        color: this.themeForm.value.color,
-      };
-
-      this.themes.push(newTheme);
-      this.saveThemes();
-      this.closeModal();
-    }
+    const newTheme: Theme = {
+      title: this.newEvent.title,
+      color: this.newEvent.color,
+    };
+    this.themes.push(newTheme);
+    this.eventForm.reset();
+    console.log(this.themes);
   }
 
   deleteTheme(theme: Theme): void {
-    this.themes = this.themes.filter((t) => t.id !== theme.id);
-    this.saveThemes();
+    const index = this.themes.findIndex((t) => t.title === theme.title);
+    if (index !== -1) {
+      // Remove the theme
+      this.themes.splice(index, 1);
+
+      // Update related events
+      this.events.update((events) => {
+        return events.map((event) => {
+          if (event.title === theme.title && event.type === ReminderType.USER_CREATED_EVENT) {
+            return {
+              ...event,
+              type: ReminderType.USER_CREATED_EVENT,
+            };
+          }
+          return event;
+        });
+      });
+    }
   }
 
   drop(event: CdkDragDrop<Theme[]>) {
@@ -435,7 +399,6 @@ export class CalendarComponent implements OnInit {
     } else {
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
-    this.saveThemes(); // Save the updated order to localStorage
   }
 
   dropEvent(event: CdkDragDrop<Event[]>, targetDate: Date) {
@@ -448,6 +411,16 @@ export class CalendarComponent implements OnInit {
       const draggedEvent = event.previousContainer.data[event.previousIndex];
 
       // Remove from previous date and add to new date
+      if (this.removeAfterDrop) {
+        // FIXED LOGIC: If removeAfterDrop is FALSE, we don't remove the event
+        // When the "Tái sử dụng" checkbox is checked, we want to REMOVE the event (not keep it)
+        const newTheme: Theme = {
+          title: draggedEvent.title,
+          color: draggedEvent.color,
+        };
+        // Add to events array
+        this.themes.push(newTheme);
+      }
       transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
       // Update the date of the transferred event
@@ -477,9 +450,7 @@ export class CalendarComponent implements OnInit {
 
       // Create a new event from the theme
       const newEvent: Event = {
-        title: theme.name,
-        type: 'All Day Event', // Default type
-        time: '12:00', // Default time
+        title: theme.title,
         date: new Date(targetDate),
         color: theme.color,
       };
@@ -495,34 +466,16 @@ export class CalendarComponent implements OnInit {
         this.updateSelectedDateEvents();
       }
 
-      // If removeAfterDrop is enabled, remove the theme
+      // FIXED LOGIC: If removeAfterDrop is TRUE, we remove the theme
+      // When the "Tái sử dụng" checkbox is checked, we want to KEEP the theme (not remove it)
       if (this.removeAfterDrop) {
         this.themes.splice(event.previousIndex, 1);
-        this.saveThemes();
       }
     } else {
       // Regular drag and drop within themes list
       if (event.previousContainer === event.container) {
         moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
-        this.saveThemes();
       }
     }
   }
-
-  currentHoveredList: any = null;
-
-  onDragEntered(event: CdkDragEnter, list: any) {
-    this.currentHoveredList = list;
-  }
-
-  onDrop(event: CdkDragDrop<any[]>, parentList: any) {
-    if (this.currentHoveredList && this.currentHoveredList !== parentList) {
-      // Chuyển item từ list cũ sang list con được hover
-      transferArrayItem(event.container.data, this.currentHoveredList.items, event.previousIndex, 0);
-      console.log('Item đã được drop vào:', this.currentHoveredList);
-    }
-  }
-
-  protected readonly Date = Date;
-  protected readonly console = console;
 }

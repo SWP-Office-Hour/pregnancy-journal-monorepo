@@ -50,6 +50,7 @@ export class ReminderService {
 
     return await this.databaseService.Reminder.create({
       data: {
+        color: createReminderDto.color,
         title: createReminderDto.title,
         content: createReminderDto.content,
         status: Status.ACTIVE,

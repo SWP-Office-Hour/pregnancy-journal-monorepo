@@ -248,3 +248,38 @@
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }
+
+/* Enhanced button styles */
+.create-event-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.create-event-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: 0.5s;
+}
+
+.create-event-btn:hover::after {
+  left: 100%;
+}
+
+/* Apply these styles to all buttons with specific class */
+button.btn-primary {
+  @apply rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg;
+}
+
+button.btn-secondary {
+  @apply rounded-lg bg-gray-100 px-4 py-2 font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-200 hover:shadow;
+}
+
+/* Card hover effects for calendar cells */
+.calendar-cell {
+  @apply transition-all duration-200 hover:scale-[1.03] hover:shadow-md;
+}
