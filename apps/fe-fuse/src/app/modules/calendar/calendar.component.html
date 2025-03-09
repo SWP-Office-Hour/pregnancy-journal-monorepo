@@ -48,22 +48,13 @@
       </div>
       <!--Drag and Drop-->
       <div class="container mx-auto w-full overscroll-y-contain">
-        <div class="mb-6 flex w-full flex-col">
-          <p-button
-            label="Tạo lịch mới"
-            (click)="openThemeModal()"
-            variant="text"
-            [raised]="true"
-            [rounded]="true"
-            severity="danger"
-            styleClass="m-0 w-full"
-          />
-        </div>
+        <h1 class="mb-4 text-lg font-medium text-gray-800">Mẫu sự kiện</h1>
 
         <div class="mb-4 ml-2 mr-2 flex items-center">
           <label class="flex cursor-pointer items-center">
             <label class="heart-switch">
-              <input type="checkbox" [(ngModel)]="removeAfterDrop" />
+              <!-- Default to checked (true) for better user experience -->
+              <input type="checkbox" [(ngModel)]="removeAfterDrop" name="removeAfterDrop" />
               <svg class="w-7" viewBox="0 0 33 23" fill="white">
                 <path
                   d="M23.5,0.5 C28.4705627,0.5 32.5,4.52943725 32.5,9.5 C32.5,16.9484448 21.46672,22.5 16.5,22.5 C11.53328,22.5 0.5,16.9484448 0.5,9.5 C0.5,4.52952206 4.52943725,0.5 9.5,0.5 C12.3277083,0.5 14.8508336,1.80407476 16.5007741,3.84362242 C18.1491664,1.80407476 20.6722917,0.5 23.5,0.5 Z"
@@ -71,16 +62,21 @@
               </svg>
             </label>
 
-            <span class="ml-2 font-medium text-gray-700">Hủy sau khi dùng</span>
+            <span class="ml-2 font-medium text-gray-700">Tái sử dụng</span>
           </label>
         </div>
 
         <div class="w-full">
           <div cdkDropList [cdkDropListData]="themes" (cdkDropListDropped)="dropTheme($event)" class="theme-list">
-            <div *ngFor="let theme of themes" cdkDrag class="theme-block example-box mb-2 rounded-lg" [style.background-color]="theme.color">
+            <div
+              *ngFor="let theme of themes"
+              cdkDrag
+              class="theme-block example-box mb-2 rounded-lg"
+              [style.background-color]="chooseColor(theme.color)"
+            >
               <div class="cursor-move rounded-lg p-4 shadow-md" cdkDragHandle>
                 <div class="flex items-center justify-between">
-                  <span class="font-medium text-gray-800">{{ theme.name }}</span>
+                  <span class="font-medium text-gray-800">{{ theme.title }}</span>
                   <button (click)="deleteTheme(theme)" class="text-gray-600 transition-colors hover:text-red-500">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path
@@ -157,7 +153,7 @@
                       cdkDrag
                       [cdkDragData]="event"
                       class="event-indicator h-2 w-2 rounded-full"
-                      [style.background-color]="event.color || getEventColor(event.type)"
+                      [style.background-color]="chooseColor(event.color)"
                     ></div>
                   }
                 }
@@ -180,80 +176,156 @@
           </div>
         </div>
 
-        <div class="my-2 mb-4 rounded-xl p-4 shadow-xl lg:col-span-2">
-          <h3 class="mb-4 text-xl font-semibold">Lịch hẹn {{ selectedDate | date: 'mediumDate' }}</h3>
-          <div *ngIf="selectedDateEvents.length === 0" class="py-4 text-center text-gray-500">No events scheduled for this date</div>
-          <div *ngFor="let event of selectedDateEvents" class="mb-3 last:mb-0">
-            <div [ngClass]="getEventTypeClass(event.type)" class="rounded-lg p-3">
+        <div class="my-2 mb-4 flex flex-col justify-between rounded-xl p-4 shadow-xl lg:col-span-2">
+          <div class="">
+            <h3 class="mb-4 text-xl font-semibold">Lịch hẹn {{ selectedDate | date: 'mediumDate' }}</h3>
+            <div *ngIf="selectedDateEvents.length === 0" class="py-4 text-center text-gray-500">No events scheduled for this date</div>
+            <div
+              *ngFor="let event of selectedDateEvents"
+              class="mb-3 last:mb-0"
+              cdkDrag
+              [cdkDragData]="event"
+              cdkDropList
+              [cdkDropListData]="selectedDateEvents"
+              (cdkDropListDropped)="dropEvent($event, selectedDate)"
+            >
               <div class="flex items-start justify-between text-sm">
-                <div>
-                  <span class="rounded-full px-2 py-1 text-sm font-medium" [ngClass]="getEventTagClass(event.type)">{{ event.type }}</span>
-                  <h4 class="mt-2 font-medium">{{ event.title }}</h4>
-                  <p class="mt-1 text-gray-600">{{ event.time }}</p>
+                <div
+                  class="flex w-full items-center justify-between rounded-lg p-2 shadow-sm transition-all hover:bg-gray-50"
+                  [style.background-color]="chooseColor(event.color)"
+                >
+                  <h4 class="font-medium">{{ event.title }}</h4>
+                  <div class="flex items-center gap-2">
+                    <div class="cursor-move" cdkDragHandle>
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div class="mb-6 flex w-full flex-col">
+            <button
+              (click)="openCreateEventModal()"
+              class="create-event-btn flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 py-3 font-medium text-white shadow-lg shadow-pink-500/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-pink-500/40 active:scale-[0.98] active:shadow-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Tạo lịch mới</span>
+            </button>
+          </div>
         </div>
       </div>
+    </div>
 
-      <button
-        (click)="openCreateEventModal()"
-        class="w-full transform rounded-lg bg-gradient-to-b from-pink-500 to-pink-400 py-3 text-white transition-all hover:scale-[1.01] active:scale-[0.99]"
+    <div
+      class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden"
+      [ngClass]="{ 'pointer-events-none': !showEventModal }"
+    >
+      <!-- Backdrop with fade effect -->
+      <div
+        class="fixed inset-0 bg-black transition-opacity duration-300 ease-in-out"
+        [ngClass]="{ 'pointer-events-none opacity-0': !showEventModal, 'opacity-50': showEventModal }"
+        (click)="closeCreateEventModal()"
+      ></div>
+
+      <!-- Modal container with transform effect -->
+      <div
+        class="relative w-full max-w-md transform rounded-xl bg-white p-6 shadow-xl transition-all duration-300 ease-in-out"
+        [ngClass]="{
+          'translate-y-4 scale-95 opacity-0': !showEventModal,
+          'translate-y-0 scale-100 opacity-100': showEventModal,
+        }"
       >
-        Tạo nhắc nhở
-      </button>
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="text-xl font-semibold">Tạo Lịch Hẹn</h3>
+          <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }}/{{ selectedDate.getFullYear() }}</p>
+        </div>
+        <form #eventForm="ngForm" (ngSubmit)="createEvent()">
+          <div class="mb-4">
+            <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
+            <input
+              type="text"
+              [(ngModel)]="newEvent.title"
+              name="title"
+              #title="ngModel"
+              class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+              [ngClass]="{ 'border-red-500': title.invalid && (title.dirty || title.touched) }"
+              required
+              minlength="3"
+            />
+            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
+              <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
+              <div *ngIf="title.errors?.['minlength']">Tiêu đề phải có ít nhất 3 ký tự</div>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
+            <input
+              type="text"
+              [(ngModel)]="newEvent.content"
+              name="content"
+              #content="ngModel"
+              class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+            />
+          </div>
+          <div class="mb-4">
+            <label class="mb-2 block text-sm font-medium text-gray-700">Chọn màu</label>
+            <div class="flex items-center gap-2">
+              @for (color of getReminderColors(); track $index) {
+                @if (newEvent.color == color) {
+                  <div
+                    (click)="newEvent.color = color"
+                    class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
+                    [style.background-color]="chooseColor(color)"
+                  ></div>
+                } @else {
+                  <div
+                    (click)="newEvent.color = color"
+                    class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
+                    [style.background-color]="chooseColor(color)"
+                  ></div>
+                }
+              }
+            </div>
+          </div>
 
-      <div *ngIf="showEventModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-        <div class="w-full max-w-md rounded-xl bg-white p-6">
-          <h3 class="mb-4 text-xl font-semibold">Create New Event</h3>
-          <form (ngSubmit)="createEvent()" #eventForm="ngForm">
-            <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Title</label>
-              <input
-                type="text"
-                [(ngModel)]="newEvent.title"
-                name="title"
-                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
-                required
-              />
+          <div class="flex justify-between gap-4">
+            <div class="flex items-center">
+              <label class="flex cursor-pointer items-center">
+                <label class="heart-switch">
+                  <input type="checkbox" [(ngModel)]="createThemeAfterCreateEvent" name="createTheme" />
+                  <svg class="w-7" viewBox="0 0 33 23" fill="white">
+                    <path
+                      d="M23.5,0.5 C28.4705627,0.5 32.5,4.52943725 32.5,9.5 C32.5,16.9484448 21.46672,22.5 16.5,22.5 C11.53328,22.5 0.5,16.9484448 0.5,9.5 C0.5,4.52952206 4.52943725,0.5 9.5,0.5 C12.3277083,0.5 14.8508336,1.80407476 16.5007741,3.84362242 C18.1491664,1.80407476 20.6722917,0.5 23.5,0.5 Z"
+                    ></path>
+                  </svg>
+                </label>
+                <span class="ml-2 font-medium text-gray-700">Lưu lại lịch</span>
+              </label>
             </div>
-            <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Type</label>
-              <select
-                [(ngModel)]="newEvent.type"
-                name="type"
-                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+            <div>
+              <button
+                type="button"
+                (click)="closeCreateEventModal()"
+                class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100"
               >
-                <option value="All Day Event">All Day Event</option>
-                <option value="Conference">Conference</option>
-                <option value="Dinner">Dinner</option>
-              </select>
-            </div>
-            <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Time</label>
-              <input
-                type="time"
-                [(ngModel)]="newEvent.time"
-                name="time"
-                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
-                required
-              />
-            </div>
-            <div class="flex justify-end gap-4">
-              <button type="button" (click)="closeCreateEventModal()" class="rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100">
                 Cancel
               </button>
               <button
-                (click)="console.log(newEvent)"
                 type="submit"
-                class="rounded-lg bg-purple-500 px-4 py-2 text-white transition-all hover:bg-purple-600"
+                [disabled]="title.invalid"
+                class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Create Event
+                Tạo Lịch
               </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
