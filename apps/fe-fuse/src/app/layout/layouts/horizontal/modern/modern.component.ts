@@ -17,6 +17,7 @@ import { QuickChatComponent } from 'app/layout/common/quick-chat/quick-chat.comp
 import { NgOptimizedImage } from '@angular/common';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { Subject, takeUntil } from 'rxjs';
+import { HomeNoteComponent } from '../../../common/home-note/home-note.component';
 
 @Component({
   selector: 'modern-layout',
@@ -39,6 +40,7 @@ import { Subject, takeUntil } from 'rxjs';
     RouterOutlet,
     QuickChatComponent,
     NgOptimizedImage,
+    HomeNoteComponent,
   ],
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {

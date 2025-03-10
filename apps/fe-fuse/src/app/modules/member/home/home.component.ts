@@ -121,52 +121,6 @@ export class HomeComponent {
     '0039': { dueDate: '14', dueDateFormatted: '08/02/2025', size: '315mm', sizeDescription: 'Bằng quả bí đỏ to' },
     '0040': { dueDate: '7', dueDateFormatted: '09/02/2025', size: '325mm', sizeDescription: 'Bằng em bé sơ sinh' },
   };
-  //get data standard of metric from API
-  protected metrics: MetricResponseType[];
-  protected weightMetricId: string;
-  protected readonly Status = Status;
-  protected lastRecord: RecordResponse | null = null;
-  //1. Lấy User
-  //2. Lấy ngày đẻ
-  private _expectedDate: Date = new Date();
-  //3. Tính tuần thai
-  private _currentPregnancyWeek: number = 4;
-
-  remainingDays() {
-    const expectedDate = new Date(this._expectedDate);
-    const currentDate = new Date();
-    return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
-  }
-  //Hàm tính tuần thai
-  calculateCurrentPregnancyWeek() {
-    // Chuyển đổi ngày dự sinh từ chuỗi sang Date
-    const expectedDate = new Date(this._expectedDate);
-
-    // Lấy ngày hiện tại
-    const currentDate = new Date();
-
-    // Tính số ngày còn lại đến ngày dự sinh
-    const remainingDays = Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
-
-    // Tính số tuần thai hiện tại
-    const currentPregnancyWeek = 40 - Math.floor(remainingDays / 7);
-
-    // Kiểm tra nếu vượt quá 40 tuần
-    if (currentPregnancyWeek < 0) {
-      return; //'Đã quá ngày dự sinh!';
-    } else if (currentPregnancyWeek > 40) {
-      return; //'Lỗi: Ngày dự sinh không hợp lệ!';
-    }
-    this._currentPregnancyWeek = currentPregnancyWeek;
-  }
-
-  private _countWeek: number = this._currentPregnancyWeek;
-  public get countWeek(): string {
-    return this._countWeek.toString().padStart(4, '0');
-  }
-  public get countWeekNumber(): number {
-    return this._countWeek;
-  }
   standardResource = [
     { week: 1, weight: 0 },
     { week: 2, weight: 0 },
@@ -209,58 +163,23 @@ export class HomeComponent {
     { week: 39, weight: 3288 },
     { week: 40, weight: 3290 },
   ];
-  //chưa có data bên database
-  // standardResource = resource<Standard[], {}>({
-  //   loader: async ({ abortSignal }) => {
-  //     const response = await fetch(environment.apiUrl + 'standards/' + this.weightMetricId, {
-  //       signal: abortSignal,
-  //     });
-  //     if (!response.ok) throw Error(`Could not fetch...`);
-  //     return await response.json();
-  //   },
-  // });
-  padNumberToFourDigits(value: number): string {
-    if (!Number.isInteger(value) || value < 0) {
-      throw new Error('Giá trị phải là một số nguyên không âm.');
-    }
-    return value.toString().padStart(4, '0');
-  }
-  goToPreviousWeek() {
-    if (this._countWeek > 1) this._countWeek--;
-  }
-  goToNextWeek() {
-    if (this._countWeek < 40) this._countWeek++;
-  }
-  goToThisWeek() {
-    this._countWeek = this._currentPregnancyWeek;
-  }
-  // Form tính ngày dự sinh
-
   public formatDate: string;
   countDownForm = new FormGroup({
     lastMenstrualPeriod: new FormControl('', Validators.required),
     menstrualCycle: new FormControl('', Validators.required),
   });
-
-  calculateExpectedDate() {
-    const lastMenstrualPeriodString: string | null = this.countDownForm.get('lastMenstrualPeriod')!.value;
-    const lastMenstrualPeriod: Date | null = lastMenstrualPeriodString ? new Date(lastMenstrualPeriodString) : null;
-    const menstrualCycleString: string | null = this.countDownForm.get('menstrualCycle')!.value;
-    const menstrualCycle: number | null = menstrualCycleString ? Number(menstrualCycleString) : null;
-
-    if (lastMenstrualPeriod instanceof Date && typeof menstrualCycle === 'number') {
-      // Ngày dự sinh tiêu chuẩn với chu kỳ 28 ngày (40 tuần = 280 ngày)
-      let dueDate = new Date(lastMenstrualPeriod);
-      dueDate.setDate(dueDate.getDate() + 280);
-
-      // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
-      let adjustment = menstrualCycle - 28;
-      dueDate.setDate(dueDate.getDate() + adjustment);
-
-      this._expectedDate = dueDate;
-      this.formatDate = this._expectedDate.toLocaleDateString('vi-VN');
-    }
-  }
+  isButtonHovered = false;
+  //1. Lấy User
+  //get data standard of metric from API
+  protected metrics: MetricResponseType[];
+  protected weightMetricId: string;
+  protected readonly Status = Status;
+  protected lastRecord: RecordResponse | null = null;
+  protected user: User | null = null;
+  //2. Lấy ngày đẻ
+  private _expectedDate: Date = new Date();
+  //3. Tính tuần thai
+  private _currentPregnancyWeek: number = 4;
 
   constructor(
     private _recordService: PregnancyRecordService,
@@ -284,15 +203,107 @@ export class HomeComponent {
       });
     });
 
-    this._httpClient.get<{ total: number; data: RecordResponse[] }>(`${environment.apiUrl}record`).subscribe((records) => {
-      if (records.total > 0) {
-        this.lastRecord = records.data[0];
-        this.calculateCurrentPregnancyWeek();
-        this._countWeek = this._currentPregnancyWeek;
-      }
-    });
+    this._httpClient
+      .get<{
+        total: number;
+        data: RecordResponse[];
+      }>(`${environment.apiUrl}record`)
+      .subscribe((records) => {
+        if (records.total > 0) {
+          this.lastRecord = records.data[0];
+          this.calculateCurrentPregnancyWeek();
+          this._countWeek = this._currentPregnancyWeek;
+        }
+      });
+  }
+  //chưa có data bên database
+  // standardResource = resource<Standard[], {}>({
+  //   loader: async ({ abortSignal }) => {
+  //     const response = await fetch(environment.apiUrl + 'standards/' + this.weightMetricId, {
+  //       signal: abortSignal,
+  //     });
+  //     if (!response.ok) throw Error(`Could not fetch...`);
+  //     return await response.json();
+  //   },
+
+  private _countWeek: number = this._currentPregnancyWeek;
+
+  public get countWeek(): string {
+    return this._countWeek.toString().padStart(4, '0');
   }
 
-  isButtonHovered = false;
-  protected user: User | null = null;
+  public get countWeekNumber(): number {
+    return this._countWeek;
+  }
+
+  remainingDays() {
+    const expectedDate = new Date(this._expectedDate);
+    const currentDate = new Date();
+    return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  // Form tính ngày dự sinh
+
+  //Hàm tính tuần thai
+  calculateCurrentPregnancyWeek() {
+    // Chuyển đổi ngày dự sinh từ chuỗi sang Date
+    const expectedDate = new Date(this._expectedDate);
+
+    // Lấy ngày hiện tại
+    const currentDate = new Date();
+
+    // Tính số ngày còn lại đến ngày dự sinh
+    const remainingDays = Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Tính số tuần thai hiện tại
+    const currentPregnancyWeek = 40 - Math.floor(remainingDays / 7);
+
+    // Kiểm tra nếu vượt quá 40 tuần
+    if (currentPregnancyWeek < 0) {
+      return; //'Đã quá ngày dự sinh!';
+    } else if (currentPregnancyWeek > 40) {
+      return; //'Lỗi: Ngày dự sinh không hợp lệ!';
+    }
+    this._currentPregnancyWeek = currentPregnancyWeek;
+  }
+
+  // });
+  padNumberToFourDigits(value: number): string {
+    if (!Number.isInteger(value) || value < 0) {
+      throw new Error('Giá trị phải là một số nguyên không âm.');
+    }
+    return value.toString().padStart(4, '0');
+  }
+
+  goToPreviousWeek() {
+    if (this._countWeek > 1) this._countWeek--;
+  }
+
+  goToNextWeek() {
+    if (this._countWeek < 40) this._countWeek++;
+  }
+
+  goToThisWeek() {
+    this._countWeek = this._currentPregnancyWeek;
+  }
+
+  calculateExpectedDate() {
+    const lastMenstrualPeriodString: string | null = this.countDownForm.get('lastMenstrualPeriod')!.value;
+    const lastMenstrualPeriod: Date | null = lastMenstrualPeriodString ? new Date(lastMenstrualPeriodString) : null;
+    const menstrualCycleString: string | null = this.countDownForm.get('menstrualCycle')!.value;
+    const menstrualCycle: number | null = menstrualCycleString ? Number(menstrualCycleString) : null;
+
+    if (lastMenstrualPeriod instanceof Date && typeof menstrualCycle === 'number') {
+      // Ngày dự sinh tiêu chuẩn với chu kỳ 28 ngày (40 tuần = 280 ngày)
+      let dueDate = new Date(lastMenstrualPeriod);
+      dueDate.setDate(dueDate.getDate() + 280);
+
+      // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
+      let adjustment = menstrualCycle - 28;
+      dueDate.setDate(dueDate.getDate() + adjustment);
+
+      this._expectedDate = dueDate;
+      this.formatDate = this._expectedDate.toLocaleDateString('vi-VN');
+    }
+  }
 }
