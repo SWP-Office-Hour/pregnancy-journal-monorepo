@@ -193,7 +193,7 @@ export class HealthMetricTableComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: Status): string {
+  getSeverityStatus(status: Status): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
     switch (status) {
       case Status.ACTIVE:
         return 'success';
@@ -215,7 +215,7 @@ export class HealthMetricTableComponent implements OnInit {
     }
   }
 
-  getSeverityRequired(required: boolean): string {
+  getSeverityRequired(required: boolean): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
     return required ? 'success' : 'warn';
   }
 
