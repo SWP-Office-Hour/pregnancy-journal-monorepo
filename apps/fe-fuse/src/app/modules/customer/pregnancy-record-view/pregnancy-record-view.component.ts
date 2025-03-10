@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataMetric, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { DataMetric, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { Observable, tap } from 'rxjs';
 import { PregnancyRecordViewService } from './pregnancy-record-view.service';
 
@@ -13,7 +13,6 @@ import { PregnancyRecordViewService } from './pregnancy-record-view.service';
 })
 export class PregnancyRecordViewComponent implements OnInit {
   record$: Observable<RecordResponse>;
-  media$: Observable<MediaResponse[]>;
   metrics: MetricResponseType[];
   recordId: string;
   isLoading = true;
@@ -27,9 +26,14 @@ export class PregnancyRecordViewComponent implements OnInit {
     this.recordId = this._route.snapshot.queryParamMap.get('record_id');
 
     if (this.recordId) {
-      this.record$ = this._recordViewService.getRecordById(this.recordId);
-
-      this.media$ = this._recordViewService.getMediaByRecordId(this.recordId);
+      console.log('recordId', this.recordId);
+      this.record$ = this._recordViewService.getRecordById(this.recordId).pipe(
+        tap(() => {
+          this.isLoading = false;
+          console.log('loading', this.isLoading);
+          console.log('record', this.record$);
+        }),
+      );
 
       this._recordViewService
         .getMetric()

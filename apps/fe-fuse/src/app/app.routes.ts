@@ -138,10 +138,6 @@ export const appRoutes: Route[] = [
         loadComponent: () => PregnancyRecordComponent,
       },
       {
-        path: 'record-view',
-        loadComponent: () => PregnancyRecordViewComponent,
-      },
-      {
         path: 'calendar',
         resolve: () => {
           const _calendarService = inject(CalendarService);
@@ -166,6 +162,19 @@ export const appRoutes: Route[] = [
       {
         path: 'change-password',
         loadComponent: () => ChangePasswordComponent,
+      },
+    ],
+  },
+  {
+    path: 'record-view',
+    component: LayoutComponent,
+    data: {
+      layout: 'empty',
+    },
+    children: [
+      {
+        path: '',
+        loadComponent: () => PregnancyRecordViewComponent,
       },
     ],
   },

@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { Router } from '@angular/router';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
@@ -53,6 +54,7 @@ export class TrackingFormComponent {
     private _trackingService: PregnancyTrackingService,
     private _formBuilder: FormBuilder,
     private messageService: MessageService,
+    private router: Router,
   ) {
     this.selectedRecordData = this._trackingService.SelectedRecordData;
     this.images = this._trackingService.Media;
@@ -190,5 +192,15 @@ export class TrackingFormComponent {
 
   nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
     this.trackingForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  sharedRecord() {
+    this.router
+      .navigate(['/record-view'], {
+        queryParams: { record_id: this.selectedRecordData.visit_record_id },
+      })
+      .then(() => {
+        this.closeForm();
+      });
   }
 }
