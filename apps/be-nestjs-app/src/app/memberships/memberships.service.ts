@@ -13,8 +13,9 @@ export class MembershipsService {
         description: createMembershipDto.description,
         status: createMembershipDto.status,
         price: createMembershipDto.price,
-        created_at: new Date(Date.now()),
-        updated_at: new Date(Date.now()),
+        duration_days: createMembershipDto.duration_days,
+        created_at: new Date(),
+        updated_at: new Date(),
       },
     });
   }
