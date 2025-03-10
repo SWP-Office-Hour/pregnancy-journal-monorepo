@@ -1,3 +1,4 @@
+import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -35,6 +36,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     MatIconModule,
     MatSelectModule,
     ToastModule,
+    CdkCopyToClipboard,
   ],
   providers: [MessageService],
   templateUrl: './tracking-form.component.html',
@@ -136,8 +138,6 @@ export class TrackingFormComponent {
       next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
-
-    console.log(formData);
     this._trackingService.updateRecord(formData).subscribe({
       next: (res) => {
         this._trackingService.updateImage(visit_record_id).subscribe((res) => {
@@ -166,11 +166,16 @@ export class TrackingFormComponent {
     this.dialogRef.close();
   }
 
-  submitSuccess() {
-    this.messageService.add({
-      severity: 'success',
+  submitSuccess(
+    { summary, detail }: { summary?: string; detail?: string } = {
       summary: 'Lưu thành công',
       detail: 'Lưu chỉ số thành công',
+    },
+  ) {
+    this.messageService.add({
+      severity: 'success',
+      summary,
+      detail,
       key: 'tr',
       life: 3000,
     });
@@ -195,12 +200,13 @@ export class TrackingFormComponent {
   }
 
   sharedRecord() {
-    this.router
-      .navigate(['/record-view'], {
-        queryParams: { record_id: this.selectedRecordData.visit_record_id },
-      })
-      .then(() => {
-        this.closeForm();
-      });
+    return window.location.href.split('/').slice(0, 3).join('/') + '/record-view?record_id=' + this.selectedRecordData.visit_record_id;
+  }
+
+  copyToClipboard() {
+    this.submitSuccess({
+      summary: 'Sao chép thành công',
+      detail: 'Đã sao chép link chia sẻ',
+    });
   }
 }
