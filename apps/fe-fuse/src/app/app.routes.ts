@@ -121,47 +121,67 @@ export const appRoutes: Route[] = [
     ],
   },
 
+  // {
+  //   path: 'authenticated/blog',
+  //   component: LayoutComponent,
+  //   canActivate: [blogAuthGuard],
+  //   resolve: {
+  //     initialData: initialDataResolver,
+  //   },
+  //   loadChildren: () => blogMasonryRoutes,
+  // },
+
   // Customer routes
   {
     path: '',
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
     component: LayoutComponent,
     resolve: {
       initialData: initialDataResolver,
     },
     children: [
-      { path: 'home', loadComponent: () => HomeComponent },
-      { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
       {
-        path: 'record',
-        loadComponent: () => PregnancyRecordComponent,
-      },
-      {
-        path: 'calendar',
-        resolve: () => {
-          const _calendarService = inject(CalendarService);
+        path: '',
+        canActivate: [AuthGuard],
+        canActivateChild: [AuthGuard],
+        children: [
+          { path: 'home', loadComponent: () => HomeComponent },
+          { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
+          {
+            path: 'record',
+            loadComponent: () => PregnancyRecordComponent,
+          },
+          {
+            path: 'calendar',
+            resolve: () => {
+              const _calendarService = inject(CalendarService);
 
-          _calendarService.reloadMeetings();
-        },
-        loadComponent: () => CalendarComponent,
+              _calendarService.reloadMeetings();
+            },
+            loadComponent: () => CalendarComponent,
+          },
+          {
+            path: 'community',
+            loadChildren: () => postRoutes,
+          },
+          {
+            path: 'membership',
+            // loadChildren: () => membershipsRoute, CHƯA CODE của CUSTOMER
+            loadComponent: () => MembershipComponent,
+          },
+          {
+            path: 'user-profile',
+            loadComponent: () => UserProfileComponent,
+          },
+          {
+            path: 'change-password',
+            loadComponent: () => ChangePasswordComponent,
+          },
+        ],
       },
       {
-        path: 'community',
-        loadChildren: () => postRoutes,
-      },
-      {
-        path: 'membership',
-        // loadChildren: () => membershipsRoute, CHƯA CODE của CUSTOMER
-        loadComponent: () => MembershipComponent,
-      },
-      {
-        path: 'user-profile',
-        loadComponent: () => UserProfileComponent,
-      },
-      {
-        path: 'change-password',
-        loadComponent: () => ChangePasswordComponent,
+        path: 'authenticated/blog',
+        canActivate: [blogAuthGuard],
+        loadChildren: () => blogMasonryRoutes,
       },
     ],
   },
@@ -177,15 +197,6 @@ export const appRoutes: Route[] = [
         loadComponent: () => PregnancyRecordViewComponent,
       },
     ],
-  },
-  {
-    path: 'authenticated/blog',
-    component: LayoutComponent,
-    canActivate: [blogAuthGuard],
-    resolve: {
-      initialData: initialDataResolver,
-    },
-    loadChildren: () => blogMasonryRoutes,
   },
 
   {

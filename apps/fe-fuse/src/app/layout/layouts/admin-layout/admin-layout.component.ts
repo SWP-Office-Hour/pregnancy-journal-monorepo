@@ -10,6 +10,7 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
 import { UserComponent } from 'app/layout/common/user/user.component';
+import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseScrollbarDirective } from '../../../../@fuse/directives/scrollbar';
 
@@ -30,6 +31,7 @@ import { FuseScrollbarDirective } from '../../../../@fuse/directives/scrollbar';
     RouterOutlet,
     RouterLink,
     FuseScrollbarDirective,
+    NgAutoAnimateDirective,
   ],
 })
 export class AdminLayoutComponent implements OnInit, OnDestroy {
