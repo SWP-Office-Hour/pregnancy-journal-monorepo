@@ -10,6 +10,7 @@ const paymentSchema = z.object({
   created_at: z.date(),
   status: payStatusSchema,
   payment_method: payMethodSchema,
+  expired_at: z.date().nullable(),
 });
 
 const paymentIncludeUserInfoSchema = paymentSchema.extend({

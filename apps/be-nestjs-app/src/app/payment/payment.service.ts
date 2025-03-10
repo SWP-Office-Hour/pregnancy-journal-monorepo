@@ -41,6 +41,7 @@ export class PaymentService {
         status: PayStatus.FAILED,
         payment_method: PayMethod.PAYOS,
         created_at: new Date(Date.now()),
+        expired_at: new Date(Date.now() + membership.duration_days * 24 * 60 * 60 * 1000),
       },
 
       include: {
