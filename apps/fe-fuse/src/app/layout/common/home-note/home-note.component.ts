@@ -9,6 +9,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../../environments/environment';
+import { NoteDetailComponent } from './note-detail/note-detail.component';
 
 @Component({
   selector: 'app-home-note',
@@ -49,7 +50,7 @@ export class HomeNoteComponent implements OnInit {
   loadNotes(): void {
     this.isLoading = true;
 
-    this.http.get<NoteResponse[]>(`${environment.apiUrl}/note`).subscribe({
+    this.http.get<NoteResponse[]>(`${environment.apiUrl}note`).subscribe({
       next: (notes) => {
         if (notes && notes.length > 0) {
           // Sort notes by date, newest first
@@ -92,13 +93,35 @@ export class HomeNoteComponent implements OnInit {
   }
 
   openNoteEditor(): void {
-    // Navigate to note creation page
-    this.router.navigateByUrl('/notes/create');
+    const dialogRef = this.dialog.open(NoteDetailComponent, {
+      width: '500px',
+      data: {
+        note: null,
+        isNew: true,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadNotes();
+      }
+    });
   }
 
   editNote(note: NoteResponse): void {
-    // Navigate to note edit page
-    this.router.navigateByUrl(`/notes/${note.note_id}`);
+    const dialogRef = this.dialog.open(NoteDetailComponent, {
+      width: '500px',
+      data: {
+        note: note,
+        isNew: false,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadNotes();
+      }
+    });
   }
 
   deleteNote(note: NoteResponse, event?: Event): void {
@@ -121,7 +144,7 @@ export class HomeNoteComponent implements OnInit {
   }
 
   private executeDeleteNote(note: NoteResponse): void {
-    this.http.delete(`${environment.apiUrl}/note/${note.note_id}`).subscribe({
+    this.http.delete(`${environment.apiUrl}note/${note.note_id}`).subscribe({
       next: () => {
         this.messageService.add({
           severity: 'success',
