@@ -1,6 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
-import { statusSchema } from './enum.contract';
+import { membershipDaySchema, statusSchema } from './enum.contract';
 
 export const membershipResponseContract = z.object({
   membership_id: z.string(),
@@ -10,7 +10,7 @@ export const membershipResponseContract = z.object({
   created_at: z.date(),
   updated_at: z.date(),
   status: statusSchema,
-  // expiredInDay: membershipDaySchema,
+  duration_days: membershipDaySchema,
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới membership

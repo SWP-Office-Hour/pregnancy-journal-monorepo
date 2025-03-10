@@ -103,7 +103,6 @@ model reminder {
   status          Int
   user_id         String        @db.Char(36)
   visit_record_id String?       @db.Char(36)
-  color           String?       @db.Char(6)
   user            user          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_user_id_User_id")
   visit_record    visit_record? @relation(fields: [visit_record_id], references: [visit_record_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_visit_record_id_Visit_Record_id")
 
@@ -199,7 +198,6 @@ model payment_history {
   value              Float
   status             Int
   payment_method     Int
-  expired_at         DateTime?  @db.Date
   membership         membership @relation(fields: [membership_id], references: [membership_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_membership_id_Membership_id")
   user               user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_user_id_User_id")
 
