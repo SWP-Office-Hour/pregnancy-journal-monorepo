@@ -215,7 +215,7 @@ export class UserTableComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: UserStatus): string {
+  getSeverityStatus(status: UserStatus): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
     switch (status) {
       case UserStatus.ACTIVE:
         return 'success';

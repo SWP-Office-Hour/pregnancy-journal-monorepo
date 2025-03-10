@@ -179,7 +179,7 @@ export class CategoryTableComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: Status): string {
+  getSeverityStatus(status: Status): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
     switch (status) {
       case Status.ACTIVE:
         return 'success';

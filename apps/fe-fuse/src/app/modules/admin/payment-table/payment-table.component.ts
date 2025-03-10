@@ -15,7 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { PaymentType, Status, Tag } from '@pregnancy-journal-monorepo/contract';
+import { PaymentType, PayStatus, Status, Tag } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -78,8 +78,6 @@ export class PaymentTableComponent implements OnInit {
 
   // Component state
   isLoading = false;
-  tagDialogToggle = false;
-  isSubmittedForm = false;
 
   // Form
   tagForm!: FormGroup;
@@ -99,7 +97,15 @@ export class PaymentTableComponent implements OnInit {
         if (!response.ok) {
           throw new Error(`Failed to fetch payments: ${response.status}`);
         }
-        return await response.json();
+        const rs: PaymentType[] = await response.json();
+        for (const payment of rs) {
+          // @ts-ignore
+          payment.status = this.convertStatusToReadable(payment.status);
+          // @ts-ignore
+          payment.created_at = this.formatDate(payment.created_at) as string;
+        }
+
+        return rs;
       } catch (error) {
         this.notifyError(error);
         return [];
@@ -114,7 +120,6 @@ export class PaymentTableComponent implements OnInit {
    */
   constructor(
     private formBuilder: FormBuilder,
-    private confirmationService: ConfirmationService,
     private messageService: MessageService,
   ) {
     effect(() => {
@@ -134,10 +139,13 @@ export class PaymentTableComponent implements OnInit {
    */
 
   onGlobalFilter(table: Table, event: Event): void {
+    // console.log('Event:', event);
+    // console.log('value:', (event.target as HTMLInputElement).value);
+    // console.log('Table:', table.value);
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: Status): string {
+  getSeverityStatus(status: Status): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
     switch (status) {
       case Status.ACTIVE:
         return 'success';
@@ -148,31 +156,19 @@ export class PaymentTableComponent implements OnInit {
     }
   }
 
-  convertStatusToReadable(status: Status): string {
+  convertStatusToReadable(status: PayStatus): string {
+    // console.log('Status:', status);
     switch (status) {
-      case Status.ACTIVE:
-        return 'ACTIVE';
-      case Status.INACTIVE:
-        return 'INACTIVE';
-      default:
-        return 'UNKNOWN';
+      case PayStatus.SUCCESS:
+        return 'SUCCESS';
+      case PayStatus.FAILED:
+        return 'FAILED';
     }
   }
 
-  getPaymentSeverityStatus(status: string): string {
-    switch (status) {
-      case 'PAID':
-        return 'success';
-      case 'PENDING':
-        return 'warning';
-      case 'FAILED':
-        return 'danger';
-      default:
-        return 'info';
-    }
-  }
+  formatDate(date: Date | string | null): string {
+    if (!date) return 'N/A';
 
-  formatDate(date: Date): string {
     return new Date(date).toLocaleString('vi-VN', {
       day: '2-digit',
       month: '2-digit',
@@ -199,43 +195,6 @@ export class PaymentTableComponent implements OnInit {
       status: [Status.INACTIVE, Validators.required],
     });
   }
-
-  private async saveTagToServer(tag: Tag, method: string, actionType: string): Promise<void> {
-    this.isLoading = true;
-
-    try {
-      const response = await fetch(`${environment.apiUrl}tags`, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(tag),
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to ${method.toLowerCase()} tag`);
-      }
-
-      const result = await response.json();
-      console.log('Server response:', result);
-
-      this.tagDialogToggle = false;
-      this.tagForm.reset();
-      this.tag = {} as Tag;
-
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Successful',
-        detail: `Tag ${actionType.charAt(0).toUpperCase() + actionType.slice(1) + 'd'}`,
-        life: 4000,
-      });
-    } catch (error) {
-      this.notifyError(error);
-    } finally {
-      this.isLoading = false;
-    }
-  }
-
   private notifyError(error: any): void {
     console.error('Error in PaymentTableComponent:', error);
     this.messageService.add({
