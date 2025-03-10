@@ -11,6 +11,7 @@ import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
 import { CalendarService } from './modules/calendar/calendar.service';
 import { ChangePasswordComponent } from './modules/change-password/change-password.component';
+import { PregnancyRecordViewComponent } from './modules/customer/pregnancy-record-view/pregnancy-record-view.component';
 import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { FeaturesComponent } from './modules/features/features.component';
@@ -135,6 +136,10 @@ export const appRoutes: Route[] = [
       {
         path: 'record',
         loadComponent: () => PregnancyRecordComponent,
+      },
+      {
+        path: 'record-view',
+        loadComponent: () => PregnancyRecordViewComponent,
       },
       {
         path: 'calendar',

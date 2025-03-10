@@ -77,6 +77,8 @@ export type RecordUpdateRequest = z.infer<typeof recordUpdateReqSchema>;
 
 export type RecordResponse = z.infer<typeof recordResSchema>;
 
+export type DataMetric = z.infer<typeof recordMetricCreateReqSchema>;
+
 const c = initContract();
 
 export const recordContract = c.router({
