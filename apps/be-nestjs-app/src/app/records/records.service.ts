@@ -250,6 +250,38 @@ export class RecordsService {
     return { message: 'Record deleted' };
   }
 
+  /**
+   * Get record by record ID and return formatted response
+   * @param recordId
+   * @returns Promise<RecordResponse>
+   * @throws NotFoundException
+   * @async
+   */
+  public async getRecordById(recordId: string) {
+    const record = await this.dataService.Record.findUnique({
+      where: { visit_record_id: recordId },
+      include: {
+        visit_record_metric: true,
+        media: true,
+        hospital: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException('Record not found');
+    }
+
+    const user = await this.dataService.User.findUnique({
+      where: { user_id: record.user_id },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return await this.formatRecord([record], user);
+  }
+
   //================================================================================================
   //                          PRIVATE FUNCTIONS - HELPER FUNCTIONS
   //================================================================================================
@@ -300,39 +332,6 @@ export class RecordsService {
         };
       }),
     );
-  }
-
-  /**
-   * Get record by record ID and return formatted response
-   * @param recordId
-   * @returns Promise<RecordResponse>
-   * @throws NotFoundException
-   * @private
-   * @async
-   */
-  private async getRecordById(recordId: string) {
-    const record = await this.dataService.Record.findUnique({
-      where: { visit_record_id: recordId },
-      include: {
-        visit_record_metric: true,
-        media: true,
-        hospital: true,
-      },
-    });
-
-    if (!record) {
-      throw new NotFoundException('Record not found');
-    }
-
-    const user = await this.dataService.User.findUnique({
-      where: { user_id: record.user_id },
-    });
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    return await this.formatRecord([record], user);
   }
 
   /**

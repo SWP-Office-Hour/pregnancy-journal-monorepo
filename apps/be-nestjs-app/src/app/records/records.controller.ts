@@ -60,4 +60,15 @@ export class RecordsController {
       };
     });
   }
+
+  @TsRestHandler(recordContract.getRecordById)
+  handleGetRecordById(@Param('id') id: string) {
+    return tsRestHandler(recordContract.getRecordById, async () => {
+      const record = await this.recordService.getRecordById(id);
+      return {
+        status: 201,
+        body: record[0],
+      };
+    });
+  }
 }

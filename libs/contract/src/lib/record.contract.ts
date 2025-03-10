@@ -139,4 +139,16 @@ export const recordContract = c.router({
       }),
     },
   },
+
+  getRecordById: {
+    method: 'GET',
+    path: '/record/:id',
+    description: 'Get pregnancy by id',
+    responses: {
+      200: z.object({ recordResSchema }),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
 });

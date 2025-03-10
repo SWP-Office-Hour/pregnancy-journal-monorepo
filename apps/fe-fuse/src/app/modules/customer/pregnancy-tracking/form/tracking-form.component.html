@@ -121,6 +121,14 @@
   <!-- Footer Buttons -->
   <div class="mt-8 flex justify-end gap-3 border-t border-gray-200 pt-6">
     <button
+      mat-stroked-button
+      type="reset"
+      (click)="sharedRecord()"
+      class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
+    >
+      Chia sẻ
+    </button>
+    <button
       mat-flat-button
       type="submit"
       class="rounded-lg !bg-gradient-to-r !from-pink-500 !to-pink-600 px-6 py-2 !text-white shadow-sm transition-all hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md"

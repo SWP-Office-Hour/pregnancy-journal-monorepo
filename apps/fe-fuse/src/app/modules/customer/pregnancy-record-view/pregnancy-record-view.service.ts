@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MediaResponse, MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { MetricResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
@@ -23,21 +23,6 @@ export class PregnancyRecordViewService {
         catchError((error) => {
           console.error('Error fetching record:', error);
           return of({} as RecordResponse);
-        }),
-      );
-  }
-
-  getMediaByRecordId(recordId: string): Observable<MediaResponse[]> {
-    return this._httpClient
-      .get<MediaResponse[]>(`${environment.apiUrl}media/record/${recordId}`, {
-        headers: {
-          Authorization: `Bearer ${this._authService.accessToken}`,
-        },
-      })
-      .pipe(
-        catchError((error) => {
-          console.error('Error fetching media:', error);
-          return of([]);
         }),
       );
   }
