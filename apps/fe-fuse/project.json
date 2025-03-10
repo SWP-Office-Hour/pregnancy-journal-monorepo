@@ -30,7 +30,7 @@
           }
         ],
         "stylePreprocessorOptions": {
-          "includePaths": ["apps/fe-fuse/src/@fuse/styles"]
+          "includePaths": ["apps/fe-fuse/src/@fuse/styles", "apps/fe-fuse/src/styles"]
         },
         "styles": [
           "node_modules/@splidejs/splide/dist/css/splide.min.css",

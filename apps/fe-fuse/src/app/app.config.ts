@@ -13,6 +13,7 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
 import { MockApiService } from 'app/mock-api';
+import { GLOBAL_AUTO_ANIMATE_OPTIONS } from 'ng-auto-animate';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
@@ -57,6 +58,14 @@ export const appConfig: ApplicationConfig = {
           dateA11yLabel: 'DD',
           monthYearA11yLabel: 'LLLL yyyy',
         },
+      },
+    },
+    {
+      provide: GLOBAL_AUTO_ANIMATE_OPTIONS,
+      useValue: {
+        duration: 750,
+        easing: 'ease-in-out',
+        // etc.
       },
     },
 
