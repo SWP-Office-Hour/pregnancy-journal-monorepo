@@ -1,0 +1,59 @@
+<div class="flex w-screen flex-col items-center">
+  <div class="mt-2 text-center">
+    <h1 class="text-2xl font-bold">Chi tiết sức khỏe thai kỳ</h1>
+  </div>
+
+  <div *ngIf="isLoading" class="my-8 flex w-full justify-center">
+    <div class="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-blue-500"></div>
+  </div>
+
+  <div *ngIf="!isLoading" class="w-full max-w-4xl p-4">
+    <div *ngIf="record$ | async as record" class="rounded-lg bg-white p-6 shadow-md">
+      <!-- Visit Information -->
+      <div class="mb-6">
+        <h2 class="mb-3 text-xl font-semibold">Thông tin thăm khám</h2>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+          <div class="flex flex-col">
+            <span class="text-gray-600">Ngày thăm khám:</span>
+            <span class="font-medium">{{ record.visit_doctor_date | date: 'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-gray-600">Bệnh viện:</span>
+            <span class="font-medium">{{ record.hospital?.name || 'Không có' }}</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-gray-600">Bác sĩ:</span>
+            <span class="font-medium">{{ record.doctor_name || 'Không có' }}</span>
+          </div>
+          <div class="flex flex-col">
+            <span class="text-gray-600">Tuần thai:</span>
+            <span class="font-medium">{{ record.week || 'Không có' }} tuần</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Metrics -->
+      <div class="mb-6" *ngIf="record.data && record.data.length">
+        <h2 class="mb-3 text-xl font-semibold">Chỉ số sức khỏe</h2>
+        <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <div *ngFor="let metric of getMetricValue(record.data)" class="flex flex-col">
+            <span class="text-gray-600">{{ metric.title }}:</span>
+            <span class="font-medium">{{ metric.value }} {{ metric.measurement_unit }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Media Gallery -->
+      <div *ngIf="media$ | async as mediaList">
+        <div *ngIf="mediaList.length" class="mb-6">
+          <h2 class="mb-3 text-xl font-semibold">Hình ảnh</h2>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+            <div *ngFor="let item of mediaList" class="relative">
+              <img [src]="item.media_url" alt="Medical image" class="h-auto w-full cursor-default rounded-md object-cover" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
