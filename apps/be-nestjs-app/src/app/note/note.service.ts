@@ -33,8 +33,12 @@ export class NoteService {
     });
   }
 
-  async getAllNotes() {
-    return await this.databaseService.Note.findMany();
+  async getAllNotes(user_id: string) {
+    return await this.databaseService.Note.findMany({
+      where: {
+        user_id: user_id,
+      },
+    });
   }
 
   async getNoteById(noteId: string) {

@@ -3,6 +3,7 @@ import { noteContract, NoteCreateRequest, NoteUpdateRequest } from '@pregnancy-j
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
+import { JwtPayload } from '../utils/jwt/jwt.interface';
 import { NoteService } from './note.service';
 
 @Controller()
@@ -29,10 +30,12 @@ export class NoteController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(noteContract.getAll)
-  handleGetAll() {
+  handleGetAll(@Req() req: RequestWithJWT) {
     return tsRestHandler(noteContract.getAll, async () => {
-      const result = await this.noteService.getAllNotes();
+      const user_id = (req.decoded_authorization as JwtPayload).user_id;
+      const result = await this.noteService.getAllNotes(user_id);
       return {
         status: 200,
         body: result,
@@ -40,6 +43,7 @@ export class NoteController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(noteContract.getOne)
   handleGetOne(@Param('id') id: string) {
     return tsRestHandler(noteContract.getOne, async () => {
@@ -51,6 +55,7 @@ export class NoteController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(noteContract.update)
   handleUpdate(@Body() note: NoteUpdateRequest) {
     return tsRestHandler(noteContract.update, async () => {
