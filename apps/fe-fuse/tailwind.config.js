@@ -152,6 +152,7 @@ module.exports = {
 
         // Bigger values
         100: '25rem',
+        110: '27.5rem',
         120: '30rem',
         128: '32rem',
         140: '35rem',
@@ -184,6 +185,7 @@ module.exports = {
         '2/4': '50%',
         '3/4': '75%',
         'c-vh': 'calc(100vh - 10rem)',
+        '9/10': '90%',
       },
       minHeight: ({ theme }) => ({
         ...theme('spacing'),

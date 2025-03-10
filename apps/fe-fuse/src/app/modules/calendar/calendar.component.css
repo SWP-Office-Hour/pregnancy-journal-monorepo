@@ -1,102 +1,4 @@
-.calendar-container {
-  display: flex;
-}
-
-.calendar {
-  padding-right: 10px;
-  min-width: 384px;
-}
-
-.calendar-headline {
-  display: flex;
-  margin-bottom: 10px;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-
-.calendar-headline-month {
-  font-weight: 600;
-}
-
-.calendar-headline-controls {
-  display: flex;
-}
-
-.calendar-headline-control {
-  cursor: pointer;
-}
-
-.calendar-headline-control:hover {
-  text-decoration: underline;
-}
-
-.calendar-headline-control-today {
-  margin: 0 10px;
-}
-
-.calendar-weeks-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  font-size: 12px;
-  margin-bottom: 10px;
-  color: rgb(81, 81, 81);
-}
-
-.calendar-weeks-grid-cell {
-  text-align: center;
-}
-
-.calendar-grid-cell-inactive {
-  color: #9e9e9e;
-}
-
-.calendar-grid {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  border-top: 1px solid rgb(190, 190, 190);
-  border-left: 1px solid rgb(190, 190, 190);
-}
-
-.calendar-grid-cell {
-  padding: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid rgb(190, 190, 190);
-  border-right: 1px solid rgb(190, 190, 190);
-  cursor: pointer;
-}
-
-.calendar-grid-cell:hover {
-  background: #9ba3bf;
-}
-
-.calendar-grid-cell-active {
-  background: #9ba3bf;
-}
-
-.schedule {
-  margin-left: 10px;
-}
-
-.schedule-headline {
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-
-.mat-datepicker-content {
-  @apply rounded-lg shadow-lg;
-}
-
-.mat-calendar-table-header {
-  @apply font-medium text-gray-500;
-}
-
-.mat-calendar-body-cell-content {
-  @apply transition-colors duration-200;
-}
-
-/*Drag and Drop*/
+/*Heart Switch start*/
 .heart-switch {
   --duration: 0.45s;
   --stroke: #d1d6ee;
@@ -121,7 +23,7 @@
     outline: none;
     border: none;
     pointer-events: none;
-    z-index: 1;
+    /*z-index: 1;*/
     margin: 0;
     padding: 0;
     left: 1px;
@@ -187,21 +89,26 @@
     transform: rotate(-30deg) translateX(11px) translateY(6.5px);
   }
 }
+/*Heart Switch end*/
 
 /*Drop*/
 .cdk-drag-preview {
   box-sizing: border-box;
-  border-radius: 8px;
+  border-radius: 12px;
   box-shadow:
-    0 5px 15px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14),
-    0 3px 14px 2px rgba(0, 0, 0, 0.12);
-  z-index: 1000;
+    0 10px 15px -3px rgba(0, 0, 0, 0.2),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05),
+    0 0 0 1px rgba(236, 72, 153, 0.5);
+  /*z-index: 1000;*/
+  opacity: 0.9;
+  transform-origin: center center;
 }
 
 .cdk-drag-placeholder {
   opacity: 0.4;
-  background: #e2e8f0;
+  border: 2px dashed #ec4899;
+  background: #fce7f1 !important;
+  box-shadow: none;
 }
 
 .cdk-drag-animating {
@@ -210,27 +117,78 @@
 
 .calendar-cell.cdk-drop-list-dragging,
 .example-list.cdk-drop-list-dragging {
-  background-color: rgba(236, 72, 153, 0.05);
+  background-color: rgba(236, 72, 153, 0.1);
   border: 2px dashed #ec4899;
+  box-shadow: 0 0 15px rgba(236, 72, 153, 0.15) inset;
 }
 
 .calendar-cell.cdk-drop-list-receiving {
-  background-color: rgba(236, 72, 153, 0.1);
-  transform: scale(1.02);
+  background-color: rgba(236, 72, 153, 0.2);
+  border: 2px dashed #ec4899;
+  transform: scale(1.05);
+  transition: all 0.25s cubic-bezier(0.2, 1, 0.3, 1);
+  /*z-index: 10;*/
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 .event-indicator {
   transition: transform 0.2s;
+  position: relative;
 }
 
 .event-indicator:hover {
   transform: scale(1.5);
-  z-index: 5;
+  z-index: 30;
+}
+
+/* Ensure tooltips don't get cut off at edges */
+.calendar-cell:nth-child(7n) .event-indicator .absolute,
+.calendar-cell:nth-child(6n) .event-indicator .absolute {
+  left: auto;
+  right: 0;
+  transform: translateX(0);
+}
+
+.calendar-cell:nth-child(1n) .event-indicator .absolute,
+.calendar-cell:nth-child(2n) .event-indicator .absolute {
+  left: 0;
+  right: auto;
+  transform: translateX(0);
+}
+
+/* For bottom row events */
+.calendar-cell:nth-last-child(-n + 7) .event-indicator .absolute {
+  bottom: auto;
+  top: 100%;
+  margin-bottom: 0;
+  margin-top: 1px;
+}
+
+.calendar-cell:nth-last-child(-n + 7) .event-indicator .absolute .rotate-45 {
+  bottom: auto;
+  top: -1px;
+  transform: rotate(225deg) translate(-50%, -50%);
+}
+
+/* Line clamp for event content */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Make draggable elements more obvious */
 [cdkDrag] {
   cursor: move;
+}
+
+[cdkDragHandle] {
+  cursor: grab;
+}
+
+[cdkDragHandle]:active {
+  cursor: grabbing;
 }
 
 .cdk-drag-placeholder {
@@ -282,4 +240,62 @@ button.btn-secondary {
 /* Card hover effects for calendar cells */
 .calendar-cell {
   @apply transition-all duration-200 hover:scale-[1.03] hover:shadow-md;
+  transition: z-index 0s 0.1s; /* Delay reducing z-index to prevent flickering */
+}
+
+/* Enhanced event card styling */
+.event-card {
+  transform: translateZ(0);
+  transition: transform 0.2s;
+  position: relative;
+}
+
+/* Handle drag operations better */
+.event-card.cdk-drag-preview {
+  @apply shadow-xl;
+  opacity: 0.9;
+}
+
+.event-card.cdk-drag-placeholder {
+  opacity: 0.3;
+  border: 2px dashed rgba(236, 72, 153, 0.5);
+}
+
+.event-card.cdk-drag-animating {
+  transition: transform 0.25s cubic-bezier(0, 0, 0.2, 1);
+}
+
+.theme-card > div {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-drag-preview {
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(236, 72, 153, 0.3);
+  /*z-index: 100;*/
+  transform: scale(1.05);
+  transition: transform 0.2s;
+}
+
+/* Special styling for theme placeholder when dragging */
+.example-list .theme-card.cdk-drag-placeholder {
+  opacity: 0.5;
+  background: transparent !important;
+  border: 2px dashed rgba(236, 72, 153, 0.4);
+  box-shadow: none;
+}
+
+.example-list .theme-card.cdk-drag-placeholder > div {
+  opacity: 0.3;
+  transform: scale(0.95);
+  filter: grayscale(40%);
+}
+
+/* Capitalize first letter of dates */
+.date-capitalize {
+  text-transform: capitalize;
 }

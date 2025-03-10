@@ -1,6 +1,7 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localeVi from '@angular/common/locales/vi';
+import { Component, LOCALE_ID, signal } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -9,19 +10,25 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReminderColor, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { Button, ButtonModule } from 'primeng/button';
+import { CalendarService } from './calendar.service';
 
 interface Event {
+  id?: string;
   title: string;
   content?: string;
   date: Date;
   color?: string; // Add color property to Event interface
   type?: ReminderType.USER_CREATED_EVENT;
+  status?: string;
 }
 
 interface Theme {
   title: string;
   color: string;
 }
+
+// Register Vietnamese locale data
+registerLocaleData(localeVi);
 
 @Component({
   selector: 'app-calendar',
@@ -42,117 +49,29 @@ interface Theme {
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
+  providers: [
+    { provide: LOCALE_ID, useValue: 'vi-VN' }, // Set default locale to Vietnamese
+  ],
 })
-export class CalendarComponent implements OnInit {
-  // selected_date = new FormControl(DateTime.local());
-  // selected_date_as_string = new FormControl('');
-  // meetings: WritableSignal<ReminderResponse[]> = this._calendarService.meetings;
-  // today: Signal<DateTime> = signal(DateTime.local());
-  // firstDayOfActiveMonth: WritableSignal<DateTime> = signal(this.today().startOf('month'));
-  // activeDay = this._calendarService.activeDay;
-  // weekDays: Signal<string[]> = signal(Info.weekdays('short'));
-  // daysOfMonth: Signal<DateTime[]> = computed(() => {
-  //   return Interval.fromDateTimes(this.firstDayOfActiveMonth().startOf('week'), this.firstDayOfActiveMonth().endOf('month').endOf('week'))
-  //     .splitBy({ day: 1 })
-  //     .map((d) => {
-  //       if (d.start === null) {
-  //         throw new Error('Wrong dates');
-  //       }
-  //       return d.start;
-  //     });
-  // });
-  // DATE_MED = DateTime.DATE_MED;
-  // activeDayMeetings: Signal<ReminderResponse[]> = computed(() => {
-  //   const activeDay = this.activeDay();
-  //   if (activeDay === null) {
-  //     return [];
-  //   }
-  //   const activeDayISO = activeDay.toISODate();
-  //
-  //   if (!activeDayISO) {
-  //     return [];
-  //   }
-  //
-  //   const meetingDate = this.meetings().filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === activeDayISO);
-  //   return meetingDate.length ? meetingDate : [];
-  // });
-  // protected showMobileMenu = false;
-  // protected readonly ReminderType = ReminderType;
-  //
-  // constructor(
-  //   private _calendarService: CalendarService,
-  //   private _matDialog: MatDialog,
-  // ) {
-  //   this.selected_date_as_string.setValue(`${this.today().monthLong} ${this.today().year}`);
-  //   this.selected_date.valueChanges.subscribe((date) => {
-  //     if (date) {
-  //       this.firstDayOfActiveMonth.set(DateTime.fromObject({ month: date.month, year: date.year }).startOf('month'));
-  //       this.selected_date_as_string.setValue(`${date.monthLong} ${date.year}`);
-  //       this.selectDay(date);
-  //     }
-  //   });
-  // }
+export class CalendarComponent {
+  constructor(
+    private fb: FormBuilder,
+    private _calendarService: CalendarService,
+  ) {
+    this.eventForm = this.fb.group({
+      title: ['', [Validators.required]],
+      color: ['', [Validators.required]],
+    });
+    this.generateCalendarDays();
+  }
 
-  // goToPreviousMonth(): void {
-  //   this.firstDayOfActiveMonth.set(this.firstDayOfActiveMonth().minus({ month: 1 }));
-  //   this.selected_date.setValue(this.firstDayOfActiveMonth());
-  // }
-  //
-  // goToNextMonth(): void {
-  //   this.firstDayOfActiveMonth.set(this.firstDayOfActiveMonth().plus({ month: 1 }));
-  //   this.selected_date.setValue(this.firstDayOfActiveMonth());
-  // }
-  //
-  // goToToday(): void {
-  //   this.firstDayOfActiveMonth.set(this.today().startOf('month'));
-  //   this.selected_date.setValue(this.firstDayOfActiveMonth());
-  // }
-  //
-  // protected selectDay(dayOfMonth: DateTime) {
-  //   if (this.IsActiveDay(dayOfMonth)) {
-  //     this._calendarService.activeDay = null;
-  //   } else {
-  //     this._calendarService.activeDay = dayOfMonth;
-  //   }
-  // }
-  //
-  // protected getMeetingByDate(date: DateTime) {
-  //   return this._calendarService.getMeetingByDate(date);
-  // }
-  //
-  // protected createMeeting() {
-  //   this._calendarService.clearReminder();
-  //   this._matDialog.open(ReminderEditorComponent, {
-  //     autoFocus: false,
-  //   });
-  // }
-  //
-  // protected dateInActiveMonth(date: DateTime): boolean {
-  //   return date.month === this.firstDayOfActiveMonth().month;
-  // }
-  //
-  // protected IsActiveDay(date: DateTime): boolean {
-  //   return date.toISODate() === this.activeDay()?.toISODate();
-  // }
-  //
-  // protected IsToday(date: DateTime): boolean {
-  //   return date.toISODate() === this.today().toISODate();
-  // }
-  //
-  // editMeeting(reminderId: string) {
-  //   this._calendarService.reminder = this.meetings().find((meeting) => meeting.reminder_id === reminderId)!;
-  //   this._matDialog.open(ReminderEditorComponent, {
-  //     autoFocus: false,
-  //   });
-  // }
-
-  //MiniCalendarComponent
   currentDate: Date = new Date();
   selectedDate: Date = new Date();
   calendarDays: Date[];
   calendarEvents: Array<{ date: Date; events: any[] }>;
   weekDays: string[] = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
   events = signal<Event[]>([]);
+
   selectedDateEvents: Event[] = [];
   showEventModal: boolean = false;
   newEvent: Event = {
@@ -160,15 +79,17 @@ export class CalendarComponent implements OnInit {
     date: new Date(),
     color: ReminderColor.USER_CREATED_EVENT_COLOR,
   };
-  themes: Theme[] = [];
+  themes: Theme[] = [
+    { title: 'Khám thai', color: 'f9a8d4' }, // Soft pink
+    { title: 'Uống thuốc', color: 'c4b5fd' }, // Soft lavender
+    { title: 'Tiêm phòng', color: '93c5fd' }, // Soft blue
+    { title: 'Siêu âm', color: 'a7f3d0' }, // Soft mint
+    { title: 'Xét nghiệm', color: 'fcd34d' }, // Soft yellow
+  ];
   eventForm: FormGroup;
-  removeAfterDrop = false;
-  createThemeAfterCreateEvent = false;
-
-  ngOnInit() {
-    this.generateCalendarDays();
-    this.loadThemes();
-  }
+  isEditMode: boolean = false;
+  // Add a property to track the event being edited
+  editingEvent: Event | null = null;
 
   generateCalendarDays() {
     const year = this.currentDate.getFullYear();
@@ -275,27 +196,35 @@ export class CalendarComponent implements OnInit {
   createEvent() {
     // Using the template-driven form validation
     if (this.newEvent.title && this.newEvent.title.length >= 3) {
-      // Make a deep copy of the event to avoid reference issues
-      const eventCopy: Event = {
-        title: this.newEvent.title,
-        content: this.newEvent.content || '',
-        date: new Date(this.selectedDate), // Ensure we use the selected date
-        color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
-        type: ReminderType.USER_CREATED_EVENT,
-      };
+      if (this.isEditMode && this.editingEvent) {
+        // Update existing event using the stored reference instead of trying to match by title
+        this.events.update((events) => {
+          return events.map((e) => {
+            // Find the event by reference, not by properties
+            if (e === this.editingEvent) {
+              return { ...this.newEvent }; // Replace with updated data
+            }
+            return e;
+          });
+        });
+      } else {
+        // Create a new event (existing code)
+        const eventCopy: Event = {
+          title: this.newEvent.title,
+          content: this.newEvent.content || '',
+          date: new Date(this.selectedDate),
+          color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
+          type: ReminderType.USER_CREATED_EVENT,
+        };
 
-      // Add the event to our events array
-      this.events.update((events) => {
-        events.push(eventCopy);
-        return events;
-      });
-
-      // Create a theme if the checkbox is checked
-      if (this.createThemeAfterCreateEvent) {
-        this.createTheme();
+        // Add the event to our events array
+        this.events.update((events) => {
+          events.push(eventCopy);
+          return events;
+        });
       }
 
-      // Update the UI to show the new event
+      // Update the UI to show the new/updated event
       this.updateSelectedDateEvents();
 
       // Close the modal
@@ -308,28 +237,10 @@ export class CalendarComponent implements OnInit {
     return Object.values(ReminderColor);
   }
 
-  constructor(private fb: FormBuilder) {
-    this.eventForm = this.fb.group({
-      title: ['', [Validators.required]],
-      color: ['', [Validators.required]],
-    });
-  }
-  loadThemes(): void {
-    const uniqueTitles = new Set();
-    this.events().forEach((event) => {
-      if (event.type === ReminderType.USER_CREATED_EVENT && !uniqueTitles.has(event.title)) {
-        uniqueTitles.add(event.title);
-        this.themes.push({
-          title: event.title,
-          color: event.color,
-        });
-      }
-    });
-  }
-
   openCreateEventModal() {
     // Prepare the new event with the selected date
     this.newEvent.date = new Date(this.selectedDate);
+    this.isEditMode = false; // Reset to create mode
 
     // Set a timeout before showing the modal for a smoother effect
     setTimeout(() => {
@@ -348,6 +259,8 @@ export class CalendarComponent implements OnInit {
         date: new Date(),
         color: ReminderColor.USER_CREATED_EVENT_COLOR,
       };
+      this.isEditMode = false;
+      this.editingEvent = null; // Clear the reference to the edited event
       this.eventForm.reset();
     }, 300);
   }
@@ -356,67 +269,50 @@ export class CalendarComponent implements OnInit {
     return '#' + color;
   }
 
-  createTheme(): void {
-    const newTheme: Theme = {
-      title: this.newEvent.title,
-      color: this.newEvent.color,
-    };
-    this.themes.push(newTheme);
-    this.eventForm.reset();
-  }
-
-  deleteTheme(theme: Theme): void {
-    const index = this.themes.findIndex((t) => t.title === theme.title);
-    if (index !== -1) {
-      // Remove the theme
-      this.themes.splice(index, 1);
-
-      // Update related events
-      this.events.update((events) => {
-        return events.map((event) => {
-          if (event.title === theme.title && event.type === ReminderType.USER_CREATED_EVENT) {
-            return {
-              ...event,
-              type: ReminderType.USER_CREATED_EVENT,
-            };
-          }
-          return event;
-        });
-      });
-    }
-  }
-
   dropEvent(event: CdkDragDrop<Event[]>, targetDate: Date) {
     if (event.previousContainer === event.container) {
       // Reordering in the same date
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
     } else {
-      // Moving to another date
-      // Get the dragged event
-      const draggedEvent = event.previousContainer.data[event.previousIndex];
+      // Check if we're dragging from themes to events
+      const sourceData = event.previousContainer.data;
+      const draggedItem = sourceData[event.previousIndex];
 
-      // Remove from previous date and add to new date
-      if (this.removeAfterDrop) {
-        // FIXED LOGIC: If removeAfterDrop is FALSE, we don't remove the event
-        // When the "Tái sử dụng" checkbox is checked, we want to REMOVE the event (not keep it)
-        const newTheme: Theme = {
-          title: draggedEvent.title,
-          color: draggedEvent.color,
+      // If the dragged item is a theme (check if it has no 'date' property)
+      if (!('date' in draggedItem)) {
+        // This is a theme being dropped onto a date
+        const draggedTheme = draggedItem as unknown as Theme;
+
+        // Create a new event from the theme
+        const newEvent: Event = {
+          title: draggedTheme.title,
+          date: new Date(targetDate),
+          color: draggedTheme.color,
+          type: ReminderType.USER_CREATED_EVENT,
         };
-        // Add to events array
-        this.themes.push(newTheme);
-      }
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
 
-      // Update the date of the transferred event
-      event.container.data[event.currentIndex].date = new Date(targetDate);
+        // Add the new event to the events array
+        this.events.update((events) => {
+          events.push(newEvent);
+          return events;
+        });
+
+        // No need to remove the theme from the themes list
+      } else {
+        // Normal event moving between dates
+        // Get the dragged event
+        const draggedEvent = event.previousContainer.data[event.previousIndex];
+
+        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+
+        // Update the date of the transferred event
+        event.container.data[event.currentIndex].date = new Date(targetDate);
+      }
 
       // Update selected date events if we're viewing the target date
       if (this.isSelected(targetDate)) {
         this.updateSelectedDateEvents();
       }
-      console.log(this.selectedDateEvents);
-      console.log(this.events());
     }
   }
 
@@ -453,17 +349,37 @@ export class CalendarComponent implements OnInit {
         this.updateSelectedDateEvents();
       }
 
-      // FIXED LOGIC: If removeAfterDrop is TRUE, we remove the theme
-      // When the "Tái sử dụng" checkbox is checked, we want to KEEP the theme (not remove it)
-      if (this.removeAfterDrop) {
-        this.themes.splice(event.previousIndex, 1);
-      }
+      // Note: We always preserve themes when dropping them into calendar dates
+      // No deletion code here - themes are reusable templates
     } else {
       // Regular drag and drop within themes list
       if (event.previousContainer === event.container) {
         moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
       }
     }
-    console.log(this.themes);
+  }
+
+  // Add these methods for edit and delete functionality
+
+  editEvent(event: Event) {
+    // Store a reference to the event being edited
+    this.editingEvent = event;
+
+    // Create a copy of the event for editing
+    this.newEvent = { ...event };
+    this.isEditMode = true;
+
+    // Open the modal for editing
+    this.showEventModal = true;
+  }
+
+  deleteEvent(event: Event) {
+    // Filter out the event to delete it
+    this.events.update((events) => {
+      return events.filter((e) => e !== event);
+    });
+
+    // Update the UI to reflect the changes
+    this.updateSelectedDateEvents();
   }
 }
