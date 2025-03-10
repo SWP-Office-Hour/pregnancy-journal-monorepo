@@ -86,7 +86,7 @@ model note {
   note_id String   @id @default(dbgenerated("(uuid())")) @db.Char(36)
   title   String   @db.VarChar(255)
   content String   @db.VarChar(510)
-  date    DateTime @db.Date
+  date    DateTime @db.DateTime(0)
   status  Int
   user_id String   @db.Char(36)
   user    user     @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Note_user_id_User_id")
@@ -103,6 +103,7 @@ model reminder {
   status          Int
   user_id         String        @db.Char(36)
   visit_record_id String?       @db.Char(36)
+  color           String?       @db.Char(6)
   user            user          @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_user_id_User_id")
   visit_record    visit_record? @relation(fields: [visit_record_id], references: [visit_record_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Reminder_visit_record_id_Visit_Record_id")
 
@@ -160,8 +161,8 @@ model comment {
   content    String    @db.VarChar(1000)
   post_id    String    @db.Char(36)
   user_id    String    @db.Char(36)
-  created_at DateTime? @db.Date
-  updated_at DateTime? @db.Date
+  created_at DateTime? @db.DateTime(0)
+  updated_at DateTime? @db.DateTime(0)
   post       post      @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_1")
   user       user      @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "comment_ibfk_2")
 
@@ -173,8 +174,8 @@ model post {
   post_id    String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
   content    String     @db.Text
   user_id    String     @db.Char(36)
-  created_at DateTime?  @db.Date
-  updated_at DateTime?  @db.Date
+  created_at DateTime?  @db.DateTime(0)
+  updated_at DateTime?  @db.DateTime(0)
   comment    comment[]
   media      media[]
   user       user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "post_ibfk_1")
@@ -194,10 +195,11 @@ model payment_history {
   payment_history_id String     @id @default(dbgenerated("(uuid())")) @db.Char(36)
   user_id            String     @db.Char(36)
   membership_id      String     @db.Char(36)
-  created_at         DateTime   @db.Date
+  created_at         DateTime   @db.DateTime(0)
   value              Float
   status             Int
   payment_method     Int
+  expired_at         DateTime?  @db.DateTime(0)
   membership         membership @relation(fields: [membership_id], references: [membership_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_membership_id_Membership_id")
   user               user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_user_id_User_id")
 
@@ -230,11 +232,11 @@ model standard {
 
 model visit_record {
   visit_record_id        String                @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  next_visit_doctor_date DateTime?             @db.Date
-  visit_doctor_date      DateTime              @db.Date
+  next_visit_doctor_date DateTime?             @db.DateTime(0)
+  visit_doctor_date      DateTime              @db.DateTime(0)
   doctor_name            String                @db.VarChar(510)
   hospital_id            String                @db.Char(36)
-  created_at             DateTime              @db.Date
+  created_at             DateTime              @db.DateTime(0)
   user_id                String                @db.Char(36)
   media                  media[]
   reminder               reminder[]
