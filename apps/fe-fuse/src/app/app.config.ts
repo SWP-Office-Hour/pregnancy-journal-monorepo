@@ -63,8 +63,8 @@ export const appConfig: ApplicationConfig = {
     {
       provide: GLOBAL_AUTO_ANIMATE_OPTIONS,
       useValue: {
-        duration: 750,
-        easing: 'ease-in-out',
+        duration: 150,
+        // easing: 'ease-in',
         // etc.
       },
     },
