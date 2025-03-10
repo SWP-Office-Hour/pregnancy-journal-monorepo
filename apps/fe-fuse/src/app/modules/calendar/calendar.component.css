@@ -209,7 +209,7 @@
 }
 
 .calendar-cell.cdk-drop-list-dragging,
-.theme-list.cdk-drop-list-dragging {
+.example-list.cdk-drop-list-dragging {
   background-color: rgba(236, 72, 153, 0.05);
   border: 2px dashed #ec4899;
 }

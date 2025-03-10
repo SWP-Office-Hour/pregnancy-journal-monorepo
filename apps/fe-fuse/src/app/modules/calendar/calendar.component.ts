@@ -298,14 +298,8 @@ export class CalendarComponent implements OnInit {
       // Update the UI to show the new event
       this.updateSelectedDateEvents();
 
-      // Show success feedback (optional)
-      console.log('Event created successfully!', eventCopy);
-
       // Close the modal
       this.closeCreateEventModal();
-    } else {
-      // Handle invalid event - show error message or highlight required fields
-      console.error('Invalid event data. Please check form fields.');
     }
   }
 
@@ -369,7 +363,6 @@ export class CalendarComponent implements OnInit {
     };
     this.themes.push(newTheme);
     this.eventForm.reset();
-    console.log(this.themes);
   }
 
   deleteTheme(theme: Theme): void {
@@ -390,14 +383,6 @@ export class CalendarComponent implements OnInit {
           return event;
         });
       });
-    }
-  }
-
-  drop(event: CdkDragDrop<Theme[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
     }
   }
 
@@ -430,6 +415,8 @@ export class CalendarComponent implements OnInit {
       if (this.isSelected(targetDate)) {
         this.updateSelectedDateEvents();
       }
+      console.log(this.selectedDateEvents);
+      console.log(this.events());
     }
   }
 
@@ -477,5 +464,6 @@ export class CalendarComponent implements OnInit {
         moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
       }
     }
+    console.log(this.themes);
   }
 }

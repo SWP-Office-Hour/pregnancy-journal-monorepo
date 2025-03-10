@@ -67,13 +67,8 @@
         </div>
 
         <div class="w-full">
-          <div cdkDropList [cdkDropListData]="themes" (cdkDropListDropped)="dropTheme($event)" class="theme-list">
-            <div
-              *ngFor="let theme of themes"
-              cdkDrag
-              class="theme-block example-box mb-2 rounded-lg"
-              [style.background-color]="chooseColor(theme.color)"
-            >
+          <div cdkDropList [cdkDropListData]="themes" (cdkDropListDropped)="dropTheme($event)" class="example-list min-h-96">
+            <div *ngFor="let theme of themes" cdkDrag class="example-box mb-2 rounded-lg" [style.background-color]="chooseColor(theme.color)">
               <div class="cursor-move rounded-lg p-4 shadow-md" cdkDragHandle>
                 <div class="flex items-center justify-between">
                   <span class="font-medium text-gray-800">{{ theme.title }}</span>
@@ -112,7 +107,7 @@
           </button>
           <h2 class="text-xl font-semibold">{{ currentDate | date: 'MMMM yyyy' }}</h2>
         </div>
-        <p-button label="Hôm nay" (onClick)="navigateThisMonth()" variant="text" variant="outlined" [rounded]="true" severity="secondary" />
+        <p-button label="Hôm nay" (onClick)="navigateThisMonth()" variant="outlined" [rounded]="true" severity="secondary" />
       </div>
 
       <div class="grid flex-auto grid-cols-1 gap-4 lg:grid-cols-7">
@@ -127,7 +122,7 @@
               class="calendar-cell min-h-15 relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-white transition-all hover:bg-gray-50 hover:shadow-lg hover:shadow-pink-500/50 md:h-20"
               [ngClass]="{
                 'text-gray-300': !isMonth(date),
-                '!bg-pink-50': isSelected(date),
+                'border-2 border-dashed border-pink-500 !bg-pink-50': isSelected(date),
                 '!bg-white shadow-md': isToday(date),
               }"
               (click)="selectDate(date)"
@@ -149,12 +144,7 @@
               <div class="mt-1 flex flex-wrap justify-center gap-1">
                 @for (event of this.events(); track $index) {
                   @if (checkEventByDate({ event, date })) {
-                    <div
-                      cdkDrag
-                      [cdkDragData]="event"
-                      class="event-indicator h-2 w-2 rounded-full"
-                      [style.background-color]="chooseColor(event.color)"
-                    ></div>
+                    <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event.color)"></div>
                   }
                 }
               </div>
@@ -179,17 +169,31 @@
         <div class="my-2 mb-4 flex flex-col justify-between rounded-xl p-4 shadow-xl lg:col-span-2">
           <div class="">
             <h3 class="mb-4 text-xl font-semibold">Lịch hẹn {{ selectedDate | date: 'mediumDate' }}</h3>
-            <div *ngIf="selectedDateEvents.length === 0" class="py-4 text-center text-gray-500">No events scheduled for this date</div>
+            <div *ngIf="selectedDateEvents.length === 0" class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
+              <div class="mb-4 rounded-full bg-pink-50 p-4">
+                <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <h4 class="mb-2 text-lg font-semibold text-gray-700">Chưa có cuộc hẹn nào</h4>
+              <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
+            </div>
+
             <div
               *ngFor="let event of selectedDateEvents"
-              class="mb-3 last:mb-0"
+              class="example-list mb-3 last:mb-0"
               cdkDrag
               [cdkDragData]="event"
               cdkDropList
               [cdkDropListData]="selectedDateEvents"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
-              <div class="flex items-start justify-between text-sm">
+              <div class="example-box flex items-start justify-between text-sm">
                 <div
                   class="flex w-full items-center justify-between rounded-lg p-2 shadow-sm transition-all hover:bg-gray-50"
                   [style.background-color]="chooseColor(event.color)"
@@ -215,7 +219,7 @@
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
               </svg>
-              <span>Tạo lịch mới</span>
+              <span>Tạo lịch hẹn mới</span>
             </button>
           </div>
         </div>
