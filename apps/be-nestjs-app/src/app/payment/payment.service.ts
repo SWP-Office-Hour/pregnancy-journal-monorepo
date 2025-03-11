@@ -41,7 +41,6 @@ export class PaymentService {
         status: PayStatus.FAILED,
         payment_method: PayMethod.PAYOS,
         created_at: new Date(Date.now()),
-        expired_at: new Date(Date.now() + membership.duration_days * 24 * 60 * 60 * 1000),
       },
 
       include: {
@@ -63,10 +62,17 @@ export class PaymentService {
   }
 
   async updatePayment(paymentRequest: PaymentUpdateRequestType) {
+    const membership = await this.databaseService.Payment.findUnique({
+      where: { payment_history_id: paymentRequest.payment_history_id },
+    }).membership();
+    if (!membership) {
+      throw new NotFoundException('Membership not found');
+    }
     return await this.databaseService.Payment.update({
       where: { payment_history_id: paymentRequest.payment_history_id },
       data: {
         status: PayStatus.SUCCESS,
+        expired_at: new Date(Date.now() + membership.duration_days * 24 * 60 * 60 * 1000),
       },
       include: {
         membership: true,
