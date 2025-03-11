@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
-import { map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 
@@ -40,19 +39,17 @@ export class membershipService {
     }
   }
 
-  updatePayment(payment: PaymentUpdateRequestType) {
+  async updatePayment(payment: PaymentUpdateRequestType) {
     console.log('gọi hàm update payment status');
-    return this._httpClient
-      .patch<PaymentUpdateRequestType>(environment.apiUrl + 'payments', payment, {
-        headers: {
-          Authorization: 'Bearer ' + this._authService.accessToken,
-        },
-      })
-      .pipe(
-        map((response) => {
-          console.log(response);
-          return response;
-        }),
-      );
+    const response = await fetch(`${environment.apiUrl}payments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${this._authService.accessToken}`,
+      },
+      body: JSON.stringify(payment),
+    });
+    console.log(response);
+    return response.json();
   }
 }
