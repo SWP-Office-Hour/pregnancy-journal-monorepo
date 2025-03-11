@@ -48,6 +48,7 @@ export const membershipDaySchema = z.nativeEnum(membershipDay);
 export enum ReminderType {
   USER_CREATED_EVENT = 0,
   FOLLOW_UP_MEETING = 1,
+  USER_DUE_DATE = 2,
 }
 
 export const reminderTypeSchema = z.nativeEnum(ReminderType);

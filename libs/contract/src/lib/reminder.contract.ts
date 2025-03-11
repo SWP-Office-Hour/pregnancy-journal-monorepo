@@ -8,6 +8,7 @@ const reminderBaseSchema = z.object({
   content: z.string(),
   remind_date: z.string().date(),
   color: z.string().nullable().optional(),
+  type: reminderTypeSchema.nullable().optional(),
 });
 
 // Schema for creating a reminder

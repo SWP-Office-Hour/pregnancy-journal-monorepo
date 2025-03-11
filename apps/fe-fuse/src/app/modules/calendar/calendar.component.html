@@ -33,6 +33,7 @@
               'text-pink-450 !bg-pink-50': isSelected(date),
               'bg-pink-450 text-white': isToday(date),
               'text-gray-400': !isMonth(date),
+              'bg-rainbow-gradient !text-white': isDueDate(date),
             }"
             (click)="selectDate(date)"
             class="hover:text-pink-450 aspect-square cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.02] hover:bg-gray-100"
@@ -69,7 +70,7 @@
             <div *ngFor="let theme of themes" cdkDrag class="theme-card">
               <div
                 class="cursor-grab rounded-lg p-4 shadow-md transition-all duration-200 hover:scale-[1.02] hover:shadow-lg active:cursor-grabbing"
-                [style.background-color]="chooseColor(theme.color)"
+                [style.background-color]="chooseColorTheme(theme.color)"
                 cdkDragHandle
               >
                 <div class="flex items-center">
@@ -79,7 +80,7 @@
               </div>
 
               <!-- Preview when dragging -->
-              <div *cdkDragPreview class="theme-drag-preview rounded-lg p-4 shadow-xl" [style.background-color]="chooseColor(theme.color)">
+              <div *cdkDragPreview class="theme-drag-preview rounded-lg p-4 shadow-xl" [style.background-color]="chooseColorTheme(theme.color)">
                 <div class="flex items-center">
                   <div class="mr-2 h-3 w-3 rounded-full bg-white opacity-80"></div>
                   <span class="font-medium text-white">{{ theme.title }}</span>
@@ -126,6 +127,7 @@
                 'text-gray-300': !isMonth(date),
                 'border-2 border-dashed border-pink-500 !bg-pink-50': isSelected(date),
                 '!bg-white shadow-md': isToday(date),
+                'bg-rainbow-gradient': isDueDate(date),
               }"
               (click)="selectDate(date)"
               cdkDropList
@@ -144,8 +146,10 @@
 
               <!-- Events indicators -->
               <div class="mt-1 flex flex-wrap justify-center gap-1">
-                @for (event of this.getEventsForDate(date); track $index) {
-                  <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event.color)"></div>
+                @if (this.events().length > 0) {
+                  @for (event of this.getEventsForDate(date); track $index) {
+                    <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
+                  }
                 }
               </div>
 
@@ -190,52 +194,57 @@
                 <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
               </div>
 
-              <div *ngFor="let event of selectedDateEvents" class="mb-3 last:mb-0">
-                <div class="event-card group">
-                  <div
-                    class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
-                    [style.background-color]="chooseColor(event.color)"
-                  >
-                    <!-- Event content -->
-                    <div class="flex items-center justify-between">
-                      <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
+              @if (this.events().length > 0) {
+                <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
+                  <div class="event-card group">
+                    <div
+                      class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
+                      [style.background-color]="chooseColor(event)"
+                      [ngClass]="{
+                        '!bg-rainbow-gradient': isDueDate(event.remind_date),
+                      }"
+                    >
+                      <!-- Event content -->
+                      <div class="flex items-center justify-between">
+                        <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
 
-                      <!-- Controls wrapper - visible on hover -->
-                      <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                        <!-- Edit button -->
-                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event)">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                            />
-                          </svg>
-                        </button>
+                        <!-- Controls wrapper - visible on hover -->
+                        <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                          <!-- Edit button -->
+                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                              />
+                            </svg>
+                          </button>
 
-                        <!-- Delete button -->
-                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="deleteEvent(event)">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        </button>
+                          <!-- Delete button -->
+                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="deleteEvent(event)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
+
+                      <!-- Event content if available -->
+                      <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
+
+                      <!-- Bottom highlight effect -->
+                      <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                     </div>
-
-                    <!-- Event content if available -->
-                    <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
-
-                    <!-- Bottom highlight effect -->
-                    <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
 
@@ -276,7 +285,7 @@
         <!-- Update the modal title and button text based on mode -->
         <div class="mb-4 flex items-center justify-between">
           <h3 class="text-xl font-semibold">{{ isEditMode ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn' }}</h3>
-          <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }}/{{ selectedDate.getFullYear() }}</p>
+          <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
         </div>
         <form #eventForm="ngForm" (ngSubmit)="createEvent()">
           <div class="mb-4">
@@ -315,13 +324,13 @@
                   <div
                     (click)="newEvent.color = color"
                     class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
-                    [style.background-color]="chooseColor(color)"
+                    [style.background-color]="chooseColorTheme(color)"
                   ></div>
                 } @else {
                   <div
                     (click)="newEvent.color = color"
                     class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
-                    [style.background-color]="chooseColor(color)"
+                    [style.background-color]="chooseColorTheme(color)"
                   ></div>
                 }
               }
