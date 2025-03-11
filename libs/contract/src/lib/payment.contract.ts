@@ -36,15 +36,20 @@ const paymentCreateReqSchema = paymentSchema
     membership_id: z.string(),
   });
 
-const paymentUpdateReqSchema = paymentSchema.omit({
-  created_at: true,
-  user_id: true,
-  membership: true,
-  value: true,
-  payment_method: true,
-  status: true,
-  expired_at: true,
-});
+const paymentUpdateReqSchema = paymentSchema
+  .omit({
+    created_at: true,
+    user_id: true,
+    membership: true,
+    value: true,
+    payment_method: true,
+    status: true,
+    expired_at: true,
+    payment_history_id: true,
+  })
+  .extend({
+    payos_order_code: z.string(),
+  });
 
 const paymentResSchema = z.object({
   payment: paymentSchema,
