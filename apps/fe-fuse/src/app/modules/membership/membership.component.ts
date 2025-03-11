@@ -73,7 +73,6 @@ export class MembershipComponent {
     console.log('orderCode', orderCode);
 
     if (status === 'PAID' && code === '00') {
-      console.log('Payment success gọi hàm update payment status');
       this.membershipService.updatePayment({ payos_order_code: orderCode });
       // this.http.post('http://localhost:3000/api/payment/success', { code, id, cancel, status, orderCode }).subscribe(
       //   (response) => {
