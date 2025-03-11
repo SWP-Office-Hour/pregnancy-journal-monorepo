@@ -51,9 +51,9 @@ export class PaymentService {
     const payRequest: CheckoutRequestType = {
       orderCode: Number(new Date(Date.now())),
       amount: membership.price,
-      returnUrl: 'http://localhost:3000/payment/success',
-      cancelUrl: 'http://localhost:3000/payment/cancel',
-      description: 'Payment for membership',
+      returnUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
+      cancelUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
+      description: 'Payment for ' + membership.title,
     };
 
     const paymentUrl = await this.payosService.createLinkPayment(payRequest);
