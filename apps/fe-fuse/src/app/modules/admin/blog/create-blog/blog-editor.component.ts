@@ -46,7 +46,7 @@ export class BlogEditorComponent implements OnInit {
   tagsChips = signal<TagResponse[]>([]);
   tagsOptions: TagResponse[] = [];
   categories: CategoryResponse[] = [];
-  images: MediaResponse[] = [];
+  image = signal<MediaResponse>({ media_url: '' });
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -92,8 +92,8 @@ export class BlogEditorComponent implements OnInit {
     this._blogService.getCategories().subscribe((categories) => {
       this.categories = categories;
     });
-    this.images = this._blogService.Media;
     this._blog = this._blogService.getBlog();
+    this.image = this._blogService.Media;
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -207,6 +207,21 @@ export class BlogEditorComponent implements OnInit {
       this._blogService.updateBlog(blogUpdateData).subscribe({
         next: () => {
           window.alert('Blog updated successfully');
+          this._router.navigateByUrl('/admin/blog');
+        },
+        error: (error) => {
+          console.log(error);
+          window.alert(error.error.message);
+        },
+      });
+    }
+  }
+
+  deleteBlog(): void {
+    if (this._blog) {
+      this._blogService.deleteBlog(this._blog.blog_id).subscribe({
+        next: () => {
+          window.alert('Blog deleted successfully');
           this._router.navigateByUrl('/admin/blog');
         },
         error: (error) => {

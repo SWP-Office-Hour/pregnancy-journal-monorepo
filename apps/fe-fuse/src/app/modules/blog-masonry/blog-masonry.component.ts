@@ -1,7 +1,7 @@
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BlogResponseType, CategoryResponse } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponseType, CategoryResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { AuthService } from '../../core/auth/auth.service';
 import { BlogMasonryService } from './blog-masonry.service';
 
@@ -36,7 +36,7 @@ export class BlogMasonryComponent implements OnInit {
 
   loadCategories() {
     this.blogService.getCategories().subscribe((data: CategoryResponse[]) => {
-      this.categories = data;
+      this.categories = data.filter((c) => c.status == Status.ACTIVE);
     });
   }
 

@@ -121,27 +121,18 @@ export const adminNavigation: FuseNavigationItem[] = [
     icon: 'heroicons_outline:pencil-square',
     children: [
       {
-        id: 'admin_blog',
-        title: 'Blog',
-        type: 'aside',
-        icon: 'heroicons_outline:pencil-square',
+        id: 'blog-all',
+        title: 'Tất cả',
+        type: 'basic',
         link: 'admin/blog',
-        children: [
-          {
-            id: 'blog-all',
-            title: 'Tất cả',
-            type: 'basic',
-            link: 'admin/blog',
-            icon: 'heroicons_outline:pencil-square',
-          },
-          {
-            id: 'blog-create',
-            title: 'Tạo mới',
-            type: 'basic',
-            link: 'admin/blog/create',
-            icon: 'heroicons_outline:pencil-square',
-          },
-        ],
+        icon: 'heroicons_outline:pencil-square',
+      },
+      {
+        id: 'blog-create',
+        title: 'Tạo mới',
+        type: 'basic',
+        link: 'admin/blog/create',
+        icon: 'heroicons_outline:pencil-square',
       },
       {
         id: 'category',
