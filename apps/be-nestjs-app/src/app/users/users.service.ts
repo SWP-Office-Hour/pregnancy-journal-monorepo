@@ -130,7 +130,7 @@ export class UsersService {
     return await this.databaseService.User.findMany();
   }
 
-  async register(data: RegisterRequest) {
+  async register(data: RegisterRequest): Promise<AuthResponse> {
     //check if email already exists
     const result = await this.databaseService.User.create({
       data: {
@@ -178,6 +178,9 @@ export class UsersService {
       },
     });
     //create access token and refresh token then return
+
+    const hasMembership = await this.checkAccountMembership(result.user_id);
+
     return {
       access_token,
       // refresh_token,
@@ -185,6 +188,9 @@ export class UsersService {
         id: result.user_id,
         name: result.name,
         role: result.role,
+        email: result.email,
+        expected_birth_date: result.expected_birth_date.toISOString(),
+        has_membership: hasMembership,
       },
     };
   }
@@ -223,6 +229,8 @@ export class UsersService {
       },
     });
     //create access token and refresh token then return
+
+    const hasMembership = await this.checkAccountMembership(user.user_id);
     return {
       access_token,
       // refresh_token,
@@ -232,6 +240,7 @@ export class UsersService {
         role: user.role,
         email: user.email,
         expected_birth_date: user.expected_birth_date.toISOString(),
+        has_membership: hasMembership,
       },
     };
   }
@@ -250,6 +259,7 @@ export class UsersService {
     const access_token = await this.signAccessToken({ user_id: user.user_id, role: user.role });
 
     //create access token and refresh token then return
+    const hasMembership = await this.checkAccountMembership(user.user_id);
     return {
       access_token,
       // refresh_token,
@@ -259,6 +269,7 @@ export class UsersService {
         role: user.role,
         email: user.email,
         expected_birth_date: user.expected_birth_date.toISOString(),
+        has_membership: hasMembership,
       },
     };
   }
@@ -389,6 +400,7 @@ export class UsersService {
 
     const access_token = await this.signAccessToken({ user_id: userAfter.user_id, role: userAfter.role });
 
+    const hasMembership = await this.checkAccountMembership(userAfter.user_id);
     //create access token and refresh token then return
     return {
       access_token,
@@ -399,6 +411,7 @@ export class UsersService {
         role: userAfter.role,
         email: userAfter.email,
         expected_birth_date: userAfter.expected_birth_date.toISOString(),
+        has_membership: hasMembership,
       },
     };
   }
@@ -490,5 +503,36 @@ export class UsersService {
     });
 
     return await this.getUserProfile(userId);
+  }
+
+  async checkAccountMembership(userId: string): Promise<boolean> {
+    const user = await this.databaseService.User.findUnique({
+      where: {
+        user_id: userId,
+      },
+      include: {
+        payment_history: {
+          orderBy: {
+            created_at: 'desc',
+          },
+        },
+      },
+    });
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const membership = user.payment_history?.at(user.payment_history.length - 1)?.expired_at;
+
+    if (membership) {
+      const hasExpired = new Date(membership) < new Date();
+      return !hasExpired;
+    }
+    // else {
+    //   console.log('No membership found');
+    // }
+
+    return false;
   }
 }
