@@ -30,6 +30,7 @@ const paymentCreateReqSchema = paymentSchema
     status: true,
     value: true,
     payment_method: true,
+    expired_at: true,
   })
   .extend({
     membership_id: z.string(),
@@ -42,6 +43,7 @@ const paymentUpdateReqSchema = paymentSchema.omit({
   value: true,
   payment_method: true,
   status: true,
+  expired_at: true,
 });
 
 const paymentResSchema = z.object({
