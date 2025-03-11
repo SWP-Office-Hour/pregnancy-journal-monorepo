@@ -1,90 +1,144 @@
-<div class="flex min-w-0 flex-auto flex-col">
+<div class="flex min-h-screen min-w-0 flex-auto flex-col bg-green-50">
   <!-- Main -->
-  <div class="flex-auto p-6 sm:p-10">
-    <div class="rounded-2xl border-2 border-gray-300">
+  <div class="flex-auto p-4 sm:p-6 md:p-8 lg:p-10">
+    <div class="mx-auto max-w-5xl rounded-2xl border border-green-200 bg-white shadow-lg">
       <!-- Header -->
-      <div class="flex-0 bg-primary text-on-primary flex h-16 items-center justify-between rounded-t-2xl pl-6 pr-3 sm:pl-8 sm:pr-5">
-        <div class="text-lg font-medium">Blog Editor</div>
-        <button mat-icon-button (click)="saveAndClose()" [tabIndex]="-1">
+      <div class="flex h-16 items-center justify-between rounded-t-2xl bg-teal-700 px-6 text-white shadow-sm sm:px-8">
+        <div class="text-xl font-semibold tracking-tight">Trình Soạn Thảo Bài Viết</div>
+        <button
+          mat-icon-button
+          class="flex items-center justify-center rounded-full transition-colors hover:bg-teal-600"
+          (click)="saveAndClose()"
+          [tabIndex]="-1"
+        >
           <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x-mark'"></mat-icon>
         </button>
       </div>
 
       <!-- Compose form -->
-      <form class="flex flex-auto flex-col overflow-y-auto p-6 sm:p-8" [formGroup]="blogEditorForm">
-        <mat-form-field>
-          <mat-label>Title</mat-label>
-          <input matInput [formControlName]="'title'" />
-        </mat-form-field>
+      <form class="flex flex-auto flex-col divide-y divide-green-100 overflow-y-auto p-6 sm:p-8" [formGroup]="blogEditorForm">
+        <div class="space-y-6 pb-6">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Tiêu Đề</mat-label>
+            <input matInput [formControlName]="'title'" class="text-lg font-medium" placeholder="Nhập tiêu đề bài viết" />
+          </mat-form-field>
 
-        <mat-form-field class="fuse-mat-bold fuse-mat-dense input-full-width">
-          <mat-label>Category</mat-label>
-          <mat-select [formControlName]="'category_id'" required>
-            <mat-option value="" disabled="true">Select category</mat-option>
-            @for (category of categories; track $index) {
-              <mat-option value="{{ category.category_id }}">{{ category.title }}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Danh Mục</mat-label>
+              <mat-select [formControlName]="'category_id'" required class="w-full">
+                <mat-option value="" disabled="true">Chọn danh mục</mat-option>
+                @for (category of categories; track $index) {
+                  <mat-option value="{{ category.category_id }}">{{ category.title }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Author</mat-label>
-          <input matInput [formControlName]="'author'" />
-        </mat-form-field>
+            <mat-form-field class="w-full" appearance="outline">
+              <mat-label>Tác Giả</mat-label>
+              <input matInput [formControlName]="'author'" placeholder="Tên của bạn" />
+            </mat-form-field>
+          </div>
 
-        <mat-form-field class="flex-auto">
-          <mat-label>Tags</mat-label>
-          <mat-chip-grid #chipGridForTags>
-            @for (chip of tagsChips(); track $index) {
-              <mat-chip-row [value]="chip" (removed)="removeTag(chip)"
-                >{{ chip.title }}
-                <mat-icon matChipRemove>cancel</mat-icon>
-              </mat-chip-row>
-            }
-            <input #tagsInput matInput [matAutocomplete]="auto" [matChipInputFor]="chipGridForTags" [matChipInputAddOnBlur]="true" />
-          </mat-chip-grid>
-          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagSelected($event)">
-            @for (tag of tagsOptions; track $index) {
-              <mat-option [value]="tag" [disabled]="isTagSelected(tag)">
-                {{ tag.title }}
-              </mat-option>
-            }
-          </mat-autocomplete>
-        </mat-form-field>
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Tóm Tắt</mat-label>
+            <input matInput [formControlName]="'summary'" placeholder="Mô tả ngắn về bài viết của bạn" />
+          </mat-form-field>
 
-        <mat-form-field>
-          <mat-label>Summary</mat-label>
-          <input matInput [formControlName]="'summary'" />
-        </mat-form-field>
-
-        <div class="mb-8 w-full px-2 md:w-1/2">
-          <file-upload (insertImg)="addImage($event)"></file-upload>
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label>Thẻ</mat-label>
+            <mat-chip-grid #chipGridForTags>
+              @for (chip of tagsChips(); track $index) {
+                <mat-chip-row [value]="chip" (removed)="removeTag(chip)" class="bg-teal-100 text-teal-800">
+                  {{ chip.title }}
+                  <mat-icon matChipRemove class="text-teal-600">cancel</mat-icon>
+                </mat-chip-row>
+              }
+              <input
+                #tagsInput
+                matInput
+                [matAutocomplete]="auto"
+                [matChipInputFor]="chipGridForTags"
+                [matChipInputAddOnBlur]="true"
+                placeholder="Thêm thẻ"
+              />
+            </mat-chip-grid>
+            <mat-autocomplete #auto="matAutocomplete" (optionSelected)="tagSelected($event)">
+              @for (tag of tagsOptions; track $index) {
+                <mat-option [value]="tag" [disabled]="isTagSelected(tag)">
+                  {{ tag.title }}
+                </mat-option>
+              }
+            </mat-autocomplete>
+          </mat-form-field>
         </div>
-        <div class="flex flex-wrap">
-          @for (src of images; track $index) {
-            <image-preview [imgObj]="src" (deleteImg)="deleteImage($event)"></image-preview>
+
+        <div class="space-y-6 py-6">
+          <h3 class="text-lg font-medium text-teal-900">Hình Ảnh Đại Diện</h3>
+
+          @if (image().media_url) {
+            <div class="flex flex-wrap gap-4">
+              <image-preview
+                [imgObj]="image()"
+                (deleteImg)="deleteImage($event)"
+                class="overflow-hidden rounded-lg border-2 border-teal-200 shadow-md transition-transform hover:scale-[1.02]"
+              ></image-preview>
+            </div>
+          } @else {
+            <div class="mb-8 w-full px-2 md:w-1/2">
+              <file-upload (insertImg)="addImage($event)" class="block w-full"></file-upload>
+            </div>
           }
         </div>
 
         <!-- Body -->
-        <quill-editor
-          class="mt-2"
-          [formControlName]="'body'"
-          [bounds]="'self'"
-          [modules]="quillModules"
-          [customModules]="[{ path: 'modules/imageCompress', implementation: imageCompressImplementation }]"
-        ></quill-editor>
+        <div class="space-y-4 py-6">
+          <h3 class="text-lg font-medium text-teal-900">Nội Dung</h3>
+          <div class="rounded-lg border border-teal-200">
+            <quill-editor
+              class="min-h-[300px]"
+              [formControlName]="'body'"
+              [bounds]="'self'"
+              [modules]="quillModules"
+              [customModules]="[{ path: 'modules/imageCompress', implementation: imageCompressImplementation }]"
+            ></quill-editor>
+          </div>
+        </div>
 
         <!-- Actions -->
-        <div class="mt-4 flex flex-col justify-between sm:mt-6 sm:flex-row sm:items-center">
-          <div class="mt-4 flex items-center sm:mt-0">
+        <div class="flex flex-col justify-between pt-6 sm:flex-row sm:items-center">
+          <div class="flex items-center space-x-4">
             <!-- Discard -->
             @if (!_blog) {
-              <button class="ml-auto sm:ml-0" mat-stroked-button (click)="discard()">Discard</button>
+              <button
+                class="rounded-lg border border-orange-300 bg-white px-4 py-2 text-sm font-medium text-orange-700 shadow-sm transition-colors hover:bg-orange-50 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2"
+                mat-stroked-button
+                (click)="discard()"
+              >
+                Hủy Bỏ
+              </button>
             }
-            <!-- Send -->
-            <button class="order-first sm:order-last" mat-flat-button [color]="'primary'" (click)="submit()">Send</button>
+            <!-- Delete blog - only show for existing blogs -->
+            @if (_blog) {
+              <button
+                class="flex items-center rounded-lg bg-red-500 px-4 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                mat-stroked-button
+                (click)="deleteBlog()"
+              >
+                <mat-icon class="mr-1.5" [svgIcon]="'heroicons_outline:trash'"></mat-icon>
+                Xóa
+              </button>
+            }
           </div>
+          <!-- Send -->
+          <button
+            class="mt-4 flex items-center justify-center rounded-lg bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:mt-0"
+            mat-flat-button
+            [color]="'primary'"
+            (click)="submit()"
+          >
+            <span>Xuất Bản</span>
+          </button>
         </div>
       </form>
     </div>

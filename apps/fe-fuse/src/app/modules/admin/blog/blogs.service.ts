@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   BlogCreateRequestType,
   BlogResponseType,
@@ -20,7 +20,7 @@ export class BlogsService {
   private _categories: CategoryResponse[];
   private _page = 1;
   private _totalPage: number;
-  private _media: MediaResponse[] = [];
+  private _media = signal<MediaResponse>({ media_url: '' });
 
   /**
    * Constructor
@@ -30,7 +30,7 @@ export class BlogsService {
     private _authService: AuthService,
   ) {}
 
-  get Media(): MediaResponse[] {
+  get Media() {
     return this._media;
   }
 
@@ -64,7 +64,7 @@ export class BlogsService {
   updateBlog(blog: BlogUpdateRequestType) {
     const updatedBlog: BlogUpdateRequestType = {
       ...blog,
-      blog_cover: this._media[0].media_url || '',
+      blog_cover: this._media[0]?.media_url || '',
     };
     return this._httpClient
       .patch<BlogResponseType>(environment.apiUrl + 'blogs', updatedBlog, {
@@ -88,7 +88,7 @@ export class BlogsService {
   createBlog(blog) {
     const newBlog: BlogCreateRequestType = {
       ...blog,
-      blog_cover: this._media[0].media_url || '',
+      blog_cover: this._media().media_url || '',
     };
     return this._httpClient
       .post<BlogResponseType>(environment.apiUrl + 'blogs', newBlog, {
@@ -109,7 +109,7 @@ export class BlogsService {
       return throwError(() => new Error('Blog not found'));
     }
     this._blog = blogById;
-    this._media = [];
+    this._media.set({ media_url: this._blog.blog_cover || '', media_id: Date.now().toString() });
     return of(blogById);
   }
 
@@ -160,13 +160,21 @@ export class BlogsService {
   }
 
   deleteImage(id: string) {
-    if (this._media[0].media_id === id) {
-      this._media = [];
+    if (this._media().media_id == id) {
+      this._media.set({ media_url: '', media_id: '' });
     }
     return this._media;
   }
 
   addImage(img: MediaResponse) {
-    this._media[0] = img;
+    this._media.set(img);
+  }
+
+  deleteBlog(id: string) {
+    return this._httpClient.delete(environment.apiUrl + 'blogs/' + id, {
+      headers: {
+        Authorization: 'Bearer ' + this._authService.accessToken,
+      },
+    });
   }
 }
