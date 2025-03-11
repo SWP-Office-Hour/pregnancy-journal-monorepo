@@ -54,7 +54,7 @@ export class ReminderService {
         title: createReminderDto.title,
         content: createReminderDto.content,
         status: Status.ACTIVE,
-        type: ReminderType.USER_CREATED_EVENT,
+        type: createReminderDto.type || ReminderType.USER_CREATED_EVENT,
         remind_date: new Date(createReminderDto.remind_date),
         user: {
           connect: {

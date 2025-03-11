@@ -97,6 +97,11 @@ module.exports = {
       xl: '1440px',
     },
     extend: {
+      backgroundImage: {
+        'rainbow-gradient':
+          'linear-gradient(90deg, rgba(255, 0, 0, 0.1), rgba(255, 165, 0, 0.1), rgba(255, 255, 0, 0.1), rgba(0, 128, 0, 0.1), rgba(0, 0, 255, 0.1), rgba(75, 0, 130, 0.1), rgba(139, 0, 255, 0.1))',
+      },
+
       animation: {
         'spin-slow': 'spin 3s linear infinite',
       },
