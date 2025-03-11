@@ -63,8 +63,8 @@ export class PaymentService {
   }
 
   async updatePayment(paymentRequest: PaymentUpdateRequestType) {
-    const payment = await this.databaseService.Payment.findUnique({
-      where: { payment_history_id: paymentRequest.payos_order_code },
+    const payment = await this.databaseService.Payment.findFirst({
+      where: { payos_order_code: paymentRequest.payos_order_code },
       include: {
         membership: true,
       },
@@ -73,7 +73,7 @@ export class PaymentService {
       throw new NotFoundException('Payment not found');
     }
     return await this.databaseService.Payment.update({
-      where: { payment_history_id: paymentRequest.payos_order_code },
+      where: { payment_history_id: payment.payment_history_id },
       data: {
         status: PayStatus.SUCCESS,
         expired_at: new Date(Date.now() + payment.membership.duration_days * 24 * 60 * 60 * 1000),
