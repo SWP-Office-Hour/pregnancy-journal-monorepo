@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BlogResponseType, PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
@@ -41,14 +41,15 @@ export class membershipService {
   }
 
   updatePayment(payment: PaymentUpdateRequestType) {
+    console.log('gọi hàm update payment status');
     return this._httpClient
-      .patch<BlogResponseType>(environment.apiUrl + 'payments', payment, {
+      .patch<PaymentUpdateRequestType>(environment.apiUrl + 'payments', payment, {
         headers: {
           Authorization: 'Bearer ' + this._authService.accessToken,
         },
       })
       .pipe(
-        map((response: BlogResponseType) => {
+        map((response) => {
           console.log(response);
           return response;
         }),
