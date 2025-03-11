@@ -9,6 +9,7 @@ import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { environment } from '../../../environments/environment';
 import { DialogComponent } from './dialog/dialog.component';
+import { membershipService } from './membership.service';
 
 @Component({
   selector: 'membership-user',
@@ -35,11 +36,14 @@ export class MembershipComponent {
   /**
    * Constructor
    */
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private membershipService: membershipService,
+  ) {
     //dùng để coi giá trị của resource
     effect(() => {
-      console.log('membershipResource');
       console.log(this.membershipResource.value());
+      this.handleSuccessUrl();
     });
   }
 
@@ -56,5 +60,29 @@ export class MembershipComponent {
         // Handle the confirmation action here
       }
     });
+  }
+  handleSuccessUrl(): void {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const cancel = urlParams.get('cancel');
+    const status = urlParams.get('status');
+    const orderCode = urlParams.get('orderCode');
+
+    console.log('code', code);
+    console.log('status', status);
+    console.log('orderCode', orderCode);
+
+    if (code === '00' && status === 'PAID' && !cancel) {
+      console.log('Payment success gọi hàm update payment status');
+      this.membershipService.updatePayment({ payos_order_code: orderCode });
+      // this.http.post('http://localhost:3000/api/payment/success', { code, id, cancel, status, orderCode }).subscribe(
+      //   (response) => {
+      //     console.log('Backend function called successfully', response);
+      //   },
+      //   (error) => {
+      //     console.error('Error calling backend function', error);
+      //   },
+      // );
+    }
   }
 }
