@@ -179,7 +179,10 @@
               [cdkDropListData]="events()"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
-              <div *ngIf="selectedDateEvents.length === 0" class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
+              <div
+                *ngIf="getEventsForDate(this.selectedDate).length === 0"
+                class="flex h-full flex-col items-center justify-center px-4 py-8 text-center"
+              >
                 <div class="mb-4 rounded-full bg-pink-50 p-4">
                   <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
