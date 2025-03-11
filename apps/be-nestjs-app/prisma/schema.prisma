@@ -200,6 +200,7 @@ model payment_history {
   status             Int
   payment_method     Int
   expired_at         DateTime?  @db.DateTime(0)
+  payos_order_code   String     @db.Char(13)
   membership         membership @relation(fields: [membership_id], references: [membership_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_membership_id_Membership_id")
   user               user       @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Payment_History_user_id_User_id")
 

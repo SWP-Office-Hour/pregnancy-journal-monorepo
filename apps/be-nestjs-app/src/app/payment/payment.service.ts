@@ -32,7 +32,7 @@ export class PaymentService {
     if (!membership) {
       throw new NotFoundException('Membership not found');
     }
-
+    const payOsOrderCode = Number(new Date(Date.now()));
     const payment = await this.databaseService.Payment.create({
       data: {
         user: { connect: { user_id: user.user_id } },
@@ -41,6 +41,7 @@ export class PaymentService {
         status: PayStatus.FAILED,
         payment_method: PayMethod.PAYOS,
         created_at: new Date(Date.now()),
+        payos_order_code: String(payOsOrderCode),
       },
 
       include: {
@@ -49,7 +50,7 @@ export class PaymentService {
     });
 
     const payRequest: CheckoutRequestType = {
-      orderCode: Number(new Date(Date.now())),
+      orderCode: payOsOrderCode,
       amount: membership.price,
       returnUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
       cancelUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
