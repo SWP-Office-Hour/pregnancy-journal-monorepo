@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { RecordFormComponent } from './form/record-form.component';
 
 @Component({
-  selector: 'app-pregnancy-service',
+  selector: 'app-pregnancy-record',
   standalone: true,
   imports: [CommonModule, RecordFormComponent],
   templateUrl: './pregnancy-record.component.html',

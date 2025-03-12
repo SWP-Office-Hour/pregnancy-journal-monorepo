@@ -95,7 +95,7 @@ export const adminNavigation: FuseNavigationItem[] = [
     id: 'health-management',
     title: 'Quản lý sức khỏe',
     type: 'collapsable',
-    icon: 'heroicons_outline:chart-bar',
+    icon: 'heroicons_outline:heart',
     children: [
       {
         id: 'health-metric',
@@ -113,10 +113,10 @@ export const adminNavigation: FuseNavigationItem[] = [
       },
     ],
   },
-  // Nhóm quản lý nội dung
+  // Nhóm quản lý bài viết
   {
     id: 'content-management',
-    title: 'Quản lý nội dung',
+    title: 'Quản lý bài viết',
     type: 'collapsable',
     icon: 'heroicons_outline:pencil-square',
     children: [
