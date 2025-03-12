@@ -27,19 +27,19 @@ export class RevenueStreamWidget {
     const textMutedColor = documentStyle.getPropertyValue('--text-color-secondary');
 
     this.chartData = {
-      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
       datasets: [
         {
           label: 'Member',
           backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
           borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-          data: [65, 59, 80, 81, 56, 55, 40],
+          data: [65, 59, 80],
         },
         {
           label: 'Subscriber',
           backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
           borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-          data: [28, 48, 40, 19, 86, 27, 90],
+          data: [28, 48, 40],
         },
       ],
     };
