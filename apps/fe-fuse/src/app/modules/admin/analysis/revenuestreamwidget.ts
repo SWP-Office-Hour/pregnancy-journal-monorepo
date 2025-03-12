@@ -35,16 +35,16 @@ export class RevenueStreamWidget implements OnInit {
       labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
       datasets: [
         {
-          label: 'Member',
+          label: 'Tài khoản mua gói',
           backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
           borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-          data: chartData.memberData,
+          data: chartData.subscriberData,
         },
         {
-          label: 'Subscriber',
+          label: 'Tài khoản',
           backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
           borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-          data: chartData.subscriberData,
+          data: chartData.memberData,
         },
       ],
     };
