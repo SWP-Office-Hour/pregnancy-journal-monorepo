@@ -44,6 +44,7 @@
             <!-- Blog cover image -->
             <div class="relative aspect-video overflow-hidden">
               <img
+                *ngIf="blog.blog_cover !== ''"
                 [src]="blog.blog_cover"
                 [alt]="blog.title"
                 class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"

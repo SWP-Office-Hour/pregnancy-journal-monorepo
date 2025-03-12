@@ -61,6 +61,7 @@
         <!-- Featured image with max height -->
         <div class="mb-10 overflow-hidden rounded-xl shadow-lg">
           <img
+            *ngIf="blog.blog_cover !== ''"
             [src]="blog.blog_cover"
             [alt]="blog.title"
             class="h-auto max-h-[500px] w-full object-cover transition-transform duration-500 hover:scale-105"

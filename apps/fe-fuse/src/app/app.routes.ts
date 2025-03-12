@@ -12,11 +12,12 @@ import { CalendarComponent } from './modules/calendar/calendar.component';
 import { CalendarService } from './modules/calendar/calendar.service';
 import { ChangePasswordComponent } from './modules/change-password/change-password.component';
 import { PregnancyRecordViewComponent } from './modules/customer/pregnancy-record-view/pregnancy-record-view.component';
-import { PregnancyRecordComponent } from './modules/customer/pregnancy-record/pregnancy-record.component';
+import { pregnancyRecordRoutes } from './modules/customer/pregnancy-record/pregnancy-record.routes';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
 import { FeaturesComponent } from './modules/features/features.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
+import { MembershipDetailComponent } from './modules/membership-detail/membership-detail.component';
 import { MembershipComponent } from './modules/membership/membership.component';
 import { postRoutes } from './modules/post/post.routes';
 import { UserProfileComponent } from './modules/profile/user-profile.component';
@@ -148,7 +149,7 @@ export const appRoutes: Route[] = [
           { path: 'tracking', loadChildren: () => pregnancyTrackingRoutes },
           {
             path: 'record',
-            loadComponent: () => PregnancyRecordComponent,
+            loadChildren: () => pregnancyRecordRoutes,
           },
           {
             path: 'calendar',
@@ -167,6 +168,10 @@ export const appRoutes: Route[] = [
             path: 'membership',
             // loadChildren: () => membershipsRoute, CHƯA CODE của CUSTOMER
             loadComponent: () => MembershipComponent,
+          },
+          {
+            path: 'membership/:id',
+            loadComponent: () => MembershipDetailComponent,
           },
           {
             path: 'user-profile',

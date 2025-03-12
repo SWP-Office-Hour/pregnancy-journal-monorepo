@@ -31,6 +31,7 @@ export class BlogMasonryComponent implements OnInit {
     // Replace with your actual API call
     this.blogService.getBlogs(categoryId).subscribe((data) => {
       this.blogs = data.blogs;
+      console.log(this.blogs);
     });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, effect, inject, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, Router, RouterOutlet } from '@angular/router';
@@ -9,15 +9,17 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
-import { MessagesComponent } from 'app/layout/common/messages/messages.component';
 import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
 import { QuickChatComponent } from 'app/layout/common/quick-chat/quick-chat.component';
 // import { SearchComponent } from 'app/layout/common/search/search.component';
 // import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
 import { NgOptimizedImage } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
 import { UserComponent } from 'app/layout/common/user/user.component';
 import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { Subject, takeUntil } from 'rxjs';
+import { MembershipListComponent } from '../../../../common/buy-membership-dialog/buy-membership-dialog.component';
+import { membershipService } from '../../../../core/membership/membership.service';
 import { HomeNoteComponent } from '../../../common/home-note/home-note.component';
 
 @Component({
@@ -35,7 +37,7 @@ import { HomeNoteComponent } from '../../../common/home-note/home-note.component
     FuseFullscreenComponent,
     // SearchComponent,
     // ShortcutsComponent,
-    MessagesComponent,
+    // MessagesComponent,
     NotificationsComponent,
     UserComponent,
     RouterOutlet,
@@ -59,7 +61,15 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     private _navigationService: NavigationService,
     private _fuseMediaWatcherService: FuseMediaWatcherService,
     private _fuseNavigationService: FuseNavigationService,
-  ) {}
+    private dialog: MatDialog,
+  ) {
+    effect(() => {
+      console.log(this.buy_membership());
+      if (this.buy_membership() == true) {
+        this.openMembershipDialog();
+      }
+    });
+  }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
@@ -92,6 +102,8 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
     });
   }
 
+  buy_membership = inject(membershipService).buy_membership;
+
   /**
    * On destroy
    */
@@ -118,5 +130,13 @@ export class ModernLayoutComponent implements OnInit, OnDestroy {
       // Toggle the opened status
       navigation.toggle();
     }
+  }
+
+  openMembershipDialog(): void {
+    const dialogRef = this.dialog.open(MembershipListComponent);
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.buy_membership.set(false);
+    });
   }
 }
