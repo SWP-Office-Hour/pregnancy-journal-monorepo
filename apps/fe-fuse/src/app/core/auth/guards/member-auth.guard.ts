@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { CanActivateChildFn, CanActivateFn } from '@angular/router';
-import { tap } from 'rxjs';
+import { map } from 'rxjs';
 import { membershipService } from '../../membership/membership.service';
 import { UserService } from '../../user/user.service';
 
@@ -9,10 +9,11 @@ export const memberAuthGuard: CanActivateFn | CanActivateChildFn = (route, state
   return inject(UserService)
     .checkMember()
     .pipe(
-      tap((isMember) => {
-        if (!isMember) {
-          _membershipService.buy_membership.set(true);
-        }
+      map((isMember) => {
+        // if (!isMember) {
+        //   _membershipService.buy_membership.set(true);
+        //   return false;
+        // }
         return true;
       }),
     );
