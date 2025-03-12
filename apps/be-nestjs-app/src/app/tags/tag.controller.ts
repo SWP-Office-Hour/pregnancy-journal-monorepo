@@ -31,10 +31,10 @@ export class TagController {
     });
   }
 
-  @TsRestHandler(tagContract.getTagsByUser)
+  @TsRestHandler(tagContract.getTagsByChildId)
   handleGetTagsByUser(@Param('userId') userId: string) {
-    return tsRestHandler(tagContract.getTagsByUser, async () => {
-      const result = await this.tagService.findAllByUser(userId);
+    return tsRestHandler(tagContract.getTagsByChildId, async () => {
+      const result = await this.tagService.findAllByChildId(userId);
       return { status: 200, body: result };
     });
   }

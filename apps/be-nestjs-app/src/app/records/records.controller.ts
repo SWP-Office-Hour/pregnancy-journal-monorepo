@@ -15,7 +15,7 @@ export class RecordsController {
   handleCreateRecord(@Body() record: RecordCreateRequest, @Req() req: RequestWithJWT) {
     return tsRestHandler(recordContract.createRecord, async () => {
       const userId = (req.decoded_authorization as JwtPayload).user_id;
-      const result = await this.recordService.createRecord({ record, userId });
+      const result = await this.recordService.createRecord({ record, childId: userId });
       return {
         status: 200,
         body: result,
@@ -31,7 +31,7 @@ export class RecordsController {
         throw new UnauthorizedException('Unauthorized');
       }
       const id = request.decoded_authorization.user_id;
-      const record = await this.recordService.getRecordByUserId(id);
+      const record = await this.recordService.getRecordByChildId(id);
       return {
         status: 201,
         body: record,

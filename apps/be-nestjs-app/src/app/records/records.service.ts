@@ -1,19 +1,19 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { ChildService } from '../child/child.service';
+import { Child } from '../child/entities/child.entity';
 import { DatabaseService } from '../database/database.service';
 import { MediaService } from '../media/media.service';
 import { ReminderService } from '../reminder/reminder.service';
-import { UserEntity } from '../users/models/user.entity';
-import { UsersService } from '../users/users.service';
 import { TimeUtilsService } from '../utils/time/timeUtils.service';
-import { VisitRecordIncludeOtherTables } from './entities/record.entity';
+import { VisitRecordIncludeOtherTables, VisitRecordMetric } from './entities/record.entity';
 
 @Injectable()
 export class RecordsService {
   constructor(
     private readonly dataService: DatabaseService,
     private readonly timeUtilsService: TimeUtilsService,
-    private readonly userService: UsersService,
+    private readonly childService: ChildService,
     private readonly reminderService: ReminderService,
     private readonly mediaService: MediaService,
   ) {}
@@ -29,12 +29,12 @@ export class RecordsService {
    * @returns Promise<RecordResponse>
    * @throws NotFoundException
    */
-  async createRecord({ record, userId }: { record: RecordCreateRequest; userId: string }): Promise<RecordResponse> {
-    const user = await this.dataService.User.findUnique({
-      where: { user_id: userId },
+  async createRecord({ record, childId }: { record: RecordCreateRequest; childId: string }): Promise<RecordResponse> {
+    const child = await this.dataService.Child.findUnique({
+      where: { child_id: childId },
     });
 
-    if (!user) {
+    if (!child) {
       throw new NotFoundException('User not found');
     }
 
@@ -63,9 +63,9 @@ export class RecordsService {
         next_visit_doctor_date: record.next_visit_doctor_date,
         doctor_name: record.doctor_name,
         created_at: new Date(Date.now()),
-        user: {
+        child: {
           connect: {
-            user_id: userId,
+            child_id: child.child_id,
           },
         },
         hospital: {
@@ -85,7 +85,7 @@ export class RecordsService {
       const tag_id = await this.getTagIdByValue({
         value: data.value,
         metric_id: data.metric_id,
-        userExpectBirthDate: user.expected_birth_date,
+        userExpectBirthDate: child.expected_birth_date,
         visit_doctor_date: new Date(record.visit_doctor_date),
       });
 
@@ -103,7 +103,7 @@ export class RecordsService {
 
     // Create reminder
     await this.reminderService.createByNextVisitDoctorDate({
-      user_id: userId,
+      user_id: childId,
       visit_record_id: newRecord.visit_record_id,
       next_visit_doctor_date: record.next_visit_doctor_date,
     });
@@ -114,22 +114,22 @@ export class RecordsService {
 
   /**
    * Get all records by user ID and return formatted response
-   * @param userId
+   * @param childId
    * @returns Promise<{ total: number; data: RecordResponse[] }>
    * @throws NotFoundException
    * @async
    */
-  async getRecordByUserId(userId: string): Promise<{ total: number; data: RecordResponse[] }> {
-    const user: UserEntity | null = await this.dataService.User.findUnique({
-      where: { user_id: userId },
+  async getRecordByChildId(childId: string): Promise<{ total: number; data: RecordResponse[] }> {
+    const child = await this.dataService.Child.findUnique({
+      where: { child_id: childId },
     });
 
-    if (!user) {
+    if (!child) {
       throw new NotFoundException('User not found');
     }
 
     const records: VisitRecordIncludeOtherTables[] = await this.dataService.Record.findMany({
-      where: { user_id: userId },
+      where: { child_id: childId },
       include: {
         visit_record_metric: true,
         media: true,
@@ -144,7 +144,7 @@ export class RecordsService {
       return { total: 0, data: [] };
     }
 
-    const result = await this.formatRecord(records, user);
+    const result = await this.formatRecord(records, child);
 
     return {
       total: result.length,
@@ -162,18 +162,22 @@ export class RecordsService {
    * @async
    */
   async updateRecord(record: RecordUpdateRequest): Promise<RecordResponse> {
-    // Find existing record to get user ID
+    // Find existing record to get child ID
     const existingRecord = await this.dataService.Record.findUnique({
       where: { visit_record_id: record.visit_record_id },
-      select: { user_id: true },
+      select: { child_id: true },
     });
 
     if (!existingRecord) {
       throw new NotFoundException('Record not found');
     }
 
-    // Get user details (needed for metric updates)
-    const user = await this.userService.getUserById(existingRecord.user_id);
+    // Get child details (needed for metric updates)
+    const child = await this.childService.getChildById(existingRecord.child_id);
+
+    if (!child) {
+      throw new NotFoundException('User not found');
+    }
 
     // Verify hospital exists before connecting
     const hospital = await this.dataService.Hospital.findUnique({
@@ -204,13 +208,13 @@ export class RecordsService {
       await this.reminderService.updateByNextVisitDoctorDate({
         next_visit_doctor_date: record.next_visit_doctor_date,
         visit_record_id: record.visit_record_id,
-        user_id: newRecord.user_id,
+        user_id: child.user_id,
       });
     }
 
     // Update record metrics if provided
     if (record.data && record.data.length > 0) {
-      await this.updateRecordMetrics(record.visit_record_id, record.data, user.expected_birth_date, new Date(newRecord.visit_doctor_date));
+      await this.updateRecordMetrics(record.visit_record_id, record.data, child.expected_birth_date, new Date(newRecord.visit_doctor_date));
     }
 
     // Return formatted record
@@ -296,15 +300,15 @@ export class RecordsService {
       throw new NotFoundException('Record not found');
     }
 
-    const user = await this.dataService.User.findUnique({
-      where: { user_id: record.user_id },
+    const child = await this.dataService.Child.findUnique({
+      where: { child_id: record.child_id },
     });
 
-    if (!user) {
+    if (!child) {
       throw new NotFoundException('User not found');
     }
 
-    return await this.formatRecord([record], user);
+    return await this.formatRecord([record], child);
   }
 
   //================================================================================================
@@ -314,17 +318,17 @@ export class RecordsService {
   /**
    * Format records for response
    * @param records
-   * @param user
+   * @param child
    * @returns Promise<RecordResponse[]>
    * @async
    * @private
    */
-  private async formatRecord(records: VisitRecordIncludeOtherTables[], user: UserEntity): Promise<RecordResponse[]> {
+  private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child): Promise<RecordResponse[]> {
     return await Promise.all(
       records.map(async (record) => {
         // Calculate pregnancy week for this record
         const week = this.timeUtilsService.calculatePregnancyWeeks({
-          expectedBirthDate: user.expected_birth_date,
+          expectedBirthDate: child.expected_birth_date,
           visitDate: record.visit_doctor_date,
         });
 
@@ -431,7 +435,7 @@ export class RecordsService {
    * Updates record metrics data based on provided data and creates new record metrics if not found
    * @param visitRecordId Visit record ID
    * @param metricsData Array of metric data to update
-   * @param userExpectBirthDate User expected birthdate
+   * @param childExpectBirthDate User expected birthdate
    * @param visitDoctorDate Visit doctor date
    * @returns Promise<void>
    * @throws NotFoundException
@@ -441,7 +445,7 @@ export class RecordsService {
   private async updateRecordMetrics(
     visitRecordId: string,
     metricsData: Array<{ metric_id: string; value: number }>,
-    userExpectBirthDate: Date,
+    childExpectBirthDate: Date,
     visitDoctorDate: Date,
   ): Promise<void> {
     // Fetch all metrics at once to validate
@@ -456,7 +460,7 @@ export class RecordsService {
     }
 
     // Get existing record metrics to determine create vs update
-    const existingMetrics = await this.dataService.RecordMetric.findMany({
+    const existingMetrics: VisitRecordMetric[] = await this.dataService.RecordMetric.findMany({
       where: {
         visit_record_id: visitRecordId,
         metric_id: { in: metricIds },
@@ -471,7 +475,7 @@ export class RecordsService {
       const tagId = await this.getTagIdByValue({
         value: metricData.value,
         metric_id: metricData.metric_id,
-        userExpectBirthDate: userExpectBirthDate,
+        userExpectBirthDate: childExpectBirthDate,
         visit_doctor_date: visitDoctorDate,
       });
 

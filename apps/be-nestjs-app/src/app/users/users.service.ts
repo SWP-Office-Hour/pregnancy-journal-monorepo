@@ -143,7 +143,6 @@ export class UsersService {
         ward: data.ward,
         address: data.address,
         role: UserRole.MEMBER,
-        expected_birth_date: data.expected_birth_date,
         status: Status.ACTIVE,
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
@@ -179,6 +178,18 @@ export class UsersService {
     });
     //create access token and refresh token then return
 
+    const firstChild = await this.databaseService.Child.create({
+      data: {
+        name: 'Con đầu lòng',
+        expected_birth_date: new Date(data.expected_birth_date),
+        user: {
+          connect: {
+            user_id: result.user_id,
+          },
+        },
+      },
+    });
+
     const hasMembership = await this.checkAccountMembership(result.user_id);
 
     return {
@@ -189,7 +200,7 @@ export class UsersService {
         name: result.name,
         role: result.role,
         email: result.email,
-        expected_birth_date: result.expected_birth_date.toISOString(),
+        expected_birth_date: firstChild.expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -201,6 +212,9 @@ export class UsersService {
       where: {
         email,
         password,
+      },
+      include: {
+        child: true,
       },
     });
 
@@ -229,7 +243,7 @@ export class UsersService {
       },
     });
     //create access token and refresh token then return
-
+    const child = user.child;
     const hasMembership = await this.checkAccountMembership(user.user_id);
     return {
       access_token,
@@ -239,7 +253,7 @@ export class UsersService {
         name: user.name,
         role: user.role,
         email: user.email,
-        expected_birth_date: user.expected_birth_date.toISOString(),
+        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -249,6 +263,9 @@ export class UsersService {
     const user = await this.databaseService.User.findFirst({
       where: {
         user_id: userId,
+      },
+      include: {
+        child: true,
       },
     });
 
@@ -260,6 +277,7 @@ export class UsersService {
 
     //create access token and refresh token then return
     const hasMembership = await this.checkAccountMembership(user.user_id);
+    const child = user.child;
     return {
       access_token,
       // refresh_token,
@@ -268,7 +286,7 @@ export class UsersService {
         name: user.name,
         role: user.role,
         email: user.email,
-        expected_birth_date: user.expected_birth_date.toISOString(),
+        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -396,12 +414,16 @@ export class UsersService {
         password: data.password,
         updated_at: new Date(Date.now()),
       },
+      include: {
+        child: true,
+      },
     });
 
     const access_token = await this.signAccessToken({ user_id: userAfter.user_id, role: userAfter.role });
 
     const hasMembership = await this.checkAccountMembership(userAfter.user_id);
     //create access token and refresh token then return
+    const child = userAfter.child;
     return {
       access_token,
       // refresh_token,
@@ -410,7 +432,7 @@ export class UsersService {
         name: userAfter.name,
         role: userAfter.role,
         email: userAfter.email,
-        expected_birth_date: userAfter.expected_birth_date.toISOString(),
+        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -429,7 +451,6 @@ export class UsersService {
         address: userCreateRequest.address,
         role: userCreateRequest.role,
         status: userCreateRequest.status,
-        expected_birth_date: new Date(userCreateRequest.expected_birth_date),
         created_at: new Date(Date.now()),
         updated_at: new Date(Date.now()),
       },
@@ -484,7 +505,6 @@ export class UsersService {
       district: user.district,
       ward: user.ward,
       address: user.address,
-      expected_birth_date: user.expected_birth_date,
       membershipId: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
     };
   }

@@ -19,9 +19,9 @@ export class TagService {
     return this.databaseService.Tag.findMany();
   }
 
-  async findAllByUser(userId: string): Promise<TagResponse[]> {
-    const user = await this.databaseService.User.findUnique({
-      where: { user_id: userId },
+  async findAllByChildId(childId: string): Promise<TagResponse[]> {
+    const child = await this.databaseService.Child.findUnique({
+      where: { child_id: childId },
       include: {
         visit_record: {
           orderBy: {
@@ -34,10 +34,10 @@ export class TagService {
       },
     });
 
-    if (!user) {
+    if (!child) {
       throw new NotFoundException('User not found');
     }
-    const lastRecord = user.visit_record[user.visit_record.length - 1];
+    const lastRecord = child.visit_record[child.visit_record.length - 1];
 
     if (!lastRecord) {
       return [];

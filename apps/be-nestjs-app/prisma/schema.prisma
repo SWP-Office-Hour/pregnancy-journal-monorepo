@@ -132,28 +132,28 @@ model token {
 }
 
 model user {
-  user_id             String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
-  email               String            @db.VarChar(255)
-  password            String            @db.VarChar(255)
-  expected_birth_date DateTime          @db.Date
-  name                String            @db.VarChar(255)
-  phone               String            @db.VarChar(255)
-  province            String            @db.VarChar(255)
-  district            String            @db.VarChar(255)
-  ward                String            @db.VarChar(255)
-  address             String            @db.VarChar(255)
-  status              Int
-  created_at          DateTime          @db.Date
-  updated_at          DateTime          @db.Date
-  role                Int
-  comment             comment[]
-  note                note[]
-  payment_history     payment_history[]
-  post                post[]
-  reaction            reaction[]
-  reminder            reminder[]
-  token               token[]
-  visit_record        visit_record[]
+  user_id         String            @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  avatar          String?           @db.LongText
+  email           String            @db.VarChar(255)
+  password        String            @db.VarChar(255)
+  name            String            @db.VarChar(255)
+  phone           String            @db.VarChar(255)
+  province        String            @db.VarChar(255)
+  district        String            @db.VarChar(255)
+  ward            String            @db.VarChar(255)
+  address         String            @db.VarChar(255)
+  status          Int
+  created_at      DateTime          @db.Date
+  updated_at      DateTime          @db.Date
+  role            Int
+  child           child[]
+  comment         comment[]
+  note            note[]
+  payment_history payment_history[]
+  post            post[]
+  reaction        reaction[]
+  reminder        reminder[]
+  token           token[]
 }
 
 model comment {
@@ -238,15 +238,15 @@ model visit_record {
   doctor_name            String                @db.VarChar(510)
   hospital_id            String                @db.Char(36)
   created_at             DateTime              @db.DateTime(0)
-  user_id                String                @db.Char(36)
+  child_id               String                @db.Char(36)
   media                  media[]
   reminder               reminder[]
+  child                  child                 @relation(fields: [child_id], references: [child_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_child_id_Child_child_id")
   hospital               hospital              @relation(fields: [hospital_id], references: [hospital_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_hospital_id_Hospital_id")
-  user                   user                  @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Visit_Record_user_id_User_id")
   visit_record_metric    visit_record_metric[]
 
   @@index([hospital_id], map: "FK_Visit_Record_hospital_id_Hospital_id")
-  @@index([user_id], map: "FK_Visit_Record_user_id_User_id")
+  @@index([child_id], map: "FK_Visit_Record_user_id_Child_id")
 }
 
 model visit_record_metric {
@@ -264,4 +264,16 @@ model visit_record_metric {
   @@index([metric_id], map: "FK_Visit_Record_Metric_metric_id_Metric_id")
   @@index([tag_id], map: "FK_Visit_Record_Metric_tag_id_Tag_id")
   @@index([visit_record_id], map: "FK_Visit_Record_Metric_visit_record_id_Visit_Record_id")
+}
+
+model child {
+  child_id            String         @id @default(dbgenerated("(uuid())")) @db.Char(36)
+  expected_birth_date DateTime       @db.Date
+  name                String         @db.VarChar(100)
+  gender              Int?
+  user_id             String         @db.Char(36)
+  user                user           @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_Child_user_id_User_user_id")
+  visit_record        visit_record[]
+
+  @@index([user_id], map: "FK_Child_user_id_User_user_id")
 }

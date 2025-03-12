@@ -66,3 +66,10 @@ export enum PayMethod {
 }
 
 export const payMethodSchema = z.nativeEnum(PayMethod);
+
+export enum Gender {
+  FEMALE = 0,
+  MALE = 1,
+}
+
+export const genderSchema = z.nativeEnum(Gender);

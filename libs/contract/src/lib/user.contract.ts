@@ -21,10 +21,15 @@ export const baseUserSchema = z.object({
   status: userStatusEnumSchema,
 });
 
+export const childSchema = z.object({
+  child_id: z.string(),
+  name: z.string(),
+  expected_birth_date: z.date(),
+  gender: z.string(),
+});
 // User response schema
 export const userResponseSchema = baseUserSchema.extend({
   user_id: z.string(),
-  expected_birth_date: z.date(),
   membershipId: z.string().optional(),
   created_at: z.date(),
 });
@@ -33,7 +38,6 @@ export const userResponseSchema = baseUserSchema.extend({
 const userCreateRequestSchema = userResponseSchema
   .extend({
     password: z.string(), // Add password field
-    expected_birth_date: z.string().datetime(), // Change expected_birth_date to string
   })
   .omit({ user_id: true, created_at: true }); // Omit fields not needed for creation
 
@@ -41,7 +45,6 @@ const userCreateRequestSchema = userResponseSchema
 const userUpdateRequestSchema = baseUserSchema
   .partial()
   .extend({
-    expected_birth_date: z.string().datetime().optional(), // Change expected_birth_date to string and make it optional
     password: z.string().optional(), // Add password field and make it optional
     user_id: z.string().optional(), // Add user_id field
   })
@@ -49,11 +52,7 @@ const userUpdateRequestSchema = baseUserSchema
 // Make all fields optional for updates
 
 //user profile
-const userProfileSchema = userResponseSchema
-  .extend({
-    expected_birth_date: z.date(), // Change expected_birth_date to string
-  })
-  .omit({ status: true, created_at: true, role: true, user_id: true });
+const userProfileSchema = userResponseSchema.omit({ status: true, created_at: true, role: true, user_id: true });
 
 //user profile update
 const userProfileUpdateSchema = userProfileSchema
@@ -61,8 +60,7 @@ const userProfileUpdateSchema = userProfileSchema
     membershipId: true,
     email: true,
   })
-  .partial()
-  .extend({ expected_birth_date: z.string().datetime().optional() });
+  .partial();
 
 // const test: UserTypeFromContract;
 
