@@ -1,0 +1,46 @@
+/* Enhance indicators */
+::ng-deep .tailwind-carousel .p-carousel-indicators {
+  @apply mt-4 flex justify-center gap-2;
+}
+
+::ng-deep .tailwind-carousel .p-carousel-indicators .p-carousel-indicator button {
+  @apply h-2.5 w-2.5 rounded-full bg-gray-300 transition-all duration-300 dark:bg-gray-600;
+}
+
+::ng-deep .tailwind-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+  @apply bg-primary-500 w-5 scale-110;
+}
+
+/* Add smooth transitions between slides */
+::ng-deep .tailwind-carousel .p-carousel-items-container {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+::ng-deep .tailwind-carousel .p-carousel-item {
+  @apply transition-opacity duration-300;
+}
+
+/* Improve navigation buttons with hover effects */
+::ng-deep .tailwind-carousel .p-carousel-next,
+::ng-deep .tailwind-carousel .p-carousel-prev {
+  @apply text-primary-500 dark:text-primary-400 h-10 w-10 rounded-full bg-white bg-opacity-80 shadow-sm transition-all duration-200 dark:bg-gray-800 dark:bg-opacity-60;
+  @apply hover:bg-primary-50 hover:scale-105 hover:shadow-md dark:hover:bg-gray-700;
+  @apply focus:ring-primary-300 dark:focus:ring-primary-800 focus:outline-none focus:ring-2;
+}
+
+/* Add to your component CSS */
+:host {
+  display: block;
+  animation: dialogEntrance 0.4s ease-out;
+}
+
+@keyframes dialogEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
