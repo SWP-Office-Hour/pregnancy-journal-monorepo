@@ -7,7 +7,7 @@
   --fill-active: #ec638e;
   --ball: #ec638e;
   --ball-active: #fff;
-  --shadow: #{rgba(#00093d, 0.25)};
+  --shadow: rgba(0, 9, 61, 0.25);
   cursor: pointer;
   position: relative;
   transform: scale(var(--s, 1)) translateZ(0);

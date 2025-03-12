@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { HospitalResponse, MediaResponse, MetricResponseType, Status } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -39,7 +39,7 @@ import { PregnancyRecordService } from '../pregnancy-record.service';
   styleUrl: './record-form.component.css',
 })
 export class RecordFormComponent {
-  @Input() data: RecordResponse;
+  // @Input() data: RecordResponse;
   protected images: MediaResponse[];
   protected recordForm: FormGroup;
   protected hospitals: HospitalResponse[];
