@@ -55,53 +55,49 @@ export class RecordsService {
       }
     }
 
-    const newRecord = await this.dataService.$transaction(async (prisma) => {
-      const createdRecord = await prisma.visit_record.create({
-        data: {
-          visit_doctor_date: record.visit_doctor_date,
-          next_visit_doctor_date: record.next_visit_doctor_date,
-          doctor_name: record.doctor_name,
-          created_at: new Date(Date.now()),
-          user: {
-            connect: {
-              user_id: userId,
-            },
-          },
-          hospital: {
-            connect: {
-              hospital_id: record.hospital_id,
-            },
+    const newRecord = await this.dataService.Record.create({
+      data: {
+        visit_doctor_date: record.visit_doctor_date,
+        next_visit_doctor_date: record.next_visit_doctor_date,
+        doctor_name: record.doctor_name,
+        created_at: new Date(Date.now()),
+        user: {
+          connect: {
+            user_id: userId,
           },
         },
-        include: {
-          media: true,
-          hospital: true,
+        hospital: {
+          connect: {
+            hospital_id: record.hospital_id,
+          },
         },
+      },
+      include: {
+        media: true,
+        hospital: true,
+      },
+    });
+
+    // Process metrics sequentially to avoid any race conditions
+    for (const data of record.data) {
+      const tag_id = await this.getTagIdByValue({
+        value: data.value,
+        metric_id: data.metric_id,
+        userExpectBirthDate: user.expected_birth_date,
+        visit_doctor_date: new Date(record.visit_doctor_date),
       });
 
-      // Process metrics sequentially to avoid any race conditions
-      for (const data of record.data) {
-        const tag_id = await this.getTagIdByValue({
+      await this.dataService.RecordMetric.create({
+        data: {
           value: data.value,
+          created_at: new Date(Date.now()),
+          updated_at: new Date(Date.now()),
           metric_id: data.metric_id,
-          userExpectBirthDate: user.expected_birth_date,
-          visit_doctor_date: new Date(record.visit_doctor_date),
-        });
-
-        await prisma.visit_record_metric.create({
-          data: {
-            value: data.value,
-            created_at: new Date(Date.now()),
-            updated_at: new Date(Date.now()),
-            metric_id: data.metric_id,
-            visit_record_id: createdRecord.visit_record_id,
-            tag_id: tag_id ? tag_id : null,
-          },
-        });
-      }
-
-      return createdRecord;
-    });
+          visit_record_id: newRecord.visit_record_id,
+          tag_id: tag_id ? tag_id : null,
+        },
+      });
+    }
 
     // Create reminder
     await this.reminderService.createByNextVisitDoctorDate({
@@ -228,24 +224,21 @@ export class RecordsService {
    * @async
    */
   async deleteRecord(recordId: string) {
-    await this.dataService.$transaction(async (prisma) => {
-      // Delete related records first (foreign key constraints)
-      await prisma.visit_record_metric.deleteMany({
-        where: { visit_record_id: recordId },
-      });
+    await this.dataService.RecordMetric.deleteMany({
+      where: { visit_record_id: recordId },
+    });
 
-      await prisma.media.deleteMany({
-        where: { visit_record_id: recordId },
-      });
+    await this.dataService.Media.deleteMany({
+      where: { visit_record_id: recordId },
+    });
 
-      await prisma.reminder.deleteMany({
-        where: { visit_record_id: recordId },
-      });
+    await this.dataService.Reminder.deleteMany({
+      where: { visit_record_id: recordId },
+    });
 
-      // Delete the main record last
-      await prisma.visit_record.delete({
-        where: { visit_record_id: recordId },
-      });
+    // Delete the main record last
+    await this.dataService.Record.delete({
+      where: { visit_record_id: recordId },
     });
     return { message: 'Record deleted' };
   }
