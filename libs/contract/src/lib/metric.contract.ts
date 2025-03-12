@@ -96,7 +96,7 @@ export const metricContract = c.router({
       id: z.string(),
     }),
     responses: {
-      204: z.object({}),
+      204: metricResponseSchema,
     },
   },
 });
