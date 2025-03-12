@@ -51,6 +51,7 @@ export class CalendarComponent {
     this.eventForm = this.fb.group({
       title: ['', [Validators.required]],
       color: ['', [Validators.required]],
+      content: [''],
     });
     this.events = this._calendarService.meetings.value;
     this.status = this._calendarService.meetings.status;
@@ -72,6 +73,7 @@ export class CalendarComponent {
   showEventModal: boolean = false;
   newEvent: ReminderResponse = {
     title: '',
+    content: '',
     remind_date: new Date(),
     color: ReminderColor.USER_CREATED_EVENT_COLOR,
   };
@@ -84,8 +86,9 @@ export class CalendarComponent {
   ];
   eventForm: FormGroup;
   isEditMode: boolean = false;
+  isHovering: boolean = false;
   // Add a property to track the event being edited
-  editingEvent: ReminderResponse | null = null;
+  editingEvent: ReminderResponse = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_EVENT };
 
   generateCalendarDays() {
     const year = this.currentDate.getFullYear();
@@ -138,10 +141,6 @@ export class CalendarComponent {
     if (!date) return [];
     // Find existing events
     return !date ? [] : this.events()?.filter((event) => this.getDateKey(event.remind_date) === this.getDateKey(date));
-  }
-
-  checkEventByDate({ date, event }: { date: Date; event: ReminderResponse }): Boolean {
-    return this.getDateKey(event.remind_date) === this.getDateKey(date);
   }
 
   // Create a unique string key for a date (without time)
@@ -293,20 +292,8 @@ export class CalendarComponent {
           type: ReminderType.USER_CREATED_EVENT,
         };
         this._calendarService.createReminder(newEvent).subscribe(() => {});
-        // Add the new event to the events array
-        // this.events.update((events) => {
-        //   events.push(newEvent);
-        //   return events;
-        // });
-        console.log(this.events());
-        // No need to remove the theme from the themes list
       } else {
-        // Normal event moving between dates
-        // Get the dragged event
-        const draggedEvent = event.previousContainer.data[event.previousIndex];
-
         transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-
         // Update the date of the transferred event
         event.container.data[event.currentIndex].remind_date = new Date(targetDate);
       }
@@ -352,24 +339,46 @@ export class CalendarComponent {
   }
 
   // Add these methods for edit and delete functionality
-
   editEvent(event: ReminderResponse) {
-    const eventUpdate: ReminderUpdateRequest = {
-      title: event.title,
-      content: event.content,
-      remind_date: event.remind_date.toLocaleDateString('en-CA'),
-      color: event.color,
-      reminder_id: event.reminder_id,
-    };
-
-    this._calendarService.updateReminder(eventUpdate).subscribe(() => {});
+    // Prepare the form with the selected event
+    this.newEvent = { ...event };
     this.isEditMode = true;
+    this.editingEvent = event; // Store a reference to the edited event
 
-    // Open the modal for editing
-    this.showEventModal = true;
+    // Set a timeout before showing the modal for a smoother effect
+    setTimeout(() => {
+      this.showEventModal = true;
+    }, 10);
+  }
+
+  updateEvent() {
+    //store the updated event
+    this.editingEvent.title = this.newEvent.title;
+    this.editingEvent.content = this.newEvent.content;
+    this.editingEvent.color = this.newEvent.color;
+
+    //convert to ReminderUpdateRequest
+    const reminderUpdateRequest: ReminderUpdateRequest = {
+      reminder_id: this.editingEvent.reminder_id,
+      title: this.editingEvent.title,
+      content: this.editingEvent.content,
+      remind_date: new Date(this.editingEvent.remind_date).toLocaleDateString('en-CA'),
+      color: this.editingEvent.color,
+    };
+    console.log(this.events());
+    console.log(reminderUpdateRequest);
+    this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {});
+    console.log(this.events());
+    //close modal
+    this.showEventModal = false;
+
+    //reset form
+    this.eventForm.reset();
   }
 
   deleteEvent(event: ReminderResponse) {
     this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {});
   }
+
+  protected readonly ReminderType = ReminderType;
 }
