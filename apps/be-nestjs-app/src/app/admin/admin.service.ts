@@ -42,8 +42,21 @@ export class AdminService {
     });
 
     // Calculate subscriber metrics
-    const totalSubscribers = totalUsers.filter((user) => this.usersService.checkAccountMembership(user.user_id)).length;
-    const currentMonthSubscribers = currentMonthUsers.filter((user) => this.usersService.checkAccountMembership(user.user_id)).length;
+    const totalSubscribers = totalPayments.filter((payment) => payment.expired_at && new Date(payment.expired_at) > new Date()).length;
+    // Get the first day of the current month
+    const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
+
+    // Calculate new subscribers for the current month
+    const currentMonthSubscribers = totalPayments.filter((payment) => {
+      const paymentDate = new Date(payment.created_at);
+      return (
+        paymentDate >= firstDayOfMonth &&
+        paymentDate.getMonth() === currentMonth &&
+        paymentDate.getFullYear() === currentYear &&
+        payment.expired_at &&
+        new Date(payment.expired_at) > new Date()
+      );
+    }).length;
 
     // Calculate package purchase metrics
     const totalPackages = totalPayments.length;
