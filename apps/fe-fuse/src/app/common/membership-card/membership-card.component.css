@@ -1,0 +1,56 @@
+:host {
+  display: block;
+  --primary-color: #6366f1; /* Indigo color, adjust to match your theme */
+  --primary-rgb: 99, 102, 241;
+  --border-color-normal: #e5e7eb; /* Default border color */
+}
+
+:host-context(.dark) {
+  --border-color-normal: #374151; /* Dark mode border color */
+}
+
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* Special animation for the save badge */
+:host .savings-badge {
+  position: relative;
+  overflow: hidden;
+}
+
+:host .savings-badge::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* Smooth hover effect */
+:host .hover-scale {
+  transition: transform 0.3s ease;
+}
+
+:host .hover-scale:hover {
+  transform: translateY(-5px);
+}

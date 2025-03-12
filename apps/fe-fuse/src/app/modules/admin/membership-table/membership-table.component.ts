@@ -15,7 +15,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
+import { Membership, membershipDay, Status } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -245,7 +245,10 @@ export class MembershipTableComponent implements OnInit {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(membership),
+        body: JSON.stringify({
+          ...membership,
+          duration_days: membershipDay.YEARLY,
+        }),
       });
 
       if (!response.ok) {

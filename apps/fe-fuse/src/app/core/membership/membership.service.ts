@@ -65,12 +65,29 @@ export class membershipService {
   }
 
   getDurationLabel(duration: membershipDay): string {
-    return duration === membershipDay.MONTHLY ? 'monthly' : 'yearly';
+    const label = 'Custom';
+    if (duration === membershipDay.MONTHLY) {
+      return 'Monthly';
+    }
+    if (duration === membershipDay.YEARLY) {
+      return 'Yearly';
+    }
+    return label;
   }
 
   getSavingsPercentage(monthlyPrice: number, yearlyPrice: number): number {
     const monthlyYearTotal = monthlyPrice * 12;
     const savings = ((monthlyYearTotal - yearlyPrice) / monthlyYearTotal) * 100;
     return Math.round(savings);
+  }
+
+  getBadgeClass(duration: membershipDay): string {
+    if (duration === membershipDay.MONTHLY) {
+      return 'TIÊU CHUẨN';
+    }
+    if (duration === membershipDay.YEARLY) {
+      return 'TIẾT KIỆM';
+    }
+    return 'DÙNG THỬ';
   }
 }
