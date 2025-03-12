@@ -4,7 +4,7 @@ import { DashboardPaymentType, DashboardType } from '@pregnancy-journal-monorepo
 import { ChartModule } from 'primeng/chart';
 
 @Component({
-  selector: 'app-chart-combo',
+  selector: 'app-chart-member-combo',
   template: `<div class="card">
     <div class="mb-4 text-2xl font-semibold">thống kê tiền và gói bán theo tháng</div>
     <p-chart type="line" [data]="data" [options]="options" class="h-80" />
@@ -12,7 +12,7 @@ import { ChartModule } from 'primeng/chart';
   standalone: true,
   imports: [ChartModule],
 })
-export class ChartCombo implements OnInit {
+export class MembershipAnalysis implements OnInit {
   data: any;
   @Input() dashboardResource: DashboardType;
   options: any;
@@ -36,13 +36,12 @@ export class ChartCombo implements OnInit {
         labels: ['Th1', 'Th2', 'Th3', 'Th4', 'Th5', 'Th6', 'Th7', 'Th8', 'Th9', 'Th10', 'Th11', 'Th12'],
         datasets: [
           {
-            type: 'line',
-            label: 'Tổng thu nhập hàng tháng',
-            borderColor: documentStyle.getPropertyValue('--p-orange-500'),
+            type: 'bar',
+            label: 'Số gói đã bán được hàng tháng',
+            backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
+            data: payment.membership,
+            borderColor: 'white',
             borderWidth: 2,
-            fill: false,
-            tension: 0.4,
-            data: payment.payment.map((item) => item / 10000),
           },
         ],
       };

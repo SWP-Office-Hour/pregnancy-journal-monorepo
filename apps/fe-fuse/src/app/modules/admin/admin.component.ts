@@ -11,6 +11,7 @@ import { DashboardType } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from './admin.service';
+import { MembershipAnalysis } from './analysis/membershipAnalysis';
 import { ChartCombo } from './analysis/paymentAnalysis';
 import { RevenueStreamWidget } from './analysis/revenuestreamwidget';
 import { StatsWidget } from './statswidget';
@@ -31,6 +32,7 @@ import { StatsWidget } from './statswidget';
     RevenueStreamWidget,
     CommonModule,
     ChartCombo,
+    MembershipAnalysis,
   ],
 })
 export class AdminComponent implements OnInit, OnDestroy {

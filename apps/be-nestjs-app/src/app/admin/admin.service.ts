@@ -22,7 +22,7 @@ export class AdminService {
   }
 
   async getDashboardOverview(): Promise<DashboardOverviewType> {
-    const users = await this.usersService.users();
+    const totalUsers = await this.usersService.users();
 
     // Get all successful payments
     const totalPayments = await this.databaseService.Payment.findMany({
@@ -31,18 +31,18 @@ export class AdminService {
       },
     });
 
-    // Get current month users and payments
+    // Get current month totalUsers and payments
     const currentDate = new Date();
     const currentMonth = currentDate.getMonth();
     const currentYear = currentDate.getFullYear();
 
-    const currentMonthUsers = users.filter((user) => {
+    const currentMonthUsers = totalUsers.filter((user) => {
       const createDate = new Date(user.created_at);
       return createDate.getMonth() === currentMonth && createDate.getFullYear() === currentYear;
     });
 
     // Calculate subscriber metrics
-    const totalSubscribers = users.filter((user) => this.usersService.checkAccountMembership(user.user_id)).length;
+    const totalSubscribers = totalUsers.filter((user) => this.usersService.checkAccountMembership(user.user_id)).length;
     const currentMonthSubscribers = currentMonthUsers.filter((user) => this.usersService.checkAccountMembership(user.user_id)).length;
 
     // Calculate package purchase metrics
@@ -65,7 +65,7 @@ export class AdminService {
       data: [
         {
           label: 'Total Users',
-          total: users.length,
+          total: totalUsers.length,
           currentMonth: currentMonthUsers.length,
         },
         {
