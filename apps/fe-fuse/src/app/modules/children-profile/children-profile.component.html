@@ -1,0 +1,116 @@
+<div class="flex min-h-screen w-full items-start justify-center bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
+  <div class="w-full max-w-md">
+    <p-toast position="top-right"></p-toast>
+
+    <p-card styleClass="shadow-lg">
+      <ng-template pTemplate="header">
+        <div class="bg-gradient-to-r from-pink-100 to-purple-100 py-5 text-center">
+          <h1 class="text-2xl font-bold text-gray-800">Thêm hồ sơ em bé</h1>
+          <p class="mt-2 text-gray-600">Điền thông tin em bé của bạn</p>
+        </div>
+      </ng-template>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Baby name field -->
+        <div class="form-group">
+          <label for="babyName" class="mb-1 block text-sm font-medium text-gray-700">Tên bé</label>
+          <div class="p-input-icon-right w-full">
+            <i class="pi pi-user" [ngClass]="{ 'text-pink-500': !isFieldInvalid('babyName'), 'text-red-500': isFieldInvalid('babyName') }"></i>
+            <input
+              type="text"
+              id="babyName"
+              pInputText
+              formControlName="babyName"
+              placeholder="Nhập tên của bé"
+              class="w-full p-3"
+              [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('babyName') }"
+            />
+          </div>
+          <small *ngIf="isFieldInvalid('babyName')" class="p-error mt-1 block">
+            {{ getErrorMessage('babyName') }}
+          </small>
+        </div>
+
+        <!-- Expected birth date field -->
+        <div class="form-group">
+          <label for="expectedBirthDate" class="mb-1 block text-sm font-medium text-gray-700">Ngày dự sinh</label>
+          <p-calendar
+            id="expectedBirthDate"
+            formControlName="expectedBirthDate"
+            [showIcon]="true"
+            [minDate]="today"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Chọn ngày dự sinh"
+            [styleClass]="styleClass('expectedBirthDate')"
+            [inputStyleClass]="'w-full'"
+          ></p-calendar>
+          <small *ngIf="isFieldInvalid('expectedBirthDate')" class="p-error mt-1 block">
+            {{ getErrorMessage('expectedBirthDate') }}
+          </small>
+        </div>
+
+        <!-- Gender field -->
+        <div class="form-group">
+          <label for="gender" class="mb-1 block text-sm font-medium text-gray-700">Giới tính</label>
+          <p-dropdown
+            id="gender"
+            formControlName="gender"
+            [options]="genders"
+            optionLabel="name"
+            placeholder="Chọn giới tính"
+            [styleClass]="styleClass('gender')"
+          ></p-dropdown>
+          <small *ngIf="isFieldInvalid('gender')" class="p-error mt-1 block">
+            {{ getErrorMessage('gender') }}
+          </small>
+        </div>
+
+        <!-- Submit button -->
+        <div class="flex justify-center pt-4">
+          <button
+            pButton
+            type="submit"
+            label="Lưu thông tin"
+            class="p-button-rounded p-button-lg w-full"
+            [ngClass]="{
+              'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600': profileForm.valid,
+              'cursor-not-allowed bg-gray-300': !profileForm.valid,
+            }"
+            [disabled]="!profileForm.valid"
+          ></button>
+        </div>
+      </form>
+
+      <ng-template pTemplate="footer">
+        <div class="flex justify-center gap-4 text-sm text-gray-500">
+          <div class="flex items-center gap-1">
+            <i class="pi pi-info-circle"></i>
+            <span>Thông tin bảo mật</span>
+          </div>
+          <div class="flex items-center gap-1">
+            <i class="pi pi-lock"></i>
+            <span>Dữ liệu được mã hóa</span>
+          </div>
+        </div>
+      </ng-template>
+    </p-card>
+
+    <!-- Gender icons for visual context -->
+    <div class="mt-8 flex justify-center space-x-8">
+      <div class="flex flex-col items-center">
+        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
+          <i class="pi pi-mars text-xl text-blue-500"></i>
+        </div>
+        <span class="mt-2 text-sm text-gray-600">Nam</span>
+      </div>
+
+      <div class="flex flex-col items-center">
+        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-100">
+          <i class="pi pi-venus text-xl text-pink-500"></i>
+        </div>
+        <span class="mt-2 text-sm text-gray-600">Nữ</span>
+      </div>
+    </div>
+  </div>
+</div>
