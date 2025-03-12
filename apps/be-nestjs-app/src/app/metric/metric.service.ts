@@ -1,6 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { MetricCreateRequestType, MetricResponseType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
-import { PrismaClient } from '@prisma/client';
 import { DatabaseService } from '../database/database.service';
 import { TagService } from '../tags/tag.service';
 
@@ -165,22 +164,18 @@ export class MetricService {
   }
 
   async remove(id: string) {
-    await this.findOne(id);
-
-    const deleteStandard = this.databaseService.Standard.deleteMany({
+    const deleted = await this.findOne(id);
+    await this.databaseService.Standard.deleteMany({
       where: {
         metric_id: id,
       },
     });
-
-    const deleteMetric = this.databaseService.Metric.delete({
+    await this.databaseService.Metric.delete({
       where: {
         metric_id: id,
       },
     });
-
-    const prima = new PrismaClient();
-    return prima.$transaction([deleteStandard, deleteMetric]);
+    return deleted;
   }
 
   async findByMetricIdAndWeek({ metricId, week }: { metricId: string; week: number }) {
