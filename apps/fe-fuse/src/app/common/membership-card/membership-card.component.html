@@ -1,0 +1,26 @@
+<div class="overflow-hidden rounded-lg border shadow-md transition-all duration-200 hover:shadow-xl" [class.border-primary]="isYearly">
+  @if (isYearly && savingsPercentage > 0) {
+    <div class="bg-primary py-1 text-center text-white">Save {{ savingsPercentage }}% with annual billing</div>
+  }
+
+  <div class="p-6">
+    <h2 class="mb-2 text-xl font-bold">{{ membership.title }}</h2>
+    <div class="mb-4">
+      <span class="text-3xl font-bold">${{ membership.price }}</span>
+      <span class="text-gray-600">/{{ getDurationLabel(membership.duration_days) }}</span>
+    </div>
+
+    <p class="mb-4 text-gray-600">{{ membership.description }}</p>
+
+    <div class="mb-6 rounded-md bg-gray-50 p-3">
+      <p class="text-sm">
+        <span class="font-medium">Duration:</span>
+        {{ membership.duration_days }} days
+      </p>
+    </div>
+
+    <button class="bg-primary hover:bg-primary-dark w-full rounded-md px-4 py-2 text-white transition-colors" (click)="onSelect()">
+      Select Plan
+    </button>
+  </div>
+</div>

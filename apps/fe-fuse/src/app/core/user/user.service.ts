@@ -53,4 +53,12 @@ export class UserService {
       }),
     );
   }
+
+  checkMember() {
+    return this._user.pipe(
+      map((user: User) => {
+        return user.has_membership == true;
+      }),
+    );
+  }
 }

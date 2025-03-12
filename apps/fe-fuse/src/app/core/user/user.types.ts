@@ -9,6 +9,7 @@ export interface User {
   status?: UserStatus;
   onlineStatus?: string;
   expected_birth_date?: string;
+  has_membership?: boolean;
 }
 
 //HOÀNG TRY TO FIX BUT DON'T UNDERSTAND

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { Injectable, signal } from '@angular/core';
+import { membershipDay, membershipResponse, PaymentCreateRequestType, PaymentUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { AuthService } from '../../core/auth/auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class membershipService {
@@ -51,5 +52,25 @@ export class membershipService {
     });
     console.log(response);
     return response.json();
+  }
+
+  public buy_membership = signal<boolean>(false);
+
+  getMemberships(): Observable<membershipResponse[]> {
+    return this._httpClient.get<membershipResponse[]>(`${environment.apiUrl}memberships`);
+  }
+
+  getMembershipById(id: string): Observable<membershipResponse | undefined> {
+    return this._httpClient.get<membershipResponse>(`${environment.apiUrl}memberships/${id}`);
+  }
+
+  getDurationLabel(duration: membershipDay): string {
+    return duration === membershipDay.MONTHLY ? 'monthly' : 'yearly';
+  }
+
+  getSavingsPercentage(monthlyPrice: number, yearlyPrice: number): number {
+    const monthlyYearTotal = monthlyPrice * 12;
+    const savings = ((monthlyYearTotal - yearlyPrice) / monthlyYearTotal) * 100;
+    return Math.round(savings);
   }
 }

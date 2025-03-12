@@ -8,8 +8,8 @@ import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { environment } from '../../../environments/environment';
+import { membershipService } from '../../core/membership/membership.service';
 import { DialogComponent } from './dialog/dialog.component';
-import { membershipService } from './membership.service';
 
 @Component({
   selector: 'membership-user',
