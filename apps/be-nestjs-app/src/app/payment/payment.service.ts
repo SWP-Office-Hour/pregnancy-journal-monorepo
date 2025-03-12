@@ -32,6 +32,13 @@ export class PaymentService {
     if (!membership) {
       throw new NotFoundException('Membership not found');
     }
+
+    const membershipExisted = await this.userService.checkAccountMembership(user.user_id);
+
+    if (membershipExisted) {
+      throw new NotFoundException('User already has a membership');
+    }
+
     const payOsOrderCode = Number(new Date(Date.now()));
     const payment = await this.databaseService.Payment.create({
       data: {

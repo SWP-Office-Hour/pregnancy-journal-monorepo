@@ -505,7 +505,7 @@ export class UsersService {
     return await this.getUserProfile(userId);
   }
 
-  async checkAccountMembership(userId: string): Promise<boolean> {
+  public async checkAccountMembership(userId: string): Promise<boolean> {
     const user = await this.databaseService.User.findUnique({
       where: {
         user_id: userId,
@@ -529,10 +529,6 @@ export class UsersService {
       const hasExpired = new Date(membership) < new Date();
       return !hasExpired;
     }
-    // else {
-    //   console.log('No membership found');
-    // }
-
     return false;
   }
 }
