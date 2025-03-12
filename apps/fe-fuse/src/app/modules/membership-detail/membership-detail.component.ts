@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,7 +7,7 @@ import { membershipService } from '../../core/membership/membership.service';
 
 @Component({
   selector: 'app-membership-detail',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './membership-detail.component.html',
   styleUrl: './membership-detail.component.css',
 })

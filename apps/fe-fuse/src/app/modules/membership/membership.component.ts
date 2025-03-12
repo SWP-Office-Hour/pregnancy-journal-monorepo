@@ -3,7 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseCardComponent } from '@fuse/components/card';
-import { Membership } from '@pregnancy-journal-monorepo/contract';
+import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
@@ -29,7 +29,8 @@ export class MembershipComponent {
         signal: abortSignal,
       });
       if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
+      const data = await response.json();
+      return data.filter((m: Membership) => m.status === Status.ACTIVE);
     },
   });
 
@@ -42,7 +43,6 @@ export class MembershipComponent {
   ) {
     //dùng để coi giá trị của resource
     effect(() => {
-      console.log(this.membershipResource.value());
       this.handleSuccessUrl();
     });
   }
@@ -67,10 +67,6 @@ export class MembershipComponent {
     const cancel = urlParams.get('cancel');
     const status = urlParams.get('status');
     const orderCode = urlParams.get('orderCode');
-
-    console.log('code', code);
-    console.log('status', status);
-    console.log('orderCode', orderCode);
 
     if (status === 'PAID' && code === '00') {
       this.membershipService.updatePayment({ payos_order_code: orderCode });
