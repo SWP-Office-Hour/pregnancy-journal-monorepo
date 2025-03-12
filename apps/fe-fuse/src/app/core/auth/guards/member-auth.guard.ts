@@ -10,10 +10,10 @@ export const memberAuthGuard: CanActivateFn | CanActivateChildFn = (route, state
     .checkMember()
     .pipe(
       map((isMember) => {
-        // if (!isMember) {
-        //   _membershipService.buy_membership.set(true);
-        //   return false;
-        // }
+        if (!isMember) {
+          _membershipService.buy_membership.set(true);
+          return false;
+        }
         return true;
       }),
     );

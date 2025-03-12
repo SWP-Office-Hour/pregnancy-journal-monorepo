@@ -523,7 +523,7 @@ export class UsersService {
       throw new NotFoundException('User not found');
     }
 
-    const membership = user.payment_history?.at(user.payment_history.length - 1)?.expired_at;
+    const membership = user.payment_history?.at(0)?.expired_at;
 
     if (membership) {
       const hasExpired = new Date(membership) < new Date();
