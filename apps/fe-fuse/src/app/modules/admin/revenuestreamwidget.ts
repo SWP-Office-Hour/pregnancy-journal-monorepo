@@ -1,7 +1,8 @@
-import { Component, effect, resource } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { DashboardType, DashboardUserType } from '@pregnancy-journal-monorepo/contract';
+import _default from 'chart.js/dist/plugins/plugin.tooltip';
 import { ChartModule } from 'primeng/chart';
-import { environment } from '../../../environments/environment';
+import borderColor = _default.defaults.borderColor;
 
 @Component({
   standalone: true,
@@ -14,27 +15,13 @@ import { environment } from '../../../environments/environment';
     </div>
   `,
 })
-export class RevenueStreamWidget {
+export class RevenueStreamWidget implements OnInit {
   chartData: any;
   chartOptions: any;
-
-  dashboardResource = resource<DashboardType, {}>({
-    loader: async ({ abortSignal }) => {
-      const response = await fetch(environment.apiUrl + 'admin/dashboard', {
-        signal: abortSignal,
-      });
-      if (!response.ok) throw Error(`Could not fetch...`);
-      return await response.json();
-    },
-  });
+  @Input() dashboardResource: DashboardType;
 
   constructor() {
     //dùng để coi giá trị của resource
-    effect(() => {
-      console.log(this.dashboardResource.value());
-      const dashboard = this.dashboardResource.value();
-      this.initChart(dashboard.user);
-    });
   }
 
   initChart(chartData: DashboardUserType) {
@@ -96,5 +83,10 @@ export class RevenueStreamWidget {
         },
       },
     };
+  }
+
+  ngOnInit(): void {
+    console.log(this.dashboardResource);
+    this.initChart(this.dashboardResource.user);
   }
 }

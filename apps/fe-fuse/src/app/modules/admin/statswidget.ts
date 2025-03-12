@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DashboardType } from '@pregnancy-journal-monorepo/contract';
 
 @Component({
   standalone: true,
@@ -8,5 +9,5 @@ import { Component } from '@angular/core';
   templateUrl: './statswidget.html',
 })
 export class StatsWidget {
-  constructor() {}
+  @Input() dashboardResource: DashboardType;
 }

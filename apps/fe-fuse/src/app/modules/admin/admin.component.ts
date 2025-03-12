@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -6,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { Router } from '@angular/router';
+import { DashboardType } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { Subject, takeUntil } from 'rxjs';
 import { AdminService } from './admin.service';
@@ -26,13 +28,13 @@ import { StatsWidget } from './statswidget';
     MatTabsModule,
     StatsWidget,
     RevenueStreamWidget,
+    CommonModule,
   ],
 })
 export class AdminComponent implements OnInit, OnDestroy {
-  data: any;
   selectedProject: string = 'ACME Corp. Backend App';
   private _unsubscribeAll: Subject<any> = new Subject<any>();
-
+  data: DashboardType;
   /**
    * Constructor
    */
@@ -53,6 +55,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this._projectService.data$.pipe(takeUntil(this._unsubscribeAll)).subscribe((data) => {
       // Store the data
       this.data = data;
+      console.log(data);
     });
 
     // Attach SVG fill fixer to all ApexCharts

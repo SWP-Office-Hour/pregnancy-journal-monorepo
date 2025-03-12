@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
@@ -30,7 +31,7 @@ export class AdminService {
    * Get data
    */
   getData(): Observable<any> {
-    return this._httpClient.get('api/dashboard/admin').pipe(
+    return this._httpClient.get(environment.apiUrl + 'admin/dashboard').pipe(
       tap((response: any) => {
         this._data.next(response);
       }),
