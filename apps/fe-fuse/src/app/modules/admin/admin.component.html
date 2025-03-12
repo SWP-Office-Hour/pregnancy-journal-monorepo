@@ -3,10 +3,14 @@
     <app-stats-widget class="contents" [dashboardResource]="data" *ngIf="data" />
 
     <div class="col-span-12 xl:col-span-6">
-      <app-revenue-stream-widget [dashboardResource]="data" *ngIf="data" />
+      <div class="h-full rounded-lg border border-gray-200 bg-white p-4 shadow-md">
+        <app-revenue-stream-widget [dashboardResource]="data" *ngIf="data" />
+      </div>
     </div>
     <div class="col-span-12 xl:col-span-6">
-      <app-revenue-stream-widget />
+      <div class="h-full rounded-lg border border-gray-200 bg-white p-4 shadow-md">
+        <app-chart-combo [dashboardResource]="data" *ngIf="data" />
+      </div>
     </div>
   </div>
 </div>

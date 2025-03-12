@@ -15,14 +15,21 @@ export const DashboardUserSchema = z.object({
   subscriberData: z.array(z.number()),
 });
 
+export const DashboardPaymentSchema = z.object({
+  payment: z.array(z.number()),
+  membership: z.array(z.number()),
+});
+
 export const DashboardSchema = z.object({
   overview: DashboardOverviewSchema,
   user: DashboardUserSchema,
+  payment: DashboardPaymentSchema,
 });
 
 export type DashboardType = z.infer<typeof DashboardSchema>;
 export type DashboardOverviewType = z.infer<typeof DashboardOverviewSchema>;
 export type DashboardUserType = z.infer<typeof DashboardUserSchema>;
+export type DashboardPaymentType = z.infer<typeof DashboardPaymentSchema>;
 const c = initContract();
 
 export const dashboardContract = c.router({
