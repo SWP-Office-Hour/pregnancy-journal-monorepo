@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { ReminderService } from '../reminder/reminder.service';
@@ -224,23 +224,27 @@ export class RecordsService {
    * @async
    */
   async deleteRecord(recordId: string) {
-    await this.dataService.RecordMetric.deleteMany({
-      where: { visit_record_id: recordId },
-    });
+    try {
+      await this.dataService.RecordMetric.deleteMany({
+        where: { visit_record_id: recordId },
+      });
 
-    await this.dataService.Media.deleteMany({
-      where: { visit_record_id: recordId },
-    });
+      await this.dataService.Media.deleteMany({
+        where: { visit_record_id: recordId },
+      });
 
-    await this.dataService.Reminder.deleteMany({
-      where: { visit_record_id: recordId },
-    });
+      await this.dataService.Reminder.deleteMany({
+        where: { visit_record_id: recordId },
+      });
 
-    // Delete the main record last
-    await this.dataService.Record.delete({
-      where: { visit_record_id: recordId },
-    });
-    return { message: 'Record deleted' };
+      // Delete the main record last
+      await this.dataService.Record.delete({
+        where: { visit_record_id: recordId },
+      });
+      return { message: 'Record deleted' };
+    } catch (error) {
+      Logger.error(error);
+    }
   }
 
   /**
