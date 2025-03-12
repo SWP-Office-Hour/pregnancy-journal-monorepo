@@ -1,8 +1,9 @@
 <div class="w-full bg-red-100 p-4">
   <div class="grid grid-cols-12 gap-8">
-    <app-stats-widget class="contents" />
+    <app-stats-widget class="contents" [dashboardResource]="data" *ngIf="data" />
+
     <div class="col-span-12 xl:col-span-6">
-      <app-revenue-stream-widget />
+      <app-revenue-stream-widget [dashboardResource]="data" *ngIf="data" />
     </div>
     <div class="col-span-12 xl:col-span-6">
       <app-revenue-stream-widget />
