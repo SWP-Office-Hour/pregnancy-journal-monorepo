@@ -42,7 +42,7 @@ export class ChartCombo implements OnInit {
             borderWidth: 2,
             fill: false,
             tension: 0.4,
-            data: payment.payment.map((item) => item / 10000),
+            data: payment.payment,
           },
         ],
       };
