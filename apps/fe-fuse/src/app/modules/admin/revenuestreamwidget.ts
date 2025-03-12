@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, effect, resource } from '@angular/core';
+import { DashboardType, DashboardUserType } from '@pregnancy-journal-monorepo/contract';
 import { ChartModule } from 'primeng/chart';
+import { environment } from '../../../environments/environment';
 
 @Component({
   standalone: true,
@@ -16,11 +18,27 @@ export class RevenueStreamWidget {
   chartData: any;
   chartOptions: any;
 
+  dashboardResource = resource<DashboardType, {}>({
+    loader: async ({ abortSignal }) => {
+      const response = await fetch(environment.apiUrl + 'admin/dashboard', {
+        signal: abortSignal,
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+      return await response.json();
+    },
+  });
+
   constructor() {
-    this.initChart();
+    //dùng để coi giá trị của resource
+    effect(() => {
+      console.log(this.dashboardResource.value());
+      const dashboard = this.dashboardResource.value();
+      this.initChart(dashboard.user);
+    });
   }
 
-  initChart() {
+  initChart(chartData: DashboardUserType) {
+    console.log('chartData', chartData);
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue('--text-color');
     const borderColor = documentStyle.getPropertyValue('--surface-border');
@@ -33,13 +51,13 @@ export class RevenueStreamWidget {
           label: 'Member',
           backgroundColor: documentStyle.getPropertyValue('--p-cyan-500'),
           borderColor: documentStyle.getPropertyValue('--p-cyan-500'),
-          data: [65, 59, 80],
+          data: chartData.memberData,
         },
         {
           label: 'Subscriber',
           backgroundColor: documentStyle.getPropertyValue('--p-gray-500'),
           borderColor: documentStyle.getPropertyValue('--p-gray-500'),
-          data: [28, 48, 40],
+          data: chartData.subscriberData,
         },
       ],
     };

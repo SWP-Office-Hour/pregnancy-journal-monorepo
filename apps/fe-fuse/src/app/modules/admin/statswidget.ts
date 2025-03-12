@@ -7,4 +7,6 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   templateUrl: './statswidget.html',
 })
-export class StatsWidget {}
+export class StatsWidget {
+  constructor() {}
+}
