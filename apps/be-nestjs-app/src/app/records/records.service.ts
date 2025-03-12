@@ -1,6 +1,7 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
+import { MediaService } from '../media/media.service';
 import { ReminderService } from '../reminder/reminder.service';
 import { UserEntity } from '../users/models/user.entity';
 import { UsersService } from '../users/users.service';
@@ -14,6 +15,7 @@ export class RecordsService {
     private readonly timeUtilsService: TimeUtilsService,
     private readonly userService: UsersService,
     private readonly reminderService: ReminderService,
+    private readonly mediaService: MediaService,
   ) {}
 
   //================================================================================================
@@ -225,17 +227,43 @@ export class RecordsService {
    */
   async deleteRecord(recordId: string) {
     try {
-      await this.dataService.RecordMetric.deleteMany({
+      const record = await this.dataService.Record.findUnique({
         where: { visit_record_id: recordId },
       });
 
-      await this.dataService.Media.deleteMany({
+      if (!record) {
+        throw new NotFoundException('Record not found');
+      }
+
+      const deletedRecordMetric = await this.dataService.RecordMetric.findMany({
         where: { visit_record_id: recordId },
       });
 
-      await this.dataService.Reminder.deleteMany({
+      if (deletedRecordMetric.length > 0) {
+        await this.dataService.RecordMetric.deleteMany({
+          where: { visit_record_id: recordId },
+        });
+      }
+
+      const deletedMedia = await this.dataService.Media.findMany({
         where: { visit_record_id: recordId },
       });
+
+      if (deletedMedia.length > 0) {
+        for (const media of deletedMedia) {
+          await this.mediaService.remove(media.media_id);
+        }
+      }
+
+      const deletedReminder = await this.dataService.Reminder.findMany({
+        where: { visit_record_id: recordId },
+      });
+
+      if (deletedReminder.length > 0) {
+        await this.dataService.Reminder.deleteMany({
+          where: { visit_record_id: recordId },
+        });
+      }
 
       // Delete the main record last
       await this.dataService.Record.delete({
