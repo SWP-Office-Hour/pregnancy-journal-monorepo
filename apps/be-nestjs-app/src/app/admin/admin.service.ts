@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DashboardOverviewType, DashboardType, DashboardUserType } from '@pregnancy-journal-monorepo/contract';
+import { DashboardOverviewType, DashboardPaymentType, DashboardType, DashboardUserType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
 
@@ -13,9 +13,11 @@ export class AdminService {
   async getDashboard(): Promise<DashboardType> {
     const overview = await this.getDashboardOverview();
     const user = await this.getDashboardUser();
+    const payment = await this.getDashboardPayment();
     return {
       overview,
       user,
+      payment,
     };
   }
 
@@ -116,6 +118,45 @@ export class AdminService {
     return {
       memberData,
       subscriberData,
+    };
+  }
+
+  async getDashboardPayment(): Promise<DashboardPaymentType> {
+    // Initialize arrays with zeros for all 12 months
+    const monthlyRevenue: number[] = new Array(12).fill(0);
+    const membership = new Array(12).fill(0);
+
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+
+    // Get all successful payments once to prevent multiple database queries
+    const payments = await this.databaseService.Payment.findMany({
+      where: {
+        status: 1,
+      },
+    });
+
+    // Count payments for each month of current year
+    for (const payment of payments) {
+      const paymentDate = new Date(payment.created_at);
+      if (paymentDate.getFullYear() === currentYear) {
+        const month = paymentDate.getMonth();
+
+        // Since we only have payment and membership in the schema,
+        // we'll use payment to track total payments per month
+        console.log(payment.value);
+        monthlyRevenue[month] += payment.value || 0;
+        console.log(payment[month]);
+        // If needed, we can still track membership payments in membership
+        if (await this.usersService.checkAccountMembership(payment.user_id)) {
+          membership[month]++;
+        }
+      }
+    }
+
+    return {
+      payment: monthlyRevenue,
+      membership: membership,
     };
   }
 }
