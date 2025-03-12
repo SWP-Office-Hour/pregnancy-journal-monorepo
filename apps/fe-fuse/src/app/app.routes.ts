@@ -11,6 +11,7 @@ import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
 import { CalendarService } from './modules/calendar/calendar.service';
 import { ChangePasswordComponent } from './modules/change-password/change-password.component';
+import { ChildrenProfileComponent } from './modules/children-profile/children-profile.component';
 import { PregnancyRecordViewComponent } from './modules/customer/pregnancy-record-view/pregnancy-record-view.component';
 import { pregnancyRecordRoutes } from './modules/customer/pregnancy-record/pregnancy-record.routes';
 import { pregnancyTrackingRoutes } from './modules/customer/pregnancy-tracking/pregnancy-tracking.routes';
@@ -176,6 +177,10 @@ export const appRoutes: Route[] = [
           {
             path: 'user-profile',
             loadComponent: () => UserProfileComponent,
+          },
+          {
+            path: 'children-profile',
+            loadComponent: () => ChildrenProfileComponent,
           },
           {
             path: 'change-password',

@@ -20,6 +20,7 @@ import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { Subject, takeUntil } from 'rxjs';
 import { MembershipListComponent } from '../../../../common/buy-membership-dialog/buy-membership-dialog.component';
 import { membershipService } from '../../../../core/membership/membership.service';
+import { ChildrenProfileSelectorComponent } from '../../../common/children-profile-selector/children-profile-selector.component';
 import { HomeNoteComponent } from '../../../common/home-note/home-note.component';
 
 @Component({
@@ -45,6 +46,7 @@ import { HomeNoteComponent } from '../../../common/home-note/home-note.component
     NgOptimizedImage,
     HomeNoteComponent,
     NgAutoAnimateDirective,
+    ChildrenProfileSelectorComponent,
   ],
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {
