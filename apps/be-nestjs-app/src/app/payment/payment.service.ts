@@ -93,6 +93,7 @@ export class PaymentService {
 
   async getAllPayments(): Promise<PayIncludeUserInfo[]> {
     return await this.databaseService.Payment.findMany({
+      orderBy: { created_at: 'desc' },
       include: {
         membership: true,
         user: {

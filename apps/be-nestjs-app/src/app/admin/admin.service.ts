@@ -157,9 +157,7 @@ export class AdminService {
 
         // Since we only have payment and membership in the schema,
         // we'll use payment to track total payments per month
-        console.log(payment.value);
         monthlyRevenue[month] += payment.value || 0;
-        console.log(payment[month]);
         // If needed, we can still track membership payments in membership
         if (await this.usersService.checkAccountMembership(payment.user_id)) {
           membership[month]++;
