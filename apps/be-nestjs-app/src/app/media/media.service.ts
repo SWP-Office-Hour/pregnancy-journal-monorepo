@@ -99,7 +99,17 @@ export class MediaService {
   }
 
   async remove(id: string) {
-    await this.findOne(id);
+    const result = await this.databaseService.Media.findUnique({
+      where: {
+        media_id: id,
+      },
+    });
+
+    if (!result) {
+      throw new NotFoundException('Media not found');
+    }
+
+    await this.fileService.deleteFile(result.media_url);
     return await this.databaseService.Media.delete({
       where: {
         media_id: id,

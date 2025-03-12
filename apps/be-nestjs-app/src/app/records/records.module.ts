@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { DatabaseService } from '../database/database.service';
+import { MediaModule } from '../media/media.module';
 import { MetricModule } from '../metric/metric.module';
 import { ReminderModule } from '../reminder/reminder.module';
 import { StandardService } from '../standard/standard.service';
@@ -11,7 +12,7 @@ import { RecordsController } from './records.controller';
 import { RecordsService } from './records.service';
 
 @Module({
-  imports: [JwtUtilsModule, MetricModule, TagModule, UsersModule, ReminderModule],
+  imports: [JwtUtilsModule, MetricModule, TagModule, UsersModule, ReminderModule, MediaModule],
   controllers: [RecordsController],
   providers: [RecordsService, DatabaseService, TimeUtilsService, StandardService],
 })
