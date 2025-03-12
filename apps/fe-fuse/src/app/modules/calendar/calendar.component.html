@@ -122,7 +122,7 @@
           <div class="grid h-full grid-cols-7 grid-rows-6 gap-1 rounded-lg">
             <div
               *ngFor="let date of calendarDays; let i = index"
-              class="calendar-cell min-h-15 group relative flex cursor-pointer flex-col items-center justify-center overflow-hidden rounded-md bg-white transition-all hover:bg-gray-50 hover:shadow-md hover:shadow-pink-500/50 md:h-20"
+              class="calendar-cell min-h-15 group relative z-0 flex cursor-pointer flex-col items-center justify-center rounded-md bg-white transition-all hover:z-10 hover:bg-gray-50 hover:shadow-md hover:shadow-pink-500/50 md:h-20"
               [ngClass]="{
                 'text-gray-300': !isMonth(date),
                 'border-2 border-dashed border-pink-500 !bg-pink-50': isSelected(date),
@@ -145,7 +145,7 @@
               </span>
 
               <!-- Events indicators -->
-              <div class="mt-1 flex flex-wrap justify-center gap-1">
+              <div class="z-10 mt-1 flex flex-wrap justify-center gap-1">
                 @if (this.events().length > 0) {
                   @for (event of this.getEventsForDate(date); track $index) {
                     <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
@@ -153,19 +153,61 @@
                 }
               </div>
 
+              <!-- Hover Events Popup -->
+              <div
+                class="absolute -left-64 -top-5 mt-1 hidden min-h-20 w-60 scale-95 rounded-lg bg-white p-2 shadow-lg transition-all delay-500 duration-1000 ease-in-out group-hover:block group-hover:scale-100"
+                style="z-index: 9999; opacity: 0.9"
+                [ngStyle]="{ opacity: isHovering ? '0.05' : '0.9' }"
+                (mouseenter)="isHovering = true"
+                (mouseleave)="isHovering = false"
+              >
+                <div class="py-1">
+                  @if (this.getEventsForDate(date).length > 0) {
+                    <h4 class="mb-2 px-2 text-xs font-medium text-gray-500">{{ date | date: 'dd/MM/yyyy' }}</h4>
+                    <!-- Show only first 3 events -->
+                    @for (event of this.getEventsForDate(date).slice(0, 3); track $index) {
+                      <div class="mb-1 rounded-md p-2 text-white" [style.background-color]="chooseColor(event)">
+                        <div class="flex items-center justify-between">
+                          <h5 class="text-sm font-medium">{{ event.title }}</h5>
+                        </div>
+                        @if (event.content) {
+                          <p class="mt-1 text-xs opacity-90">{{ event.content }}</p>
+                        }
+                      </div>
+                    }
+
+                    <!-- Add "View more" if there are more than 3 events -->
+                    @if (this.getEventsForDate(date).length > 3) {
+                      <div class="mt-2 flex justify-center">
+                        <button
+                          class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
+                          (click)="selectDate(date)"
+                        >
+                          Xem thêm {{ this.getEventsForDate(date).length - 3 }} sự kiện
+                        </button>
+                      </div>
+                    }
+                  } @else {
+                    <div class="py-6 text-center text-sm text-gray-500">Không có sự kiện</div>
+                  }
+                </div>
+              </div>
+
               <!-- Today indicators -->
-              <ng-container *ngIf="isToday(date)">
-                <img
-                  class="-rotate-15 w-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6"
-                  src="/images/ui/doodles/d9.svg"
-                  alt="doodles background"
-                />
-                <img
-                  class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5"
-                  src="/images/ui/doodles/d17.svg"
-                  alt="doodles background"
-                />
-              </ng-container>
+              @if (isToday(date)) {
+                <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
+                  <img
+                    class="-rotate-15 w-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6"
+                    src="/images/ui/doodles/d9.svg"
+                    alt="doodles background"
+                  />
+                  <img
+                    class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5"
+                    src="/images/ui/doodles/d17.svg"
+                    alt="doodles background"
+                  />
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -179,10 +221,7 @@
               [cdkDropListData]="events()"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
-              <div
-                *ngIf="getEventsForDate(this.selectedDate).length === 0"
-                class="flex h-full flex-col items-center justify-center px-4 py-8 text-center"
-              >
+              <div *ngIf="getEventsForDate(this.selectedDate) == []" class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
                 <div class="mb-4 rounded-full bg-pink-50 p-4">
                   <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path
@@ -196,58 +235,55 @@
                 <h4 class="mb-2 text-lg font-semibold text-gray-700">Chưa có cuộc hẹn nào</h4>
                 <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
               </div>
+              <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
+                <div class="event-card group">
+                  <div
+                    class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
+                    [style.background-color]="chooseColor(event)"
+                    [ngClass]="{
+                      '!bg-rainbow-gradient': isDueDate(event.remind_date),
+                    }"
+                  >
+                    <!-- Event content -->
+                    <div class="flex items-center justify-between">
+                      <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
 
-              @if (this.events().length > 0) {
-                <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
-                  <div class="event-card group">
-                    <div
-                      class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
-                      [style.background-color]="chooseColor(event)"
-                      [ngClass]="{
-                        '!bg-rainbow-gradient': isDueDate(event.remind_date),
-                      }"
-                    >
-                      <!-- Event content -->
-                      <div class="flex items-center justify-between">
-                        <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
+                      <!-- Controls wrapper - visible on hover -->
+                      <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                        <!-- Edit button -->
+                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                            />
+                          </svg>
+                        </button>
 
-                        <!-- Controls wrapper - visible on hover -->
-                        <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                          <!-- Edit button -->
-                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                              />
-                            </svg>
-                          </button>
-
-                          <!-- Delete button -->
-                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="deleteEvent(event)">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                              />
-                            </svg>
-                          </button>
-                        </div>
+                        <!-- Delete button -->
+                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="deleteEvent(event)">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
                       </div>
-
-                      <!-- Event content if available -->
-                      <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
-
-                      <!-- Bottom highlight effect -->
-                      <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                     </div>
+
+                    <!-- Event content if available -->
+                    <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
+
+                    <!-- Bottom highlight effect -->
+                    <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                   </div>
                 </div>
-              }
+              </div>
             </div>
           </div>
 
@@ -290,69 +326,78 @@
           <h3 class="text-xl font-semibold">{{ isEditMode ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn' }}</h3>
           <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
         </div>
-        <form #eventForm="ngForm" (ngSubmit)="createEvent()">
-          <div class="mb-4">
-            <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
-            <input
-              type="text"
-              [(ngModel)]="newEvent.title"
-              name="title"
-              #title="ngModel"
-              class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
-              [ngClass]="{ 'border-red-500': title.invalid && (title.dirty || title.touched) }"
-              required
-              minlength="3"
-            />
-            <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
-              <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
-              <div *ngIf="title.errors?.['minlength']">Tiêu đề phải có ít nhất 3 ký tự</div>
+        @if (this.editingEvent.type == ReminderType.FOLLOW_UP_MEETING) {
+          Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái khám.
+        } @else {
+          <form #eventForm="ngForm">
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
+              <input
+                type="text"
+                [(ngModel)]="newEvent.title"
+                name="title"
+                #title="ngModel"
+                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                [ngClass]="{ 'border-red-500': title.invalid && (title.dirty || title.touched) }"
+                required
+                minlength="3"
+              />
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
+                <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
+                <div *ngIf="title.errors?.['minlength']">Tiêu đề phải có ít nhất 3 ký tự</div>
+              </div>
             </div>
-          </div>
-          <div class="mb-4">
-            <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
-            <textarea
-              [(ngModel)]="newEvent.content"
-              name="content"
-              #content="ngModel"
-              rows="4"
-              placeholder="Nhập nội dung chi tiết..."
-              class="min-h-[100px] w-full resize-y rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
-            ></textarea>
-          </div>
-          <div class="mb-4">
-            <label class="mb-2 block text-sm font-medium text-gray-700">Chọn màu</label>
-            <div class="flex items-center gap-2">
-              @for (color of getReminderColors(); track $index) {
-                @if (newEvent.color == color) {
-                  <div
-                    (click)="newEvent.color = color"
-                    class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
-                    [style.background-color]="chooseColorTheme(color)"
-                  ></div>
-                } @else {
-                  <div
-                    (click)="newEvent.color = color"
-                    class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
-                    [style.background-color]="chooseColorTheme(color)"
-                  ></div>
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
+              <textarea
+                [(ngModel)]="newEvent.content"
+                name="content"
+                #content="ngModel"
+                rows="4"
+                placeholder="Nhập nội dung chi tiết..."
+                class="min-h-[100px] w-full resize-y rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+              ></textarea>
+            </div>
+            <div class="mb-4">
+              <label class="mb-2 block text-sm font-medium text-gray-700">Chọn màu</label>
+              <div class="flex items-center gap-2">
+                @for (color of getReminderColors(); track $index) {
+                  @if (newEvent.color == color) {
+                    <div
+                      (click)="newEvent.color = color"
+                      class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
+                      [style.background-color]="chooseColorTheme(color)"
+                    ></div>
+                  } @else {
+                    <div
+                      (click)="newEvent.color = color"
+                      class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
+                      [style.background-color]="chooseColorTheme(color)"
+                    ></div>
+                  }
                 }
-              }
+              </div>
             </div>
-          </div>
 
-          <div class="flex justify-end gap-4">
-            <button type="button" (click)="closeCreateEventModal()" class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100">
-              Hủy
-            </button>
-            <button
-              type="submit"
-              [disabled]="title.invalid"
-              class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              {{ isEditMode ? 'Cập Nhật' : 'Tạo Lịch' }}
-            </button>
-          </div>
-        </form>
+            <div class="flex justify-end gap-4">
+              <button
+                type="button"
+                (click)="closeCreateEventModal()"
+                class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100"
+              >
+                Hủy
+              </button>
+              <button
+                type="submit"
+                [disabled]="title.invalid"
+                class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                (click)="isEditMode ? updateEvent() : createEvent()"
+              >
+                {{ isEditMode ? 'Cập Nhật' : 'Tạo Lịch' }}
+              </button>
+            </div>
+          </form>
+        }
       </div>
     </div>
   </div>
