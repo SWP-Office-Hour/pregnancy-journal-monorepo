@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { BlogsModule } from './blogs/blogs.module';
 import { CategorysModule } from './categorys/categorys.module';
+import { ChildModule } from './child/child.module';
 import { CommentsModule } from './comments/comments.module';
 import { FileModule } from './file/file.module';
 import { HospitalModule } from './hosiptal/hospital.module';
@@ -49,6 +50,7 @@ import { UsersModule } from './users/users.module';
     PayosModule,
     PaymentModule,
     AdminModule,
+    ChildModule,
   ],
   controllers: [AppController],
   providers: [AppService],

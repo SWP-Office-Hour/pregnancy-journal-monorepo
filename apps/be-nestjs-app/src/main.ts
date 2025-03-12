@@ -99,6 +99,7 @@ async function bootstrap() {
   app.use(urlencoded({ extended: true, limit: '50mb' }));
   const port = process.env.PORT || 3000;
   await app.listen(port);
+  Logger.log(`🚀 Server running on DB: ${process.env.DB_URL}`);
   Logger.log(`🚀 Application is running on: ${process.env.HOST_URL}${globalPrefix}`);
 }
 

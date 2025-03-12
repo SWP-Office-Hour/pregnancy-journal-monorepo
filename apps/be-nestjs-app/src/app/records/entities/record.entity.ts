@@ -5,7 +5,7 @@ export class VisitRecord {
   doctor_name: string;
   hospital_id: string;
   created_at: Date;
-  user_id: string;
+  child_id: string;
 }
 
 export class VisitRecordMetric {

@@ -46,7 +46,7 @@ export const tagContract = c.router({
     },
   },
 
-  getTagsByUser: {
+  getTagsByChildId: {
     method: 'GET',
     path: '/tags/user/:userId',
     pathParams: z.object({
