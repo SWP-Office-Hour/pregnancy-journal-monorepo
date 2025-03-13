@@ -24,7 +24,7 @@
       "executor": "nx:run-commands",
       "cache": true,
       "options": {
-        "command": "pnpx prisma generate"
+        "command": "pnpm prisma generate"
       },
       "configurations": {
         "development": {
