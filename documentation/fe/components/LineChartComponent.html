@@ -1,0 +1,1215 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LineChartComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-line-chart</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>ChartComponent</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatMenuModule</code>
+                            <code>MatTooltipModule</code>
+                            <code>NgStyle</code>
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./line-chart.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./line-chart.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#chart" >chart</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#chartOptions" >chartOptions</a>
+                            </li>
+                            <li>
+                                <a href="#periods" >periods</a>
+                            </li>
+                            <li>
+                                <a href="#selectedPeriod" >selectedPeriod</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calculatePercentageChange" >calculatePercentageChange</a>
+                            </li>
+                            <li>
+                                <a href="#changePeriod" >changePeriod</a>
+                            </li>
+                            <li>
+                                <a href="#getStartDateFromPeriod" >getStartDateFromPeriod</a>
+                            </li>
+                            <li>
+                                <a href="#initChartOptions" >initChartOptions</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#updateChartData" >updateChartData</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#multi_data" >multi_data</a>
+                            </li>
+                            <li>
+                                <a href="#title" >title</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="57" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:57</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="multi_data"></a>
+                        <b>multi_data</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type[]</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="54" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:54</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="title"></a>
+                        <b>title</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;Visitors vs. Page Views&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="53" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:53</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculatePercentageChange"></a>
+                    <span class="name">
+                        <span ><b>calculatePercentageChange</b></span>
+                        <a href="#calculatePercentageChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculatePercentageChange(seriesIndex: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>seriesIndex</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>literal type</code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="changePeriod"></a>
+                    <span class="name">
+                        <span ><b>changePeriod</b></span>
+                        <a href="#changePeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>changePeriod(period: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="199"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:199</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>period</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getStartDateFromPeriod"></a>
+                    <span class="name">
+                        <span ><b>getStartDateFromPeriod</b></span>
+                        <a href="#getStartDateFromPeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getStartDateFromPeriod()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="193"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:193</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>    <code>DateTime</code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="initChartOptions"></a>
+                    <span class="name">
+                        <span ><b>initChartOptions</b></span>
+                        <a href="#initChartOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>initChartOptions()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="67"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:67</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:63</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="updateChartData"></a>
+                    <span class="name">
+                        <span ><b>updateChartData</b></span>
+                        <a href="#updateChartData"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>updateChartData()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="173"
+                                    class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:173</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chart"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>chart</b></span>
+                        <a href="#chart"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>ChartComponent</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;chart&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="43" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:43</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="chartOptions"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>chartOptions</b></span>
+                        <a href="#chartOptions"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../miscellaneous/typealiases.html#ChartOptions" target="_self" >Partial&lt;ChartOptions&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="periods"></a>
+                    <span class="name">
+                        <span ><b>periods</b></span>
+                        <a href="#periods"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { label: &#x27;30 days&#x27;, days: 30 },
+    { label: &#x27;3 months&#x27;, days: 90 },
+    { label: &#x27;9 months&#x27;, days: 270 },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="47" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedPeriod"></a>
+                    <span class="name">
+                        <span ><b>selectedPeriod</b></span>
+                        <a href="#selectedPeriod"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;30 days&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">apps/fe-fuse/src/app/common/line-chart/line-chart.component.ts:46</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule, NgStyle } from &#x27;@angular/common&#x27;;
+import { Component, Input, OnInit, ViewChild } from &#x27;@angular/core&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { DateTime } from &#x27;luxon&#x27;;
+import {
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexDataLabels,
+  ApexFill,
+  ApexGrid,
+  ApexLegend,
+  ApexStroke,
+  ApexTooltip,
+  ApexXAxis,
+  ApexYAxis,
+  ChartComponent,
+} from &#x27;ng-apexcharts&#x27;;
+
+export type ChartOptions &#x3D; {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  legend: ApexLegend;
+  fill: ApexFill;
+  colors: string[];
+};
+
+@Component({
+  selector: &#x27;app-line-chart&#x27;,
+  imports: [ChartComponent, MatButtonModule, MatIconModule, MatMenuModule, MatTooltipModule, NgStyle, CommonModule],
+  templateUrl: &#x27;./line-chart.component.html&#x27;,
+  styleUrl: &#x27;./line-chart.component.css&#x27;,
+})
+export class LineChartComponent implements OnInit {
+  @ViewChild(&#x27;chart&#x27;) chart: ChartComponent;
+  public chartOptions: Partial&lt;ChartOptions&gt;;
+
+  selectedPeriod: string &#x3D; &#x27;30 days&#x27;;
+  periods &#x3D; [
+    { label: &#x27;30 days&#x27;, days: 30 },
+    { label: &#x27;3 months&#x27;, days: 90 },
+    { label: &#x27;9 months&#x27;, days: 270 },
+  ];
+
+  @Input() title: string &#x3D; &#x27;Visitors vs. Page Views&#x27;;
+  @Input() multi_data: {
+    name: string;
+    data: { timestamp: DateTime; value: number }[];
+  }[];
+
+  constructor() {
+    this.initChartOptions();
+  }
+
+  ngOnInit() {
+    this.updateChartData();
+  }
+
+  initChartOptions() {
+    this.chartOptions &#x3D; {
+      series: [],
+      colors: [&#x27;#4361ee&#x27;, &#x27;#3a0ca3&#x27;, &#x27;#7209b7&#x27;, &#x27;#f72585&#x27;, &#x27;#4cc9f0&#x27;],
+      chart: {
+        height: 350,
+        type: &#x27;area&#x27;,
+        toolbar: {
+          show: false,
+        },
+        zoom: {
+          enabled: false,
+        },
+        fontFamily: &#x27;inherit&#x27;,
+        animations: {
+          enabled: true,
+          speed: 800,
+          animateGradually: {
+            enabled: true,
+            delay: 150,
+          },
+          dynamicAnimation: {
+            enabled: true,
+            speed: 350,
+          },
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        curve: &#x27;smooth&#x27;,
+        width: 2,
+      },
+      fill: {
+        type: &#x27;gradient&#x27;,
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.3,
+          stops: [0, 90, 100],
+        },
+      },
+      xaxis: {
+        type: &#x27;datetime&#x27;,
+        labels: {
+          formatter: function (val) {
+            return DateTime.fromMillis(Number(val)).toFormat(&#x27;MMM dd&#x27;);
+          },
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: true,
+        },
+      },
+      yaxis: {
+        labels: {
+          formatter: function (val) {
+            return val?.toFixed(0);
+          },
+        },
+        tickAmount: 5,
+      },
+      tooltip: {
+        x: {
+          format: &#x27;dd MMM yyyy&#x27;,
+        },
+        y: {
+          formatter: function (val) {
+            return val?.toFixed(0);
+          },
+        },
+        theme: &#x27;light&#x27;,
+        shared: true,
+        intersect: false,
+      },
+      legend: {
+        position: &#x27;top&#x27;,
+        horizontalAlign: &#x27;right&#x27;,
+        offsetY: -10,
+      },
+      grid: {
+        borderColor: &#x27;#e0e0e0&#x27;,
+        strokeDashArray: 5,
+        xaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        padding: {
+          top: 0,
+          right: 10,
+          bottom: 0,
+          left: 10,
+        },
+      },
+    };
+  }
+
+  updateChartData() {
+    if (!this.multi_data) {
+      return;
+    }
+
+    // Calculate date range based on selected period
+    const startDate &#x3D; this.getStartDateFromPeriod();
+
+    // Filter data based on selected period
+    this.chartOptions.series &#x3D; this.multi_data.map((series) &#x3D;&gt; ({
+      name: series.name,
+      data: series.data
+        .filter((d) &#x3D;&gt; d.timestamp &gt;&#x3D; startDate)
+        .map((d) &#x3D;&gt; ({
+          x: d.timestamp.toJSDate(),
+          y: d.value,
+        })),
+    }));
+  }
+
+  getStartDateFromPeriod(): DateTime {
+    const now &#x3D; DateTime.now();
+    const period &#x3D; this.periods.find((p) &#x3D;&gt; p.label &#x3D;&#x3D;&#x3D; this.selectedPeriod);
+    return now.minus({ days: period ? period.days : 30 });
+  }
+
+  changePeriod(period: string) {
+    this.selectedPeriod &#x3D; period;
+    this.updateChartData();
+  }
+
+  calculatePercentageChange(seriesIndex: number): { value: string; isPositive: boolean } {
+    if (!this.multi_data || !this.multi_data[seriesIndex] || this.multi_data[seriesIndex].data.length &lt; 2) {
+      return { value: &#x27;0&#x27;, isPositive: true };
+    }
+
+    const data &#x3D; this.multi_data[seriesIndex].data;
+    const currentValue &#x3D; data[data.length - 1].value;
+    const previousValue &#x3D; data[data.length - 2].value;
+
+    if (previousValue &#x3D;&#x3D;&#x3D; 0) return { value: &#x27;0&#x27;, isPositive: true };
+
+    const change &#x3D; ((currentValue - previousValue) / previousValue) * 100;
+    return {
+      value: Math.abs(change).toFixed(1),
+      isPositive: change &gt;&#x3D; 0,
+    };
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;mx-auto w-full max-w-7xl&quot;&gt;
+  &lt;div class&#x3D;&quot;p-4 md:p-6&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-col overflow-hidden rounded-xl bg-white shadow-lg&quot;&gt;
+      &lt;!-- Phần đầu với các điều khiển --&gt;
+      &lt;div class&#x3D;&quot;flex flex-col justify-between border-b border-gray-100 p-4 sm:flex-row sm:items-center sm:p-6&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-lg font-medium leading-6 text-gray-800&quot;&gt;{{ title }}&lt;/h2&gt;
+          &lt;div class&#x3D;&quot;ml-2 rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600&quot;&gt;
+            {{ selectedPeriod }}
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-3 flex items-center space-x-2 sm:mt-0&quot;&gt;
+          &lt;button
+            *ngFor&#x3D;&quot;let period of periods&quot;
+            (click)&#x3D;&quot;changePeriod(period.label)&quot;
+            [class.bg-blue-500]&#x3D;&quot;selectedPeriod &#x3D;&#x3D;&#x3D; period.label&quot;
+            [class.text-white]&#x3D;&quot;selectedPeriod &#x3D;&#x3D;&#x3D; period.label&quot;
+            [class.bg-gray-100]&#x3D;&quot;selectedPeriod !&#x3D;&#x3D; period.label&quot;
+            [class.text-gray-700]&#x3D;&quot;selectedPeriod !&#x3D;&#x3D; period.label&quot;
+            class&#x3D;&quot;h-8 min-h-8 rounded-full px-3 py-1 text-sm font-medium transition-all duration-200 hover:bg-opacity-90&quot;
+          &gt;
+            {{ period.label }}
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Vùng chứa biểu đồ --&gt;
+      &lt;div class&#x3D;&quot;relative flex-1 p-4 sm:p-6&quot;&gt;
+        &lt;!-- Trạng thái đang tải --&gt;
+        &lt;div *ngIf&#x3D;&quot;!multi_data?.length&quot; class&#x3D;&quot;absolute inset-0 flex items-center justify-center bg-white bg-opacity-60&quot;&gt;
+          &lt;div class&#x3D;&quot;flex flex-col items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500&quot;&gt;&lt;/div&gt;
+            &lt;span class&#x3D;&quot;mt-3 text-sm text-gray-500&quot;&gt;Đang tải dữ liệu biểu đồ...&lt;/span&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Trạng thái không có dữ liệu --&gt;
+        &lt;div *ngIf&#x3D;&quot;multi_data?.length &#x3D;&#x3D;&#x3D; 0&quot; class&#x3D;&quot;absolute inset-0 flex items-center justify-center&quot;&gt;
+          &lt;div class&#x3D;&quot;flex flex-col items-center p-6 text-center&quot;&gt;
+            &lt;mat-icon class&#x3D;&quot;text-gray-300&quot; style&#x3D;&quot;font-size: 48px; height: 48px; width: 48px&quot;&gt;insert_chart&lt;/mat-icon&gt;
+            &lt;h3 class&#x3D;&quot;mt-2 text-lg font-medium text-gray-900&quot;&gt;Không có dữ liệu&lt;/h3&gt;
+            &lt;p class&#x3D;&quot;mt-1 text-sm text-gray-500&quot;&gt;Không có dữ liệu khả dụng cho khoảng thời gian đã chọn.&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Biểu đồ --&gt;
+        &lt;div class&#x3D;&quot;h-[300px] w-full sm:h-[400px]&quot; *ngIf&#x3D;&quot;multi_data?.length&quot;&gt;
+          &lt;apx-chart
+            #chart
+            [series]&#x3D;&quot;chartOptions.series&quot;
+            [chart]&#x3D;&quot;chartOptions.chart&quot;
+            [xaxis]&#x3D;&quot;chartOptions.xaxis&quot;
+            [yaxis]&#x3D;&quot;chartOptions.yaxis&quot;
+            [dataLabels]&#x3D;&quot;chartOptions.dataLabels&quot;
+            [grid]&#x3D;&quot;chartOptions.grid&quot;
+            [stroke]&#x3D;&quot;chartOptions.stroke&quot;
+            [tooltip]&#x3D;&quot;chartOptions.tooltip&quot;
+            [legend]&#x3D;&quot;chartOptions.legend&quot;
+            [fill]&#x3D;&quot;chartOptions.fill&quot;
+            [colors]&#x3D;&quot;chartOptions.colors&quot;
+          &gt;&lt;/apx-chart&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Phần cuối với các thông số tóm tắt --&gt;
+      &lt;div *ngIf&#x3D;&quot;multi_data?.length&quot; class&#x3D;&quot;border-t border-gray-100 bg-gray-50 p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;grid grid-cols-2 gap-4 md:grid-cols-4&quot;&gt;
+          &lt;div *ngFor&#x3D;&quot;let series of multi_data; let i &#x3D; index&quot; class&#x3D;&quot;flex flex-col&quot;&gt;
+            &lt;span class&#x3D;&quot;text-xs text-gray-500&quot;&gt;{{ series.name }}&lt;/span&gt;
+            &lt;div class&#x3D;&quot;mt-1 flex items-center&quot;&gt;
+              &lt;span class&#x3D;&quot;text-lg font-semibold&quot; [ngStyle]&#x3D;&quot;{ color: chartOptions.colors ? chartOptions.colors?.[i] : &#x27;#000&#x27; }&quot;&gt;
+                {{ series.data[series.data.length - 1]?.value.toLocaleString() }}
+              &lt;/span&gt;
+              &lt;ng-container *ngIf&#x3D;&quot;series.data.length &gt; 1&quot;&gt;
+                &lt;div
+                  class&#x3D;&quot;ml-2 text-xs&quot;
+                  [class.text-green-500]&#x3D;&quot;calculatePercentageChange(i).isPositive&quot;
+                  [class.text-red-500]&#x3D;&quot;!calculatePercentageChange(i).isPositive&quot;
+                &gt;
+                  &lt;mat-icon class&#x3D;&quot;align-middle text-xs&quot; style&#x3D;&quot;font-size: 16px; height: 16px; width: 16px&quot;&gt;
+                    {{ calculatePercentageChange(i).isPositive ? &#x27;arrow_upward&#x27; : &#x27;arrow_downward&#x27; }}
+                  &lt;/mat-icon&gt;
+                  {{ calculatePercentageChange(i).value }}%
+                &lt;/div&gt;
+              &lt;/ng-container&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="mx-auto w-full max-w-7xl">  <div class="p-4 md:p-6">    <div class="flex flex-col overflow-hidden rounded-xl bg-white shadow-lg">      <!-- Phần đầu với các điều khiển -->      <div class="flex flex-col justify-between border-b border-gray-100 p-4 sm:flex-row sm:items-center sm:p-6">        <div class="flex items-center">          <h2 class="text-lg font-medium leading-6 text-gray-800">{{ title }}</h2>          <div class="ml-2 rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">            {{ selectedPeriod }}          </div>        </div>        <div class="mt-3 flex items-center space-x-2 sm:mt-0">          <button            *ngFor="let period of periods"            (click)="changePeriod(period.label)"            [class.bg-blue-500]="selectedPeriod === period.label"            [class.text-white]="selectedPeriod === period.label"            [class.bg-gray-100]="selectedPeriod !== period.label"            [class.text-gray-700]="selectedPeriod !== period.label"            class="h-8 min-h-8 rounded-full px-3 py-1 text-sm font-medium transition-all duration-200 hover:bg-opacity-90"          >            {{ period.label }}          </button>        </div>      </div>      <!-- Vùng chứa biểu đồ -->      <div class="relative flex-1 p-4 sm:p-6">        <!-- Trạng thái đang tải -->        <div *ngIf="!multi_data?.length" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60">          <div class="flex flex-col items-center">            <div class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500"></div>            <span class="mt-3 text-sm text-gray-500">Đang tải dữ liệu biểu đồ...</span>          </div>        </div>        <!-- Trạng thái không có dữ liệu -->        <div *ngIf="multi_data?.length === 0" class="absolute inset-0 flex items-center justify-center">          <div class="flex flex-col items-center p-6 text-center">            <mat-icon class="text-gray-300" style="font-size: 48px; height: 48px; width: 48px">insert_chart</mat-icon>            <h3 class="mt-2 text-lg font-medium text-gray-900">Không có dữ liệu</h3>            <p class="mt-1 text-sm text-gray-500">Không có dữ liệu khả dụng cho khoảng thời gian đã chọn.</p>          </div>        </div>        <!-- Biểu đồ -->        <div class="h-[300px] w-full sm:h-[400px]" *ngIf="multi_data?.length">          <apx-chart            #chart            [series]="chartOptions.series"            [chart]="chartOptions.chart"            [xaxis]="chartOptions.xaxis"            [yaxis]="chartOptions.yaxis"            [dataLabels]="chartOptions.dataLabels"            [grid]="chartOptions.grid"            [stroke]="chartOptions.stroke"            [tooltip]="chartOptions.tooltip"            [legend]="chartOptions.legend"            [fill]="chartOptions.fill"            [colors]="chartOptions.colors"          ></apx-chart>        </div>      </div>      <!-- Phần cuối với các thông số tóm tắt -->      <div *ngIf="multi_data?.length" class="border-t border-gray-100 bg-gray-50 p-4">        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">          <div *ngFor="let series of multi_data; let i = index" class="flex flex-col">            <span class="text-xs text-gray-500">{{ series.name }}</span>            <div class="mt-1 flex items-center">              <span class="text-lg font-semibold" [ngStyle]="{ color: chartOptions.colors ? chartOptions.colors?.[i] : \'#000\' }">                {{ series.data[series.data.length - 1]?.value.toLocaleString() }}              </span>              <ng-container *ngIf="series.data.length > 1">                <div                  class="ml-2 text-xs"                  [class.text-green-500]="calculatePercentageChange(i).isPositive"                  [class.text-red-500]="!calculatePercentageChange(i).isPositive"                >                  <mat-icon class="align-middle text-xs" style="font-size: 16px; height: 16px; width: 16px">                    {{ calculatePercentageChange(i).isPositive ? \'arrow_upward\' : \'arrow_downward\' }}                  </mat-icon>                  {{ calculatePercentageChange(i).value }}%                </div>              </ng-container>            </div>          </div>        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'LineChartComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LineChartComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

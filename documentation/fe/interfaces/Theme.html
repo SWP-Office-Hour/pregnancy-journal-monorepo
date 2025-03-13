@@ -1,0 +1,703 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Interfaces</li>
+  <li class="breadcrumb-item"
+  >
+  Theme</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" 
+                class="nav-link"
+                class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" 
+                class="nav-link"
+                
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info">
+        <p class="comment">
+            <h3>File</h3>
+        </p>
+        <p class="comment">
+            <code>apps/fe-fuse/src/app/modules/calendar/calendar.component.ts</code>
+        </p>
+
+
+
+
+        <section data-compodoc="block-index">
+            <h3 id="index">Index</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Properties</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                        <a href="#color" 
+>
+                                            color
+                                        </a>
+                                </li>
+                                <li>
+                                        <a href="#title" 
+>
+                                            title
+                                        </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+
+
+            <section data-compodoc="block-properties">
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="color"></a>
+                                        <span class="name "><b>color</b>
+                                            <a href="#color">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>color:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <a name="title"></a>
+                                        <span class="name "><b>title</b>
+                                            <a href="#title">
+                                                <span class="icon ion-ios-link"></span>
+                                            </a>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>title:         <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+</code>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                                        </td>
+                                    </tr>
+
+
+
+
+
+                        </tbody>
+                    </table>
+            </section>
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from &#x27;@angular/cdk/drag-drop&#x27;;
+import { CommonModule, registerLocaleData } from &#x27;@angular/common&#x27;;
+import localeVi from &#x27;@angular/common/locales/vi&#x27;;
+import { Component, effect, LOCALE_ID, ResourceStatus, Signal, signal } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { ReminderColor, ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest } from &#x27;@pregnancy-journal-monorepo/contract&#x27;;
+import { Button, ButtonModule } from &#x27;primeng/button&#x27;;
+import { CalendarService } from &#x27;./calendar.service&#x27;;
+
+interface Theme {
+  title: string;
+  color: string;
+}
+
+// Register Vietnamese locale data
+registerLocaleData(localeVi);
+
+@Component({
+  selector: &#x27;app-calendar&#x27;,
+  imports: [
+    MatSelectModule,
+    CommonModule,
+    FormsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    DragDropModule,
+    FormsModule,
+    Button,
+    ButtonModule,
+    DragDropModule,
+  ],
+  templateUrl: &#x27;./calendar.component.html&#x27;,
+  styleUrl: &#x27;./calendar.component.css&#x27;,
+  providers: [
+    { provide: LOCALE_ID, useValue: &#x27;vi-VN&#x27; }, // Set default locale to Vietnamese
+  ],
+})
+export class CalendarComponent {
+  constructor(
+    private fb: FormBuilder,
+    private _calendarService: CalendarService,
+  ) {
+    this.eventForm &#x3D; this.fb.group({
+      title: [&#x27;&#x27;, [Validators.required]],
+      color: [&#x27;&#x27;, [Validators.required]],
+      content: [&#x27;&#x27;],
+    });
+    this.events &#x3D; this._calendarService.meetings.value;
+    this.status &#x3D; this._calendarService.meetings.status;
+    effect(() &#x3D;&gt; {
+      if (this.events().length &gt; 0) {
+        this.generateCalendarDays();
+      }
+    });
+  }
+
+  currentDate: Date &#x3D; new Date();
+  selectedDate: Date &#x3D; new Date();
+  calendarDays: Date[];
+  calendarEvents: Array&lt;{ date: Date; events: any[] }&gt;;
+  weekDays: string[] &#x3D; [&#x27;CN&#x27;, &#x27;T2&#x27;, &#x27;T3&#x27;, &#x27;T4&#x27;, &#x27;T5&#x27;, &#x27;T6&#x27;, &#x27;T7&#x27;];
+  events &#x3D; signal&lt;ReminderResponse[]&gt;([]);
+  status: Signal&lt;ResourceStatus&gt; &#x3D; signal(ResourceStatus.Idle);
+
+  showEventModal: boolean &#x3D; false;
+  newEvent: ReminderResponse &#x3D; {
+    title: &#x27;&#x27;,
+    content: &#x27;&#x27;,
+    remind_date: new Date(),
+    color: ReminderColor.USER_CREATED_EVENT_COLOR,
+    type: ReminderType.USER_CREATED_EVENT,
+  };
+  themes: Theme[] &#x3D; [
+    { title: &#x27;Khám thai&#x27;, color: &#x27;f9a8d4&#x27; }, // Soft pink
+    { title: &#x27;Uống thuốc&#x27;, color: &#x27;c4b5fd&#x27; }, // Soft lavender
+    { title: &#x27;Tiêm phòng&#x27;, color: &#x27;93c5fd&#x27; }, // Soft blue
+    { title: &#x27;Siêu âm&#x27;, color: &#x27;a7f3d0&#x27; }, // Soft mint
+    { title: &#x27;Xét nghiệm&#x27;, color: &#x27;fcd34d&#x27; }, // Soft yellow
+  ];
+  eventForm: FormGroup;
+  isEditMode: boolean &#x3D; false;
+  isHovering: boolean &#x3D; false;
+  // Add a property to track the event being edited
+  editingEvent: ReminderResponse &#x3D; { title: &#x27;&#x27;, content: &#x27;&#x27;, remind_date: new Date(), color: &#x27;&#x27;, type: ReminderType.USER_CREATED_EVENT };
+
+  generateCalendarDays() {
+    const year &#x3D; this.currentDate.getFullYear();
+    const month &#x3D; this.currentDate.getMonth();
+    const firstDay &#x3D; new Date(year, month, 1);
+    const lastDay &#x3D; new Date(year, month + 1, 0);
+
+    // Create a properly typed array for calendar days
+    const dateEvents: Array&lt;{ date: Date; events: any[] }&gt; &#x3D; [];
+
+    // Calculate days needed from previous month
+    const startPadding &#x3D; firstDay.getDay();
+
+    // Add previous month&#x27;s days
+    for (let i &#x3D; 0; i &lt; startPadding; i++) {
+      const prevDate &#x3D; new Date(year, month, -startPadding + i + 1);
+      // Check if there are existing events for this date
+      const existingEvents &#x3D; this.getEventsForDate(prevDate);
+      dateEvents.push({ date: prevDate, events: existingEvents });
+    }
+
+    // Add current month&#x27;s days
+    for (let i &#x3D; 1; i &lt;&#x3D; lastDay.getDate(); i++) {
+      const currentDate &#x3D; new Date(year, month, i);
+      // Check if there are existing events for this date
+      const existingEvents &#x3D; this.getEventsForDate(currentDate);
+      dateEvents.push({ date: currentDate, events: existingEvents });
+    }
+
+    // Calculate how many days we need from next month to complete the grid
+    // A standard calendar display needs 6 rows of 7 days &#x3D; 42 total cells
+    const totalCells &#x3D; 42;
+    const endPadding &#x3D; totalCells - dateEvents.length;
+
+    // Add next month&#x27;s days
+    for (let i &#x3D; 1; i &lt;&#x3D; endPadding; i++) {
+      const nextDate &#x3D; new Date(year, month + 1, i);
+      // Check if there are existing events for this date
+      const existingEvents &#x3D; this.getEventsForDate(nextDate);
+      dateEvents.push({ date: nextDate, events: existingEvents });
+    }
+
+    this.calendarDays &#x3D; dateEvents.map((item) &#x3D;&gt; item.date);
+    // You can store the events mapping if needed
+    this.calendarEvents &#x3D; dateEvents;
+  }
+
+  // Helper function to find events for a specific date
+  getEventsForDate(date: Date): ReminderResponse[] {
+    if (!date) return [];
+    // Find existing events
+    return !date ? [] : this.events()?.filter((event) &#x3D;&gt; this.getDateKey(event.remind_date) &#x3D;&#x3D;&#x3D; this.getDateKey(date));
+  }
+
+  // Create a unique string key for a date (without time)
+  getDateKey(date: Date): string {
+    return date ? &#x60;${date.getFullYear()}-${date.getMonth()}-${date.getDate()}&#x60; : &#x27;&#x27;;
+  }
+
+  navigateMonth(offset: number) {
+    this.currentDate &#x3D; new Date(this.currentDate.getFullYear(), this.currentDate.getMonth() + offset);
+    this.generateCalendarDays();
+  }
+
+  navigateThisMonth() {
+    this.currentDate &#x3D; new Date();
+    this.generateCalendarDays();
+  }
+
+  selectDate(date: Date) {
+    this.selectedDate &#x3D; date;
+  }
+
+  private isSameDay(date1: Date, date2: Date): boolean {
+    return date1.toDateString() &#x3D;&#x3D;&#x3D; date2.toDateString();
+  }
+
+  isSelected(date: Date): boolean {
+    return this.selectedDate
+      ? date.getDate() &#x3D;&#x3D;&#x3D; this.selectedDate.getDate() &amp;&amp;
+          date.getMonth() &#x3D;&#x3D;&#x3D; this.selectedDate.getMonth() &amp;&amp;
+          date.getFullYear() &#x3D;&#x3D;&#x3D; this.selectedDate.getFullYear()
+      : false;
+  }
+
+  isToday(date: Date): boolean {
+    const today &#x3D; new Date();
+    return date.getDate() &#x3D;&#x3D;&#x3D; today.getDate() &amp;&amp; date.getMonth() &#x3D;&#x3D;&#x3D; today.getMonth() &amp;&amp; date.getFullYear() &#x3D;&#x3D;&#x3D; today.getFullYear();
+  }
+
+  isMonth(date: Date): boolean {
+    return this.currentDate ? date.getMonth() &#x3D;&#x3D;&#x3D; this.currentDate.getMonth() &amp;&amp; date.getFullYear() &#x3D;&#x3D;&#x3D; this.currentDate.getFullYear() : false;
+  }
+
+  isDueDate(date: Date): boolean {
+    return this.events().some((event) &#x3D;&gt; this.isSameDay(event.remind_date, date) &amp;&amp; event.type &#x3D;&#x3D;&#x3D; ReminderType.USER_DUE_DATE);
+  }
+
+  createEvent() {
+    // Using the template-driven form validation
+    if (this.newEvent.title &amp;&amp; this.newEvent.title.length &gt;&#x3D; 3) {
+      if (this.isEditMode &amp;&amp; this.editingEvent) {
+        // Update existing event using the stored reference instead of trying to match by title
+        this.events.update((events) &#x3D;&gt; {
+          return events.map((e) &#x3D;&gt; {
+            // Find the event by reference, not by properties
+            if (e &#x3D;&#x3D;&#x3D; this.editingEvent) {
+              return { ...this.newEvent }; // Replace with updated data
+            }
+            return e;
+          });
+        });
+      } else {
+        // Create a new event (existing code)
+        const eventCopy: ReminderCreateRequest &#x3D; {
+          title: this.newEvent.title,
+          content: this.newEvent.content || &#x27;&#x27;,
+          remind_date: new Date(this.selectedDate).toLocaleDateString(&#x27;en-CA&#x27;),
+          color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
+          type: this.newEvent.type || ReminderType.USER_CREATED_EVENT,
+        };
+
+        // Add the event to our events array
+        this._calendarService.createReminder(eventCopy).subscribe(() &#x3D;&gt; {});
+      }
+
+      // Close the modal
+      this.closeCreateEventModal();
+    }
+  }
+
+  //lấy list màu từ enum
+  getReminderColors(): ReminderColor[] {
+    return Object.values(ReminderColor);
+  }
+
+  openCreateEventModal() {
+    // Prepare the new event with the selected date
+    this.newEvent.remind_date &#x3D; new Date(this.selectedDate);
+    this.isEditMode &#x3D; false; // Reset to create mode
+
+    // Set a timeout before showing the modal for a smoother effect
+    setTimeout(() &#x3D;&gt; {
+      this.showEventModal &#x3D; true;
+    }, 10);
+  }
+
+  closeCreateEventModal() {
+    // Hide the modal first
+    this.showEventModal &#x3D; false;
+
+    // Reset the form after the animation completes
+    setTimeout(() &#x3D;&gt; {
+      this.newEvent &#x3D; {
+        title: &#x27;&#x27;,
+        remind_date: new Date(),
+        color: ReminderColor.USER_CREATED_EVENT_COLOR,
+      };
+      this.isEditMode &#x3D; false;
+      this.editingEvent &#x3D; null; // Clear the reference to the edited event
+      this.eventForm.reset();
+    }, 300);
+  }
+
+  chooseColor(event: ReminderResponse): string {
+    if (!event.color) {
+      if (event.type &#x3D;&#x3D;&#x3D; ReminderType.USER_CREATED_EVENT) {
+        return &#x27;#&#x27; + ReminderColor.USER_CREATED_EVENT_COLOR;
+      }
+      if (event.type &#x3D;&#x3D;&#x3D; ReminderType.FOLLOW_UP_MEETING) {
+        return &#x27;#&#x27; + ReminderColor.FOLLOW_UP_MEETING_COLOR;
+      }
+    }
+    return &#x27;#&#x27; + event.color;
+  }
+
+  chooseColorTheme(color: string): string {
+    return &#x27;#&#x27; + color;
+  }
+
+  dropEvent(event: CdkDragDrop&lt;ReminderResponse[]&gt;, targetDate: Date) {
+    if (event.previousContainer &#x3D;&#x3D;&#x3D; event.container) {
+      // Reordering in the same date
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      // Check if we&#x27;re dragging from themes to events
+      const sourceData &#x3D; event.previousContainer.data;
+      const draggedItem &#x3D; sourceData[event.previousIndex];
+
+      // If the dragged item is a theme (check if it has no &#x27;date&#x27; property)
+      if (!(&#x27;date&#x27; in draggedItem)) {
+        // This is a theme being dropped onto a date
+        const draggedTheme &#x3D; draggedItem as unknown as Theme;
+
+        // Create a new event from the theme
+        const newEvent: ReminderCreateRequest &#x3D; {
+          title: draggedTheme.title,
+          content: &#x27;&#x27;,
+          remind_date: targetDate.toLocaleDateString(&#x27;en-CA&#x27;),
+          color: draggedTheme.color,
+          type: ReminderType.USER_CREATED_EVENT,
+        };
+        this._calendarService.createReminder(newEvent).subscribe(() &#x3D;&gt; {});
+      } else {
+        transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
+        // Update the date of the transferred event
+        event.container.data[event.currentIndex].remind_date &#x3D; new Date(targetDate);
+      }
+    }
+  }
+
+  dropTheme(event: CdkDragDrop&lt;Theme[]&gt;) {
+    // If dropping on a date
+    if (event.container.id.startsWith(&#x27;date-&#x27;)) {
+      // Extract the index from the container ID (e.g. &quot;date-5&quot; -&gt; 5)
+      const dateIndex &#x3D; parseInt(event.container.id.split(&#x27;-&#x27;)[1]);
+      if (isNaN(dateIndex) || dateIndex &lt; 0 || dateIndex &gt;&#x3D; this.calendarDays.length) {
+        return;
+      }
+
+      // Get the target date
+      const targetDate &#x3D; this.calendarDays[dateIndex];
+
+      // Get the theme
+      const theme &#x3D; this.themes[event.previousIndex];
+
+      // Create a new event from the theme
+      const newEvent: ReminderResponse &#x3D; {
+        title: theme.title,
+        remind_date: new Date(targetDate),
+        color: theme.color,
+      };
+
+      // Add to events array
+      this.events.update((events) &#x3D;&gt; {
+        events.push(newEvent);
+        return events;
+      });
+
+      // Note: We always preserve themes when dropping them into calendar dates
+      // No deletion code here - themes are reusable templates
+    } else {
+      // Regular drag and drop within themes list
+      if (event.previousContainer &#x3D;&#x3D;&#x3D; event.container) {
+        moveItemInArray(this.themes, event.previousIndex, event.currentIndex);
+      }
+    }
+  }
+
+  // Add these methods for edit and delete functionality
+  editEvent(event: ReminderResponse) {
+    // Prepare the form with the selected event
+    this.newEvent &#x3D; { ...event };
+    this.isEditMode &#x3D; true;
+    this.editingEvent &#x3D; event; // Store a reference to the edited event
+
+    // Set a timeout before showing the modal for a smoother effect
+    setTimeout(() &#x3D;&gt; {
+      this.showEventModal &#x3D; true;
+    }, 10);
+  }
+
+  updateEvent() {
+    //store the updated event
+    this.editingEvent.title &#x3D; this.newEvent.title;
+    this.editingEvent.content &#x3D; this.newEvent.content;
+    this.editingEvent.color &#x3D; this.newEvent.color;
+
+    //convert to ReminderUpdateRequest
+    const reminderUpdateRequest: ReminderUpdateRequest &#x3D; {
+      reminder_id: this.editingEvent.reminder_id,
+      title: this.editingEvent.title,
+      content: this.editingEvent.content,
+      remind_date: new Date(this.editingEvent.remind_date).toLocaleDateString(&#x27;en-CA&#x27;),
+      color: this.editingEvent.color,
+    };
+    console.log(this.events());
+    console.log(reminderUpdateRequest);
+    this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() &#x3D;&gt; {});
+    console.log(this.events());
+    //close modal
+    this.showEventModal &#x3D; false;
+
+    //reset form
+    this.eventForm.reset();
+  }
+
+  deleteEvent(event: ReminderResponse) {
+    this._calendarService.deleteReminder(event.reminder_id).subscribe(() &#x3D;&gt; {});
+  }
+
+  protected readonly ReminderType &#x3D; ReminderType;
+}
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'Theme.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

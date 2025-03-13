@@ -1,0 +1,1841 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  HomeComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/member/home/home.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+            <tr>
+                <td class="col-md-3">changeDetection</td>
+                <td class="col-md-9"><code>ChangeDetectionStrategy.OnPush</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                            <code>provideNativeDateAdapter()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-home</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>TranslocoModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatRippleModule</code>
+                            <code>MatMenuModule</code>
+                            <code>MatTabsModule</code>
+                            <code>MatButtonToggleModule</code>
+                            <code>NgApexchartsModule</code>
+                            <code>MatTableModule</code>
+                            <code>MatTooltipModule</code>
+                            <code>MatDialogModule</code>
+                                <code><a href="../components/RecommendedBlogsComponent.html" target="_self" >RecommendedBlogsComponent</a></code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatProgressSpinnerModule</code>
+                            <code>NgClass</code>
+                            <code>TextFieldModule</code>
+                            <code>MatSelectModule</code>
+                            <code>MatOptionModule</code>
+                            <code>MatChipsModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatExpansionModule</code>
+                                <code><a href="../components/FuseCardComponent.html" target="_self" >FuseCardComponent</a></code>
+                            <code>TooltipModule</code>
+                            <code>ButtonModule</code>
+                            <code>NgxSplideModule</code>
+                            <code>RouterLink</code>
+                                <code><a href="../components/HomeReminderComponent.html" target="_self" >HomeReminderComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./home.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>home.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_countWeek" >_countWeek</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_currentPregnancyWeek" >_currentPregnancyWeek</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_expectedDate" >_expectedDate</a>
+                            </li>
+                            <li>
+                                <a href="#countDownForm" >countDownForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#formatDate" >formatDate</a>
+                            </li>
+                            <li>
+                                <a href="#isButtonHovered" >isButtonHovered</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#lastRecord" >lastRecord</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#metrics" >metrics</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                    <span class="modifier">Readonly</span>
+                                <a href="#Status" >Status</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#systemRemind" >systemRemind</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#user" >user</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#weightMetricId" >weightMetricId</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#calculateCurrentPregnancyWeek" >calculateCurrentPregnancyWeek</a>
+                            </li>
+                            <li>
+                                <a href="#calculateExpectedDate" >calculateExpectedDate</a>
+                            </li>
+                            <li>
+                                <a href="#goToNextWeek" >goToNextWeek</a>
+                            </li>
+                            <li>
+                                <a href="#goToPreviousWeek" >goToPreviousWeek</a>
+                            </li>
+                            <li>
+                                <a href="#goToThisWeek" >goToThisWeek</a>
+                            </li>
+                            <li>
+                                <a href="#padNumberToFourDigits" >padNumberToFourDigits</a>
+                            </li>
+                            <li>
+                                <a href="#remainingDays" >remainingDays</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#countWeek" >countWeek</a>
+                                </li>
+                                <li>
+                                    <a href="#countWeekNumber" >countWeekNumber</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_recordService: <a href="../injectables/PregnancyRecordService.html" target="_self">PregnancyRecordService</a>, _httpClient: HttpClient, _userService: <a href="../injectables/UserService.html" target="_self">UserService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:98</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_recordService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/PregnancyRecordService.html" target="_self" >PregnancyRecordService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_httpClient</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateCurrentPregnancyWeek"></a>
+                    <span class="name">
+                        <span ><b>calculateCurrentPregnancyWeek</b></span>
+                        <a href="#calculateCurrentPregnancyWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateCurrentPregnancyWeek()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="166"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:166</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="calculateExpectedDate"></a>
+                    <span class="name">
+                        <span ><b>calculateExpectedDate</b></span>
+                        <a href="#calculateExpectedDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>calculateExpectedDate()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="208"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:208</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToNextWeek"></a>
+                    <span class="name">
+                        <span ><b>goToNextWeek</b></span>
+                        <a href="#goToNextWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToNextWeek()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="200"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:200</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToPreviousWeek"></a>
+                    <span class="name">
+                        <span ><b>goToPreviousWeek</b></span>
+                        <a href="#goToPreviousWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToPreviousWeek()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="196"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:196</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="goToThisWeek"></a>
+                    <span class="name">
+                        <span ><b>goToThisWeek</b></span>
+                        <a href="#goToThisWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>goToThisWeek()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="204"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:204</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="padNumberToFourDigits"></a>
+                    <span class="name">
+                        <span ><b>padNumberToFourDigits</b></span>
+                        <a href="#padNumberToFourDigits"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>padNumberToFourDigits(value: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank">number</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="189"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>value</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="remainingDays"></a>
+                    <span class="name">
+                        <span ><b>remainingDays</b></span>
+                        <a href="#remainingDays"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>remainingDays()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="157"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:157</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_countWeek"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_countWeek</b></span>
+                        <a href="#_countWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>this._currentPregnancyWeek</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="147" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_currentPregnancyWeek"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_currentPregnancyWeek</b></span>
+                        <a href="#_currentPregnancyWeek"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>4</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="98" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:98</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_expectedDate"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_expectedDate</b></span>
+                        <a href="#_expectedDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date" target="_blank" >Date</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Date()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="96" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="countDownForm"></a>
+                    <span class="name">
+                        <span ><b>countDownForm</b></span>
+                        <a href="#countDownForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormGroup({
+    lastMenstrualPeriod: new FormControl(&#x27;&#x27;, Validators.required),
+    menstrualCycle: new FormControl(&#x27;&#x27;, Validators.required),
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="83" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:83</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="formatDate"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>formatDate</b></span>
+                        <a href="#formatDate"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="82" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:82</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isButtonHovered"></a>
+                    <span class="name">
+                        <span ><b>isButtonHovered</b></span>
+                        <a href="#isButtonHovered"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="87" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:87</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="lastRecord"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>lastRecord</b></span>
+                        <a href="#lastRecord"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>RecordResponse | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="93" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:93</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="metrics"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>metrics</b></span>
+                        <a href="#metrics"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>MetricResponseType[]</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="90" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:90</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="Status"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                            <span class="modifier">Readonly</span>
+                        <span ><b>Status</b></span>
+                        <a href="#Status"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>Status</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="92" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:92</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="systemRemind"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>systemRemind</b></span>
+                        <a href="#systemRemind"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/SystemReminder.html" target="_self" >WritableSignal&lt;SystemReminder&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="81" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>User | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="94" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:94</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="weightMetricId"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>weightMetricId</b></span>
+                        <a href="#weightMetricId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="91" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:91</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="countWeek"></a>
+                        <span class="name"><b>countWeek</b><a href="#countWeek"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>countWeek()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="149" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:149</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="countWeekNumber"></a>
+                        <span class="name"><b>countWeekNumber</b><a href="#countWeekNumber"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>countWeekNumber()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="153" class="link-to-prism">apps/fe-fuse/src/app/modules/member/home/home.component.ts:153</a></div>
+                                </td>
+                            </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { TextFieldModule } from &#x27;@angular/cdk/text-field&#x27;;
+import { NgClass } from &#x27;@angular/common&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, WritableSignal } from &#x27;@angular/core&#x27;;
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatButtonToggleModule } from &#x27;@angular/material/button-toggle&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatChipsModule } from &#x27;@angular/material/chips&#x27;;
+import { MatOptionModule, MatRippleModule, provideNativeDateAdapter } from &#x27;@angular/material/core&#x27;;
+import { MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatDialogModule } from &#x27;@angular/material/dialog&#x27;;
+import { MatExpansionModule } from &#x27;@angular/material/expansion&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
+import { MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { MatTableModule } from &#x27;@angular/material/table&#x27;;
+import { MatTabsModule } from &#x27;@angular/material/tabs&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { RouterLink } from &#x27;@angular/router&#x27;;
+import { TranslocoModule } from &#x27;@jsverse/transloco&#x27;;
+import { MetricResponseType, RecordResponse, Status } from &#x27;@pregnancy-journal-monorepo/contract&#x27;;
+import { NgApexchartsModule } from &#x27;ng-apexcharts&#x27;;
+import { NgxSplideModule } from &#x27;ngx-splide&#x27;;
+import { ButtonModule } from &#x27;primeng/button&#x27;;
+import { TooltipModule } from &#x27;primeng/tooltip&#x27;;
+import { FuseCardComponent } from &#x27;../../../../@fuse/components/card&#x27;;
+import { environment } from &#x27;../../../../environments/environment&#x27;;
+import { UserService } from &#x27;../../../core/user/user.service&#x27;;
+import { User } from &#x27;../../../core/user/user.types&#x27;;
+import { SystemReminder, SystemReminders } from &#x27;../../../mock-api/system-remind.data&#x27;;
+import { PregnancyRecordService } from &#x27;../../customer/pregnancy-record/pregnancy-record.service&#x27;;
+import { HomeReminderComponent } from &#x27;../home-reminder/home-reminder.component&#x27;;
+import { RecommendedBlogsComponent } from &#x27;../recommended-blogs/recommended-blogs.component&#x27;;
+
+@Component({
+  selector: &#x27;app-home&#x27;,
+  imports: [
+    TranslocoModule,
+    MatIconModule,
+    MatButtonModule,
+    MatRippleModule,
+    MatMenuModule,
+    MatTabsModule,
+    MatButtonToggleModule,
+    NgApexchartsModule,
+    MatTableModule,
+    MatTooltipModule,
+    MatDialogModule,
+    RecommendedBlogsComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+    NgClass,
+    TextFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatExpansionModule,
+    FuseCardComponent,
+    TooltipModule,
+    ButtonModule,
+    NgxSplideModule,
+    RouterLink,
+    HomeReminderComponent,
+  ],
+  providers: [provideNativeDateAdapter()],
+  templateUrl: &#x27;./home.component.html&#x27;,
+  styleUrl: &#x27;home.component.css&#x27;,
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class HomeComponent {
+  public systemRemind: WritableSignal&lt;SystemReminder&gt; &#x3D; null;
+  public formatDate: string;
+  countDownForm &#x3D; new FormGroup({
+    lastMenstrualPeriod: new FormControl(&#x27;&#x27;, Validators.required),
+    menstrualCycle: new FormControl(&#x27;&#x27;, Validators.required),
+  });
+  isButtonHovered &#x3D; false;
+  //1. Lấy User
+  //get data standard of metric from API
+  protected metrics: MetricResponseType[];
+  protected weightMetricId: string;
+  protected readonly Status &#x3D; Status;
+  protected lastRecord: RecordResponse | null &#x3D; null;
+  protected user: User | null &#x3D; null;
+  //2. Lấy ngày đẻ
+  private _expectedDate: Date &#x3D; new Date();
+  //3. Tính tuần thai
+  private _currentPregnancyWeek: number &#x3D; 4;
+
+  constructor(
+    private _recordService: PregnancyRecordService,
+    private _httpClient: HttpClient,
+    private _userService: UserService,
+  ) {
+    this._userService.user$.subscribe((user) &#x3D;&gt; {
+      if (user) {
+        this.user &#x3D; user;
+        this._expectedDate &#x3D; new Date(user.expected_birth_date) || new Date();
+        this.calculateCurrentPregnancyWeek();
+        this._countWeek &#x3D; this._currentPregnancyWeek;
+        this.systemRemind.set(SystemReminders.find((item) &#x3D;&gt; item.week &#x3D;&#x3D;&#x3D; this._currentPregnancyWeek) || null);
+      }
+    });
+    this._recordService.getMetrics().subscribe((metrics) &#x3D;&gt; {
+      this.metrics &#x3D; metrics.filter((metric) &#x3D;&gt; metric.status &#x3D;&#x3D; Status.ACTIVE);
+      this.metrics.forEach((metric) &#x3D;&gt; {
+        if (metric.title &#x3D;&#x3D; &#x27;Cân nặng&#x27;) {
+          this.weightMetricId &#x3D; metric.metric_id;
+        }
+      });
+    });
+
+    this._httpClient
+      .get&lt;{
+        total: number;
+        data: RecordResponse[];
+      }&gt;(&#x60;${environment.apiUrl}record&#x60;)
+      .subscribe((records) &#x3D;&gt; {
+        if (records.total &gt; 0) {
+          this.lastRecord &#x3D; records.data[0];
+          this.calculateCurrentPregnancyWeek();
+          this._countWeek &#x3D; this._currentPregnancyWeek;
+        }
+      });
+  }
+
+  //chưa có data bên database
+  // standardResource &#x3D; resource&lt;Standard[], {}&gt;({
+  //   loader: async ({ abortSignal }) &#x3D;&gt; {
+  //     const response &#x3D; await fetch(environment.apiUrl + &#x27;standards/&#x27; + this.weightMetricId, {
+  //       signal: abortSignal,
+  //     });
+  //     if (!response.ok) throw Error(&#x60;Could not fetch...&#x60;);
+  //     return await response.json();
+  //   },
+
+  private _countWeek: number &#x3D; this._currentPregnancyWeek;
+
+  public get countWeek(): string {
+    return this._countWeek.toString().padStart(4, &#x27;0&#x27;);
+  }
+
+  public get countWeekNumber(): number {
+    return this._countWeek;
+  }
+
+  remainingDays() {
+    const expectedDate &#x3D; new Date(this._expectedDate);
+    const currentDate &#x3D; new Date();
+    return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+  }
+
+  // Form tính ngày dự sinh
+
+  //Hàm tính tuần thai
+  calculateCurrentPregnancyWeek() {
+    // Chuyển đổi ngày dự sinh từ chuỗi sang Date
+    const expectedDate &#x3D; new Date(this._expectedDate);
+
+    // Lấy ngày hiện tại
+    const currentDate &#x3D; new Date();
+
+    // Tính số ngày còn lại đến ngày dự sinh
+    const remainingDays &#x3D; Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Tính số tuần thai hiện tại
+    const currentPregnancyWeek &#x3D; 40 - Math.floor(remainingDays / 7);
+
+    // Kiểm tra nếu vượt quá 40 tuần
+    if (currentPregnancyWeek &lt; 0) {
+      return; //&#x27;Đã quá ngày dự sinh!&#x27;;
+    } else if (currentPregnancyWeek &gt; 40) {
+      return; //&#x27;Lỗi: Ngày dự sinh không hợp lệ!&#x27;;
+    }
+    this._currentPregnancyWeek &#x3D; currentPregnancyWeek;
+  }
+
+  // });
+  padNumberToFourDigits(value: number): string {
+    if (!Number.isInteger(value) || value &lt; 0) {
+      throw new Error(&#x27;Giá trị phải là một số nguyên không âm.&#x27;);
+    }
+    return value.toString().padStart(4, &#x27;0&#x27;);
+  }
+
+  goToPreviousWeek() {
+    if (this._countWeek &gt; 1) this._countWeek--;
+  }
+
+  goToNextWeek() {
+    if (this._countWeek &lt; 40) this._countWeek++;
+  }
+
+  goToThisWeek() {
+    this._countWeek &#x3D; this._currentPregnancyWeek;
+  }
+
+  calculateExpectedDate() {
+    const lastMenstrualPeriodString: string | null &#x3D; this.countDownForm.get(&#x27;lastMenstrualPeriod&#x27;)!.value;
+    const lastMenstrualPeriod: Date | null &#x3D; lastMenstrualPeriodString ? new Date(lastMenstrualPeriodString) : null;
+    const menstrualCycleString: string | null &#x3D; this.countDownForm.get(&#x27;menstrualCycle&#x27;)!.value;
+    const menstrualCycle: number | null &#x3D; menstrualCycleString ? Number(menstrualCycleString) : null;
+
+    if (lastMenstrualPeriod instanceof Date &amp;&amp; typeof menstrualCycle &#x3D;&#x3D;&#x3D; &#x27;number&#x27;) {
+      // Ngày dự sinh tiêu chuẩn với chu kỳ 28 ngày (40 tuần &#x3D; 280 ngày)
+      let dueDate &#x3D; new Date(lastMenstrualPeriod);
+      dueDate.setDate(dueDate.getDate() + 280);
+
+      // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
+      let adjustment &#x3D; menstrualCycle - 28;
+      dueDate.setDate(dueDate.getDate() + adjustment);
+
+      this._expectedDate &#x3D; dueDate;
+      this.formatDate &#x3D; this._expectedDate.toLocaleDateString(&#x27;vi-VN&#x27;);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex min-w-0 flex-auto flex-col&quot;&gt;
+  &lt;!-- Header --&gt;
+
+  &lt;div class&#x3D;&quot;flex flex-col bg-transparent&quot;&gt;
+    &lt;div class&#x3D;&quot;box bottom w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100&quot; [class.box-hover]&#x3D;&quot;isButtonHovered&quot;&gt;
+      &lt;div class&#x3D;&quot;mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8&quot;&gt;
+        &lt;!--Chào mừng--&gt;
+        &lt;div class&#x3D;&quot;my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center&quot;&gt;
+          &lt;!-- Avatar and name --&gt;
+          &lt;div class&#x3D;&quot;flex min-w-0 flex-auto items-center&quot;&gt;
+            &lt;div class&#x3D;&quot;flex-0 h-16 w-16 overflow-hidden rounded-full&quot;&gt;
+              &lt;img class&#x3D;&quot;h-full w-full object-cover&quot; src&#x3D;&quot;images/avatars/brian-hughes.jpg&quot; /&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;ml-4 flex min-w-0 flex-col&quot;&gt;
+              &lt;ng-container *transloco&#x3D;&quot;let t&quot;&gt;
+                &lt;div class&#x3D;&quot;truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug&quot;&gt;
+                  {{ t(&#x27;welcome-back&#x27;) }}, {{ user.name }}!
+                &lt;/div&gt;
+              &lt;/ng-container&gt;
+              &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+                &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:bell&#x27;&quot;&gt;&lt;/mat-icon&gt;
+                &lt;div class&#x3D;&quot;text-secondary ml-1.5 truncate leading-6&quot;&gt;Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới&lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- Visit record Button --&gt;
+    &lt;a
+      class&#x3D;&quot;trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4&quot;
+      matRipple
+      pTooltip&#x3D;&quot;Hôm nay mẹ đi khám&quot;
+      tooltipPosition&#x3D;&quot;top&quot;
+      [routerLink]&#x3D;&quot;&#x27;/record&#x27;&quot;
+      (mouseenter)&#x3D;&quot;isButtonHovered &#x3D; true&quot;
+      (mouseleave)&#x3D;&quot;isButtonHovered &#x3D; false&quot;
+    &gt;
+      &lt;i&gt;
+        &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;256&quot; height&#x3D;&quot;256&quot; viewBox&#x3D;&quot;0 0 256 256&quot;&gt;
+          &lt;path
+            fill&#x3D;&quot;#fff&quot;
+            d&#x3D;&quot;m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0&quot;
+          /&gt;
+        &lt;/svg&gt;
+      &lt;/i&gt;
+    &lt;/a&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Main --&gt;
+  &lt;div class&#x3D;&quot;-mt-px flex-auto pt-4 sm:pt-6&quot;&gt;
+    &lt;div class&#x3D;&quot;mx-auto w-full max-w-screen-xl&quot;&gt;
+      &lt;mat-tab-group class&#x3D;&quot;sm:px-2&quot; mat-stretch-tabs&#x3D;&quot;false&quot; [animationDuration]&#x3D;&quot;&#x27;0&#x27;&quot;&gt;
+        &lt;mat-tab label&#x3D;&quot;Bé con&quot;&gt;
+          &lt;ng-template matTabContent&gt;
+            &lt;!--Thai nhi--&gt;
+            &lt;div class&#x3D;&quot;mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4&quot;&gt;
+              &lt;!-- Cấu trúc thai --&gt;
+              &lt;div
+                class&#x3D;&quot;bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2&quot;
+              &gt;
+                &lt;div class&#x3D;&quot;flex items-center justify-between&quot;&gt;
+                  &lt;h2 class&#x3D;&quot;bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent&quot;&gt;Sự phát triển của bé&lt;/h2&gt;
+                  &lt;button
+                    class&#x3D;&quot;flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105&quot;
+                    (click)&#x3D;&quot;goToThisWeek()&quot;
+                  &gt;
+                    &lt;span class&#x3D;&quot;text-sm font-medium&quot;&gt;Tuần thứ&lt;/span&gt;
+                    &lt;span class&#x3D;&quot;ml-1 text-xl font-bold&quot;&gt;{{ countWeek }}&lt;/span&gt;
+                  &lt;/button&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;relative mt-6 flex flex-auto flex-col&quot;&gt;
+                  &lt;!-- Hình ảnh mẹ --&gt;
+                  &lt;div class&#x3D;&quot;overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2&quot;&gt;
+                    &lt;img
+                      class&#x3D;&quot;w-full transition-transform duration-500 hover:scale-105&quot;
+                      [src]&#x3D;&quot;&#x27;/images/fetal-growth/Female_View_&#x27; + countWeek + &#x27;.jpg&#x27;&quot;
+                      [alt]&#x3D;&quot;&#x27;mẹ tuần &#x27; + countWeek&quot;
+                      style&#x3D;&quot;filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))&quot;
+                    /&gt;
+                  &lt;/div&gt;
+
+                  &lt;!-- Hình ảnh thai nhi --&gt;
+                  &lt;div
+                    class&#x3D;&quot;absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600&quot;
+                    style&#x3D;&quot;
+                      box-shadow:
+                        inset 0 1px 2px rgba(0, 0, 0, 0.05),
+                        0 10px 15px -3px rgba(236, 72, 153, 0.5),
+                        0 4px 6px -2px rgba(236, 72, 153, 0.5);
+                      animation: gentle-pulse 3s infinite ease-in-out;
+                    &quot;
+                  &gt;
+                    &lt;div class&#x3D;&quot;h-full w-full overflow-hidden rounded-full border-4 border-white/30&quot;&gt;
+                      &lt;img
+                        class&#x3D;&quot;h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110&quot;
+                        style&#x3D;&quot;box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)&quot;
+                        [src]&#x3D;&quot;&#x27;/images/fetal-growth/Baby_View_&#x27; + countWeek + &#x27;.jpg&#x27;&quot;
+                        [alt]&#x3D;&quot;&#x27;con tuần &#x27; + countWeek&quot;
+                      /&gt;
+                    &lt;/div&gt;
+                    &lt;div class&#x3D;&quot;absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md&quot;&gt;
+                      &lt;span class&#x3D;&quot;bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent&quot;&gt;{{ countWeek }}&lt;/span&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;mt-8 flex flex-col&quot;&gt;
+                  &lt;div class&#x3D;&quot;mb-2 text-center text-sm font-medium text-pink-500&quot;&gt;Chọn tuần thai để xem sự phát triển của bé&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;flex flex-wrap items-center justify-center gap-2&quot;&gt;
+                    &lt;button
+                      class&#x3D;&quot;dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100&quot;
+                    &gt;
+                      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;Tuần&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-base font-bold&quot;&gt;1&lt;/span&gt;
+                      &lt;div class&#x3D;&quot;absolute -right-1 -top-1 opacity-0 transition-opacity duration-300&quot; [class.opacity-100]&#x3D;&quot;countWeek &#x3D;&#x3D;&#x3D; 1&quot;&gt;
+                        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                          &lt;path
+                            d&#x3D;&quot;M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z&quot;
+                            fill&#x3D;&quot;#EC4899&quot;
+                          /&gt;
+                          &lt;path d&#x3D;&quot;M7.5 12L10.5 15L16.5 9&quot; stroke&#x3D;&quot;white&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/div&gt;
+                    &lt;/button&gt;
+                    &lt;button
+                      class&#x3D;&quot;dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100&quot;
+                    &gt;
+                      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;Tuần&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-base font-bold&quot;&gt;2&lt;/span&gt;
+                      &lt;div class&#x3D;&quot;absolute -right-1 -top-1 opacity-0 transition-opacity duration-300&quot; [class.opacity-100]&#x3D;&quot;countWeek &#x3D;&#x3D;&#x3D; 2&quot;&gt;
+                        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                          &lt;path
+                            d&#x3D;&quot;M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z&quot;
+                            fill&#x3D;&quot;#EC4899&quot;
+                          /&gt;
+                          &lt;path d&#x3D;&quot;M7.5 12L10.5 15L16.5 9&quot; stroke&#x3D;&quot;white&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/div&gt;
+                    &lt;/button&gt;
+                    &lt;button
+                      class&#x3D;&quot;dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100&quot;
+                    &gt;
+                      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;Tuần&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-base font-bold&quot;&gt;3-38&lt;/span&gt;
+                      &lt;div
+                        class&#x3D;&quot;absolute -right-1 -top-1 opacity-0 transition-opacity duration-300&quot;
+                        [class.opacity-100]&#x3D;&quot;countWeek &gt;&#x3D; 3 &amp;&amp; countWeek &lt;&#x3D; 38&quot;
+                      &gt;
+                        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                          &lt;path
+                            d&#x3D;&quot;M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z&quot;
+                            fill&#x3D;&quot;#EC4899&quot;
+                          /&gt;
+                          &lt;path d&#x3D;&quot;M7.5 12L10.5 15L16.5 9&quot; stroke&#x3D;&quot;white&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/div&gt;
+                    &lt;/button&gt;
+                    &lt;button
+                      class&#x3D;&quot;dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100&quot;
+                    &gt;
+                      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;Tuần&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-base font-bold&quot;&gt;39&lt;/span&gt;
+                      &lt;div class&#x3D;&quot;absolute -right-1 -top-1 opacity-0 transition-opacity duration-300&quot; [class.opacity-100]&#x3D;&quot;countWeek &#x3D;&#x3D;&#x3D; 39&quot;&gt;
+                        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                          &lt;path
+                            d&#x3D;&quot;M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z&quot;
+                            fill&#x3D;&quot;#EC4899&quot;
+                          /&gt;
+                          &lt;path d&#x3D;&quot;M7.5 12L10.5 15L16.5 9&quot; stroke&#x3D;&quot;white&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/div&gt;
+                    &lt;/button&gt;
+                    &lt;button
+                      class&#x3D;&quot;dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100&quot;
+                    &gt;
+                      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;Tuần&lt;/span&gt;
+                      &lt;span class&#x3D;&quot;text-base font-bold&quot;&gt;40&lt;/span&gt;
+                      &lt;div class&#x3D;&quot;absolute -right-1 -top-1 opacity-0 transition-opacity duration-300&quot; [class.opacity-100]&#x3D;&quot;countWeek &#x3D;&#x3D;&#x3D; 40&quot;&gt;
+                        &lt;svg width&#x3D;&quot;20&quot; height&#x3D;&quot;20&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;none&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;&gt;
+                          &lt;path
+                            d&#x3D;&quot;M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z&quot;
+                            fill&#x3D;&quot;#EC4899&quot;
+                          /&gt;
+                          &lt;path d&#x3D;&quot;M7.5 12L10.5 15L16.5 9&quot; stroke&#x3D;&quot;white&quot; stroke-width&#x3D;&quot;2&quot; stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; /&gt;
+                        &lt;/svg&gt;
+                      &lt;/div&gt;
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+              &lt;!-- Quan lý thai nhi --&gt;
+              &lt;!--              &lt;div class&#x3D;&quot;bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2&quot;&gt;--&gt;
+              &lt;!--&amp;lt;!&amp;ndash;                &lt;app-pregnancy-week-info [countWeek]&#x3D;&quot;countWeekNumber&quot;&gt;&lt;/app-pregnancy-week-info&gt;&amp;ndash;&amp;gt;--&gt;
+              &lt;!--              &lt;/div&gt;--&gt;
+              &lt;!-- Nhắc nhở --&gt;
+              &lt;div
+                class&#x3D;&quot;bg-card flex h-full flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2&quot;
+              &gt;
+                &lt;app-home-reminder&gt;&lt;/app-home-reminder&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!--Tính ngày dự sinh--&gt;
+            &lt;div class&#x3D;&quot;grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4&quot;&gt;
+              &lt;!-- Content --&gt;
+              &lt;fuse-card class&#x3D;&quot;flex w-full flex-col p-6 md:col-span-3&quot; #expandableCard01&#x3D;&quot;fuseCard&quot;&gt;
+                &lt;!--              &lt;div class&#x3D;&quot;bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow &quot;&gt;--&gt;
+                &lt;div class&#x3D;&quot;flex items-start justify-between md:col-span-2&quot;&gt;
+                  &lt;div class&#x3D;&quot;text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl&quot;&gt;Tính Ngày Dự Sinh&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;-mr-3 -mt-2 ml-2&quot;&gt;
+                    &lt;button mat-icon-button&gt;
+                      &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_outline:calculator&#x27;&quot;&gt;&lt;/mat-icon&gt;
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;text-lg font-medium&quot;&gt;&lt;i&gt;&quot;Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất&quot;&lt;/i&gt;&lt;/div&gt;
+                &lt;form class&#x3D;&quot;mt-8 flex flex-col overflow-hidden&quot; [formGroup]&#x3D;&quot;countDownForm&quot; (ngSubmit)&#x3D;&quot;calculateExpectedDate()&quot;&gt;
+                  &lt;div class&#x3D;&quot;grid gap-6 md:grid-cols-2&quot;&gt;
+                    &lt;!--Ngày đầu chu kì kinh cuối--&gt;
+                    &lt;div class&#x3D;&quot;flex w-full flex-col&quot;&gt;
+                      &lt;mat-form-field class&#x3D;&quot;flex-auto&quot;&gt;
+                        &lt;mat-label&gt;Ngày đầu tiên của kỳ kinh cuối&lt;/mat-label&gt;
+                        &lt;input matInput [matDatepicker]&#x3D;&quot;picker1&quot; formControlName&#x3D;&quot;lastMenstrualPeriod&quot; placeholder&#x3D;&quot;Chọn một ngày&quot; /&gt;
+                        &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;picker1&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+                        &lt;mat-datepicker #picker1&gt;&lt;/mat-datepicker&gt;
+                      &lt;/mat-form-field&gt;
+                    &lt;/div&gt;
+                    &lt;!--Chu kì kinh cuối--&gt;
+                    &lt;div class&#x3D;&quot;gt-xs:flex-row flex w-full flex-col&quot;&gt;
+                      &lt;mat-form-field class&#x3D;&quot;gt-xs:pr-3 flex-auto&quot;&gt;
+                        &lt;mat-label&gt;Chu kỳ kinh nguyệt&lt;/mat-label&gt;
+                        &lt;mat-select formControlName&#x3D;&quot;menstrualCycle&quot;&gt;
+                          &lt;mat-option value&#x3D;&quot;15&quot;&gt;15 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;16&quot;&gt;16 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;17&quot;&gt;17 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;18&quot;&gt;18 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;19&quot;&gt;19 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;20&quot;&gt;20 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;21&quot;&gt;21 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;22&quot;&gt;22 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;23&quot;&gt;23 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;24&quot;&gt;24 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;25&quot;&gt;25 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;26&quot;&gt;26 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;27&quot;&gt;27 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;28&quot;&gt;28 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;29&quot;&gt;29 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;30&quot;&gt;30 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;31&quot;&gt;31 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;32&quot;&gt;32 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;33&quot;&gt;33 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;34&quot;&gt;34 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;35&quot;&gt;35 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;36&quot;&gt;36 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;37&quot;&gt;37 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;38&quot;&gt;38 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;39&quot;&gt;39 Ngày&lt;/mat-option&gt;
+                          &lt;mat-option value&#x3D;&quot;40&quot;&gt;40 Ngày&lt;/mat-option&gt;
+                        &lt;/mat-select&gt;
+                      &lt;/mat-form-field&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;button
+                    class&#x3D;&quot;fuse-mat-button-large mt-6 w-full&quot;
+                    mat-flat-button
+                    [color]&#x3D;&quot;&#x27;primary&#x27;&quot;
+                    [disabled]&#x3D;&quot;!countDownForm.valid&quot;
+                    (click)&#x3D;&quot;expandableCard01.expanded &#x3D; true&quot;
+                  &gt;
+                    Xem Kết Quả Ngay
+                  &lt;/button&gt;
+                &lt;/form&gt;
+                &lt;ng-container fuseCardExpansion&gt;
+                  &lt;div class&#x3D;&quot;mt-10 flex flex-col items-center&quot;&gt;
+                    &lt;div class&#x3D;&quot;text-3xl leading-none tracking-tight&quot;&gt;Chúc mừng bé được sinh vào ngày&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;mt-3 text-4xl font-bold leading-none tracking-tight text-red-500&quot;&gt;{{ formatDate }}&lt;/div&gt;
+                    &lt;div class&#x3D;&quot;mt-3&quot;&gt;
+                      &lt;strong&gt;Lưu ý: &lt;/strong&gt;Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.
+                    &lt;/div&gt;
+                    &lt;button class&#x3D;&quot;px-3&quot; mat-button [color]&#x3D;&quot;&#x27;primary&#x27;&quot; (click)&#x3D;&quot;expandableCard01.expanded &#x3D; !expandableCard01.expanded&quot;&gt;
+                      &lt;mat-icon
+                        class&#x3D;&quot;icon-size-5 rotate-0 transition-transform duration-150 ease-in-out&quot;
+                        [ngClass]&#x3D;&quot;{
+                          &#x27;rotate-180&#x27;: expandableCard01.expanded,
+                        }&quot;
+                        [svgIcon]&#x3D;&quot;&#x27;heroicons_mini:chevron-down&#x27;&quot;
+                      &gt;&lt;/mat-icon&gt;
+                    &lt;/button&gt;
+                  &lt;/div&gt;
+                &lt;/ng-container&gt;
+              &lt;/fuse-card&gt;
+              &lt;!-- Lịch countdown  --&gt;
+              &lt;div
+                class&#x3D;&quot;bg-card relative flex h-80 flex-auto flex-col rounded-2xl&quot;
+                style&#x3D;&quot;
+                  box-shadow:
+                    0 1px 1px rgba(0, 0, 0, 0.15),
+                    0 10px 0 -5px #eee,
+                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
+                    0 20px 0 -10px #eee,
+                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+                &quot;
+              &gt;
+                &lt;div class&#x3D;&quot;flex h-full flex-col&quot;&gt;
+                  &lt;div class&#x3D;&quot;h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10&quot;&gt;
+                    &lt;div class&#x3D;&quot;mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight&quot;&gt;
+                      &lt;div class&#x3D;&quot;tracking-widest text-pink-100&quot; style&#x3D;&quot;color: #fcedd8; font-family: &#x27;Style Script&#x27;, cursive&quot;&gt;
+                        &lt;i&gt;Đếm ngược kỳ diệu&lt;/i&gt;
+                      &lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                  &lt;div class&#x3D;&quot;flex h-2/3 w-full items-center justify-center&quot;&gt;
+                    &lt;div class&#x3D;&quot;flex flex-col items-center&quot;&gt;
+                      &lt;div class&#x3D;&quot;text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl&quot;&gt;{{ remainingDays() }}&lt;/div&gt;
+                      &lt;div class&#x3D;&quot;text-xl font-medium text-red-600 dark:text-red-500&quot;&gt;Ngày Còn Lại&lt;/div&gt;
+                    &lt;/div&gt;
+                  &lt;/div&gt;
+                &lt;/div&gt;
+
+                &lt;div class&#x3D;&quot;z-90 absolute -top-2 right-0 flex w-full justify-around&quot;&gt;
+                  &lt;div class&#x3D;&quot;h-8 w-4 rounded-full bg-pink-950&quot;&gt;&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;h-8 w-4 rounded-full bg-pink-950&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div class&#x3D;&quot;absolute right-0 top-2 z-10 flex w-full justify-around&quot;&gt;
+                  &lt;div class&#x3D;&quot;h-6 w-6 rounded-full bg-pink-200&quot;&gt;&lt;/div&gt;
+                  &lt;div class&#x3D;&quot;h-6 w-6 rounded-full bg-pink-200&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/ng-template&gt;
+        &lt;/mat-tab&gt;
+      &lt;/mat-tab-group&gt;
+      &lt;mat-tab-group class&#x3D;&quot;sm:px-2&quot; mat-stretch-tabs&#x3D;&quot;false&quot; [animationDuration]&#x3D;&quot;&#x27;0&#x27;&quot;&gt;
+        &lt;mat-tab label&#x3D;&quot;Bài viết nên đọc&quot;&gt;
+          &lt;ng-template matTabContent class&#x3D;&quot;overflow-auto&quot;&gt;
+            &lt;app-recommended-blogs&gt;&lt;/app-recommended-blogs&gt;
+          &lt;/ng-template&gt;
+        &lt;/mat-tab&gt;
+      &lt;/mat-tab-group&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;style&gt;
+  @keyframes gentle-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+&lt;/style&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex min-w-0 flex-auto flex-col">  <!-- Header -->  <div class="flex flex-col bg-transparent">    <div class="box bottom w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100" [class.box-hover]="isButtonHovered">      <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">        <!--Chào mừng-->        <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">          <!-- Avatar and name -->          <div class="flex min-w-0 flex-auto items-center">            <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />            </div>            <div class="ml-4 flex min-w-0 flex-col">              <ng-container *transloco="let t">                <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">                  {{ t(\'welcome-back\') }}, {{ user.name }}!                </div>              </ng-container>              <div class="flex items-center">                <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:bell\'"></mat-icon>                <div class="text-secondary ml-1.5 truncate leading-6">Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới</div>              </div>            </div>          </div>        </div>      </div>    </div>    <!-- Visit record Button -->    <a      class="trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"      matRipple      pTooltip="Hôm nay mẹ đi khám"      tooltipPosition="top"      [routerLink]="\'/record\'"      (mouseenter)="isButtonHovered = true"      (mouseleave)="isButtonHovered = false"    >      <i>        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">          <path            fill="#fff"            d="m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0"          />        </svg>      </i>    </a>  </div>  <!-- Main -->  <div class="-mt-px flex-auto pt-4 sm:pt-6">    <div class="mx-auto w-full max-w-screen-xl">      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="\'0\'">        <mat-tab label="Bé con">          <ng-template matTabContent>            <!--Thai nhi-->            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">              <!-- Cấu trúc thai -->              <div                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"              >                <div class="flex items-center justify-between">                  <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>                  <button                    class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"                    (click)="goToThisWeek()"                  >                    <span class="text-sm font-medium">Tuần thứ</span>                    <span class="ml-1 text-xl font-bold">{{ countWeek }}</span>                  </button>                </div>                <div class="relative mt-6 flex flex-auto flex-col">                  <!-- Hình ảnh mẹ -->                  <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">                    <img                      class="w-full transition-transform duration-500 hover:scale-105"                      [src]="\'/images/fetal-growth/Female_View_\' + countWeek + \'.jpg\'"                      [alt]="\'mẹ tuần \' + countWeek"                      style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"                    />                  </div>                  <!-- Hình ảnh thai nhi -->                  <div                    class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"                    style="                      box-shadow:                        inset 0 1px 2px rgba(0, 0, 0, 0.05),                        0 10px 15px -3px rgba(236, 72, 153, 0.5),                        0 4px 6px -2px rgba(236, 72, 153, 0.5);                      animation: gentle-pulse 3s infinite ease-in-out;                    "                  >                    <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">                      <img                        class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"                        [src]="\'/images/fetal-growth/Baby_View_\' + countWeek + \'.jpg\'"                        [alt]="\'con tuần \' + countWeek"                      />                    </div>                    <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">                      <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{ countWeek }}</span>                    </div>                  </div>                </div>                <div class="mt-8 flex flex-col">                  <div class="mb-2 text-center text-sm font-medium text-pink-500">Chọn tuần thai để xem sự phát triển của bé</div>                  <div class="flex flex-wrap items-center justify-center gap-2">                    <button                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"                    >                      <span class="text-xs font-medium">Tuần</span>                      <span class="text-base font-bold">1</span>                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 1">                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                          <path                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"                            fill="#EC4899"                          />                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />                        </svg>                      </div>                    </button>                    <button                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"                    >                      <span class="text-xs font-medium">Tuần</span>                      <span class="text-base font-bold">2</span>                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 2">                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                          <path                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"                            fill="#EC4899"                          />                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />                        </svg>                      </div>                    </button>                    <button                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"                    >                      <span class="text-xs font-medium">Tuần</span>                      <span class="text-base font-bold">3-38</span>                      <div                        class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300"                        [class.opacity-100]="countWeek >= 3 && countWeek <= 38"                      >                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                          <path                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"                            fill="#EC4899"                          />                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />                        </svg>                      </div>                    </button>                    <button                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"                    >                      <span class="text-xs font-medium">Tuần</span>                      <span class="text-base font-bold">39</span>                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 39">                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                          <path                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"                            fill="#EC4899"                          />                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />                        </svg>                      </div>                    </button>                    <button                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"                    >                      <span class="text-xs font-medium">Tuần</span>                      <span class="text-base font-bold">40</span>                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 40">                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">                          <path                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"                            fill="#EC4899"                          />                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />                        </svg>                      </div>                    </button>                  </div>                </div>              </div>              <!-- Quan lý thai nhi -->              <!--              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->              <!--&lt;!&ndash;                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>&ndash;&gt;-->              <!--              </div>-->              <!-- Nhắc nhở -->              <div                class="bg-card flex h-full flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"              >                <app-home-reminder></app-home-reminder>              </div>            </div>            <!--Tính ngày dự sinh-->            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">              <!-- Content -->              <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">                <!--              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">-->                <div class="flex items-start justify-between md:col-span-2">                  <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>                  <div class="-mr-3 -mt-2 ml-2">                    <button mat-icon-button>                      <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_outline:calculator\'"></mat-icon>                    </button>                  </div>                </div>                <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>                <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">                  <div class="grid gap-6 md:grid-cols-2">                    <!--Ngày đầu chu kì kinh cuối-->                    <div class="flex w-full flex-col">                      <mat-form-field class="flex-auto">                        <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>                        <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>                        <mat-datepicker #picker1></mat-datepicker>                      </mat-form-field>                    </div>                    <!--Chu kì kinh cuối-->                    <div class="gt-xs:flex-row flex w-full flex-col">                      <mat-form-field class="gt-xs:pr-3 flex-auto">                        <mat-label>Chu kỳ kinh nguyệt</mat-label>                        <mat-select formControlName="menstrualCycle">                          <mat-option value="15">15 Ngày</mat-option>                          <mat-option value="16">16 Ngày</mat-option>                          <mat-option value="17">17 Ngày</mat-option>                          <mat-option value="18">18 Ngày</mat-option>                          <mat-option value="19">19 Ngày</mat-option>                          <mat-option value="20">20 Ngày</mat-option>                          <mat-option value="21">21 Ngày</mat-option>                          <mat-option value="22">22 Ngày</mat-option>                          <mat-option value="23">23 Ngày</mat-option>                          <mat-option value="24">24 Ngày</mat-option>                          <mat-option value="25">25 Ngày</mat-option>                          <mat-option value="26">26 Ngày</mat-option>                          <mat-option value="27">27 Ngày</mat-option>                          <mat-option value="28">28 Ngày</mat-option>                          <mat-option value="29">29 Ngày</mat-option>                          <mat-option value="30">30 Ngày</mat-option>                          <mat-option value="31">31 Ngày</mat-option>                          <mat-option value="32">32 Ngày</mat-option>                          <mat-option value="33">33 Ngày</mat-option>                          <mat-option value="34">34 Ngày</mat-option>                          <mat-option value="35">35 Ngày</mat-option>                          <mat-option value="36">36 Ngày</mat-option>                          <mat-option value="37">37 Ngày</mat-option>                          <mat-option value="38">38 Ngày</mat-option>                          <mat-option value="39">39 Ngày</mat-option>                          <mat-option value="40">40 Ngày</mat-option>                        </mat-select>                      </mat-form-field>                    </div>                  </div>                  <button                    class="fuse-mat-button-large mt-6 w-full"                    mat-flat-button                    [color]="\'primary\'"                    [disabled]="!countDownForm.valid"                    (click)="expandableCard01.expanded = true"                  >                    Xem Kết Quả Ngay                  </button>                </form>                <ng-container fuseCardExpansion>                  <div class="mt-10 flex flex-col items-center">                    <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>                    <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>                    <div class="mt-3">                      <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.                    </div>                    <button class="px-3" mat-button [color]="\'primary\'" (click)="expandableCard01.expanded = !expandableCard01.expanded">                      <mat-icon                        class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"                        [ngClass]="{                          \'rotate-180\': expandableCard01.expanded,                        }"                        [svgIcon]="\'heroicons_mini:chevron-down\'"                      ></mat-icon>                    </button>                  </div>                </ng-container>              </fuse-card>              <!-- Lịch countdown  -->              <div                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"                style="                  box-shadow:                    0 1px 1px rgba(0, 0, 0, 0.15),                    0 10px 0 -5px #eee,                    0 10px 1px -4px rgba(0, 0, 0, 0.15),                    0 20px 0 -10px #eee,                    0 20px 1px -9px rgba(0, 0, 0, 0.15);                "              >                <div class="flex h-full flex-col">                  <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">                    <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">                      <div class="tracking-widest text-pink-100" style="color: #fcedd8; font-family: \'Style Script\', cursive">                        <i>Đếm ngược kỳ diệu</i>                      </div>                    </div>                  </div>                  <div class="flex h-2/3 w-full items-center justify-center">                    <div class="flex flex-col items-center">                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">{{ remainingDays() }}</div>                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>                    </div>                  </div>                </div>                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>                </div>                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>                </div>              </div>            </div>          </ng-template>        </mat-tab>      </mat-tab-group>      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="\'0\'">        <mat-tab label="Bài viết nên đọc">          <ng-template matTabContent class="overflow-auto">            <app-recommended-blogs></app-recommended-blogs>          </ng-template>        </mat-tab>      </mat-tab-group>    </div>  </div></div><style>  @keyframes gentle-pulse {    0% {      transform: scale(1);    }    50% {      transform: scale(1.02);    }    100% {      transform: scale(1);    }  }</style></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'HomeComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'HomeComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

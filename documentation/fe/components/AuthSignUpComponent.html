@@ -1,0 +1,969 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  AuthSignUpComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>auth-sign-up</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>RouterLink</code>
+                                <code><a href="../components/FuseAlertComponent.html" target="_self" >FuseAlertComponent</a></code>
+                            <code>FormsModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatButtonModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatCheckboxModule</code>
+                            <code>MatProgressSpinnerModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./sign-up.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#alert" >alert</a>
+                            </li>
+                            <li>
+                                <a href="#showAlert" >showAlert</a>
+                            </li>
+                            <li>
+                                <a href="#signUpForm" >signUpForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#signUpNgForm" >signUpNgForm</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#signUp" >signUp</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_authService: <a href="../injectables/AuthService.html" target="_self">AuthService</a>, _formBuilder: UntypedFormBuilder, _router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:41</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_formBuilder</td>
+                                                  
+                                                        <td>
+                                                                    <code>UntypedFormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On init</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signUp"></a>
+                    <span class="name">
+                        <span ><b>signUp</b></span>
+                        <a href="#signUp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>signUp()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="76"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:76</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Sign up</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="alert"></a>
+                    <span class="name">
+                        <span ><b>alert</b></span>
+                        <a href="#alert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>{
+    type: &#x27;success&#x27;,
+    message: &#x27;&#x27;,
+  }</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="showAlert"></a>
+                    <span class="name">
+                        <span ><b>showAlert</b></span>
+                        <a href="#showAlert"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signUpForm"></a>
+                    <span class="name">
+                        <span ><b>signUpForm</b></span>
+                        <a href="#signUpForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>UntypedFormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="signUpNgForm"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>signUpNgForm</b></span>
+                        <a href="#signUpNgForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>NgForm</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decorators : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;signUpNgForm&#x27;)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/fe-fuse/src/app/modules/auth/sign-up/sign-up.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit, signal, ViewChild, ViewEncapsulation } from &#x27;@angular/core&#x27;;
+import { FormsModule, NgForm, ReactiveFormsModule, UntypedFormBuilder, UntypedFormGroup, Validators } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCheckboxModule } from &#x27;@angular/material/checkbox&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatProgressSpinnerModule } from &#x27;@angular/material/progress-spinner&#x27;;
+import { Router, RouterLink } from &#x27;@angular/router&#x27;;
+import { fuseAnimations } from &#x27;@fuse/animations&#x27;;
+import { FuseAlertComponent, FuseAlertType } from &#x27;@fuse/components/alert&#x27;;
+import { AuthService } from &#x27;app/core/auth/auth.service&#x27;;
+
+@Component({
+  selector: &#x27;auth-sign-up&#x27;,
+  templateUrl: &#x27;./sign-up.component.html&#x27;,
+  encapsulation: ViewEncapsulation.None,
+  animations: fuseAnimations,
+  standalone: true,
+  imports: [
+    RouterLink,
+    FuseAlertComponent,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatCheckboxModule,
+    MatProgressSpinnerModule,
+  ],
+})
+export class AuthSignUpComponent implements OnInit {
+  @ViewChild(&#x27;signUpNgForm&#x27;) signUpNgForm: NgForm;
+
+  alert: { type: FuseAlertType; message: string } &#x3D; {
+    type: &#x27;success&#x27;,
+    message: &#x27;&#x27;,
+  };
+  signUpForm: UntypedFormGroup;
+  showAlert &#x3D; signal(false);
+
+  /**
+   * Constructor
+   */
+  constructor(
+    private _authService: AuthService,
+    private _formBuilder: UntypedFormBuilder,
+    private _router: Router,
+  ) {}
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Create the form
+    this.signUpForm &#x3D; this._formBuilder.group({
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      password: [&#x27;&#x27;, Validators.required],
+      confirm_password: [&#x27;&#x27;, Validators.required],
+      agreements: [&#x27;&#x27;, Validators.requiredTrue],
+    });
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Sign up
+   */
+  signUp(): void {
+    // Do nothing if the form is invalid
+    if (this.signUpForm.invalid) {
+      return;
+    }
+
+    // Disable the form
+    this.signUpForm.disable();
+
+    // Hide the alert
+    this.showAlert.set(false);
+
+    console.log(this.signUpForm.value);
+
+    // Sign up
+    this._authService.confirmationRequired(this.signUpForm.value).subscribe({
+      next: (confirm_signup: string) &#x3D;&gt; {
+        // Navigate to the confirmation required page
+        console.log(confirm_signup);
+        this._router.navigateByUrl(confirm_signup);
+      },
+      error: (error) &#x3D;&gt; {
+        // Re-enable the form
+        this.signUpForm.enable();
+
+        // Set the alert
+        this.alert &#x3D; {
+          type: &#x27;error&#x27;,
+          message: error.message,
+        };
+
+        // Show the alert
+        this.showAlert.set(true);
+      },
+    });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;-z-10&quot;&gt;
+  &lt;div class&#x3D;&quot;absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 leading-5&quot;&gt;&lt;/div&gt;
+
+  &lt;svg class&#x3D;&quot;absolute bottom-0 left-0&quot; viewBox&#x3D;&quot;0 0 1440 320&quot;&gt;
+    &lt;path
+      fill&#x3D;&quot;#ff597d&quot;
+      fill-opacity&#x3D;&quot;1&quot;
+      d&#x3D;&quot;M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z&quot;
+    &gt;&lt;/path&gt;
+  &lt;/svg&gt;
+  &lt;svg
+    class&#x3D;&quot;pointer-events-none absolute inset-0&quot;
+    viewBox&#x3D;&quot;0 0 960 540&quot;
+    width&#x3D;&quot;100%&quot;
+    height&#x3D;&quot;100%&quot;
+    preserveAspectRatio&#x3D;&quot;xMidYMax slice&quot;
+    xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;
+  &gt;
+    &lt;g class&#x3D;&quot;text-gray-700 opacity-25&quot; fill&#x3D;&quot;none&quot; stroke&#x3D;&quot;currentColor&quot; stroke-width&#x3D;&quot;100&quot;&gt;
+      &lt;circle r&#x3D;&quot;234&quot; cx&#x3D;&quot;196&quot; cy&#x3D;&quot;23&quot;&gt;&lt;/circle&gt;
+      &lt;circle r&#x3D;&quot;234&quot; cx&#x3D;&quot;790&quot; cy&#x3D;&quot;491&quot;&gt;&lt;/circle&gt;
+    &lt;/g&gt;
+  &lt;/svg&gt;
+&lt;/div&gt;
+&lt;div class&#x3D;&quot;flex h-full w-full justify-center&quot;&gt;
+  &lt;!-- Content --&gt;
+  &lt;div class&#x3D;&quot;sm:bg-card mx-50 my-12 flex rounded-3xl py-8&quot;&gt;
+    &lt;!--block left: form--&gt;
+    &lt;div class&#x3D;&quot;w-full sm:w-auto sm:rounded-2xl md:flex md:h-full md:items-center md:rounded-none md:shadow-none lg:w-1/2&quot;&gt;
+      &lt;div class&#x3D;&quot;m-auto w-1/2&quot;&gt;
+        &lt;!-- Logo --&gt;
+        &lt;div class&#x3D;&quot;mx-auto w-24&quot;&gt;
+          &lt;img src&#x3D;&quot;/images/logo/logo.svg&quot; alt&#x3D;&quot;logo&quot; /&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Title --&gt;
+        &lt;div class&#x3D;&quot;mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight&quot;&gt;Đăng kí&lt;/div&gt;
+
+        &lt;!-- Alert --&gt;
+        @if (showAlert()) {
+          &lt;fuse-alert class&#x3D;&quot;mt-8&quot; [appearance]&#x3D;&quot;&#x27;outline&#x27;&quot; [showIcon]&#x3D;&quot;false&quot; [type]&#x3D;&quot;alert.type&quot; [@shake]&#x3D;&quot;alert.type &#x3D;&#x3D;&#x3D; &#x27;error&#x27;&quot;&gt;
+            {{ alert.message }}
+          &lt;/fuse-alert&gt;
+        }
+
+        &lt;!-- Sign Up form --&gt;
+        &lt;form class&#x3D;&quot;mt-8&quot; [formGroup]&#x3D;&quot;signUpForm&quot; #signUpNgForm&#x3D;&quot;ngForm&quot;&gt;
+          &lt;!-- Email field --&gt;
+          &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+            &lt;mat-label&gt;Email&lt;/mat-label&gt;
+            &lt;input id&#x3D;&quot;email&quot; matInput [formControlName]&#x3D;&quot;&#x27;email&#x27;&quot; /&gt;
+            @if (signUpForm.get(&#x27;email&#x27;).hasError(&#x27;required&#x27;)) {
+              &lt;mat-error&gt; Vui lòng nhập địa chỉ email&lt;/mat-error&gt;
+            }
+            @if (signUpForm.get(&#x27;email&#x27;).hasError(&#x27;email&#x27;)) {
+              &lt;mat-error&gt; Vui lòng nhập một địa chỉ email hợp lệ&lt;/mat-error&gt;
+            }
+          &lt;/mat-form-field&gt;
+
+          &lt;!-- Password field --&gt;
+          &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+            &lt;mat-label&gt;Mật khẩu&lt;/mat-label&gt;
+            &lt;input id&#x3D;&quot;password&quot; matInput type&#x3D;&quot;password&quot; [formControlName]&#x3D;&quot;&#x27;password&#x27;&quot; #passwordField /&gt;
+            &lt;button
+              mat-icon-button
+              type&#x3D;&quot;button&quot;
+              (click)&#x3D;&quot;passwordField.type &#x3D;&#x3D;&#x3D; &#x27;password&#x27; ? (passwordField.type &#x3D; &#x27;text&#x27;) : (passwordField.type &#x3D; &#x27;password&#x27;)&quot;
+              matSuffix
+            &gt;
+              @if (passwordField.type &#x3D;&#x3D;&#x3D; &#x27;password&#x27;) {
+                &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:eye&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              }
+              @if (passwordField.type &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+                &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:eye-slash&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              }
+            &lt;/button&gt;
+            &lt;mat-error&gt; Vui lòng nhập mật khẩu&lt;/mat-error&gt;
+          &lt;/mat-form-field&gt;
+
+          &lt;!-- ConfirmedPassword field --&gt;
+          &lt;mat-form-field class&#x3D;&quot;w-full&quot;&gt;
+            &lt;mat-label&gt;Xác nhận mật khẩu&lt;/mat-label&gt;
+            &lt;input id&#x3D;&quot;confirmedPassword&quot; matInput type&#x3D;&quot;password&quot; [formControlName]&#x3D;&quot;&#x27;confirm_password&#x27;&quot; #confirmedPasswordField /&gt;
+            &lt;button
+              mat-icon-button
+              type&#x3D;&quot;button&quot;
+              (click)&#x3D;&quot;
+                confirmedPasswordField.type &#x3D;&#x3D;&#x3D; &#x27;password&#x27; ? (confirmedPasswordField.type &#x3D; &#x27;text&#x27;) : (confirmedPasswordField.type &#x3D; &#x27;password&#x27;)
+              &quot;
+              matSuffix
+            &gt;
+              @if (confirmedPasswordField.type &#x3D;&#x3D;&#x3D; &#x27;password&#x27;) {
+                &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:eye&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              }
+              @if (confirmedPasswordField.type &#x3D;&#x3D;&#x3D; &#x27;text&#x27;) {
+                &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:eye-slash&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              }
+            &lt;/button&gt;
+            &lt;mat-error&gt; Vui lòng nhập xác nhận mật khẩu&lt;/mat-error&gt;
+          &lt;/mat-form-field&gt;
+
+          &lt;!-- ToS and PP --&gt;
+          &lt;div class&#x3D;&quot;mt-1.5 inline-flex w-full items-end&quot;&gt;
+            &lt;mat-checkbox class&#x3D;&quot;-ml-2&quot; [color]&#x3D;&quot;&#x27;primary&#x27;&quot; [formControlName]&#x3D;&quot;&#x27;agreements&#x27;&quot;&gt;
+              &lt;span&gt;Bạn đồng ý&lt;/span&gt;
+              &lt;a class&#x3D;&quot;text-primary-500 ml-1 hover:underline&quot; [routerLink]&#x3D;&quot;[&#x27;./&#x27;]&quot;&gt;Điều khoản &lt;/a&gt;
+              &lt;span&gt;và&lt;/span&gt;
+              &lt;a class&#x3D;&quot;text-primary-500 ml-1 hover:underline&quot; [routerLink]&#x3D;&quot;[&#x27;./&#x27;]&quot;&gt;Chính sách bảo mật &lt;/a&gt;
+            &lt;/mat-checkbox&gt;
+          &lt;/div&gt;
+          @if (signUpForm.get(&#x27;agreements&#x27;).hasError(&#x27;required&#x27;)) {
+            &lt;mat-error&gt; Vui lòng đồng ý với Điều khoản và Chính sách bảo mật&lt;/mat-error&gt;
+          }
+
+          &lt;!-- Submit button --&gt;
+          &lt;button class&#x3D;&quot;fuse-mat-button-large mt-6 w-full&quot; mat-flat-button [color]&#x3D;&quot;&#x27;primary&#x27;&quot; [disabled]&#x3D;&quot;signUpForm.disabled&quot; (click)&#x3D;&quot;signUp()&quot;&gt;
+            @if (!signUpForm.disabled) {
+              &lt;span&gt; Tạo tài khoản ngay &lt;/span&gt;
+            }
+            @if (signUpForm.disabled) {
+              &lt;mat-progress-spinner [diameter]&#x3D;&quot;24&quot; [mode]&#x3D;&quot;&#x27;indeterminate&#x27;&quot;&gt;&lt;/mat-progress-spinner&gt;
+            }
+          &lt;/button&gt;
+          &lt;div class&#x3D;&quot;mt-8 flex items-baseline justify-center font-medium&quot;&gt;
+            &lt;div&gt;Bạn đã có tài khoản?&lt;/div&gt;
+            &lt;a class&#x3D;&quot;text-primary-500 ml-1 hover:underline&quot; [routerLink]&#x3D;&quot;[&#x27;/sign-in&#x27;]&quot;&gt;Đăng nhập &lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!--block right--&gt;
+    &lt;div class&#x3D;&quot;relative mr-8 flex hidden h-full w-1/2 flex-col justify-between lg:flex&quot;&gt;
+      &lt;div class&#x3D;&quot;bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10&quot;&gt;
+        &lt;div class&#x3D;&quot;h-auto self-center&quot;&gt;
+          &lt;div class&#x3D;&quot;mb-4 flex&quot;&gt;
+            &lt;div
+              class&#x3D;&quot;self-end text-6xl font-extrabold leading-tight tracking-tight text-pink-50&quot;
+              style&#x3D;&quot;color: #fcedd8; font-family: &#x27;Niconne&#x27;, cursive; text-shadow: 3px 3px 0px #eb452b&quot;
+            &gt;
+              &lt;i&gt;Pregnancy Journal&lt;/i&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;w-2/3 text-xl leading-6 tracking-tight text-gray-50&quot;&gt;
+            &lt;p&gt;
+              &lt;i style&#x3D;&quot;text-align: justify-all&quot;
+                &gt;&lt;strong class&#x3D;&quot;text-2xl&quot;&gt;&quot;&lt;/strong&gt; Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức
+                khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. &lt;strong class&#x3D;&quot;text-2xl&quot;&gt;&quot;&lt;/strong&gt;&lt;/i
+              &gt;
+            &lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10&quot;&gt;
+        &lt;div class&#x3D;&quot;flex-0 flex items-center -space-x-1.5&quot;&gt;
+          &lt;img
+            class&#x3D;&quot;flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200&quot;
+            src&#x3D;&quot;/images/avatars/female-18.jpg&quot;
+            alt&#x3D;&quot;Mẹ sử dụng ứng dụng&quot;
+          /&gt;
+          &lt;img
+            class&#x3D;&quot;flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200&quot;
+            src&#x3D;&quot;/images/avatars/female-11.jpg&quot;
+            alt&#x3D;&quot;Mẹ sử dụng ứng dụng&quot;
+          /&gt;
+          &lt;img
+            class&#x3D;&quot;flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200&quot;
+            src&#x3D;&quot;/images/avatars/female-01.jpg&quot;
+            alt&#x3D;&quot;Mẹ sử dụng ứng dụng&quot;
+          /&gt;
+          &lt;img
+            class&#x3D;&quot;flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200&quot;
+            src&#x3D;&quot;/images/avatars/female-04.jpg&quot;
+            alt&#x3D;&quot;Mẹ sử dụng ứng dụng&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;ml-4 font-medium tracking-tight text-pink-50&quot;&gt;&lt;strong&gt;Hơn 10,000 bà mẹ&lt;/strong&gt; đã tin dùng. Còn mẹ thì sao?&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;absolute -right-10 bottom-24 z-10 w-60 lg:w-80&quot;&gt;
+        &lt;img src&#x3D;&quot;/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg&quot; alt&#x3D;&quot;pregnancy&quot; /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="-z-10">  <div class="absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-purple-400 via-pink-500 to-red-500 leading-5"></div>  <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320">    <path      fill="#ff597d"      fill-opacity="1"      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"    ></path>  </svg>  <svg    class="pointer-events-none absolute inset-0"    viewBox="0 0 960 540"    width="100%"    height="100%"    preserveAspectRatio="xMidYMax slice"    xmlns="http://www.w3.org/2000/svg"  >    <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">      <circle r="234" cx="196" cy="23"></circle>      <circle r="234" cx="790" cy="491"></circle>    </g>  </svg></div><div class="flex h-full w-full justify-center">  <!-- Content -->  <div class="sm:bg-card mx-50 my-12 flex rounded-3xl py-8">    <!--block left: form-->    <div class="w-full sm:w-auto sm:rounded-2xl md:flex md:h-full md:items-center md:rounded-none md:shadow-none lg:w-1/2">      <div class="m-auto w-1/2">        <!-- Logo -->        <div class="mx-auto w-24">          <img src="/images/logo/logo.svg" alt="logo" />        </div>        <!-- Title -->        <div class="mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight">Đăng kí</div>        <!-- Alert -->        @if (showAlert()) {          <fuse-alert class="mt-8" [appearance]="\'outline\'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === \'error\'">            {{ alert.message }}          </fuse-alert>        }        <!-- Sign Up form -->        <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">          <!-- Email field -->          <mat-form-field class="w-full">            <mat-label>Email</mat-label>            <input id="email" matInput [formControlName]="\'email\'" />            @if (signUpForm.get(\'email\').hasError(\'required\')) {              <mat-error> Vui lòng nhập địa chỉ email</mat-error>            }            @if (signUpForm.get(\'email\').hasError(\'email\')) {              <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>            }          </mat-form-field>          <!-- Password field -->          <mat-form-field class="w-full">            <mat-label>Mật khẩu</mat-label>            <input id="password" matInput type="password" [formControlName]="\'password\'" #passwordField />            <button              mat-icon-button              type="button"              (click)="passwordField.type === \'password\' ? (passwordField.type = \'text\') : (passwordField.type = \'password\')"              matSuffix            >              @if (passwordField.type === \'password\') {                <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:eye\'"></mat-icon>              }              @if (passwordField.type === \'text\') {                <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:eye-slash\'"></mat-icon>              }            </button>            <mat-error> Vui lòng nhập mật khẩu</mat-error>          </mat-form-field>          <!-- ConfirmedPassword field -->          <mat-form-field class="w-full">            <mat-label>Xác nhận mật khẩu</mat-label>            <input id="confirmedPassword" matInput type="password" [formControlName]="\'confirm_password\'" #confirmedPasswordField />            <button              mat-icon-button              type="button"              (click)="                confirmedPasswordField.type === \'password\' ? (confirmedPasswordField.type = \'text\') : (confirmedPasswordField.type = \'password\')              "              matSuffix            >              @if (confirmedPasswordField.type === \'password\') {                <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:eye\'"></mat-icon>              }              @if (confirmedPasswordField.type === \'text\') {                <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:eye-slash\'"></mat-icon>              }            </button>            <mat-error> Vui lòng nhập xác nhận mật khẩu</mat-error>          </mat-form-field>          <!-- ToS and PP -->          <div class="mt-1.5 inline-flex w-full items-end">            <mat-checkbox class="-ml-2" [color]="\'primary\'" [formControlName]="\'agreements\'">              <span>Bạn đồng ý</span>              <a class="text-primary-500 ml-1 hover:underline" [routerLink]="[\'./\']">Điều khoản </a>              <span>và</span>              <a class="text-primary-500 ml-1 hover:underline" [routerLink]="[\'./\']">Chính sách bảo mật </a>            </mat-checkbox>          </div>          @if (signUpForm.get(\'agreements\').hasError(\'required\')) {            <mat-error> Vui lòng đồng ý với Điều khoản và Chính sách bảo mật</mat-error>          }          <!-- Submit button -->          <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="\'primary\'" [disabled]="signUpForm.disabled" (click)="signUp()">            @if (!signUpForm.disabled) {              <span> Tạo tài khoản ngay </span>            }            @if (signUpForm.disabled) {              <mat-progress-spinner [diameter]="24" [mode]="\'indeterminate\'"></mat-progress-spinner>            }          </button>          <div class="mt-8 flex items-baseline justify-center font-medium">            <div>Bạn đã có tài khoản?</div>            <a class="text-primary-500 ml-1 hover:underline" [routerLink]="[\'/sign-in\']">Đăng nhập </a>          </div>        </form>      </div>    </div>    <!--block right-->    <div class="relative mr-8 flex hidden h-full w-1/2 flex-col justify-between lg:flex">      <div class="bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10">        <div class="h-auto self-center">          <div class="mb-4 flex">            <div              class="self-end text-6xl font-extrabold leading-tight tracking-tight text-pink-50"              style="color: #fcedd8; font-family: \'Niconne\', cursive; text-shadow: 3px 3px 0px #eb452b"            >              <i>Pregnancy Journal</i>            </div>          </div>          <div class="w-2/3 text-xl leading-6 tracking-tight text-gray-50">            <p>              <i style="text-align: justify-all"                ><strong class="text-2xl">"</strong> Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức                khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. <strong class="text-2xl">"</strong></i              >            </p>          </div>        </div>      </div>      <div class="bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10">        <div class="flex-0 flex items-center -space-x-1.5">          <img            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"            src="/images/avatars/female-18.jpg"            alt="Mẹ sử dụng ứng dụng"          />          <img            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"            src="/images/avatars/female-11.jpg"            alt="Mẹ sử dụng ứng dụng"          />          <img            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"            src="/images/avatars/female-01.jpg"            alt="Mẹ sử dụng ứng dụng"          />          <img            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"            src="/images/avatars/female-04.jpg"            alt="Mẹ sử dụng ứng dụng"          />        </div>        <div class="ml-4 font-medium tracking-tight text-pink-50"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>      </div>      <div class="absolute -right-10 bottom-24 z-10 w-60 lg:w-80">        <img src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg" alt="pregnancy" />      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'AuthSignUpComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'AuthSignUpComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

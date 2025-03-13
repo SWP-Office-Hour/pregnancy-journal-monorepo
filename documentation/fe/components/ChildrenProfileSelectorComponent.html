@@ -1,0 +1,826 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  ChildrenProfileSelectorComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-children-profile-selector</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./children-profile-selector.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./children-profile-selector.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#children" >children</a>
+                            </li>
+                            <li>
+                                <a href="#isOpen" >isOpen</a>
+                            </li>
+                            <li>
+                                <a href="#selectedChild" >selectedChild</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeDropdown" >closeDropdown</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#selectChild" >selectChild</a>
+                            </li>
+                            <li>
+                                <a href="#toggleDropdown" >toggleDropdown</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:26</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeDropdown"></a>
+                    <span class="name">
+                        <span ><b>closeDropdown</b></span>
+                        <a href="#closeDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="30"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:30</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectChild"></a>
+                    <span class="name">
+                        <span ><b>selectChild</b></span>
+                        <a href="#selectChild"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>selectChild(child: <a href="../interfaces/Child.html" target="_self">Child</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="45"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:45</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>child</td>
+                                            <td>
+                                                            <code><a href="../interfaces/Child.html" target="_self" >Child</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleDropdown"></a>
+                    <span class="name">
+                        <span ><b>toggleDropdown</b></span>
+                        <a href="#toggleDropdown"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleDropdown()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="37"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="children"></a>
+                    <span class="name">
+                        <span ><b>children</b></span>
+                        <a href="#children"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Child.html" target="_self" >Child[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[
+    { id: &#x27;1&#x27;, name: &#x27;Emma Johnson&#x27;, gender: &#x27;female&#x27;, avatarUrl: &#x27;https://avatar.iran.liara.run/public/22&#x27; },
+    { id: &#x27;2&#x27;, name: &#x27;Noah Smith&#x27;, gender: &#x27;male&#x27;, avatarUrl: &#x27;https://avatar.iran.liara.run/public/24&#x27; },
+    { id: &#x27;3&#x27;, name: &#x27;Olivia Williams&#x27;, gender: &#x27;female&#x27; },
+  ]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:22</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isOpen"></a>
+                    <span class="name">
+                        <span ><b>isOpen</b></span>
+                        <a href="#isOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:18</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="selectedChild"></a>
+                    <span class="name">
+                        <span ><b>selectedChild</b></span>
+                        <a href="#selectedChild"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Child.html" target="_self" >Child | null</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">apps/fe-fuse/src/app/layout/common/children-profile-selector/children-profile-selector.component.ts:19</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, OnInit } from &#x27;@angular/core&#x27;;
+
+interface Child {
+  id: string;
+  name: string;
+  avatarUrl?: string;
+  gender?: &#x27;male&#x27; | &#x27;female&#x27;;
+}
+
+@Component({
+  selector: &#x27;app-children-profile-selector&#x27;,
+  imports: [CommonModule],
+  templateUrl: &#x27;./children-profile-selector.component.html&#x27;,
+  styleUrl: &#x27;./children-profile-selector.component.css&#x27;,
+})
+export class ChildrenProfileSelectorComponent implements OnInit {
+  isOpen &#x3D; false;
+  selectedChild: Child | null &#x3D; null;
+
+  // Mock data - will be replaced with actual data service
+  children: Child[] &#x3D; [
+    { id: &#x27;1&#x27;, name: &#x27;Emma Johnson&#x27;, gender: &#x27;female&#x27;, avatarUrl: &#x27;https://avatar.iran.liara.run/public/22&#x27; },
+    { id: &#x27;2&#x27;, name: &#x27;Noah Smith&#x27;, gender: &#x27;male&#x27;, avatarUrl: &#x27;https://avatar.iran.liara.run/public/24&#x27; },
+    { id: &#x27;3&#x27;, name: &#x27;Olivia Williams&#x27;, gender: &#x27;female&#x27; },
+  ];
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // Initialize with first child selected
+    if (this.children.length &gt; 0) {
+      this.selectedChild &#x3D; this.children[0];
+    }
+  }
+
+  toggleDropdown(): void {
+    this.isOpen &#x3D; !this.isOpen;
+  }
+
+  closeDropdown(): void {
+    this.isOpen &#x3D; false;
+  }
+
+  selectChild(child: Child): void {
+    this.selectedChild &#x3D; child;
+    this.isOpen &#x3D; false;
+    // Navigation logic will be implemented later
+    console.log(&#x27;Selected child:&#x27;, child);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;relative&quot;&gt;
+  &lt;!-- Dropdown trigger button --&gt;
+  &lt;button
+    type&#x3D;&quot;button&quot;
+    class&#x3D;&quot;flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2&quot;
+    (click)&#x3D;&quot;toggleDropdown()&quot;
+  &gt;
+    &lt;!-- Avatar or initials --&gt;
+    &lt;div *ngIf&#x3D;&quot;selectedChild?.avatarUrl&quot; class&#x3D;&quot;flex-shrink-0&quot;&gt;
+      &lt;img [src]&#x3D;&quot;selectedChild.avatarUrl&quot; alt&#x3D;&quot;Child avatar&quot; class&#x3D;&quot;h-6 w-6 rounded-full object-cover&quot; /&gt;
+    &lt;/div&gt;
+    &lt;!-- Fallback avatar with gender-specific colors --&gt;
+    &lt;div
+      *ngIf&#x3D;&quot;!selectedChild?.avatarUrl&quot;
+      class&#x3D;&quot;flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full&quot;
+      [ngClass]&#x3D;&quot;{
+        &#x27;bg-blue-100 text-blue-600&#x27;: selectedChild?.gender &#x3D;&#x3D;&#x3D; &#x27;male&#x27;,
+        &#x27;bg-pink-100 text-pink-600&#x27;: selectedChild?.gender &#x3D;&#x3D;&#x3D; &#x27;female&#x27;,
+        &#x27;bg-purple-100 text-purple-600&#x27;: selectedChild?.gender &#x3D;&#x3D;&#x3D; &#x27;other&#x27; || !selectedChild?.gender,
+      }&quot;
+    &gt;
+      &lt;span class&#x3D;&quot;text-xs font-medium&quot;&gt;{{ selectedChild?.name.charAt(0) }}&lt;/span&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Selected child name --&gt;
+    &lt;span class&#x3D;&quot;text-gray-700&quot;&gt;{{ selectedChild?.name }}&lt;/span&gt;
+
+    &lt;!-- Dropdown arrow --&gt;
+    &lt;svg
+      class&#x3D;&quot;h-5 w-5 text-gray-400&quot;
+      xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot;
+      viewBox&#x3D;&quot;0 0 20 20&quot;
+      fill&#x3D;&quot;currentColor&quot;
+      [ngClass]&#x3D;&quot;{ &#x27;rotate-180 transform&#x27;: isOpen }&quot;
+    &gt;
+      &lt;path
+        fill-rule&#x3D;&quot;evenodd&quot;
+        d&#x3D;&quot;M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z&quot;
+        clip-rule&#x3D;&quot;evenodd&quot;
+      /&gt;
+    &lt;/svg&gt;
+  &lt;/button&gt;
+
+  &lt;!-- Dropdown menu --&gt;
+  &lt;div
+    *ngIf&#x3D;&quot;isOpen&quot;
+    class&#x3D;&quot;absolute right-0 z-20 mt-2 w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none&quot;
+    role&#x3D;&quot;menu&quot;
+    aria-orientation&#x3D;&quot;vertical&quot;
+    aria-labelledby&#x3D;&quot;children-menu-button&quot;
+  &gt;
+    &lt;div class&#x3D;&quot;py-1&quot; role&#x3D;&quot;none&quot;&gt;
+      &lt;!-- Header --&gt;
+      &lt;div class&#x3D;&quot;px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500&quot;&gt;Your Children&lt;/div&gt;
+
+      &lt;!-- Children list --&gt;
+      &lt;div *ngFor&#x3D;&quot;let child of children&quot;&gt;
+        &lt;button
+          (click)&#x3D;&quot;selectChild(child)&quot;
+          class&#x3D;&quot;flex w-full items-center gap-3 px-4 py-2 text-left text-sm hover:bg-gray-100&quot;
+          [ngClass]&#x3D;&quot;{ &#x27;bg-gray-50&#x27;: selectedChild?.id &#x3D;&#x3D;&#x3D; child.id }&quot;
+          role&#x3D;&quot;menuitem&quot;
+        &gt;
+          &lt;!-- Child avatar or initials with gender-specific colors --&gt;
+          &lt;div *ngIf&#x3D;&quot;child.avatarUrl&quot; class&#x3D;&quot;flex-shrink-0&quot;&gt;
+            &lt;img [src]&#x3D;&quot;child.avatarUrl&quot; alt&#x3D;&quot;Child avatar&quot; class&#x3D;&quot;h-8 w-8 rounded-full object-cover&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div
+            *ngIf&#x3D;&quot;!child.avatarUrl&quot;
+            class&#x3D;&quot;flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full&quot;
+            [ngClass]&#x3D;&quot;{
+              &#x27;bg-blue-100 text-blue-600&#x27;: child.gender &#x3D;&#x3D;&#x3D; &#x27;male&#x27;,
+              &#x27;bg-pink-100 text-pink-600&#x27;: child.gender &#x3D;&#x3D;&#x3D; &#x27;female&#x27;,
+              &#x27;bg-purple-100 text-purple-600&#x27;: child.gender &#x3D;&#x3D;&#x3D; &#x27;other&#x27; || !child.gender,
+            }&quot;
+          &gt;
+            &lt;span class&#x3D;&quot;text-sm font-medium&quot;&gt;{{ child.name.charAt(0) }}&lt;/span&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Child name --&gt;
+          &lt;div&gt;
+            &lt;p class&#x3D;&quot;font-medium text-gray-900&quot;&gt;{{ child.name }}&lt;/p&gt;
+          &lt;/div&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;!-- Add another child button --&gt;
+    &lt;div class&#x3D;&quot;py-1&quot; role&#x3D;&quot;none&quot;&gt;
+      &lt;a href&#x3D;&quot;/children-profile&quot; class&#x3D;&quot;flex items-center px-4 py-2 text-sm text-pink-600 hover:text-pink-700&quot; role&#x3D;&quot;menuitem&quot;&gt;
+        &lt;svg class&#x3D;&quot;mr-2 h-4 w-4&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+          &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M12 4v16m8-8H4&quot; /&gt;
+        &lt;/svg&gt;
+        Add another child
+      &lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="relative">  <!-- Dropdown trigger button -->  <button    type="button"    class="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"    (click)="toggleDropdown()"  >    <!-- Avatar or initials -->    <div *ngIf="selectedChild?.avatarUrl" class="flex-shrink-0">      <img [src]="selectedChild.avatarUrl" alt="Child avatar" class="h-6 w-6 rounded-full object-cover" />    </div>    <!-- Fallback avatar with gender-specific colors -->    <div      *ngIf="!selectedChild?.avatarUrl"      class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full"      [ngClass]="{        \'bg-blue-100 text-blue-600\': selectedChild?.gender === \'male\',        \'bg-pink-100 text-pink-600\': selectedChild?.gender === \'female\',        \'bg-purple-100 text-purple-600\': selectedChild?.gender === \'other\' || !selectedChild?.gender,      }"    >      <span class="text-xs font-medium">{{ selectedChild?.name.charAt(0) }}</span>    </div>    <!-- Selected child name -->    <span class="text-gray-700">{{ selectedChild?.name }}</span>    <!-- Dropdown arrow -->    <svg      class="h-5 w-5 text-gray-400"      xmlns="http://www.w3.org/2000/svg"      viewBox="0 0 20 20"      fill="currentColor"      [ngClass]="{ \'rotate-180 transform\': isOpen }"    >      <path        fill-rule="evenodd"        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"        clip-rule="evenodd"      />    </svg>  </button>  <!-- Dropdown menu -->  <div    *ngIf="isOpen"    class="absolute right-0 z-20 mt-2 w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"    role="menu"    aria-orientation="vertical"    aria-labelledby="children-menu-button"  >    <div class="py-1" role="none">      <!-- Header -->      <div class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500">Your Children</div>      <!-- Children list -->      <div *ngFor="let child of children">        <button          (click)="selectChild(child)"          class="flex w-full items-center gap-3 px-4 py-2 text-left text-sm hover:bg-gray-100"          [ngClass]="{ \'bg-gray-50\': selectedChild?.id === child.id }"          role="menuitem"        >          <!-- Child avatar or initials with gender-specific colors -->          <div *ngIf="child.avatarUrl" class="flex-shrink-0">            <img [src]="child.avatarUrl" alt="Child avatar" class="h-8 w-8 rounded-full object-cover" />          </div>          <div            *ngIf="!child.avatarUrl"            class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"            [ngClass]="{              \'bg-blue-100 text-blue-600\': child.gender === \'male\',              \'bg-pink-100 text-pink-600\': child.gender === \'female\',              \'bg-purple-100 text-purple-600\': child.gender === \'other\' || !child.gender,            }"          >            <span class="text-sm font-medium">{{ child.name.charAt(0) }}</span>          </div>          <!-- Child name -->          <div>            <p class="font-medium text-gray-900">{{ child.name }}</p>          </div>        </button>      </div>    </div>    <!-- Add another child button -->    <div class="py-1" role="none">      <a href="/children-profile" class="flex items-center px-4 py-2 text-sm text-pink-600 hover:text-pink-700" role="menuitem">        <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />        </svg>        Add another child      </a>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'ChildrenProfileSelectorComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ChildrenProfileSelectorComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

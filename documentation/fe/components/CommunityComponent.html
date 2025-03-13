@@ -1,0 +1,977 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  CommunityComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/post/community/community.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-community</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CdkTextareaAutosize</code>
+                                <code><a href="../components/FuseCardComponent.html" target="_self" >FuseCardComponent</a></code>
+                            <code>MatButtonModule</code>
+                            <code>MatDividerModule</code>
+                            <code>MatFormFieldModule</code>
+                            <code>MatIconModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatMenuModule</code>
+                            <code>MatTooltipModule</code>
+                            <code>CommonModule</code>
+                            <code>InfiniteScrollDirective</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./community.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./community.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#loading" >loading</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#posts" >posts</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#user" >user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#onScroll" >onScroll</a>
+                            </li>
+                            <li>
+                                <a href="#openRef" >openRef</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, _httpClient: HttpClient, dialog: MatDialog)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_userService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_httpClient</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onScroll"></a>
+                    <span class="name">
+                        <span ><b>onScroll</b></span>
+                        <a href="#onScroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onScroll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="57"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:57</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openRef"></a>
+                    <span class="name">
+                        <span ><b>openRef</b></span>
+                        <a href="#openRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openRef()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="61"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:61</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="loading"></a>
+                    <span class="name">
+                        <span ><b>loading</b></span>
+                        <a href="#loading"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>true</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="posts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>posts</b></span>
+                        <a href="#posts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>PostType[]</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="user"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>user</b></span>
+                        <a href="#user"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/fe-fuse/src/app/modules/post/community/community.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CdkTextareaAutosize } from &#x27;@angular/cdk/text-field&#x27;;
+import { CommonModule } from &#x27;@angular/common&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatDialog } from &#x27;@angular/material/dialog&#x27;;
+import { MatDividerModule } from &#x27;@angular/material/divider&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatMenuModule } from &#x27;@angular/material/menu&#x27;;
+import { MatTooltipModule } from &#x27;@angular/material/tooltip&#x27;;
+import { PostType } from &#x27;@pregnancy-journal-monorepo/contract&#x27;;
+import { InfiniteScrollDirective } from &#x27;ngx-infinite-scroll&#x27;;
+import { FuseCardComponent } from &#x27;../../../../@fuse/components/card&#x27;;
+import { environment } from &#x27;../../../../environments/environment&#x27;;
+import { UserService } from &#x27;../../../core/user/user.service&#x27;;
+import { User } from &#x27;../../../core/user/user.types&#x27;;
+import { CreatePostComponent } from &#x27;../create-post/create-post.component&#x27;;
+
+@Component({
+  selector: &#x27;app-community&#x27;,
+  imports: [
+    CdkTextareaAutosize,
+    FuseCardComponent,
+    MatButtonModule,
+    MatDividerModule,
+    MatFormFieldModule,
+    MatIconModule,
+    MatInputModule,
+    MatMenuModule,
+    MatTooltipModule,
+    CommonModule,
+    InfiniteScrollDirective,
+  ],
+  templateUrl: &#x27;./community.component.html&#x27;,
+  styleUrl: &#x27;./community.component.css&#x27;,
+})
+export class CommunityComponent {
+  protected user: User;
+  protected posts: PostType[] &#x3D; [];
+  loading &#x3D; true;
+
+  constructor(
+    private _userService: UserService,
+    private _httpClient: HttpClient,
+    private dialog: MatDialog,
+  ) {
+    this._userService.user$.subscribe((user) &#x3D;&gt; {
+      this.user &#x3D; user;
+    });
+    this._httpClient.get&lt;PostType[]&gt;(environment.apiUrl + &#x27;posts&#x27;).subscribe((posts) &#x3D;&gt; {
+      this.posts &#x3D; posts;
+    });
+  }
+
+  onScroll() {
+    console.log(&#x27;Scrolled&#x27;);
+  }
+
+  openRef() {
+    this.dialog.open(CreatePostComponent);
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex w-full flex-col items-center justify-center bg-gradient-to-b from-pink-50/50 to-white py-6&quot;&gt;
+  &lt;!-- Create Post Card --&gt;
+  &lt;fuse-card class&#x3D;&quot;max-w-140 mb-6 flex w-full flex-col rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8&quot;&gt;
+    &lt;div class&#x3D;&quot;text-xl font-semibold text-pink-600&quot;&gt;Tạo Bài Viết&lt;/div&gt;
+    &lt;div class&#x3D;&quot;mt-8 flex flex-col items-start sm:flex-row&quot;&gt;
+      &lt;div class&#x3D;&quot;mb-6 flex items-center sm:mb-0&quot;&gt;
+        &lt;img class&#x3D;&quot;mr-4 h-12 w-12 min-w-12 rounded-full border-2 border-pink-100 object-cover shadow-sm&quot; src&#x3D;&quot;{{ user.avatar || &#x27;&#x27; }}&quot; alt&#x3D;&quot;&quot; /&gt;
+        &lt;div class&#x3D;&quot;sm:hidden&quot;&gt;{{ user.name }}&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;mat-form-field class&#x3D;&quot;w-full&quot; [subscriptSizing]&#x3D;&quot;&#x27;dynamic&#x27;&quot;&gt;
+        &lt;textarea
+          matInput
+          [placeholder]&#x3D;&quot;&#x27;Bạn đang nghĩ gì?&#x27;&quot;
+          [rows]&#x3D;&quot;3&quot;
+          cdkTextareaAutosize
+          (click)&#x3D;&quot;openRef()&quot;
+          class&#x3D;&quot;resize-none transition-colors focus:border-pink-300&quot;
+        &gt;&lt;/textarea&gt;
+      &lt;/mat-form-field&gt;
+    &lt;/div&gt;
+  &lt;/fuse-card&gt;
+
+  &lt;!-- Post Feed --&gt;
+  &lt;div
+    class&#x3D;&quot;search-results w-full&quot;
+    infiniteScroll
+    [infiniteScrollDistance]&#x3D;&quot;2&quot;
+    [infiniteScrollThrottle]&#x3D;&quot;50&quot;
+    (scrolled)&#x3D;&quot;onScroll()&quot;
+    [scrollWindow]&#x3D;&quot;true&quot;
+  &gt;
+    &lt;!-- Post 1 --&gt;
+    &lt;fuse-card
+      class&#x3D;&quot;max-w-140 mx-auto mb-6 flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md&quot;
+      #expandableCard02&#x3D;&quot;fuseCard&quot;
+    &gt;
+      &lt;!-- Post Header --&gt;
+      &lt;div class&#x3D;&quot;mx-6 mb-4 mt-6 flex items-center sm:mx-8&quot;&gt;
+        &lt;img class&#x3D;&quot;mr-4 h-12 w-12 rounded-full border-2 border-pink-50 object-cover&quot; src&#x3D;&quot;images/avatars/female-01.jpg&quot; alt&#x3D;&quot;Ảnh đại diện&quot; /&gt;
+        &lt;div class&#x3D;&quot;flex flex-col&quot;&gt;
+          &lt;span class&#x3D;&quot;font-semibold leading-none text-gray-800&quot;&gt;Caroline Lundu&lt;/span&gt;
+          &lt;span class&#x3D;&quot;mt-1 text-sm leading-none text-gray-500&quot;&gt;29 phút trước&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;button class&#x3D;&quot;-mr-4 ml-auto&quot; mat-icon-button [matMenuTriggerFor]&#x3D;&quot;postCardMenu02&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-gray-600&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:ellipsis-vertical&#x27;&quot;&gt;&lt;/mat-icon&gt;
+        &lt;/button&gt;
+        &lt;mat-menu #postCardMenu02&#x3D;&quot;matMenu&quot;&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:arrow-up-tray&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Lưu bài viết&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:eye-slash&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Ẩn bài viết&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:clock&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Tạm ẩn trong 30 ngày&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:minus-circle&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Ẩn tất cả&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+          &lt;mat-divider class&#x3D;&quot;my-2&quot;&gt;&lt;/mat-divider&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:exclamation-triangle&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Báo cáo bài viết&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+          &lt;button mat-menu-item&gt;
+            &lt;span class&#x3D;&quot;flex items-center&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5 mr-3 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:bell&#x27;&quot;&gt;&lt;/mat-icon&gt;
+              &lt;span&gt;Bật thông báo cho bài viết này&lt;/span&gt;
+            &lt;/span&gt;
+          &lt;/button&gt;
+        &lt;/mat-menu&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Post Content --&gt;
+      &lt;div class&#x3D;&quot;mx-6 mb-6 mt-2 text-gray-700 sm:mx-8&quot;&gt;
+        Nhìn bầu trời kia! Tôi rất muốn đến đó.. Chúng ta có thể sắp xếp một chuyến đi được không? Làm ơn đi!!!
+      &lt;/div&gt;
+
+      &lt;!-- Post Image --&gt;
+      &lt;div class&#x3D;&quot;relative mb-4&quot;&gt;
+        &lt;img
+          class&#x3D;&quot;h-80 w-full object-cover transition-transform duration-500 hover:scale-105&quot;
+          src&#x3D;&quot;images/cards/14-640x480.jpg&quot;
+          alt&#x3D;&quot;Ảnh bài viết&quot;
+        /&gt;
+        &lt;div
+          class&#x3D;&quot;absolute bottom-0 left-0 m-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-700 shadow-md&quot;
+          [matTooltip]&#x3D;&quot;&#x27;Barmouth / UK&#x27;&quot;
+          [matTooltipPosition]&#x3D;&quot;&#x27;right&#x27;&quot;
+        &gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-4 text-gray-100&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:map-pin&#x27;&quot;&gt;&lt;/mat-icon&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Buttons --&gt;
+      &lt;div class&#x3D;&quot;mx-3 flex items-center sm:mx-5&quot;&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-pink-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:heart&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Đã thích&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-blue-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-blue-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:chat-bubble-left-ellipsis&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Bình luận&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-green-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-green-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:share&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Chia sẻ&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Post Stats --&gt;
+      &lt;hr class&#x3D;&quot;mx-6 mb-4 mt-4 border-gray-100 sm:mx-8&quot; /&gt;
+      &lt;div class&#x3D;&quot;mx-6 mb-4 flex flex-col sm:mx-8 sm:flex-row sm:items-center&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+          &lt;div class&#x3D;&quot;flex -space-x-3&quot;&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/female-02.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/female-04.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/male-09.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/male-07.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;ml-3 text-sm tracking-tight text-gray-600&quot;&gt;Bạn và 24 người khác đã thích&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;hidden flex-auto sm:flex&quot;&gt;&lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-4 flex items-center sm:mt-0&quot;&gt;
+          &lt;button class&#x3D;&quot;-ml-2 mr-1 px-3 text-gray-600 hover:text-gray-800 sm:ml-0&quot; mat-button&gt;4 lượt chia sẻ&lt;/button&gt;
+          &lt;button class&#x3D;&quot;px-3 text-gray-600 hover:text-gray-800 sm:-mr-4&quot; mat-button (click)&#x3D;&quot;expandableCard02.expanded &#x3D; !expandableCard02.expanded&quot;&gt;
+            &lt;span class&#x3D;&quot;mr-1&quot;&gt;5 bình luận&lt;/span&gt;
+            &lt;mat-icon
+              class&#x3D;&quot;icon-size-5 rotate-0 transition-transform duration-150 ease-in-out&quot;
+              [ngClass]&#x3D;&quot;{
+                &#x27;rotate-180&#x27;: expandableCard02.expanded,
+              }&quot;
+              [svgIcon]&#x3D;&quot;&#x27;heroicons_mini:chevron-down&#x27;&quot;
+            &gt;&lt;/mat-icon&gt;
+          &lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Comments Section (Expandable) --&gt;
+      &lt;ng-container fuseCardExpansion&gt;
+        &lt;hr class&#x3D;&quot;m-0 border-gray-100&quot; /&gt;
+        &lt;div class&#x3D;&quot;mx-4 mb-3 mt-6 flex flex-col sm:mx-8&quot;&gt;
+          &lt;!-- Comment Input --&gt;
+          &lt;div class&#x3D;&quot;flex items-start&quot;&gt;
+            &lt;img class&#x3D;&quot;mr-5 h-10 w-10 rounded-full border-2 border-pink-50 object-cover&quot; src&#x3D;&quot;images/avatars/brian-hughes.jpg&quot; alt&#x3D;&quot;Avatar&quot; /&gt;
+            &lt;mat-form-field class&#x3D;&quot;w-full&quot; [subscriptSizing]&#x3D;&quot;&#x27;dynamic&#x27;&quot;&gt;
+              &lt;textarea matInput [placeholder]&#x3D;&quot;&#x27;Viết bình luận...&#x27;&quot; [rows]&#x3D;&quot;2&quot; cdkTextareaAutosize class&#x3D;&quot;resize-none&quot;&gt;&lt;/textarea&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+          &lt;!-- Comment Tools --&gt;
+          &lt;div class&#x3D;&quot;-mr-3 ml-auto mt-3 flex items-center&quot;&gt;
+            &lt;button mat-icon-button class&#x3D;&quot;text-pink-400 hover:text-pink-500&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:sparkles&#x27;&quot;&gt;&lt;/mat-icon&gt;
+            &lt;/button&gt;
+            &lt;button mat-icon-button class&#x3D;&quot;text-pink-400 hover:text-pink-500&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:face-smile&#x27;&quot;&gt;&lt;/mat-icon&gt;
+            &lt;/button&gt;
+            &lt;button mat-icon-button class&#x3D;&quot;text-pink-400 hover:text-pink-500&quot;&gt;
+              &lt;mat-icon class&#x3D;&quot;icon-size-5&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:photo&#x27;&quot;&gt;&lt;/mat-icon&gt;
+            &lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;hr class&#x3D;&quot;mx-4 my-0 border-gray-100 sm:mx-8&quot; /&gt;
+
+        &lt;!-- Comments List --&gt;
+        &lt;div class&#x3D;&quot;max-h-120 overflow-y-auto px-4 sm:px-8&quot;&gt;
+          &lt;!-- Comment 1 --&gt;
+          &lt;div class&#x3D;&quot;relative my-6 flex flex-col&quot;&gt;
+            &lt;div class&#x3D;&quot;flex items-start&quot;&gt;
+              &lt;img class&#x3D;&quot;mr-4 h-9 w-9 rounded-full border-2 border-pink-50 object-cover&quot; src&#x3D;&quot;images/avatars/male-05.jpg&quot; alt&#x3D;&quot;Avatar&quot; /&gt;
+              &lt;div class&#x3D;&quot;mt-0.5 flex flex-col rounded-xl bg-gray-50 p-3&quot;&gt;
+                &lt;span class&#x3D;&quot;font-bold text-gray-800&quot;&gt;Rutherford Brannan&lt;/span&gt;
+                &lt;span class&#x3D;&quot;mt-1 text-gray-700&quot;&gt;Ồ, tôi sẵn sàng rồi.. Chúng ta có thể sắp xếp chuyến đi vào cuối tuần tới nếu bạn muốn!&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mt-2 flex items-center text-xs text-gray-500&quot;&gt;
+                  &lt;span class&#x3D;&quot;mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline&quot;&gt;Thích&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline&quot;&gt;Phản hồi&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline&quot;&gt;Ẩn phản hồi&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mr-2&quot;&gt;&amp;bull;&lt;/span&gt;
+                  &lt;span&gt;17 phút&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Nested Reply 1 --&gt;
+            &lt;div class&#x3D;&quot;ml-12 mt-4 flex items-start&quot;&gt;
+              &lt;img class&#x3D;&quot;mr-4 h-8 w-8 rounded-full border-2 border-pink-50 object-cover&quot; src&#x3D;&quot;images/avatars/female-01.jpg&quot; alt&#x3D;&quot;Avatar&quot; /&gt;
+              &lt;div class&#x3D;&quot;mt-0.5 flex flex-col rounded-xl bg-gray-50 p-3&quot;&gt;
+                &lt;span class&#x3D;&quot;font-bold text-gray-800&quot;&gt;Caroline Lundu&lt;/span&gt;
+                &lt;span class&#x3D;&quot;mt-1 text-gray-700&quot;&gt;Vâng!! Chúng ta có thể nói về điều này vào bữa trưa!&lt;/span&gt;
+                &lt;div class&#x3D;&quot;mt-2 flex items-center text-xs text-gray-500&quot;&gt;
+                  &lt;span class&#x3D;&quot;mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline&quot;&gt;Thích&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline&quot;&gt;Phản hồi&lt;/span&gt;
+                  &lt;span class&#x3D;&quot;mr-2&quot;&gt;&amp;bull;&lt;/span&gt;
+                  &lt;span&gt;15 phút&lt;/span&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;!-- More comments... --&gt;
+        &lt;/div&gt;
+      &lt;/ng-container&gt;
+    &lt;/fuse-card&gt;
+
+    &lt;!-- Post 2 --&gt;
+    &lt;fuse-card class&#x3D;&quot;max-w-140 mx-auto mb-6 flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md&quot;&gt;
+      &lt;div class&#x3D;&quot;mx-6 mb-4 mt-6 flex items-center sm:mx-8&quot;&gt;
+        &lt;img class&#x3D;&quot;mr-4 h-12 w-12 rounded-full border-2 border-pink-50 object-cover&quot; src&#x3D;&quot;images/avatars/female-01.jpg&quot; alt&#x3D;&quot;Ảnh đại diện&quot; /&gt;
+        &lt;div class&#x3D;&quot;flex flex-col&quot;&gt;
+          &lt;span class&#x3D;&quot;font-semibold leading-none text-gray-800&quot;&gt;Caroline Lundu&lt;/span&gt;
+          &lt;span class&#x3D;&quot;mt-1 text-sm leading-none text-gray-500&quot;&gt;29 phút trước&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;button class&#x3D;&quot;-mr-4 ml-auto&quot; mat-icon-button [matMenuTriggerFor]&#x3D;&quot;postCardMenu08&quot;&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-gray-600&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:ellipsis-vertical&#x27;&quot;&gt;&lt;/mat-icon&gt;
+        &lt;/button&gt;
+        &lt;mat-menu #postCardMenu08&#x3D;&quot;matMenu&quot;&gt;
+          &lt;!-- Menu items... --&gt;
+        &lt;/mat-menu&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;m-6 text-gray-700 sm:mx-8&quot;&gt;
+        &lt;p&gt;
+          Chúng ta sẽ vẽ một bầu trời hạnh phúc ở đây. Chúng ta chạm vào canvas, và canvas nhận lấy những gì nó muốn. Một tia nắng hạnh phúc chiếu qua
+          đó. Tôi được ban phước với một bàn tay rất vững; và nó rất hữu ích khi bạn làm những việc tinh tế này. Đây là phần thú vị.
+        &lt;/p&gt;
+        &lt;p class&#x3D;&quot;mt-4&quot;&gt;
+          Chẳng phải thật tuyệt khi làm điều gì đó mà bạn không thể thất bại sao? Những cây nhỏ và bụi cây phát triển theo cách làm chúng hạnh phúc.
+          Cây cũng cảm thấy cô đơn, vì vậy chúng ta sẽ cho nó một người bạn nhỏ. Không có sai lầm nào cả. Bạn có thể sửa bất cứ điều gì xảy ra.
+        &lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Action Buttons --&gt;
+      &lt;div class&#x3D;&quot;mx-3 flex items-center sm:mx-5&quot;&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-pink-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-pink-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:heart&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Đã thích&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-blue-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-blue-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:chat-bubble-left-ellipsis&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Bình luận&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;button class&#x3D;&quot;mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-green-50&quot; mat-button&gt;
+          &lt;mat-icon class&#x3D;&quot;icon-size-5 text-green-500&quot; [svgIcon]&#x3D;&quot;&#x27;heroicons_solid:share&#x27;&quot;&gt;&lt;/mat-icon&gt;
+          &lt;span class&#x3D;&quot;ml-2 text-gray-700&quot;&gt;Chia sẻ&lt;/span&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Post Stats --&gt;
+      &lt;hr class&#x3D;&quot;mx-6 mb-4 mt-4 border-gray-100 sm:mx-8&quot; /&gt;
+      &lt;div class&#x3D;&quot;mx-6 mb-4 flex flex-col sm:mx-8 sm:flex-row sm:items-center&quot;&gt;
+        &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+          &lt;div class&#x3D;&quot;flex -space-x-3&quot;&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/female-02.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/female-04.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/male-09.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+            &lt;img class&#x3D;&quot;h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm&quot; src&#x3D;&quot;images/avatars/male-07.jpg&quot; alt&#x3D;&quot;Người dùng&quot; /&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;ml-3 text-sm tracking-tight text-gray-600&quot;&gt;Bạn và 24 người khác đã thích&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;hidden flex-auto sm:flex&quot;&gt;&lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-4 flex items-center sm:mt-0&quot;&gt;
+          &lt;button class&#x3D;&quot;-ml-2 mr-1 px-3 text-gray-600 hover:text-gray-800 sm:ml-0&quot; mat-button&gt;4 lượt chia sẻ&lt;/button&gt;
+          &lt;button class&#x3D;&quot;px-3 text-gray-600 hover:text-gray-800 sm:-mr-3&quot; mat-button&gt;Chưa có bình luận&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/fuse-card&gt;
+
+    &lt;!-- Additional posts would go here... --&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Loading Indicator --&gt;
+  &lt;div *ngIf&#x3D;&quot;loading&quot; class&#x3D;&quot;flex w-full items-center justify-center py-8&quot;&gt;
+    &lt;div class&#x3D;&quot;flex flex-col items-center&quot;&gt;
+      &lt;div class&#x3D;&quot;h-10 w-10 animate-spin rounded-full border-b-2 border-t-2 border-pink-500&quot;&gt;&lt;/div&gt;
+      &lt;p class&#x3D;&quot;mt-4 text-gray-600&quot;&gt;Đang tải thêm bài viết...&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex w-full flex-col items-center justify-center bg-gradient-to-b from-pink-50/50 to-white py-6">  <!-- Create Post Card -->  <fuse-card class="max-w-140 mb-6 flex w-full flex-col rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8">    <div class="text-xl font-semibold text-pink-600">Tạo Bài Viết</div>    <div class="mt-8 flex flex-col items-start sm:flex-row">      <div class="mb-6 flex items-center sm:mb-0">        <img class="mr-4 h-12 w-12 min-w-12 rounded-full border-2 border-pink-100 object-cover shadow-sm" src="{{ user.avatar || \'\' }}" alt="" />        <div class="sm:hidden">{{ user.name }}</div>      </div>      <mat-form-field class="w-full" [subscriptSizing]="\'dynamic\'">        <textarea          matInput          [placeholder]="\'Bạn đang nghĩ gì?\'"          [rows]="3"          cdkTextareaAutosize          (click)="openRef()"          class="resize-none transition-colors focus:border-pink-300"        ></textarea>      </mat-form-field>    </div>  </fuse-card>  <!-- Post Feed -->  <div    class="search-results w-full"    infiniteScroll    [infiniteScrollDistance]="2"    [infiniteScrollThrottle]="50"    (scrolled)="onScroll()"    [scrollWindow]="true"  >    <!-- Post 1 -->    <fuse-card      class="max-w-140 mx-auto mb-6 flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md"      #expandableCard02="fuseCard"    >      <!-- Post Header -->      <div class="mx-6 mb-4 mt-6 flex items-center sm:mx-8">        <img class="mr-4 h-12 w-12 rounded-full border-2 border-pink-50 object-cover" src="images/avatars/female-01.jpg" alt="Ảnh đại diện" />        <div class="flex flex-col">          <span class="font-semibold leading-none text-gray-800">Caroline Lundu</span>          <span class="mt-1 text-sm leading-none text-gray-500">29 phút trước</span>        </div>        <button class="-mr-4 ml-auto" mat-icon-button [matMenuTriggerFor]="postCardMenu02">          <mat-icon class="icon-size-5 text-gray-600" [svgIcon]="\'heroicons_solid:ellipsis-vertical\'"></mat-icon>        </button>        <mat-menu #postCardMenu02="matMenu">          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:arrow-up-tray\'"></mat-icon>              <span>Lưu bài viết</span>            </span>          </button>          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:eye-slash\'"></mat-icon>              <span>Ẩn bài viết</span>            </span>          </button>          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:clock\'"></mat-icon>              <span>Tạm ẩn trong 30 ngày</span>            </span>          </button>          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:minus-circle\'"></mat-icon>              <span>Ẩn tất cả</span>            </span>          </button>          <mat-divider class="my-2"></mat-divider>          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:exclamation-triangle\'"></mat-icon>              <span>Báo cáo bài viết</span>            </span>          </button>          <button mat-menu-item>            <span class="flex items-center">              <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="\'heroicons_solid:bell\'"></mat-icon>              <span>Bật thông báo cho bài viết này</span>            </span>          </button>        </mat-menu>      </div>      <!-- Post Content -->      <div class="mx-6 mb-6 mt-2 text-gray-700 sm:mx-8">        Nhìn bầu trời kia! Tôi rất muốn đến đó.. Chúng ta có thể sắp xếp một chuyến đi được không? Làm ơn đi!!!      </div>      <!-- Post Image -->      <div class="relative mb-4">        <img          class="h-80 w-full object-cover transition-transform duration-500 hover:scale-105"          src="images/cards/14-640x480.jpg"          alt="Ảnh bài viết"        />        <div          class="absolute bottom-0 left-0 m-4 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full bg-gray-700 shadow-md"          [matTooltip]="\'Barmouth / UK\'"          [matTooltipPosition]="\'right\'"        >          <mat-icon class="icon-size-4 text-gray-100" [svgIcon]="\'heroicons_solid:map-pin\'"></mat-icon>        </div>      </div>      <!-- Action Buttons -->      <div class="mx-3 flex items-center sm:mx-5">        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-pink-50" mat-button>          <mat-icon class="icon-size-5 text-pink-500" [svgIcon]="\'heroicons_solid:heart\'"></mat-icon>          <span class="ml-2 text-gray-700">Đã thích</span>        </button>        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-blue-50" mat-button>          <mat-icon class="icon-size-5 text-blue-500" [svgIcon]="\'heroicons_solid:chat-bubble-left-ellipsis\'"></mat-icon>          <span class="ml-2 text-gray-700">Bình luận</span>        </button>        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-green-50" mat-button>          <mat-icon class="icon-size-5 text-green-500" [svgIcon]="\'heroicons_solid:share\'"></mat-icon>          <span class="ml-2 text-gray-700">Chia sẻ</span>        </button>      </div>      <!-- Post Stats -->      <hr class="mx-6 mb-4 mt-4 border-gray-100 sm:mx-8" />      <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:flex-row sm:items-center">        <div class="flex items-center">          <div class="flex -space-x-3">            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/female-02.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/female-04.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/male-09.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/male-07.jpg" alt="Người dùng" />          </div>          <div class="ml-3 text-sm tracking-tight text-gray-600">Bạn và 24 người khác đã thích</div>        </div>        <div class="hidden flex-auto sm:flex"></div>        <div class="mt-4 flex items-center sm:mt-0">          <button class="-ml-2 mr-1 px-3 text-gray-600 hover:text-gray-800 sm:ml-0" mat-button>4 lượt chia sẻ</button>          <button class="px-3 text-gray-600 hover:text-gray-800 sm:-mr-4" mat-button (click)="expandableCard02.expanded = !expandableCard02.expanded">            <span class="mr-1">5 bình luận</span>            <mat-icon              class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"              [ngClass]="{                \'rotate-180\': expandableCard02.expanded,              }"              [svgIcon]="\'heroicons_mini:chevron-down\'"            ></mat-icon>          </button>        </div>      </div>      <!-- Comments Section (Expandable) -->      <ng-container fuseCardExpansion>        <hr class="m-0 border-gray-100" />        <div class="mx-4 mb-3 mt-6 flex flex-col sm:mx-8">          <!-- Comment Input -->          <div class="flex items-start">            <img class="mr-5 h-10 w-10 rounded-full border-2 border-pink-50 object-cover" src="images/avatars/brian-hughes.jpg" alt="Avatar" />            <mat-form-field class="w-full" [subscriptSizing]="\'dynamic\'">              <textarea matInput [placeholder]="\'Viết bình luận...\'" [rows]="2" cdkTextareaAutosize class="resize-none"></textarea>            </mat-form-field>          </div>          <!-- Comment Tools -->          <div class="-mr-3 ml-auto mt-3 flex items-center">            <button mat-icon-button class="text-pink-400 hover:text-pink-500">              <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:sparkles\'"></mat-icon>            </button>            <button mat-icon-button class="text-pink-400 hover:text-pink-500">              <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:face-smile\'"></mat-icon>            </button>            <button mat-icon-button class="text-pink-400 hover:text-pink-500">              <mat-icon class="icon-size-5" [svgIcon]="\'heroicons_solid:photo\'"></mat-icon>            </button>          </div>        </div>        <hr class="mx-4 my-0 border-gray-100 sm:mx-8" />        <!-- Comments List -->        <div class="max-h-120 overflow-y-auto px-4 sm:px-8">          <!-- Comment 1 -->          <div class="relative my-6 flex flex-col">            <div class="flex items-start">              <img class="mr-4 h-9 w-9 rounded-full border-2 border-pink-50 object-cover" src="images/avatars/male-05.jpg" alt="Avatar" />              <div class="mt-0.5 flex flex-col rounded-xl bg-gray-50 p-3">                <span class="font-bold text-gray-800">Rutherford Brannan</span>                <span class="mt-1 text-gray-700">Ồ, tôi sẵn sàng rồi.. Chúng ta có thể sắp xếp chuyến đi vào cuối tuần tới nếu bạn muốn!</span>                <div class="mt-2 flex items-center text-xs text-gray-500">                  <span class="mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline">Thích</span>                  <span class="mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline">Phản hồi</span>                  <span class="mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline">Ẩn phản hồi</span>                  <span class="mr-2">&bull;</span>                  <span>17 phút</span>                </div>              </div>            </div>            <!-- Nested Reply 1 -->            <div class="ml-12 mt-4 flex items-start">              <img class="mr-4 h-8 w-8 rounded-full border-2 border-pink-50 object-cover" src="images/avatars/female-01.jpg" alt="Avatar" />              <div class="mt-0.5 flex flex-col rounded-xl bg-gray-50 p-3">                <span class="font-bold text-gray-800">Caroline Lundu</span>                <span class="mt-1 text-gray-700">Vâng!! Chúng ta có thể nói về điều này vào bữa trưa!</span>                <div class="mt-2 flex items-center text-xs text-gray-500">                  <span class="mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline">Thích</span>                  <span class="mr-2 cursor-pointer font-medium hover:text-pink-500 hover:underline">Phản hồi</span>                  <span class="mr-2">&bull;</span>                  <span>15 phút</span>                </div>              </div>            </div>          </div>          <!-- More comments... -->        </div>      </ng-container>    </fuse-card>    <!-- Post 2 -->    <fuse-card class="max-w-140 mx-auto mb-6 flex w-full flex-col overflow-hidden rounded-xl bg-white shadow-sm transition-all hover:shadow-md">      <div class="mx-6 mb-4 mt-6 flex items-center sm:mx-8">        <img class="mr-4 h-12 w-12 rounded-full border-2 border-pink-50 object-cover" src="images/avatars/female-01.jpg" alt="Ảnh đại diện" />        <div class="flex flex-col">          <span class="font-semibold leading-none text-gray-800">Caroline Lundu</span>          <span class="mt-1 text-sm leading-none text-gray-500">29 phút trước</span>        </div>        <button class="-mr-4 ml-auto" mat-icon-button [matMenuTriggerFor]="postCardMenu08">          <mat-icon class="icon-size-5 text-gray-600" [svgIcon]="\'heroicons_solid:ellipsis-vertical\'"></mat-icon>        </button>        <mat-menu #postCardMenu08="matMenu">          <!-- Menu items... -->        </mat-menu>      </div>      <div class="m-6 text-gray-700 sm:mx-8">        <p>          Chúng ta sẽ vẽ một bầu trời hạnh phúc ở đây. Chúng ta chạm vào canvas, và canvas nhận lấy những gì nó muốn. Một tia nắng hạnh phúc chiếu qua          đó. Tôi được ban phước với một bàn tay rất vững; và nó rất hữu ích khi bạn làm những việc tinh tế này. Đây là phần thú vị.        </p>        <p class="mt-4">          Chẳng phải thật tuyệt khi làm điều gì đó mà bạn không thể thất bại sao? Những cây nhỏ và bụi cây phát triển theo cách làm chúng hạnh phúc.          Cây cũng cảm thấy cô đơn, vì vậy chúng ta sẽ cho nó một người bạn nhỏ. Không có sai lầm nào cả. Bạn có thể sửa bất cứ điều gì xảy ra.        </p>      </div>      <!-- Action Buttons -->      <div class="mx-3 flex items-center sm:mx-5">        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-pink-50" mat-button>          <mat-icon class="icon-size-5 text-pink-500" [svgIcon]="\'heroicons_solid:heart\'"></mat-icon>          <span class="ml-2 text-gray-700">Đã thích</span>        </button>        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-blue-50" mat-button>          <mat-icon class="icon-size-5 text-blue-500" [svgIcon]="\'heroicons_solid:chat-bubble-left-ellipsis\'"></mat-icon>          <span class="ml-2 text-gray-700">Bình luận</span>        </button>        <button class="mr-1 rounded-full px-3 py-1.5 transition-colors hover:bg-green-50" mat-button>          <mat-icon class="icon-size-5 text-green-500" [svgIcon]="\'heroicons_solid:share\'"></mat-icon>          <span class="ml-2 text-gray-700">Chia sẻ</span>        </button>      </div>      <!-- Post Stats -->      <hr class="mx-6 mb-4 mt-4 border-gray-100 sm:mx-8" />      <div class="mx-6 mb-4 flex flex-col sm:mx-8 sm:flex-row sm:items-center">        <div class="flex items-center">          <div class="flex -space-x-3">            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/female-02.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/female-04.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/male-09.jpg" alt="Người dùng" />            <img class="h-7 w-7 rounded-full border-2 border-white object-cover shadow-sm" src="images/avatars/male-07.jpg" alt="Người dùng" />          </div>          <div class="ml-3 text-sm tracking-tight text-gray-600">Bạn và 24 người khác đã thích</div>        </div>        <div class="hidden flex-auto sm:flex"></div>        <div class="mt-4 flex items-center sm:mt-0">          <button class="-ml-2 mr-1 px-3 text-gray-600 hover:text-gray-800 sm:ml-0" mat-button>4 lượt chia sẻ</button>          <button class="px-3 text-gray-600 hover:text-gray-800 sm:-mr-3" mat-button>Chưa có bình luận</button>        </div>      </div>    </fuse-card>    <!-- Additional posts would go here... -->  </div>  <!-- Loading Indicator -->  <div *ngIf="loading" class="flex w-full items-center justify-center py-8">    <div class="flex flex-col items-center">      <div class="h-10 w-10 animate-spin rounded-full border-b-2 border-t-2 border-pink-500"></div>      <p class="mt-4 text-gray-600">Đang tải thêm bài viết...</p>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'CommunityComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'CommunityComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

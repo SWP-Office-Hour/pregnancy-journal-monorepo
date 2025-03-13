@@ -1,0 +1,647 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LandingComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/landing/landing.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-landing</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                            <code>ButtonModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./landing.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+
+import { ButtonModule } from &#x27;primeng/button&#x27;;
+
+@Component({
+  selector: &#x27;app-landing&#x27;,
+  standalone: true,
+  imports: [CommonModule, RouterModule, ButtonModule],
+  templateUrl: &#x27;./landing.component.html&#x27;,
+})
+export class LandingComponent {}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;flex h-full w-full flex-col&quot;&gt;
+  &lt;!-- Hero Section --&gt;
+  &lt;div class&#x3D;&quot;relative isolate overflow-hidden bg-gradient-to-b from-pink-50 via-white to-pink-50 pt-14&quot;&gt;
+    &lt;div
+      class&#x3D;&quot;absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-pink-600/10 ring-1 ring-pink-50 sm:-mr-80 lg:-mr-96&quot;
+      aria-hidden&#x3D;&quot;true&quot;
+    &gt;&lt;/div&gt;
+    &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8&quot;&gt;
+      &lt;div class&#x3D;&quot;mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8&quot;&gt;
+        &lt;h1 class&#x3D;&quot;max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto&quot;&gt;
+          Theo dõi hành trình mang thai của bạn một cách dễ dàng
+        &lt;/h1&gt;
+        &lt;div class&#x3D;&quot;mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1&quot;&gt;
+          &lt;p class&#x3D;&quot;text-lg leading-8 text-gray-600&quot;&gt;
+            Pregnancy Journal giúp bạn ghi lại và theo dõi quá trình mang thai, nhận thông tin hữu ích từ các chuyên gia, và kết nối với cộng đồng các
+            bà mẹ khác. Luôn đồng hành cùng bạn trong hành trình làm mẹ tuyệt vời.
+          &lt;/p&gt;
+          &lt;div class&#x3D;&quot;mt-10 flex items-center gap-x-6&quot;&gt;
+            &lt;a
+              routerLink&#x3D;&quot;/sign-up&quot;
+              class&#x3D;&quot;bg-pink-450 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600&quot;
+              &gt;Đăng ký ngay&lt;/a
+            &gt;
+            &lt;a routerLink&#x3D;&quot;/features&quot; class&#x3D;&quot;text-sm font-semibold leading-6 text-gray-900&quot;&gt;Tìm hiểu thêm &lt;span aria-hidden&#x3D;&quot;true&quot;&gt;→&lt;/span&gt;&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;img
+          src&#x3D;&quot;/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg&quot;
+          alt&#x3D;&quot;Pregnant woman illustration&quot;
+          class&#x3D;&quot;mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-contain sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36&quot;
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- SVG Wave --&gt;
+    &lt;svg class&#x3D;&quot;absolute inset-x-0 bottom-0 -z-10&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; viewBox&#x3D;&quot;0 0 1440 320&quot;&gt;
+      &lt;path
+        fill&#x3D;&quot;#ff597d&quot;
+        fill-opacity&#x3D;&quot;0.1&quot;
+        d&#x3D;&quot;M0,96L48,106.7C96,117,192,139,288,144C384,149,480,139,576,122.7C672,107,768,85,864,96C960,107,1056,149,1152,144C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z&quot;
+      &gt;&lt;/path&gt;
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Features Section --&gt;
+  &lt;div class&#x3D;&quot;bg-white py-24 sm:py-32&quot;&gt;
+    &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-6 lg:px-8&quot;&gt;
+      &lt;div class&#x3D;&quot;mx-auto max-w-2xl lg:text-center&quot;&gt;
+        &lt;h2 class&#x3D;&quot;text-pink-450 text-base font-semibold leading-7&quot;&gt;Theo dõi chu kỳ thai kỳ&lt;/h2&gt;
+        &lt;p class&#x3D;&quot;mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl&quot;&gt;Mọi thứ bạn cần cho hành trình mang thai&lt;/p&gt;
+        &lt;p class&#x3D;&quot;mt-6 text-lg leading-8 text-gray-600&quot;&gt;
+          Pregnancy Journal giúp bạn dễ dàng theo dõi sự phát triển của thai nhi, ghi lại các mốc quan trọng, và nhận lời khuyên từ các chuyên gia.
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl&quot;&gt;
+        &lt;dl class&#x3D;&quot;grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16&quot;&gt;
+          &lt;div class&#x3D;&quot;relative pl-16&quot;&gt;
+            &lt;dt class&#x3D;&quot;text-base font-semibold leading-7 text-gray-900&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg&quot;&gt;
+                &lt;svg class&#x3D;&quot;h-6 w-6 text-white&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                  &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z&quot; /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              Theo dõi sự phát triển của thai nhi
+            &lt;/dt&gt;
+            &lt;dd class&#x3D;&quot;mt-2 text-base leading-7 text-gray-600&quot;&gt;Cập nhật hàng tuần về sự phát triển của em bé và những thay đổi của cơ thể mẹ.&lt;/dd&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;relative pl-16&quot;&gt;
+            &lt;dt class&#x3D;&quot;text-base font-semibold leading-7 text-gray-900&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg&quot;&gt;
+                &lt;svg class&#x3D;&quot;h-6 w-6 text-white&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                  &lt;path
+                    stroke-linecap&#x3D;&quot;round&quot;
+                    stroke-linejoin&#x3D;&quot;round&quot;
+                    d&#x3D;&quot;M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z&quot;
+                  /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              Lời khuyên của chuyên gia
+            &lt;/dt&gt;
+            &lt;dd class&#x3D;&quot;mt-2 text-base leading-7 text-gray-600&quot;&gt;
+              Nhận lời khuyên từ các bác sĩ sản khoa, chuyên gia dinh dưỡng và các chuyên gia khác.
+            &lt;/dd&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;relative pl-16&quot;&gt;
+            &lt;dt class&#x3D;&quot;text-base font-semibold leading-7 text-gray-900&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg&quot;&gt;
+                &lt;svg class&#x3D;&quot;h-6 w-6 text-white&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                  &lt;path
+                    stroke-linecap&#x3D;&quot;round&quot;
+                    stroke-linejoin&#x3D;&quot;round&quot;
+                    d&#x3D;&quot;M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z&quot;
+                  /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              Nhật ký thai kỳ
+            &lt;/dt&gt;
+            &lt;dd class&#x3D;&quot;mt-2 text-base leading-7 text-gray-600&quot;&gt;Ghi lại các khoảnh khắc đặc biệt, cảm giác và mốc quan trọng trong suốt thai kỳ.&lt;/dd&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;relative pl-16&quot;&gt;
+            &lt;dt class&#x3D;&quot;text-base font-semibold leading-7 text-gray-900&quot;&gt;
+              &lt;div class&#x3D;&quot;bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg&quot;&gt;
+                &lt;svg class&#x3D;&quot;h-6 w-6 text-white&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                  &lt;path
+                    stroke-linecap&#x3D;&quot;round&quot;
+                    stroke-linejoin&#x3D;&quot;round&quot;
+                    d&#x3D;&quot;M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z&quot;
+                  /&gt;
+                &lt;/svg&gt;
+              &lt;/div&gt;
+              Cộng đồng hỗ trợ
+            &lt;/dt&gt;
+            &lt;dd class&#x3D;&quot;mt-2 text-base leading-7 text-gray-600&quot;&gt;
+              Kết nối với các bà mẹ khác, chia sẻ trải nghiệm và nhận sự hỗ trợ trong hành trình làm mẹ.
+            &lt;/dd&gt;
+          &lt;/div&gt;
+        &lt;/dl&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Testimonial Section --&gt;
+  &lt;div class&#x3D;&quot;bg-pink-50 py-24 sm:py-32&quot;&gt;
+    &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-6 lg:px-8&quot;&gt;
+      &lt;div class&#x3D;&quot;mx-auto max-w-2xl lg:text-center&quot;&gt;
+        &lt;h2 class&#x3D;&quot;text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl&quot;&gt;Được tin dùng bởi hơn 10,000 bà mẹ&lt;/h2&gt;
+        &lt;p class&#x3D;&quot;mt-6 text-lg leading-8 text-gray-600&quot;&gt;Xem những gì các bà mẹ khác nói về trải nghiệm của họ với Pregnancy Journal&lt;/p&gt;
+      &lt;/div&gt;
+
+      &lt;div class&#x3D;&quot;mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3&quot;&gt;
+        &lt;!-- Testimonial 1 --&gt;
+        &lt;div class&#x3D;&quot;flex flex-col rounded-xl bg-white p-8 shadow-lg&quot;&gt;
+          &lt;div class&#x3D;&quot;mb-4 flex items-center gap-x-4&quot;&gt;
+            &lt;img class&#x3D;&quot;h-12 w-12 rounded-full&quot; src&#x3D;&quot;/images/avatars/female-01.jpg&quot; alt&#x3D;&quot;User avatar&quot; /&gt;
+            &lt;div&gt;
+              &lt;h3 class&#x3D;&quot;text-lg font-semibold&quot;&gt;Thanh Mai&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Mẹ của bé Minh, 2 tháng tuổi&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class&#x3D;&quot;text-gray-700&quot;&gt;
+            &quot;Pregnancy Journal đã giúp tôi theo dõi thai kỳ một cách dễ dàng. Những lời khuyên hữu ích và cộng đồng tuyệt vời!&quot;
+          &lt;/p&gt;
+          &lt;div class&#x3D;&quot;mt-4 flex&quot;&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Testimonial 2 --&gt;
+        &lt;div class&#x3D;&quot;flex flex-col rounded-xl bg-white p-8 shadow-lg&quot;&gt;
+          &lt;div class&#x3D;&quot;mb-4 flex items-center gap-x-4&quot;&gt;
+            &lt;img class&#x3D;&quot;h-12 w-12 rounded-full&quot; src&#x3D;&quot;/images/avatars/female-11.jpg&quot; alt&#x3D;&quot;User avatar&quot; /&gt;
+            &lt;div&gt;
+              &lt;h3 class&#x3D;&quot;text-lg font-semibold&quot;&gt;Hoài An&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Mẹ bầu tháng thứ 7&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class&#x3D;&quot;text-gray-700&quot;&gt;
+            &quot;Tôi đã sử dụng ứng dụng này từ tuần đầu tiên mang thai. Thông tin chính xác và lời khuyên của chuyên gia rất hữu ích.&quot;
+          &lt;/p&gt;
+          &lt;div class&#x3D;&quot;mt-4 flex&quot;&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- Testimonial 3 --&gt;
+        &lt;div class&#x3D;&quot;flex flex-col rounded-xl bg-white p-8 shadow-lg&quot;&gt;
+          &lt;div class&#x3D;&quot;mb-4 flex items-center gap-x-4&quot;&gt;
+            &lt;img class&#x3D;&quot;h-12 w-12 rounded-full&quot; src&#x3D;&quot;/images/avatars/female-18.jpg&quot; alt&#x3D;&quot;User avatar&quot; /&gt;
+            &lt;div&gt;
+              &lt;h3 class&#x3D;&quot;text-lg font-semibold&quot;&gt;Minh Thư&lt;/h3&gt;
+              &lt;p class&#x3D;&quot;text-sm text-gray-600&quot;&gt;Mẹ của bé Linh, 4 tháng tuổi&lt;/p&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;p class&#x3D;&quot;text-gray-700&quot;&gt;
+            &quot;Tôi thích cách ứng dụng đưa ra các lời nhắc và thông tin liên quan đến từng giai đoạn thai kỳ. Đây thực sự là người bạn đồng hành tuyệt
+            vời!&quot;
+          &lt;/p&gt;
+          &lt;div class&#x3D;&quot;mt-4 flex&quot;&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+            &lt;svg class&#x3D;&quot;text-pink-450 h-5 w-5&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 20 20&quot;&gt;
+              &lt;path
+                d&#x3D;&quot;M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z&quot;
+              &gt;&lt;/path&gt;
+            &lt;/svg&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Testimonial View More Button --&gt;
+      &lt;div class&#x3D;&quot;mt-12 flex justify-center&quot;&gt;
+        &lt;a
+          href&#x3D;&quot;#&quot;
+          class&#x3D;&quot;bg-pink-450 inline-flex items-center justify-center rounded-md border border-transparent px-5 py-3 text-base font-medium text-white transition-colors hover:bg-pink-500&quot;
+        &gt;
+          Xem thêm đánh giá
+          &lt;svg class&#x3D;&quot;-mr-1 ml-2 h-5 w-5&quot; xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke&#x3D;&quot;currentColor&quot;&gt;
+            &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; stroke-width&#x3D;&quot;2&quot; d&#x3D;&quot;M9 5l7 7-7 7&quot;&gt;&lt;/path&gt;
+          &lt;/svg&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;!-- CTA Section --&gt;
+  &lt;div class&#x3D;&quot;bg-white&quot;&gt;
+    &lt;div class&#x3D;&quot;mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8&quot;&gt;
+      &lt;div
+        class&#x3D;&quot;bg-pink-450 relative isolate overflow-hidden px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0&quot;
+      &gt;
+        &lt;svg
+          viewBox&#x3D;&quot;0 0 1024 1024&quot;
+          class&#x3D;&quot;absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0&quot;
+          aria-hidden&#x3D;&quot;true&quot;
+        &gt;
+          &lt;circle cx&#x3D;&quot;512&quot; cy&#x3D;&quot;512&quot; r&#x3D;&quot;512&quot; fill&#x3D;&quot;url(#gradient)&quot; fill-opacity&#x3D;&quot;0.7&quot; /&gt;
+          &lt;defs&gt;
+            &lt;radialGradient id&#x3D;&quot;gradient&quot;&gt;
+              &lt;stop stop-color&#x3D;&quot;white&quot; /&gt;
+              &lt;stop offset&#x3D;&quot;1&quot; stop-color&#x3D;&quot;white&quot; /&gt;
+            &lt;/radialGradient&gt;
+          &lt;/defs&gt;
+        &lt;/svg&gt;
+        &lt;div class&#x3D;&quot;mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left&quot;&gt;
+          &lt;h2 class&#x3D;&quot;text-3xl font-bold tracking-tight text-white sm:text-4xl&quot;&gt;Bắt đầu hành trình làm mẹ&lt;br /&gt;của bạn ngay hôm nay&lt;/h2&gt;
+          &lt;p class&#x3D;&quot;mt-6 text-lg leading-8 text-gray-50&quot;&gt;
+            Đăng ký ngay để sử dụng đầy đủ các tính năng của Pregnancy Journal và nhận hỗ trợ tốt nhất trong suốt thai kỳ của bạn.
+          &lt;/p&gt;
+          &lt;div class&#x3D;&quot;mt-10 flex items-center justify-center gap-x-6 lg:justify-start&quot;&gt;
+            &lt;a
+              routerLink&#x3D;&quot;/sign-up&quot;
+              class&#x3D;&quot;rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-pink-500 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white&quot;
+              &gt;Đăng ký ngay&lt;/a
+            &gt;
+            &lt;a routerLink&#x3D;&quot;/features&quot; class&#x3D;&quot;text-sm font-semibold leading-6 text-white&quot;&gt;Tìm hiểu thêm &lt;span aria-hidden&#x3D;&quot;true&quot;&gt;→&lt;/span&gt;&lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;relative mt-16 h-80 lg:mt-8&quot;&gt;
+          &lt;img
+            class&#x3D;&quot;absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10&quot;
+            src&#x3D;&quot;/images/logo/logo.svg&quot;
+            alt&#x3D;&quot;App screenshot&quot;
+            width&#x3D;&quot;1824&quot;
+            height&#x3D;&quot;1080&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="flex h-full w-full flex-col">  <!-- Hero Section -->  <div class="relative isolate overflow-hidden bg-gradient-to-b from-pink-50 via-white to-pink-50 pt-14">    <div      class="absolute inset-y-0 right-1/2 -z-10 -mr-96 w-[200%] origin-top-right skew-x-[-30deg] bg-white shadow-xl shadow-pink-600/10 ring-1 ring-pink-50 sm:-mr-80 lg:-mr-96"      aria-hidden="true"    ></div>    <div class="mx-auto max-w-7xl px-6 py-32 sm:py-40 lg:px-8">      <div class="mx-auto max-w-2xl lg:mx-0 lg:grid lg:max-w-none lg:grid-cols-2 lg:gap-x-16 lg:gap-y-6 xl:grid-cols-1 xl:grid-rows-1 xl:gap-x-8">        <h1 class="max-w-2xl text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl lg:col-span-2 xl:col-auto">          Theo dõi hành trình mang thai của bạn một cách dễ dàng        </h1>        <div class="mt-6 max-w-xl lg:mt-0 xl:col-end-1 xl:row-start-1">          <p class="text-lg leading-8 text-gray-600">            Pregnancy Journal giúp bạn ghi lại và theo dõi quá trình mang thai, nhận thông tin hữu ích từ các chuyên gia, và kết nối với cộng đồng các            bà mẹ khác. Luôn đồng hành cùng bạn trong hành trình làm mẹ tuyệt vời.          </p>          <div class="mt-10 flex items-center gap-x-6">            <a              routerLink="/sign-up"              class="bg-pink-450 rounded-md px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-600"              >Đăng ký ngay</a            >            <a routerLink="/features" class="text-sm font-semibold leading-6 text-gray-900">Tìm hiểu thêm <span aria-hidden="true">→</span></a>          </div>        </div>        <img          src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg"          alt="Pregnant woman illustration"          class="mt-10 aspect-[6/5] w-full max-w-lg rounded-2xl object-contain sm:mt-16 lg:mt-0 lg:max-w-none xl:row-span-2 xl:row-end-2 xl:mt-36"        />      </div>    </div>    <!-- SVG Wave -->    <svg class="absolute inset-x-0 bottom-0 -z-10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">      <path        fill="#ff597d"        fill-opacity="0.1"        d="M0,96L48,106.7C96,117,192,139,288,144C384,149,480,139,576,122.7C672,107,768,85,864,96C960,107,1056,149,1152,144C1248,139,1344,85,1392,58.7L1440,32L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"      ></path>    </svg>  </div>  <!-- Features Section -->  <div class="bg-white py-24 sm:py-32">    <div class="mx-auto max-w-7xl px-6 lg:px-8">      <div class="mx-auto max-w-2xl lg:text-center">        <h2 class="text-pink-450 text-base font-semibold leading-7">Theo dõi chu kỳ thai kỳ</h2>        <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Mọi thứ bạn cần cho hành trình mang thai</p>        <p class="mt-6 text-lg leading-8 text-gray-600">          Pregnancy Journal giúp bạn dễ dàng theo dõi sự phát triển của thai nhi, ghi lại các mốc quan trọng, và nhận lời khuyên từ các chuyên gia.        </p>      </div>      <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">        <dl class="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">          <div class="relative pl-16">            <dt class="text-base font-semibold leading-7 text-gray-900">              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />                </svg>              </div>              Theo dõi sự phát triển của thai nhi            </dt>            <dd class="mt-2 text-base leading-7 text-gray-600">Cập nhật hàng tuần về sự phát triển của em bé và những thay đổi của cơ thể mẹ.</dd>          </div>          <div class="relative pl-16">            <dt class="text-base font-semibold leading-7 text-gray-900">              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">                  <path                    stroke-linecap="round"                    stroke-linejoin="round"                    d="M16.5 6v.75m0 3v.75m0 3v.75m0 3V18m-9-5.25h5.25M7.5 15h3M3.375 5.25c-.621 0-1.125.504-1.125 1.125v3.026a2.999 2.999 0 010 5.198v3.026c0 .621.504 1.125 1.125 1.125h17.25c.621 0 1.125-.504 1.125-1.125v-3.026a2.999 2.999 0 010-5.198V6.375c0-.621-.504-1.125-1.125-1.125H3.375z"                  />                </svg>              </div>              Lời khuyên của chuyên gia            </dt>            <dd class="mt-2 text-base leading-7 text-gray-600">              Nhận lời khuyên từ các bác sĩ sản khoa, chuyên gia dinh dưỡng và các chuyên gia khác.            </dd>          </div>          <div class="relative pl-16">            <dt class="text-base font-semibold leading-7 text-gray-900">              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">                  <path                    stroke-linecap="round"                    stroke-linejoin="round"                    d="M12 7.5h1.5m-1.5 3h1.5m-7.5 3h7.5m-7.5 3h7.5m3-9h3.375c.621 0 1.125.504 1.125 1.125V18a2.25 2.25 0 01-2.25 2.25M16.5 7.5V18a2.25 2.25 0 002.25 2.25M16.5 7.5V4.875c0-.621-.504-1.125-1.125-1.125H4.125C3.504 3.75 3 4.254 3 4.875V18a2.25 2.25 0 002.25 2.25h13.5M6 7.5h3v3H6v-3z"                  />                </svg>              </div>              Nhật ký thai kỳ            </dt>            <dd class="mt-2 text-base leading-7 text-gray-600">Ghi lại các khoảnh khắc đặc biệt, cảm giác và mốc quan trọng trong suốt thai kỳ.</dd>          </div>          <div class="relative pl-16">            <dt class="text-base font-semibold leading-7 text-gray-900">              <div class="bg-pink-450 absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg">                <svg class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">                  <path                    stroke-linecap="round"                    stroke-linejoin="round"                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"                  />                </svg>              </div>              Cộng đồng hỗ trợ            </dt>            <dd class="mt-2 text-base leading-7 text-gray-600">              Kết nối với các bà mẹ khác, chia sẻ trải nghiệm và nhận sự hỗ trợ trong hành trình làm mẹ.            </dd>          </div>        </dl>      </div>    </div>  </div>  <!-- Testimonial Section -->  <div class="bg-pink-50 py-24 sm:py-32">    <div class="mx-auto max-w-7xl px-6 lg:px-8">      <div class="mx-auto max-w-2xl lg:text-center">        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Được tin dùng bởi hơn 10,000 bà mẹ</h2>        <p class="mt-6 text-lg leading-8 text-gray-600">Xem những gì các bà mẹ khác nói về trải nghiệm của họ với Pregnancy Journal</p>      </div>      <div class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-8 lg:mx-0 lg:max-w-none lg:grid-cols-3">        <!-- Testimonial 1 -->        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">          <div class="mb-4 flex items-center gap-x-4">            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-01.jpg" alt="User avatar" />            <div>              <h3 class="text-lg font-semibold">Thanh Mai</h3>              <p class="text-sm text-gray-600">Mẹ của bé Minh, 2 tháng tuổi</p>            </div>          </div>          <p class="text-gray-700">            "Pregnancy Journal đã giúp tôi theo dõi thai kỳ một cách dễ dàng. Những lời khuyên hữu ích và cộng đồng tuyệt vời!"          </p>          <div class="mt-4 flex">            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>          </div>        </div>        <!-- Testimonial 2 -->        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">          <div class="mb-4 flex items-center gap-x-4">            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-11.jpg" alt="User avatar" />            <div>              <h3 class="text-lg font-semibold">Hoài An</h3>              <p class="text-sm text-gray-600">Mẹ bầu tháng thứ 7</p>            </div>          </div>          <p class="text-gray-700">            "Tôi đã sử dụng ứng dụng này từ tuần đầu tiên mang thai. Thông tin chính xác và lời khuyên của chuyên gia rất hữu ích."          </p>          <div class="mt-4 flex">            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>          </div>        </div>        <!-- Testimonial 3 -->        <div class="flex flex-col rounded-xl bg-white p-8 shadow-lg">          <div class="mb-4 flex items-center gap-x-4">            <img class="h-12 w-12 rounded-full" src="/images/avatars/female-18.jpg" alt="User avatar" />            <div>              <h3 class="text-lg font-semibold">Minh Thư</h3>              <p class="text-sm text-gray-600">Mẹ của bé Linh, 4 tháng tuổi</p>            </div>          </div>          <p class="text-gray-700">            "Tôi thích cách ứng dụng đưa ra các lời nhắc và thông tin liên quan đến từng giai đoạn thai kỳ. Đây thực sự là người bạn đồng hành tuyệt            vời!"          </p>          <div class="mt-4 flex">            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>            <svg class="text-pink-450 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">              <path                d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"              ></path>            </svg>          </div>        </div>      </div>      <!-- Testimonial View More Button -->      <div class="mt-12 flex justify-center">        <a          href="#"          class="bg-pink-450 inline-flex items-center justify-center rounded-md border border-transparent px-5 py-3 text-base font-medium text-white transition-colors hover:bg-pink-500"        >          Xem thêm đánh giá          <svg class="-mr-1 ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>          </svg>        </a>      </div>    </div>  </div>  <!-- CTA Section -->  <div class="bg-white">    <div class="mx-auto max-w-7xl py-24 sm:px-6 sm:py-32 lg:px-8">      <div        class="bg-pink-450 relative isolate overflow-hidden px-6 pt-16 shadow-2xl sm:rounded-3xl sm:px-16 md:pt-24 lg:flex lg:gap-x-20 lg:px-24 lg:pt-0"      >        <svg          viewBox="0 0 1024 1024"          class="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-y-1/2 [mask-image:radial-gradient(closest-side,white,transparent)] sm:left-full sm:-ml-80 lg:left-1/2 lg:ml-0 lg:-translate-x-1/2 lg:translate-y-0"          aria-hidden="true"        >          <circle cx="512" cy="512" r="512" fill="url(#gradient)" fill-opacity="0.7" />          <defs>            <radialGradient id="gradient">              <stop stop-color="white" />              <stop offset="1" stop-color="white" />            </radialGradient>          </defs>        </svg>        <div class="mx-auto max-w-md text-center lg:mx-0 lg:flex-auto lg:py-32 lg:text-left">          <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Bắt đầu hành trình làm mẹ<br />của bạn ngay hôm nay</h2>          <p class="mt-6 text-lg leading-8 text-gray-50">            Đăng ký ngay để sử dụng đầy đủ các tính năng của Pregnancy Journal và nhận hỗ trợ tốt nhất trong suốt thai kỳ của bạn.          </p>          <div class="mt-10 flex items-center justify-center gap-x-6 lg:justify-start">            <a              routerLink="/sign-up"              class="rounded-md bg-white px-3.5 py-2.5 text-sm font-semibold text-pink-500 shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"              >Đăng ký ngay</a            >            <a routerLink="/features" class="text-sm font-semibold leading-6 text-white">Tìm hiểu thêm <span aria-hidden="true">→</span></a>          </div>        </div>        <div class="relative mt-16 h-80 lg:mt-8">          <img            class="absolute left-0 top-0 w-[57rem] max-w-none rounded-md bg-white/5 ring-1 ring-white/10"            src="/images/logo/logo.svg"            alt="App screenshot"            width="1824"            height="1080"          />        </div>      </div>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'LandingComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LandingComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

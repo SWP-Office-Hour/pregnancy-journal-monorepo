@@ -1,0 +1,1289 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  LandingLayoutComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+                <code>OnDestroy</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+            <tr>
+                <td class="col-md-3">encapsulation</td>
+                <td class="col-md-9"><code>ViewEncapsulation.None</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>landing-layout</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">standalone</td>
+                <td class="col-md-9"><code>true</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>CommonModule</code>
+                            <code>RouterModule</code>
+                                <code><a href="../components/FuseVerticalNavigationComponent.html" target="_self" >FuseVerticalNavigationComponent</a></code>
+                                <code><a href="../components/FuseLoadingBarComponent.html" target="_self" >FuseLoadingBarComponent</a></code>
+                                <code><a href="../components/LanguagesComponent.html" target="_self" >LanguagesComponent</a></code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./landing-layout.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#_unsubscribeAll" >_unsubscribeAll</a>
+                            </li>
+                            <li>
+                                <a href="#isScreenSmall" >isScreenSmall</a>
+                            </li>
+                            <li>
+                                <a href="#mobileMenuOpen" >mobileMenuOpen</a>
+                            </li>
+                            <li>
+                                <a href="#navigation" >navigation</a>
+                            </li>
+                            <li>
+                                <a href="#scrollPosition" >scrollPosition</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                    <span class="modifier"></span>
+                                <a href="#onWindowScroll" >onWindowScroll</a>
+                            </li>
+                            <li>
+                                <a href="#toggleNavigation" >toggleNavigation</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>HostListeners</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#window:scroll" >window:scroll</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Accessors</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#currentYear" >currentYear</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(_navigationService: <a href="../injectables/NavigationService.html" target="_self">NavigationService</a>, _fuseMediaWatcherService: <a href="../injectables/FuseMediaWatcherService.html" target="_self">FuseMediaWatcherService</a>, _fuseNavigationService: <a href="../injectables/FuseNavigationService.html" target="_self">FuseNavigationService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:44</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>_navigationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/NavigationService.html" target="_self" >NavigationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_fuseMediaWatcherService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FuseMediaWatcherService.html" target="_self" >FuseMediaWatcherService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_fuseNavigationService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/FuseNavigationService.html" target="_self" >FuseNavigationService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+    <section data-compodoc="block-methods">
+    <h3>HostListeners</h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="window:scroll"></a>
+                    <span class="name">
+                        <span ><b>window:scroll</b></span>
+                        <a href="#window:scroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>window:scroll()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Track scroll position</p>
+</div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="86"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:86</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On destroy</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:70</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>On init</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onWindowScroll"></a>
+                    <span class="name">
+                            <span class="modifier"></span>
+                        <span ><b>onWindowScroll</b></span>
+                        <a href="#onWindowScroll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onWindowScroll()</code>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Decorators : </b>
+                    <br />
+                    <code>@HostListener(&#x27;window:scroll&#x27;, undefined)<br /></code>
+                </td>
+            </tr>
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="59"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:59</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Track scroll position</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleNavigation"></a>
+                    <span class="name">
+                        <span ><b>toggleNavigation</b></span>
+                        <a href="#toggleNavigation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>toggleNavigation(name: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="101"
+                                    class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:101</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Toggle navigation</p>
+</div>
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>name</td>
+                                            <td>
+                                                            <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="_unsubscribeAll"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>_unsubscribeAll</b></span>
+                        <a href="#_unsubscribeAll"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>Subject&lt;any&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new Subject&lt;any&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="44" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:44</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Subject for unsubscribing</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="isScreenSmall"></a>
+                    <span class="name">
+                        <span ><b>isScreenSmall</b></span>
+                        <a href="#isScreenSmall"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/boolean" target="_blank" >boolean</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Track if screen is small</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="mobileMenuOpen"></a>
+                    <span class="name">
+                        <span ><b>mobileMenuOpen</b></span>
+                        <a href="#mobileMenuOpen"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal&lt;boolean&gt;(false)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="24" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:24</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Track the mobile menu open state</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="navigation"></a>
+                    <span class="name">
+                        <span ><b>navigation</b></span>
+                        <a href="#navigation"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Navigation.html" target="_self" >Navigation</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:34</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Navigation data</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="scrollPosition"></a>
+                    <span class="name">
+                        <span ><b>scrollPosition</b></span>
+                        <a href="#scrollPosition"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="29" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:29</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Track scroll position to change header appearance</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-accessors">
+    <h3 id="accessors">
+        Accessors
+    </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="currentYear"></a>
+                        <span class="name"><b>currentYear</b><a href="#currentYear"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <span class="accessor"><b>get</b><code>currentYear()</code></span>
+                    </td>
+                </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="114" class="link-to-prism">apps/fe-fuse/src/app/layout/layouts/landing-layout/landing-layout.component.ts:114</a></div>
+                                </td>
+                            </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-description"><p>Get current year for copyright</p>
+</div>
+
+                                <div class="io-description">
+                                    <b>Returns : </b>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                                </div>
+                        </td>
+                    </tr>
+
+            </tbody>
+        </table>
+</section>
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { Component, HostListener, OnDestroy, OnInit, signal, ViewEncapsulation } from &#x27;@angular/core&#x27;;
+import { RouterModule } from &#x27;@angular/router&#x27;;
+import { Subject, takeUntil } from &#x27;rxjs&#x27;;
+
+import { FuseNavigationService, FuseVerticalNavigationComponent } from &#x27;@fuse/components/navigation&#x27;;
+import { FuseMediaWatcherService } from &#x27;@fuse/services/media-watcher&#x27;;
+import { NavigationService } from &#x27;app/core/navigation/navigation.service&#x27;;
+import { Navigation } from &#x27;app/core/navigation/navigation.types&#x27;;
+import { FuseLoadingBarComponent } from &#x27;../../../../@fuse/components/loading-bar&#x27;;
+import { LanguagesComponent } from &#x27;../../common/languages/languages.component&#x27;;
+
+@Component({
+  selector: &#x27;landing-layout&#x27;,
+  templateUrl: &#x27;./landing-layout.component.html&#x27;,
+  encapsulation: ViewEncapsulation.None,
+  standalone: true,
+  imports: [CommonModule, RouterModule, FuseVerticalNavigationComponent, FuseLoadingBarComponent, LanguagesComponent],
+})
+export class LandingLayoutComponent implements OnInit, OnDestroy {
+  /**
+   * Track the mobile menu open state
+   */
+  mobileMenuOpen &#x3D; signal&lt;boolean&gt;(false);
+
+  /**
+   * Track scroll position to change header appearance
+   */
+  scrollPosition &#x3D; 0;
+
+  /**
+   * Navigation data
+   */
+  navigation: Navigation;
+
+  /**
+   * Track if screen is small
+   */
+  isScreenSmall: boolean;
+
+  /**
+   * Subject for unsubscribing
+   */
+  private _unsubscribeAll: Subject&lt;any&gt; &#x3D; new Subject&lt;any&gt;();
+
+  /**
+   * Constructor
+   */
+  constructor(
+    private _navigationService: NavigationService,
+    private _fuseMediaWatcherService: FuseMediaWatcherService,
+    private _fuseNavigationService: FuseNavigationService,
+  ) {}
+
+  /**
+   * Track scroll position
+   */
+  @HostListener(&#x27;window:scroll&#x27;, [])
+  onWindowScroll() {
+    this.scrollPosition &#x3D; window.scrollY;
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Lifecycle hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+  ngOnInit(): void {
+    // Subscribe to navigation data
+    this._navigationService.navigation$.pipe(takeUntil(this._unsubscribeAll)).subscribe((navigation: Navigation) &#x3D;&gt; {
+      this.navigation &#x3D; navigation;
+    });
+
+    // Subscribe to media changes
+    this._fuseMediaWatcherService.onMediaChange$.pipe(takeUntil(this._unsubscribeAll)).subscribe(({ matchingAliases }) &#x3D;&gt; {
+      // Check if the screen is small
+      this.isScreenSmall &#x3D; !matchingAliases.includes(&#x27;md&#x27;);
+    });
+  }
+
+  /**
+   * On destroy
+   */
+  ngOnDestroy(): void {
+    // Unsubscribe from all subscriptions
+    this._unsubscribeAll.next(null);
+    this._unsubscribeAll.complete();
+  }
+
+  // -----------------------------------------------------------------------------------------------------
+  // @ Public methods
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * Toggle navigation
+   *
+   * @param name
+   */
+  toggleNavigation(name: string): void {
+    // Get the navigation
+    const navigation &#x3D; this._fuseNavigationService.getComponent&lt;FuseVerticalNavigationComponent&gt;(name);
+
+    if (navigation) {
+      // Toggle the opened status
+      navigation.toggle();
+    }
+  }
+
+  /**
+   * Get current year for copyright
+   */
+  get currentYear(): number {
+    return new Date().getFullYear();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;fuse-loading-bar&gt;&lt;/fuse-loading-bar&gt;
+
+&lt;!-- Điều hướng --&gt;
+@if (isScreenSmall) {
+  &lt;fuse-vertical-navigation
+    class&#x3D;&quot;bg-gradient-to-b from-pink-500 to-pink-300 text-white print:hidden&quot;
+    [mode]&#x3D;&quot;&#x27;over&#x27;&quot;
+    [name]&#x3D;&quot;&#x27;landingNavigation&#x27;&quot;
+    [navigation]&#x3D;&quot;navigation.landing&quot;
+    [opened]&#x3D;&quot;false&quot;
+  &gt;
+    &lt;!-- Móc tiêu đề điều hướng --&gt;
+    &lt;ng-container fuseVerticalNavigationContentHeader&gt;
+      &lt;!-- Logo --&gt;
+      &lt;a routerLink&#x3D;&quot;/&quot;&gt;
+        &lt;div class&#x3D;&quot;flex h-20 items-center px-8 pt-6&quot;&gt;
+          &lt;div class&#x3D;&quot;flex items-center&quot;&gt;
+            &lt;img class&#x3D;&quot;h-10 w-auto&quot; src&#x3D;&quot;/images/logo/logo.svg&quot; alt&#x3D;&quot;Logo Pregnancy Journal&quot; /&gt;
+            &lt;div class&#x3D;&quot;ml-2 self-center text-xl font-extrabold leading-tight tracking-tight text-white&quot; style&#x3D;&quot;font-family: &#x27;Niconne&#x27;, cursive&quot;&gt;
+              &lt;i&gt;Pregnancy Journal&lt;/i&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/a&gt;
+    &lt;/ng-container&gt;
+  &lt;/fuse-vertical-navigation&gt;
+}
+
+&lt;div class&#x3D;&quot;flex h-full w-full flex-col&quot;&gt;
+  &lt;!-- Tiêu đề/Điều hướng --&gt;
+  &lt;header
+    class&#x3D;&quot;fixed inset-x-0 top-0 z-50 transition-all duration-300&quot;
+    [ngClass]&#x3D;&quot;{
+      &#x27;bg-white/95 shadow-md backdrop-blur-lg&#x27;: scrollPosition &gt; 10,
+      &#x27;py-1&#x27;: scrollPosition &gt; 100,
+      &#x27;py-2&#x27;: scrollPosition &gt; 10 &amp;&amp; scrollPosition &lt;&#x3D; 100,
+    }&quot;
+  &gt;
+    &lt;nav class&#x3D;&quot;mx-auto flex max-w-7xl items-center justify-between p-4 sm:p-6 lg:px-8&quot; aria-label&#x3D;&quot;Global&quot;&gt;
+      &lt;div class&#x3D;&quot;flex lg:flex-1&quot;&gt;
+        &lt;a routerLink&#x3D;&quot;/&quot; class&#x3D;&quot;-m-1.5 flex items-center p-1.5&quot;&gt;
+          &lt;span class&#x3D;&quot;sr-only&quot;&gt;Pregnancy Journal&lt;/span&gt;
+          &lt;!-- Logo nhỏ cho tất cả màn hình --&gt;
+          &lt;img class&#x3D;&quot;h-8 w-auto&quot; src&#x3D;&quot;/images/logo/logo.svg&quot; alt&#x3D;&quot;Logo Pregnancy Journal&quot; /&gt;
+          &lt;!-- Logo chữ chỉ hiển thị trên màn hình lớn hơn --&gt;
+          &lt;div
+            class&#x3D;&quot;ml-2 hidden self-center text-xl font-extrabold leading-tight tracking-tight text-pink-500 sm:flex&quot;
+            style&#x3D;&quot;font-family: &#x27;Niconne&#x27;, cursive&quot;
+          &gt;
+            &lt;i&gt;Pregnancy Journal&lt;/i&gt;
+          &lt;/div&gt;
+        &lt;/a&gt;
+      &lt;/div&gt;
+
+      &lt;!-- Nút chuyển đổi điều hướng trên điện thoại --&gt;
+      @if (isScreenSmall) {
+        &lt;button
+          class&#x3D;&quot;mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-pink-100&quot;
+          (click)&#x3D;&quot;toggleNavigation(&#x27;landingNavigation&#x27;)&quot;
+        &gt;
+          &lt;svg class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;none&quot; viewBox&#x3D;&quot;0 0 24 24&quot; stroke-width&#x3D;&quot;1.5&quot; stroke&#x3D;&quot;currentColor&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+            &lt;path stroke-linecap&#x3D;&quot;round&quot; stroke-linejoin&#x3D;&quot;round&quot; d&#x3D;&quot;M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5&quot; /&gt;
+          &lt;/svg&gt;
+        &lt;/button&gt;
+      }
+
+      &lt;!-- Điều hướng máy tính để bàn --&gt;
+      @if (!isScreenSmall) {
+        &lt;div class&#x3D;&quot;flex items-center lg:justify-between lg:gap-x-8 xl:gap-x-12&quot;&gt;
+          &lt;a
+            routerLink&#x3D;&quot;/blog&quot;
+            class&#x3D;&quot;rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500&quot;
+          &gt;
+            Blog
+          &lt;/a&gt;
+          &lt;a
+            routerLink&#x3D;&quot;/features&quot;
+            class&#x3D;&quot;rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500&quot;
+          &gt;
+            Tính năng
+          &lt;/a&gt;
+          &lt;a
+            routerLink&#x3D;&quot;/about&quot;
+            class&#x3D;&quot;rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500&quot;
+          &gt;
+            Về chúng tôi
+          &lt;/a&gt;
+          &lt;div class&#x3D;&quot;px-2&quot;&gt;
+            &lt;languages&gt;&lt;/languages&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;space-x-4 lg:flex lg:flex-1 lg:justify-end&quot;&gt;
+          &lt;a
+            routerLink&#x3D;&quot;/sign-in&quot;
+            class&#x3D;&quot;rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500&quot;
+          &gt;
+            Đăng nhập
+          &lt;/a&gt;
+          &lt;a
+            routerLink&#x3D;&quot;/sign-up&quot;
+            class&#x3D;&quot;rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 text-sm font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2&quot;
+          &gt;
+            Đăng ký
+          &lt;/a&gt;
+        &lt;/div&gt;
+      }
+    &lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;!-- Nội dung chính --&gt;
+  &lt;main class&#x3D;&quot;flex-auto&quot;&gt;
+    &lt;!-- Thêm router-outlet để hiển thị đúng các tuyến đường con --&gt;
+    &lt;router-outlet&gt;&lt;/router-outlet&gt;
+    &lt;ng-content&gt;&lt;/ng-content&gt;
+  &lt;/main&gt;
+
+  &lt;!-- Chân trang giữ nguyên không thay đổi --&gt;
+  &lt;!-- Chân trang --&gt;
+  &lt;footer class&#x3D;&quot;bg-gray-900&quot; aria-labelledby&#x3D;&quot;footer-heading&quot;&gt;
+    &lt;h2 id&#x3D;&quot;footer-heading&quot; class&#x3D;&quot;sr-only&quot;&gt;Chân trang&lt;/h2&gt;
+    &lt;div class&#x3D;&quot;mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32&quot;&gt;
+      &lt;div class&#x3D;&quot;xl:grid xl:grid-cols-3 xl:gap-8&quot;&gt;
+        &lt;div class&#x3D;&quot;space-y-8&quot;&gt;
+          &lt;img class&#x3D;&quot;h-12&quot; src&#x3D;&quot;/images/logo/logo.svg&quot; alt&#x3D;&quot;Logo Pregnancy Journal&quot; /&gt;
+          &lt;p class&#x3D;&quot;text-sm leading-6 text-gray-300&quot;&gt;Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.&lt;/p&gt;
+          &lt;div class&#x3D;&quot;flex space-x-6&quot;&gt;
+            &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;text-gray-400 hover:text-gray-300&quot;&gt;
+              &lt;span class&#x3D;&quot;sr-only&quot;&gt;Facebook&lt;/span&gt;
+              &lt;svg class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                &lt;path
+                  fill-rule&#x3D;&quot;evenodd&quot;
+                  d&#x3D;&quot;M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z&quot;
+                  clip-rule&#x3D;&quot;evenodd&quot;
+                /&gt;
+              &lt;/svg&gt;
+            &lt;/a&gt;
+            &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;text-gray-400 hover:text-gray-300&quot;&gt;
+              &lt;span class&#x3D;&quot;sr-only&quot;&gt;Instagram&lt;/span&gt;
+              &lt;svg class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                &lt;path
+                  fill-rule&#x3D;&quot;evenodd&quot;
+                  d&#x3D;&quot;M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z&quot;
+                  clip-rule&#x3D;&quot;evenodd&quot;
+                /&gt;
+              &lt;/svg&gt;
+            &lt;/a&gt;
+            &lt;a href&#x3D;&quot;#&quot; class&#x3D;&quot;text-gray-400 hover:text-gray-300&quot;&gt;
+              &lt;span class&#x3D;&quot;sr-only&quot;&gt;YouTube&lt;/span&gt;
+              &lt;svg class&#x3D;&quot;h-6 w-6&quot; fill&#x3D;&quot;currentColor&quot; viewBox&#x3D;&quot;0 0 24 24&quot; aria-hidden&#x3D;&quot;true&quot;&gt;
+                &lt;path
+                  fill-rule&#x3D;&quot;evenodd&quot;
+                  d&#x3D;&quot;M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z&quot;
+                  clip-rule&#x3D;&quot;evenodd&quot;
+                /&gt;
+              &lt;/svg&gt;
+            &lt;/a&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class&#x3D;&quot;mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0&quot;&gt;
+          &lt;div class&#x3D;&quot;md:grid md:grid-cols-2 md:gap-8&quot;&gt;
+            &lt;div&gt;
+              &lt;h3 class&#x3D;&quot;text-sm font-semibold leading-6 text-white&quot;&gt;Sản phẩm&lt;/h3&gt;
+              &lt;ul role&#x3D;&quot;list&quot; class&#x3D;&quot;mt-6 space-y-4&quot;&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/features&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Tính năng&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/pricing&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Bảng giá&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/help&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Trợ giúp&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;mt-10 md:mt-0&quot;&gt;
+              &lt;h3 class&#x3D;&quot;text-sm font-semibold leading-6 text-white&quot;&gt;Công ty&lt;/h3&gt;
+              &lt;ul role&#x3D;&quot;list&quot; class&#x3D;&quot;mt-6 space-y-4&quot;&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/about&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Về chúng tôi&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/blog&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Blog&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/careers&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Tuyển dụng&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class&#x3D;&quot;md:grid md:grid-cols-2 md:gap-8&quot;&gt;
+            &lt;div&gt;
+              &lt;h3 class&#x3D;&quot;text-sm font-semibold leading-6 text-white&quot;&gt;Trợ giúp&lt;/h3&gt;
+              &lt;ul role&#x3D;&quot;list&quot; class&#x3D;&quot;mt-6 space-y-4&quot;&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/faq&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;FAQ&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/contact&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Liên hệ&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/support&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Hỗ trợ&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+            &lt;div class&#x3D;&quot;mt-10 md:mt-0&quot;&gt;
+              &lt;h3 class&#x3D;&quot;text-sm font-semibold leading-6 text-white&quot;&gt;Pháp lý&lt;/h3&gt;
+              &lt;ul role&#x3D;&quot;list&quot; class&#x3D;&quot;mt-6 space-y-4&quot;&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/privacy&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Chính sách bảo mật&lt;/a&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;a routerLink&#x3D;&quot;/terms&quot; class&#x3D;&quot;text-sm leading-6 text-gray-300 hover:text-white&quot;&gt;Điều khoản sử dụng&lt;/a&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class&#x3D;&quot;mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24&quot;&gt;
+        &lt;p class&#x3D;&quot;text-xs leading-5 text-gray-400&quot;&gt;&amp;copy; {{ currentYear }} Pregnancy Journal. Tất cả các quyền được bảo lưu.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><fuse-loading-bar></fuse-loading-bar><!-- Điều hướng -->@if (isScreenSmall) {  <fuse-vertical-navigation    class="bg-gradient-to-b from-pink-500 to-pink-300 text-white print:hidden"    [mode]="\'over\'"    [name]="\'landingNavigation\'"    [navigation]="navigation.landing"    [opened]="false"  >    <!-- Móc tiêu đề điều hướng -->    <ng-container fuseVerticalNavigationContentHeader>      <!-- Logo -->      <a routerLink="/">        <div class="flex h-20 items-center px-8 pt-6">          <div class="flex items-center">            <img class="h-10 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />            <div class="ml-2 self-center text-xl font-extrabold leading-tight tracking-tight text-white" style="font-family: \'Niconne\', cursive">              <i>Pregnancy Journal</i>            </div>          </div>        </div>      </a>    </ng-container>  </fuse-vertical-navigation>}<div class="flex h-full w-full flex-col">  <!-- Tiêu đề/Điều hướng -->  <header    class="fixed inset-x-0 top-0 z-50 transition-all duration-300"    [ngClass]="{      \'bg-white/95 shadow-md backdrop-blur-lg\': scrollPosition > 10,      \'py-1\': scrollPosition > 100,      \'py-2\': scrollPosition > 10 && scrollPosition <= 100,    }"  >    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 sm:p-6 lg:px-8" aria-label="Global">      <div class="flex lg:flex-1">        <a routerLink="/" class="-m-1.5 flex items-center p-1.5">          <span class="sr-only">Pregnancy Journal</span>          <!-- Logo nhỏ cho tất cả màn hình -->          <img class="h-8 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />          <!-- Logo chữ chỉ hiển thị trên màn hình lớn hơn -->          <div            class="ml-2 hidden self-center text-xl font-extrabold leading-tight tracking-tight text-pink-500 sm:flex"            style="font-family: \'Niconne\', cursive"          >            <i>Pregnancy Journal</i>          </div>        </a>      </div>      <!-- Nút chuyển đổi điều hướng trên điện thoại -->      @if (isScreenSmall) {        <button          class="mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-pink-100"          (click)="toggleNavigation(\'landingNavigation\')"        >          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />          </svg>        </button>      }      <!-- Điều hướng máy tính để bàn -->      @if (!isScreenSmall) {        <div class="flex items-center lg:justify-between lg:gap-x-8 xl:gap-x-12">          <a            routerLink="/blog"            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"          >            Blog          </a>          <a            routerLink="/features"            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"          >            Tính năng          </a>          <a            routerLink="/about"            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"          >            Về chúng tôi          </a>          <div class="px-2">            <languages></languages>          </div>        </div>        <div class="space-x-4 lg:flex lg:flex-1 lg:justify-end">          <a            routerLink="/sign-in"            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"          >            Đăng nhập          </a>          <a            routerLink="/sign-up"            class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 text-sm font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"          >            Đăng ký          </a>        </div>      }    </nav>  </header>  <!-- Nội dung chính -->  <main class="flex-auto">    <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->    <router-outlet></router-outlet>    <ng-content></ng-content>  </main>  <!-- Chân trang giữ nguyên không thay đổi -->  <!-- Chân trang -->  <footer class="bg-gray-900" aria-labelledby="footer-heading">    <h2 id="footer-heading" class="sr-only">Chân trang</h2>    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">      <div class="xl:grid xl:grid-cols-3 xl:gap-8">        <div class="space-y-8">          <img class="h-12" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />          <p class="text-sm leading-6 text-gray-300">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>          <div class="flex space-x-6">            <a href="#" class="text-gray-400 hover:text-gray-300">              <span class="sr-only">Facebook</span>              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">                <path                  fill-rule="evenodd"                  d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"                  clip-rule="evenodd"                />              </svg>            </a>            <a href="#" class="text-gray-400 hover:text-gray-300">              <span class="sr-only">Instagram</span>              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">                <path                  fill-rule="evenodd"                  d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"                  clip-rule="evenodd"                />              </svg>            </a>            <a href="#" class="text-gray-400 hover:text-gray-300">              <span class="sr-only">YouTube</span>              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">                <path                  fill-rule="evenodd"                  d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"                  clip-rule="evenodd"                />              </svg>            </a>          </div>        </div>        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">          <div class="md:grid md:grid-cols-2 md:gap-8">            <div>              <h3 class="text-sm font-semibold leading-6 text-white">Sản phẩm</h3>              <ul role="list" class="mt-6 space-y-4">                <li>                  <a routerLink="/features" class="text-sm leading-6 text-gray-300 hover:text-white">Tính năng</a>                </li>                <li>                  <a routerLink="/pricing" class="text-sm leading-6 text-gray-300 hover:text-white">Bảng giá</a>                </li>                <li>                  <a routerLink="/help" class="text-sm leading-6 text-gray-300 hover:text-white">Trợ giúp</a>                </li>              </ul>            </div>            <div class="mt-10 md:mt-0">              <h3 class="text-sm font-semibold leading-6 text-white">Công ty</h3>              <ul role="list" class="mt-6 space-y-4">                <li>                  <a routerLink="/about" class="text-sm leading-6 text-gray-300 hover:text-white">Về chúng tôi</a>                </li>                <li>                  <a routerLink="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">Blog</a>                </li>                <li>                  <a routerLink="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">Tuyển dụng</a>                </li>              </ul>            </div>          </div>          <div class="md:grid md:grid-cols-2 md:gap-8">            <div>              <h3 class="text-sm font-semibold leading-6 text-white">Trợ giúp</h3>              <ul role="list" class="mt-6 space-y-4">                <li>                  <a routerLink="/faq" class="text-sm leading-6 text-gray-300 hover:text-white">FAQ</a>                </li>                <li>                  <a routerLink="/contact" class="text-sm leading-6 text-gray-300 hover:text-white">Liên hệ</a>                </li>                <li>                  <a routerLink="/support" class="text-sm leading-6 text-gray-300 hover:text-white">Hỗ trợ</a>                </li>              </ul>            </div>            <div class="mt-10 md:mt-0">              <h3 class="text-sm font-semibold leading-6 text-white">Pháp lý</h3>              <ul role="list" class="mt-6 space-y-4">                <li>                  <a routerLink="/privacy" class="text-sm leading-6 text-gray-300 hover:text-white">Chính sách bảo mật</a>                </li>                <li>                  <a routerLink="/terms" class="text-sm leading-6 text-gray-300 hover:text-white">Điều khoản sử dụng</a>                </li>              </ul>            </div>          </div>        </div>      </div>      <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">        <p class="text-xs leading-5 text-gray-400">&copy; {{ currentYear }} Pregnancy Journal. Tất cả các quyền được bảo lưu.</p>      </div>    </div>  </footer></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'LandingLayoutComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'LandingLayoutComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
