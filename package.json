@@ -44,6 +44,7 @@
     "@nestjs/mapped-types": "^2.1.0",
     "@nestjs/platform-express": "^10.0.2",
     "@nestjs/platform-socket.io": "^10.4.15",
+    "@nestjs/schedule": "^5.0.1",
     "@nestjs/swagger": "^8.1.0",
     "@nestjs/websockets": "^10.4.15",
     "@payos/node": "^1.0.10",
