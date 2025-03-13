@@ -1,5 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { childSchema } from './child.contract';
 import { userRoleSchema, userStatusEnumSchema } from './enum.contract';
 
 const c = initContract();
@@ -21,12 +22,6 @@ export const baseUserSchema = z.object({
   status: userStatusEnumSchema,
 });
 
-export const childSchema = z.object({
-  child_id: z.string(),
-  name: z.string(),
-  expected_birth_date: z.date(),
-  gender: z.string(),
-});
 // User response schema
 export const userResponseSchema = baseUserSchema.extend({
   user_id: z.string(),
@@ -52,11 +47,14 @@ const userUpdateRequestSchema = baseUserSchema
 // Make all fields optional for updates
 
 //user profile
-const userProfileSchema = userResponseSchema.omit({ status: true, created_at: true, role: true, user_id: true });
+const userProfileSchema = userResponseSchema.omit({ status: true, created_at: true, role: true, user_id: true }).extend({
+  child: z.array(childSchema),
+});
 
 //user profile update
 const userProfileUpdateSchema = userProfileSchema
   .omit({
+    child: true,
     membershipId: true,
     email: true,
   })

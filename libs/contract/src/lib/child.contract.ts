@@ -1,6 +1,6 @@
-import { genderSchema } from '@pregnancy-journal-monorepo/contract';
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { genderSchema } from './enum.contract';
 
 export const childSchema = z.object({
   child_id: z.string(),
