@@ -29,3 +29,30 @@ export class ReminderEntity {
     this.status = reminderData.status;
   }
 }
+
+export interface ReminderToSendMailEntity {
+  reminder_id: string;
+  type: number;
+  title: string;
+  content: string;
+  remind_date: Date;
+  status: number;
+  user_id: string;
+  visit_record_id?: string | null;
+  color?: string | null;
+  user: {
+    name: string;
+    email: string;
+  };
+}
+
+export interface UserWithReminder {
+  user_id: string;
+  name: string;
+  email: string;
+}
+
+export interface ReminderEmailResponse {
+  remindersByUser: { [userId: string]: ReminderToSendMailEntity[] };
+  usersWithReminders: UserWithReminder[];
+}
