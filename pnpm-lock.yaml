@@ -108,8 +108,8 @@ importers:
         specifier: ^19.0.9
         version: 19.0.9
       '@prisma/client':
-        specifier: ^6.1.0
-        version: 6.3.1(typescript@5.7.3)
+        specifier: ^6.5.0
+        version: 6.5.0(typescript@5.7.3)
       '@splidejs/splide':
         specifier: ^4.1.4
         version: 4.1.4
@@ -3733,8 +3733,8 @@ packages:
     resolution: {integrity: sha512-B+nphqTQeq+i6JuICLdVWnDMjONome2sNz0xI65qIOyeB4EF12CoKRiCsxuZ5uKAkHi/0d1LqlQ9mIWRSdkavw==}
     engines: {node: '>=12.11.0'}
 
-  '@prisma/client@6.3.1':
-    resolution: {integrity: sha512-ARAJaPs+eBkemdky/XU3cvGRl+mIPHCN2lCXsl5Vlb0E2gV+R6IN7aCI8CisRGszEZondwIsW9Iz8EJkTdykyA==}
+  '@prisma/client@6.5.0':
+    resolution: {integrity: sha512-M6w1Ql/BeiGoZmhMdAZUXHu5sz5HubyVcKukbLs3l0ELcQb8hTUJxtGEChhv4SVJ0QJlwtLnwOLgIRQhpsm9dw==}
     engines: {node: '>=18.18'}
     peerDependencies:
       prisma: '*'
@@ -16665,7 +16665,7 @@ snapshots:
 
   '@primeuix/utils@0.3.2': {}
 
-  '@prisma/client@6.3.1(typescript@5.7.3)':
+  '@prisma/client@6.5.0(typescript@5.7.3)':
     optionalDependencies:
       typescript: 5.7.3
 
