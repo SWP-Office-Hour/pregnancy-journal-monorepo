@@ -219,7 +219,11 @@ export class UsersService {
         password,
       },
       include: {
-        child: true,
+        child: {
+          orderBy: {
+            expected_birth_date: 'desc',
+          },
+        },
       },
     });
 
@@ -271,7 +275,11 @@ export class UsersService {
         user_id: userId,
       },
       include: {
-        child: true,
+        child: {
+          orderBy: {
+            expected_birth_date: 'desc',
+          },
+        },
       },
     });
 
@@ -422,7 +430,11 @@ export class UsersService {
         updated_at: new Date(Date.now()),
       },
       include: {
-        child: true,
+        child: {
+          orderBy: {
+            expected_birth_date: 'desc',
+          },
+        },
       },
     });
 
@@ -500,7 +512,11 @@ export class UsersService {
       },
       include: {
         payment_history: true,
-        child: true,
+        child: {
+          orderBy: {
+            expected_birth_date: 'desc',
+          },
+        },
       },
     });
     if (!user) {
