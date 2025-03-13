@@ -58,16 +58,16 @@
             </mat-form-field>
           </div>
 
-          <!-- Birth Date Field -->
-          <div>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Ngày dự sinh</mat-label>
-              <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />
-              <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>
-              <mat-datepicker #picker></mat-datepicker>
-              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Vui lòng nhập ngày hợp lệ</mat-error>
-            </mat-form-field>
-          </div>
+          <!--          &lt;!&ndash; Birth Date Field &ndash;&gt;-->
+          <!--          <div>-->
+          <!--            <mat-form-field appearance="outline" class="w-full">-->
+          <!--              <mat-label>Ngày dự sinh</mat-label>-->
+          <!--              <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />-->
+          <!--              <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>-->
+          <!--              <mat-datepicker #picker></mat-datepicker>-->
+          <!--              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Vui lòng nhập ngày hợp lệ</mat-error>-->
+          <!--            </mat-form-field>-->
+          <!--          </div>-->
 
           <!-- Phone Field -->
           <div>

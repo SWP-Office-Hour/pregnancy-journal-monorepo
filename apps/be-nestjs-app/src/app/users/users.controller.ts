@@ -26,6 +26,7 @@ export class UsersController {
       if (!user) {
         throw new NotFoundException('Phone number or password is incorrect');
       }
+
       return { status: 200, body: user };
     });
   }
@@ -60,6 +61,7 @@ export class UsersController {
       if (!user) {
         throw new NotFoundException('Token is invalid');
       }
+      console.log(user);
       return { status: 201, body: user };
     });
   }

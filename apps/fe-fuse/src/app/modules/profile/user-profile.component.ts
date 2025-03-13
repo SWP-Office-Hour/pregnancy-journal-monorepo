@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,7 +12,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { UserProfileResponseType, UserUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
-import { DateTime } from 'luxon';
 import { environment } from '../../../environments/environment';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
 
@@ -50,7 +49,6 @@ export class UserProfileComponent {
       avatar: [null],
       email: ['', [Validators.required, Validators.email]],
       name: ['', Validators.required],
-      expected_birth_date: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]],
       province: ['', Validators.required],
       district: ['', Validators.required],
@@ -70,7 +68,6 @@ export class UserProfileComponent {
       this.profileForm.patchValue({
         email: profile.email,
         name: profile.name,
-        expected_birth_date: DateTime.fromISO(new Date(profile.expected_birth_date).toISOString()),
         phone: profile.phone,
         address: profile.address,
       });
@@ -133,7 +130,6 @@ export class UserProfileComponent {
       const data: UserUpdateRequestType = {
         email: this.profileForm.value.email,
         name: this.profileForm.value.name,
-        expected_birth_date: this.profileForm.value.expected_birth_date.toJSDate(),
         phone: this.profileForm.value.phone,
         province: this.profileForm.value.province.toString(),
         district: this.profileForm.value.district.toString(),
@@ -148,8 +144,8 @@ export class UserProfileComponent {
     }
   }
 
-  expectedBirthDateChange(event: MatDatepickerInputEvent<any>) {
-    const date_as_iso_string = (event.value as DateTime).plus({ hour: 7 });
-    this.profileForm.patchValue({ expected_birth_date: date_as_iso_string });
-  }
+  // expectedBirthDateChange(event: MatDatepickerInputEvent<any>) {
+  //   const date_as_iso_string = (event.value as DateTime).plus({ hour: 7 });
+  //   this.profileForm.patchValue({ expected_birth_date: date_as_iso_string });
+  // }
 }

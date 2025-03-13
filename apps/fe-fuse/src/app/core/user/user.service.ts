@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { User } from 'app/core/user/user.types';
 import { map, Observable, ReplaySubject } from 'rxjs';
+import { ChildrenService } from '../children/children.service';
 
 @Injectable({ providedIn: 'root' })
 export class UserService {
   private _httpClient = inject(HttpClient);
   private _user: ReplaySubject<any> = new ReplaySubject<any>(1);
-
+  private _childService = inject(ChildrenService);
   // -----------------------------------------------------------------------------------------------------
   // @ Accessors
   // -----------------------------------------------------------------------------------------------------
@@ -18,7 +19,6 @@ export class UserService {
    * @param value
    */
   set user(value: User) {
-    // Store the value
     this._user.next(value);
   }
 

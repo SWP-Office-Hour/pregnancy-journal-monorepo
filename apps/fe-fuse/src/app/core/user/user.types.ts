@@ -1,4 +1,4 @@
-import { UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
+import { ChildType, UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
 
 export interface User {
   user_id?: string;
@@ -10,6 +10,7 @@ export interface User {
   onlineStatus?: string;
   expected_birth_date?: string;
   has_membership?: boolean;
+  child?: ChildType[];
 }
 
 //HOÀNG TRY TO FIX BUT DON'T UNDERSTAND
