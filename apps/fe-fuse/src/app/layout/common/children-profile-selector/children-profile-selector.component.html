@@ -6,24 +6,22 @@
     (click)="toggleDropdown()"
   >
     <!-- Avatar or initials -->
-    <div *ngIf="selectedChild?.avatarUrl" class="flex-shrink-0">
-      <img [src]="selectedChild.avatarUrl" alt="Child avatar" class="h-6 w-6 rounded-full object-cover" />
-    </div>
+    <!--    <div *ngIf="selectedChild()?.avatarUrl" class="flex-shrink-0">-->
+    <!--      <img [src]="selectedChild().avatarUrl" alt="Child avatar" class="h-6 w-6 rounded-full object-cover" />-->
+    <!--    </div>-->
     <!-- Fallback avatar with gender-specific colors -->
     <div
-      *ngIf="!selectedChild?.avatarUrl"
       class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full"
       [ngClass]="{
-        'bg-blue-100 text-blue-600': selectedChild?.gender === 'male',
-        'bg-pink-100 text-pink-600': selectedChild?.gender === 'female',
-        'bg-purple-100 text-purple-600': selectedChild?.gender === 'other' || !selectedChild?.gender,
+        'bg-blue-100 text-blue-600': selectedChild()?.gender === gender.MALE,
+        'bg-pink-100 text-pink-600': selectedChild()?.gender === gender.FEMALE,
       }"
     >
-      <span class="text-xs font-medium">{{ selectedChild?.name.charAt(0) }}</span>
+      <span class="text-xs font-medium">{{ selectedChild()?.name.charAt(0) }}</span>
     </div>
 
     <!-- Selected child name -->
-    <span class="text-gray-700">{{ selectedChild?.name }}</span>
+    <span class="text-gray-700">{{ selectedChild()?.name }}</span>
 
     <!-- Dropdown arrow -->
     <svg
@@ -54,24 +52,19 @@
       <div class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500">Your Children</div>
 
       <!-- Children list -->
-      <div *ngFor="let child of children">
+      <div *ngFor="let child of children()">
         <button
           (click)="selectChild(child)"
           class="flex w-full items-center gap-3 px-4 py-2 text-left text-sm hover:bg-gray-100"
-          [ngClass]="{ 'bg-gray-50': selectedChild?.id === child.id }"
+          [ngClass]="{ 'bg-gray-50': selectedChild()?.child_id === child.child_id }"
           role="menuitem"
         >
           <!-- Child avatar or initials with gender-specific colors -->
-          <div *ngIf="child.avatarUrl" class="flex-shrink-0">
-            <img [src]="child.avatarUrl" alt="Child avatar" class="h-8 w-8 rounded-full object-cover" />
-          </div>
           <div
-            *ngIf="!child.avatarUrl"
             class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
             [ngClass]="{
-              'bg-blue-100 text-blue-600': child.gender === 'male',
-              'bg-pink-100 text-pink-600': child.gender === 'female',
-              'bg-purple-100 text-purple-600': child.gender === 'other' || !child.gender,
+              'bg-blue-100 text-blue-600': child.gender === gender.MALE,
+              'bg-pink-100 text-pink-600': child.gender === gender.FEMALE,
             }"
           >
             <span class="text-sm font-medium">{{ child.name.charAt(0) }}</span>

@@ -1,24 +1,30 @@
-import { Injectable, signal } from '@angular/core';
+import { effect, Injectable, signal } from '@angular/core';
 import { ChildType } from '@pregnancy-journal-monorepo/contract';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChildrenService {
-  private children = signal<ChildType[]>([]);
-  private selectedChild = signal<string>('');
+  public children = signal<ChildType[]>([]);
+  public selectedChild = signal<string>('');
 
-  constructor() {}
+  constructor() {
+    effect(() => {});
+  }
 
-  get Children() {
-    return this.children;
+  get Children(): ChildType[] {
+    return this.children();
+  }
+
+  set Children(children: ChildType[]) {
+    this.children.set(children);
   }
 
   get SelectedChild() {
     return this.selectedChild();
   }
 
-  getSearchedChild() {
+  getSelectedChild() {
     return this.children().find((child) => child.child_id === this.selectedChild());
   }
 
