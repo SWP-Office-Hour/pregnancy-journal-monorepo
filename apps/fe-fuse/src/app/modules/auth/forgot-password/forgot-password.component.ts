@@ -28,7 +28,7 @@ import { AuthService } from '../../../core/auth/auth.service';
     FuseAlertComponent,
   ],
   templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.scss'],
+  styleUrls: ['./forgot-password.component.css'],
 })
 export class ForgotPasswordComponent {
   @ViewChild('forgotPasswordNgForm') forgotPasswordNgForm: NgForm;

@@ -56,7 +56,7 @@ export class CalendarComponent {
     this.events = this._calendarService.meetings.value;
     this.status = this._calendarService.meetings.status;
     effect(() => {
-      if (this.status() == ResourceStatus.Resolved) {
+      if (this.events().length > 0) {
         this.generateCalendarDays();
       }
     });
@@ -76,6 +76,7 @@ export class CalendarComponent {
     content: '',
     remind_date: new Date(),
     color: ReminderColor.USER_CREATED_EVENT_COLOR,
+    type: ReminderType.USER_CREATED_EVENT,
   };
   themes: Theme[] = [
     { title: 'Khám thai', color: 'f9a8d4' }, // Soft pink
@@ -208,7 +209,7 @@ export class CalendarComponent {
           content: this.newEvent.content || '',
           remind_date: new Date(this.selectedDate).toLocaleDateString('en-CA'),
           color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
-          type: ReminderType.USER_CREATED_EVENT,
+          type: this.newEvent.type || ReminderType.USER_CREATED_EVENT,
         };
 
         // Add the event to our events array

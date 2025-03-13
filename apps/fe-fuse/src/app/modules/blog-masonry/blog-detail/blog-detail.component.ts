@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
   selector: 'app-blog-detail',
   imports: [RouterLink, DatePipe, CommonModule],
   templateUrl: './blog-detail.component.html',
-  styleUrls: ['./blog-detail.component.scss'],
+  styleUrls: ['./blog-detail.component.css'],
 })
 export class BlogDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('blogSidebar') blogSidebar: ElementRef;

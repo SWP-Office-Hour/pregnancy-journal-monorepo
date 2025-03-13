@@ -26,7 +26,7 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 //
 // import colors from 'tailwindcss/colors';
 //
-// export const MyPreset = definePreset(Material, {
+// export const MyPresetPrimeNG = definePreset(Material, {
 //   //Your customizations, see the following sections for examples
 //   semantics: {
 //     primary: {
@@ -37,7 +37,7 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 import { definePreset } from '@primeng/themes';
 import Material from '@primeng/themes/material';
 
-const MyPreset = definePreset(Material, {
+const MyPresetPrimeNG = definePreset(Material, {
   primitive: {
     borderRadius: {
       none: '0',
@@ -695,6 +695,8 @@ const MyPreset = definePreset(Material, {
   },
 });
 
+//********************** ApplicationConfig *************************//
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideAnimationsAsync(),
@@ -704,7 +706,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(appRoutes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     providePrimeNG({
       theme: {
-        preset: MyPreset,
+        preset: MyPresetPrimeNG,
         options: {
           darkModeSelector: 'none',
         },

@@ -7,7 +7,9 @@
     "setup-nx-powerpack": "doppler secrets download --config nxpp --no-file --format env > .env",
     "format:write": "nx format:write",
     "prettier:write": "prettier --write .",
-    "build-all-skip-cache": "nx run-many -t build --skip-nx-cache"
+    "build-all-skip-cache": "nx run-many -t build --skip-nx-cache",
+    "compodoc:fe": "compodoc -p apps/fe-fuse/tsconfig.doc.json -s -d ./documentation/fe",
+    "compodoc:be": "compodoc -p apps/be-nestjs-app/tsconfig.doc.json -s"
   },
   "private": true,
   "prisma": {
@@ -102,6 +104,7 @@
     "@angular/language-service": "19.1.4",
     "@commitlint/cli": "^19.6.1",
     "@commitlint/config-conventional": "^19.6.0",
+    "@compodoc/compodoc": "^1.1.26",
     "@eslint/js": "^9.8.0",
     "@nestjs/schematics": "^10.0.1",
     "@nestjs/testing": "^10.0.2",
