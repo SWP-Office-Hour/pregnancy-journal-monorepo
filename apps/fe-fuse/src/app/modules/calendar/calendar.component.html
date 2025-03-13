@@ -155,9 +155,8 @@
 
               <!-- Hover Events Popup -->
               <div
-                class="absolute -left-64 -top-5 mt-1 hidden min-h-20 w-60 scale-95 rounded-lg bg-white p-2 shadow-lg transition-all delay-500 duration-1000 ease-in-out group-hover:block group-hover:scale-100"
-                style="z-index: 9999; opacity: 0.9"
-                [ngStyle]="{ opacity: isHovering ? '0.05' : '0.9' }"
+                class="absolute -left-64 -top-5 mt-1 hidden min-h-20 w-60 scale-95 rounded-lg bg-rose-100 p-2 shadow-lg shadow-pink-400 transition-all delay-500 duration-1000 ease-in-out group-hover:block group-hover:scale-100"
+                style="z-index: 9999; opacity: 1"
                 (mouseenter)="isHovering = true"
                 (mouseleave)="isHovering = false"
               >
@@ -166,7 +165,7 @@
                     <h4 class="mb-2 px-2 text-xs font-medium text-gray-500">{{ date | date: 'dd/MM/yyyy' }}</h4>
                     <!-- Show only first 3 events -->
                     @for (event of this.getEventsForDate(date).slice(0, 3); track $index) {
-                      <div class="mb-1 rounded-md p-2 text-white" [style.background-color]="chooseColor(event)">
+                      <div class="mb-1 rounded-md p-2 text-black" [style.background-color]="chooseColor(event)">
                         <div class="flex items-center justify-between">
                           <h5 class="text-sm font-medium">{{ event.title }}</h5>
                         </div>
@@ -183,7 +182,7 @@
                           class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
                           (click)="selectDate(date)"
                         >
-                          Xem thêm {{ this.getEventsForDate(date).length - 3 }} sự kiện
+                          Ngày này còn {{ this.getEventsForDate(date).length - 3 }} sự kiện
                         </button>
                       </div>
                     }
