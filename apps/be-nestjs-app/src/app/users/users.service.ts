@@ -127,7 +127,11 @@ export class UsersService {
   // }
 
   async users(): Promise<UserResponseType[]> {
-    return await this.databaseService.User.findMany();
+    return await this.databaseService.User.findMany({
+      omit: {
+        password: true,
+      },
+    });
   }
 
   async register(data: RegisterRequest): Promise<AuthResponse> {
@@ -253,7 +257,7 @@ export class UsersService {
         name: user.name,
         role: user.role,
         email: user.email,
-        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
+        expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -286,7 +290,7 @@ export class UsersService {
         name: user.name,
         role: user.role,
         email: user.email,
-        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
+        expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
@@ -432,7 +436,7 @@ export class UsersService {
         name: userAfter.name,
         role: userAfter.role,
         email: userAfter.email,
-        expected_birth_date: child[length - 1].expected_birth_date.toISOString(),
+        expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
       },
     };
