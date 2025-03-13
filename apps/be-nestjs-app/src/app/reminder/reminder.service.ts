@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest, Status } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
+import { ReminderToSendMailEntity, UserWithReminder } from './entities/reminder.entity';
 
 @Injectable()
 export class ReminderService {
@@ -136,4 +137,114 @@ export class ReminderService {
       },
     });
   }
+
+  async searchAndMapRemindersByUser(): Promise<{
+    remindersByUser: { [userId: string]: ReminderToSendMailEntity[] };
+    usersWithReminders: UserWithReminder[];
+  }> {
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    // Set time to midnight to compare only date part
+    tomorrow.setHours(0, 0, 0, 0);
+
+    // Calculate the end of tomorrow
+    const endOfTomorrow = new Date(tomorrow);
+    endOfTomorrow.setHours(23, 59, 59, 999);
+
+    // Fetch all reminders matching the criteria
+    const reminders = await this.databaseService.Reminder.findMany({
+      where: {
+        remind_date: {
+          gte: tomorrow,
+          lte: endOfTomorrow,
+        },
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: {
+        remind_date: 'asc',
+      },
+    });
+
+    // Group reminders by user ID
+    const remindersByUser: { [userId: string]: ReminderToSendMailEntity[] } = {};
+
+    // Create a map to track unique users
+    const uniqueUsers: Map<string, UserWithReminder> = new Map();
+
+    reminders.forEach((reminder) => {
+      if (!remindersByUser[reminder.user_id]) {
+        remindersByUser[reminder.user_id] = [];
+
+        // Add user to unique users map
+        uniqueUsers.set(reminder.user_id, {
+          user_id: reminder.user_id,
+          name: reminder.user.name,
+          email: reminder.user.email,
+        });
+      }
+      remindersByUser[reminder.user_id].push(reminder as ReminderToSendMailEntity);
+    });
+
+    // Convert unique users map to array
+    const usersWithReminders = Array.from(uniqueUsers.values());
+
+    return {
+      remindersByUser,
+      usersWithReminders,
+    };
+  }
+
+  // Search for reminders rồi group theo user để gửi email
+  // async searchAndMapRemindersByUser(): Promise<{ [userId: string]: ReminderToSendMailEntity[] }> {
+  //   const tomorrow = new Date();
+  //   tomorrow.setDate(tomorrow.getDate() + 1);
+  //
+  //   // Set time to midnight to compare only date part
+  //   tomorrow.setHours(0, 0, 0, 0);
+  //
+  //   // Calculate the end of tomorrow
+  //   const endOfTomorrow = new Date(tomorrow);
+  //   endOfTomorrow.setHours(23, 59, 59, 999);
+  //
+  //   // Fetch all reminders matching the criteria
+  //   const reminders = await this.databaseService.Reminder.findMany({
+  //     where: {
+  //       remind_date: {
+  //         gte: tomorrow,
+  //         lte: endOfTomorrow,
+  //       },
+  //     },
+  //     include: {
+  //       user: {
+  //         select: {
+  //           name: true,
+  //           email: true,
+  //         },
+  //       },
+  //     },
+  //     orderBy: {
+  //       remind_date: 'asc',
+  //     },
+  //   });
+  //
+  //   // Group reminders by user ID
+  //   const remindersByUser: { [userId: string]: ReminderToSendMailEntity[] } = {};
+  //
+  //   reminders.forEach((reminder) => {
+  //     if (!remindersByUser[reminder.user_id]) {
+  //       remindersByUser[reminder.user_id] = [];
+  //     }
+  //     remindersByUser[reminder.user_id].push(reminder);
+  //   });
+  //
+  //   return remindersByUser;
+  // }
 }
