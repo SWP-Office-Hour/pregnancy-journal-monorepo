@@ -51,10 +51,6 @@
           Phone
           <p-sortIcon field="phone" />
         </th>
-        <th pSortableColumn="expected_birth_date" style="min-width: 8rem">
-          Expected Birth Date
-          <p-sortIcon field="expected_birth_date" />
-        </th>
         <th pSortableColumn="status" style="min-width: 5rem">
           Status
           <p-sortIcon field="status" />
@@ -75,7 +71,6 @@
         <td>{{ user.name }}</td>
         <td>{{ user.email }}</td>
         <td>{{ user.phone }}</td>
-        <td>{{ formatDate(user.expected_birth_date) }}</td>
         <td>
           <p-tag [severity]="getSeverityStatus(user.status)" [value]="convertStatusToReadable(user.status)" />
         </td>
@@ -143,21 +138,21 @@
           </div>
         </div>
 
-        <!-- Expected Birth Date -->
-        <div>
-          <label class="block font-bold" for="expected_birth_date">Expected Birth Date</label>
-          <p-calendar
-            formControlName="expected_birth_date"
-            id="expected_birth_date"
-            [showIcon]="true"
-            dateFormat="dd/mm/yy"
-            [style]="{ width: '100%' }"
-            [inputStyle]="{ width: '100%' }"
-          ></p-calendar>
-          <small *ngIf="isSubmittedForm && f['expected_birth_date'].errors?.['required']" class="text-red-500"
-            >Expected birth date is required.</small
-          >
-        </div>
+        <!--        &lt;!&ndash; Expected Birth Date &ndash;&gt;-->
+        <!--        <div>-->
+        <!--          <label class="block font-bold" for="expected_birth_date">Expected Birth Date</label>-->
+        <!--          <p-calendar-->
+        <!--            formControlName="expected_birth_date"-->
+        <!--            id="expected_birth_date"-->
+        <!--            [showIcon]="true"-->
+        <!--            dateFormat="dd/mm/yy"-->
+        <!--            [style]="{ width: '100%' }"-->
+        <!--            [inputStyle]="{ width: '100%' }"-->
+        <!--          ></p-calendar>-->
+        <!--          <small *ngIf="isSubmittedForm && f['expected_birth_date'].errors?.['required']" class="text-red-500"-->
+        <!--            >Expected birth date is required.</small-->
+        <!--          >-->
+        <!--        </div>-->
 
         <!-- Role -->
         <div>

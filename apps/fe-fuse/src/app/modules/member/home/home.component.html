@@ -314,7 +314,9 @@
                   </div>
                   <div class="flex h-2/3 w-full items-center justify-center">
                     <div class="flex flex-col items-center">
-                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">{{ remainingDays() }}</div>
+                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">
+                        {{ remainingDays() < 1 ? 0 : remainingDays() }}
+                      </div>
                       <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
                     </div>
                   </div>

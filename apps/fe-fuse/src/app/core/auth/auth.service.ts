@@ -1,16 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AuthResponse, RegisterRequest, UserRole, UserStatus } from '@pregnancy-journal-monorepo/contract';
+import { AuthResponse, RegisterRequest, UserRole } from '@pregnancy-journal-monorepo/contract';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { ChildrenService } from '../children/children.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _authenticated: boolean = false;
   private _httpClient = inject(HttpClient);
   private _userService = inject(UserService);
+  private _childService = inject(ChildrenService);
   private _signUpData: { email: string; password: string; confirm_password: string };
 
   // -----------------------------------------------------------------------------------------------------
@@ -92,9 +94,9 @@ export class AuthService {
 
         // Set the authenticated flag to true
         this._authenticated = true;
-
         // Store the user on the user service
         this._userService.user = response.user;
+        this._childService.SelectedChild = response.user.child[0].child_id;
 
         // Return a new observable with the response
         return of(response);
@@ -135,6 +137,7 @@ export class AuthService {
 
           // Store the user on the user service
           this._userService.user = response.user;
+          this._childService.SelectedChild = response.user.child[0].child_id;
 
           // Return true
           return of(true);
@@ -180,15 +183,8 @@ export class AuthService {
       map((response: AuthResponse) => {
         this.accessToken = response.access_token;
         this._authenticated = true;
-        this._userService.user = {
-          user_id: response.user.id,
-          name: response.user.name,
-          role: response.user.role,
-          status: UserStatus.ACTIVE,
-          avatar: '',
-          email: user.email,
-          onlineStatus: '',
-        };
+        this._userService.user = response.user;
+        this._childService.SelectedChild = response.user.child[0].child_id;
         return response;
       }),
     );

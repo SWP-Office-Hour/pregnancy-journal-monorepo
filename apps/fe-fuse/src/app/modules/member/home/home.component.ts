@@ -29,6 +29,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
+import { ChildrenService } from '../../../core/children/children.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
 import { SystemReminder, SystemReminders } from '../../../mock-api/system-remind.data';
@@ -101,15 +102,14 @@ export class HomeComponent {
     private _recordService: PregnancyRecordService,
     private _httpClient: HttpClient,
     private _userService: UserService,
+    private _childService: ChildrenService,
   ) {
     this._userService.user$.subscribe((user) => {
-      if (user) {
-        this.user = user;
-        this._expectedDate = new Date(user.expected_birth_date) || new Date();
-        this.calculateCurrentPregnancyWeek();
-        this._countWeek = this._currentPregnancyWeek;
-        this.systemRemind.set(SystemReminders.find((item) => item.week === this._currentPregnancyWeek) || null);
-      }
+      this.user = user;
+      this._expectedDate = new Date(this._childService.getSearchedChild().expected_birth_date) || new Date();
+      this.calculateCurrentPregnancyWeek();
+      this._countWeek = this._currentPregnancyWeek;
+      this.systemRemind.set(SystemReminders.find((item) => item.week === this._currentPregnancyWeek) || null);
     });
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);

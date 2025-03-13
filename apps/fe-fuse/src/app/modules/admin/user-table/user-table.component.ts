@@ -155,7 +155,6 @@ export class UserTableComponent implements OnInit {
       address: '',
       role: UserRole.MEMBER,
       status: UserStatus.ACTIVE,
-      expected_birth_date: new Date(),
       membershipId: '',
     });
     this.isSubmittedForm = false;
@@ -203,7 +202,6 @@ export class UserTableComponent implements OnInit {
       address: userToEdit.address,
       role: userToEdit.role,
       status: userToEdit.status,
-      expected_birth_date: new Date(userToEdit.expected_birth_date),
       membershipId: userToEdit.membershipId,
     });
 
@@ -259,13 +257,13 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  formatDate(date: Date | string): string {
-    if (!date) {
-      return 'N/A';
-    }
-    const d = new Date(date);
-    return d.toLocaleDateString();
-  }
+  // formatDate(date: Date | string): string {
+  //   if (!date) {
+  //     return 'N/A';
+  //   }
+  //   const d = new Date(date);
+  //   return d.toLocaleDateString();
+  // }
 
   /**
    * Form accessor
@@ -289,7 +287,6 @@ export class UserTableComponent implements OnInit {
       address: ['', Validators.required],
       role: [UserRole.MEMBER, Validators.required],
       status: [UserStatus.ACTIVE, Validators.required],
-      expected_birth_date: [new Date(), Validators.required],
       membershipId: [''],
     });
   }
