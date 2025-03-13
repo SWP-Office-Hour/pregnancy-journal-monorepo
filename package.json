@@ -8,8 +8,8 @@
     "format:write": "nx format:write",
     "prettier:write": "prettier --write .",
     "build-all-skip-cache": "nx run-many -t build --skip-nx-cache",
-    "compodoc:fe": "compodoc -d ./documentation/fe -p apps/fe-fuse/tsconfig.doc.json -s",
-    "compodoc:be": "compodoc -d ./documentation/be -p apps/be-nestjs-app/tsconfig.doc.json -s"
+    "compodoc:fe": "compodoc -d ./dist/documentation/fe -p apps/fe-fuse/tsconfig.doc.json -s",
+    "compodoc:be": "compodoc -d ./dist/documentation/be -p apps/be-nestjs-app/tsconfig.doc.json -s"
   },
   "private": true,
   "prisma": {
