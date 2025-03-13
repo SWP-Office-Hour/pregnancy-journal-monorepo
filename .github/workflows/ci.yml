@@ -51,6 +51,8 @@ jobs:
           echo "BASE: ${{ env.NX_BASE }}"
           echo "HEAD: ${{ env.NX_HEAD }}"
 
+      - run: pnpm exec nx show projects --affected --json
+
       # Nx Affected runs only tasks affected by the changes in this PR/commit. Learn more: https://nx.dev/ci/features/affected
       # When you enable task distribution, run the e2e-ci task instead of e2e
       #      - run: pnpm exec cypress install
@@ -58,9 +60,11 @@ jobs:
 
       #      - id: nx-format-check
       #        run: pnpm exec nx format:check
+      #
+
       - id: nx-affected
         #        run: pnpm exec nx affected -t lint build --parallel NOTE NOTE NOTE BỎ LINT VÌ LÂU
-        run: pnpm exec nx affected -t build:production
+        run: pnpm exec nx affected -t build
 
       - if: ${{ steps.nx-affected.outcome == 'failure' }}
         run: exit 1
