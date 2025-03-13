@@ -1,11 +1,16 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ChildCreateRequestType, ChildUpdateRequestType } from '../../../../../libs/contract/src/lib/child.contract';
 import { DatabaseService } from '../database/database.service';
+import { RecordsService } from '../records/records.service';
 import { Child } from './entities/child.entity';
 
 @Injectable()
 export class ChildService {
-  constructor(private readonly databaseService: DatabaseService) {}
+  constructor(
+    private readonly databaseService: DatabaseService,
+    @Inject(forwardRef(() => RecordsService))
+    private readonly recordsService: RecordsService,
+  ) {}
 
   async getChildById(child_id: string): Promise<Child> {
     const child = await this.databaseService.Child.findUnique({ where: { child_id } });
@@ -32,16 +37,24 @@ export class ChildService {
           },
         },
         ...createChild,
+        expected_birth_date: new Date(createChild.expected_birth_date),
       },
     });
   }
 
   async updateChild(updateChild: ChildUpdateRequestType) {
+    // Create a copy of the update data
+    const updateData: any = { ...updateChild };
+
+    // Only create a Date if expected_birth_date has a value
+    if (updateChild.expected_birth_date) {
+      updateData.expected_birth_date = new Date(updateChild.expected_birth_date);
+    }
     return await this.databaseService.Child.update({
       where: {
         child_id: updateChild.child_id,
       },
-      data: updateChild,
+      data: updateData,
     });
   }
 
@@ -52,12 +65,8 @@ export class ChildService {
       },
     });
 
-    if (deleteRecord.length > 0) {
-      await this.databaseService.Record.deleteMany({
-        where: {
-          child_id,
-        },
-      });
+    for (const deleteRecordElement of deleteRecord) {
+      await this.recordsService.deleteRecord(deleteRecordElement.visit_record_id);
     }
 
     return await this.databaseService.Child.delete({

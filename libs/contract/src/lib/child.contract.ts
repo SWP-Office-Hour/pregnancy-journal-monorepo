@@ -12,10 +12,12 @@ export const childSchema = z.object({
 
 export const childCreateRequestSchema = childSchema.omit({ child_id: true, user_id: true }).extend({
   gender: genderSchema.optional(),
+  expected_birth_date: z.string().date(),
 });
 
 export const childUpdateRequestSchema = childSchema.omit({ user_id: true }).partial().extend({
   child_id: z.string(),
+  expected_birth_date: z.string().date().optional(),
 });
 
 export type ChildType = z.infer<typeof childSchema>;
