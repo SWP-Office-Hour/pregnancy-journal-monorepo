@@ -187,5 +187,13 @@
   },
   "engines": {
     "node": ">=20.0.0"
+  },
+  "pnpm": {
+    "ignoredBuiltDependencies": [
+      "nx"
+    ],
+    "onlyBuiltDependencies": [
+      "nx"
+    ]
   }
 }
