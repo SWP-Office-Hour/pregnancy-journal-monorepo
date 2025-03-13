@@ -8,7 +8,6 @@ export interface User {
   role?: UserRole;
   status?: UserStatus;
   onlineStatus?: string;
-  expected_birth_date?: string;
   has_membership?: boolean;
   child?: ChildType[];
 }
