@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Cron, Interval } from '@nestjs/schedule';
+import { Cron } from '@nestjs/schedule';
 import { MailService } from '../mail/mail.service';
 import { ReminderService } from '../reminder/reminder.service';
 
@@ -15,14 +15,16 @@ export class ScheduleService {
     Logger.log('Called when the current second is 45');
   }
 
-  @Interval(10000)
+  // @Interval(10000)
   async handleInterval() {
     Logger.log('Called every 10 seconds');
     const listReminder = await this.reminderService.searchAndMapRemindersByUser();
     const listUser = listReminder.usersWithReminders;
+    const listReminderToSendMail = listReminder.remindersByUser;
     Logger.log(listUser);
     for (const userWithReminder of listUser) {
-      // this.mailService.sendReminderMail(userWithReminder);
+      Logger.log(listReminderToSendMail[userWithReminder.user_id]);
+      this.mailService.sendReminderEmail(listReminderToSendMail[userWithReminder.user_id]);
     }
   }
 }
