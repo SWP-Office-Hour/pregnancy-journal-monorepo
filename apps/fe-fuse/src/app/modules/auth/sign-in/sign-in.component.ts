@@ -88,11 +88,12 @@ export class AuthSignInComponent implements OnInit {
 
     // Sign in
     this._authService.signIn(this.signInForm.value).subscribe(
-      () => {
+      (res) => {
         // Set the redirect url.
         // The '/signed-in-redirect' is a dummy url to catch the request and redirect the user
         // to the correct page after a successful sign in. This way, that url can be set via
         // routing file and we don't have to touch here.
+        console.log('Success: ', res);
         const redirectURL = this._activatedRoute.snapshot.queryParamMap.get('redirectURL') || '/signed-in-redirect';
 
         // Navigate to the redirect url
@@ -104,7 +105,7 @@ export class AuthSignInComponent implements OnInit {
 
         // Reset the form
         this.signInNgForm.resetForm();
-
+        console.log('Fail: ', response);
         // Set the alert
         this.alert = {
           type: 'error',

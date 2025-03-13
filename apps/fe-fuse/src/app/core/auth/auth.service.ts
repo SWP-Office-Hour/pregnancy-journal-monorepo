@@ -96,6 +96,7 @@ export class AuthService {
         this._authenticated = true;
         // Store the user on the user service
         this._userService.user = response.user;
+        this._childService.children.set(response.user.child);
         this._childService.SelectedChild = response.user.child[0].child_id;
 
         // Return a new observable with the response

@@ -1,12 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-
-interface Child {
-  id: string;
-  name: string;
-  avatarUrl?: string;
-  gender?: 'male' | 'female';
-}
+import { Component, computed, effect, inject, OnInit, WritableSignal } from '@angular/core';
+import { ChildType, Gender } from '@pregnancy-journal-monorepo/contract';
+import { ChildrenService } from '../../../core/children/children.service';
 
 @Component({
   selector: 'app-children-profile-selector',
@@ -16,22 +11,21 @@ interface Child {
 })
 export class ChildrenProfileSelectorComponent implements OnInit {
   isOpen = false;
-  selectedChild: Child | null = null;
-
   // Mock data - will be replaced with actual data service
-  children: Child[] = [
-    { id: '1', name: 'Emma Johnson', gender: 'female', avatarUrl: 'https://avatar.iran.liara.run/public/22' },
-    { id: '2', name: 'Noah Smith', gender: 'male', avatarUrl: 'https://avatar.iran.liara.run/public/24' },
-    { id: '3', name: 'Olivia Williams', gender: 'female' },
-  ];
+  protected gender = Gender;
+  private _childService = inject(ChildrenService);
+  selectedChild = computed(() => this._childService.children().find((child) => child.child_id === this._childService.selectedChild()));
+  children: WritableSignal<ChildType[]> = this._childService.children;
 
-  constructor() {}
+  constructor() {
+    effect(() => {
+      console.log('Children:', this.children());
+      console.log('In service', this._childService.children());
+    });
+  }
 
   ngOnInit(): void {
     // Initialize with first child selected
-    if (this.children.length > 0) {
-      this.selectedChild = this.children[0];
-    }
   }
 
   toggleDropdown(): void {
@@ -42,8 +36,8 @@ export class ChildrenProfileSelectorComponent implements OnInit {
     this.isOpen = false;
   }
 
-  selectChild(child: Child): void {
-    this.selectedChild = child;
+  selectChild(child: ChildType): void {
+    this._childService.selectedChild.set(child.child_id);
     this.isOpen = false;
     // Navigation logic will be implemented later
     console.log('Selected child:', child);

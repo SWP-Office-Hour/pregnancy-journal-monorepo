@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -106,10 +106,6 @@ export class HomeComponent {
   ) {
     this._userService.user$.subscribe((user) => {
       this.user = user;
-      this._expectedDate = new Date(this._childService.getSearchedChild().expected_birth_date) || new Date();
-      this.calculateCurrentPregnancyWeek();
-      this._countWeek = this._currentPregnancyWeek;
-      this.systemRemind.set(SystemReminders.find((item) => item.week === this._currentPregnancyWeek) || null);
     });
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
@@ -132,6 +128,18 @@ export class HomeComponent {
           this._countWeek = this._currentPregnancyWeek;
         }
       });
+
+    effect(() => {
+      if (this._childService.getSelectedChild()) {
+        console.log('Selected child:', this._childService.getSelectedChild());
+        this._expectedDate = this._childService.getSelectedChild()?.expected_birth_date
+          ? new Date(this._childService.getSelectedChild()?.expected_birth_date)
+          : new Date();
+        this.calculateCurrentPregnancyWeek();
+        this._countWeek = this._currentPregnancyWeek;
+        this.systemRemind.set(SystemReminders.find((item) => item.week === this._currentPregnancyWeek) || null);
+      }
+    });
   }
 
   //chưa có data bên database
