@@ -2,6 +2,7 @@ export * from './lib/auth.contract';
 export * from './lib/blog.contract';
 export * from './lib/category.contract';
 export * from './lib/chat.contract';
+export * from './lib/child.contract';
 export * from './lib/comment.contract';
 export * from './lib/dashboard.contract';
 export * from './lib/enum.contract';

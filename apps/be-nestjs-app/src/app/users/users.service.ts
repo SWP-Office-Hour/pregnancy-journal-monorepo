@@ -206,6 +206,7 @@ export class UsersService {
         email: result.email,
         expected_birth_date: firstChild.expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        child: [firstChild],
       },
     };
   }
@@ -259,6 +260,7 @@ export class UsersService {
         email: user.email,
         expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        child: child,
       },
     };
   }
@@ -292,6 +294,7 @@ export class UsersService {
         email: user.email,
         expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        child: child,
       },
     };
   }
@@ -438,6 +441,7 @@ export class UsersService {
         email: userAfter.email,
         expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        child: child,
       },
     };
   }
@@ -496,6 +500,7 @@ export class UsersService {
       },
       include: {
         payment_history: true,
+        child: true,
       },
     });
     if (!user) {
@@ -510,6 +515,7 @@ export class UsersService {
       ward: user.ward,
       address: user.address,
       membershipId: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
+      child: user.child,
     };
   }
 

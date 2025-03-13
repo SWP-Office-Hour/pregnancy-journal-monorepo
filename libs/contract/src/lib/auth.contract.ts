@@ -1,5 +1,6 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
+import { childSchema } from './child.contract';
 import { userRoleSchema } from './enum.contract';
 
 const c = initContract();
@@ -61,6 +62,7 @@ const authResponseSchema = z.object({
     email: z.string(),
     expected_birth_date: z.string(),
     has_membership: z.boolean(),
+    child: z.array(childSchema),
   }),
 });
 
