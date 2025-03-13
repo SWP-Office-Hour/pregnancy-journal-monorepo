@@ -20,6 +20,7 @@ import { PostsModule } from './posts/posts.module';
 import { ReactionModule } from './reaction/reaction.module';
 import { RecordsModule } from './records/records.module';
 import { ReminderModule } from './reminder/reminder.module';
+import { ScheduleRemindModule } from './schedule/schedule.module';
 import { StandardModule } from './standard/standard.module';
 import { TagModule } from './tags/tag.module';
 import { UsersModule } from './users/users.module';
@@ -51,6 +52,7 @@ import { UsersModule } from './users/users.module';
     PaymentModule,
     AdminModule,
     ChildModule,
+    ScheduleRemindModule,
   ],
   controllers: [AppController],
   providers: [AppService],
