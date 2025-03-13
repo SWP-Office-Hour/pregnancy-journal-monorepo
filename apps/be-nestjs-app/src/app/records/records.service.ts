@@ -35,7 +35,7 @@ export class RecordsService {
     });
 
     if (!child) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Child not found');
     }
 
     if (!record.hospital_id) {
@@ -103,7 +103,7 @@ export class RecordsService {
 
     // Create reminder
     await this.reminderService.createByNextVisitDoctorDate({
-      user_id: childId,
+      user_id: child.user_id,
       visit_record_id: newRecord.visit_record_id,
       next_visit_doctor_date: record.next_visit_doctor_date,
     });
@@ -125,7 +125,7 @@ export class RecordsService {
     });
 
     if (!child) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Child not found');
     }
 
     const records: VisitRecordIncludeOtherTables[] = await this.dataService.Record.findMany({
@@ -154,7 +154,7 @@ export class RecordsService {
 
   /**
    * Update record by record ID and return formatted response
-   * @functions-used getUserById(), updateRecordMetrics(), getRecordById(), updateByNextVisitDoctorDate()
+   * @functions-used getChildById(), updateRecordMetrics(), getRecordById(), updateByNextVisitDoctorDate()
    * @param record
    * @returns Promise<RecordResponse>
    * @throws NotFoundException
@@ -176,7 +176,7 @@ export class RecordsService {
     const child = await this.childService.getChildById(existingRecord.child_id);
 
     if (!child) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Child not found');
     }
 
     // Verify hospital exists before connecting
@@ -305,7 +305,7 @@ export class RecordsService {
     });
 
     if (!child) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException('Child not found');
     }
 
     return await this.formatRecord([record], child);
@@ -341,6 +341,7 @@ export class RecordsService {
               value: metricRecord.value,
               tag_id: metricRecord.tag_id,
               standard_id: standardId,
+              child_id: record.child_id,
             };
           }),
         );
@@ -350,6 +351,7 @@ export class RecordsService {
           week,
           visit_record_id: record.visit_record_id,
           visit_doctor_date: record.visit_doctor_date,
+
           next_visit_doctor_date: record.next_visit_doctor_date as Date,
           hospital: record.hospital,
           doctor_name: record.doctor_name,
@@ -435,7 +437,7 @@ export class RecordsService {
    * Updates record metrics data based on provided data and creates new record metrics if not found
    * @param visitRecordId Visit record ID
    * @param metricsData Array of metric data to update
-   * @param childExpectBirthDate User expected birthdate
+   * @param childExpectBirthDate Child expected birthdate
    * @param visitDoctorDate Visit doctor date
    * @returns Promise<void>
    * @throws NotFoundException

@@ -28,6 +28,7 @@ import {
 } from '@pregnancy-journal-monorepo/contract';
 import { generateOpenApi } from '@ts-rest/open-api';
 import { json, urlencoded } from 'express';
+import { childContract } from '../../../libs/contract/src/lib/child.contract';
 import { AppModule } from './app/app.module';
 import { SocketIoAdapter } from './socket-io.adapter';
 
@@ -42,6 +43,7 @@ async function bootstrap() {
       pay: payosContract,
       tag: tagContract,
       metric: metricContract,
+      child: childContract,
       dashboard: dashboardContract,
       blog: blogContract,
       post: postContract,

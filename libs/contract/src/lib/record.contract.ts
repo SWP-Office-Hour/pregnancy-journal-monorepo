@@ -6,6 +6,7 @@ import { mediaResSchema } from './media.contract';
 import { tagResponseSchema } from './tag.contract';
 
 export const recordMetricSchema = z.object({
+  child_id: z.string(),
   value: z.number(),
   metric_id: z.string(),
   metric_title: z.string(),

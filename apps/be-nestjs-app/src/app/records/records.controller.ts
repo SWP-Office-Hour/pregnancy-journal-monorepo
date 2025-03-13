@@ -1,21 +1,21 @@
-import { Body, Controller, Param, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
+import { Body, Controller, ForbiddenException, Param, Req } from '@nestjs/common';
 import { recordContract, RecordCreateRequest, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
-import { RequestWithJWT } from 'express';
-import { AccessTokenAuthGuard } from '../auth/auth.guard';
-import { JwtPayload } from '../utils/jwt/jwt.interface';
 import { RecordsService } from './records.service';
 
 @Controller()
 export class RecordsController {
   constructor(private readonly recordService: RecordsService) {}
 
-  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(recordContract.createRecord)
-  handleCreateRecord(@Body() record: RecordCreateRequest, @Req() req: RequestWithJWT) {
+  handleCreateRecord(@Body() record: RecordCreateRequest, @Req() req: Request) {
     return tsRestHandler(recordContract.createRecord, async () => {
-      const userId = (req.decoded_authorization as JwtPayload).user_id;
-      const result = await this.recordService.createRecord({ record, childId: userId });
+      const childId = req.headers['child_id'] as string;
+      if (!childId) {
+        throw new ForbiddenException('Need child_id in headers');
+      }
+
+      const result = await this.recordService.createRecord({ record, childId: childId });
       return {
         status: 200,
         body: result,
@@ -23,15 +23,14 @@ export class RecordsController {
     });
   }
 
-  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(recordContract.getRecordByUserId)
-  handleGetRecordByUserId(@Req() request: RequestWithJWT) {
+  handleGetRecordByUserId(@Req() request: Request) {
     return tsRestHandler(recordContract.updateRecord, async () => {
-      if (!request.decoded_authorization) {
-        throw new UnauthorizedException('Unauthorized');
+      const childId = request.headers['child_id'] as string;
+      if (!childId) {
+        throw new ForbiddenException('Need child_id in headers');
       }
-      const id = request.decoded_authorization.user_id;
-      const record = await this.recordService.getRecordByChildId(id);
+      const record = await this.recordService.getRecordByChildId(childId);
       return {
         status: 201,
         body: record,

@@ -6,7 +6,7 @@ export const childSchema = z.object({
   child_id: z.string(),
   name: z.string(),
   expected_birth_date: z.date(),
-  gender: genderSchema.optional(),
+  gender: genderSchema.nullable(),
   user_id: z.string(),
 });
 
@@ -24,51 +24,51 @@ export type ChildUpdateRequestType = z.infer<typeof childUpdateRequestSchema>;
 
 const c = initContract();
 
-// export const categoryContract = c.router({
-//   create: {
-//     method: 'POST',
-//     path: '/categories',
-//     description: 'Create a new category (đã xong)',
-//     body: categoryCreateRequestSchema,
-//     responses: {
-//       201: categoryResponseSchema,
-//     },
-//   },
-//   getAll: {
-//     method: 'GET',
-//     path: '/categories',
-//     description: 'Get all categories (đã xong)',
-//     responses: {
-//       200: z.array(categoryResponseSchema),
-//       404: z.object({ message: z.string() }),
-//     },
-//   },
-//   getOne: {
-//     method: 'GET',
-//     path: '/categories/:id',
-//     description: 'Get a category by id (đã xong)',
-//     responses: {
-//       200: categoryResponseSchema,
-//       404: z.object({ message: z.string() }),
-//     },
-//   },
-//   update: {
-//     method: 'PATCH',
-//     path: '/categories',
-//     description: 'Update a category by category id (đã xong)',
-//     body: categoryUpdateRequestSchema,
-//     responses: {
-//       200: categoryResponseSchema,
-//       404: z.object({ message: z.string() }),
-//     },
-//   },
-//   delete: {
-//     method: 'DELETE',
-//     path: '/categories/:id',
-//     description: 'Delete a category by id (đã xong)',
-//     responses: {
-//       200: categoryResponseSchema,
-//       404: z.object({ message: z.string() }),
-//     },
-//   },
-// });
+export const childContract = c.router({
+  create: {
+    method: 'POST',
+    path: '/child',
+    description: 'Create a new child (đã xong)',
+    body: childCreateRequestSchema,
+    responses: {
+      201: childSchema,
+    },
+  },
+  getAll: {
+    method: 'GET',
+    path: '/child',
+    description: 'Get all child (đã xong)',
+    responses: {
+      200: z.array(childSchema),
+      404: z.object({ message: z.string() }),
+    },
+  },
+  getOne: {
+    method: 'GET',
+    path: '/child/:id',
+    description: 'Get a child by id (đã xong)',
+    responses: {
+      200: childSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+  update: {
+    method: 'PATCH',
+    path: '/child',
+    description: 'Update a child by child id (đã xong)',
+    body: childUpdateRequestSchema,
+    responses: {
+      200: childSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+  delete: {
+    method: 'DELETE',
+    path: '/child/:id',
+    description: 'Delete a child by id (đã xong)',
+    responses: {
+      200: childSchema,
+      404: z.object({ message: z.string() }),
+    },
+  },
+});
