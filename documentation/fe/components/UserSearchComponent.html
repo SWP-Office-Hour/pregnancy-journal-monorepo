@@ -1,0 +1,553 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserSearchComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/user-search-demo-call-api/user-search.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-search-demo-call-api</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatProgressBarModule</code>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;fieldset&gt;
+  &lt;legend&gt;Users Search&lt;/legend&gt;
+  &lt;input (input)&#x3D;&quot;query.set($any($event.target).value)&quot; type&#x3D;&quot;search&quot; placeholder&#x3D;&quot;Search...&quot; /&gt;
+&lt;/fieldset&gt;
+@if (users.isLoading()) {
+  &lt;mat-progress-bar mode&#x3D;&quot;query&quot; /&gt;
+}
+@if (users.error()) {
+  &lt;div class&#x3D;&quot;error&quot;&gt;{{ users.error() }}&lt;/div&gt;
+}
+&lt;section class&#x3D;&quot;actions&quot;&gt;
+  &lt;button (click)&#x3D;&quot;users.reload()&quot;&gt;Reload&lt;/button&gt;
+  &lt;button (click)&#x3D;&quot;addUser()&quot;&gt;Add User&lt;/button&gt;
+  &lt;button (click)&#x3D;&quot;users.set([])&quot;&gt;Clear&lt;/button&gt;
+&lt;/section&gt;
+&lt;ul&gt;
+  @for (user of users.value(); track user.id) {
+    &lt;li&gt;{{ user.name }}&lt;/li&gt;
+  } @empty {
+    &lt;li class&#x3D;&quot;no-data&quot;&gt;Nothing to show&lt;/li&gt;
+  }
+&lt;/ul&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>user-search.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#query" >query</a>
+                            </li>
+                            <li>
+                                <a href="#users" >users</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#addUser" >addUser</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="46" class="link-to-prism">apps/fe-fuse/src/app/user-search-demo-call-api/user-search.component.ts:46</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="addUser"></a>
+                    <span class="name">
+                        <span ><b>addUser</b></span>
+                        <a href="#addUser"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>addUser()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">apps/fe-fuse/src/app/user-search-demo-call-api/user-search.component.ts:48</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="query"></a>
+                    <span class="name">
+                        <span ><b>query</b></span>
+                        <a href="#query"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>signal(&#x27;&#x27;)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="36" class="link-to-prism">apps/fe-fuse/src/app/user-search-demo-call-api/user-search.component.ts:36</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="users"></a>
+                    <span class="name">
+                        <span ><b>users</b></span>
+                        <a href="#users"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>resource&lt;User[], { query: string }&gt;({
+    request: () &#x3D;&gt; ({ query: this.query() }),
+    loader: async ({ request, abortSignal }) &#x3D;&gt; {
+      const users &#x3D; await fetch(&#x60;${API_URL}?name_like&#x3D;^${request.query}&#x60;, {
+        signal: abortSignal,
+      });
+      if (!users.ok) throw Error(&#x60;Could not fetch...&#x60;);
+      return await users.json();
+    },
+  })</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/fe-fuse/src/app/user-search-demo-call-api/user-search.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, resource, signal } from &#x27;@angular/core&#x27;;
+import { MatProgressBarModule } from &#x27;@angular/material/progress-bar&#x27;;
+import { API_URL } from &#x27;./config&#x27;;
+import { User } from &#x27;./model&#x27;;
+
+@Component({
+  selector: &#x27;app-user-search-demo-call-api&#x27;,
+  imports: [MatProgressBarModule],
+  template: &#x60;
+    &lt;fieldset&gt;
+      &lt;legend&gt;Users Search&lt;/legend&gt;
+      &lt;input (input)&#x3D;&quot;query.set($any($event.target).value)&quot; type&#x3D;&quot;search&quot; placeholder&#x3D;&quot;Search...&quot; /&gt;
+    &lt;/fieldset&gt;
+    @if (users.isLoading()) {
+      &lt;mat-progress-bar mode&#x3D;&quot;query&quot; /&gt;
+    }
+    @if (users.error()) {
+      &lt;div class&#x3D;&quot;error&quot;&gt;{{ users.error() }}&lt;/div&gt;
+    }
+    &lt;section class&#x3D;&quot;actions&quot;&gt;
+      &lt;button (click)&#x3D;&quot;users.reload()&quot;&gt;Reload&lt;/button&gt;
+      &lt;button (click)&#x3D;&quot;addUser()&quot;&gt;Add User&lt;/button&gt;
+      &lt;button (click)&#x3D;&quot;users.set([])&quot;&gt;Clear&lt;/button&gt;
+    &lt;/section&gt;
+    &lt;ul&gt;
+      @for (user of users.value(); track user.id) {
+        &lt;li&gt;{{ user.name }}&lt;/li&gt;
+      } @empty {
+        &lt;li class&#x3D;&quot;no-data&quot;&gt;Nothing to show&lt;/li&gt;
+      }
+    &lt;/ul&gt;
+  &#x60;,
+  styleUrl: &#x27;user-search.component.scss&#x27;,
+})
+export class UserSearchComponent {
+  query &#x3D; signal(&#x27;&#x27;);
+  users &#x3D; resource&lt;User[], { query: string }&gt;({
+    request: () &#x3D;&gt; ({ query: this.query() }),
+    loader: async ({ request, abortSignal }) &#x3D;&gt; {
+      const users &#x3D; await fetch(&#x60;${API_URL}?name_like&#x3D;^${request.query}&#x60;, {
+        signal: abortSignal,
+      });
+      if (!users.ok) throw Error(&#x60;Could not fetch...&#x60;);
+      return await users.json();
+    },
+  });
+  constructor() {}
+  addUser() {
+    const user &#x3D; { id: 123, name: &#x27;Dmytro Mezhenskyi&#x27; };
+    this.users.update((users) &#x3D;&gt; (users ? [user, ...users] : [user]));
+  }
+}
+</code></pre>
+    </div>
+
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><fieldset>  <legend>Users Search</legend>  <input (input)="query.set($any($event.target).value)" type="search" placeholder="Search..." /></fieldset>@if (users.isLoading()) {  <mat-progress-bar mode="query" />}@if (users.error()) {  <div class="error">{{ users.error() }}</div>}<section class="actions">  <button (click)="users.reload()">Reload</button>  <button (click)="addUser()">Add User</button>  <button (click)="users.set([])">Clear</button></section><ul>  @for (user of users.value(); track user.id) {    <li>{{ user.name }}</li>  } @empty {    <li class="no-data">Nothing to show</li>  }</ul></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'UserSearchComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserSearchComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

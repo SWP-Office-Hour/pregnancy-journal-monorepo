@@ -1,0 +1,881 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  PregnancyWeekInfoComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/member/pregnancy-week-info/pregnancy-week-info.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-pregnancy-week-info</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>TooltipModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./pregnancy-week-info.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./pregnancy-week-info.component.css</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Inputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#countWeek" >countWeek</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+    <section data-compodoc="block-inputs">
+    <h3 id="inputs">Inputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="countWeek"></a>
+                        <b>countWeek</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="11" class="link-to-prism">apps/fe-fuse/src/app/modules/member/pregnancy-week-info/pregnancy-week-info.component.ts:11</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Input } from &#x27;@angular/core&#x27;;
+import { TooltipModule } from &#x27;primeng/tooltip&#x27;;
+
+@Component({
+  selector: &#x27;app-pregnancy-week-info&#x27;,
+  imports: [TooltipModule],
+  templateUrl: &#x27;./pregnancy-week-info.component.html&#x27;,
+  styleUrl: &#x27;./pregnancy-week-info.component.css&#x27;,
+})
+export class PregnancyWeekInfoComponent {
+  @Input() countWeek &#x3D; 0;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;book-page flex flex-col&quot;&gt;
+  @switch (countWeek) {
+    @case (0) {
+      Chưa có con
+    }
+    @case (1) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title font-bold text-gray-700&quot;&gt;Tại sao thai kỳ được tính là 40 tuần?&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Ngày
+          &lt;span pTooltip&#x3D;&quot;Thụ tinh là quá trình tinh trùng kết hợp với trứng để tạo thành phôi thai&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;
+            &gt;thụ tinh&lt;/span
+          &gt;
+          chính xác rất khó xác định. Để tính &lt;strong&gt;tuổi thai&lt;/strong&gt;, các bác sĩ sử dụng
+          &lt;span
+            pTooltip&#x3D;&quot;Tuổi thai được tính dựa trên số tuần không có kinh nguyệt, chứ không phải từ ngày thụ tinh thực tế&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            số tuần không có kinh nguyệt &lt;/span
+          &gt;, tức là tính từ
+          &lt;span pTooltip&#x3D;&quot;Ngày đầu tiên của kỳ kinh nguyệt cuối cùng trước khi mang thai&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            ngày đầu tiên của kỳ kinh cuối cùng &lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Do đó,
+          &lt;span
+            pTooltip&#x3D;&quot;Ngày dự sinh được tính bằng cách lấy ngày đầu kỳ kinh cuối cùng và cộng thêm 280 ngày (40 tuần)&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            ngày dự sinh
+          &lt;/span&gt;
+          được tính dựa trên ngày đầu tiên của &lt;strong&gt;kỳ kinh cuối cùng&lt;/strong&gt;. Khi sử dụng phương pháp này,
+          &lt;strong&gt;14 ngày được cộng thêm vào tuổi thai&lt;/strong&gt;. Vì vậy, trên thực tế,
+          &lt;strong&gt;trong 2 tuần đầu tiên, bạn chưa thực sự mang thai&lt;/strong&gt;.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (2) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title font-bold text-gray-700&quot;&gt;Rụng trứng&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Rụng trứng&lt;/strong&gt; là thời điểm một trong hai &lt;strong&gt;buồng trứng&lt;/strong&gt; (trái hoặc phải) giải phóng một &lt;strong&gt;trứng&lt;/strong&gt;.
+          Phụ nữ thường rụng trứng &lt;strong&gt;14 ngày trước kỳ kinh&lt;/strong&gt;, nhưng thời gian này có thể thay đổi từ &lt;strong&gt;11–18 ngày&lt;/strong&gt;, tùy
+          thuộc vào
+          &lt;span
+            pTooltip&#x3D;&quot;Chu kỳ kinh nguyệt là khoảng thời gian từ ngày đầu của kỳ kinh này đến ngày đầu của kỳ kinh tiếp theo&quot;
+            tooltipPosition&#x3D;&quot;right&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            độ dài chu kỳ kinh nguyệt &lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Trứng sau khi rụng sẽ &lt;strong&gt;di chuyển xuống &lt;/strong&gt;
+          &lt;span pTooltip&#x3D;&quot;Ống dẫn trứng là nơi trứng di chuyển từ buồng trứng đến tử cung&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            ống dẫn trứng &lt;/span
+          &gt;, nơi diễn ra
+          &lt;span pTooltip&#x3D;&quot;Thụ tinh là quá trình tinh trùng kết hợp với trứng để tạo thành phôi thai&quot; tooltipPosition&#x3D;&quot;right&quot; class&#x3D;&quot;highlight&quot;&gt;
+            quá trình thụ tinh &lt;/span
+          &gt;, sau đó tiếp tục đến
+          &lt;span pTooltip&#x3D;&quot;Tử cung là nơi trứng đã thụ tinh làm tổ và phát triển thành thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            tử cung &lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Tuổi thọ của trứng chỉ kéo dài &lt;strong&gt;12–24 giờ&lt;/strong&gt;. Tuy nhiên,
+          &lt;span pTooltip&#x3D;&quot;Khoảng thời gian dễ thụ thai, tính từ trước khi rụng trứng&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            giai đoạn dễ thụ thai
+          &lt;/span&gt;
+          kéo dài khoảng &lt;strong&gt;5 ngày&lt;/strong&gt; mỗi tháng, tính từ &lt;strong&gt;4 ngày trước khi rụng trứng&lt;/strong&gt; đến &lt;strong&gt;24 giờ sau&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Tinh trùng&lt;/strong&gt; có thể sống trong cơ thể phụ nữ từ &lt;strong&gt;3–5 ngày&lt;/strong&gt;, tạo điều kiện cho quá trình
+          &lt;span pTooltip&#x3D;&quot;Thụ tinh là quá trình tinh trùng kết hợp với trứng&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; thụ tinh &lt;/span&gt; diễn ra.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (3) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Thụ tinh – Khởi đầu của sự sống&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Một &lt;strong&gt;tinh trùng&lt;/strong&gt; xâm nhập vào &lt;strong&gt;trứng&lt;/strong&gt;, cả hai hợp nhất và tạo thành một &lt;strong&gt;tế bào đơn lẻ&lt;/strong&gt;. Đây
+          chính là
+          &lt;span pTooltip&#x3D;&quot;Thụ tinh là sự kết hợp giữa trứng và tinh trùng&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;khoảnh khắc thụ tinh&lt;/span&gt;, đánh
+          dấu &lt;strong&gt;sự khởi đầu thực sự của thai kỳ&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Từ tế bào đơn lẻ này, thai nhi sẽ cần nhiều tháng để phát triển. Nhưng ngay từ lúc này, nó đã có đầy đủ
+          &lt;strong&gt;thông tin di truyền quan trọng&lt;/strong&gt; như &lt;strong&gt;giới tính, màu mắt, chiều cao, màu da&lt;/strong&gt; – tất cả chỉ nằm trong một tế bào
+          nhỏ bé bằng đầu kim!
+        &lt;/p&gt;
+        &lt;p&gt;
+          Trong những ngày đầu tiên, trứng đã thụ tinh sẽ
+          &lt;b&gt;di chuyển từ ống dẫn trứng xuống &lt;/b&gt;
+          &lt;span pTooltip&#x3D;&quot;Tử cung là cơ quan trong cơ thể nữ giới, nơi thai nhi phát triển trong suốt thai kỳ&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;
+            &gt;tử cung&lt;/span
+          &gt;. Trên hành trình này, trứng bắt đầu phân chia: từ &lt;strong&gt;một tế bào thành hai&lt;/strong&gt;, sau đó &lt;strong&gt;bốn tế bào&lt;/strong&gt;, rồi
+          &lt;strong&gt;tám tế bào&lt;/strong&gt;, và tiếp tục nhân lên. Đây chính là quá trình từng bước hình thành nên
+          &lt;strong&gt;các cơ quan, chi và hệ thống cơ thể của con người&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p class&#x3D;&quot;warning&quot;&gt;
+          Trong một số trường hợp hiếm gặp, trứng đã thụ tinh &lt;strong&gt;không làm tổ trong tử cung&lt;/strong&gt; mà bám vào
+          &lt;span
+            pTooltip&#x3D;&quot;Ống dẫn trứng là cấu trúc nối giữa buồng trứng và tử cung, nơi thường xảy ra hiện tượng thai ngoài tử cung&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight highlight-warning&quot;
+            &gt;ống dẫn trứng&lt;/span
+          &gt;. Đây được gọi là
+          &lt;span
+            pTooltip&#x3D;&quot;Thai ngoài tử cung không thể phát triển bình thường và cần được xử lý y tế&quot;
+            tooltipPosition&#x3D;&quot;right&quot;
+            class&#x3D;&quot;highlight highlight-warning&quot;
+            &gt;thai ngoài tử cung&lt;/span
+          &gt;. Khi điều này xảy ra, &lt;strong&gt;thai kỳ không thể tiếp tục và cần được chấm dứt để bảo vệ sức khỏe của người mẹ&lt;/strong&gt;.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (4) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Sự làm tổ của trứng đã thụ tinh&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Trứng đã thụ tinh&lt;/strong&gt; bám vào thành tử cung. Quá trình này gọi là &lt;strong&gt;làm tổ&lt;/strong&gt;, kéo dài trong
+          &lt;strong&gt;vài ngày&lt;/strong&gt; và cần có sự sản xuất của một
+          &lt;span pTooltip&#x3D;&quot;hCG là hormone giúp duy trì thai kỳ, do trứng tiết ra&quot; tooltipPosition&#x3D;&quot;right&quot; class&#x3D;&quot;highlight&quot;&gt;hormone đặc biệt: hCG&lt;/span
+          &gt;. Đây chính là hormone mà &lt;strong&gt;que thử thai phát hiện&lt;/strong&gt;. Nồng độ &lt;strong&gt;hCG sẽ tăng gấp đôi sau mỗi 2–3 ngày&lt;/strong&gt; trong giai
+          đoạn đầu của thai kỳ, đạt đỉnh vào khoảng &lt;strong&gt;tuần thứ 8–10&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Sự xuất hiện của hCG cũng kích thích sản xuất
+          &lt;span pTooltip&#x3D;&quot;Progesterone giúp giữ lớp niêm mạc tử cung để hỗ trợ thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;progesterone&lt;/span&gt;,
+          giúp &lt;strong&gt;duy trì lớp niêm mạc tử cung&lt;/strong&gt;. Khi quá trình này diễn ra, trứng dần
+          &lt;strong&gt;xâm nhập sâu hơn vào thành tử cung&lt;/strong&gt; để hấp thụ &lt;strong&gt;chất dinh dưỡng và oxy&lt;/strong&gt; từ các mạch máu xung quanh.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Ở thời điểm này, &lt;strong&gt;trứng có đường kính khoảng 4–5 mm&lt;/strong&gt;, chứa nhiều tế bào và có hình dạng
+          &lt;strong&gt;giống như một quả mâm xôi&lt;/strong&gt;. Trứng được cấu tạo bởi &lt;strong&gt;hai lớp&lt;/strong&gt;:
+        &lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Lớp bên trong&lt;/strong&gt; sẽ phát triển thành &lt;strong&gt;phôi thai&lt;/strong&gt;.&lt;/li&gt;
+          &lt;li&gt;
+            &lt;strong&gt;Lớp bên ngoài&lt;/strong&gt; sẽ trở thành
+            &lt;span pTooltip&#x3D;&quot;Nhau thai cung cấp chất dinh dưỡng và oxy cho thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;nhau thai&lt;/span&gt;, bao bọc
+            và cung cấp dinh dưỡng cho phôi.
+          &lt;/li&gt;
+        &lt;/ul&gt;
+        &lt;p&gt;Ở giai đoạn này, &lt;strong&gt;hệ thần kinh sơ khai đầu tiên đã hình thành&lt;/strong&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (5) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Dây rốn&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Tuần thứ 5, &lt;strong&gt;phôi thai&lt;/strong&gt; bắt đầu &lt;strong&gt;kéo dài&lt;/strong&gt;, trông như một &lt;strong&gt;chú cá ngựa tí hon&lt;/strong&gt;, dài khoảng
+          &lt;strong&gt;2.5 mm&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Phôi thai phát triển mạnh do
+          &lt;span pTooltip&#x3D;&quot;Hệ tuần hoàn vận chuyển máu và oxy đi khắp cơ thể&quot; tooltipPosition&#x3D;&quot;right&quot; class&#x3D;&quot;highlight&quot;&gt; hệ tuần hoàn hình thành &lt;/span
+          &gt;. Lúc này, &lt;strong&gt;phôi đã có thể nhìn thấy bằng mắt thường&lt;/strong&gt;.
+          &lt;span pTooltip&#x3D;&quot;Tim là cơ quan đầu tiên phát triển trong phôi thai&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; Tim bé &lt;/span&gt; cũng bắt đầu
+          phát triển.
+        &lt;/p&gt;
+        &lt;p&gt;&lt;strong&gt;Khuôn mặt bé&lt;/strong&gt; dần hình thành với &lt;strong&gt;mắt, mũi, miệng và tai&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;!-- Quá trình phát triển tế bào --&gt;
+        &lt;h3&gt;Quá trình phát triển tế bào&lt;/h3&gt;
+        &lt;p&gt;Các tế bào phân thành &lt;strong&gt;ba nhóm chính&lt;/strong&gt;, phát triển thành các bộ phận khác nhau:&lt;/p&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;strong&gt;Nhóm 1:&lt;/strong&gt; Da, mắt, tai và hệ thần kinh.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Nhóm 2:&lt;/strong&gt; Cơ, xương và mạch máu.&lt;/li&gt;
+          &lt;li&gt;&lt;strong&gt;Nhóm 3:&lt;/strong&gt; Hệ tiêu hóa, tuyến tụy và phổi.&lt;/li&gt;
+        &lt;/ul&gt;
+
+        &lt;p&gt;
+          &lt;span pTooltip&#x3D;&quot;Dây rốn cung cấp oxy và dưỡng chất cho thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; Dây rốn &lt;/span&gt; kết nối mẹ với
+          phôi, giúp &lt;strong&gt;cung cấp dưỡng chất và oxy&lt;/strong&gt;, đồng thời &lt;strong&gt;đào thải chất thải&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Phôi thai nằm trong khoang tử cung, được bao quanh bởi
+          &lt;span pTooltip&#x3D;&quot;Nước ối bảo vệ và nuôi dưỡng thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; nước ối &lt;/span&gt;.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (6) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Tim bé bắt đầu đập!&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Trong tuần này, &lt;strong&gt;4 tuần sau khi thụ tinh&lt;/strong&gt;, một phần quan trọng của phôi thai đã phát triển:
+          &lt;span pTooltip&#x3D;&quot;Ống thần kinh là cấu trúc từ đó hệ thần kinh trung ương của bé sẽ hình thành&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            ống thần kinh &lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Từ cấu trúc này, &lt;strong&gt;hệ thần kinh hoàn chỉnh&lt;/strong&gt; của bé sẽ hình thành, bao gồm
+          &lt;strong&gt;não bộ, tủy sống và các dây thần kinh&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Đến cuối tuần này, &lt;strong&gt;hai đầu của ống thần kinh sẽ đóng lại&lt;/strong&gt;. Một trong những lý do mẹ bầu nên bổ sung
+          &lt;span pTooltip&#x3D;&quot;Axit folic giúp ngăn ngừa các dị tật bẩm sinh liên quan đến ống thần kinh&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            axit folic
+          &lt;/span&gt;
+          trước và trong thai kỳ là để &lt;strong&gt;ngăn ngừa dị tật ống thần kinh&lt;/strong&gt;, chẳng hạn như
+          &lt;span
+            pTooltip&#x3D;&quot;Tật nứt đốt sống là một dị tật bẩm sinh xảy ra khi ống thần kinh không đóng hoàn toàn&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            tật nứt đốt sống &lt;/span
+          &gt;.
+        &lt;/p&gt;
+
+        &lt;!-- Nhịp tim bé --&gt;
+        &lt;h3&gt;💓 Tim bé bắt đầu đập!&lt;/h3&gt;
+        &lt;p&gt;Tuần 6 cũng là thời điểm &lt;strong&gt;tim của bé bắt đầu đập&lt;/strong&gt;.&lt;/p&gt;
+        &lt;p&gt;
+          Nhịp tim này có thể được quan sát qua
+          &lt;span pTooltip&#x3D;&quot;Siêu âm là phương pháp sử dụng sóng âm để quan sát sự phát triển của thai nhi&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            siêu âm &lt;/span
+          &gt;. Tuy nhiên, lúc này &lt;strong&gt;tim vẫn đang trong giai đoạn hình thành&lt;/strong&gt;, và trông giống như một
+          &lt;strong&gt;cục nhỏ nhô lên rõ ràng ở phía trước phôi thai&lt;/strong&gt;.
+        &lt;/p&gt;
+
+        &lt;!-- Hình dáng phôi thai --&gt;
+        &lt;h3&gt;📏 Hình dáng của phôi thai&lt;/h3&gt;
+        &lt;p&gt;
+          Vào tuần này, &lt;strong&gt;phôi thai trông giống như một hạt đậu nhỏ&lt;/strong&gt;, với &lt;strong&gt;chồi tay và chân&lt;/strong&gt; dần xuất hiện, cùng với
+          &lt;strong&gt;sự hình thành ban đầu của cổ&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Chiều dài của bé khoảng &lt;strong&gt;5 mm&lt;/strong&gt;, tính từ
+          &lt;span
+            pTooltip&#x3D;&quot;Chiều dài từ đỉnh đầu đến mông được dùng để đo sự phát triển của thai nhi trong giai đoạn đầu&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            đỉnh đầu đến mông &lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;Ngoài ra, các bộ phận như &lt;strong&gt;thấu kính mắt, tai trong, phổi, dạ dày, gan và tuyến tụy&lt;/strong&gt; cũng bắt đầu phát triển.&lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (7) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Tất cả về não bộ&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Tuần này đánh dấu
+          &lt;span pTooltip&#x3D;&quot;Sự phát triển của não bộ là một trong những cột mốc quan trọng nhất trong thai kỳ&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            sự phát triển quan trọng của não bộ&lt;/span
+          &gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Lúc này, &lt;strong&gt;vỏ não&lt;/strong&gt; bắt đầu hình thành với sự phát triển của &lt;strong&gt;hai bán cầu não&lt;/strong&gt;, &lt;strong&gt;vỏ đại não&lt;/strong&gt;, và
+          &lt;strong&gt;chất xám&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Đầu của bé đang dần hình thành&lt;/strong&gt;, và phần
+          &lt;span
+            pTooltip&#x3D;&quot;Phần sau của não phát triển mạnh hơn trong giai đoạn này, khiến đầu hơi nghiêng về phía trước&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            sau của não
+          &lt;/span&gt;
+          phát triển rộng hơn, khiến &lt;strong&gt;đầu hơi nghiêng về phía trước&lt;/strong&gt;.
+        &lt;/p&gt;
+
+        &lt;!-- Khuôn mặt bé --&gt;
+        &lt;h3&gt;👃 Khuôn mặt bé bắt đầu có hình dạng!&lt;/h3&gt;
+        &lt;p&gt;Lúc này, &lt;strong&gt;các lỗ mũi&lt;/strong&gt; đã có thể phân biệt rõ.&lt;/p&gt;
+        &lt;p&gt;
+          &lt;strong&gt;Nướu răng&lt;/strong&gt;, nơi sau này
+          &lt;span pTooltip&#x3D;&quot;Răng sữa là những chiếc răng đầu tiên của bé, mọc dần sau khi sinh&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            răng sữa sẽ mọc&lt;/span
+          &gt;, cũng đã được hình thành.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Ở hai bên đầu bé có &lt;strong&gt;hai vùng tối màu&lt;/strong&gt; – đó chính là
+          &lt;span pTooltip&#x3D;&quot;Sắc tố võng mạc là yếu tố quyết định màu sắc của mắt&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; đôi mắt &lt;/span&gt;!
+          &lt;strong&gt;Sắc tố võng mạc&lt;/strong&gt; là nguyên nhân khiến mắt bé có &lt;strong&gt;màu sẫm hơn&lt;/strong&gt;.
+        &lt;/p&gt;
+
+        &lt;!-- Tim và các cơ quan nội tạng --&gt;
+        &lt;h3&gt;🫀 Tim bé và các cơ quan nội tạng&lt;/h3&gt;
+        &lt;p&gt;
+          Tất cả
+          &lt;span
+            pTooltip&#x3D;&quot;Các cơ quan nội tạng như phổi, gan, và dạ dày đang trong giai đoạn hình thành nhưng chưa hoạt động&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            các cơ quan nội tạng quan trọng
+          &lt;/span&gt;
+          đã bắt đầu hình thành, mặc dù &lt;strong&gt;chưa hoạt động&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Tuần này,
+          &lt;span pTooltip&#x3D;&quot;Trái tim của bé đã có thể được quan sát rõ bốn khoang&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; các buồng tim &lt;/span&gt;
+          cũng có thể được phân biệt rõ ràng, bao gồm &lt;strong&gt;bốn khoang tim&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;
+          Bé yêu của bạn hiện tại dài khoảng &lt;strong&gt;10 mm&lt;/strong&gt;, tính từ
+          &lt;span pTooltip&#x3D;&quot;Chiều dài từ đỉnh đầu đến mông là cách đo tiêu chuẩn trong giai đoạn đầu thai kỳ&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            đỉnh đầu đến mông &lt;/span
+          &gt;.
+        &lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (8) {
+      &lt;!-- Tiêu đề --&gt;
+      &lt;div class&#x3D;&quot;book-title&quot;&gt;Bé bắt đầu cử động!&lt;/div&gt;
+
+      &lt;!-- Nội dung --&gt;
+      &lt;div class&#x3D;&quot;book-content&quot;&gt;
+        &lt;p&gt;
+          Trong tuần này, &lt;strong&gt;mí mắt và tai ngoài của bé&lt;/strong&gt; (trông giống như
+          &lt;span pTooltip&#x3D;&quot;Tai ngoài lúc này chỉ là hai vết lõm nhỏ ở hai bên đầu&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; hai vết lõm nhỏ &lt;/span&gt;)
+          bắt đầu phát triển.
+        &lt;/p&gt;
+        &lt;p&gt;Tuy nhiên, &lt;strong&gt;hai giác quan đầu tiên được kích hoạt&lt;/strong&gt; sẽ là &lt;strong&gt;khứu giác (ngửi) và vị giác (nếm)&lt;/strong&gt;.&lt;/p&gt;
+        &lt;p&gt;
+          Ở giai đoạn này, &lt;strong&gt;mũi và môi trên&lt;/strong&gt; của bé đã hình thành. Tuần 8 cũng là thời điểm các
+          &lt;span pTooltip&#x3D;&quot;Thụ thể mùi là các tế bào cảm nhận mùi đầu tiên của bé&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            thụ thể cảm nhận mùi
+          &lt;/span&gt;
+          bắt đầu xuất hiện.
+        &lt;/p&gt;
+
+        &lt;!-- Cử động của bé --&gt;
+        &lt;h3&gt;🤲 Bé bắt đầu cử động!&lt;/h3&gt;
+        &lt;p&gt;
+          Những
+          &lt;span pTooltip&#x3D;&quot;Chồi nhỏ này sẽ phát triển thành ngón tay và ngón chân&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt; chồi nhỏ ở cuối chi &lt;/span&gt;
+          sẽ dần phát triển thành &lt;strong&gt;ngón tay và ngón chân&lt;/strong&gt;.
+        &lt;/p&gt;
+        &lt;p&gt;Đồng thời, &lt;strong&gt;khuỷu tay và đầu gối&lt;/strong&gt; cũng có thể được nhận diện rõ ràng.&lt;/p&gt;
+        &lt;p&gt;Bé &lt;strong&gt;không còn bất động&lt;/strong&gt; nữa mà &lt;strong&gt;bắt đầu cử động thân mình và tứ chi&lt;/strong&gt;.&lt;/p&gt;
+        &lt;p&gt;
+          Bạn vẫn chưa thể cảm nhận được, nhưng
+          &lt;span pTooltip&#x3D;&quot;Bé đang chuyển động bên trong túi ối, nhưng mẹ chưa thể cảm thấy&quot; tooltipPosition&#x3D;&quot;top&quot; class&#x3D;&quot;highlight&quot;&gt;
+            bé đang chuyển động bên trong tử cung của bạn &lt;/span
+          &gt;!
+        &lt;/p&gt;
+
+        &lt;!-- Cơ quan nội tạng --&gt;
+        &lt;h3&gt;🫁 Cơ quan nội tạng bắt đầu hình thành&lt;/h3&gt;
+        &lt;p&gt;
+          Một số
+          &lt;span
+            pTooltip&#x3D;&quot;Dạ dày, ruột, tuyến tụy và thận là những cơ quan quan trọng bắt đầu phát triển trong tuần này&quot;
+            tooltipPosition&#x3D;&quot;top&quot;
+            class&#x3D;&quot;highlight&quot;
+          &gt;
+            cơ quan nội tạng quan trọng
+          &lt;/span&gt;
+          như &lt;strong&gt;dạ dày, ruột, tuyến tụy và thận&lt;/strong&gt; đang bắt đầu hình thành.
+        &lt;/p&gt;
+        &lt;p&gt;Tuy nhiên, ở thời điểm này, chúng &lt;strong&gt;vẫn chưa hoạt động&lt;/strong&gt;.&lt;/p&gt;
+
+        &lt;!-- Kích thước bé --&gt;
+        &lt;h3&gt;📏 Kích thước của bé&lt;/h3&gt;
+        &lt;p&gt;Cuối tuần này, bé dài khoảng &lt;strong&gt;12 mm&lt;/strong&gt;.&lt;/p&gt;
+      &lt;/div&gt;
+    }
+    @case (9) {
+      Case A.
+    }
+    @case (10) {
+      Case B.
+    }
+    @case (11) {
+      Case A.
+    }
+    @case (12) {
+      Case B.
+    }
+    @case (13) {
+      Case A.
+    }
+    @case (14) {
+      Case B.
+    }
+    @case (15) {
+      Case A.
+    }
+    @case (16) {
+      Case B.
+    }
+    @case (17) {
+      Case A.
+    }
+    @case (18) {
+      Case B.
+    }
+    @case (19) {
+      Case A.
+    }
+    @case (20) {
+      Case B.
+    }
+    @case (21) {
+      Case A.
+    }
+    @case (22) {
+      Case B.
+    }
+    @case (23) {
+      Case A.
+    }
+    @case (24) {
+      Case B.
+    }
+    @case (25) {
+      Case A.
+    }
+    @case (26) {
+      Case B.
+    }
+    @case (27) {
+      Case A.
+    }
+    @case (28) {
+      Case B.
+    }
+    @case (29) {
+      Case A.
+    }
+    @case (30) {
+      Case B.
+    }
+    @case (31) {
+      Case A.
+    }
+    @case (32) {
+      Case B.
+    }
+    @case (33) {
+      Case A.
+    }
+    @case (34) {
+      Case B.
+    }
+    @case (35) {
+      Case A.
+    }
+    @case (36) {
+      Case B.
+    }
+    @case (37) {
+      Case A.
+    }
+    @case (38) {
+      Case B.
+    }
+    @case (39) {
+      Case A.
+    }
+    @case (40) {
+      Case B.
+    }
+    @case (21) {
+      Case A.
+    }
+    @case (22) {
+      Case B.
+    }
+    @case (23) {
+      Case A.
+    }
+    @default {
+      Chúc mừng con bạn một tuổi
+    }
+  }
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div class="book-page flex flex-col">  @switch (countWeek) {    @case (0) {      Chưa có con    }    @case (1) {      <!-- Tiêu đề -->      <div class="book-title font-bold text-gray-700">Tại sao thai kỳ được tính là 40 tuần?</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Ngày          <span pTooltip="Thụ tinh là quá trình tinh trùng kết hợp với trứng để tạo thành phôi thai" tooltipPosition="top" class="highlight"            >thụ tinh</span          >          chính xác rất khó xác định. Để tính <strong>tuổi thai</strong>, các bác sĩ sử dụng          <span            pTooltip="Tuổi thai được tính dựa trên số tuần không có kinh nguyệt, chứ không phải từ ngày thụ tinh thực tế"            tooltipPosition="top"            class="highlight"          >            số tuần không có kinh nguyệt </span          >, tức là tính từ          <span pTooltip="Ngày đầu tiên của kỳ kinh nguyệt cuối cùng trước khi mang thai" tooltipPosition="top" class="highlight">            ngày đầu tiên của kỳ kinh cuối cùng </span          >.        </p>        <p>          Do đó,          <span            pTooltip="Ngày dự sinh được tính bằng cách lấy ngày đầu kỳ kinh cuối cùng và cộng thêm 280 ngày (40 tuần)"            tooltipPosition="top"            class="highlight"          >            ngày dự sinh          </span>          được tính dựa trên ngày đầu tiên của <strong>kỳ kinh cuối cùng</strong>. Khi sử dụng phương pháp này,          <strong>14 ngày được cộng thêm vào tuổi thai</strong>. Vì vậy, trên thực tế,          <strong>trong 2 tuần đầu tiên, bạn chưa thực sự mang thai</strong>.        </p>      </div>    }    @case (2) {      <!-- Tiêu đề -->      <div class="book-title font-bold text-gray-700">Rụng trứng</div>      <!-- Nội dung -->      <div class="book-content">        <p>          <strong>Rụng trứng</strong> là thời điểm một trong hai <strong>buồng trứng</strong> (trái hoặc phải) giải phóng một <strong>trứng</strong>.          Phụ nữ thường rụng trứng <strong>14 ngày trước kỳ kinh</strong>, nhưng thời gian này có thể thay đổi từ <strong>11–18 ngày</strong>, tùy          thuộc vào          <span            pTooltip="Chu kỳ kinh nguyệt là khoảng thời gian từ ngày đầu của kỳ kinh này đến ngày đầu của kỳ kinh tiếp theo"            tooltipPosition="right"            class="highlight"          >            độ dài chu kỳ kinh nguyệt </span          >.        </p>        <p>          Trứng sau khi rụng sẽ <strong>di chuyển xuống </strong>          <span pTooltip="Ống dẫn trứng là nơi trứng di chuyển từ buồng trứng đến tử cung" tooltipPosition="top" class="highlight">            ống dẫn trứng </span          >, nơi diễn ra          <span pTooltip="Thụ tinh là quá trình tinh trùng kết hợp với trứng để tạo thành phôi thai" tooltipPosition="right" class="highlight">            quá trình thụ tinh </span          >, sau đó tiếp tục đến          <span pTooltip="Tử cung là nơi trứng đã thụ tinh làm tổ và phát triển thành thai nhi" tooltipPosition="top" class="highlight">            tử cung </span          >.        </p>        <p>          Tuổi thọ của trứng chỉ kéo dài <strong>12–24 giờ</strong>. Tuy nhiên,          <span pTooltip="Khoảng thời gian dễ thụ thai, tính từ trước khi rụng trứng" tooltipPosition="top" class="highlight">            giai đoạn dễ thụ thai          </span>          kéo dài khoảng <strong>5 ngày</strong> mỗi tháng, tính từ <strong>4 ngày trước khi rụng trứng</strong> đến <strong>24 giờ sau</strong>.        </p>        <p>          <strong>Tinh trùng</strong> có thể sống trong cơ thể phụ nữ từ <strong>3–5 ngày</strong>, tạo điều kiện cho quá trình          <span pTooltip="Thụ tinh là quá trình tinh trùng kết hợp với trứng" tooltipPosition="top" class="highlight"> thụ tinh </span> diễn ra.        </p>      </div>    }    @case (3) {      <!-- Tiêu đề -->      <div class="book-title">Thụ tinh – Khởi đầu của sự sống</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Một <strong>tinh trùng</strong> xâm nhập vào <strong>trứng</strong>, cả hai hợp nhất và tạo thành một <strong>tế bào đơn lẻ</strong>. Đây          chính là          <span pTooltip="Thụ tinh là sự kết hợp giữa trứng và tinh trùng" tooltipPosition="top" class="highlight">khoảnh khắc thụ tinh</span>, đánh          dấu <strong>sự khởi đầu thực sự của thai kỳ</strong>.        </p>        <p>          Từ tế bào đơn lẻ này, thai nhi sẽ cần nhiều tháng để phát triển. Nhưng ngay từ lúc này, nó đã có đầy đủ          <strong>thông tin di truyền quan trọng</strong> như <strong>giới tính, màu mắt, chiều cao, màu da</strong> – tất cả chỉ nằm trong một tế bào          nhỏ bé bằng đầu kim!        </p>        <p>          Trong những ngày đầu tiên, trứng đã thụ tinh sẽ          <b>di chuyển từ ống dẫn trứng xuống </b>          <span pTooltip="Tử cung là cơ quan trong cơ thể nữ giới, nơi thai nhi phát triển trong suốt thai kỳ" tooltipPosition="top" class="highlight"            >tử cung</span          >. Trên hành trình này, trứng bắt đầu phân chia: từ <strong>một tế bào thành hai</strong>, sau đó <strong>bốn tế bào</strong>, rồi          <strong>tám tế bào</strong>, và tiếp tục nhân lên. Đây chính là quá trình từng bước hình thành nên          <strong>các cơ quan, chi và hệ thống cơ thể của con người</strong>.        </p>        <p class="warning">          Trong một số trường hợp hiếm gặp, trứng đã thụ tinh <strong>không làm tổ trong tử cung</strong> mà bám vào          <span            pTooltip="Ống dẫn trứng là cấu trúc nối giữa buồng trứng và tử cung, nơi thường xảy ra hiện tượng thai ngoài tử cung"            tooltipPosition="top"            class="highlight highlight-warning"            >ống dẫn trứng</span          >. Đây được gọi là          <span            pTooltip="Thai ngoài tử cung không thể phát triển bình thường và cần được xử lý y tế"            tooltipPosition="right"            class="highlight highlight-warning"            >thai ngoài tử cung</span          >. Khi điều này xảy ra, <strong>thai kỳ không thể tiếp tục và cần được chấm dứt để bảo vệ sức khỏe của người mẹ</strong>.        </p>      </div>    }    @case (4) {      <!-- Tiêu đề -->      <div class="book-title">Sự làm tổ của trứng đã thụ tinh</div>      <!-- Nội dung -->      <div class="book-content">        <p>          <strong>Trứng đã thụ tinh</strong> bám vào thành tử cung. Quá trình này gọi là <strong>làm tổ</strong>, kéo dài trong          <strong>vài ngày</strong> và cần có sự sản xuất của một          <span pTooltip="hCG là hormone giúp duy trì thai kỳ, do trứng tiết ra" tooltipPosition="right" class="highlight">hormone đặc biệt: hCG</span          >. Đây chính là hormone mà <strong>que thử thai phát hiện</strong>. Nồng độ <strong>hCG sẽ tăng gấp đôi sau mỗi 2–3 ngày</strong> trong giai          đoạn đầu của thai kỳ, đạt đỉnh vào khoảng <strong>tuần thứ 8–10</strong>.        </p>        <p>          Sự xuất hiện của hCG cũng kích thích sản xuất          <span pTooltip="Progesterone giúp giữ lớp niêm mạc tử cung để hỗ trợ thai nhi" tooltipPosition="top" class="highlight">progesterone</span>,          giúp <strong>duy trì lớp niêm mạc tử cung</strong>. Khi quá trình này diễn ra, trứng dần          <strong>xâm nhập sâu hơn vào thành tử cung</strong> để hấp thụ <strong>chất dinh dưỡng và oxy</strong> từ các mạch máu xung quanh.        </p>        <p>          Ở thời điểm này, <strong>trứng có đường kính khoảng 4–5 mm</strong>, chứa nhiều tế bào và có hình dạng          <strong>giống như một quả mâm xôi</strong>. Trứng được cấu tạo bởi <strong>hai lớp</strong>:        </p>        <ul>          <li><strong>Lớp bên trong</strong> sẽ phát triển thành <strong>phôi thai</strong>.</li>          <li>            <strong>Lớp bên ngoài</strong> sẽ trở thành            <span pTooltip="Nhau thai cung cấp chất dinh dưỡng và oxy cho thai nhi" tooltipPosition="top" class="highlight">nhau thai</span>, bao bọc            và cung cấp dinh dưỡng cho phôi.          </li>        </ul>        <p>Ở giai đoạn này, <strong>hệ thần kinh sơ khai đầu tiên đã hình thành</strong>.</p>      </div>    }    @case (5) {      <!-- Tiêu đề -->      <div class="book-title">Dây rốn</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Tuần thứ 5, <strong>phôi thai</strong> bắt đầu <strong>kéo dài</strong>, trông như một <strong>chú cá ngựa tí hon</strong>, dài khoảng          <strong>2.5 mm</strong>.        </p>        <p>          Phôi thai phát triển mạnh do          <span pTooltip="Hệ tuần hoàn vận chuyển máu và oxy đi khắp cơ thể" tooltipPosition="right" class="highlight"> hệ tuần hoàn hình thành </span          >. Lúc này, <strong>phôi đã có thể nhìn thấy bằng mắt thường</strong>.          <span pTooltip="Tim là cơ quan đầu tiên phát triển trong phôi thai" tooltipPosition="top" class="highlight"> Tim bé </span> cũng bắt đầu          phát triển.        </p>        <p><strong>Khuôn mặt bé</strong> dần hình thành với <strong>mắt, mũi, miệng và tai</strong>.</p>        <!-- Quá trình phát triển tế bào -->        <h3>Quá trình phát triển tế bào</h3>        <p>Các tế bào phân thành <strong>ba nhóm chính</strong>, phát triển thành các bộ phận khác nhau:</p>        <ul>          <li><strong>Nhóm 1:</strong> Da, mắt, tai và hệ thần kinh.</li>          <li><strong>Nhóm 2:</strong> Cơ, xương và mạch máu.</li>          <li><strong>Nhóm 3:</strong> Hệ tiêu hóa, tuyến tụy và phổi.</li>        </ul>        <p>          <span pTooltip="Dây rốn cung cấp oxy và dưỡng chất cho thai nhi" tooltipPosition="top" class="highlight"> Dây rốn </span> kết nối mẹ với          phôi, giúp <strong>cung cấp dưỡng chất và oxy</strong>, đồng thời <strong>đào thải chất thải</strong>.        </p>        <p>          Phôi thai nằm trong khoang tử cung, được bao quanh bởi          <span pTooltip="Nước ối bảo vệ và nuôi dưỡng thai nhi" tooltipPosition="top" class="highlight"> nước ối </span>.        </p>      </div>    }    @case (6) {      <!-- Tiêu đề -->      <div class="book-title">Tim bé bắt đầu đập!</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Trong tuần này, <strong>4 tuần sau khi thụ tinh</strong>, một phần quan trọng của phôi thai đã phát triển:          <span pTooltip="Ống thần kinh là cấu trúc từ đó hệ thần kinh trung ương của bé sẽ hình thành" tooltipPosition="top" class="highlight">            ống thần kinh </span          >.        </p>        <p>          Từ cấu trúc này, <strong>hệ thần kinh hoàn chỉnh</strong> của bé sẽ hình thành, bao gồm          <strong>não bộ, tủy sống và các dây thần kinh</strong>.        </p>        <p>          Đến cuối tuần này, <strong>hai đầu của ống thần kinh sẽ đóng lại</strong>. Một trong những lý do mẹ bầu nên bổ sung          <span pTooltip="Axit folic giúp ngăn ngừa các dị tật bẩm sinh liên quan đến ống thần kinh" tooltipPosition="top" class="highlight">            axit folic          </span>          trước và trong thai kỳ là để <strong>ngăn ngừa dị tật ống thần kinh</strong>, chẳng hạn như          <span            pTooltip="Tật nứt đốt sống là một dị tật bẩm sinh xảy ra khi ống thần kinh không đóng hoàn toàn"            tooltipPosition="top"            class="highlight"          >            tật nứt đốt sống </span          >.        </p>        <!-- Nhịp tim bé -->        <h3>💓 Tim bé bắt đầu đập!</h3>        <p>Tuần 6 cũng là thời điểm <strong>tim của bé bắt đầu đập</strong>.</p>        <p>          Nhịp tim này có thể được quan sát qua          <span pTooltip="Siêu âm là phương pháp sử dụng sóng âm để quan sát sự phát triển của thai nhi" tooltipPosition="top" class="highlight">            siêu âm </span          >. Tuy nhiên, lúc này <strong>tim vẫn đang trong giai đoạn hình thành</strong>, và trông giống như một          <strong>cục nhỏ nhô lên rõ ràng ở phía trước phôi thai</strong>.        </p>        <!-- Hình dáng phôi thai -->        <h3>📏 Hình dáng của phôi thai</h3>        <p>          Vào tuần này, <strong>phôi thai trông giống như một hạt đậu nhỏ</strong>, với <strong>chồi tay và chân</strong> dần xuất hiện, cùng với          <strong>sự hình thành ban đầu của cổ</strong>.        </p>        <p>          Chiều dài của bé khoảng <strong>5 mm</strong>, tính từ          <span            pTooltip="Chiều dài từ đỉnh đầu đến mông được dùng để đo sự phát triển của thai nhi trong giai đoạn đầu"            tooltipPosition="top"            class="highlight"          >            đỉnh đầu đến mông </span          >.        </p>        <p>Ngoài ra, các bộ phận như <strong>thấu kính mắt, tai trong, phổi, dạ dày, gan và tuyến tụy</strong> cũng bắt đầu phát triển.</p>      </div>    }    @case (7) {      <!-- Tiêu đề -->      <div class="book-title">Tất cả về não bộ</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Tuần này đánh dấu          <span pTooltip="Sự phát triển của não bộ là một trong những cột mốc quan trọng nhất trong thai kỳ" tooltipPosition="top" class="highlight">            sự phát triển quan trọng của não bộ</span          >.        </p>        <p>          Lúc này, <strong>vỏ não</strong> bắt đầu hình thành với sự phát triển của <strong>hai bán cầu não</strong>, <strong>vỏ đại não</strong>, và          <strong>chất xám</strong>.        </p>        <p>          <strong>Đầu của bé đang dần hình thành</strong>, và phần          <span            pTooltip="Phần sau của não phát triển mạnh hơn trong giai đoạn này, khiến đầu hơi nghiêng về phía trước"            tooltipPosition="top"            class="highlight"          >            sau của não          </span>          phát triển rộng hơn, khiến <strong>đầu hơi nghiêng về phía trước</strong>.        </p>        <!-- Khuôn mặt bé -->        <h3>👃 Khuôn mặt bé bắt đầu có hình dạng!</h3>        <p>Lúc này, <strong>các lỗ mũi</strong> đã có thể phân biệt rõ.</p>        <p>          <strong>Nướu răng</strong>, nơi sau này          <span pTooltip="Răng sữa là những chiếc răng đầu tiên của bé, mọc dần sau khi sinh" tooltipPosition="top" class="highlight">            răng sữa sẽ mọc</span          >, cũng đã được hình thành.        </p>        <p>          Ở hai bên đầu bé có <strong>hai vùng tối màu</strong> – đó chính là          <span pTooltip="Sắc tố võng mạc là yếu tố quyết định màu sắc của mắt" tooltipPosition="top" class="highlight"> đôi mắt </span>!          <strong>Sắc tố võng mạc</strong> là nguyên nhân khiến mắt bé có <strong>màu sẫm hơn</strong>.        </p>        <!-- Tim và các cơ quan nội tạng -->        <h3>🫀 Tim bé và các cơ quan nội tạng</h3>        <p>          Tất cả          <span            pTooltip="Các cơ quan nội tạng như phổi, gan, và dạ dày đang trong giai đoạn hình thành nhưng chưa hoạt động"            tooltipPosition="top"            class="highlight"          >            các cơ quan nội tạng quan trọng          </span>          đã bắt đầu hình thành, mặc dù <strong>chưa hoạt động</strong>.        </p>        <p>          Tuần này,          <span pTooltip="Trái tim của bé đã có thể được quan sát rõ bốn khoang" tooltipPosition="top" class="highlight"> các buồng tim </span>          cũng có thể được phân biệt rõ ràng, bao gồm <strong>bốn khoang tim</strong>.        </p>        <p>          Bé yêu của bạn hiện tại dài khoảng <strong>10 mm</strong>, tính từ          <span pTooltip="Chiều dài từ đỉnh đầu đến mông là cách đo tiêu chuẩn trong giai đoạn đầu thai kỳ" tooltipPosition="top" class="highlight">            đỉnh đầu đến mông </span          >.        </p>      </div>    }    @case (8) {      <!-- Tiêu đề -->      <div class="book-title">Bé bắt đầu cử động!</div>      <!-- Nội dung -->      <div class="book-content">        <p>          Trong tuần này, <strong>mí mắt và tai ngoài của bé</strong> (trông giống như          <span pTooltip="Tai ngoài lúc này chỉ là hai vết lõm nhỏ ở hai bên đầu" tooltipPosition="top" class="highlight"> hai vết lõm nhỏ </span>)          bắt đầu phát triển.        </p>        <p>Tuy nhiên, <strong>hai giác quan đầu tiên được kích hoạt</strong> sẽ là <strong>khứu giác (ngửi) và vị giác (nếm)</strong>.</p>        <p>          Ở giai đoạn này, <strong>mũi và môi trên</strong> của bé đã hình thành. Tuần 8 cũng là thời điểm các          <span pTooltip="Thụ thể mùi là các tế bào cảm nhận mùi đầu tiên của bé" tooltipPosition="top" class="highlight">            thụ thể cảm nhận mùi          </span>          bắt đầu xuất hiện.        </p>        <!-- Cử động của bé -->        <h3>🤲 Bé bắt đầu cử động!</h3>        <p>          Những          <span pTooltip="Chồi nhỏ này sẽ phát triển thành ngón tay và ngón chân" tooltipPosition="top" class="highlight"> chồi nhỏ ở cuối chi </span>          sẽ dần phát triển thành <strong>ngón tay và ngón chân</strong>.        </p>        <p>Đồng thời, <strong>khuỷu tay và đầu gối</strong> cũng có thể được nhận diện rõ ràng.</p>        <p>Bé <strong>không còn bất động</strong> nữa mà <strong>bắt đầu cử động thân mình và tứ chi</strong>.</p>        <p>          Bạn vẫn chưa thể cảm nhận được, nhưng          <span pTooltip="Bé đang chuyển động bên trong túi ối, nhưng mẹ chưa thể cảm thấy" tooltipPosition="top" class="highlight">            bé đang chuyển động bên trong tử cung của bạn </span          >!        </p>        <!-- Cơ quan nội tạng -->        <h3>🫁 Cơ quan nội tạng bắt đầu hình thành</h3>        <p>          Một số          <span            pTooltip="Dạ dày, ruột, tuyến tụy và thận là những cơ quan quan trọng bắt đầu phát triển trong tuần này"            tooltipPosition="top"            class="highlight"          >            cơ quan nội tạng quan trọng          </span>          như <strong>dạ dày, ruột, tuyến tụy và thận</strong> đang bắt đầu hình thành.        </p>        <p>Tuy nhiên, ở thời điểm này, chúng <strong>vẫn chưa hoạt động</strong>.</p>        <!-- Kích thước bé -->        <h3>📏 Kích thước của bé</h3>        <p>Cuối tuần này, bé dài khoảng <strong>12 mm</strong>.</p>      </div>    }    @case (9) {      Case A.    }    @case (10) {      Case B.    }    @case (11) {      Case A.    }    @case (12) {      Case B.    }    @case (13) {      Case A.    }    @case (14) {      Case B.    }    @case (15) {      Case A.    }    @case (16) {      Case B.    }    @case (17) {      Case A.    }    @case (18) {      Case B.    }    @case (19) {      Case A.    }    @case (20) {      Case B.    }    @case (21) {      Case A.    }    @case (22) {      Case B.    }    @case (23) {      Case A.    }    @case (24) {      Case B.    }    @case (25) {      Case A.    }    @case (26) {      Case B.    }    @case (27) {      Case A.    }    @case (28) {      Case B.    }    @case (29) {      Case A.    }    @case (30) {      Case B.    }    @case (31) {      Case A.    }    @case (32) {      Case B.    }    @case (33) {      Case A.    }    @case (34) {      Case B.    }    @case (35) {      Case A.    }    @case (36) {      Case B.    }    @case (37) {      Case A.    }    @case (38) {      Case B.    }    @case (39) {      Case A.    }    @case (40) {      Case B.    }    @case (21) {      Case A.    }    @case (22) {      Case B.    }    @case (23) {      Case A.    }    @default {      Chúc mừng con bạn một tuổi    }  }</div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'PregnancyWeekInfoComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'PregnancyWeekInfoComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

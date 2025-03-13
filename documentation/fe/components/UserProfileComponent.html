@@ -1,0 +1,1303 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  UserProfileComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>apps/fe-fuse/src/app/modules/profile/user-profile.component.ts</code>
+</p>
+
+
+
+
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-user-profile</code></td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">imports</td>
+                <td class="col-md-9">
+                            <code>MatFormFieldModule</code>
+                            <code>MatInputModule</code>
+                            <code>MatSelectModule</code>
+                            <code>MatButtonModule</code>
+                            <code>ReactiveFormsModule</code>
+                            <code>MatDatepickerModule</code>
+                            <code>MatIconModule</code>
+                            <code>CommonModule</code>
+                            <code>MatCardModule</code>
+                            <code>MatDividerModule</code>
+                </td>
+            </tr>
+
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./user-profile.component.html</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrl</td>
+                <td class="col-md-9"><code>./user-profile.component.scss</code></td>
+            </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#avatarPreview" >avatarPreview</a>
+                            </li>
+                            <li>
+                                <a href="#count" >count</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#districts" >districts</a>
+                            </li>
+                            <li>
+                                <a href="#profileForm" >profileForm</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#provinces" >provinces</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Protected</span>
+                                <a href="#wards" >wards</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#expectedBirthDateChange" >expectedBirthDateChange</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onDistrictSelected" >onDistrictSelected</a>
+                            </li>
+                            <li>
+                                <a href="#onFileSelected" >onFileSelected</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#onProvinceSelected" >onProvinceSelected</a>
+                            </li>
+                            <li>
+                                <a href="#onSubmit" >onSubmit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(fb: FormBuilder, _httpClient: HttpClient, router: Router)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:42</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>fb</td>
+                                                  
+                                                        <td>
+                                                                    <code>FormBuilder</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>_httpClient</td>
+                                                  
+                                                        <td>
+                                                                    <code>HttpClient</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>router</td>
+                                                  
+                                                        <td>
+                                                                    <code>Router</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="expectedBirthDateChange"></a>
+                    <span class="name">
+                        <span ><b>expectedBirthDateChange</b></span>
+                        <a href="#expectedBirthDateChange"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>expectedBirthDateChange(event: MatDatepickerInputEvent<any>)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="151"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:151</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>MatDatepickerInputEvent&lt;any&gt;</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onDistrictSelected"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onDistrictSelected</b></span>
+                        <a href="#onDistrictSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onDistrictSelected(district_code_input: MatSelectChange)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="109"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:109</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>district_code_input</td>
+                                            <td>
+                                                        <code>MatSelectChange</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onFileSelected"></a>
+                    <span class="name">
+                        <span ><b>onFileSelected</b></span>
+                        <a href="#onFileSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onFileSelected(event: Event)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="121"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:121</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>event</td>
+                                            <td>
+                                                        <code>Event</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onProvinceSelected"></a>
+                    <span class="name">
+                            <span class="modifier">Async</span>
+                        <span ><b>onProvinceSelected</b></span>
+                        <a href="#onProvinceSelected"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>onProvinceSelected(province_code_input: MatSelectChange)</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="96"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:96</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                            <div class="io-description">
+                                <b>Parameters :</b>
+                                
+                                <table class="params">
+                                    <thead>
+                                        <tr>
+                                            <td>Name</td>
+                                                <td>Type</td>
+                                            <td>Optional</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                                <td>province_code_input</td>
+                                            <td>
+                                                        <code>MatSelectChange</code>
+                                            </td>
+
+                                            <td>
+                                                    No
+                                            </td>
+
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </div>
+                            <div class="io-description">
+                                
+                            </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onSubmit"></a>
+                    <span class="name">
+                        <span ><b>onSubmit</b></span>
+                        <a href="#onSubmit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onSubmit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="131"
+                                    class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:131</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="avatarPreview"></a>
+                    <span class="name">
+                        <span ><b>avatarPreview</b></span>
+                        <a href="#avatarPreview"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>string | ArrayBuffer | null</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>null</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="count"></a>
+                    <span class="name">
+                        <span ><b>count</b></span>
+                        <a href="#count"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>0</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="37" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:37</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="districts"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>districts</b></span>
+                        <a href="#districts"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/District.html" target="_self" >District[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="41" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:41</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="profileForm"></a>
+                    <span class="name">
+                        <span ><b>profileForm</b></span>
+                        <a href="#profileForm"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>FormGroup</code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="38" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:38</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="provinces"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>provinces</b></span>
+                        <a href="#provinces"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Province.html" target="_self" >Province[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="40" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:40</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="wards"></a>
+                    <span class="name">
+                            <span class="modifier">Protected</span>
+                        <span ><b>wards</b></span>
+                        <a href="#wards"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../interfaces/Ward.html" target="_self" >Ward[]</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>[]</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="42" class="link-to-prism">apps/fe-fuse/src/app/modules/profile/user-profile.component.ts:42</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { CommonModule } from &#x27;@angular/common&#x27;;
+import { HttpClient } from &#x27;@angular/common/http&#x27;;
+import { Component } from &#x27;@angular/core&#x27;;
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from &#x27;@angular/forms&#x27;;
+import { MatButtonModule } from &#x27;@angular/material/button&#x27;;
+import { MatCardModule } from &#x27;@angular/material/card&#x27;;
+import { MatDatepickerInputEvent, MatDatepickerModule } from &#x27;@angular/material/datepicker&#x27;;
+import { MatDividerModule } from &#x27;@angular/material/divider&#x27;;
+import { MatFormFieldModule } from &#x27;@angular/material/form-field&#x27;;
+import { MatIconModule } from &#x27;@angular/material/icon&#x27;;
+import { MatInputModule } from &#x27;@angular/material/input&#x27;;
+import { MatSelectChange, MatSelectModule } from &#x27;@angular/material/select&#x27;;
+import { Router } from &#x27;@angular/router&#x27;;
+import { UserProfileResponseType, UserUpdateRequestType } from &#x27;@pregnancy-journal-monorepo/contract&#x27;;
+import { DateTime } from &#x27;luxon&#x27;;
+import { environment } from &#x27;../../../environments/environment&#x27;;
+import { District, Province, Ward } from &#x27;../auth/confirmation-required/confirmation-required.type&#x27;;
+
+@Component({
+  selector: &#x27;app-user-profile&#x27;,
+  imports: [
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatIconModule,
+    CommonModule,
+    MatCardModule,
+    MatDividerModule,
+  ],
+  templateUrl: &#x27;./user-profile.component.html&#x27;,
+  styleUrl: &#x27;./user-profile.component.scss&#x27;,
+})
+export class UserProfileComponent {
+  count &#x3D; 0;
+  profileForm: FormGroup;
+  avatarPreview: string | ArrayBuffer | null &#x3D; null;
+  protected provinces: Province[] &#x3D; [];
+  protected districts: District[] &#x3D; [];
+  protected wards: Ward[] &#x3D; [];
+
+  constructor(
+    private fb: FormBuilder,
+    private _httpClient: HttpClient,
+    private router: Router,
+  ) {
+    this.profileForm &#x3D; this.fb.group({
+      avatar: [null],
+      email: [&#x27;&#x27;, [Validators.required, Validators.email]],
+      name: [&#x27;&#x27;, Validators.required],
+      expected_birth_date: [&#x27;&#x27;, Validators.required],
+      phone: [&#x27;&#x27;, [Validators.required, Validators.pattern(/^[0-9]{10,11}$/)]],
+      province: [&#x27;&#x27;, Validators.required],
+      district: [&#x27;&#x27;, Validators.required],
+      ward: [&#x27;&#x27;, Validators.required],
+      address: [&#x27;&#x27;, Validators.required],
+    });
+
+    fetch(&#x27;https://provinces.open-api.vn/api/p&#x27;)
+      .then((response) &#x3D;&gt; {
+        return response.json();
+      })
+      .then((provinces: Province[]) &#x3D;&gt; {
+        this.provinces &#x3D; provinces;
+      });
+
+    this._httpClient.get&lt;UserProfileResponseType&gt;(environment.apiUrl + &#x27;users/profile&#x27;).subscribe((profile) &#x3D;&gt; {
+      this.profileForm.patchValue({
+        email: profile.email,
+        name: profile.name,
+        expected_birth_date: DateTime.fromISO(new Date(profile.expected_birth_date).toISOString()),
+        phone: profile.phone,
+        address: profile.address,
+      });
+
+      Promise.all([
+        fetch(&#x60;https://provinces.open-api.vn/api/p/${profile.province}?depth&#x3D;2&#x60;),
+        fetch(&#x60;https://provinces.open-api.vn/api/d/${profile.district}?depth&#x3D;2&#x60;),
+      ]).then(async ([province_response, district_response]) &#x3D;&gt; {
+        const province &#x3D; await province_response.json();
+        const district &#x3D; await district_response.json();
+        this.districts &#x3D; province.districts!;
+        this.wards &#x3D; district.wards!;
+        this.profileForm.patchValue({
+          province: profile.province,
+          district: profile.district,
+          ward: profile.ward,
+        });
+        console.log(this.profileForm.value);
+      });
+    });
+  }
+
+  async onProvinceSelected(province_code_input: MatSelectChange) {
+    const province_code &#x3D; province_code_input.value;
+    this.wards &#x3D; [];
+    this.districts &#x3D; [];
+    fetch(&#x60;https://provinces.open-api.vn/api/p/${province_code}?depth&#x3D;2&#x60;)
+      .then((response) &#x3D;&gt; {
+        return response.json();
+      })
+      .then((province: Province) &#x3D;&gt; {
+        this.districts &#x3D; province.districts!;
+      });
+  }
+
+  async onDistrictSelected(district_code_input: MatSelectChange) {
+    const district_code &#x3D; district_code_input.value;
+    this.wards &#x3D; [];
+    fetch(&#x60;https://provinces.open-api.vn/api/d/${district_code}?depth&#x3D;2&#x60;)
+      .then((response) &#x3D;&gt; {
+        return response.json();
+      })
+      .then((district: District) &#x3D;&gt; {
+        this.wards &#x3D; district.wards!;
+      });
+  }
+
+  onFileSelected(event: Event) {
+    const file &#x3D; (event.target as HTMLInputElement).files?.[0];
+    if (file) {
+      this.profileForm.patchValue({ avatar: file });
+      const reader &#x3D; new FileReader();
+      reader.onload &#x3D; () &#x3D;&gt; (this.avatarPreview &#x3D; reader.result);
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onSubmit() {
+    if (this.profileForm.valid) {
+      const data: UserUpdateRequestType &#x3D; {
+        email: this.profileForm.value.email,
+        name: this.profileForm.value.name,
+        expected_birth_date: this.profileForm.value.expected_birth_date.toJSDate(),
+        phone: this.profileForm.value.phone,
+        province: this.profileForm.value.province.toString(),
+        district: this.profileForm.value.district.toString(),
+        ward: this.profileForm.value.ward.toString(),
+        address: this.profileForm.value.address,
+      };
+      this._httpClient.patch&lt;UserProfileResponseType&gt;(environment.apiUrl + &#x27;users/profile&#x27;, data).subscribe(() &#x3D;&gt; {
+        this.router.navigate([&#x27;/user-profile&#x27;]).then(() &#x3D;&gt; {
+          console.log(&#x27;Profile updated&#x27;);
+        });
+      });
+    }
+  }
+
+  expectedBirthDateChange(event: MatDatepickerInputEvent&lt;any&gt;) {
+    const date_as_iso_string &#x3D; (event.value as DateTime).plus({ hour: 7 });
+    this.profileForm.patchValue({ expected_birth_date: date_as_iso_string });
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;!-- Profile Form --&gt;
+&lt;div class&#x3D;&quot;w-full bg-gray-50 p-6 md:p-6&quot;&gt;
+  &lt;!-- Header Section --&gt;
+  &lt;div class&#x3D;&quot;mb-6 flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm&quot;&gt;
+    &lt;div class&#x3D;&quot;relative&quot;&gt;
+      &lt;!-- Profile Avatar --&gt;
+      @if (avatarPreview) {
+        &lt;img src&#x3D;&quot;{{ avatarPreview }}&quot; class&#x3D;&quot;h-16 w-16 rounded-full object-cover&quot; alt&#x3D;&quot;avt&quot; /&gt;
+      } @else {
+        &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-16 w-16 text-pink-300&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+          &lt;path
+            d&#x3D;&quot;M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z&quot;
+          /&gt;
+        &lt;/svg&gt;
+      }
+      &lt;!-- Camera Button --&gt;
+      &lt;button
+        (click)&#x3D;&quot;fileInput.click()&quot;
+        class&#x3D;&quot;absolute -bottom-2 -right-2 rounded-full bg-pink-500 p-1 text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300&quot;
+      &gt;
+        &lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; class&#x3D;&quot;h-5 w-5&quot; viewBox&#x3D;&quot;0 0 24 24&quot; fill&#x3D;&quot;currentColor&quot;&gt;
+          &lt;path d&#x3D;&quot;M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z&quot; /&gt;
+          &lt;path
+            d&#x3D;&quot;M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z&quot;
+          /&gt;
+        &lt;/svg&gt;
+      &lt;/button&gt;
+      &lt;input #fileInput type&#x3D;&quot;file&quot; hidden (change)&#x3D;&quot;onFileSelected($event)&quot; accept&#x3D;&quot;image/*&quot; /&gt;
+    &lt;/div&gt;
+    &lt;h1 class&#x3D;&quot;m-0 text-2xl font-medium text-pink-500&quot;&gt;Hồ sơ của tôi&lt;/h1&gt;
+  &lt;/div&gt;
+
+  &lt;!-- Form Section --&gt;
+  &lt;form [formGroup]&#x3D;&quot;profileForm&quot; class&#x3D;&quot;space-y-6&quot; (submit)&#x3D;&quot;onSubmit()&quot;&gt;
+    &lt;!-- Personal Information Card --&gt;
+    &lt;mat-card class&#x3D;&quot;overflow-hidden rounded-xl shadow-sm&quot;&gt;
+      &lt;mat-card-header class&#x3D;&quot;bg-pink-50 p-4&quot;&gt;
+        &lt;mat-card-title class&#x3D;&quot;text-lg font-medium text-pink-500&quot;&gt;Thông tin cá nhân&lt;/mat-card-title&gt;
+      &lt;/mat-card-header&gt;
+      &lt;mat-divider&gt;&lt;/mat-divider&gt;
+      &lt;mat-card-content class&#x3D;&quot;p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;grid grid-cols-1 gap-4 md:grid-cols-2&quot;&gt;
+          &lt;!-- Name Field --&gt;
+          &lt;div&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+              &lt;mat-label&gt;Họ và tên&lt;/mat-label&gt;
+              &lt;input matInput formControlName&#x3D;&quot;name&quot; placeholder&#x3D;&quot;Nhập họ và tên của bạn&quot; /&gt;
+              &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;name&#x27;)?.invalid&quot;&gt;Vui lòng nhập họ và tên&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Email Field --&gt;
+          &lt;div&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+              &lt;mat-label&gt;Địa chỉ email&lt;/mat-label&gt;
+              &lt;input matInput formControlName&#x3D;&quot;email&quot; placeholder&#x3D;&quot;Nhập địa chỉ email của bạn&quot; type&#x3D;&quot;email&quot; /&gt;
+              &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;email&#x27;)?.invalid&quot;&gt;Vui lòng nhập email hợp lệ&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Birth Date Field --&gt;
+          &lt;div&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+              &lt;mat-label&gt;Ngày dự sinh&lt;/mat-label&gt;
+              &lt;input (dateChange)&#x3D;&quot;expectedBirthDateChange($event)&quot; matInput [matDatepicker]&#x3D;&quot;picker&quot; formControlName&#x3D;&quot;expected_birth_date&quot; /&gt;
+              &lt;mat-datepicker-toggle matSuffix [for]&#x3D;&quot;picker&quot; class&#x3D;&quot;text-pink-300&quot;&gt;&lt;/mat-datepicker-toggle&gt;
+              &lt;mat-datepicker #picker&gt;&lt;/mat-datepicker&gt;
+              &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;expected_birth_date&#x27;)?.invalid&quot;&gt;Vui lòng nhập ngày hợp lệ&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Phone Field --&gt;
+          &lt;div&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+              &lt;mat-label&gt;Số điện thoại&lt;/mat-label&gt;
+              &lt;input matInput formControlName&#x3D;&quot;phone&quot; placeholder&#x3D;&quot;Nhập số điện thoại của bạn&quot; type&#x3D;&quot;tel&quot; /&gt;
+              &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;phone&#x27;)?.invalid&quot;&gt;Vui lòng nhập số điện thoại hợp lệ&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/mat-card-content&gt;
+    &lt;/mat-card&gt;
+
+    &lt;!-- Address Information Card --&gt;
+    &lt;mat-card class&#x3D;&quot;overflow-hidden rounded-xl shadow-sm&quot;&gt;
+      &lt;mat-card-header class&#x3D;&quot;bg-pink-50 p-4&quot;&gt;
+        &lt;mat-card-title class&#x3D;&quot;text-lg font-medium text-pink-500&quot;&gt;Thông tin địa chỉ&lt;/mat-card-title&gt;
+      &lt;/mat-card-header&gt;
+      &lt;mat-divider&gt;&lt;/mat-divider&gt;
+      &lt;mat-card-content class&#x3D;&quot;p-4&quot;&gt;
+        &lt;div class&#x3D;&quot;grid grid-cols-1 gap-4&quot;&gt;
+          &lt;!-- Address Field --&gt;
+          &lt;div&gt;
+            &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+              &lt;mat-label&gt;Địa chỉ&lt;/mat-label&gt;
+              &lt;input matInput formControlName&#x3D;&quot;address&quot; placeholder&#x3D;&quot;Nhập địa chỉ của bạn&quot; /&gt;
+              &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;address&#x27;)?.invalid&quot;&gt;Vui lòng nhập địa chỉ&lt;/mat-error&gt;
+            &lt;/mat-form-field&gt;
+          &lt;/div&gt;
+
+          &lt;div class&#x3D;&quot;grid grid-cols-1 gap-4 sm:grid-cols-3&quot;&gt;
+            &lt;!-- Province Field --&gt;
+            &lt;div&gt;
+              &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+                &lt;mat-label&gt;Tỉnh/Thành phố&lt;/mat-label&gt;
+                &lt;mat-select (selectionChange)&#x3D;&quot;onProvinceSelected($event)&quot; formControlName&#x3D;&quot;province&quot;&gt;
+                  &lt;mat-option value&#x3D;&quot;&quot;&gt;Chọn Tỉnh/Thành phố&lt;/mat-option&gt;
+                  &lt;mat-option
+                    *ngFor&#x3D;&quot;let province of provinces&quot;
+                    [value]&#x3D;&quot;province.code&quot;
+                    [disabled]&#x3D;&quot;province.code &#x3D;&#x3D; profileForm.get(&#x27;province&#x27;)?.value&quot;
+                  &gt;
+                    {{ province.name }}
+                  &lt;/mat-option&gt;
+                &lt;/mat-select&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;province&#x27;)?.invalid&quot;&gt;Vui lòng chọn Tỉnh/Thành phố&lt;/mat-error&gt;
+              &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+
+            &lt;!-- District Field --&gt;
+            &lt;div&gt;
+              &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+                &lt;mat-label&gt;Quận/Huyện&lt;/mat-label&gt;
+                &lt;mat-select
+                  (selectionChange)&#x3D;&quot;onDistrictSelected($event)&quot;
+                  formControlName&#x3D;&quot;district&quot;
+                  [disabled]&#x3D;&quot;!profileForm.get(&#x27;province&#x27;)?.value&quot;
+                &gt;
+                  &lt;mat-option value&#x3D;&quot;&quot;&gt;Chọn Quận/Huyện&lt;/mat-option&gt;
+                  &lt;mat-option
+                    *ngFor&#x3D;&quot;let district of districts&quot;
+                    [value]&#x3D;&quot;district.code&quot;
+                    [disabled]&#x3D;&quot;district.code &#x3D;&#x3D; profileForm.get(&#x27;district&#x27;)?.value&quot;
+                  &gt;
+                    {{ district.name }}
+                  &lt;/mat-option&gt;
+                &lt;/mat-select&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;district&#x27;)?.invalid&quot;&gt;Vui lòng chọn Quận/Huyện&lt;/mat-error&gt;
+              &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+
+            &lt;!-- Ward Field --&gt;
+            &lt;div&gt;
+              &lt;mat-form-field appearance&#x3D;&quot;outline&quot; class&#x3D;&quot;w-full&quot;&gt;
+                &lt;mat-label&gt;Phường/Xã&lt;/mat-label&gt;
+                &lt;mat-select formControlName&#x3D;&quot;ward&quot; [disabled]&#x3D;&quot;!profileForm.get(&#x27;district&#x27;)?.value&quot;&gt;
+                  &lt;mat-option value&#x3D;&quot;&quot;&gt;Chọn Phường/Xã&lt;/mat-option&gt;
+                  &lt;mat-option *ngFor&#x3D;&quot;let ward of wards&quot; [value]&#x3D;&quot;ward.code&quot; [disabled]&#x3D;&quot;ward.code &#x3D;&#x3D; profileForm.get(&#x27;ward&#x27;)?.value&quot;&gt;
+                    {{ ward.name }}
+                  &lt;/mat-option&gt;
+                &lt;/mat-select&gt;
+                &lt;mat-error *ngIf&#x3D;&quot;profileForm.get(&#x27;ward&#x27;)?.invalid&quot;&gt;Vui lòng chọn Phường/Xã&lt;/mat-error&gt;
+              &lt;/mat-form-field&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/mat-card-content&gt;
+    &lt;/mat-card&gt;
+
+    &lt;!-- Submit Button --&gt;
+    &lt;div class&#x3D;&quot;flex justify-end&quot;&gt;
+      &lt;button
+        mat-raised-button
+        color&#x3D;&quot;primary&quot;
+        type&#x3D;&quot;submit&quot;
+        [disabled]&#x3D;&quot;profileForm.invalid&quot;
+        class&#x3D;&quot;rounded-full bg-pink-500 px-8 py-2 font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300&quot;
+      &gt;
+        Lưu thay đổi
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><!-- Profile Form --><div class="w-full bg-gray-50 p-6 md:p-6">  <!-- Header Section -->  <div class="mb-6 flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm">    <div class="relative">      <!-- Profile Avatar -->      @if (avatarPreview) {        <img src="{{ avatarPreview }}" class="h-16 w-16 rounded-full object-cover" alt="avt" />      } @else {        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-300" viewBox="0 0 24 24" fill="currentColor">          <path            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"          />        </svg>      }      <!-- Camera Button -->      <button        (click)="fileInput.click()"        class="absolute -bottom-2 -right-2 rounded-full bg-pink-500 p-1 text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"      >        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">          <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z" />          <path            d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"          />        </svg>      </button>      <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />    </div>    <h1 class="m-0 text-2xl font-medium text-pink-500">Hồ sơ của tôi</h1>  </div>  <!-- Form Section -->  <form [formGroup]="profileForm" class="space-y-6" (submit)="onSubmit()">    <!-- Personal Information Card -->    <mat-card class="overflow-hidden rounded-xl shadow-sm">      <mat-card-header class="bg-pink-50 p-4">        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin cá nhân</mat-card-title>      </mat-card-header>      <mat-divider></mat-divider>      <mat-card-content class="p-4">        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">          <!-- Name Field -->          <div>            <mat-form-field appearance="outline" class="w-full">              <mat-label>Họ và tên</mat-label>              <input matInput formControlName="name" placeholder="Nhập họ và tên của bạn" />              <mat-error *ngIf="profileForm.get(\'name\')?.invalid">Vui lòng nhập họ và tên</mat-error>            </mat-form-field>          </div>          <!-- Email Field -->          <div>            <mat-form-field appearance="outline" class="w-full">              <mat-label>Địa chỉ email</mat-label>              <input matInput formControlName="email" placeholder="Nhập địa chỉ email của bạn" type="email" />              <mat-error *ngIf="profileForm.get(\'email\')?.invalid">Vui lòng nhập email hợp lệ</mat-error>            </mat-form-field>          </div>          <!-- Birth Date Field -->          <div>            <mat-form-field appearance="outline" class="w-full">              <mat-label>Ngày dự sinh</mat-label>              <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />              <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>              <mat-datepicker #picker></mat-datepicker>              <mat-error *ngIf="profileForm.get(\'expected_birth_date\')?.invalid">Vui lòng nhập ngày hợp lệ</mat-error>            </mat-form-field>          </div>          <!-- Phone Field -->          <div>            <mat-form-field appearance="outline" class="w-full">              <mat-label>Số điện thoại</mat-label>              <input matInput formControlName="phone" placeholder="Nhập số điện thoại của bạn" type="tel" />              <mat-error *ngIf="profileForm.get(\'phone\')?.invalid">Vui lòng nhập số điện thoại hợp lệ</mat-error>            </mat-form-field>          </div>        </div>      </mat-card-content>    </mat-card>    <!-- Address Information Card -->    <mat-card class="overflow-hidden rounded-xl shadow-sm">      <mat-card-header class="bg-pink-50 p-4">        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin địa chỉ</mat-card-title>      </mat-card-header>      <mat-divider></mat-divider>      <mat-card-content class="p-4">        <div class="grid grid-cols-1 gap-4">          <!-- Address Field -->          <div>            <mat-form-field appearance="outline" class="w-full">              <mat-label>Địa chỉ</mat-label>              <input matInput formControlName="address" placeholder="Nhập địa chỉ của bạn" />              <mat-error *ngIf="profileForm.get(\'address\')?.invalid">Vui lòng nhập địa chỉ</mat-error>            </mat-form-field>          </div>          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">            <!-- Province Field -->            <div>              <mat-form-field appearance="outline" class="w-full">                <mat-label>Tỉnh/Thành phố</mat-label>                <mat-select (selectionChange)="onProvinceSelected($event)" formControlName="province">                  <mat-option value="">Chọn Tỉnh/Thành phố</mat-option>                  <mat-option                    *ngFor="let province of provinces"                    [value]="province.code"                    [disabled]="province.code == profileForm.get(\'province\')?.value"                  >                    {{ province.name }}                  </mat-option>                </mat-select>                <mat-error *ngIf="profileForm.get(\'province\')?.invalid">Vui lòng chọn Tỉnh/Thành phố</mat-error>              </mat-form-field>            </div>            <!-- District Field -->            <div>              <mat-form-field appearance="outline" class="w-full">                <mat-label>Quận/Huyện</mat-label>                <mat-select                  (selectionChange)="onDistrictSelected($event)"                  formControlName="district"                  [disabled]="!profileForm.get(\'province\')?.value"                >                  <mat-option value="">Chọn Quận/Huyện</mat-option>                  <mat-option                    *ngFor="let district of districts"                    [value]="district.code"                    [disabled]="district.code == profileForm.get(\'district\')?.value"                  >                    {{ district.name }}                  </mat-option>                </mat-select>                <mat-error *ngIf="profileForm.get(\'district\')?.invalid">Vui lòng chọn Quận/Huyện</mat-error>              </mat-form-field>            </div>            <!-- Ward Field -->            <div>              <mat-form-field appearance="outline" class="w-full">                <mat-label>Phường/Xã</mat-label>                <mat-select formControlName="ward" [disabled]="!profileForm.get(\'district\')?.value">                  <mat-option value="">Chọn Phường/Xã</mat-option>                  <mat-option *ngFor="let ward of wards" [value]="ward.code" [disabled]="ward.code == profileForm.get(\'ward\')?.value">                    {{ ward.name }}                  </mat-option>                </mat-select>                <mat-error *ngIf="profileForm.get(\'ward\')?.invalid">Vui lòng chọn Phường/Xã</mat-error>              </mat-form-field>            </div>          </div>        </div>      </mat-card-content>    </mat-card>    <!-- Submit Button -->    <div class="flex justify-end">      <button        mat-raised-button        color="primary"        type="submit"        [disabled]="profileForm.invalid"        class="rounded-full bg-pink-500 px-8 py-2 font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"      >        Lưu thay đổi      </button>    </div>  </form></div></div>'
+    var COMPONENTS = [{'name': 'AdminComponent', 'selector': 'app-admin'},{'name': 'AdminLayoutComponent', 'selector': 'admin-layout'},{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'AuthConfirmationRequiredComponent', 'selector': 'auth-confirmation-required'},{'name': 'AuthResetPasswordComponent', 'selector': 'auth-reset-password'},{'name': 'AuthSignInComponent', 'selector': 'auth-sign-in'},{'name': 'AuthSignInWithGoogleComponent', 'selector': 'auth-sign-in-with-google'},{'name': 'AuthSignOutComponent', 'selector': 'auth-sign-out'},{'name': 'AuthSignUpComponent', 'selector': 'auth-sign-up'},{'name': 'BlogComponent', 'selector': 'app-blog'},{'name': 'BlogDetailComponent', 'selector': 'app-blog-detail'},{'name': 'BlogEditorComponent', 'selector': 'app-create-blog'},{'name': 'BlogMasonryComponent', 'selector': 'app-blog-masonry'},{'name': 'CalendarComponent', 'selector': 'app-calendar'},{'name': 'CategoryTableComponent', 'selector': 'app-category-table'},{'name': 'CenteredLayoutComponent', 'selector': 'centered-layout'},{'name': 'ChangePasswordComponent', 'selector': 'app-change-password'},{'name': 'ChartCombo', 'selector': 'app-chart-combo'},{'name': 'ChildrenProfileComponent', 'selector': 'app-children-profile-insert'},{'name': 'ChildrenProfileSelectorComponent', 'selector': 'app-children-profile-selector'},{'name': 'ClassicLayoutComponent', 'selector': 'classic-layout'},{'name': 'ClassyLayoutComponent', 'selector': 'classy-layout'},{'name': 'CommunityComponent', 'selector': 'app-community'},{'name': 'CompactLayoutComponent', 'selector': 'compact-layout'},{'name': 'CreatePostComponent', 'selector': 'app-create-post'},{'name': 'DenseLayoutComponent', 'selector': 'dense-layout'},{'name': 'DialogComponent', 'selector': 'dialog-membership'},{'name': 'DialogContentPriceComponent', 'selector': 'app-dialog-content-price'},{'name': 'DialogImgComponent', 'selector': 'dialog-img'},{'name': 'EmptyLayoutComponent', 'selector': 'empty-layout'},{'name': 'EnterpriseLayoutComponent', 'selector': 'enterprise-layout'},{'name': 'Error404Component', 'selector': 'error-404'},{'name': 'FeaturesComponent', 'selector': 'app-features'},{'name': 'FileUploadComponent', 'selector': 'file-upload'},{'name': 'ForgotPasswordComponent', 'selector': 'app-forgot-password'},{'name': 'FormComponent', 'selector': 'app-form'},{'name': 'FuseAlertComponent', 'selector': 'fuse-alert'},{'name': 'FuseCardComponent', 'selector': 'fuse-card'},{'name': 'FuseConfirmationDialogComponent', 'selector': 'fuse-confirmation-dialog'},{'name': 'FuseDrawerComponent', 'selector': 'fuse-drawer'},{'name': 'FuseFullscreenComponent', 'selector': 'fuse-fullscreen'},{'name': 'FuseHighlightComponent', 'selector': 'textarea[fuse-highlight]'},{'name': 'FuseHorizontalNavigationBasicItemComponent', 'selector': 'fuse-horizontal-navigation-basic-item'},{'name': 'FuseHorizontalNavigationBranchItemComponent', 'selector': 'fuse-horizontal-navigation-branch-item'},{'name': 'FuseHorizontalNavigationComponent', 'selector': 'fuse-horizontal-navigation'},{'name': 'FuseHorizontalNavigationDividerItemComponent', 'selector': 'fuse-horizontal-navigation-divider-item'},{'name': 'FuseHorizontalNavigationSpacerItemComponent', 'selector': 'fuse-horizontal-navigation-spacer-item'},{'name': 'FuseLoadingBarComponent', 'selector': 'fuse-loading-bar'},{'name': 'FuseMasonryComponent', 'selector': 'fuse-masonry'},{'name': 'FuseVerticalNavigationAsideItemComponent', 'selector': 'fuse-vertical-navigation-aside-item'},{'name': 'FuseVerticalNavigationBasicItemComponent', 'selector': 'fuse-vertical-navigation-basic-item'},{'name': 'FuseVerticalNavigationCollapsableItemComponent', 'selector': 'fuse-vertical-navigation-collapsable-item'},{'name': 'FuseVerticalNavigationComponent', 'selector': 'fuse-vertical-navigation'},{'name': 'FuseVerticalNavigationDividerItemComponent', 'selector': 'fuse-vertical-navigation-divider-item'},{'name': 'FuseVerticalNavigationGroupItemComponent', 'selector': 'fuse-vertical-navigation-group-item'},{'name': 'FuseVerticalNavigationSpacerItemComponent', 'selector': 'fuse-vertical-navigation-spacer-item'},{'name': 'FuturisticLayoutComponent', 'selector': 'futuristic-layout'},{'name': 'HealthMetricTableComponent', 'selector': 'app-health-metric-table'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'HomeNoteComponent', 'selector': 'app-home-note'},{'name': 'HomeReminderComponent', 'selector': 'app-home-reminder'},{'name': 'HospitalTableComponent', 'selector': 'app-hospital-table'},{'name': 'ImagePreviewComponent', 'selector': 'image-preview'},{'name': 'LandingComponent', 'selector': 'app-landing'},{'name': 'LandingLayoutComponent', 'selector': 'landing-layout'},{'name': 'LanguagesComponent', 'selector': 'languages'},{'name': 'LayoutComponent', 'selector': 'layout'},{'name': 'LineChartComponent', 'selector': 'app-line-chart'},{'name': 'MaterialLayoutComponent', 'selector': 'material-layout'},{'name': 'MembershipAnalysis', 'selector': 'app-chart-member-combo'},{'name': 'MembershipCardComponent', 'selector': 'app-membership-card'},{'name': 'MembershipComponent', 'selector': 'membership-user'},{'name': 'MembershipDetailComponent', 'selector': 'app-membership-detail'},{'name': 'MembershipListComponent', 'selector': 'app-membership-list'},{'name': 'MembershipTableComponent', 'selector': 'app-membership-table'},{'name': 'MessagesComponent', 'selector': 'messages'},{'name': 'ModernLayoutComponent', 'selector': 'modern-layout'},{'name': 'NoteDetailComponent', 'selector': 'app-note-detail'},{'name': 'NotificationsComponent', 'selector': 'notifications'},{'name': 'PaymentTableComponent', 'selector': 'app-payment-table'},{'name': 'PregnancyRecordComponent', 'selector': 'app-pregnancy-record'},{'name': 'PregnancyRecordViewComponent', 'selector': 'app-pregnancy-record-view'},{'name': 'PregnancyTrackingComponent', 'selector': 'app-pregnancy-service'},{'name': 'PregnancyWeekInfoComponent', 'selector': 'app-pregnancy-week-info'},{'name': 'QuickChatComponent', 'selector': 'quick-chat'},{'name': 'RecommendedBlogsComponent', 'selector': 'app-recommended-blogs'},{'name': 'RecordFormComponent', 'selector': 'record-form'},{'name': 'RecordTableComponent', 'selector': 'app-record-table'},{'name': 'ReminderEditorComponent', 'selector': 'app-reminder-editor'},{'name': 'RevenueStreamWidget', 'selector': 'app-revenue-stream-widget'},{'name': 'StandardTableComponent', 'selector': 'app-standard-table'},{'name': 'StatsWidget', 'selector': 'app-stats-widget'},{'name': 'TagTableComponent', 'selector': 'app-tag-table'},{'name': 'ThinLayoutComponent', 'selector': 'thin-layout'},{'name': 'TrackingFormComponent', 'selector': 'tracking-form'},{'name': 'UserComponent', 'selector': 'user'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'},{'name': 'UserSearchComponent', 'selector': 'app-user-search-demo-call-api'},{'name': 'UserTableComponent', 'selector': 'app-user-table'}];
+    var DIRECTIVES = [{'name': 'FuseScrollbarDirective', 'selector': '[fuseScrollbar]'},{'name': 'FuseScrollResetDirective', 'selector': '[fuseScrollReset]'}];
+    var ACTUAL_COMPONENT = {'name': 'UserProfileComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'UserProfileComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>@pregnancy-journal/source documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="./" class="navbar-brand">@pregnancy-journal/source documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<p><a href="https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml"><img src="https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml/badge.svg" alt="CD" class="img-responsive"></a></p>
+<h1>PregnancyJournal</h1>
+<p><a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a></p>
+<p>✨ Your new, shiny <a href="https://nx.dev">Nx workspace</a> is almost ready ✨.</p>
+<p><a href="https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Learn more about this workspace setup and its capabilities</a> or run <code>npx nx graph</code> to visually explore what was created. Now, let&#39;s get you up to speed!</p>
+<h2>Finish your CI setup</h2>
+<p><a href="https://cloud.nx.app/connect/yKy3ZqJ4rT">Click here to finish setting up your workspace!</a></p>
+<h2>Run tasks</h2>
+<p>To run the dev server for your app, use:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npx nx serve fe-angular-app</code></pre></div><p>To create a production bundle:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npx nx build fe-angular-app</code></pre></div><p>To see all available targets to run for a project, run:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npx nx show project fe-angular-app</code></pre></div><p>These targets are either <a href="https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">inferred automatically</a> or defined in the <code>project.json</code> or <code>package.json</code> files.</p>
+<p><a href="https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">More about running tasks in the docs &raquo;</a></p>
+<h2>Add new projects</h2>
+<p>While you could add new projects to your workspace manually, you might want to leverage <a href="https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Nx plugins</a> and their <a href="https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">code generation</a> feature.</p>
+<p>Use the plugin&#39;s generator to create new projects.</p>
+<p>To generate a new application, use:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npx nx g &#64;nx/angular:app demo</code></pre></div><p>To generate a new library, use:</p>
+<b>Example :</b><div><pre class="line-numbers"><code class="language-sh">npx nx g &#64;nx/angular:lib mylib</code></pre></div><p>You can use <code>npx nx list</code> to get a list of installed plugins. Then, run <code>npx nx list &lt;plugin-name&gt;</code> to learn about more specific capabilities of a particular plugin. Alternatively, <a href="https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">install Nx Console</a> to browse plugins and generators in your IDE.</p>
+<p><a href="https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Learn more about Nx plugins &raquo;</a> | <a href="https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Browse the plugin registry &raquo;</a></p>
+<p><a href="https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Learn more about Nx on CI</a></p>
+<h2>Install Nx Console</h2>
+<p>Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.</p>
+<p><a href="https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Install Nx Console &raquo;</a></p>
+<h2>Useful links</h2>
+<p>Learn more:</p>
+<ul>
+<li><a href="https://nx.dev/getting-started/tutorials/angular-monorepo-tutorial?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Learn more about this workspace setup</a></li>
+<li><a href="https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Learn about Nx on CI</a></li>
+<li><a href="https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Releasing Packages with Nx release</a></li>
+<li><a href="https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">What are Nx plugins?</a></li>
+</ul>
+<p>And join the Nx community:</p>
+<ul>
+<li><a href="https://go.nx.dev/community">Discord</a></li>
+<li><a href="https://twitter.com/nxdevtools">Follow us on X</a> or <a href="https://www.linkedin.com/company/nrwl">LinkedIn</a></li>
+<li><a href="https://www.youtube.com/@nxdevtools">Our Youtube channel</a></li>
+<li><a href="https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects">Our blog</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
