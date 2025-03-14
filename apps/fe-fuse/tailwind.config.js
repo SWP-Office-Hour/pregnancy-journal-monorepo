@@ -4,7 +4,7 @@ const path = require('path');
 const colors = require('tailwindcss/colors');
 const defaultTheme = require('tailwindcss/defaultTheme');
 const generatePalette = require(path.resolve(__dirname, 'src/@fuse/tailwind/utils/generate-palette'));
-const PrimeUI = require('tailwindcss-primeui');
+import PrimeUI from 'tailwindcss-primeui';
 /**
  * Custom palettes
  *
