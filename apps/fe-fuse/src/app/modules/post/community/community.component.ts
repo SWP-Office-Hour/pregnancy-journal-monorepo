@@ -1,7 +1,7 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, signal, WritableSignal } from '@angular/core';
+import { Component, signal, ViewChild, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -39,6 +39,7 @@ import { CreatePostComponent } from '../create-post/create-post.component';
 })
 export class CommunityComponent {
   protected user: User;
+  @ViewChild('.search-results') postContainer: HTMLElement;
 
   // Infinite scroll properties
   protected lastPosts: PostType[] = [];
@@ -64,35 +65,28 @@ export class CommunityComponent {
   }
 
   fetchPosts(page: number) {
-    console.log('fetching posts', this.loading);
-
     if (this.loading || (this.loaded >= this.total && this.loaded > 0)) {
-      console.log('loaded posts:', this.loaded, 'total posts:', this.total);
       return;
     }
     this.loading = true;
-    console.log('Start fetching posts: fetching = ', this.loading);
     this._httpClient
       .get<{ total: number; data: PostType[] }>(environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit)
       .subscribe((body) => {
-        console.log('fetched posts:', body.data);
         this.total = body.total;
         this.loaded += body.data.length;
         if (this.posts().length > 0) {
-          this.lastPosts = this.posts().splice(0, this.limit);
+          this.lastPosts = this.posts().slice(-this.limit);
         } else {
           this.lastPosts = this.posts();
         }
-        this.posts.set([...this.lastPosts, ...body.data]);
+        this.posts.set([...this.posts().slice(-this.limit), ...body.data]);
+
         this.loading = false;
-        console.log('Stop fetching posts: fetching = ', this.loading);
       });
   }
 
   onScroll() {
-    console.log('scrolled!!');
     this.page++;
-    console.log('page', this.page);
     this.fetchPosts(this.page);
   }
 
