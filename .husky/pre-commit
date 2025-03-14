@@ -1,3 +1,3 @@
 pnpm nx format:check
 pnpm exec nx show projects --affected --json
-pnpm nx run-many -t build:staging --parallel
+pnpm nx run-many -t build --parallel
