@@ -348,7 +348,7 @@
                 class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
               />
               <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-sm text-red-500">
-                <div *ngIf="title.errors.required">Tiêu đề không được để trống</div>
+                <div *ngIf="title.errors['require']">Tiêu đề không được để trống</div>
               </div>
             </div>
 
