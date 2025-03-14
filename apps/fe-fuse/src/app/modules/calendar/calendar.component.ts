@@ -128,7 +128,10 @@ export class CalendarComponent {
 
   // Helper function to find events for a specific date
   getEventsForDate(date: Date): ReminderResponse[] {
-    if (!date) return [];
+    //check events có tồn tại không
+    if (!this.events()) {
+      return [];
+    }
     // Find existing events
     return !date ? [] : this.events()?.filter((event) => this.getDateKey(event.remind_date) == this.getDateKey(date));
   }
