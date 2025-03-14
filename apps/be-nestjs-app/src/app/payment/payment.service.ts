@@ -61,7 +61,7 @@ export class PaymentService {
       amount: membership.price,
       returnUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
       cancelUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
-      description: 'Payment for ' + membership.title,
+      description: membership.title,
     };
 
     const paymentUrl = await this.payosService.createLinkPayment(payRequest);
