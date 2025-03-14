@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -79,7 +79,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  public systemRemind: WritableSignal<SystemReminder | null> = null;
+  public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
   public formatDate: string;
   countDownForm = new FormGroup({
     lastMenstrualPeriod: new FormControl('', Validators.required),
@@ -113,6 +113,7 @@ export class HomeComponent {
         this._countWeek = this._currentPregnancyWeek;
         const remindForThisWeek = SystemReminders.find((item) => item.week === this._currentPregnancyWeek);
         if (remindForThisWeek) {
+          console.log('Remind for this week:', remindForThisWeek);
           this.systemRemind.set(remindForThisWeek);
         }
       });
