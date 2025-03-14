@@ -48,7 +48,6 @@ export class CalendarComponent {
     this.events = this._calendarService.meetings.value;
     this.status = this._calendarService.meetings.status;
     effect(() => {
-      console.log('status ', this.status());
       if (this.status() == ResourceStatus.Resolved || this.status() == ResourceStatus.Local) {
         this.generateCalendarDays();
       }
@@ -358,10 +357,9 @@ export class CalendarComponent {
       remind_date: new Date(this.editingEvent.remind_date).toLocaleDateString('en-CA'),
       color: this.editingEvent.color,
     };
-    console.log(this.events());
-    console.log(reminderUpdateRequest);
+
     this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {});
-    console.log(this.events());
+
     //close modal
     this.showEventModal = false;
   }
