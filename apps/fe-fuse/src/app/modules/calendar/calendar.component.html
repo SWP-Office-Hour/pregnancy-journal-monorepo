@@ -93,7 +93,7 @@
     </div>
   </div>
 
-  <!--Mobile Calendar-->
+  <!--Big Calendar-->
   <div class="col-span-6 p-4 lg:col-span-5">
     <div class="flex h-full w-full flex-col justify-between rounded-xl bg-white p-6 shadow-lg">
       <div class="flex w-full items-center justify-between">
@@ -146,10 +146,8 @@
 
               <!-- Events indicators -->
               <div class="z-10 mt-1 flex flex-wrap justify-center gap-1">
-                @if (this.events().length > 0) {
-                  @for (event of this.getEventsForDate(date); track $index) {
-                    <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
-                  }
+                @for (event of this.getEventsForDate(date); track $index) {
+                  <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
                 }
               </div>
 
@@ -178,12 +176,9 @@
                     <!-- Add "View more" if there are more than 3 events -->
                     @if (this.getEventsForDate(date).length > 3) {
                       <div class="mt-2 flex justify-center">
-                        <button
-                          class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200"
-                          (click)="selectDate(date)"
-                        >
+                        <div class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200">
                           Ngày này còn {{ this.getEventsForDate(date).length - 3 }} sự kiện
-                        </button>
+                        </div>
                       </div>
                     }
                   } @else {
@@ -220,73 +215,76 @@
               [cdkDropListData]="events()"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
-              <div *ngIf="getEventsForDate(this.selectedDate) == []" class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
-                <div class="mb-4 rounded-full bg-pink-50 p-4">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
+              @if (this.getEventsForDate(this.selectedDate).length == 0) {
+                <div class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
+                  <div class="mb-4 rounded-full bg-pink-50 p-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                  </div>
+                  <h4 class="mb-2 text-lg font-semibold text-gray-700">Chưa có cuộc hẹn nào</h4>
+                  <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
                 </div>
-                <h4 class="mb-2 text-lg font-semibold text-gray-700">Chưa có cuộc hẹn nào</h4>
-                <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
-              </div>
-              <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
-                <div class="event-card group">
-                  <div
-                    class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
-                    [style.background-color]="chooseColor(event)"
-                    [ngClass]="{
-                      '!bg-rainbow-gradient': isDueDate(event.remind_date),
-                    }"
-                  >
-                    <!-- Event content -->
-                    <div class="flex items-center justify-between">
-                      <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
+              } @else {
+                <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
+                  <div class="event-card group">
+                    <div
+                      class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
+                      [style.background-color]="chooseColor(event)"
+                      [ngClass]="{
+                        '!bg-rainbow-gradient': isDueDate(event.remind_date),
+                      }"
+                    >
+                      <!-- Event content -->
+                      <div class="flex items-center justify-between">
+                        <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
 
-                      <!-- Controls wrapper - visible on hover -->
-                      <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-                        <!-- Edit button -->
-                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event)">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                            />
-                          </svg>
-                        </button>
+                        <!-- Controls wrapper - visible on hover -->
+                        <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                          <!-- Edit button -->
+                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event, 1)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                              />
+                            </svg>
+                          </button>
 
-                        <!-- Delete button -->
-                        <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="deleteEvent(event)">
-                          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                            />
-                          </svg>
-                        </button>
+                          <!-- Delete button -->
+                          <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event, 2)">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                              />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
+
+                      <!-- Event content if available -->
+                      <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
+
+                      <!-- Bottom highlight effect -->
+                      <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                     </div>
-
-                    <!-- Event content if available -->
-                    <p *ngIf="event.content" class="mt-1 text-xs opacity-70">{{ event.content }}</p>
-
-                    <!-- Bottom highlight effect -->
-                    <div class="absolute -bottom-0.5 left-0 h-0.5 w-full bg-white/30 opacity-0 transition-all group-hover:opacity-100"></div>
                   </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
 
-          <div class="mb-6 flex w-full flex-col">
+          <div class="my-2 flex w-full flex-col">
             <button
               (click)="openCreateEventModal()"
               class="create-event-btn flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 py-3 font-medium text-white shadow-lg shadow-pink-500/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-pink-500/40 active:scale-[0.98] active:shadow-sm"
@@ -321,14 +319,17 @@
         }"
       >
         <!-- Update the modal title and button text based on mode -->
-        <div class="mb-4 flex items-center justify-between">
-          <h3 class="text-xl font-semibold">{{ isEditMode ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn' }}</h3>
-          <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
-        </div>
+        @if (isEditMode != 2) {
+          <div class="mb-4 flex items-center justify-between">
+            <h3 class="text-xl font-semibold">{{ isEditMode > 0 ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn' }}</h3>
+            <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
+          </div>
+        }
         @if (this.editingEvent.type == ReminderType.FOLLOW_UP_MEETING) {
-          Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái khám.
-        } @else {
-          <form #eventForm="ngForm">
+          Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa hoặc xóa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái
+          khám.
+        } @else if (isEditMode == 1 || isEditMode == 0) {
+          <form class="space-y-4">
             <div class="mb-4">
               <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
               <input
@@ -336,16 +337,15 @@
                 [(ngModel)]="newEvent.title"
                 name="title"
                 #title="ngModel"
-                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
-                [ngClass]="{ 'border-red-500': title.invalid && (title.dirty || title.touched) }"
                 required
-                minlength="3"
+                placeholder="Nhập tiêu đề sự kiện..."
+                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
               />
-              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
-                <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
-                <div *ngIf="title.errors?.['minlength']">Tiêu đề phải có ít nhất 3 ký tự</div>
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-sm text-red-500">
+                <div *ngIf="title.errors.required">Tiêu đề không được để trống</div>
               </div>
             </div>
+
             <div class="mb-4">
               <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
               <textarea
@@ -390,12 +390,29 @@
                 type="submit"
                 [disabled]="title.invalid"
                 class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
-                (click)="isEditMode ? updateEvent() : createEvent()"
+                (click)="isEditMode > 0 ? updateEvent() : createEvent()"
               >
                 {{ isEditMode ? 'Cập Nhật' : 'Tạo Lịch' }}
               </button>
             </div>
           </form>
+        } @else if (isEditMode == 2) {
+          <div class="mb-4">
+            <h4 class="text-lg font-medium text-gray-700">Bạn có chắc chắn muốn xóa sự kiện này?</h4>
+            <p class="text-sm text-gray-500">Sự kiện này sẽ bị xóa vĩnh viễn khỏi lịch hẹn của bạn.</p>
+          </div>
+          <div class="flex justify-end gap-4">
+            <button type="button" (click)="closeCreateEventModal()" class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100">
+              Hủy
+            </button>
+            <button
+              type="button"
+              class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg"
+              (click)="deleteEvent(editingEvent)"
+            >
+              Xác Nhận
+            </button>
+          </div>
         }
       </div>
     </div>

@@ -2,7 +2,7 @@ import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from 
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeVi from '@angular/common/locales/vi';
 import { Component, effect, LOCALE_ID, ResourceStatus, Signal, signal } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -44,19 +44,12 @@ registerLocaleData(localeVi);
   ],
 })
 export class CalendarComponent {
-  constructor(
-    private fb: FormBuilder,
-    private _calendarService: CalendarService,
-  ) {
-    this.eventForm = this.fb.group({
-      title: ['', [Validators.required]],
-      color: ['', [Validators.required]],
-      content: [''],
-    });
+  constructor(private _calendarService: CalendarService) {
     this.events = this._calendarService.meetings.value;
     this.status = this._calendarService.meetings.status;
     effect(() => {
-      if (this.events().length > 0) {
+      console.log('status ', this.status());
+      if (this.status() == ResourceStatus.Resolved || this.status() == ResourceStatus.Local) {
         this.generateCalendarDays();
       }
     });
@@ -65,7 +58,6 @@ export class CalendarComponent {
   currentDate: Date = new Date();
   selectedDate: Date = new Date();
   calendarDays: Date[];
-  calendarEvents: Array<{ date: Date; events: any[] }>;
   weekDays: string[] = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
   events = signal<ReminderResponse[]>([]);
   status: Signal<ResourceStatus> = signal(ResourceStatus.Idle);
@@ -85,8 +77,8 @@ export class CalendarComponent {
     { title: 'Siêu âm', color: 'a7f3d0' }, // Soft mint
     { title: 'Xét nghiệm', color: 'fcd34d' }, // Soft yellow
   ];
-  eventForm: FormGroup;
-  isEditMode: boolean = false;
+
+  isEditMode = 0;
   isHovering: boolean = false;
   // Add a property to track the event being edited
   editingEvent: ReminderResponse = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_EVENT };
@@ -131,17 +123,14 @@ export class CalendarComponent {
       const existingEvents = this.getEventsForDate(nextDate);
       dateEvents.push({ date: nextDate, events: existingEvents });
     }
-
     this.calendarDays = dateEvents.map((item) => item.date);
-    // You can store the events mapping if needed
-    this.calendarEvents = dateEvents;
   }
 
   // Helper function to find events for a specific date
   getEventsForDate(date: Date): ReminderResponse[] {
     if (!date) return [];
     // Find existing events
-    return !date ? [] : this.events()?.filter((event) => this.getDateKey(event.remind_date) === this.getDateKey(date));
+    return !date ? [] : this.events()?.filter((event) => this.getDateKey(event.remind_date) == this.getDateKey(date));
   }
 
   // Create a unique string key for a date (without time)
@@ -185,7 +174,8 @@ export class CalendarComponent {
   }
 
   isDueDate(date: Date): boolean {
-    return this.events().some((event) => this.isSameDay(event.remind_date, date) && event.type === ReminderType.USER_DUE_DATE);
+    //check xem ngày input có phải là ngày due date của event nào đó không và ngày đó phải có status là ngày đẻ
+    return this.events()?.some((event) => this.isSameDay(event.remind_date, date) && event.type == ReminderType.USER_DUE_DATE);
   }
 
   createEvent() {
@@ -229,7 +219,7 @@ export class CalendarComponent {
   openCreateEventModal() {
     // Prepare the new event with the selected date
     this.newEvent.remind_date = new Date(this.selectedDate);
-    this.isEditMode = false; // Reset to create mode
+    this.isEditMode = 0; // Reset to create mode
 
     // Set a timeout before showing the modal for a smoother effect
     setTimeout(() => {
@@ -248,9 +238,8 @@ export class CalendarComponent {
         remind_date: new Date(),
         color: ReminderColor.USER_CREATED_EVENT_COLOR,
       };
-      this.isEditMode = false;
-      this.editingEvent = null; // Clear the reference to the edited event
-      this.eventForm.reset();
+      this.isEditMode = 0;
+      this.editingEvent = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_EVENT }; // Clear the reference to the edited event
     }, 300);
   }
 
@@ -340,10 +329,10 @@ export class CalendarComponent {
   }
 
   // Add these methods for edit and delete functionality
-  editEvent(event: ReminderResponse) {
+  editEvent(event: ReminderResponse, status: number) {
     // Prepare the form with the selected event
     this.newEvent = { ...event };
-    this.isEditMode = true;
+    this.isEditMode = status;
     this.editingEvent = event; // Store a reference to the edited event
 
     // Set a timeout before showing the modal for a smoother effect
@@ -372,13 +361,15 @@ export class CalendarComponent {
     console.log(this.events());
     //close modal
     this.showEventModal = false;
-
-    //reset form
-    this.eventForm.reset();
   }
 
   deleteEvent(event: ReminderResponse) {
+    if (event.type == ReminderType.USER_DUE_DATE) {
+      return;
+    }
     this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {});
+    //đóng modal
+    this.showEventModal = false;
   }
 
   protected readonly ReminderType = ReminderType;
