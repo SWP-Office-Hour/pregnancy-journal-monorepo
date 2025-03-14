@@ -235,14 +235,14 @@ export class UserTableComponent implements OnInit {
     }
   }
 
-  getSeverityRole(role: UserRole): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
+  getSeverityRole(role: UserRole): string {
     switch (role) {
       case UserRole.ADMIN:
         return 'info';
       case UserRole.MEMBER:
         return 'success';
       default:
-        return 'warn';
+        return 'warning';
     }
   }
 
