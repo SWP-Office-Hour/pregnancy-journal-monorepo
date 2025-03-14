@@ -31,12 +31,12 @@ export class PostsController {
     return tsRestHandler(postContract.getAll, async () => {
       page = page ? page : 1;
       limit = limit ? limit : 10;
-
+      const total = await this.postsService.count();
       const posts = await this.postsService.findAll(page, limit);
       return {
         status: 200,
         body: {
-          total: posts.length,
+          total: total,
           data: posts,
         },
       };
