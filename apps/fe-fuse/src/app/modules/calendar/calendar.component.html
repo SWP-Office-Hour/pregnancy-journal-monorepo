@@ -125,7 +125,7 @@
                 'text-gray-300': !isMonth(date),
                 'border-2 border-dashed border-pink-500 !bg-pink-50': isSelected(date),
                 '!bg-white shadow-md': isToday(date),
-                'bg-rainbow-gradient': isDueDate(date),
+                'bg-gradient-to-r from-rose-50 to-pink-300': isDueDate(date),
               }"
               (click)="selectDate(date)"
               cdkDropList
@@ -203,17 +203,8 @@
               <!-- Today indicators -->
               @if (isDueDate(date)) {
                 <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
-                  <div class="w-15 -rotate-60 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6">
-                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
-                  </div>
-                  <div class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5">
-                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
-                  </div>
-                  <div class="w-15 -rotate-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6">
-                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
-                  </div>
-                  <div class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5">
-                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
+                  <div class="w-15 lg: absolute -right-4 top-6 -rotate-45 md:w-20">
+                    <img src="/images/ui/background/deco-calculateur.svg" alt="doodles background" />
                   </div>
                 </div>
               }
