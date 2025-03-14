@@ -1,7 +1,7 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, effect, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -29,7 +29,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
-import { ChildrenService } from '../../../core/children/children.service';
+import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
 import { SystemReminder, SystemReminders } from '../../../mock-api/system-remind.data';
@@ -79,7 +79,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomeComponent {
-  public systemRemind: WritableSignal<SystemReminder> = null;
+  public systemRemind: WritableSignal<SystemReminder | null> = null;
   public formatDate: string;
   countDownForm = new FormGroup({
     lastMenstrualPeriod: new FormControl('', Validators.required),
@@ -102,10 +102,20 @@ export class HomeComponent {
     private _recordService: PregnancyRecordService,
     private _httpClient: HttpClient,
     private _userService: UserService,
-    private _childService: ChildrenService,
+    private _childService: ChildV2Service,
   ) {
     this._userService.user$.subscribe((user) => {
       this.user = user;
+      this._childService.child$.subscribe((child) => {
+        console.log('Selected child:', child);
+        this._expectedDate = new Date(child.expected_birth_date);
+        this.calculateCurrentPregnancyWeek();
+        this._countWeek = this._currentPregnancyWeek;
+        const remindForThisWeek = SystemReminders.find((item) => item.week === this._currentPregnancyWeek);
+        if (remindForThisWeek) {
+          this.systemRemind.set(remindForThisWeek);
+        }
+      });
     });
     this._recordService.getMetrics().subscribe((metrics) => {
       this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
@@ -128,29 +138,7 @@ export class HomeComponent {
           this._countWeek = this._currentPregnancyWeek;
         }
       });
-
-    effect(() => {
-      if (this._childService.getSelectedChild()) {
-        console.log('Selected child:', this._childService.getSelectedChild());
-        this._expectedDate = this._childService.getSelectedChild()?.expected_birth_date
-          ? new Date(this._childService.getSelectedChild()?.expected_birth_date)
-          : new Date();
-        this.calculateCurrentPregnancyWeek();
-        this._countWeek = this._currentPregnancyWeek;
-        this.systemRemind.set(SystemReminders.find((item) => item.week === this._currentPregnancyWeek) || null);
-      }
-    });
   }
-
-  //chưa có data bên database
-  // standardResource = resource<Standard[], {}>({
-  //   loader: async ({ abortSignal }) => {
-  //     const response = await fetch(environment.apiUrl + 'standards/' + this.weightMetricId, {
-  //       signal: abortSignal,
-  //     });
-  //     if (!response.ok) throw Error(`Could not fetch...`);
-  //     return await response.json();
-  //   },
 
   private _countWeek: number = this._currentPregnancyWeek;
 

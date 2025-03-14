@@ -1,91 +1,40 @@
-<div class="relative">
-  <!-- Dropdown trigger button -->
-  <button
-    type="button"
-    class="flex items-center gap-2 rounded-md border border-gray-200 bg-white px-3 py-2 text-sm font-medium hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
-    (click)="toggleDropdown()"
+<div class="flex flex-col">
+  <p-dropdown
+    [options]="childrenOptions()"
+    [(ngModel)]="selectedChildId"
+    (onChange)="onChildChange($event)"
+    optionLabel="name"
+    optionValue="child_id"
+    [style]="{ width: '100%' }"
+    placeholder="Select a child"
   >
-    <!-- Avatar or initials -->
-    <!--    <div *ngIf="selectedChild()?.avatarUrl" class="flex-shrink-0">-->
-    <!--      <img [src]="selectedChild().avatarUrl" alt="Child avatar" class="h-6 w-6 rounded-full object-cover" />-->
-    <!--    </div>-->
-    <!-- Fallback avatar with gender-specific colors -->
-    <div
-      class="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full"
-      [ngClass]="{
-        'bg-blue-100 text-blue-600': selectedChild()?.gender === gender.MALE,
-        'bg-pink-100 text-pink-600': selectedChild()?.gender === gender.FEMALE,
-      }"
-    >
-      <span class="text-xs font-medium">{{ selectedChild()?.name.charAt(0) }}</span>
-    </div>
-
-    <!-- Selected child name -->
-    <span class="text-gray-700">{{ selectedChild()?.name }}</span>
-
-    <!-- Dropdown arrow -->
-    <svg
-      class="h-5 w-5 text-gray-400"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 20 20"
-      fill="currentColor"
-      [ngClass]="{ 'rotate-180 transform': isOpen }"
-    >
-      <path
-        fill-rule="evenodd"
-        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-        clip-rule="evenodd"
-      />
-    </svg>
-  </button>
-
-  <!-- Dropdown menu -->
-  <div
-    *ngIf="isOpen"
-    class="absolute right-0 z-20 mt-2 w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-    role="menu"
-    aria-orientation="vertical"
-    aria-labelledby="children-menu-button"
-  >
-    <div class="py-1" role="none">
-      <!-- Header -->
-      <div class="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-gray-500">Your Children</div>
-
-      <!-- Children list -->
-      <div *ngFor="let child of children()">
-        <button
-          (click)="selectChild(child)"
-          class="flex w-full items-center gap-3 px-4 py-2 text-left text-sm hover:bg-gray-100"
-          [ngClass]="{ 'bg-gray-50': selectedChild()?.child_id === child.child_id }"
-          role="menuitem"
+    <ng-template pTemplate="selectedItem">
+      <div class="flex items-center gap-2" *ngIf="selectedChild()">
+        <div
+          class="flex h-6 w-6 items-center justify-center rounded-full"
+          [ngClass]="{
+            'bg-blue-100 text-blue-600': selectedChild()?.gender === gender.MALE,
+            'bg-pink-100 text-pink-600': selectedChild()?.gender === gender.FEMALE,
+          }"
         >
-          <!-- Child avatar or initials with gender-specific colors -->
-          <div
-            class="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full"
-            [ngClass]="{
-              'bg-blue-100 text-blue-600': child.gender === gender.MALE,
-              'bg-pink-100 text-pink-600': child.gender === gender.FEMALE,
-            }"
-          >
-            <span class="text-sm font-medium">{{ child.name.charAt(0) }}</span>
-          </div>
-
-          <!-- Child name -->
-          <div>
-            <p class="font-medium text-gray-900">{{ child.name }}</p>
-          </div>
-        </button>
+          <span class="text-xs font-medium">{{ selectedChild()?.name.charAt(0) }}</span>
+        </div>
+        <span>{{ selectedChild()?.name }}</span>
       </div>
-    </div>
-
-    <!-- Add another child button -->
-    <div class="py-1" role="none">
-      <a href="/children-profile" class="flex items-center px-4 py-2 text-sm text-pink-600 hover:text-pink-700" role="menuitem">
-        <svg class="mr-2 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-        </svg>
-        Add another child
-      </a>
-    </div>
-  </div>
+    </ng-template>
+    <ng-template let-child pTemplate="item">
+      <div class="flex items-center gap-3">
+        <div
+          class="flex h-8 w-8 items-center justify-center rounded-full"
+          [ngClass]="{
+            'bg-blue-100 text-blue-600': child.gender === gender.MALE,
+            'bg-pink-100 text-pink-600': child.gender === gender.FEMALE,
+          }"
+        >
+          <span class="text-sm font-medium">{{ child.name.charAt(0) }}</span>
+        </div>
+        <span>{{ child.name }}</span>
+      </div>
+    </ng-template>
+  </p-dropdown>
 </div>
