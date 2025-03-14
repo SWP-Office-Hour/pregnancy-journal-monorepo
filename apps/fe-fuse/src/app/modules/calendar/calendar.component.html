@@ -188,7 +188,7 @@
               </div>
 
               <!-- Today indicators -->
-              @if (isToday(date)) {
+              @if (isToday(date) && !isDueDate(date)) {
                 <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
                   <img
                     class="-rotate-15 w-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6"
@@ -200,6 +200,23 @@
                     src="/images/ui/doodles/d17.svg"
                     alt="doodles background"
                   />
+                </div>
+              }
+              <!-- Today indicators -->
+              @if (isDueDate(date)) {
+                <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
+                  <div class="w-15 -rotate-60 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6">
+                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
+                  </div>
+                  <div class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5">
+                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
+                  </div>
+                  <div class="w-15 -rotate-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6">
+                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
+                  </div>
+                  <div class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5">
+                    <img src="/images/ui/doodles/d3.svg" alt="doodles background" />
+                  </div>
                 </div>
               }
             </div>
