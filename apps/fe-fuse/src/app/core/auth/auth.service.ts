@@ -5,14 +5,14 @@ import { AuthUtils } from 'app/core/auth/auth.utils';
 import { UserService } from 'app/core/user/user.service';
 import { catchError, map, Observable, of, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { ChildrenService } from '../children/children.service';
+import { ChildV2Service } from '../children/child.v2.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private _authenticated: boolean = false;
   private _httpClient = inject(HttpClient);
   private _userService = inject(UserService);
-  private _childService = inject(ChildrenService);
+  private _childService = inject(ChildV2Service);
   private _signUpData: { email: string; password: string; confirm_password: string };
 
   // -----------------------------------------------------------------------------------------------------
@@ -96,8 +96,8 @@ export class AuthService {
         this._authenticated = true;
         // Store the user on the user service
         this._userService.user = response.user;
-        this._childService.children.set(response.user.child);
-        this._childService.SelectedChild = response.user.child[0].child_id;
+
+        this._childService.child = response.user.child[0];
 
         // Return a new observable with the response
         return of(response);
@@ -138,7 +138,7 @@ export class AuthService {
 
           // Store the user on the user service
           this._userService.user = response.user;
-          this._childService.SelectedChild = response.user.child[0].child_id;
+          this._childService.child = response.user.child[0];
 
           // Return true
           return of(true);
@@ -185,7 +185,7 @@ export class AuthService {
         this.accessToken = response.access_token;
         this._authenticated = true;
         this._userService.user = response.user;
-        this._childService.SelectedChild = response.user.child[0].child_id;
+        this._childService.child = response.user.child[0];
         return response;
       }),
     );

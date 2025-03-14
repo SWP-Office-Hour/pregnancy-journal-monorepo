@@ -1,43 +1,47 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChildCreateRequestType, Gender } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { CardModule } from 'primeng/card';
+import { DatePickerModule } from 'primeng/datepicker';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 
-interface Gender {
+interface GenderOption {
   name: string;
-  code: string;
+  value: Gender;
 }
 
 @Component({
   selector: 'app-children-profile-insert',
   templateUrl: './children-profile.component.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, InputTextModule, CalendarModule, DropdownModule, ButtonModule, CardModule, ToastModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputTextModule, DatePickerModule, DropdownModule, ButtonModule, CardModule, ToastModule],
   providers: [MessageService],
 })
 export class ChildrenProfileComponent implements OnInit {
   profileForm: FormGroup;
-  genders: Gender[];
+  genders: GenderOption[];
   today: Date = new Date();
   maxDate: Date = new Date();
+  Gender = Gender;
 
   constructor(
     private fb: FormBuilder,
     private messageService: MessageService,
+    private http: HttpClient,
   ) {
     // Set max date to 9 months from today
     this.maxDate.setMonth(this.today.getMonth() + 9);
 
     // Define gender options
     this.genders = [
-      { name: 'Nam', code: 'male' },
-      { name: 'Nữ', code: 'female' },
+      { name: 'Nam', value: Gender.MALE },
+      { name: 'Nữ', value: Gender.FEMALE },
     ];
   }
 
@@ -47,8 +51,8 @@ export class ChildrenProfileComponent implements OnInit {
 
   initForm(): void {
     this.profileForm = this.fb.group({
-      babyName: ['', [Validators.required]],
-      expectedBirthDate: [null, [Validators.required]],
+      name: ['', [Validators.required]],
+      expected_birth_date: [null, [Validators.required]],
       gender: [null, [Validators.required]],
     });
   }
@@ -56,16 +60,31 @@ export class ChildrenProfileComponent implements OnInit {
   onSubmit(): void {
     if (this.profileForm.valid) {
       // Process the form data
-      const formData = this.profileForm.value;
-      console.log('Form data:', formData);
-
-      // Show success message
-      this.messageService.add({
-        severity: 'success',
-        summary: 'Thành công',
-        detail: 'Thông tin em bé đã được lưu',
-      });
-
+      console.log(this.profileForm.value);
+      const formData: ChildCreateRequestType = {
+        name: this.profileForm.value.name,
+        expected_birth_date: this.profileForm.value.expected_birth_date.toISOString().split('T')[0],
+        gender: this.profileForm.value.gender,
+      };
+      console.log(formData);
+      // this.http.post(environment.apiUrl + 'child', formData).subscribe({
+      //   next: () => {
+      //     this.messageService.add({
+      //       severity: 'success',
+      //       summary: 'Thành công',
+      //       detail: 'Thông tin em bé đã được lưu',
+      //     });
+      //   },
+      //   error: (error) => {
+      //     // Show error message
+      //     console.log(error);
+      //     this.messageService.add({
+      //       severity: 'error',
+      //       summary: 'Lỗi',
+      //       detail: 'Có lỗi xảy ra khi lưu thông tin em bé',
+      //     });
+      //   },
+      // });
       // Reset form after successful submission
       this.profileForm.reset();
     } else {

@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { AuthService } from 'app/core/auth/auth.service';
 import { AuthUtils } from 'app/core/auth/auth.utils';
 import { catchError, Observable, throwError } from 'rxjs';
-import { ChildrenService } from '../children/children.service';
+import { ChildV2Service } from '../children/child.v2.service';
 
 /**
  * Intercept
@@ -13,7 +13,7 @@ import { ChildrenService } from '../children/children.service';
  */
 export const authInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn): Observable<HttpEvent<unknown>> => {
   const authService = inject(AuthService);
-  const childService = inject(ChildrenService);
+  const childService = inject(ChildV2Service);
 
   // Clone the request object
   let newReq = req.clone();
@@ -27,15 +27,14 @@ export const authInterceptor = (req: HttpRequest<unknown>, next: HttpHandlerFn):
   // catch and delete the access token from the local storage while logging
   // the user out from the app.
   if (authService.accessToken && !AuthUtils.isTokenExpired(authService.accessToken)) {
-    if (childService.SelectedChild) {
+    childService.child$.subscribe((child) => {
       newReq = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken).set('child_id', childService.SelectedChild || ''),
+        setHeaders: {
+          Authorization: `Bearer ${authService.accessToken}`,
+          child_id: child.child_id,
+        },
       });
-    } else {
-      newReq = req.clone({
-        headers: req.headers.set('Authorization', 'Bearer ' + authService.accessToken),
-      });
-    }
+    });
   }
 
   // Response

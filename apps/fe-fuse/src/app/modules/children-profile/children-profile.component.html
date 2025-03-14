@@ -13,40 +13,40 @@
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6">
         <!-- Baby name field -->
         <div class="form-group">
-          <label for="babyName" class="mb-1 block text-sm font-medium text-gray-700">Tên bé</label>
+          <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Tên bé</label>
           <div class="p-input-icon-right w-full">
-            <i class="pi pi-user" [ngClass]="{ 'text-pink-500': !isFieldInvalid('babyName'), 'text-red-500': isFieldInvalid('babyName') }"></i>
+            <i class="pi pi-user" [ngClass]="{ 'text-pink-500': !isFieldInvalid('name'), 'text-red-500': isFieldInvalid('name') }"></i>
             <input
               type="text"
-              id="babyName"
+              id="name"
               pInputText
-              formControlName="babyName"
+              formControlName="name"
               placeholder="Nhập tên của bé"
               class="w-full p-3"
-              [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('babyName') }"
+              [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('name') }"
             />
           </div>
-          <small *ngIf="isFieldInvalid('babyName')" class="p-error mt-1 block">
-            {{ getErrorMessage('babyName') }}
+          <small *ngIf="isFieldInvalid('name')" class="p-error mt-1 block">
+            {{ getErrorMessage('name') }}
           </small>
         </div>
 
         <!-- Expected birth date field -->
         <div class="form-group">
-          <label for="expectedBirthDate" class="mb-1 block text-sm font-medium text-gray-700">Ngày dự sinh</label>
-          <p-calendar
-            id="expectedBirthDate"
-            formControlName="expectedBirthDate"
+          <label class="mb-1 block text-sm font-medium text-gray-700">Ngày dự sinh</label>
+          <p-datepicker
+            #expected_birth_date
+            formControlName="expected_birth_date"
             [showIcon]="true"
             [minDate]="today"
             [maxDate]="maxDate"
             dateFormat="dd/mm/yy"
             placeholder="Chọn ngày dự sinh"
-            [styleClass]="styleClass('expectedBirthDate')"
+            [styleClass]="styleClass('expected_birth_date')"
             [inputStyleClass]="'w-full'"
-          ></p-calendar>
-          <small *ngIf="isFieldInvalid('expectedBirthDate')" class="p-error mt-1 block">
-            {{ getErrorMessage('expectedBirthDate') }}
+          ></p-datepicker>
+          <small *ngIf="isFieldInvalid('expected_birth_date')" class="p-error mt-1 block">
+            {{ getErrorMessage('expected_birth_date') }}
           </small>
         </div>
 
@@ -58,6 +58,7 @@
             formControlName="gender"
             [options]="genders"
             optionLabel="name"
+            optionValue="value"
             placeholder="Chọn giới tính"
             [styleClass]="styleClass('gender')"
           ></p-dropdown>
@@ -114,3 +115,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  .p-datepicker-panel {
+    z-index: 9999 !important;
+  }
+</style>
