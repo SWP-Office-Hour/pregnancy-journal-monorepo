@@ -10,10 +10,14 @@ export class PostsService {
     private readonly userService: UsersService,
   ) {}
 
+  async count(): Promise<number> {
+    return await this.databaseService.Post.count();
+  }
+
   async create(createPostDto: PostCreateType, user_id: string): Promise<PostType> {
     await this.userService.getUserById(user_id);
 
-    return await this.databaseService.Post.create({
+    const createdPost = await this.databaseService.Post.create({
       data: {
         content: createPostDto.content,
         updated_at: new Date(Date.now()),
@@ -23,6 +27,8 @@ export class PostsService {
         },
       },
     });
+
+    return await this.findOne(createdPost.post_id);
   }
 
   async findAll(page: number, limit: number): Promise<PostType[]> {
@@ -32,6 +38,47 @@ export class PostsService {
       orderBy: {
         created_at: 'desc',
       },
+      include: {
+        media: {
+          select: {
+            media_id: true,
+            media_url: true,
+          },
+        },
+        comment: {
+          select: {
+            comment_id: true,
+            content: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+              select: {
+                user_id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+        reaction: {
+          select: {
+            reaction_id: true,
+            user: {
+              select: {
+                user_id: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            user_id: true,
+            name: true,
+            avatar: true,
+          },
+        },
+      },
     });
   }
 
@@ -39,6 +86,47 @@ export class PostsService {
     const post = await this.databaseService.Post.findUnique({
       where: {
         post_id: id,
+      },
+      include: {
+        media: {
+          select: {
+            media_id: true,
+            media_url: true,
+          },
+        },
+        comment: {
+          select: {
+            comment_id: true,
+            content: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+              select: {
+                user_id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+        reaction: {
+          select: {
+            reaction_id: true,
+            user: {
+              select: {
+                user_id: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            user_id: true,
+            name: true,
+            avatar: true,
+          },
+        },
       },
     });
 
@@ -48,10 +136,10 @@ export class PostsService {
     return post;
   }
 
-  async update(updatePostDto: PostUpdateType) {
+  async update(updatePostDto: PostUpdateType): Promise<PostType> {
     await this.findOne(updatePostDto.post_id);
 
-    return await this.databaseService.Post.update({
+    const updatedPost = await this.databaseService.Post.update({
       where: {
         post_id: updatePostDto.post_id,
       },
@@ -60,6 +148,8 @@ export class PostsService {
         updated_at: new Date(Date.now()),
       },
     });
+
+    return await this.findOne(updatedPost.post_id);
   }
 
   //tạm trc rồi thêm xóa comment react vs media sau
