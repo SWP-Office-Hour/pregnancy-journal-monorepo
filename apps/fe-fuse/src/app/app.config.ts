@@ -17,6 +17,7 @@ import { MockApiService } from 'app/mock-api';
 import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { GLOBAL_AUTO_ANIMATE_OPTIONS } from 'ng-auto-animate';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { vi } from 'primelocale/js/vi.js';
 import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
 import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
@@ -711,6 +712,8 @@ export const appConfig: ApplicationConfig = {
           darkModeSelector: 'none',
         },
       },
+      ripple: true,
+      translation: vi,
     }),
 
     // Material Date Adapter
