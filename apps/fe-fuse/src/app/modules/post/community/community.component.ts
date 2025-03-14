@@ -1,7 +1,7 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, signal, ViewChild, WritableSignal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
@@ -43,7 +43,7 @@ export class CommunityComponent {
 
   // Infinite scroll properties
   protected lastPosts: PostType[] = [];
-  protected posts: WritableSignal<PostType[]> = signal([]);
+  protected posts = signal<PostType[]>([]);
   protected loading = false;
   protected page = 1;
   protected total = 0;
