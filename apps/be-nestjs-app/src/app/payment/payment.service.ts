@@ -4,6 +4,7 @@ import {
   PayIncludeUserInfo,
   PaymentCreateRequestType,
   PaymentResponseWithLinkType,
+  PaymentType,
   PaymentUpdateRequestType,
   PayMethod,
   PayStatus,
@@ -105,5 +106,42 @@ export class PaymentService {
         },
       },
     });
+  }
+
+  async createPaymentByAdminAtAddInAdminPage(membership_id: string, userId: string): Promise<PaymentType> {
+    const user = await this.userService.getUserById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    const membership = await this.membershipService.findOne(membership_id);
+    if (!membership) {
+      throw new NotFoundException('Membership not found');
+    }
+
+    const membershipExisted = await this.userService.checkAccountMembership(user.user_id);
+
+    if (membershipExisted) {
+      throw new NotFoundException('User already has a membership');
+    }
+
+    const payment = await this.databaseService.Payment.create({
+      data: {
+        user: { connect: { user_id: user.user_id } },
+        membership: { connect: { membership_id: membership.membership_id } },
+        value: 0,
+        status: PayStatus.SUCCESS,
+        payment_method: PayMethod.PAYOS,
+        created_at: new Date(Date.now()),
+        payos_order_code: '0000000000',
+        expired_at: new Date(Date.now() + membership.duration_days * 24 * 60 * 60 * 1000),
+      },
+
+      include: {
+        membership: true,
+      },
+    });
+
+    return payment;
   }
 }

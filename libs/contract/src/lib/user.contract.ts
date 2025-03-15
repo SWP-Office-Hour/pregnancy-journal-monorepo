@@ -20,12 +20,12 @@ export const baseUserSchema = z.object({
   address: z.string(),
   role: userRoleSchema,
   status: userStatusEnumSchema,
+  membership_id: z.string().optional(),
 });
 
 // User response schema
 export const userResponseSchema = baseUserSchema.extend({
   user_id: z.string(),
-  membershipId: z.string().optional(),
   created_at: z.date(),
 });
 
@@ -55,7 +55,7 @@ const userProfileSchema = userResponseSchema.omit({ status: true, created_at: tr
 const userProfileUpdateSchema = userProfileSchema
   .omit({
     child: true,
-    membershipId: true,
+    membership_id: true,
     email: true,
   })
   .partial();
