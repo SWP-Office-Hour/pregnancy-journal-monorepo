@@ -4,9 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FuseCardComponent } from '@fuse/components/card';
 import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
+import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
+import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../environments/environment';
 import { membershipService } from '../../core/membership/membership.service';
 import { DialogComponent } from './dialog/dialog.component';
@@ -17,7 +19,7 @@ import { DialogComponent } from './dialog/dialog.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent],
+  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent, ToastModule],
 })
 export class MembershipComponent {
   yearlyBilling: boolean = true;
@@ -40,6 +42,7 @@ export class MembershipComponent {
   constructor(
     public dialog: MatDialog,
     private membershipService: membershipService,
+    private messageService: MessageService,
   ) {
     //dùng để coi giá trị của resource
     effect(() => {
@@ -69,7 +72,11 @@ export class MembershipComponent {
     const orderCode = urlParams.get('orderCode');
 
     if (status === 'PAID' && code === '00') {
-      this.membershipService.updatePayment({ payos_order_code: orderCode });
+      const res = this.membershipService.updatePayment({ payos_order_code: orderCode });
+      res.then((response) => {
+        console.log('Backend function called successfully', response);
+        this.messageService.add({ severity: 'success', summary: 'Membership', detail: 'Payment success', life: 3000 });
+      });
       // this.http.post('http://localhost:3000/api/payment/success', { code, id, cancel, status, orderCode }).subscribe(
       //   (response) => {
       //     console.log('Backend function called successfully', response);
@@ -78,6 +85,10 @@ export class MembershipComponent {
       //     console.error('Error calling backend function', error);
       //   },
       // );
+    }
+
+    if (status === 'CANCELLED' && code === '00') {
+      this.messageService.add({ severity: 'error', summary: 'Membership', detail: 'Payment failed', life: 3000 });
     }
   }
 }

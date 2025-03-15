@@ -1,13 +1,14 @@
 import { Component, signal, WritableSignal } from '@angular/core';
 import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
+import { ToastModule } from 'primeng/toast';
 import { LineChartComponent } from '../../../common/line-chart/line-chart.component';
 import { PregnancyTrackingService } from './pregnancy-tracking.service';
 import { RecordTableComponent } from './record-table/record-table.component';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [LineChartComponent, RecordTableComponent],
+  imports: [LineChartComponent, RecordTableComponent, ToastModule],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
