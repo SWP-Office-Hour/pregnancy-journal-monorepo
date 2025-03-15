@@ -19,6 +19,7 @@ import { DialogComponent } from './dialog/dialog.component';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  providers: [MessageService],
   imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent, ToastModule],
 })
 export class MembershipComponent {

@@ -10,6 +10,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../core/auth/auth.service';
 import { CalendarService } from '../../calendar/calendar.service';
 import { ReminderEditorComponent } from '../../calendar/reminder-editor/reminder-editor.component';
 
@@ -35,18 +36,25 @@ export class HomeReminderComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private http: HttpClient,
+    private _authService: AuthService,
   ) {}
 
   ngOnInit(): void {
-    this.http.get<ReminderResponse[]>(environment.apiUrl + 'reminders').subscribe((reminders) => {
-      this.allReminders = reminders.map((reminder) => {
-        return {
-          ...reminder,
-          remind_date: new Date(reminder.remind_date),
-        };
+    this.http
+      .get<ReminderResponse[]>(environment.apiUrl + 'reminders', {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
+        },
+      })
+      .subscribe((reminders) => {
+        this.allReminders = reminders.map((reminder) => {
+          return {
+            ...reminder,
+            remind_date: new Date(reminder.remind_date),
+          };
+        });
+        this.loadReminders();
       });
-      this.loadReminders();
-    });
   }
 
   loadReminders(): void {

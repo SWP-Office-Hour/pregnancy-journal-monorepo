@@ -49,7 +49,11 @@ export class CalendarService {
 
   protected _meetings: ResourceRef<ReminderResponse[]> = resource({
     loader: async () => {
-      const response = await fetch(environment.apiUrl + 'reminders');
+      const response = await fetch(environment.apiUrl + 'reminders', {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
+        },
+      });
       const reminders = await response.json();
       return reminders.map((reminder: ReminderResponse) => {
         return {
