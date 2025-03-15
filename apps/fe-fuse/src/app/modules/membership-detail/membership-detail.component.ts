@@ -3,11 +3,14 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { membershipDay, membershipResponse } from '@pregnancy-journal-monorepo/contract';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 import { membershipService } from '../../core/membership/membership.service';
 
 @Component({
   selector: 'app-membership-detail',
-  imports: [CommonModule],
+  imports: [CommonModule, ToastModule],
+  providers: [MessageService],
   templateUrl: './membership-detail.component.html',
   styleUrl: './membership-detail.component.css',
 })
@@ -20,6 +23,7 @@ export class MembershipDetailComponent implements OnInit {
     private router: Router,
     private membershipService: membershipService,
     private fb: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.paymentForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -49,8 +53,20 @@ export class MembershipDetailComponent implements OnInit {
 
   onSubmit(): void {
     console.log(this.membership);
-    this.membershipService.createPayment({ membership_id: this.membership.membership_id });
-    // if (this.paymentForm.valid) {
+    const response = this.membershipService.createPayment({ membership_id: this.membership.membership_id });
+
+    response.then((res) => {
+      console.log('Server response:', res);
+
+      if (res.success) {
+        console.log('Payment success:', res.message);
+        this.messageService.add({ severity: 'success', summary: 'Membership', detail: res.message, life: 3000 });
+        window.location.href = res.payment_url;
+      } else {
+        console.log('Payment failed:', res.message);
+        this.messageService.add({ severity: 'error', summary: 'Membership', detail: res.message, life: 3000 });
+      }
+    }); // if (this.paymentForm.valid) {
     //   // In a real application, you would call a payment service here
     //   console.log('Payment submitted', this.paymentForm.value);
     //   // this.router.navigate(['/confirmation']);

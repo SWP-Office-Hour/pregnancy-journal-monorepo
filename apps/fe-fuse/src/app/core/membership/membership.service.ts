@@ -13,7 +13,7 @@ export class membershipService {
     private _httpClient: HttpClient,
   ) {}
 
-  async createPayment(data: PaymentCreateRequestType): Promise<void> {
+  async createPayment(data: PaymentCreateRequestType) {
     this.isLoading = true;
 
     try {
@@ -26,13 +26,13 @@ export class membershipService {
         body: JSON.stringify(data),
       });
 
-      if (!response.ok) {
-        throw new Error(`Failed to create payment`);
-      }
+      // if (!response.ok) {
+      //   return response.json();
+      // }
 
       const result = await response.json();
       console.log('Server response:', result);
-      window.location.href = result.payment_url;
+      return result;
     } catch (error) {
       console.log(error);
     } finally {
