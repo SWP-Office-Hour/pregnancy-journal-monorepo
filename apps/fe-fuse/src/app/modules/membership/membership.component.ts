@@ -78,18 +78,10 @@ export class MembershipComponent {
         console.log('Backend function called successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Membership', detail: 'Payment success', life: 3000 });
       });
-      // this.http.post('http://localhost:3000/api/payment/success', { code, id, cancel, status, orderCode }).subscribe(
-      //   (response) => {
-      //     console.log('Backend function called successfully', response);
-      //   },
-      //   (error) => {
-      //     console.error('Error calling backend function', error);
-      //   },
-      // );
     }
 
     if (status === 'CANCELLED' && code === '00') {
-      this.messageService.add({ severity: 'error', summary: 'Membership', detail: 'Payment failed', life: 3000 });
+      this.messageService.add({ severity: 'error', summary: 'Membership', detail: 'Payment failed by Cancel', life: 3000 });
     }
   }
 }
