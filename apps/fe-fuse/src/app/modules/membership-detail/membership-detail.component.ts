@@ -55,23 +55,37 @@ export class MembershipDetailComponent implements OnInit {
     console.log(this.membership);
     const response = this.membershipService.createPayment({ membership_id: this.membership.membership_id });
 
-    response.then((res) => {
-      console.log('Server response:', res);
+    response
+      .then((res) => {
+        console.log('Server response:', res);
 
-      if (res.success) {
-        console.log('Payment success:', res.message);
-        this.messageService.add({ severity: 'success', summary: 'Membership', detail: res.message, life: 3000 });
-        window.location.href = res.payment_url;
-      } else {
-        console.log('Payment failed:', res.message);
-        this.messageService.add({ severity: 'error', summary: 'Membership', detail: res.message, life: 3000 });
-      }
-    }); // if (this.paymentForm.valid) {
-    //   // In a real application, you would call a payment service here
-    //   console.log('Payment submitted', this.paymentForm.value);
-    //   // this.router.navigate(['/confirmation']);
-    // } else {
-    //   this.paymentForm.markAllAsTouched();
-    // }
+        try {
+          console.log('Payment success:', res.message);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Membership',
+            detail: res.message,
+            life: 3000,
+          });
+          window.location.href = res.payment_url;
+        } catch (error) {
+          console.log('Payment failed:', res.message);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Membership',
+            detail: res.message || 'Thanh toán thất bại',
+            life: 3000,
+          });
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Lỗi',
+          detail: 'Đã xảy ra lỗi khi xử lý thanh toán',
+          life: 3000,
+        });
+      });
   }
 }
