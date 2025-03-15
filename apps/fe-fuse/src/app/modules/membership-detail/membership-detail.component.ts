@@ -55,37 +55,14 @@ export class MembershipDetailComponent implements OnInit {
     console.log(this.membership);
     const response = this.membershipService.createPayment({ membership_id: this.membership.membership_id });
 
-    response
-      .then((res) => {
-        console.log('Server response:', res);
-
-        try {
-          console.log('Payment success:', res.message);
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Membership',
-            detail: res.message,
-            life: 3000,
-          });
-          window.location.href = res.payment_url;
-        } catch (error) {
-          console.log('Payment failed:', res.message);
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Membership',
-            detail: res.message || 'Thanh toán thất bại',
-            life: 3000,
-          });
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        this.messageService.add({
-          severity: 'error',
-          summary: 'Lỗi',
-          detail: 'Đã xảy ra lỗi khi xử lý thanh toán',
-          life: 3000,
-        });
+    response.then((res) => {
+      console.log('Server response:', res);
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Membership',
+        detail: res.message,
+        life: 3000,
       });
+    });
   }
 }
