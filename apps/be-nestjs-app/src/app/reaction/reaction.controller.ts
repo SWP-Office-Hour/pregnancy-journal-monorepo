@@ -1,8 +1,8 @@
 import { Body, Controller, Param, Req, UseGuards } from '@nestjs/common';
 
+import { reactionContract, ReactionRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
-import { reactionContract, ReactionRequestType } from '../../../../../libs/contract/src/lib/reaction.contract';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
 import { ReactionService } from './reaction.service';
 
