@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import {
   AuthResponse,
@@ -15,6 +15,7 @@ import {
 } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { MailService } from '../mail/mail.service';
+import { PaymentService } from '../payment/payment.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 
@@ -25,6 +26,8 @@ export class UsersService {
     private readonly jwtUtilsService: JwtUtilsService,
     private readonly configService: ConfigService,
     private readonly mailService: MailService,
+    @Inject(forwardRef(() => PaymentService))
+    private readonly paymentService: PaymentService,
   ) {}
 
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
@@ -475,6 +478,24 @@ export class UsersService {
         updated_at: new Date(Date.now()),
       },
     });
+
+    if (userCreateRequest.membership_id) {
+      const membership = await this.databaseService.MemberShip.findUnique({
+        where: {
+          membership_id: userCreateRequest.membership_id,
+        },
+      });
+
+      if (!membership) {
+        throw new NotFoundException('Membership not found');
+      }
+
+      const payment = await this.paymentService.createPaymentByAdminAtAddInAdminPage(membership.membership_id, user.user_id);
+      return {
+        ...user,
+        membership_id: payment.membership.membership_id,
+      };
+    }
     return user;
   }
 
@@ -492,23 +513,54 @@ export class UsersService {
   }
 
   async updateUser(updateUser: UserUpdateRequestType): Promise<UserResponseType> {
-    await this.getUserById(updateUser.user_id!);
+    const oldUser = await this.getUserById(updateUser.user_id!);
 
-    return await this.databaseService.User.update({
+    if (!oldUser) {
+      throw new NotFoundException('User not found');
+    }
+
+    const { membership_id, ...userDataToUpdate } = updateUser;
+
+    const newUserUpdated = await this.databaseService.User.update({
       where: {
         user_id: updateUser.user_id,
       },
+      omit: {
+        password: true,
+      },
       data: {
-        ...updateUser,
+        ...userDataToUpdate,
         updated_at: new Date(Date.now()),
       },
     });
+
+    if (updateUser.membership_id) {
+      const membership = await this.databaseService.MemberShip.findUnique({
+        where: {
+          membership_id: membership_id,
+        },
+      });
+
+      if (!membership) {
+        throw new NotFoundException('Membership not found');
+      }
+
+      const payment = await this.paymentService.createPaymentByAdminAtAddInAdminPage(membership.membership_id, oldUser.user_id);
+      return {
+        ...newUserUpdated,
+        membership_id: payment.membership.membership_id,
+      };
+    }
+    return newUserUpdated;
   }
 
   async getUserProfile(id: string): Promise<UserProfileResponseType> {
     const user = await this.databaseService.User.findUnique({
       where: {
         user_id: id,
+      },
+      omit: {
+        password: true,
       },
       include: {
         payment_history: true,
@@ -530,7 +582,7 @@ export class UsersService {
       district: user.district,
       ward: user.ward,
       address: user.address,
-      membershipId: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
+      membership_id: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
       child: user.child,
     };
   }
