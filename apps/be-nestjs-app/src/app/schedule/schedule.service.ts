@@ -16,6 +16,7 @@ export class ScheduleService {
   }
 
   // @Interval(10000)
+  @Cron('0 0 8 * * *') //every day at 8am
   async handleInterval() {
     Logger.log('Called every 10 seconds');
     const listReminder = await this.reminderService.searchAndMapRemindersByUser();
