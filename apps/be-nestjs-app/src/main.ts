@@ -10,6 +10,7 @@ import {
   authContract,
   blogContract,
   categoryContract,
+  childContract,
   commentContract,
   dashboardContract,
   hospitalContract,
@@ -20,6 +21,7 @@ import {
   paymentContract,
   payosContract,
   postContract,
+  reactionContract,
   recordContract,
   reminderContract,
   standardContract,
@@ -28,7 +30,6 @@ import {
 } from '@pregnancy-journal-monorepo/contract';
 import { generateOpenApi } from '@ts-rest/open-api';
 import { json, urlencoded } from 'express';
-import { childContract } from '../../../libs/contract/src/lib/child.contract';
 import { AppModule } from './app/app.module';
 import { SocketIoAdapter } from './socket-io.adapter';
 
@@ -46,6 +47,7 @@ async function bootstrap() {
       child: childContract,
       dashboard: dashboardContract,
       blog: blogContract,
+      reaction: reactionContract,
       post: postContract,
       comment: commentContract,
       note: noteContract,
