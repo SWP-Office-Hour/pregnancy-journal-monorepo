@@ -202,7 +202,7 @@ export class UserTableComponent implements OnInit {
       address: userToEdit.address,
       role: userToEdit.role,
       status: userToEdit.status,
-      membershipId: userToEdit.membershipId,
+      membershipId: userToEdit.membership_id,
     });
 
     this.user = { ...userToEdit };
