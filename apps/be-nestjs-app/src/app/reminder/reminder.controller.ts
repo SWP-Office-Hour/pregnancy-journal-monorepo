@@ -24,10 +24,17 @@ export class ReminderController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(reminderContract.getAll)
-  handleFindAll() {
+  handleFindAll(@Req() req: RequestWithJWT) {
     return tsRestHandler(reminderContract.getAll, async () => {
-      const reminders = await this.reminderService.findAll();
+      const auth = req.decoded_authorization;
+
+      if (!auth) {
+        return { status: 401, body: { message: 'Unauthorized' } };
+      }
+
+      const reminders = await this.reminderService.findAll(auth.user_id);
       return { status: 200, body: reminders };
     });
   }
