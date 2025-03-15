@@ -1,361 +1,363 @@
-<!--<div class="flex min-w-0 flex-auto flex-col">-->
-<!--  &lt;!&ndash; Header &ndash;&gt;-->
+<div class="flex min-w-0 flex-auto flex-col">
+  <!-- Header -->
 
-<!--  <div class="flex flex-col bg-transparent">-->
-<!--    <div class="box bottom w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100" [class.box-hover]="isButtonHovered">-->
-<!--      <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">-->
-<!--        &lt;!&ndash;Chào mừng&ndash;&gt;-->
-<!--        <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">-->
-<!--          &lt;!&ndash; Avatar and name &ndash;&gt;-->
-<!--          <div class="flex min-w-0 flex-auto items-center">-->
-<!--            <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">-->
-<!--              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />-->
-<!--            </div>-->
-<!--            <div class="ml-4 flex min-w-0 flex-col">-->
-<!--              <ng-container *transloco="let t">-->
-<!--                <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">-->
-<!--                  {{ t('welcome-back') }}, {{ user.name }}!-->
-<!--                </div>-->
-<!--              </ng-container>-->
-<!--              <div class="flex items-center">-->
-<!--                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>-->
-<!--                <div class="text-secondary ml-1.5 truncate leading-6">Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới</div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    &lt;!&ndash; Visit record Button &ndash;&gt;-->
-<!--    <a-->
-<!--      class="trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"-->
-<!--      matRipple-->
-<!--      pTooltip="Hôm nay mẹ đi khám"-->
-<!--      tooltipPosition="top"-->
-<!--      [routerLink]="'/record'"-->
-<!--      (mouseenter)="isButtonHovered = true"-->
-<!--      (mouseleave)="isButtonHovered = false"-->
-<!--    >-->
-<!--      <i>-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">-->
-<!--          <path-->
-<!--            fill="#fff"-->
-<!--            d="m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0"-->
-<!--          />-->
-<!--        </svg>-->
-<!--      </i>-->
-<!--    </a>-->
-<!--  </div>-->
+  <div class="flex flex-col bg-transparent">
+    <div class="box bottom w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100" [class.box-hover]="isButtonHovered">
+      <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
+        <!--Chào mừng-->
+        <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
+          <!-- Avatar and name -->
+          <div class="flex min-w-0 flex-auto items-center">
+            <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">
+              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />
+            </div>
+            <div class="ml-4 flex min-w-0 flex-col">
+              <ng-container *transloco="let t">
+                <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">
+                  {{ t('welcome-back') }}, {{ user.name }}!
+                </div>
+              </ng-container>
+              <div class="flex items-center">
+                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
+                <div class="text-secondary ml-1.5 truncate leading-6">Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Visit record Button -->
+    <a
+      class="trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"
+      matRipple
+      pTooltip="Hôm nay mẹ đi khám"
+      tooltipPosition="top"
+      [routerLink]="'/record'"
+      (mouseenter)="isButtonHovered = true"
+      (mouseleave)="isButtonHovered = false"
+    >
+      <i>
+        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+          <path
+            fill="#fff"
+            d="m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0"
+          />
+        </svg>
+      </i>
+    </a>
+  </div>
 
-<!--  &lt;!&ndash; Main &ndash;&gt;-->
-<!--  <div class="-mt-px flex-auto pt-4 sm:pt-6">-->
-<!--    <div class="mx-auto w-full max-w-screen-xl">-->
-<!--      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">-->
-<!--        <mat-tab label="Bé con">-->
-<!--          <ng-template matTabContent>-->
-<!--            &lt;!&ndash;Thai nhi&ndash;&gt;-->
-<!--            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">-->
-<!--              &lt;!&ndash; Cấu trúc thai &ndash;&gt;-->
-<!--              <div-->
-<!--                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"-->
-<!--              >-->
-<!--                <div class="flex items-center justify-between">-->
-<!--                  <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>-->
-<!--                  <button-->
-<!--                    class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"-->
-<!--                    (click)="goToThisWeek()"-->
-<!--                  >-->
-<!--                    <span class="text-sm font-medium">Tuần thứ</span>-->
-<!--                    <span class="ml-1 text-xl font-bold">{{ countWeek }}</span>-->
-<!--                  </button>-->
-<!--                </div>-->
+  <!-- Main -->
+  <div class="-mt-px flex-auto pt-4 sm:pt-6">
+    <div class="mx-auto w-full max-w-screen-xl">
+      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
+        <mat-tab label="Bé con">
+          <ng-template matTabContent>
+            <!--Thai nhi-->
+            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <!-- Cấu trúc thai -->
+              <div
+                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+              >
+                <div class="flex items-center justify-between">
+                  <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>
+                  <button
+                    class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"
+                    (click)="goToThisWeek()"
+                  >
+                    <span class="text-sm font-medium">Tuần thứ</span>
+                    <span class="ml-1 text-xl font-bold">{{ this.countWeekNumber }}</span>
+                  </button>
+                </div>
 
-<!--                <div class="relative mt-6 flex flex-auto flex-col">-->
-<!--                  &lt;!&ndash; Hình ảnh mẹ &ndash;&gt;-->
-<!--                  <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">-->
-<!--                    <img-->
-<!--                      class="w-full transition-transform duration-500 hover:scale-105"-->
-<!--                      [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'"-->
-<!--                      [alt]="'mẹ tuần ' + countWeek"-->
-<!--                      style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"-->
-<!--                    />-->
-<!--                  </div>-->
+                <div class="relative mt-6 flex flex-auto flex-col">
+                  <!-- Hình ảnh mẹ -->
+                  <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">
+                    <img
+                      class="w-full transition-transform duration-500 hover:scale-105"
+                      [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'"
+                      [alt]="'mẹ tuần ' + countWeek"
+                      style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+                    />
+                  </div>
 
-<!--                  &lt;!&ndash; Hình ảnh thai nhi &ndash;&gt;-->
-<!--                  <div-->
-<!--                    class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"-->
-<!--                    style="-->
-<!--                      box-shadow:-->
-<!--                        inset 0 1px 2px rgba(0, 0, 0, 0.05),-->
-<!--                        0 10px 15px -3px rgba(236, 72, 153, 0.5),-->
-<!--                        0 4px 6px -2px rgba(236, 72, 153, 0.5);-->
-<!--                      animation: gentle-pulse 3s infinite ease-in-out;-->
-<!--                    "-->
-<!--                  >-->
-<!--                    <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">-->
-<!--                      <img-->
-<!--                        class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"-->
-<!--                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"-->
-<!--                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"-->
-<!--                        [alt]="'con tuần ' + countWeek"-->
-<!--                      />-->
-<!--                    </div>-->
-<!--                    <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">-->
-<!--                      <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{ countWeek }}</span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
+                  <!-- Hình ảnh thai nhi -->
+                  <div
+                    class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"
+                    style="
+                      box-shadow:
+                        inset 0 1px 2px rgba(0, 0, 0, 0.05),
+                        0 10px 15px -3px rgba(236, 72, 153, 0.5),
+                        0 4px 6px -2px rgba(236, 72, 153, 0.5);
+                      animation: gentle-pulse 3s infinite ease-in-out;
+                    "
+                  >
+                    <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">
+                      <img
+                        class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"
+                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
+                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
+                        [alt]="'con tuần ' + countWeekNumber"
+                      />
+                    </div>
+                    <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
+                      <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{
+                        countWeekNumber
+                      }}</span>
+                    </div>
+                  </div>
+                </div>
 
-<!--                <div class="mt-8 flex flex-col">-->
-<!--                  <div class="mb-2 text-center text-sm font-medium text-pink-500">Chọn tuần thai để xem sự phát triển của bé</div>-->
-<!--                  <div class="flex flex-wrap items-center justify-center gap-2">-->
-<!--                    <button-->
-<!--                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"-->
-<!--                    >-->
-<!--                      <span class="text-xs font-medium">Tuần</span>-->
-<!--                      <span class="text-base font-bold">1</span>-->
-<!--                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === '1'">-->
-<!--                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                          <path-->
-<!--                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"-->
-<!--                            fill="#EC4899"-->
-<!--                          />-->
-<!--                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                      </div>-->
-<!--                    </button>-->
-<!--                    <button-->
-<!--                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"-->
-<!--                    >-->
-<!--                      <span class="text-xs font-medium">Tuần</span>-->
-<!--                      <span class="text-base font-bold">2</span>-->
-<!--                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === '2'">-->
-<!--                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                          <path-->
-<!--                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"-->
-<!--                            fill="#EC4899"-->
-<!--                          />-->
-<!--                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                      </div>-->
-<!--                    </button>-->
-<!--                    <button-->
-<!--                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"-->
-<!--                    >-->
-<!--                      <span class="text-xs font-medium">Tuần</span>-->
-<!--                      <span class="text-base font-bold">3-38</span>-->
-<!--                      <div-->
-<!--                        class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300"-->
-<!--                        [class.opacity-100]="countWeek >= 3 && countWeek <= 38"-->
-<!--                      >-->
-<!--                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                          <path-->
-<!--                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"-->
-<!--                            fill="#EC4899"-->
-<!--                          />-->
-<!--                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                      </div>-->
-<!--                    </button>-->
-<!--                    <button-->
-<!--                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"-->
-<!--                    >-->
-<!--                      <span class="text-xs font-medium">Tuần</span>-->
-<!--                      <span class="text-base font-bold">39</span>-->
-<!--                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === 39">-->
-<!--                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                          <path-->
-<!--                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"-->
-<!--                            fill="#EC4899"-->
-<!--                          />-->
-<!--                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                      </div>-->
-<!--                    </button>-->
-<!--                    <button-->
-<!--                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"-->
-<!--                    >-->
-<!--                      <span class="text-xs font-medium">Tuần</span>-->
-<!--                      <span class="text-base font-bold">40</span>-->
-<!--                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === '40'">-->
-<!--                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
-<!--                          <path-->
-<!--                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"-->
-<!--                            fill="#EC4899"-->
-<!--                          />-->
-<!--                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />-->
-<!--                        </svg>-->
-<!--                      </div>-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              &lt;!&ndash; Quan lý thai nhi &ndash;&gt;-->
-<!--              &lt;!&ndash;              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">&ndash;&gt;-->
-<!--              &lt;!&ndash;&lt;!&ndash;                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>&ndash;&gt;&ndash;&gt;-->
-<!--              &lt;!&ndash;              </div>&ndash;&gt;-->
-<!--              &lt;!&ndash; Nhắc nhở &ndash;&gt;-->
-<!--              <div-->
-<!--                class="bg-card flex h-full flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"-->
-<!--              >-->
-<!--                <app-home-reminder></app-home-reminder>-->
-<!--              </div>-->
-<!--            </div>-->
+                <div class="mt-8 flex flex-col">
+                  <div class="mb-2 text-center text-sm font-medium text-pink-500">Chọn tuần thai để xem sự phát triển của bé</div>
+                  <div class="flex flex-wrap items-center justify-center gap-2">
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">1</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0001'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">2</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0002'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">3-38</span>
+                      <div
+                        class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300"
+                        [class.opacity-100]="countWeek >= '0003' && countWeek <= '0038'"
+                      >
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">39</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0039'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                    <button
+                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
+                    >
+                      <span class="text-xs font-medium">Tuần</span>
+                      <span class="text-base font-bold">40</span>
+                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === '0040'">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path
+                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                            fill="#EC4899"
+                          />
+                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!-- Quan lý thai nhi -->
+              <!--              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
+              <!--&lt;!&ndash;                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>&ndash;&gt;-->
+              <!--              </div>-->
+              <!-- Nhắc nhở -->
+              <div
+                class="bg-card flex h-full flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+              >
+                <app-home-reminder></app-home-reminder>
+              </div>
+            </div>
 
-<!--            &lt;!&ndash;Tính ngày dự sinh&ndash;&gt;-->
-<!--            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">-->
-<!--              &lt;!&ndash; Content &ndash;&gt;-->
-<!--              <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">-->
-<!--                &lt;!&ndash;              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">&ndash;&gt;-->
-<!--                <div class="flex items-start justify-between md:col-span-2">-->
-<!--                  <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>-->
-<!--                  <div class="-mr-3 -mt-2 ml-2">-->
-<!--                    <button mat-icon-button>-->
-<!--                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:calculator'"></mat-icon>-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </div>-->
+            <!--Tính ngày dự sinh-->
+            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+              <!-- Content -->
+              <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">
+                <!--              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">-->
+                <div class="flex items-start justify-between md:col-span-2">
+                  <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>
+                  <div class="-mr-3 -mt-2 ml-2">
+                    <button mat-icon-button>
+                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:calculator'"></mat-icon>
+                    </button>
+                  </div>
+                </div>
 
-<!--                <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>-->
-<!--                <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">-->
-<!--                  <div class="grid gap-6 md:grid-cols-2">-->
-<!--                    &lt;!&ndash;Ngày đầu chu kì kinh cuối&ndash;&gt;-->
-<!--                    <div class="flex w-full flex-col">-->
-<!--                      <mat-form-field class="flex-auto">-->
-<!--                        <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>-->
-<!--                        <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />-->
-<!--                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>-->
-<!--                        <mat-datepicker #picker1></mat-datepicker>-->
-<!--                      </mat-form-field>-->
-<!--                    </div>-->
-<!--                    &lt;!&ndash;Chu kì kinh cuối&ndash;&gt;-->
-<!--                    <div class="gt-xs:flex-row flex w-full flex-col">-->
-<!--                      <mat-form-field class="gt-xs:pr-3 flex-auto">-->
-<!--                        <mat-label>Chu kỳ kinh nguyệt</mat-label>-->
-<!--                        <mat-select formControlName="menstrualCycle">-->
-<!--                          <mat-option value="15">15 Ngày</mat-option>-->
-<!--                          <mat-option value="16">16 Ngày</mat-option>-->
-<!--                          <mat-option value="17">17 Ngày</mat-option>-->
-<!--                          <mat-option value="18">18 Ngày</mat-option>-->
-<!--                          <mat-option value="19">19 Ngày</mat-option>-->
-<!--                          <mat-option value="20">20 Ngày</mat-option>-->
-<!--                          <mat-option value="21">21 Ngày</mat-option>-->
-<!--                          <mat-option value="22">22 Ngày</mat-option>-->
-<!--                          <mat-option value="23">23 Ngày</mat-option>-->
-<!--                          <mat-option value="24">24 Ngày</mat-option>-->
-<!--                          <mat-option value="25">25 Ngày</mat-option>-->
-<!--                          <mat-option value="26">26 Ngày</mat-option>-->
-<!--                          <mat-option value="27">27 Ngày</mat-option>-->
-<!--                          <mat-option value="28">28 Ngày</mat-option>-->
-<!--                          <mat-option value="29">29 Ngày</mat-option>-->
-<!--                          <mat-option value="30">30 Ngày</mat-option>-->
-<!--                          <mat-option value="31">31 Ngày</mat-option>-->
-<!--                          <mat-option value="32">32 Ngày</mat-option>-->
-<!--                          <mat-option value="33">33 Ngày</mat-option>-->
-<!--                          <mat-option value="34">34 Ngày</mat-option>-->
-<!--                          <mat-option value="35">35 Ngày</mat-option>-->
-<!--                          <mat-option value="36">36 Ngày</mat-option>-->
-<!--                          <mat-option value="37">37 Ngày</mat-option>-->
-<!--                          <mat-option value="38">38 Ngày</mat-option>-->
-<!--                          <mat-option value="39">39 Ngày</mat-option>-->
-<!--                          <mat-option value="40">40 Ngày</mat-option>-->
-<!--                        </mat-select>-->
-<!--                      </mat-form-field>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <button-->
-<!--                    class="fuse-mat-button-large mt-6 w-full"-->
-<!--                    mat-flat-button-->
-<!--                    [color]="'primary'"-->
-<!--                    [disabled]="!countDownForm.valid"-->
-<!--                    (click)="expandableCard01.expanded = true"-->
-<!--                  >-->
-<!--                    Xem Kết Quả Ngay-->
-<!--                  </button>-->
-<!--                </form>-->
-<!--                <ng-container fuseCardExpansion>-->
-<!--                  <div class="mt-10 flex flex-col items-center">-->
-<!--                    <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>-->
-<!--                    <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>-->
-<!--                    <div class="mt-3">-->
-<!--                      <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.-->
-<!--                    </div>-->
-<!--                    <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">-->
-<!--                      <mat-icon-->
-<!--                        class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"-->
-<!--                        [ngClass]="{-->
-<!--                          'rotate-180': expandableCard01.expanded,-->
-<!--                        }"-->
-<!--                        [svgIcon]="'heroicons_mini:chevron-down'"-->
-<!--                      ></mat-icon>-->
-<!--                    </button>-->
-<!--                  </div>-->
-<!--                </ng-container>-->
-<!--              </fuse-card>-->
-<!--              &lt;!&ndash; Lịch countdown  &ndash;&gt;-->
-<!--              <div-->
-<!--                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"-->
-<!--                style="-->
-<!--                  box-shadow:-->
-<!--                    0 1px 1px rgba(0, 0, 0, 0.15),-->
-<!--                    0 10px 0 -5px #eee,-->
-<!--                    0 10px 1px -4px rgba(0, 0, 0, 0.15),-->
-<!--                    0 20px 0 -10px #eee,-->
-<!--                    0 20px 1px -9px rgba(0, 0, 0, 0.15);-->
-<!--                "-->
-<!--              >-->
-<!--                <div class="flex h-full flex-col">-->
-<!--                  <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">-->
-<!--                    <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">-->
-<!--                      <div class="tracking-widest text-pink-100" style="color: #fcedd8; font-family: 'Style Script', cursive">-->
-<!--                        <i>Đếm ngược kỳ diệu</i>-->
-<!--                      </div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                  <div class="flex h-2/3 w-full items-center justify-center">-->
-<!--                    <div class="flex flex-col items-center">-->
-<!--                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">-->
-<!--                        {{ remainingDays() < 1 ? 0 : remainingDays() }}-->
-<!--                      </div>-->
-<!--                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
+                <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">
+                  <div class="grid gap-6 md:grid-cols-2">
+                    <!--Ngày đầu chu kì kinh cuối-->
+                    <div class="flex w-full flex-col">
+                      <mat-form-field class="flex-auto">
+                        <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
+                        <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <!--Chu kì kinh cuối-->
+                    <div class="gt-xs:flex-row flex w-full flex-col">
+                      <mat-form-field class="gt-xs:pr-3 flex-auto">
+                        <mat-label>Chu kỳ kinh nguyệt</mat-label>
+                        <mat-select formControlName="menstrualCycle">
+                          <mat-option value="15">15 Ngày</mat-option>
+                          <mat-option value="16">16 Ngày</mat-option>
+                          <mat-option value="17">17 Ngày</mat-option>
+                          <mat-option value="18">18 Ngày</mat-option>
+                          <mat-option value="19">19 Ngày</mat-option>
+                          <mat-option value="20">20 Ngày</mat-option>
+                          <mat-option value="21">21 Ngày</mat-option>
+                          <mat-option value="22">22 Ngày</mat-option>
+                          <mat-option value="23">23 Ngày</mat-option>
+                          <mat-option value="24">24 Ngày</mat-option>
+                          <mat-option value="25">25 Ngày</mat-option>
+                          <mat-option value="26">26 Ngày</mat-option>
+                          <mat-option value="27">27 Ngày</mat-option>
+                          <mat-option value="28">28 Ngày</mat-option>
+                          <mat-option value="29">29 Ngày</mat-option>
+                          <mat-option value="30">30 Ngày</mat-option>
+                          <mat-option value="31">31 Ngày</mat-option>
+                          <mat-option value="32">32 Ngày</mat-option>
+                          <mat-option value="33">33 Ngày</mat-option>
+                          <mat-option value="34">34 Ngày</mat-option>
+                          <mat-option value="35">35 Ngày</mat-option>
+                          <mat-option value="36">36 Ngày</mat-option>
+                          <mat-option value="37">37 Ngày</mat-option>
+                          <mat-option value="38">38 Ngày</mat-option>
+                          <mat-option value="39">39 Ngày</mat-option>
+                          <mat-option value="40">40 Ngày</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <button
+                    class="fuse-mat-button-large mt-6 w-full"
+                    mat-flat-button
+                    [color]="'primary'"
+                    [disabled]="!countDownForm.valid"
+                    (click)="expandableCard01.expanded = true"
+                  >
+                    Xem Kết Quả Ngay
+                  </button>
+                </form>
+                <ng-container fuseCardExpansion>
+                  <div class="mt-10 flex flex-col items-center">
+                    <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>
+                    <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>
+                    <div class="mt-3">
+                      <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.
+                    </div>
+                    <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">
+                      <mat-icon
+                        class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"
+                        [ngClass]="{
+                          'rotate-180': expandableCard01.expanded,
+                        }"
+                        [svgIcon]="'heroicons_mini:chevron-down'"
+                      ></mat-icon>
+                    </button>
+                  </div>
+                </ng-container>
+              </fuse-card>
+              <!-- Lịch countdown  -->
+              <div
+                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
+                style="
+                  box-shadow:
+                    0 1px 1px rgba(0, 0, 0, 0.15),
+                    0 10px 0 -5px #eee,
+                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
+                    0 20px 0 -10px #eee,
+                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
+                "
+              >
+                <div class="flex h-full flex-col">
+                  <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">
+                    <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">
+                      <div class="tracking-widest text-pink-100" style="color: #fcedd8; font-family: 'Style Script', cursive">
+                        <i>Đếm ngược kỳ diệu</i>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex h-2/3 w-full items-center justify-center">
+                    <div class="flex flex-col items-center">
+                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">
+                        {{ remainingDays() < 1 ? 0 : remainingDays() }}
+                      </div>
+                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
+                    </div>
+                  </div>
+                </div>
 
-<!--                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">-->
-<!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-<!--                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>-->
-<!--                </div>-->
-<!--                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">-->
-<!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-<!--                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </ng-template>-->
-<!--        </mat-tab>-->
-<!--      </mat-tab-group>-->
-<!--      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">-->
-<!--        <mat-tab label="Bài viết nên đọc">-->
-<!--          <ng-template matTabContent class="overflow-auto">-->
-<!--            <app-recommended-blogs></app-recommended-blogs>-->
-<!--          </ng-template>-->
-<!--        </mat-tab>-->
-<!--      </mat-tab-group>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
+                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
+                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+                </div>
+                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
+                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
+        <mat-tab label="Bài viết nên đọc">
+          <ng-template matTabContent class="overflow-auto">
+            <app-recommended-blogs></app-recommended-blogs>
+          </ng-template>
+        </mat-tab>
+      </mat-tab-group>
+    </div>
+  </div>
+</div>
 
-<!--<style>-->
-<!--  @keyframes gentle-pulse {-->
-<!--    0% {-->
-<!--      transform: scale(1);-->
-<!--    }-->
-<!--    50% {-->
-<!--      transform: scale(1.02);-->
-<!--    }-->
-<!--    100% {-->
-<!--      transform: scale(1);-->
-<!--    }-->
-<!--  }-->
-<!--</style>-->
+<style>
+  @keyframes gentle-pulse {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.02);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+</style>

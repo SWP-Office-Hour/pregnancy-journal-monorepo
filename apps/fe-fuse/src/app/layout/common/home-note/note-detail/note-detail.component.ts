@@ -163,4 +163,6 @@ export class NoteDetailComponent implements OnInit {
       },
     });
   }
+
+  protected readonly Status = Status;
 }

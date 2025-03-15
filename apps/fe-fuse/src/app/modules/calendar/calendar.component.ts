@@ -247,10 +247,10 @@ export class CalendarComponent {
 
   chooseColor(event: ReminderResponse): string {
     if (!event.color) {
-      if (event.type === ReminderType.USER_CREATED_EVENT) {
+      if (event.type == ReminderType.USER_CREATED_EVENT) {
         return '#' + ReminderColor.USER_CREATED_EVENT_COLOR;
       }
-      if (event.type === ReminderType.FOLLOW_UP_MEETING) {
+      if (event.type == ReminderType.FOLLOW_UP_MEETING) {
         return '#' + ReminderColor.FOLLOW_UP_MEETING_COLOR;
       }
     }
@@ -345,9 +345,15 @@ export class CalendarComponent {
 
   updateEvent() {
     //store the updated event
-    this.editingEvent.title = this.newEvent.title;
-    this.editingEvent.content = this.newEvent.content;
-    this.editingEvent.color = this.newEvent.color;
+    if (this.newEvent.title) {
+      this.editingEvent.title = this.newEvent.title;
+    }
+    if (this.newEvent.content) {
+      this.editingEvent.content = this.newEvent.content;
+    }
+    if (this.newEvent.color) {
+      this.editingEvent.color = this.newEvent.color;
+    }
 
     //convert to ReminderUpdateRequest
     const reminderUpdateRequest: ReminderUpdateRequest = {
@@ -359,7 +365,13 @@ export class CalendarComponent {
     };
 
     this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {});
-
+    //reset newEvent
+    this.newEvent = {
+      title: '',
+      content: '',
+      color: ReminderColor.USER_CREATED_EVENT_COLOR,
+      type: ReminderType.USER_CREATED_EVENT,
+    };
     //close modal
     this.showEventModal = false;
   }
@@ -368,6 +380,12 @@ export class CalendarComponent {
     if (event.type == ReminderType.USER_DUE_DATE) {
       return;
     }
+    this.newEvent = {
+      title: '',
+      content: '',
+      color: ReminderColor.USER_CREATED_EVENT_COLOR,
+      type: ReminderType.USER_CREATED_EVENT,
+    };
     this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {});
     //đóng modal
     this.showEventModal = false;

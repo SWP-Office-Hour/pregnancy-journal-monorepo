@@ -1,101 +1,101 @@
-<!--<div class="flex flex-col">-->
-<!--  &lt;!&ndash; Dialog Header &ndash;&gt;-->
-<!--  <div class="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-purple-50 px-6 py-4">-->
-<!--    <div class="flex items-center">-->
-<!--      <div class="mr-3 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white">-->
-<!--        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">-->
-<!--          <path-->
-<!--            fill-rule="evenodd"-->
-<!--            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"-->
-<!--            clip-rule="evenodd"-->
-<!--          />-->
-<!--        </svg>-->
-<!--      </div>-->
-<!--      <h2 class="text-lg font-medium text-gray-800">{{ isEditMode ? 'Chỉnh sửa ghi chú' : 'Chi tiết ghi chú' }}</h2>-->
-<!--    </div>-->
-<!--    <button mat-icon-button mat-dialog-close>-->
-<!--      <mat-icon class="text-gray-500">close</mat-icon>-->
-<!--    </button>-->
-<!--  </div>-->
+<div class="flex flex-col">
+  <!-- Dialog Header -->
+  <div class="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-indigo-50 to-purple-50 px-6 py-4">
+    <div class="flex items-center">
+      <div class="mr-3 flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <h2 class="text-lg font-medium text-gray-800">{{ isEditMode ? 'Chỉnh sửa ghi chú' : 'Chi tiết ghi chú' }}</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close>
+      <mat-icon class="text-gray-500">close</mat-icon>
+    </button>
+  </div>
 
-<!--  &lt;!&ndash; Dialog Content &ndash;&gt;-->
-<!--  <div class="px-6 py-4">-->
-<!--    <form [formGroup]="noteForm">-->
-<!--      &lt;!&ndash; Status Badge (for important notes) &ndash;&gt;-->
-<!--      <div *ngIf="data?.note?.status === 'IMPORTANT'" class="mb-4 flex">-->
-<!--        <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">-->
-<!--          <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-red-500" fill="currentColor" viewBox="0 0 8 8">-->
-<!--            <circle cx="4" cy="4" r="3" />-->
-<!--          </svg>-->
-<!--          Quan trọng-->
-<!--        </span>-->
-<!--      </div>-->
+  <!-- Dialog Content -->
+  <div class="px-6 py-4">
+    <form [formGroup]="noteForm">
+      <!-- Status Badge (for important notes) -->
+      <div *ngIf="data?.note?.status == Status.ACTIVE" class="mb-4 flex">
+        <span class="inline-flex items-center rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-800">
+          <svg class="-ml-0.5 mr-1.5 h-2 w-2 text-red-500" fill="currentColor" viewBox="0 0 8 8">
+            <circle cx="4" cy="4" r="3" />
+          </svg>
+          Quan trọng
+        </span>
+      </div>
 
-<!--      &lt;!&ndash; Title &ndash;&gt;-->
-<!--      <div class="mb-4">-->
-<!--        <mat-form-field appearance="outline" class="w-full">-->
-<!--          <mat-label>Tiêu đề</mat-label>-->
-<!--          <input matInput formControlName="title" placeholder="Nhập tiêu đề ghi chú" />-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
+      <!-- Title -->
+      <div class="mb-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Tiêu đề</mat-label>
+          <input matInput formControlName="title" placeholder="Nhập tiêu đề ghi chú" />
+        </mat-form-field>
+      </div>
 
-<!--      &lt;!&ndash; Content &ndash;&gt;-->
-<!--      <div class="mb-4">-->
-<!--        <mat-form-field appearance="outline" class="w-full">-->
-<!--          <mat-label>Nội dung</mat-label>-->
-<!--          <textarea-->
-<!--            matInput-->
-<!--            formControlName="content"-->
-<!--            cdkTextareaAutosize-->
-<!--            cdkAutosizeMinRows="4"-->
-<!--            cdkAutosizeMaxRows="10"-->
-<!--            placeholder="Nhập nội dung ghi chú"-->
-<!--          ></textarea>-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
+      <!-- Content -->
+      <div class="mb-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Nội dung</mat-label>
+          <textarea
+            matInput
+            formControlName="content"
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="4"
+            cdkAutosizeMaxRows="10"
+            placeholder="Nhập nội dung ghi chú"
+          ></textarea>
+        </mat-form-field>
+      </div>
 
-<!--      &lt;!&ndash;   DATE   &ndash;&gt;-->
-<!--      <div class="mb-4">-->
-<!--        <mat-form-field appearance="outline" class="w-full">-->
-<!--          <mat-label>Ngày</mat-label>-->
-<!--          <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Chọn ngày" />-->
-<!--          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>-->
-<!--          <mat-datepicker #picker></mat-datepicker>-->
-<!--        </mat-form-field>-->
-<!--      </div>-->
+      <!--   DATE   -->
+      <div class="mb-4">
+        <mat-form-field appearance="outline" class="w-full">
+          <mat-label>Ngày</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" placeholder="Chọn ngày" />
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-<!--      &lt;!&ndash; Note Status &ndash;&gt;-->
-<!--      <div class="mb-4">-->
-<!--        <mat-checkbox formControlName="isImportant" [color]="'warn'" class="flex items-center">-->
-<!--          <span class="ml-1 text-gray-700">Đánh dấu là quan trọng</span>-->
-<!--        </mat-checkbox>-->
-<!--      </div>-->
+      <!-- Note Status -->
+      <div class="mb-4">
+        <mat-checkbox formControlName="isImportant" [color]="'warn'" class="flex items-center">
+          <span class="ml-1 text-gray-700">Đánh dấu là quan trọng</span>
+        </mat-checkbox>
+      </div>
 
-<!--      &lt;!&ndash; Date Information &ndash;&gt;-->
-<!--      <div *ngIf="data?.note?.date" class="mt-2 text-sm text-gray-500">-->
-<!--        <span>Đã tạo: {{ data.note.date | date: 'dd/MM/yyyy HH:mm' }}</span>-->
-<!--      </div>-->
-<!--    </form>-->
-<!--  </div>-->
+      <!-- Date Information -->
+      <div *ngIf="data?.note?.date" class="mt-2 text-sm text-gray-500">
+        <span>Đã tạo: {{ data.note.date | date: 'dd/MM/yyyy HH:mm' }}</span>
+      </div>
+    </form>
+  </div>
 
-<!--  &lt;!&ndash; Dialog Actions &ndash;&gt;-->
-<!--  <div class="flex justify-end space-x-2 border-t border-gray-100 bg-gray-50 px-6 py-3">-->
-<!--    <button *ngIf="isEditMode" mat-button class="rounded-full text-red-500 hover:bg-red-50" (click)="deleteNote()">-->
-<!--      <mat-icon class="mr-1 text-red-500">delete</mat-icon>-->
-<!--      Xóa-->
-<!--    </button>-->
-<!--    <div class="flex-grow">-->
-<!--      <p-toast />-->
-<!--      <p-confirmpopup></p-confirmpopup>-->
-<!--    </div>-->
-<!--    <button mat-button class="rounded-full text-gray-700" mat-dialog-close>Hủy</button>-->
-<!--    <button-->
-<!--      mat-flat-button-->
-<!--      class="rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white"-->
-<!--      [disabled]="noteForm.invalid"-->
-<!--      (click)="saveNote()"-->
-<!--    >-->
-<!--      Lưu-->
-<!--    </button>-->
-<!--  </div>-->
-<!--</div>-->
+  <!-- Dialog Actions -->
+  <div class="flex justify-end space-x-2 border-t border-gray-100 bg-gray-50 px-6 py-3">
+    <button *ngIf="isEditMode" mat-button class="rounded-full text-red-500 hover:bg-red-50" (click)="deleteNote()">
+      <mat-icon class="mr-1 text-red-500">delete</mat-icon>
+      Xóa
+    </button>
+    <div class="flex-grow">
+      <p-toast />
+      <p-confirmpopup></p-confirmpopup>
+    </div>
+    <button mat-button class="rounded-full text-gray-700" mat-dialog-close>Hủy</button>
+    <button
+      mat-flat-button
+      class="rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 text-white"
+      [disabled]="noteForm.invalid"
+      (click)="saveNote()"
+    >
+      Lưu
+    </button>
+  </div>
+</div>

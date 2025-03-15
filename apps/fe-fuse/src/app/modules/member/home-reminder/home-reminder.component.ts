@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
-import { ReminderResponse } from '@pregnancy-journal-monorepo/contract';
+import { ReminderResponse, ReminderType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
@@ -148,4 +148,6 @@ export class HomeReminderComponent implements OnInit {
       });
     }
   }
+
+  protected readonly ReminderType = ReminderType;
 }
