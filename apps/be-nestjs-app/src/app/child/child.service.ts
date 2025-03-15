@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ChildCreateRequestType, ChildUpdateRequestType } from '../../../../../libs/contract/src/lib/child.contract';
+import { ChildCreateRequestType, ChildUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { RecordsService } from '../records/records.service';
 import { Child } from './entities/child.entity';
