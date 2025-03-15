@@ -80,4 +80,8 @@ export class DatabaseService {
   get Child() {
     return this.prisma.child;
   }
+
+  get Reaction() {
+    return this.prisma.reaction;
+  }
 }

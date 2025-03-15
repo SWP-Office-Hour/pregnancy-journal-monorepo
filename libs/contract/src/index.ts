@@ -14,6 +14,7 @@ export * from './lib/note.contract';
 export * from './lib/payment.contract';
 export * from './lib/payos.contract';
 export * from './lib/post.contract';
+export * from './lib/reaction.contract';
 export * from './lib/record.contract';
 export * from './lib/reminder.contract';
 export * from './lib/standard.contract';
