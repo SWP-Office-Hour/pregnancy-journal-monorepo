@@ -26,13 +26,13 @@ export class membershipService {
         body: JSON.stringify(data),
       });
 
-      // if (!response.ok) {
-      //   return response.json();
-      // }
+      if (!response.ok) {
+        return response.json();
+      }
 
       const result = await response.json();
       console.log('Server response:', result);
-      return result;
+      window.location.href = result.payment_url;
     } catch (error) {
       console.log(error);
     } finally {
