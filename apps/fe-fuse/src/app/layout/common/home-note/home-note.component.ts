@@ -165,4 +165,6 @@ export class HomeNoteComponent implements OnInit {
       },
     });
   }
+
+  protected readonly Status = Status;
 }

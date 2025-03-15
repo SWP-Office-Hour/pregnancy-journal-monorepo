@@ -348,7 +348,7 @@
                 class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
               />
               <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-sm text-red-500">
-                <div *ngIf="title.errors['require']">Tiêu đề không được để trống</div>
+                <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
               </div>
             </div>
 
@@ -357,7 +357,6 @@
               <textarea
                 [(ngModel)]="newEvent.content"
                 name="content"
-                #content="ngModel"
                 rows="4"
                 placeholder="Nhập nội dung chi tiết..."
                 class="min-h-[100px] w-full resize-y rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
@@ -369,13 +368,13 @@
                 @for (color of getReminderColors(); track $index) {
                   @if (newEvent.color == color) {
                     <div
-                      (click)="newEvent.color = color"
+                      (click)="this.newEvent.color = color"
                       class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
                   } @else {
                     <div
-                      (click)="newEvent.color = color"
+                      (click)="this.newEvent.color = color"
                       class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
