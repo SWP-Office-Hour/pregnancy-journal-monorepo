@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest, Status } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
@@ -66,8 +66,17 @@ export class ReminderService {
     });
   }
 
-  findAll() {
-    return this.databaseService.Reminder.findMany();
+  findAll(userId: string) {
+    const user = this.userService.getUserById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return this.databaseService.Reminder.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
   }
 
   async findOne(id: string) {
@@ -126,6 +135,7 @@ export class ReminderService {
         title: updateReminderDto.title,
         content: updateReminderDto.content,
         remind_date: new Date(updateReminderDto.remind_date as string),
+        color: updateReminderDto.color ?? undefined,
       },
     });
   }
