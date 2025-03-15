@@ -48,12 +48,14 @@ export class MembershipDetailComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.paymentForm.valid) {
-      // In a real application, you would call a payment service here
-      console.log('Payment submitted', this.paymentForm.value);
-      // this.router.navigate(['/confirmation']);
-    } else {
-      this.paymentForm.markAllAsTouched();
-    }
+    console.log(this.membership);
+    this.membershipService.createPayment({ membership_id: this.membership.membership_id });
+    // if (this.paymentForm.valid) {
+    //   // In a real application, you would call a payment service here
+    //   console.log('Payment submitted', this.paymentForm.value);
+    //   // this.router.navigate(['/confirmation']);
+    // } else {
+    //   this.paymentForm.markAllAsTouched();
+    // }
   }
 }
