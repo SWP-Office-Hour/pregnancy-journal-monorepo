@@ -161,21 +161,24 @@ export class BlogMasonryComponent implements OnInit {
 
   carouselItems: BlogResponseType[] = [
     {
-      blog_cover: 'https://images.unsplash.com/photo-1495020689067-958852a7765e',
+      blog_cover:
+        'https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       title: 'Breaking: Major Technology Breakthrough Announced',
       summary: 'Scientists reveal groundbreaking advancement in quantum computing that could revolutionize modern technology.',
       created_at: new Date(),
       author: 'John Smith',
     },
     {
-      blog_cover: 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167',
+      blog_cover:
+        'https://images.unsplash.com/photo-1470116945706-e6bf5d5a53ca?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       title: 'Global Climate Summit Reaches Historic Agreement',
       summary: 'World leaders unite to establish ambitious climate goals in landmark environmental accord.',
       created_at: new Date(),
       author: 'Sarah Johnson',
     },
     {
-      blog_cover: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c',
+      blog_cover:
+        'https://images.unsplash.com/photo-1511948374796-056e8f289f34?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       title: 'Economic Recovery Shows Promising Signs',
       summary: 'Markets respond positively to new economic measures as global recovery gains momentum.',
       created_at: new Date(),
