@@ -1,0 +1,74 @@
+<!-- pagination.component.html -->
+<nav aria-label="Pagination" class="mt-2 flex justify-center">
+  <div class="flex items-center justify-center space-x-2 py-4">
+    <!-- Previous page button -->
+    <button
+      (click)="previousPage()"
+      [disabled]="currentPage === 1"
+      class="flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-50"
+      [ngClass]="{ 'border-gray-200 text-gray-400': currentPage === 1, 'border-pink-200 text-pink-600': currentPage !== 1 }"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+
+    <!-- Page numbers -->
+    <ng-container *ngIf="totalPages > 0">
+      <ng-container *ngIf="pages[0] > 1">
+        <button
+          (click)="goToPage(1)"
+          class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-sm text-gray-500 hover:bg-pink-50"
+        >
+          1
+        </button>
+        <span *ngIf="pages[0] > 2" class="mx-1 text-gray-400">...</span>
+      </ng-container>
+
+      <button
+        *ngFor="let page of pages"
+        (click)="goToPage(page)"
+        class="flex h-8 w-8 items-center justify-center rounded-full border text-sm transition-colors"
+        [ngClass]="{
+          'border-transparent bg-gradient-to-r from-pink-400 to-purple-400 text-white': currentPage === page,
+          'border-gray-200 text-gray-600 hover:bg-pink-50': currentPage !== page,
+        }"
+      >
+        {{ page }}
+      </button>
+
+      <ng-container *ngIf="pages[pages.length - 1] < totalPages">
+        <span *ngIf="pages[pages.length - 1] < totalPages - 1" class="mx-1 text-gray-400">...</span>
+        <button
+          (click)="goToPage(totalPages)"
+          class="flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-sm text-gray-500 hover:bg-pink-50"
+        >
+          {{ totalPages }}
+        </button>
+      </ng-container>
+    </ng-container>
+
+    <!-- Next page button -->
+    <button
+      (click)="nextPage()"
+      [disabled]="currentPage === totalPages"
+      class="flex h-8 w-8 items-center justify-center rounded-full border transition-colors hover:bg-pink-50 disabled:cursor-not-allowed disabled:opacity-50"
+      [ngClass]="{ 'border-gray-200 text-gray-400': currentPage === totalPages, 'border-pink-200 text-pink-600': currentPage !== totalPages }"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- Showing items count for accessibility -->
+<div *ngIf="totalItems > 0" class="text-center text-xs text-gray-500">Trang {{ currentPage }} trên {{ totalPages }} ({{ totalItems }} bài viết)</div>

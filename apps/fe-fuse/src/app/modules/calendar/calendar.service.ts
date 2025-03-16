@@ -92,7 +92,6 @@ export class CalendarService {
   }
 
   updateReminder(reminder: ReminderUpdateRequest) {
-    console.log(reminder.color);
     return this._httpClient.patch<ReminderResponse>(environment.apiUrl + 'reminders/', reminder).pipe(
       map((response: ReminderResponse) => {
         const updatedMeetings = this.reminderResource.value().map((meeting) => {

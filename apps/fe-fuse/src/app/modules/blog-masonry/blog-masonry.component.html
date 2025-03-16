@@ -5,408 +5,454 @@
     'landing-page': isLandingPage(),
   }"
 >
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900">
-    <div class="relative h-[500px] w-full overflow-hidden">
-      <div
-        *ngFor="let item of carouselItems; let i = index"
-        [ngClass]="{ hidden: currentIndex !== i }"
-        class="relative h-full w-full overflow-hidden rounded-t-3xl transition-opacity duration-500 ease-in-out"
-      >
-        <img [src]="item.blog_cover" [alt]="item.title" class="h-full w-full object-cover object-center" (error)="handleImageError($event)" />
-
-        <div class="absolute inset-0 bottom-0 left-0 right-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-          <!--          <span class="w-20 flex-col rounded-full bg-red-600 py-1 text-center text-sm font-semibold text-white">Mới nhất</span>-->
-          <h1 class="mb-3 mt-2 text-4xl font-bold text-white">{{ item.title }}</h1>
-          <p class="mb-4 text-lg text-gray-200">{{ item.summary }}</p>
-          <div class="flex items-center gap-4">
-            <span class="flex items-center gap-2 text-sm text-gray-300"> <i class="fas fa-clock"></i> {{ item.created_at | date }} </span>
-            <span class="flex items-center gap-2 text-sm text-gray-300"> <i class="fas fa-user"></i> {{ item.author }} </span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Navigation Arrows -->
-      <button
-        (click)="prevSlide()"
-        class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-all duration-200 hover:bg-black/70 focus:outline-none"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-
-      <button
-        (click)="nextSlide()"
-        class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-black/50 p-3 text-white transition-all duration-200 hover:bg-black/70 focus:outline-none"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-
-      <!-- Dot Indicators -->
-      <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 space-x-2">
-        <button
+  <div class="min-h-screen bg-white">
+    <!-- Maternal Blog Carousel -->
+    <div
+      class="relative mb-8 mt-3 overflow-hidden rounded-[2rem] border-2 border-pink-100 bg-gradient-to-r from-pink-50/30 to-purple-50/30 p-1 shadow-lg"
+    >
+      <div class="relative h-[500px] w-full overflow-hidden rounded-[calc(2rem-4px)]">
+        <!-- Carousel slides with Angular ngForOf and ngClass -->
+        <div
           *ngFor="let item of carouselItems; let i = index"
-          (click)="goToSlide(i)"
-          [ngClass]="{ 'bg-white': currentIndex === i, 'bg-white/50': currentIndex !== i }"
-          class="h-2 w-2 rounded-full transition-all duration-200 focus:outline-none"
-        ></button>
+          [ngClass]="{ 'pointer-events-none opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i }"
+          class="absolute inset-0 h-full w-full transition-all duration-700"
+          [ngStyle]="{ 'z-index': currentIndex === i ? 20 : 10 }"
+        >
+          <!-- Image with maternal-friendly overlay gradient -->
+          <img
+            [src]="item.blog_cover"
+            [alt]="item.title"
+            class="h-full w-full scale-[1.02] object-cover object-center blur-[2px] transition-transform duration-700"
+            (error)="handleImageError($event)"
+          />
+
+          <!-- Semi-transparent backdrop for better readability -->
+          <div class="absolute inset-0 bg-gradient-to-t from-pink-900/80 via-purple-800/60 to-transparent"></div>
+
+          <!-- Content container with improved layout -->
+          <div class="absolute inset-x-0 bottom-0 z-30 px-20 pb-12 pt-24">
+            <!-- "New" badge with maternal styling -->
+            <div
+              class="mb-4 flex max-w-20 items-center gap-2 self-start rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-5 py-1.5 shadow-lg"
+              [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+            >
+              <span class="text-sm font-semibold tracking-wide text-white">Mẹ bầu</span>
+            </div>
+
+            <!-- Title with maternal font and styling -->
+            <h1
+              class="mb-3 max-w-3xl text-4xl font-bold leading-tight text-white drop-shadow-md md:text-5xl"
+              [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+            >
+              {{ item.title }}
+            </h1>
+
+            <!-- Summary with better readability -->
+            <p class="mb-6 max-w-2xl text-lg leading-relaxed text-pink-50 drop-shadow-md md:text-xl">
+              {{ item.summary }}
+            </p>
+
+            <!-- Meta information with maternal-friendly icons -->
+            <div class="flex flex-wrap items-center gap-6">
+              <div class="flex items-center gap-2 text-sm text-pink-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span>{{ item.created_at | date: 'dd MMM, yyyy' }}</span>
+              </div>
+
+              <div class="flex items-center gap-2 text-sm text-pink-100">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                </svg>
+                <span>{{ item.author }}</span>
+              </div>
+
+              <!-- Read more button -->
+              <button
+                class="group ml-auto flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-pink-600"
+                [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+              >
+                <span class="text-sm font-medium text-white transition-colors group-hover:text-pink-600">Đọc tiếp</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4 text-white transition-all group-hover:translate-x-1 group-hover:text-pink-600"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Navigation controls -->
+        <div class="absolute inset-0 z-30 flex items-center justify-between px-4">
+          <!-- Previous button with maternal styling -->
+          <button
+            (click)="prevSlide()"
+            class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
+            aria-label="Previous slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <!-- Next button with maternal styling -->
+          <button
+            (click)="nextSlide()"
+            class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
+            aria-label="Next slide"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Dot indicators -->
+        <div class="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-3">
+          <button
+            *ngFor="let item of carouselItems; let i = index"
+            (click)="goToSlide(i)"
+            [ngClass]="{
+              'w-6 bg-white': currentIndex === i,
+              'bg-white/50 hover:bg-white/70': currentIndex !== i,
+            }"
+            class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+            [attr.aria-label]="'Go to slide ' + (i + 1)"
+          ></button>
+        </div>
       </div>
     </div>
-    <div class="mb-24 rounded-b-3xl bg-white p-4 shadow-md dark:bg-gray-800">
-      <div class="flex items-center overflow-hidden">
-        <span class="mr-4 shrink-0 rounded-lg bg-red-600 px-4 py-2 text-white">NÊN ĐỌC</span>
-        <div class="ticker-container flex items-center overflow-hidden whitespace-nowrap">
-          <div class="ticker-content" [style.transform]="'translateX(' + tickerPosition + 'px)'">
-            <a
-              *ngFor="let news of trendingNews"
-              [routerLink]="['/blog', news.blog_id]"
-              class="mr-8 inline-block cursor-pointer transition-colors hover:text-red-600 dark:hover:text-red-400"
-            >
-              {{ news.title }}
-            </a>
+    <!-- Recommend bar-->
+    <div class="relative mb-12 mt-6 overflow-hidden rounded-3xl bg-gradient-to-r from-pink-50 via-rose-50 to-pink-50 p-0.5 shadow-md">
+      <!-- Decorative elements -->
+      <div class="absolute -left-6 -top-6 h-16 w-16 rotate-12 opacity-60">
+        <img src="/images/ui/doodles/d9.svg" alt="Baby doodle" class="h-full w-full" />
+      </div>
+
+      <!-- Inner content with a softer gradient border effect -->
+      <div class="flex items-center overflow-hidden rounded-[calc(1.5rem-2px)] bg-white p-4">
+        <!-- Label with maternal colors and style -->
+        <div class="mr-5 shrink-0">
+          <span
+            class="relative flex items-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-5 py-2.5 font-medium text-white shadow-sm"
+          >
+            <!-- Text with maternal font -->
+            <span style="font-family: var(--font-playful)">NÊN ĐỌC</span>
+          </span>
+        </div>
+
+        <!-- Ticker content with improved styling for expectant mothers -->
+        <div class="ticker-container flex flex-1 items-center overflow-hidden whitespace-nowrap">
+          <div class="ticker-content flex" [style.transform]="'translateX(' + tickerPosition + 'px)'">
+            <span *ngFor="let news of trendingNews" class="mr-8 flex cursor-pointer items-center text-gray-600 transition-colors hover:text-pink-500">
+              <!-- Small decorative heart icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4 text-pink-300" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <!-- News title -->
+              <span class="font-medium" style="font-family: var(--font-text)">{{ news.title }}</span>
+            </span>
           </div>
         </div>
       </div>
     </div>
-    <section class="container mx-auto flex gap-12">
-      <div class="flex w-1/4 flex-auto flex-col rounded-3xl bg-gray-500">
-        <div class="p-4">
-          <h2 class="text-2xl font-bold text-white">Danh mục</h2>
-          <ul class="mt-4">
-            <button
-              *ngFor="let category of categories"
-              (click)="filterByCategory(category.category_id)"
-              class="flex w-full items-center justify-between py-2 text-white hover:bg-gray-600 dark:hover:bg-gray-400"
-            >
-              <span>{{ category.title }}</span>
-            </button>
-          </ul>
-        </div>
-      </div>
-      <div class="flex h-full w-3/4 flex-auto flex-col">
-        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <div
-            *ngFor="let blog of blogs"
-            class="overflow-hidden rounded-3xl bg-white shadow-md transition-transform hover:scale-105 dark:bg-gray-800"
-          >
-            <img [src]="blog.blog_cover" [alt]="blog.title" class="h-48 w-full object-cover" />
-            <div class="p-4">
-              <span class="rounded bg-blue-100 px-2.5 py-0.5 text-xs font-semibold text-blue-800 dark:bg-blue-200 dark:text-blue-800">{{
-                blog.category.title
-              }}</span>
-              <h3 class="mt-2 text-xl font-bold text-gray-900 dark:text-white">{{ blog.title }}</h3>
-              <p class="mt-2 text-gray-600 dark:text-gray-300">{{ blog.summary }}</p>
-              <div class="mt-4 flex items-center">
-                <span class="flex items-center text-sm text-gray-500 dark:text-gray-400">
-                  <i class="far fa-clock mr-2"></i> {{ blog.created_at | date }}
-                </span>
+    <!-- News Categories-->
+    <section class="blog-masonry-section container mx-auto flex gap-12">
+      <!-- Filter Sidebar -->
+      <div class="flex w-1/4 flex-auto flex-col overflow-hidden">
+        <div class="rounded-3xl bg-gradient-to-br from-pink-50 via-rose-50 to-purple-50 shadow-lg shadow-pink-200/20">
+          <!-- Decorative elements -->
+          <div class="relative">
+            <div class="absolute -right-4 -top-4 h-16 w-16 rotate-12 opacity-10">
+              <img src="/images/ui/doodles/d9.svg" alt="Decorative element" class="h-full w-full" />
+            </div>
+            <div class="absolute -left-4 bottom-1/3 h-14 w-14 -rotate-12 opacity-10">
+              <img src="/images/ui/doodles/d5.svg" alt="Decorative element" class="h-full w-full" />
+            </div>
+
+            <!-- Search Bar -->
+            <div class="px-8 pt-8">
+              <div class="relative mb-10">
+                <input
+                  type="text"
+                  placeholder="Tìm kiếm bài viết..."
+                  class="h-14 w-full rounded-full border-2 border-dashed border-pink-200 bg-white/80 py-3 pl-12 pr-4 text-lg font-medium text-pink-500 shadow-inner shadow-pink-100/50 backdrop-blur-sm transition-all duration-300 placeholder:text-pink-300 focus:border-pink-400 focus:bg-white focus:shadow-pink-300/20 focus:outline-none focus:ring-0"
+                  (focus)="isInputFocused = true"
+                  (blur)="isInputFocused = false"
+                />
+                <svg
+                  [ngClass]="{ 'scale-110 text-pink-500': isInputFocused, 'text-pink-300': !isInputFocused }"
+                  class="absolute left-5 top-1/2 h-6 w-6 -translate-y-1/2 transform transition-all duration-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <!-- Recent Posts -->
+              <div class="mb-10">
+                <h3 class="mb-6 font-sans text-2xl font-bold text-gray-700" style="font-family: var(--font-playful)">
+                  <span class="relative">
+                    Bài viết gần đây
+                    <span class="absolute -bottom-1 left-0 h-1 w-10 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></span>
+                  </span>
+                </h3>
+                <div class="space-y-5">
+                  <div
+                    *ngFor="let item of carouselItems"
+                    class="group transform cursor-pointer rounded-xl bg-white/70 p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md"
+                  >
+                    <div class="flex gap-4">
+                      <img
+                        [src]="item.blog_cover"
+                        [alt]="item.title"
+                        class="h-24 w-32 rounded-xl object-cover shadow-sm transition-all group-hover:shadow-md"
+                        (error)="handleImageErrorV2($event)"
+                        loading="lazy"
+                      />
+                      <div class="flex flex-1 flex-col justify-between">
+                        <p class="font-medium text-pink-400">{{ item.created_at | date: 'dd MMM, yyyy' }}</p>
+                        <h4 class="line-clamp-2 text-base font-semibold text-gray-700 transition-colors group-hover:text-pink-500">
+                          {{ item.title }}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Categories -->
+              <div class="mb-8">
+                <h3 class="mb-6 font-sans text-2xl font-bold text-gray-700" style="font-family: var(--font-playful)">
+                  <span class="relative">
+                    Thể loại
+                    <span class="absolute -bottom-1 left-0 h-1 w-10 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></span>
+                  </span>
+                </h3>
+                <div class="space-y-3">
+                  <div
+                    *ngFor="let category of categoriesV2"
+                    (click)="toggleCategory(category)"
+                    class="transform transition-all duration-300 hover:-translate-x-1"
+                  >
+                    <button
+                      class="flex w-full items-center rounded-r-full py-3 pl-5 pr-4 text-left text-lg font-medium transition-all duration-200"
+                      [ngClass]="{
+                        'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': category.isSelected,
+                        'bg-white/70 text-gray-700 hover:bg-white hover:text-pink-500 hover:shadow-sm': !category.isSelected,
+                      }"
+                    >
+                      <span class="flex-1">{{ category.name }}</span>
+                      <span *ngIf="category.isSelected" class="ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 text-white">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tags -->
+              <div class="pb-8">
+                <h3 class="mb-6 font-sans text-2xl font-bold text-gray-700" style="font-family: var(--font-playful)">
+                  <span class="relative">
+                    Gắn thẻ
+                    <span class="absolute -bottom-1 left-0 h-1 w-10 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></span>
+                  </span>
+                </h3>
+                <div class="flex flex-wrap gap-3">
+                  <button
+                    *ngFor="let tag of tags"
+                    (click)="toggleTag(tag)"
+                    [ngClass]="{
+                      'border-transparent bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': tag.isSelected,
+                      'border-pink-100 bg-white/70 text-gray-600 hover:border-pink-300 hover:bg-white hover:text-pink-500 hover:shadow-sm':
+                        !tag.isSelected,
+                    }"
+                    class="rounded-full border px-4 py-2 text-base font-medium transition-all duration-200"
+                  >
+                    {{ tag.name }}
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="card mt-8 flex justify-center">
-          <p-paginator (onPageChange)="onPageChange($event)" [first]="(currentPage - 1) * 9" [rows]="9" [totalRecords]="totalPage * 9" />
+      </div>
+      <!-- Content-->
+      <div class="flex h-full w-3/4 flex-auto flex-col">
+        <!-- Breadcumb bar-->
+        <div class="mb-2 w-full">
+          <p-breadcrumb class="max-w-full" [model]="this.items">
+            <ng-template #item let-item>
+              <ng-container *ngIf="item.route; else elseBlock">
+                <a [routerLink]="item.route" class="p-breadcrumb-item-link">
+                  <span [ngClass]="[item.icon ? item.icon : '', 'text-color']"></span>
+                  <span class="text-primary font-semibold">{{ item.label }}</span>
+                </a>
+              </ng-container>
+              <ng-template #elseBlock>
+                <a [href]="item.url">
+                  <span class="text-color">{{ item.label }}</span>
+                </a>
+              </ng-template>
+            </ng-template>
+          </p-breadcrumb>
+        </div>
+        <!-- Masonry - Updated to use paginated blogs -->
+        <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <!-- Blog List - Now using paginated data -->
+          <div
+            *ngFor="let category of getPaginatedBlogs()"
+            class="group relative overflow-hidden rounded-3xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+          >
+            <!-- Decorative baby-themed accents -->
+            <div class="absolute -right-6 -top-6 h-16 w-16 rotate-12 opacity-20">
+              <img src="/images/ui/doodles/d9.svg" alt="Baby decoration" class="h-full w-full" />
+            </div>
+
+            <!-- Image with gentle overlay -->
+            <div class="relative overflow-hidden">
+              <img
+                [src]="category.imageUrl"
+                [alt]="category.name"
+                class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              <div class="absolute inset-0 bg-gradient-to-b from-transparent to-pink-50/30"></div>
+
+              <!-- Category badge with maternal color scheme -->
+              <span class="absolute left-4 top-4 rounded-full bg-pink-100 px-3 py-1 text-base font-medium text-pink-600 shadow-sm">
+                {{ category.name }}
+              </span>
+            </div>
+
+            <!-- Content with softer padding and enhanced styling -->
+            <div class="flex flex-auto flex-col justify-between px-6 pt-6">
+              <div class="flex flex-col">
+                <!-- Headline with more readable size -->
+                <h3 class="mb-3 line-clamp-2 font-sans text-2xl font-bold text-gray-800 group-hover:text-pink-600">
+                  {{ category.headline }}
+                </h3>
+
+                <!-- Summary with improved line clamping -->
+                <p class="mb-5 line-clamp-3 min-h-16 text-lg text-gray-600">
+                  {{ category.summary }}
+                </p>
+              </div>
+
+              <div class="flex flex-col">
+                <!-- Author information with maternal styling -->
+                <div class="mb-4 flex items-center rounded-lg bg-pink-50/50 py-2.5">
+                  <!-- Author avatar with maternal icon -->
+                  <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-purple-100 shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                      />
+                    </svg>
+                  </div>
+
+                  <!-- Author name and date with nurturing style -->
+                  <div>
+                    <p class="font-semibold text-pink-700" style="font-family: var(--font-playful)">Bác sĩ Thanh Hương</p>
+                    <p class="flex items-center text-sm text-pink-500/80">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-3.5 w-3.5 text-purple-400" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fill-rule="evenodd"
+                          d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      Đăng tải ngày 16/03/2024
+                    </p>
+                  </div>
+                </div>
+
+                <!-- Bottom info and action row -->
+                <div class="mb-6 flex items-center justify-between">
+                  <!-- Reading time with baby-themed icon -->
+                  <span class="flex items-center text-base text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-4 w-4 text-pink-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
+                      <path
+                        fill-rule="evenodd"
+                        d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    {{ category.readTime }} phút đọc
+                  </span>
+
+                  <!-- Read more button with maternity-friendly styling -->
+                  <button
+                    class="flex items-center gap-1.5 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 hover:shadow-md hover:shadow-pink-200"
+                    style="font-family: var(--font-playful)"
+                  >
+                    Đọc tiếp
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- Decorative footer element -->
+            <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-pink-200 to-purple-200 opacity-70"></div>
+          </div>
+        </div>
+
+        <!-- Pagination - Now properly connected to our pagination logic -->
+        <div class="flex justify-center">
+          <app-pagination
+            [currentPage]="currentPage"
+            [totalPages]="totalPages"
+            [totalItems]="newsCategories.length"
+            [itemsPerPage]="itemsPerPage"
+            (pageChanged)="handlePageChange($event)"
+          ></app-pagination>
         </div>
       </div>
     </section>
   </div>
-
-  <!--  &lt;!&ndash; Header section with enhanced doodle-rich background &ndash;&gt;-->
-  <!--  <div class="my -8 relative overflow-hidden bg-gradient-to-r from-pink-50 to-purple-50 px-12 pb-16 pt-16 text-center">-->
-  <!--    &lt;!&ndash; Title and description with Vietnamese-friendly animated font &ndash;&gt;-->
-  <!--    <div class="relative z-10">-->
-  <!--      <h1-->
-  <!--        class="animated-text mb-4 bg-gradient-to-r from-pink-500 via-purple-500 to-pink-400 bg-clip-text text-8xl font-extrabold leading-tight tracking-wide text-transparent"-->
-  <!--        style="font-family: 'Baloo 2', 'Patrick Hand', cursive"-->
-  <!--      >-->
-  <!--        <span>Trang tin tức cung cấp những kiến thức</span><br />-->
-  <!--        <span>bổ ích về mẹ và bé</span>-->
-  <!--      </h1>-->
-  <!--      <div class="mx-auto mb-5 h-1.5 w-32 rounded-full bg-gradient-to-r from-pink-400 to-purple-400"></div>-->
-  <!--      &lt;!&ndash; Background doodles container &ndash;&gt;-->
-  <!--      <div class="absolute inset-0 overflow-hidden">-->
-  <!--        &lt;!&ndash; Left side doodles &ndash;&gt;-->
-  <!--        <div class="absolute -left-6 -top-6 h-28 w-28 rotate-12 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d17.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute bottom-10 left-10 h-20 w-20 -rotate-12 opacity-15">-->
-  <!--          <img src="/images/ui/doodles/d9.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute left-1/4 top-1/4 h-16 w-16 rotate-45 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d3.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-
-  <!--        &lt;!&ndash; Right side doodles &ndash;&gt;-->
-  <!--        <div class="absolute -right-4 top-12 h-24 w-24 -rotate-12 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d5.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute bottom-8 right-16 h-16 w-16 rotate-12 opacity-15">-->
-  <!--          <img src="/images/ui/doodles/d8.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute right-1/4 top-1/4 h-14 w-14 -rotate-6 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d12.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-
-  <!--        &lt;!&ndash; Center/scattered doodles &ndash;&gt;-->
-  <!--        <div class="absolute left-1/3 top-3/4 h-12 w-12 -rotate-12 opacity-15">-->
-  <!--          <img src="/images/ui/doodles/d15.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute right-1/3 top-2/3 h-10 w-10 rotate-45 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d6.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="absolute bottom-4 left-1/2 h-16 w-16 -translate-x-1/2 rotate-12 opacity-15">-->
-  <!--          <img src="/images/ui/doodles/d4.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="right-1/5 top-1/6 absolute h-12 w-12 -rotate-6 opacity-15">-->
-  <!--          <img src="/images/ui/doodles/d10.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-  <!--        <div class="top-1/5 absolute left-3/4 h-14 w-14 rotate-12 opacity-20">-->
-  <!--          <img src="/images/ui/doodles/d2.svg" alt="Decorative doodle" class="h-full w-full" />-->
-  <!--        </div>-->
-
-  <!--        &lt;!&ndash; Add subtle pattern overlay for texture &ndash;&gt;-->
-  <!--        <div class="absolute inset-0 bg-gradient-to-b from-white/40 to-transparent opacity-70"></div>-->
-  <!--      </div>-->
-  <!--    </div>-->
-
-  <!--    &lt;!&ndash; Add a decorative wave at the bottom &ndash;&gt;-->
-  <!--    <div class="absolute -bottom-1 left-0 right-0">-->
-  <!--      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 80" fill="#ffffff" preserveAspectRatio="none" class="h-10 w-full">-->
-  <!--        <path-->
-  <!--          d="M0,32L80,42.7C160,53,320,75,480,74.7C640,75,800,53,960,48C1120,43,1280,53,1360,58.7L1440,64L1440,80L1360,80C1280,80,1120,80,960,80C800,80,640,80,480,80C320,80,160,80,80,80L0,80Z"-->
-  <!--        ></path>-->
-  <!--      </svg>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
-  <!--  &lt;!&ndash; Featured Section - Magazine Style Layout &ndash;&gt;-->
-  <!--  <div class="mb-6">-->
-  <!--    &lt;!&ndash; Featured Articles Grid &ndash;&gt;-->
-  <!--    <div class="mx-auto grid w-full gap-6 md:grid-cols-4 lg:grid-cols-6">-->
-  <!--      &lt;!&ndash; Left Sidebar &ndash;&gt;-->
-  <!--      <div class="space-y-6 md:col-span-1 lg:col-span-1">-->
-  <!--        @if (blogs.length > 1) {-->
-  <!--          @for (blog of blogs.slice(1, 3); track blog.blog_id) {-->
-  <!--            <div class="group overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg">-->
-  <!--              &lt;!&ndash; Thumbnail &ndash;&gt;-->
-  <!--              <div class="relative aspect-square overflow-hidden">-->
-  <!--                <img-->
-  <!--                  *ngIf="blog.blog_cover !== ''"-->
-  <!--                  [src]="blog.blog_cover"-->
-  <!--                  [alt]="blog.title"-->
-  <!--                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"-->
-  <!--                  loading="lazy"-->
-  <!--                />-->
-  <!--                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70"></div>-->
-  <!--              </div>-->
-
-  <!--              &lt;!&ndash; Content &ndash;&gt;-->
-  <!--              <div class="p-4">-->
-  <!--                <h3 class="mb-2 line-clamp-2 text-sm font-bold text-gray-800 group-hover:text-pink-500">{{ blog.title }}</h3>-->
-  <!--                <p class="mb-3 line-clamp-2 text-xs text-gray-600">{{ blog.summary }}</p>-->
-  <!--                <a [routerLink]="['/blog', blog.blog_id]" class="text-xs font-medium text-blue-600 hover:text-blue-700"> Đọc tiếp </a>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          }-->
-  <!--        }-->
-  <!--      </div>-->
-
-  <!--      &lt;!&ndash; Main Featured Article &ndash;&gt;-->
-  <!--      @if (blogs.length > 0) {-->
-  <!--        <div class="group overflow-hidden rounded-2xl bg-white shadow-xl transition-all duration-300 hover:shadow-2xl md:col-span-2 lg:col-span-4">-->
-  <!--          <div class="flex h-full flex-col justify-between">-->
-  <!--            &lt;!&ndash; Image section - No overlay &ndash;&gt;-->
-  <!--            <div class="relative h-2/3 w-full">-->
-  <!--              <img-->
-  <!--                *ngIf="blogs[0].blog_cover !== ''"-->
-  <!--                [src]="blogs[0].blog_cover"-->
-  <!--                [alt]="blogs[0].title"-->
-  <!--                class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"-->
-  <!--                loading="eager"-->
-  <!--              />-->
-  <!--              &lt;!&ndash; Category badge repositioned &ndash;&gt;-->
-  <!--              <div class="absolute right-4 top-4">-->
-  <!--                <span class="rounded-full bg-pink-500 px-3 py-1.5 text-xs font-medium text-white shadow-md">-->
-  <!--                  {{ getCategoryName(blogs[0].category.category_id) }}-->
-  <!--                </span>-->
-  <!--              </div>-->
-  <!--            </div>-->
-
-  <!--            &lt;!&ndash; Content section - Clean background instead of overlay &ndash;&gt;-->
-  <!--            <div class="flex h-1/3 w-full flex-col justify-between bg-gradient-to-br from-pink-50 to-purple-50 p-6">-->
-  <!--              <div>-->
-  <!--                &lt;!&ndash; Title with Vietnamese font &ndash;&gt;-->
-  <!--                <h2 class="mb-4 text-2xl font-bold leading-tight text-gray-800 md:text-3xl">-->
-  <!--                  {{ blogs[0].title }}-->
-  <!--                </h2>-->
-
-  <!--                &lt;!&ndash; Summary with better styling &ndash;&gt;-->
-  <!--                <p class="mb-6 text-sm leading-relaxed text-gray-600 md:text-base">-->
-  <!--                  {{ blogs[0].summary }}-->
-  <!--                </p>-->
-  <!--              </div>-->
-
-  <!--              &lt;!&ndash; Action button with enhanced styling &ndash;&gt;-->
-  <!--              <div class="flex justify-start">-->
-  <!--                <a-->
-  <!--                  [routerLink]="['/blog', blogs[0].blog_id]"-->
-  <!--                  class="group/btn inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-pink-500 via-purple-500 to-pink-400 px-6 py-2.5 text-sm font-medium text-white shadow-md transition-all duration-300 hover:shadow-lg"-->
-  <!--                >-->
-  <!--                  <span>Đọc tiếp</span>-->
-  <!--                  <svg-->
-  <!--                    xmlns="http://www.w3.org/2000/svg"-->
-  <!--                    class="h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"-->
-  <!--                    fill="none"-->
-  <!--                    viewBox="0 0 24 24"-->
-  <!--                    stroke="currentColor"-->
-  <!--                  >-->
-  <!--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />-->
-  <!--                  </svg>-->
-  <!--                </a>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        </div>-->
-  <!--      }-->
-
-  <!--      &lt;!&ndash; Right Sidebar &ndash;&gt;-->
-  <!--      <div class="space-y-6 md:col-span-1 lg:col-span-1">-->
-  <!--        @if (blogs.length > 3) {-->
-  <!--          @for (blog of blogs.slice(3, 5); track blog.blog_id) {-->
-  <!--            <div class="group overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-lg">-->
-  <!--              &lt;!&ndash; Thumbnail &ndash;&gt;-->
-  <!--              <div class="relative aspect-square overflow-hidden">-->
-  <!--                <img-->
-  <!--                  *ngIf="blog.blog_cover !== ''"-->
-  <!--                  [src]="blog.blog_cover"-->
-  <!--                  [alt]="blog.title"-->
-  <!--                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"-->
-  <!--                  loading="lazy"-->
-  <!--                />-->
-  <!--                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-70"></div>-->
-  <!--              </div>-->
-
-  <!--              &lt;!&ndash; Content &ndash;&gt;-->
-  <!--              <div class="p-4">-->
-  <!--                <h3 class="mb-2 line-clamp-2 text-sm font-bold text-gray-800 group-hover:text-pink-500">{{ blog.title }}</h3>-->
-  <!--                <p class="mb-3 line-clamp-2 text-xs text-gray-600">{{ blog.summary }}</p>-->
-  <!--                <a [routerLink]="['/blog', blog.blog_id]" class="text-xs font-medium text-blue-600 hover:text-blue-700"> Đọc tiếp </a>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          }-->
-  <!--        }-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </div>-->
-
-  <!--  &lt;!&ndash; Blog Grid &ndash;&gt;-->
-  <!--  <div class="mx-auto mb-16 max-w-7xl border-t-2">-->
-  <!--    &lt;!&ndash; Category filter &ndash;&gt;-->
-  <!--    <div class="my-6 flex flex-wrap justify-center gap-2">-->
-  <!--      <button-->
-  <!--        class="rounded-full px-4 py-2 transition"-->
-  <!--        (click)="filterByCategory(null)"-->
-  <!--        [ngClass]="{-->
-  <!--          'bg-gray-200 text-gray-800': selectedCategory,-->
-  <!--          'bg-indigo-600 text-white hover:bg-indigo-700': !selectedCategory,-->
-  <!--        }"-->
-  <!--      >-->
-  <!--        Tất cả-->
-  <!--      </button>-->
-  <!--      <button-->
-  <!--        *ngFor="let category of categories"-->
-  <!--        class="rounded-full px-4 py-2 transition"-->
-  <!--        [ngClass]="{-->
-  <!--          'bg-indigo-600 text-white hover:bg-indigo-700': category.category_id === selectedCategory,-->
-  <!--          'bg-gray-200 text-gray-800 hover:bg-gray-300': category.category_id !== selectedCategory,-->
-  <!--        }"-->
-  <!--        (click)="filterByCategory(category.category_id)"-->
-  <!--      >-->
-  <!--        {{ category.title }}-->
-  <!--      </button>-->
-  <!--    </div>-->
-
-  <!--    @if (blogs.length > 0) {-->
-  <!--      <div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">-->
-  <!--        @for (blog of blogs; track blog.blog_id) {-->
-  <!--          <div class="mb-8 flex w-full flex-auto break-inside-avoid">-->
-  <!--            <div-->
-  <!--              class="flex w-full flex-col justify-between overflow-hidden rounded-lg bg-white shadow-md transition-all duration-300 hover:shadow-xl"-->
-  <!--            >-->
-  <!--              &lt;!&ndash; Blog cover image &ndash;&gt;-->
-  <!--              <div class="relative aspect-video overflow-hidden">-->
-  <!--                <img-->
-  <!--                  *ngIf="blog.blog_cover !== ''"-->
-  <!--                  [src]="blog.blog_cover"-->
-  <!--                  [alt]="blog.title"-->
-  <!--                  class="h-full w-full object-cover transition-transform duration-500 hover:scale-105"-->
-  <!--                  loading="lazy"-->
-  <!--                />-->
-  <!--                &lt;!&ndash; Category badge &ndash;&gt;-->
-  <!--                <span class="absolute right-4 top-4 rounded-full bg-indigo-600 px-3 py-1 text-xs font-semibold text-white shadow-md">-->
-  <!--                  {{ getCategoryName(blog.category.category_id) }}-->
-  <!--                </span>-->
-  <!--              </div>-->
-
-  <!--              &lt;!&ndash; Blog content &ndash;&gt;-->
-  <!--              <div class="p-5 sm:p-6">-->
-  <!--                <h3 class="mb-2 line-clamp-2 text-xl font-bold text-gray-900 transition-colors hover:text-indigo-600">-->
-  <!--                  <a [routerLink]="['/blog', blog.blog_id]">{{ blog.title }}</a>-->
-  <!--                </h3>-->
-
-  <!--                &lt;!&ndash; Author and date info &ndash;&gt;-->
-  <!--                <div class="mb-3 flex items-center text-sm text-gray-600">-->
-  <!--                  <div class="flex items-center">-->
-  <!--                    <span class="font-medium">{{ blog.author }}</span>-->
-  <!--                  </div>-->
-  <!--                  <span class="mx-2">•</span>-->
-  <!--                  <span>{{ blog.created_at | date }}</span>-->
-  <!--                </div>-->
-
-  <!--                &lt;!&ndash; Summary &ndash;&gt;-->
-  <!--                <p class="mb-4 line-clamp-2 text-gray-700">{{ blog.summary }}</p>-->
-
-  <!--                &lt;!&ndash; Read more link &ndash;&gt;-->
-  <!--                <a-->
-  <!--                  [routerLink]="['/blog', blog.blog_id]"-->
-  <!--                  class="inline-flex items-center font-medium text-indigo-600 transition-colors hover:text-indigo-800"-->
-  <!--                >-->
-  <!--                  Đọc tiếp-->
-  <!--                  <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
-  <!--                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />-->
-  <!--                  </svg>-->
-  <!--                </a>-->
-  <!--              </div>-->
-  <!--            </div>-->
-  <!--          </div>-->
-  <!--        }-->
-  <!--      </div>-->
-  <!--    } @else {-->
-  <!--      <div class="mt-12 flex w-full flex-col items-center justify-center py-12">-->
-  <!--        <svg class="mb-4 h-16 w-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">-->
-  <!--          <path-->
-  <!--            stroke-linecap="round"-->
-  <!--            stroke-linejoin="round"-->
-  <!--            stroke-width="1.5"-->
-  <!--            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m6.75 12H9m1.5-12H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"-->
-  <!--          ></path>-->
-  <!--        </svg>-->
-  <!--        <p class="text-lg font-medium text-gray-600">Không tìm thấy bài viết nào.</p>-->
-  <!--        <p class="mt-2 text-gray-500">Hãy thử chọn danh mục khác hoặc quay lại sau.</p>-->
-  <!--      </div>-->
-  <!--    }-->
-  <!--  </div>-->
-  <!--  &lt;!&ndash; Masonry blog grid &ndash;&gt;-->
-
-  <!--  &lt;!&ndash;  Paginary&ndash;&gt;-->
-  <!--  <div class="flex justify-center">-->
-  <!--    &lt;!&ndash;    <app-paginate&ndash;&gt;-->
-  <!--    &lt;!&ndash;      [currentPage]="currentPage"&ndash;&gt;-->
-  <!--    &lt;!&ndash;      [totalItems]="totalItems"&ndash;&gt;-->
-  <!--    &lt;!&ndash;      [itemsPerPage]="itemsPerPage"&ndash;&gt;-->
-  <!--    &lt;!&ndash;      (pageChange)="onPageChange($event)"&ndash;&gt;-->
-  <!--    &lt;!&ndash;    ></app-paginate>&ndash;&gt;-->
-  <!--  </div>-->
 </div>
