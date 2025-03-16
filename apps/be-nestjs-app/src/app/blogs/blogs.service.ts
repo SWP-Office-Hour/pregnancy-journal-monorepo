@@ -74,7 +74,7 @@ export class BlogsService {
       },
     });
 
-    const total_page = Math.ceil((await this.databaseService.Blog.count()) / limit);
+    const total_page = Math.ceil((await this.getTotalBlogs()) / limit);
 
     const blogs = result.map((blog) => ({
       blog_id: blog.blog_id,
@@ -179,7 +179,19 @@ export class BlogsService {
       },
     });
 
-    const total_page = Math.ceil((await this.databaseService.Blog.count()) / limit);
+    const total_blogs_by_tag_id = await this.databaseService.Blog.count({
+      where: {
+        blog_tag: {
+          some: {
+            tag_id: {
+              in: tag_id,
+            },
+          },
+        },
+      },
+    });
+
+    const total_page = Math.ceil(total_blogs_by_tag_id / limit);
 
     const blogs = result.map((blog) => ({
       blog_id: blog.blog_id,
@@ -308,5 +320,9 @@ export class BlogsService {
         blog_id: id,
       },
     });
+  }
+
+  async getTotalBlogs() {
+    return await this.databaseService.Blog.count();
   }
 }
