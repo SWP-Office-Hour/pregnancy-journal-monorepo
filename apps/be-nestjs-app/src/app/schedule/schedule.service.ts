@@ -10,7 +10,7 @@ export class ScheduleService {
     private readonly reminderService: ReminderService,
   ) {}
 
-  @Cron('45 * * * * *')
+  // @Cron('45 * * * * *')
   handleCron() {
     Logger.log('Called when the current second is 45');
   }
