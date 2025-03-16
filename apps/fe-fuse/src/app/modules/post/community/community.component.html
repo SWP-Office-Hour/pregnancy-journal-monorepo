@@ -48,43 +48,18 @@
             <mat-icon class="icon-size-5 text-gray-600" [svgIcon]="'heroicons_solid:ellipsis-vertical'"></mat-icon>
           </button>
           <mat-menu #postCardMenu02="matMenu">
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:arrow-up-tray'"></mat-icon>
-                <span>Lưu bài viết</span>
-              </span>
-            </button>
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-                <span>Ẩn bài viết</span>
-              </span>
-            </button>
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:clock'"></mat-icon>
-                <span>Tạm ẩn trong 30 ngày</span>
-              </span>
-            </button>
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:minus-circle'"></mat-icon>
-                <span>Ẩn tất cả</span>
-              </span>
-            </button>
-            <mat-divider class="my-2"></mat-divider>
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:exclamation-triangle'"></mat-icon>
-                <span>Báo cáo bài viết</span>
-              </span>
-            </button>
-            <button mat-menu-item>
-              <span class="flex items-center">
-                <mat-icon class="icon-size-5 mr-3 text-pink-500" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
-                <span>Bật thông báo cho bài viết này</span>
-              </span>
-            </button>
+            <div>
+              @if (post.user.user_id == user.user_id) {
+                <button mat-menu-item (click)="deletePost(post.post_id)">
+                  <span class="flex items-center">
+                    <mat-icon class="icon-size-5 mr-3 text-red-500" [svgIcon]="'heroicons_solid:trash'"></mat-icon>
+                    <span>Xóa bài viết</span>
+                  </span>
+                </button>
+              } @else {
+                <p class="p-4">Tính năng này đang được phát triển</p>
+              }
+            </div>
           </mat-menu>
         </div>
 
@@ -96,9 +71,9 @@
         <!-- Post Image -->
         <div class="relative mb-4">
           <img
-            *ngIf="post.media.length > 0"
+            *ngFor="let media of post.media"
             class="h-80 w-full object-cover transition-transform duration-500 hover:scale-105"
-            src="{{ post.media[0].media_url }}"
+            src="{{ media.media_url }}"
             alt="Ảnh bài viết"
           />
         </div>

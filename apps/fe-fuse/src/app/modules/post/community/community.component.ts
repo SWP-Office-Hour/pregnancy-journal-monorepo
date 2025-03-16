@@ -10,10 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { CommentResponseType, PostType, ReactionResponseType } from '@pregnancy-journal-monorepo/contract';
+import { CommentResponseType, MediaResponse, PostType, ReactionResponseType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../core/user/user.service';
@@ -71,6 +71,20 @@ export class CommunityComponent {
     this.loading = true;
     this._httpClient
       .get<{ total: number; data: PostType[] }>(environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit)
+      .pipe(
+        map((res) => {
+          res.data.forEach((post) => {
+            post.media.forEach((media) => {
+              if (media) {
+                this.getImagesById(media.media_id).subscribe((image) => {
+                  media.media_url = image.imgLink;
+                });
+              }
+            });
+          });
+          return res;
+        }),
+      )
       .subscribe((body) => {
         this.total = body.total;
         this.loaded += body.data.length;
@@ -91,7 +105,28 @@ export class CommunityComponent {
   }
 
   openRef() {
-    this.dialog.open(CreatePostComponent);
+    const dialogRef = this.dialog.open(CreatePostComponent);
+    dialogRef.afterClosed().subscribe((result: { content: string; images: MediaResponse[] }) => {
+      if (result.content != '' || result.images.length > 0) {
+        this._httpClient
+          .post<PostType>(environment.apiUrl + 'posts', result.content)
+          .pipe(
+            map((post) => {
+              return post.post_id;
+            }),
+          )
+          .subscribe((post_id) => {
+            this._httpClient.post<MediaResponse>(environment.apiUrl + 'multi_media?post_id=' + post_id, result.images).subscribe(() => {
+              this._httpClient.get<PostType>(environment.apiUrl + 'posts/' + post_id).subscribe((post) => {
+                this.posts.update((posts) => {
+                  posts.unshift(post);
+                  return posts;
+                });
+              });
+            });
+          });
+      }
+    });
   }
 
   createPostAt(date: string | Date): string {
@@ -152,7 +187,6 @@ export class CommunityComponent {
   }
 
   commentPost(post_id: string, content: string) {
-    console.log('comment post');
     this._httpClient
       .post<CommentResponseType>(environment.apiUrl + 'comments', { post_id, content })
       .pipe(
@@ -181,5 +215,26 @@ export class CommunityComponent {
     } else {
       return;
     }
+  }
+
+  getImagesById(image_id: string) {
+    return this._httpClient
+      .get<{
+        media: MediaResponse;
+        imgLink: string;
+      }>(environment.apiUrl + 'media/' + image_id)
+      .pipe(
+        tap((image) => {
+          return image.imgLink;
+        }),
+      );
+  }
+
+  deletePost(post_id: string) {
+    this._httpClient.delete(environment.apiUrl + 'posts/' + post_id).subscribe(() => {
+      this.posts.update((posts) => {
+        return posts.filter((post) => post.post_id !== post_id);
+      });
+    });
   }
 }
