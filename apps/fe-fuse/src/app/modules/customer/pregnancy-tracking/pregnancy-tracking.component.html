@@ -1,61 +1,64 @@
-<div class="flex w-full max-w-full flex-col items-center px-4 md:px-6">
-  <p-toast />
-  <div class="my-5 text-center">
-    <h1 class="text-2xl font-bold">Theo dõi sức khỏe thai kỳ</h1>
-  </div>
+<p-toast />
+<div class="grid h-full w-full grid-cols-6">
+  <!--  VẾ TRÁI -->
+  <div class="bg-card h-c-vh col-span-1 hidden lg:flex">
+    <div class="flex flex-auto flex-col overflow-y-auto p-6" style="scrollbar-width: none; -ms-overflow-style: none" id="custom-scrollbar">
+      <!--Minicalendar-->
+      <div class="container mb-4 w-full max-w-4xl bg-white">
+        <div class="mb-2 flex w-full items-center justify-between">
+          <h2 class="date-capitalize text-xl font-semibold text-gray-800">{{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}</h2>
+          <div class="">
+            <button (click)="navigateMonth(-1)" class="rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Previous month">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
 
-  <!--  <p-date-picker class="max-w-full" [(ngModel)]="date" [inline]="true" />-->
+            <button (click)="navigateMonth(1)" class="-mr-2 rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Next month">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-  <!--Minicalendar-->
-  <div class="container mb-4 w-full max-w-md bg-white">
-    <div class="mb-2 flex w-full items-center justify-between">
-      <h2 class="date-capitalize text-xl font-semibold text-gray-800">{{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}</h2>
-      <div class="">
-        <button (click)="navigateMonth(-1)" class="rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Previous month">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-          </svg>
-        </button>
+        <div class="mb-2 grid grid-cols-7 gap-1 text-center">
+          <div *ngFor="let day of weekDays" class="text-sm font-medium text-gray-600">{{ day }}</div>
+        </div>
 
-        <button (click)="navigateMonth(1)" class="-mr-2 rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Next month">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="mb-2 grid grid-cols-7 gap-1 text-center">
-      <div *ngFor="let day of weekDays" class="text-sm font-medium text-gray-600">{{ day }}</div>
-    </div>
-
-    <div class="grid grid-cols-7 gap-1">
-      <div
-        *ngFor="let date of calendarDays"
-        [ngClass]="{
-          'text-pink-450 !bg-pink-50': isSelected(date),
-          'bg-pink-450 text-white': isToday(date),
-          'text-gray-400': !isDateInCurrentMonth(date),
-        }"
-        (click)="selectDate(date)"
-        class="hover:text-pink-450 aspect-square cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.02] hover:bg-gray-100"
-        [attr.aria-selected]="isSelected(date)"
-      >
-        <div class="flex h-full items-center justify-center">
-          <span class="text-sm md:text-base" [class.font-bold]="isToday(date)">
-            {{ date | date: 'd' }}
-          </span>
+        <div class="grid grid-cols-7 gap-1">
+          <div
+            *ngFor="let date of calendarDays"
+            [ngClass]="{
+              'text-pink-450 !bg-pink-50': isSelected(date),
+              'bg-pink-450 text-white': isToday(date),
+              'text-gray-400': !isDateInCurrentMonth(date),
+            }"
+            (click)="selectDate(date)"
+            class="hover:text-pink-450 aspect-square cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.02] hover:bg-gray-100"
+            [attr.aria-selected]="isSelected(date)"
+          >
+            <div class="flex h-full items-center justify-center">
+              <span class="text-sm md:text-base" [class.font-bold]="isToday(date)">
+                {{ date | date: 'd' }}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="w-full">
-    @if (recordsData().length > 0) {
-      <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
-    }
+  <!--  CỤC GIỮA-->
+  <div class="col-span col-span-3 p-2">
+    <div class="w-full">
+      <app-record-table></app-record-table>
+    </div>
   </div>
-  <div class="w-full">
-    <app-record-table></app-record-table>
+
+  <div class="col-span col-span-2">
+    <div class="w-full">
+      <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
+    </div>
   </div>
 </div>

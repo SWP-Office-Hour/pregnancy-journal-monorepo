@@ -12,26 +12,18 @@ export const defaultNavigation: FuseNavigationItem[] = [
   },
   // Nhóm tính năng theo dõi sức khỏe
   {
-    id: 'health-tracking',
+    id: 'tracking',
     title: 'Theo dõi sức khỏe',
-    type: 'collapsable',
+    type: 'basic',
     icon: 'heroicons_outline:chart-bar',
-    children: [
-      {
-        id: 'tracking',
-        title: 'Theo dõi',
-        type: 'basic',
-        icon: 'heroicons_outline:chart-bar',
-        link: '/tracking',
-      },
-      {
-        id: 'calendar',
-        title: 'Lịch',
-        type: 'basic',
-        icon: 'heroicons_outline:calendar',
-        link: '/calendar',
-      },
-    ],
+    link: '/tracking',
+  },
+  {
+    id: 'calendar',
+    title: 'Lịch',
+    type: 'basic',
+    icon: 'heroicons_outline:calendar',
+    link: '/calendar',
   },
   // Nhóm nội dung cộng đồng
   {
