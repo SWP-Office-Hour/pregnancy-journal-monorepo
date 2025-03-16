@@ -62,11 +62,11 @@ export class BlogMasonryComponent implements OnInit {
 
   loadBlogs(categoryId: string = ''): void {
     // Replace with your actual API call
-    this.blogService.getBlogs(categoryId).subscribe((data) => {
-      this.blogs = data.blogs;
-      this.updateFeaturedBlogs();
-      console.log(this.blogs);
-    });
+    // this.blogService.getBlogs(categoryId).subscribe((data) => {
+    //   this.blogs = data.blogs;
+    //   this.updateFeaturedBlogs();
+    //   console.log(this.blogs);
+    // });
   }
 
   // Method to update the featured blogs when the blog list changes
