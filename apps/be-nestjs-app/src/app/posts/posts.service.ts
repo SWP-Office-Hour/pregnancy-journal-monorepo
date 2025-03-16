@@ -157,6 +157,20 @@ export class PostsService {
   //tạm trc rồi thêm xóa comment react vs media sau
   async remove(id: string) {
     await this.findOne(id);
+
+    const existingMedia = await this.databaseService.Media.findMany({
+      where: {
+        post_id: id,
+      },
+    });
+    if (existingMedia.length > 0) {
+      await this.databaseService.Media.deleteMany({
+        where: {
+          post_id: id,
+        },
+      });
+    }
+
     await this.databaseService.Post.delete({
       where: {
         post_id: id,
