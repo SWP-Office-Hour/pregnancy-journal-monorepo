@@ -6,27 +6,25 @@
 html {
   overflow-y: scroll;
 }
-//@layer tailwind-base, primeng, tailwind-utilities;
-//
-//@layer tailwind-base {
-//  @tailwind base;
-//}
-//
-//@layer tailwind-utilities {
-//  @tailwind components;
-//  @tailwind utilities;
-//}
 
 :root {
   --p-confirmpopup-gutter: 0 !important;
 }
 
+:root .p-overlay {
+  overflow: visible !important;
+}
+
+// FONT CLASS: JUST ADD THIS CLASS TO YOUR HTML
 .style-script-regular {
   font-family: 'Style Script', cursive;
-  font-weight: 100;
+  font-weight: 400;
   font-style: normal;
 }
 
-:root .p-overlay {
-  overflow: visible !important;
+.niconne-regular {
+  font-family: 'Niconne', cursive;
+  font-weight: normal;
+  font-style: normal;
+  font-size: x-large;
 }
