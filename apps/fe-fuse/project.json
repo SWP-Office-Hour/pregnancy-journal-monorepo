@@ -44,8 +44,8 @@
           "apps/fe-fuse/src/@fuse/styles/themes.scss",
           "apps/fe-fuse/src/styles/vendors.scss",
           "apps/fe-fuse/src/@fuse/styles/main.scss",
-          "apps/fe-fuse/src/styles/styles.scss",
-          "apps/fe-fuse/src/styles/tailwind.scss"
+          "apps/fe-fuse/src/styles/tailwind.scss",
+          "apps/fe-fuse/src/styles/styles.scss"
         ],
         "scripts": ["node_modules/@splidejs/splide/dist/js/splide.js"]
       },
