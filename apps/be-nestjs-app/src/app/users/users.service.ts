@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import {
   AuthResponse,
   ChangePasswordRequest,
+  Gender,
   LoginRequest,
   RegisterRequest,
   Status,
@@ -189,6 +190,7 @@ export class UsersService {
       data: {
         name: 'Con đầu lòng',
         expected_birth_date: new Date(data.expected_birth_date),
+        gender: Gender.UNKNOWN,
         user: {
           connect: {
             user_id: result.user_id,
