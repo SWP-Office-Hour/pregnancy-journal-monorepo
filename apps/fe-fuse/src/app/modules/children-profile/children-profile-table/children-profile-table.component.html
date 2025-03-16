@@ -1,0 +1,194 @@
+<div class="p-dialog-content">
+  <div class="w-full">
+    <p-toast position="top-right"></p-toast>
+
+    <p-card styleClass="shadow-xl border-0">
+      <ng-template pTemplate="header">
+        <div class="bg-gradient-to-r from-pink-100 to-purple-100 px-6 py-5 text-center">
+          <h1 class="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-2xl font-bold text-transparent">
+            {{ isEditMode ? 'Cập nhật hồ sơ em bé' : 'Thêm hồ sơ em bé' }}
+          </h1>
+          <p class="mt-2 text-gray-600">
+            {{ isEditMode ? 'Chỉnh sửa thông tin em bé của bạn' : 'Điền thông tin em bé của bạn' }}
+          </p>
+        </div>
+      </ng-template>
+
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="p-5">
+        <!-- Baby name field -->
+        <div class="mb-5">
+          <label for="name" class="mb-2 block text-base font-medium text-gray-700">Tên bé</label>
+          <div class="p-input-icon-right w-full">
+            <i class="pi pi-user" [ngClass]="{ 'text-pink-500': !isFieldInvalid('name'), 'text-red-500': isFieldInvalid('name') }"></i>
+            <input
+              type="text"
+              id="name"
+              pInputText
+              formControlName="name"
+              placeholder="Nhập tên của bé"
+              class="w-full rounded-xl p-3 text-base shadow-sm"
+              [ngClass]="{ 'ng-invalid ng-dirty border-2 border-red-300': isFieldInvalid('name') }"
+            />
+          </div>
+          <small *ngIf="isFieldInvalid('name')" class="p-error mt-1 block text-sm">
+            {{ getErrorMessage('name') }}
+          </small>
+        </div>
+
+        <!-- Expected birth date field -->
+        <div class="mb-5">
+          <label class="mb-2 block text-base font-medium text-gray-700">Ngày dự sinh</label>
+          <p-calendar
+            formControlName="expected_birth_date"
+            [showIcon]="true"
+            [minDate]="today"
+            [maxDate]="maxDate"
+            dateFormat="dd/mm/yy"
+            placeholder="Chọn ngày dự sinh"
+            [styleClass]="styleClass('expected_birth_date')"
+            [inputStyleClass]="'w-full p-3 rounded-xl'"
+            appendTo="body"
+          ></p-calendar>
+          <small *ngIf="isFieldInvalid('expected_birth_date')" class="p-error mt-1 block text-sm">
+            {{ getErrorMessage('expected_birth_date') }}
+          </small>
+        </div>
+
+        <div class="mb-5">
+          <label class="mb-3 block text-base font-medium text-gray-700">Giới tính</label>
+
+          <div class="flex justify-center gap-6">
+            <!-- Male option -->
+            <div class="gender-option" (click)="selectGender(Gender.MALE)">
+              <input type="radio" id="gender-male" formControlName="gender" [value]="Gender.MALE" class="hidden" />
+              <label for="gender-male" class="flex cursor-pointer flex-col items-center">
+                <div
+                  class="mb-2 flex h-16 w-16 items-center justify-center rounded-full transition-all"
+                  [ngClass]="{
+                    'bg-blue-500 text-white': profileForm.get('gender')?.value === Gender.MALE,
+                    'bg-blue-100 text-blue-500': profileForm.get('gender')?.value !== Gender.MALE,
+                  }"
+                >
+                  <i class="pi pi-mars text-2xl"></i>
+                </div>
+                <span
+                  class="text-base"
+                  [ngClass]="{
+                    'font-bold text-blue-700': profileForm.get('gender')?.value === Gender.MALE,
+                    'font-medium text-gray-700': profileForm.get('gender')?.value !== Gender.MALE,
+                  }"
+                >
+                  Nam
+                </span>
+              </label>
+            </div>
+
+            <!-- Female option -->
+            <div class="gender-option" (click)="selectGender(Gender.FEMALE)">
+              <input type="radio" id="gender-female" formControlName="gender" [value]="Gender.FEMALE" class="hidden" />
+              <label for="gender-female" class="flex cursor-pointer flex-col items-center">
+                <div
+                  class="mb-2 flex h-16 w-16 items-center justify-center rounded-full transition-all"
+                  [ngClass]="{
+                    'bg-pink-500 text-white': profileForm.get('gender')?.value === Gender.FEMALE,
+                    'bg-pink-100 text-pink-500': profileForm.get('gender')?.value !== Gender.FEMALE,
+                  }"
+                >
+                  <i class="pi pi-venus text-2xl"></i>
+                </div>
+                <span
+                  class="text-base"
+                  [ngClass]="{
+                    'font-bold text-pink-700': profileForm.get('gender')?.value === Gender.FEMALE,
+                    'font-medium text-gray-700': profileForm.get('gender')?.value !== Gender.FEMALE,
+                  }"
+                >
+                  Nữ
+                </span>
+              </label>
+            </div>
+
+            <!-- Unknown option -->
+            <div class="gender-option" (click)="selectGender(null)">
+              <input type="radio" id="gender-unknown" formControlName="gender" [value]="null" class="hidden" />
+              <label for="gender-unknown" class="flex cursor-pointer flex-col items-center">
+                <div
+                  class="mb-2 flex h-16 w-16 items-center justify-center rounded-full transition-all"
+                  [ngClass]="{
+                    'bg-purple-500 text-white': profileForm.get('gender')?.value === null,
+                    'bg-purple-100 text-purple-500': profileForm.get('gender')?.value !== null,
+                  }"
+                >
+                  <i class="pi pi-question text-2xl"></i>
+                </div>
+                <span
+                  class="text-base"
+                  [ngClass]="{
+                    'font-bold text-purple-700': profileForm.get('gender')?.value === null,
+                    'font-medium text-gray-700': profileForm.get('gender')?.value !== null,
+                  }"
+                >
+                  Chưa xác định
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <small *ngIf="isFieldInvalid('gender')" class="p-error mt-2 block text-center text-sm">
+            {{ getErrorMessage('gender') }}
+          </small>
+        </div>
+
+        <!-- Submit button -->
+        <div class="mt-8 flex justify-center">
+          <button
+            pButton
+            type="submit"
+            [label]="isEditMode ? 'Cập nhật thông tin' : 'Lưu thông tin'"
+            class="p-button-rounded px-8 py-2 text-base shadow-lg"
+            [ngClass]="{
+              'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600': profileForm.valid,
+              'cursor-not-allowed bg-gray-300': !profileForm.valid,
+            }"
+            [disabled]="!profileForm.valid"
+          ></button>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
+
+<style>
+  .p-calendar {
+    width: 100%;
+  }
+
+  .p-calendar .p-datepicker {
+    min-width: 280px;
+  }
+
+  .p-calendar-panel,
+  .p-datepicker {
+    z-index: 1056 !important;
+  }
+
+  .p-dialog-content {
+    overflow: visible !important;
+  }
+
+  .p-card {
+    border-radius: 1rem !important;
+    overflow: hidden;
+  }
+
+  .gender-option label {
+    transition: all 0.3s ease;
+  }
+
+  .gender-option:hover label > div {
+    transform: scale(1.05);
+    box-shadow:
+      0 4px 6px -1px rgba(0, 0, 0, 0.1),
+      0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+</style>

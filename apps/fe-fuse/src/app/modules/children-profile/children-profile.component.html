@@ -1,123 +1,278 @@
-<div class="flex min-h-screen w-full items-start justify-center bg-gray-50 px-4 py-8 sm:px-6 lg:px-8">
-  <div class="w-full max-w-md">
-    <p-toast position="top-right"></p-toast>
+<div class="relative flex min-w-0 flex-auto flex-col overflow-hidden">
+  <div class="relative overflow-hidden px-4 pb-16 pt-8 sm:px-16 sm:pb-32 sm:pt-16">
+    <!-- Enhanced background pattern -->
+    <svg
+      class="-z-1 absolute inset-0"
+      viewBox="0 0 960 540"
+      width="100%"
+      height="100%"
+      preserveAspectRatio="xMidYMax slice"
+      xmlns="http://www.w3.org/2000/svg"
+      opacity="0.35"
+    >
+      <defs>
+        <pattern id="babyPattern" patternUnits="userSpaceOnUse" width="100" height="100">
+          <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3" />
+          <circle cx="25" cy="25" r="8" fill="currentColor" opacity="0.2" />
+          <circle cx="75" cy="75" r="8" fill="currentColor" opacity="0.2" />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#babyPattern)" class="text-primary/10" />
+      <g class="text-pink-100 opacity-15 dark:text-blue-900" fill="none" stroke="currentColor" stroke-width="100">
+        <circle r="234" cx="196" cy="23"></circle>
+        <circle r="234" cx="790" cy="491"></circle>
+      </g>
+    </svg>
 
-    <p-card styleClass="shadow-lg">
-      <ng-template pTemplate="header">
-        <div class="bg-gradient-to-r from-pink-100 to-purple-100 py-5 text-center">
-          <h1 class="text-2xl font-bold text-gray-800">Thêm hồ sơ em bé</h1>
-          <p class="mt-2 text-gray-600">Điền thông tin em bé của bạn</p>
-        </div>
-      </ng-template>
+    <p-toast position="top-right" />
+    <p-confirmDialog [style]="{ width: '450px' }" [breakpoints]="{ '960px': '75vw', '640px': '90vw' }"></p-confirmDialog>
 
-      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-6">
-        <!-- Baby name field -->
-        <div class="form-group">
-          <label for="name" class="mb-1 block text-sm font-medium text-gray-700">Tên bé</label>
-          <div class="p-input-icon-right w-full">
-            <i class="pi pi-user" [ngClass]="{ 'text-pink-500': !isFieldInvalid('name'), 'text-red-500': isFieldInvalid('name') }"></i>
-            <input
-              type="text"
-              id="name"
-              pInputText
-              formControlName="name"
-              placeholder="Nhập tên của bé"
-              class="w-full p-3"
-              [ngClass]="{ 'ng-invalid ng-dirty': isFieldInvalid('name') }"
-            />
-          </div>
-          <small *ngIf="isFieldInvalid('name')" class="p-error mt-1 block">
-            {{ getErrorMessage('name') }}
-          </small>
-        </div>
+    <!-- Empty state when no children -->
+    <div *ngIf="childResource.value()?.length === 0" class="flex flex-col items-center justify-center py-16">
+      <mat-icon class="text-primary/60 mb-4 text-6xl">child_care</mat-icon>
+      <h3 class="mb-2 text-2xl font-medium text-gray-700 dark:text-gray-300">No children profiles yet</h3>
+      <p class="mb-8 text-center text-gray-500 dark:text-gray-400">Add your first child profile to get started</p>
+      <button
+        mat-flat-button
+        [color]="'accent'"
+        class="group flex items-center gap-3 rounded-full px-8 py-3 text-lg shadow-lg transition-all hover:scale-105"
+        (click)="openDialog()"
+      >
+        <mat-icon class="transition-transform group-hover:animate-pulse">add_circle</mat-icon>
+        Add First Child
+      </button>
+    </div>
 
-        <!-- Expected birth date field -->
-        <div class="form-group">
-          <label class="mb-1 block text-sm font-medium text-gray-700">Ngày dự sinh</label>
-          <p-datepicker
-            #expected_birth_date
-            formControlName="expected_birth_date"
-            [showIcon]="true"
-            [minDate]="today"
-            [maxDate]="maxDate"
-            dateFormat="dd/mm/yy"
-            placeholder="Chọn ngày dự sinh"
-            [styleClass]="styleClass('expected_birth_date')"
-            [inputStyleClass]="'w-full'"
-          ></p-datepicker>
-          <small *ngIf="isFieldInvalid('expected_birth_date')" class="p-error mt-1 block">
-            {{ getErrorMessage('expected_birth_date') }}
-          </small>
-        </div>
+    <!-- Child profile carousel -->
+    <div class="card" *ngIf="childResource.value()?.length > 0">
+      <div class="flex justify-center">
+        <div class="w-full max-w-7xl">
+          <p-carousel
+            [value]="childResource.value()!"
+            [numVisible]="1"
+            [numScroll]="1"
+            [circular]="true"
+            [showIndicators]="true"
+            [showNavigators]="true"
+            autoplayInterval="8000"
+            [responsiveOptions]="[
+              { breakpoint: '1024px', numVisible: 1, numScroll: 1 },
+              { breakpoint: '768px', numVisible: 1, numScroll: 1 },
+              { breakpoint: '560px', numVisible: 1, numScroll: 1 },
+            ]"
+            styleClass="custom-carousel"
+          >
+            <ng-template #item let-child>
+              <div class="flex justify-center p-4 sm:p-6">
+                <div class="group relative w-full max-w-4xl transform transition-all duration-300 hover:scale-[1.01]">
+                  <fuse-card
+                    class="ring-primary/10 overflow-visible rounded-3xl p-6 shadow-xl ring-1 transition duration-300 sm:p-8 dark:ring-white/5"
+                  >
+                    <!-- Header ribbon -->
+                    <div class="absolute inset-x-0 -top-5 flex items-center justify-center">
+                      <div
+                        class="bg-primary text-on-primary flex h-12 transform items-center rounded-full px-10 text-center text-lg font-medium leading-none shadow-lg transition-all duration-300 hover:scale-105"
+                      >
+                        <h2 class="text-xl font-semibold text-white">Hồ sơ em bé</h2>
+                      </div>
+                    </div>
 
-        <!-- Gender field -->
-        <div class="form-group">
-          <label for="gender" class="mb-1 block text-sm font-medium text-gray-700">Giới tính</label>
-          <p-dropdown
-            id="gender"
-            formControlName="gender"
-            [options]="genders"
-            optionLabel="name"
-            optionValue="value"
-            placeholder="Chọn giới tính"
-            [styleClass]="styleClass('gender')"
-          ></p-dropdown>
-          <small *ngIf="isFieldInvalid('gender')" class="p-error mt-1 block">
-            {{ getErrorMessage('gender') }}
-          </small>
-        </div>
+                    <!-- Main content -->
+                    <div class="mt-8 grid grid-cols-1 gap-x-8 gap-y-8 md:grid-cols-2">
+                      <!-- Left side - Main info -->
+                      <div class="flex flex-col">
+                        <!-- Child name -->
+                        <div class="mb-6 flex items-center">
+                          <div class="bg-primary/10 mr-4 flex h-16 w-16 items-center justify-center rounded-full shadow-sm">
+                            <mat-icon class="text-primary text-4xl">child_care</mat-icon>
+                          </div>
+                          <div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Child Name</div>
+                            <div class="text-4xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">{{ child.name }}</div>
+                          </div>
+                        </div>
 
-        <!-- Submit button -->
-        <div class="flex justify-center pt-4">
-          <button
-            pButton
-            type="submit"
-            label="Lưu thông tin"
-            class="p-button-rounded p-button-lg w-full"
-            [ngClass]="{
-              'bg-gradient-to-r from-pink-500 to-purple-500 hover:from-pink-600 hover:to-purple-600': profileForm.valid,
-              'cursor-not-allowed bg-gray-300': !profileForm.valid,
-            }"
-            [disabled]="!profileForm.valid"
-          ></button>
-        </div>
-      </form>
+                        <div class="bg-accent my-6 h-2 w-20 rounded-full"></div>
 
-      <ng-template pTemplate="footer">
-        <div class="flex justify-center gap-4 text-sm text-gray-500">
-          <div class="flex items-center gap-1">
-            <i class="pi pi-info-circle"></i>
-            <span>Thông tin bảo mật</span>
-          </div>
-          <div class="flex items-center gap-1">
-            <i class="pi pi-lock"></i>
-            <span>Dữ liệu được mã hóa</span>
-          </div>
-        </div>
-      </ng-template>
-    </p-card>
+                        <!-- Expected birth date -->
+                        <div class="mb-5 flex items-center">
+                          <div class="bg-accent/15 mr-4 flex h-12 w-12 items-center justify-center rounded-full shadow-sm">
+                            <mat-icon class="text-accent">event</mat-icon>
+                          </div>
+                          <div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Expected Birth Date</div>
+                            <div class="text-2xl font-semibold text-pink-600 dark:text-blue-400">
+                              {{ child.expected_birth_date | date: 'dd MMM, yyyy' }}
+                            </div>
+                          </div>
+                        </div>
 
-    <!-- Gender icons for visual context -->
-    <div class="mt-8 flex justify-center space-x-8">
-      <div class="flex flex-col items-center">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100">
-          <i class="pi pi-mars text-xl text-blue-500"></i>
+                        <!-- Gender info with improved styling -->
+                        <div class="mb-5 flex items-center" *ngIf="child.gender !== undefined">
+                          <div
+                            class="mr-4 flex h-12 w-12 items-center justify-center rounded-full shadow-sm transition-all"
+                            [ngClass]="{
+                              'bg-pink-100/80 text-pink-600 dark:bg-pink-900/30 dark:text-pink-400': child.gender === Gender.FEMALE,
+                              'bg-blue-100/80 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400': child.gender === Gender.MALE,
+                              'bg-purple-100/80 text-purple-600 dark:bg-purple-900/30 dark:text-purple-400': child.gender === null,
+                            }"
+                          >
+                            <mat-icon>{{ child.gender === Gender.FEMALE ? 'female' : child.gender === Gender.MALE ? 'male' : 'help' }}</mat-icon>
+                          </div>
+                          <div>
+                            <div class="text-sm text-gray-500 dark:text-gray-400">Giới tính</div>
+                            <div
+                              class="text-xl font-medium"
+                              [ngClass]="{
+                                'text-pink-600 dark:text-pink-400': child.gender === Gender.FEMALE,
+                                'text-blue-600 dark:text-blue-400': child.gender === Gender.MALE,
+                                'text-purple-600 dark:text-purple-400': child.gender === null,
+                              }"
+                            >
+                              {{ getGenderText(child.gender) }}
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Action buttons row -->
+                        <div class="mt-auto grid grid-cols-2 gap-3 pt-4">
+                          <button
+                            class="bg-primary hover:bg-primary-600 group flex w-full items-center justify-center rounded-xl px-5 py-3 text-white shadow-md transition-all hover:shadow-lg"
+                            mat-flat-button
+                            [color]="'primary'"
+                            (click)="openDialog(child)"
+                          >
+                            <mat-icon class="mr-2 transition-transform group-hover:scale-110">edit</mat-icon>
+                            <span class="font-medium">EDIT</span>
+                          </button>
+
+                          <button
+                            class="group flex w-full items-center justify-center rounded-xl bg-red-500 px-5 py-3 text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg"
+                            mat-flat-button
+                            color="warn"
+                            (click)="deleteChild(child)"
+                          >
+                            <mat-icon class="mr-2 transition-transform group-hover:scale-110">delete</mat-icon>
+                            <span class="font-medium">DELETE</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      <!-- Right side - Additional info -->
+                      <div
+                        class="flex flex-col rounded-2xl border-t-2 border-gray-100 pl-0 pt-6 md:border-l-2 md:border-t-0 md:pl-8 md:pt-0 dark:border-gray-800"
+                      >
+                        <div class="mb-5 flex items-center">
+                          <div class="bg-primary/10 mr-3 flex h-12 w-12 items-center justify-center rounded-full shadow-sm">
+                            <mat-icon class="text-primary">favorite</mat-icon>
+                          </div>
+                          <div class="text-2xl font-semibold text-gray-800 dark:text-gray-200">Child Information</div>
+                        </div>
+
+                        <!-- Countdown card -->
+                        <div class="rounded-2xl bg-gradient-to-br from-purple-50 to-blue-50 p-6 shadow-inner dark:from-gray-800/90 dark:to-gray-900">
+                          <div class="flex flex-col space-y-6">
+                            <!-- Due date countdown -->
+                            <div class="flex flex-col items-center text-center">
+                              <div class="text-sm font-medium text-gray-600 dark:text-gray-300">Days Until Due Date</div>
+                              <div class="mt-2 text-6xl font-bold text-purple-600 dark:text-purple-400">
+                                {{ getDaysUntilDueDate(child.expected_birth_date) }}
+                              </div>
+                              <div class="mt-1 text-sm text-gray-500">days</div>
+                            </div>
+
+                            <!-- Growth tracking message -->
+                            <div class="rounded-xl bg-white/80 p-4 shadow-sm dark:bg-gray-800/60">
+                              <div class="flex items-center">
+                                <mat-icon class="mr-2 text-blue-500 dark:text-blue-400">alarm</mat-icon>
+                                <div class="text-sm font-medium text-blue-700 dark:text-blue-300">
+                                  Mẹ cố lên nhé, con luôn mong chờ từng ngày để ôm mẹ thật chặt!
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!-- Action buttons -->
+                        <div class="mt-6 grid grid-cols-1 gap-3">
+                          <button
+                            class="border-primary text-primary hover:bg-primary/10 group flex w-full items-center justify-center rounded-xl border-2 py-3 shadow-sm transition-all hover:shadow"
+                            mat-stroked-button
+                          >
+                            <mat-icon class="mr-2 transition-transform group-hover:scale-110">notifications_active</mat-icon>
+                            <span class="font-medium">ADD REMINDER</span>
+                          </button>
+
+                          <button
+                            class="border-accent text-accent hover:bg-accent/10 group flex w-full items-center justify-center rounded-xl border-2 py-3 shadow-sm transition-all hover:shadow"
+                            mat-stroked-button
+                          >
+                            <mat-icon class="mr-2 transition-transform group-hover:scale-110">monitor_heart</mat-icon>
+                            <span class="font-medium">ADD HEALTH RECORD</span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </fuse-card>
+                </div>
+              </div>
+            </ng-template>
+          </p-carousel>
         </div>
-        <span class="mt-2 text-sm text-gray-600">Nam</span>
       </div>
 
-      <div class="flex flex-col items-center">
-        <div class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-100">
-          <i class="pi pi-venus text-xl text-pink-500"></i>
-        </div>
-        <span class="mt-2 text-sm text-gray-600">Nữ</span>
+      <!-- Add child button -->
+      <div class="mt-10 flex justify-center">
+        <button
+          mat-flat-button
+          [color]="'accent'"
+          class="group flex items-center gap-3 rounded-full px-8 py-4 text-lg font-medium shadow-lg transition-all hover:scale-105"
+          (click)="openDialog()"
+        >
+          <mat-icon class="transition-transform group-hover:rotate-90">add_circle</mat-icon>
+          Add New Child
+        </button>
       </div>
     </div>
   </div>
 </div>
 
 <style>
-  .p-datepicker-panel {
-    z-index: 9999 !important;
+  :host ::ng-deep .custom-carousel .p-carousel-indicators {
+    margin-top: 1.5rem;
+  }
+
+  :host ::ng-deep .custom-carousel .p-carousel-indicator button {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+    transition: all 0.3s;
+  }
+
+  :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev,
+  :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next {
+    color: var(--primary-color);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.8);
+    width: 3rem;
+    height: 3rem;
+    transition: all 0.3s;
+    margin: 0 1rem;
+  }
+
+  :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev:hover,
+  :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (max-width: 640px) {
+    :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-prev,
+    :host ::ng-deep .p-carousel .p-carousel-content .p-carousel-next {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin: 0 0.5rem;
+    }
   }
 </style>
