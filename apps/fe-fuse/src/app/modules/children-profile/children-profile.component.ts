@@ -1,15 +1,23 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ChildCreateRequestType, Gender } from '@pregnancy-journal-monorepo/contract';
-import { MessageService } from 'primeng/api';
+import { Component, effect, resource } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from '@angular/material/icon';
+import { ChildType, Gender, Membership } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
+import { CarouselModule } from 'primeng/carousel';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
+import { FuseCardComponent } from '../../../@fuse/components/card';
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
+import { ChildrenProfileTableComponent } from './children-profile-table/children-profile-table.component';
 
 interface GenderOption {
   name: string;
@@ -20,109 +28,171 @@ interface GenderOption {
   selector: 'app-children-profile-insert',
   templateUrl: './children-profile.component.html',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, FormsModule, InputTextModule, DatePickerModule, DropdownModule, ButtonModule, CardModule, ToastModule],
-  providers: [MessageService],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
+    InputTextModule,
+    DatePickerModule,
+    DropdownModule,
+    ButtonModule,
+    CardModule,
+    ToastModule,
+    CarouselModule,
+    MatButtonModule,
+    MatIconModule,
+    CardModule,
+    ButtonModule,
+    FuseCardComponent,
+    FuseCardComponent,
+    CarouselModule,
+    MatButtonModule,
+    MatIconModule,
+    CardModule,
+    ButtonModule,
+    FuseCardComponent,
+    FuseCardComponent,
+    MatDialogModule,
+    ConfirmDialogModule,
+  ],
+  providers: [MessageService, ConfirmationService],
 })
-export class ChildrenProfileComponent implements OnInit {
-  profileForm: FormGroup;
-  genders: GenderOption[];
-  today: Date = new Date();
-  maxDate: Date = new Date();
-  Gender = Gender;
+export class ChildrenProfileComponent {
+  protected memberships: Membership[] = [];
+  protected Gender = Gender;
 
+  childResource = resource<ChildType[], {}>({
+    loader: async ({ abortSignal }) => {
+      const response = await fetch(environment.apiUrl + 'child', {
+        headers: {
+          Authorization: `Bearer ${this._authService.accessToken}`,
+        },
+
+        signal: abortSignal,
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+      const data: ChildType[] = await response.json();
+      console.log(data);
+      return data.map((item: any) => {
+        return {
+          child_id: item.child_id,
+          name: item.name || 'Em bé chưa đặt tên',
+          expected_birth_date: new Date(item.expected_birth_date),
+          gender: item.gender || null,
+        };
+      });
+    },
+  });
+
+  /**
+   * Constructor
+   */
   constructor(
-    private fb: FormBuilder,
+    public dialog: MatDialog,
     private messageService: MessageService,
-    private http: HttpClient,
+    private _authService: AuthService,
+    private confirmationService: ConfirmationService,
   ) {
-    // Set max date to 9 months from today
-    this.maxDate.setMonth(this.today.getMonth() + 9);
-
-    // Define gender options
-    this.genders = [
-      { name: 'Nam', value: Gender.MALE },
-      { name: 'Nữ', value: Gender.FEMALE },
-    ];
-  }
-
-  ngOnInit(): void {
-    this.initForm();
-  }
-
-  initForm(): void {
-    this.profileForm = this.fb.group({
-      name: ['', [Validators.required]],
-      expected_birth_date: [null, [Validators.required]],
-      gender: [null, [Validators.required]],
+    //dùng để coi giá trị của resource
+    effect(() => {
+      this.handleSuccessUrl();
     });
   }
 
-  onSubmit(): void {
-    if (this.profileForm.valid) {
-      // Process the form data
-      console.log(this.profileForm.value);
-      const formData: ChildCreateRequestType = {
-        name: this.profileForm.value.name,
-        expected_birth_date: this.profileForm.value.expected_birth_date.toISOString().split('T')[0],
-        gender: this.profileForm.value.gender,
-      };
-      console.log(formData);
-      // this.http.post(environment.apiUrl + 'child', formData).subscribe({
-      //   next: () => {
-      //     this.messageService.add({
-      //       severity: 'success',
-      //       summary: 'Thành công',
-      //       detail: 'Thông tin em bé đã được lưu',
-      //     });
-      //   },
-      //   error: (error) => {
-      //     // Show error message
-      //     console.log(error);
-      //     this.messageService.add({
-      //       severity: 'error',
-      //       summary: 'Lỗi',
-      //       detail: 'Có lỗi xảy ra khi lưu thông tin em bé',
-      //     });
-      //   },
-      // });
-      // Reset form after successful submission
-      this.profileForm.reset();
-    } else {
-      // Mark all fields as touched to trigger validation display
-      Object.keys(this.profileForm.controls).forEach((key) => {
-        const control = this.profileForm.get(key);
-        control?.markAsTouched();
-      });
-
-      // Show error message
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Lỗi',
-        detail: 'Vui lòng kiểm tra lại thông tin',
-      });
-    }
+  getGenderText(genderValue: number | undefined | null): string {
+    if (genderValue == undefined || genderValue == null) return 'Chưa xác định';
+    return genderValue === Gender.FEMALE ? 'Nữ' : 'Nam';
   }
 
-  // Helper methods for validation
-  isFieldInvalid(field: string): boolean {
-    const control = this.profileForm.get(field);
-    return !!(control && control.invalid && (control.dirty || control.touched));
+  getDaysUntilDueDate(dueDate: Date): number {
+    const today = new Date();
+    const due = new Date(dueDate);
+    const diffTime = due.getTime() - today.getTime();
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays > 0 ? diffDays : 0;
   }
 
-  getErrorMessage(field: string): string {
-    const control = this.profileForm.get(field);
-    if (control?.errors?.['required']) {
-      return 'Trường này không được để trống';
-    }
-    return '';
+  openDialog(child?: ChildType): void {
+    const dialogRef = this.dialog.open(ChildrenProfileTableComponent, {
+      width: '700px', // Increased from 500px
+      maxWidth: '95vw',
+      maxHeight: '90vh',
+      panelClass: 'custom-dialog',
+      data: { child: child },
+      disableClose: false,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        // Refresh data
+        this.childResource.reload();
+      }
+    });
   }
 
-  styleClass(field: string): string {
-    const _class = 'w-full';
+  deleteChild(child: ChildType): void {
+    this.confirmationService.confirm({
+      message: `Bạn có chắc chắn muốn xóa hồ sơ của "${child.name}" không?`,
+      header: 'Xác nhận xóa',
+      icon: 'pi pi-exclamation-triangle',
+      acceptLabel: 'Xóa',
+      rejectLabel: 'Hủy',
+      acceptButtonStyleClass: 'p-button-danger',
+      accept: () => {
+        fetch(environment.apiUrl + `child/${child.child_id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${this._authService.accessToken}`,
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Thành công',
+                detail: `Đã xóa hồ sơ của ${child.name}`,
+                life: 3000,
+              });
+              this.childResource.reload();
+            } else {
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Lỗi',
+                detail: 'Không thể xóa hồ sơ',
+                life: 3000,
+              });
+            }
+          })
+          .catch((error) => {
+            console.error('Error deleting child profile:', error);
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Lỗi',
+              detail: 'Đã xảy ra lỗi khi xóa hồ sơ',
+              life: 3000,
+            });
+          });
+      },
+    });
+  }
 
-    if (this.isFieldInvalid(field)) {
-      return `${_class} ng-invalid ng-dirty`;
+  handleSuccessUrl(): void {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const cancel = urlParams.get('cancel');
+    const status = urlParams.get('status');
+    const orderCode = urlParams.get('orderCode');
+
+    // if (status === 'PAID' && code === '00') {
+    //   const res = this.membershipService.updatePayment({ payos_order_code: orderCode });
+    //   res.then((response) => {
+    //     console.log('Backend function called successfully', response);
+    //     this.messageService.add({ severity: 'success', summary: 'Membership', detail: 'Payment success', life: 3000 });
+    //   });
+    // }
+
+    if (status === 'CANCELLED' && code === '00') {
+      this.messageService.add({ severity: 'error', summary: 'Membership', detail: 'Payment failed by Cancel', life: 3000 });
     }
-    return _class;
   }
 }
