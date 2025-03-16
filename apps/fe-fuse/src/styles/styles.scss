@@ -22,9 +22,39 @@ html {
   font-style: normal;
 }
 
-.niconne-regular {
-  font-family: 'Niconne', cursive;
-  font-weight: normal;
+.logo-font {
+  font-family: Claytonia, cursive;
+  font-weight: lighter;
+}
+
+//.niconne-regular {
+//  font-family: 'Niconne', cursive;
+//  font-weight: normal;
+//  font-style: normal;
+//  font-size: x-large;
+//}
+
+.capriola-regular {
+  font-family: 'Capriola', sans-serif;
+  font-weight: 400;
   font-style: normal;
-  font-size: x-large;
+}
+
+@font-face {
+  font-family: 'Claytonia';
+  src: url('../../public/fonts/SVN-Claytonia.otf') format('opentype');
+}
+
+.font-nghe-nghe {
+  font-family: Claytonia, cursive;
+  font-weight: normal;
+  font-size: small;
+  font-style: normal;
+}
+
+.quicksand-medium {
+  font-family: 'Quicksand', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-weight: bolder;
 }

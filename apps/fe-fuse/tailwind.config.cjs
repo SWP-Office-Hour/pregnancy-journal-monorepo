@@ -115,7 +115,7 @@ module.exports = {
         0: '0 0 auto',
       },
       fontFamily: {
-        sans: `"Inter var", ${defaultTheme.fontFamily.sans.join(',')}`,
+        sans: `"Quicksand", ${defaultTheme.fontFamily.sans.join(',')}`,
         mono: `"IBM Plex Mono", ${defaultTheme.fontFamily.mono.join(',')}`,
       },
       opacity: {
