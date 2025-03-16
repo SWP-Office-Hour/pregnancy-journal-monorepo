@@ -10,9 +10,9 @@ import { Calendar } from 'primeng/calendar';
 import { Card } from 'primeng/card';
 import { DatePickerModule } from 'primeng/datepicker';
 import { DropdownModule } from 'primeng/dropdown';
-import { StyleClass } from 'primeng/styleclass';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../../environments/environment.staging';
+import { AuthService } from '../../../core/auth/auth.service';
 interface GenderOption {
   name: string;
   value: Gender;
@@ -30,7 +30,6 @@ interface GenderOption {
     DatePickerModule,
     ToastModule,
     Card,
-    StyleClass,
     Calendar,
   ],
   standalone: true,
@@ -52,6 +51,7 @@ export class ChildrenProfileTableComponent implements OnInit {
     private messageService: MessageService,
     private http: HttpClient,
     private dialogRef: MatDialogRef<ChildrenProfileTableComponent>,
+    private _authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: { child?: ChildType },
   ) {
     // Set max date to 9 months from today
@@ -98,7 +98,10 @@ export class ChildrenProfileTableComponent implements OnInit {
         expected_birth_date: this.profileForm.value.expected_birth_date.toISOString().split('T')[0],
         gender: this.profileForm.value.gender,
       };
-
+      if (formData.gender === null) {
+        formData.gender = undefined;
+      }
+      console.log(formData);
       if (this.isEditMode) {
         // Update existing child
         this.http.patch(`${environment.apiUrl}child/${this.childId}`, formData).subscribe({
@@ -121,24 +124,30 @@ export class ChildrenProfileTableComponent implements OnInit {
         });
       } else {
         // Create new child
-        this.http.post(environment.apiUrl + 'child', formData).subscribe({
-          next: () => {
-            this.messageService.add({
-              severity: 'success',
-              summary: 'Thành công',
-              detail: 'Thông tin em bé đã được lưu',
-            });
-            this.dialogRef.close(true);
-          },
-          error: (error) => {
-            console.log(error);
-            this.messageService.add({
-              severity: 'error',
-              summary: 'Lỗi',
-              detail: 'Có lỗi xảy ra khi lưu thông tin em bé',
-            });
-          },
-        });
+        this.http
+          .post(environment.apiUrl + 'child', formData, {
+            headers: {
+              Authorization: `Bearer ${this._authService.accessToken}`,
+            },
+          })
+          .subscribe({
+            next: () => {
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Thành công',
+                detail: 'Thông tin em bé đã được lưu',
+              });
+              this.dialogRef.close(true);
+            },
+            error: (error) => {
+              console.log(error);
+              this.messageService.add({
+                severity: 'error',
+                summary: 'Lỗi',
+                detail: 'Có lỗi xảy ra khi lưu thông tin em bé',
+              });
+            },
+          });
       }
     } else {
       // Mark all fields as touched to trigger validation display
