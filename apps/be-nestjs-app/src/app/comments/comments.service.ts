@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CommentCreateRequestType, CommentType, CommentUpdateRequestType } from '../../../../../libs/contract/src/lib/comment.contract';
+import { CommentCreateRequestType, CommentResponseType, CommentUpdateRequestType } from '../../../../../libs/contract/src/lib/comment.contract';
 import { DatabaseService } from '../database/database.service';
 import { PostsService } from '../posts/posts.service';
 import { UsersService } from '../users/users.service';
@@ -12,7 +12,7 @@ export class CommentsService {
     private readonly usersService: UsersService,
   ) {}
 
-  async createComment({ comment, user_id }: { comment: CommentCreateRequestType; user_id: string }): Promise<CommentType> {
+  async createComment({ comment, user_id }: { comment: CommentCreateRequestType; user_id: string }): Promise<CommentResponseType> {
     await this.postService.findOne(comment.post_id);
     await this.usersService.getUserById(user_id);
     return await this.dataService.Comment.create({

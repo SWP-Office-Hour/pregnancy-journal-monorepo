@@ -56,7 +56,7 @@ const authResponseSchema = z.object({
   access_token: z.string(),
   // refresh_token: z.string(),
   user: z.object({
-    id: z.string(),
+    user_id: z.string(),
     name: z.string(),
     role: userRoleSchema,
     email: z.string(),

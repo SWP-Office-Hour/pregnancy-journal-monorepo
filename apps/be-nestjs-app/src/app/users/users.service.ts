@@ -205,7 +205,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: result.user_id,
+        user_id: result.user_id,
         name: result.name,
         role: result.role,
         email: result.email,
@@ -263,7 +263,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: user.user_id,
+        user_id: user.user_id,
         name: user.name,
         role: user.role,
         email: user.email,
@@ -301,7 +301,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: user.user_id,
+        user_id: user.user_id,
         name: user.name,
         role: user.role,
         email: user.email,
@@ -452,7 +452,7 @@ export class UsersService {
       access_token,
       // refresh_token,
       user: {
-        id: userAfter.user_id,
+        user_id: userAfter.user_id,
         name: userAfter.name,
         role: userAfter.role,
         email: userAfter.email,

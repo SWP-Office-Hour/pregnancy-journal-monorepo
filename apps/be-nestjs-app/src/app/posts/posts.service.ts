@@ -67,6 +67,7 @@ export class PostsService {
               select: {
                 user_id: true,
                 avatar: true,
+                name: true,
               },
             },
           },
@@ -116,6 +117,7 @@ export class PostsService {
               select: {
                 user_id: true,
                 avatar: true,
+                name: true,
               },
             },
           },
