@@ -12,6 +12,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { UserProfileResponseType, UserUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialog } from 'primeng/confirmdialog';
+import { Toast } from 'primeng/toast';
 import { environment } from '../../../environments/environment';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
 import { ChildrenProfileComponent } from '../children-profile/children-profile.component';
@@ -30,9 +33,14 @@ import { ChildrenProfileComponent } from '../children-profile/children-profile.c
     MatCardModule,
     MatDividerModule,
     ChildrenProfileComponent,
+    Toast,
+    ConfirmDialog,
   ],
+  standalone: true,
+
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
+  providers: [MessageService, ConfirmationService],
 })
 export class UserProfileComponent {
   count = 0;

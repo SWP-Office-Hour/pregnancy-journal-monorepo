@@ -4,7 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { ChildType, Gender, Membership } from '@pregnancy-journal-monorepo/contract';
+import { ChildType, Gender } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -18,11 +18,6 @@ import { FuseCardComponent } from '../../../@fuse/components/card';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 import { ChildrenProfileTableComponent } from './children-profile-table/children-profile-table.component';
-
-interface GenderOption {
-  name: string;
-  value: Gender;
-}
 
 @Component({
   selector: 'app-children-profile-insert',
@@ -58,7 +53,6 @@ interface GenderOption {
   providers: [MessageService, ConfirmationService],
 })
 export class ChildrenProfileComponent {
-  protected memberships: Membership[] = [];
   protected Gender = Gender;
 
   childResource = resource<ChildType[], {}>({
@@ -67,7 +61,6 @@ export class ChildrenProfileComponent {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
-
         signal: abortSignal,
       });
       if (!response.ok) throw Error(`Could not fetch...`);
@@ -94,9 +87,7 @@ export class ChildrenProfileComponent {
     private confirmationService: ConfirmationService,
   ) {
     //dùng để coi giá trị của resource
-    effect(() => {
-      this.handleSuccessUrl();
-    });
+    effect(() => {});
   }
 
   getGenderText(genderValue: number | undefined | null): string {
@@ -173,25 +164,5 @@ export class ChildrenProfileComponent {
           });
       },
     });
-  }
-
-  handleSuccessUrl(): void {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    const cancel = urlParams.get('cancel');
-    const status = urlParams.get('status');
-    const orderCode = urlParams.get('orderCode');
-
-    // if (status === 'PAID' && code === '00') {
-    //   const res = this.membershipService.updatePayment({ payos_order_code: orderCode });
-    //   res.then((response) => {
-    //     console.log('Backend function called successfully', response);
-    //     this.messageService.add({ severity: 'success', summary: 'Membership', detail: 'Payment success', life: 3000 });
-    //   });
-    // }
-
-    if (status === 'CANCELLED' && code === '00') {
-      this.messageService.add({ severity: 'error', summary: 'Membership', detail: 'Payment failed by Cancel', life: 3000 });
-    }
   }
 }
