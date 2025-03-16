@@ -1,175 +1,168 @@
-<!-- Profile Form -->
-<div class="w-full bg-pink-100 p-6 md:p-6">
-  <!-- Header Section -->
-  <div class="mb-6 flex items-center gap-4 rounded-xl bg-white p-4 shadow-sm">
-    <div class="relative">
-      <!-- Profile Avatar -->
-      @if (avatarPreview) {
-        <img src="{{ avatarPreview }}" class="h-16 w-16 rounded-full object-cover" alt="avt" />
-      } @else {
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-300" viewBox="0 0 24 24" fill="currentColor">
-          <path
-            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
-          />
-        </svg>
-      }
-      <!-- Camera Button -->
-      <button
-        (click)="fileInput.click()"
-        class="absolute -bottom-2 -right-2 rounded-full bg-pink-500 p-1 text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 15.2a3.2 3.2 0 100-6.4 3.2 3.2 0 000 6.4z" />
-          <path
-            d="M9 2L7.17 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2h-3.17L15 2H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"
-          />
-        </svg>
-      </button>
-      <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
+<div class="md:py- container mx-auto px-4 py-4 md:px-6">
+  <div class="mt-6 grid grid-cols-1 gap-8 lg:grid-cols-12">
+    <!-- Left column: User Profile (5/12) -->
+    <div class="lg:col-span-5">
+      <div class="rounded-2xl bg-white p-6 shadow-lg ring-1 ring-gray-100 dark:bg-gray-800 dark:ring-gray-700">
+        <!-- Profile Header -->
+        <div class="mb-6 flex items-center gap-4 rounded-xl bg-pink-50 p-4 dark:bg-pink-900/20">
+          <div class="relative">
+            <!-- Profile Avatar -->
+            @if (avatarPreview) {
+              <img src="{{ avatarPreview }}" class="h-16 w-16 rounded-full object-cover shadow-md" alt="Avatar" />
+            } @else {
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-pink-300" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"
+                />
+              </svg>
+            }
+            <!-- Camera Button -->
+            <button
+              (click)="fileInput.click()"
+              class="absolute -bottom-2 -right-2 rounded-full bg-pink-500 p-1.5 text-white shadow-sm hover:bg-pink-600"
+            >
+              <mat-icon class="text-sm">photo_camera</mat-icon>
+            </button>
+            <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
+          </div>
+          <h2 class="text-2xl font-medium text-pink-500">Hồ sơ của tôi</h2>
+        </div>
+
+        <!-- Form Section -->
+        <form [formGroup]="profileForm" class="space-y-6" (submit)="onSubmit()">
+          <!-- Personal Information Card -->
+          <mat-card class="overflow-hidden rounded-xl shadow-sm">
+            <mat-card-header class="bg-pink-50 p-4 dark:bg-pink-900/20">
+              <mat-card-title class="text-lg font-medium text-pink-500">Thông tin cá nhân</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-4">
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <!-- Name Field -->
+                <div>
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Họ và tên</mat-label>
+                    <input matInput formControlName="name" placeholder="Nhập họ và tên của bạn" />
+                    <mat-error *ngIf="profileForm.get('name')?.invalid">Vui lòng nhập họ và tên</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Email Field -->
+                <div>
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Địa chỉ email</mat-label>
+                    <input matInput formControlName="email" placeholder="Nhập địa chỉ email của bạn" type="email" />
+                    <mat-error *ngIf="profileForm.get('email')?.invalid">Vui lòng nhập email hợp lệ</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <!-- Phone Field -->
+                <div>
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Số điện thoại</mat-label>
+                    <input matInput formControlName="phone" placeholder="Nhập số điện thoại của bạn" type="tel" />
+                    <mat-error *ngIf="profileForm.get('phone')?.invalid">Vui lòng nhập số điện thoại hợp lệ</mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Address Information Card -->
+          <mat-card class="overflow-hidden rounded-xl shadow-sm">
+            <mat-card-header class="bg-pink-50 p-4 dark:bg-pink-900/20">
+              <mat-card-title class="text-lg font-medium text-pink-500">Thông tin địa chỉ</mat-card-title>
+            </mat-card-header>
+            <mat-divider></mat-divider>
+            <mat-card-content class="p-4">
+              <div class="grid grid-cols-1 gap-4">
+                <!-- Address Field -->
+                <div>
+                  <mat-form-field appearance="outline" class="w-full">
+                    <mat-label>Địa chỉ</mat-label>
+                    <input matInput formControlName="address" placeholder="Nhập địa chỉ của bạn" />
+                    <mat-error *ngIf="profileForm.get('address')?.invalid">Vui lòng nhập địa chỉ</mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <!-- Province Field -->
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Tỉnh/Thành phố</mat-label>
+                      <mat-select (selectionChange)="onProvinceSelected($event)" formControlName="province">
+                        <mat-option value="">Chọn Tỉnh/Thành phố</mat-option>
+                        <mat-option
+                          *ngFor="let province of provinces"
+                          [value]="province.code"
+                          [disabled]="province.code == profileForm.get('province')?.value"
+                        >
+                          {{ province.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="profileForm.get('province')?.invalid">Vui lòng chọn Tỉnh/Thành phố</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- District Field -->
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Quận/Huyện</mat-label>
+                      <mat-select
+                        (selectionChange)="onDistrictSelected($event)"
+                        formControlName="district"
+                        [disabled]="!profileForm.get('province')?.value"
+                      >
+                        <mat-option value="">Chọn Quận/Huyện</mat-option>
+                        <mat-option
+                          *ngFor="let district of districts"
+                          [value]="district.code"
+                          [disabled]="district.code == profileForm.get('district')?.value"
+                        >
+                          {{ district.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="profileForm.get('district')?.invalid">Vui lòng chọn Quận/Huyện</mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <!-- Ward Field -->
+                  <div>
+                    <mat-form-field appearance="outline" class="w-full">
+                      <mat-label>Phường/Xã</mat-label>
+                      <mat-select formControlName="ward" [disabled]="!profileForm.get('district')?.value">
+                        <mat-option value="">Chọn Phường/Xã</mat-option>
+                        <mat-option *ngFor="let ward of wards" [value]="ward.code" [disabled]="ward.code == profileForm.get('ward')?.value">
+                          {{ ward.name }}
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="profileForm.get('ward')?.invalid">Vui lòng chọn Phường/Xã</mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Submit Button -->
+          <div class="flex justify-center">
+            <button
+              mat-raised-button
+              color="primary"
+              type="submit"
+              [disabled]="profileForm.invalid"
+              class="rounded-full bg-pink-500 px-8 py-3 font-medium text-white shadow-md hover:bg-pink-600 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-300"
+            >
+              <mat-icon class="mr-2">save</mat-icon>
+              Lưu thay đổi
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
-    <h1 class="m-0 text-2xl font-medium text-pink-500">Hồ sơ của tôi</h1>
+
+    <div class="lg:col-span-7">
+      <app-children-profile-insert />
+    </div>
   </div>
-
-  <!-- Form Section -->
-  <form [formGroup]="profileForm" class="space-y-6" (submit)="onSubmit()">
-    <!-- Personal Information Card -->
-    <mat-card class="overflow-hidden rounded-xl shadow-sm">
-      <mat-card-header class="bg-pink-50 p-4">
-        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin cá nhân</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content class="p-4">
-        <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-          <!-- Name Field -->
-          <div>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Họ và tên</mat-label>
-              <input matInput formControlName="name" placeholder="Nhập họ và tên của bạn" />
-              <mat-error *ngIf="profileForm.get('name')?.invalid">Vui lòng nhập họ và tên</mat-error>
-            </mat-form-field>
-          </div>
-
-          <!-- Email Field -->
-          <div>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Địa chỉ email</mat-label>
-              <input matInput formControlName="email" placeholder="Nhập địa chỉ email của bạn" type="email" />
-              <mat-error *ngIf="profileForm.get('email')?.invalid">Vui lòng nhập email hợp lệ</mat-error>
-            </mat-form-field>
-          </div>
-
-          <!--          &lt;!&ndash; Birth Date Field &ndash;&gt;-->
-          <!--          <div>-->
-          <!--            <mat-form-field appearance="outline" class="w-full">-->
-          <!--              <mat-label>Ngày dự sinh</mat-label>-->
-          <!--              <input (dateChange)="expectedBirthDateChange($event)" matInput [matDatepicker]="picker" formControlName="expected_birth_date" />-->
-          <!--              <mat-datepicker-toggle matSuffix [for]="picker" class="text-pink-300"></mat-datepicker-toggle>-->
-          <!--              <mat-datepicker #picker></mat-datepicker>-->
-          <!--              <mat-error *ngIf="profileForm.get('expected_birth_date')?.invalid">Vui lòng nhập ngày hợp lệ</mat-error>-->
-          <!--            </mat-form-field>-->
-          <!--          </div>-->
-
-          <!-- Phone Field -->
-          <div>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Số điện thoại</mat-label>
-              <input matInput formControlName="phone" placeholder="Nhập số điện thoại của bạn" type="tel" />
-              <mat-error *ngIf="profileForm.get('phone')?.invalid">Vui lòng nhập số điện thoại hợp lệ</mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Address Information Card -->
-    <mat-card class="overflow-hidden rounded-xl shadow-sm">
-      <mat-card-header class="bg-pink-50 p-4">
-        <mat-card-title class="text-lg font-medium text-pink-500">Thông tin địa chỉ</mat-card-title>
-      </mat-card-header>
-      <mat-divider></mat-divider>
-      <mat-card-content class="p-4">
-        <div class="grid grid-cols-1 gap-4">
-          <!-- Address Field -->
-          <div>
-            <mat-form-field appearance="outline" class="w-full">
-              <mat-label>Địa chỉ</mat-label>
-              <input matInput formControlName="address" placeholder="Nhập địa chỉ của bạn" />
-              <mat-error *ngIf="profileForm.get('address')?.invalid">Vui lòng nhập địa chỉ</mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <!-- Province Field -->
-            <div>
-              <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Tỉnh/Thành phố</mat-label>
-                <mat-select (selectionChange)="onProvinceSelected($event)" formControlName="province">
-                  <mat-option value="">Chọn Tỉnh/Thành phố</mat-option>
-                  <mat-option
-                    *ngFor="let province of provinces"
-                    [value]="province.code"
-                    [disabled]="province.code == profileForm.get('province')?.value"
-                  >
-                    {{ province.name }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="profileForm.get('province')?.invalid">Vui lòng chọn Tỉnh/Thành phố</mat-error>
-              </mat-form-field>
-            </div>
-
-            <!-- District Field -->
-            <div>
-              <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Quận/Huyện</mat-label>
-                <mat-select
-                  (selectionChange)="onDistrictSelected($event)"
-                  formControlName="district"
-                  [disabled]="!profileForm.get('province')?.value"
-                >
-                  <mat-option value="">Chọn Quận/Huyện</mat-option>
-                  <mat-option
-                    *ngFor="let district of districts"
-                    [value]="district.code"
-                    [disabled]="district.code == profileForm.get('district')?.value"
-                  >
-                    {{ district.name }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="profileForm.get('district')?.invalid">Vui lòng chọn Quận/Huyện</mat-error>
-              </mat-form-field>
-            </div>
-
-            <!-- Ward Field -->
-            <div>
-              <mat-form-field appearance="outline" class="w-full">
-                <mat-label>Phường/Xã</mat-label>
-                <mat-select formControlName="ward" [disabled]="!profileForm.get('district')?.value">
-                  <mat-option value="">Chọn Phường/Xã</mat-option>
-                  <mat-option *ngFor="let ward of wards" [value]="ward.code" [disabled]="ward.code == profileForm.get('ward')?.value">
-                    {{ ward.name }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="profileForm.get('ward')?.invalid">Vui lòng chọn Phường/Xã</mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-
-    <!-- Submit Button -->
-    <div class="flex justify-end">
-      <button
-        mat-raised-button
-        color="primary"
-        type="submit"
-        [disabled]="profileForm.invalid"
-        class="rounded-full bg-pink-500 px-8 py-2 font-medium text-white hover:bg-pink-600 focus:outline-none focus:ring-2 focus:ring-pink-300"
-      >
-        Lưu thay đổi
-      </button>
-    </div>
-  </form>
-
-  <app-children-profile-insert></app-children-profile-insert>
 </div>
