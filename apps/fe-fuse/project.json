@@ -40,8 +40,6 @@
           "includePaths": ["apps/fe-fuse/src/@fuse/styles", "apps/fe-fuse/src/styles"]
         },
         "styles": [
-          "node_modules/@splidejs/splide/dist/css/splide.min.css",
-          "node_modules/@splidejs/splide/dist/css/themes/splide-default.min.css",
           "apps/fe-fuse/src/@fuse/styles/tailwind.scss",
           "apps/fe-fuse/src/@fuse/styles/themes.scss",
           "apps/fe-fuse/src/styles/vendors.scss",
