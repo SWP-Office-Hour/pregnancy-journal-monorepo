@@ -10,9 +10,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PostType } from '@pregnancy-journal-monorepo/contract';
+import { PostType, ReactionResponseType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
+import { map } from 'rxjs';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
 import { UserService } from '../../../core/user/user.service';
@@ -38,9 +39,8 @@ import { CreatePostComponent } from '../create-post/create-post.component';
   styleUrl: './community.component.css',
 })
 export class CommunityComponent {
-  protected user: User;
   @ViewChild('.search-results') postContainer: HTMLElement;
-
+  protected user: User;
   // Infinite scroll properties
   protected lastPosts: PostType[] = [];
   protected posts = signal<PostType[]>([]);
@@ -97,5 +97,57 @@ export class CommunityComponent {
   createPostAt(date: string | Date): string {
     const dateObj = new Date(date);
     return DateTime.fromJSDate(dateObj).toLocaleString();
+  }
+
+  getAvatarUrl(user: { user_id: string; avatar?: string; name: string } | any) {
+    const prefix = 'https://api.dicebear.com/9.x/initials/svg?seed=';
+    return user.avatar || prefix + user.name.charAt(0);
+  }
+
+  isReacted(post: PostType, user: User) {
+    return post.reaction.some((reaction) => reaction.user.user_id == this.user.user_id);
+  }
+
+  likePost(post: PostType) {
+    console.log('like post ', post.post_id);
+    this._httpClient
+      .post<ReactionResponseType>(environment.apiUrl + 'reactions', { post_id: post.post_id })
+      .pipe(
+        map((res: ReactionResponseType) => {
+          console.log(res);
+          return res.post_id;
+        }),
+      )
+      .subscribe((post_id) => {
+        const index = this.posts().findIndex((p) => p.post_id === post_id);
+        this._httpClient.get<PostType>(environment.apiUrl + 'posts/' + post_id).subscribe((post) => {
+          console.log(this.posts()[index]);
+          this.posts.update((posts) => {
+            posts[index] = post;
+            return posts;
+          });
+          console.log(this.posts()[index]);
+        });
+      });
+  }
+
+  unlikePost(post: PostType) {
+    console.log('unlike post');
+    this._httpClient
+      .post<string>(environment.apiUrl + 'reactions/', { post_id: post.post_id })
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+      )
+      .subscribe(() => {
+        const index = this.posts().findIndex((p) => p.post_id === post.post_id);
+        this._httpClient.get<PostType>(environment.apiUrl + 'posts/' + post.post_id).subscribe((newPost) => {
+          this.posts.update((posts) => {
+            posts[index] = newPost;
+            return posts;
+          });
+        });
+      });
   }
 }

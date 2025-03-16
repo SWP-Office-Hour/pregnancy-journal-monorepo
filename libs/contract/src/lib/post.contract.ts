@@ -18,6 +18,7 @@ export const reactionSchema = z.object({
   reaction_id: z.string(),
   user: z.object({
     user_id: z.string(),
+    name: z.string(),
     avatar: z.string().nullable(),
   }),
 });
@@ -59,6 +60,8 @@ export const PostUpdateSchema = PostSchema.omit({
 export type PostType = z.infer<typeof PostSchema>;
 export type PostCreateType = z.infer<typeof PostCreateSchema>;
 export type PostUpdateType = z.infer<typeof PostUpdateSchema>;
+export type ReactionType = z.infer<typeof reactionSchema>;
+export type CommentType = z.infer<typeof commentSchema>;
 
 const c = initContract();
 
