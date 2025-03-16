@@ -73,7 +73,7 @@
               >
                 <div class="flex items-center">
                   <div class="mr-3 h-3 w-3 rounded-full bg-white/80"></div>
-                  <span class="text-sm font-medium text-black">{{ theme.title }}</span>
+                  <span class="text-sm font-medium text-white">{{ theme.title }}</span>
                 </div>
               </div>
 
@@ -158,10 +158,10 @@
               >
                 <div class="py-1">
                   @if (this.getRemindersForDate(date).length > 0) {
-                    <h4 class="mb-2 px-2 text-xs font-medium text-gray-500">{{ date | date: 'dd/MM/yyyy' }}</h4>
+                    <h4 class="mb-2 px-2 text-xs font-medium text-black">{{ date | date: 'dd/MM/yyyy' }}</h4>
                     <!-- Show only first 3 events -->
                     @for (event of this.getRemindersForDate(date).slice(0, 3); track $index) {
-                      <div class="mb-1 rounded-md p-2 text-black" [style.background-color]="chooseColor(event)">
+                      <div class="mb-1 rounded-md p-2 text-white" [style.background-color]="chooseColor(event)">
                         <div class="flex items-center justify-between">
                           <h5 class="text-sm font-medium">{{ event.title }}</h5>
                         </div>
@@ -238,7 +238,7 @@
                 </div>
               } @else {
                 <div *ngFor="let event of this.getRemindersForDate(this.selectedDate)" class="mb-3 last:mb-0">
-                  <div class="event-card group">
+                  <div class="event-card group text-white">
                     <div
                       class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
                       [style.background-color]="chooseColor(event)"
