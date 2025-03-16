@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { UserProfileResponseType, UserUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { environment } from '../../../environments/environment';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
+import { ChildrenProfileComponent } from '../children-profile/children-profile.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,6 +29,7 @@ import { District, Province, Ward } from '../auth/confirmation-required/confirma
     CommonModule,
     MatCardModule,
     MatDividerModule,
+    ChildrenProfileComponent,
   ],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',

@@ -58,11 +58,11 @@ export class CalendarComponent {
     type: ReminderType.USER_CREATED_REMINDER,
   };
   themes: Theme[] = [
-    { title: 'Khám thai', color: 'f9a8d4' }, // Soft pink
-    { title: 'Uống thuốc', color: 'c4b5fd' }, // Soft lavender
-    { title: 'Tiêm phòng', color: '93c5fd' }, // Soft blue
-    { title: 'Siêu âm', color: 'a7f3d0' }, // Soft mint
-    { title: 'Xét nghiệm', color: 'fcd34d' }, // Soft yellow
+    { title: 'Khám thai', color: 'FA8FCA' }, // Soft pink
+    { title: 'Uống thuốc', color: 'A593EC' }, // Soft lavender
+    { title: 'Tiêm phòng', color: '5BA8FF' }, // Soft blue
+    { title: 'Siêu âm', color: '2ECC83' }, // Soft mint
+    { title: 'Xét nghiệm', color: 'F86666' }, //
   ];
   isEditMode = 0;
   isHovering: boolean = false;
