@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { PostType, ReactionResponseType } from '@pregnancy-journal-monorepo/contract';
+import { CommentResponseType, PostType, ReactionResponseType } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { map } from 'rxjs';
@@ -149,5 +149,37 @@ export class CommunityComponent {
           });
         });
       });
+  }
+
+  commentPost(post_id: string, content: string) {
+    console.log('comment post');
+    this._httpClient
+      .post<CommentResponseType>(environment.apiUrl + 'comments', { post_id, content })
+      .pipe(
+        map((res: CommentResponseType) => {
+          return res.post_id;
+        }),
+      )
+      .subscribe((post_id: string) => {
+        const index = this.posts().findIndex((p) => p.post_id == post_id);
+        this._httpClient.get<PostType>(environment.apiUrl + 'posts/' + post_id).subscribe((newPost) => {
+          this.posts.update((posts) => {
+            posts[index] = newPost;
+            return posts;
+          });
+        });
+      });
+  }
+
+  onCommentInput(event: Event) {
+    event.preventDefault();
+    const target = event.target as HTMLFormElement;
+    const comment = target.elements.namedItem('comment') as HTMLInputElement;
+    if (comment.value) {
+      const content = comment.value;
+      this.commentPost(target.id, content);
+    } else {
+      return;
+    }
   }
 }
