@@ -1,7 +1,7 @@
 import { CdkDragDrop, DragDropModule, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import localeVi from '@angular/common/locales/vi';
-import { Component, effect, LOCALE_ID, ResourceStatus, Signal, signal } from '@angular/core';
+import { Component, effect, ResourceStatus, Signal, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -39,35 +39,23 @@ registerLocaleData(localeVi);
   ],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.css',
-  providers: [
-    { provide: LOCALE_ID, useValue: 'vi-VN' }, // Set default locale to Vietnamese
-  ],
+  providers: [],
 })
 export class CalendarComponent {
-  constructor(private _calendarService: CalendarService) {
-    this.events = this._calendarService.meetings.value;
-    this.status = this._calendarService.meetings.status;
-    effect(() => {
-      if (this.status() == ResourceStatus.Resolved || this.status() == ResourceStatus.Local) {
-        this.generateCalendarDays();
-      }
-    });
-  }
-
+  protected readonly ReminderType = ReminderType;
   currentDate: Date = new Date();
   selectedDate: Date = new Date();
   calendarDays: Date[];
   weekDays: string[] = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
-  events = signal<ReminderResponse[]>([]);
+  reminderArraySignal = signal<ReminderResponse[]>([]);
   status: Signal<ResourceStatus> = signal(ResourceStatus.Idle);
-
-  showEventModal: boolean = false;
-  newEvent: ReminderResponse = {
+  showReminderModal: boolean = false;
+  newReminder: ReminderResponse = {
     title: '',
     content: '',
     remind_date: new Date(),
-    color: ReminderColor.USER_CREATED_EVENT_COLOR,
-    type: ReminderType.USER_CREATED_EVENT,
+    color: ReminderColor.USER_CREATED_REMINDER_COLOR,
+    type: ReminderType.USER_CREATED_REMINDER,
   };
   themes: Theme[] = [
     { title: 'Khám thai', color: 'f9a8d4' }, // Soft pink
@@ -76,11 +64,20 @@ export class CalendarComponent {
     { title: 'Siêu âm', color: 'a7f3d0' }, // Soft mint
     { title: 'Xét nghiệm', color: 'fcd34d' }, // Soft yellow
   ];
-
   isEditMode = 0;
   isHovering: boolean = false;
-  // Add a property to track the event being edited
-  editingEvent: ReminderResponse = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_EVENT };
+  // Add a property to track the reminder being edited
+  editingReminder: ReminderResponse = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_REMINDER };
+
+  constructor(private _calendarService: CalendarService) {
+    this.reminderArraySignal = this._calendarService.reminderResource.value;
+    this.status = this._calendarService.reminderResource.status;
+    effect(() => {
+      if (this.status() == ResourceStatus.Resolved || this.status() == ResourceStatus.Local) {
+        this.generateCalendarDays();
+      }
+    });
+  }
 
   generateCalendarDays() {
     const year = this.currentDate.getFullYear();
@@ -89,7 +86,7 @@ export class CalendarComponent {
     const lastDay = new Date(year, month + 1, 0);
 
     // Create a properly typed array for calendar days
-    const dateEvents: Array<{ date: Date; events: any[] }> = [];
+    const dateArray: Array<{ date: Date }> = [];
 
     // Calculate days needed from previous month
     const startPadding = firstDay.getDay();
@@ -97,42 +94,38 @@ export class CalendarComponent {
     // Add previous month's days
     for (let i = 0; i < startPadding; i++) {
       const prevDate = new Date(year, month, -startPadding + i + 1);
-      // Check if there are existing events for this date
-      const existingEvents = this.getEventsForDate(prevDate);
-      dateEvents.push({ date: prevDate, events: existingEvents });
+      dateArray.push({ date: prevDate });
     }
 
     // Add current month's days
     for (let i = 1; i <= lastDay.getDate(); i++) {
       const currentDate = new Date(year, month, i);
-      // Check if there are existing events for this date
-      const existingEvents = this.getEventsForDate(currentDate);
-      dateEvents.push({ date: currentDate, events: existingEvents });
+      dateArray.push({ date: currentDate });
     }
 
     // Calculate how many days we need from next month to complete the grid
     // A standard calendar display needs 6 rows of 7 days = 42 total cells
     const totalCells = 42;
-    const endPadding = totalCells - dateEvents.length;
+    const endPadding = totalCells - dateArray.length;
 
     // Add next month's days
     for (let i = 1; i <= endPadding; i++) {
       const nextDate = new Date(year, month + 1, i);
-      // Check if there are existing events for this date
-      const existingEvents = this.getEventsForDate(nextDate);
-      dateEvents.push({ date: nextDate, events: existingEvents });
+      dateArray.push({ date: nextDate });
     }
-    this.calendarDays = dateEvents.map((item) => item.date);
+    this.calendarDays = dateArray.map((d) => d.date);
   }
 
-  // Helper function to find events for a specific date
-  getEventsForDate(date: Date): ReminderResponse[] {
-    //check events có tồn tại không
-    if (!this.events()) {
+  // Helper function to find reminder for a specific date
+  getRemindersForDate(date: Date): ReminderResponse[] {
+    //check reminder có tồn tại không
+    if (!this.reminderArraySignal()) {
       return [];
     }
-    // Find existing events
-    return !date ? [] : this.events()?.filter((event) => this.getDateKey(event.remind_date) == this.getDateKey(date));
+    // Find existing reminder
+    console.log('date', date);
+    console.log('getRemindersForDate có chạy nè');
+    return !date ? [] : this.reminderArraySignal()?.filter((r) => this.getDateKey(r.remind_date) == this.getDateKey(date));
   }
 
   // Create a unique string key for a date (without time)
@@ -154,10 +147,6 @@ export class CalendarComponent {
     this.selectedDate = date;
   }
 
-  private isSameDay(date1: Date, date2: Date): boolean {
-    return date1.toDateString() === date2.toDateString();
-  }
-
   isSelected(date: Date): boolean {
     return this.selectedDate
       ? date.getDate() === this.selectedDate.getDate() &&
@@ -177,19 +166,19 @@ export class CalendarComponent {
 
   isDueDate(date: Date): boolean {
     //check xem ngày input có phải là ngày due date của event nào đó không và ngày đó phải có status là ngày đẻ
-    return this.events()?.some((event) => this.isSameDay(event.remind_date, date) && event.type == ReminderType.USER_DUE_DATE);
+    return this.reminderArraySignal()?.some((event) => this.isSameDay(event.remind_date, date) && event.type == ReminderType.USER_DUE_DATE);
   }
 
-  createEvent() {
+  createReminder() {
     // Using the template-driven form validation
-    if (this.newEvent.title && this.newEvent.title.length >= 3) {
-      if (this.isEditMode && this.editingEvent) {
+    if (this.newReminder.title && this.newReminder.title.length >= 3) {
+      if (this.isEditMode && this.editingReminder) {
         // Update existing event using the stored reference instead of trying to match by title
-        this.events.update((events) => {
+        this.reminderArraySignal.update((events) => {
           return events.map((e) => {
             // Find the event by reference, not by properties
-            if (e === this.editingEvent) {
-              return { ...this.newEvent }; // Replace with updated data
+            if (e === this.editingReminder) {
+              return { ...this.newReminder }; // Replace with updated data
             }
             return e;
           });
@@ -197,11 +186,11 @@ export class CalendarComponent {
       } else {
         // Create a new event (existing code)
         const eventCopy: ReminderCreateRequest = {
-          title: this.newEvent.title,
-          content: this.newEvent.content || '',
+          title: this.newReminder.title,
+          content: this.newReminder.content || '',
           remind_date: new Date(this.selectedDate).toLocaleDateString('en-CA'),
-          color: this.newEvent.color || ReminderColor.USER_CREATED_EVENT_COLOR,
-          type: this.newEvent.type || ReminderType.USER_CREATED_EVENT,
+          color: this.newReminder.color || ReminderColor.USER_CREATED_REMINDER_COLOR,
+          type: this.newReminder.type || ReminderType.USER_CREATED_REMINDER,
         };
 
         // Add the event to our events array
@@ -220,35 +209,35 @@ export class CalendarComponent {
 
   openCreateEventModal() {
     // Prepare the new event with the selected date
-    this.newEvent.remind_date = new Date(this.selectedDate);
+    this.newReminder.remind_date = new Date(this.selectedDate);
     this.isEditMode = 0; // Reset to create mode
 
     // Set a timeout before showing the modal for a smoother effect
     setTimeout(() => {
-      this.showEventModal = true;
+      this.showReminderModal = true;
     }, 10);
   }
 
   closeCreateEventModal() {
     // Hide the modal first
-    this.showEventModal = false;
+    this.showReminderModal = false;
 
     // Reset the form after the animation completes
     setTimeout(() => {
-      this.newEvent = {
+      this.newReminder = {
         title: '',
         remind_date: new Date(),
-        color: ReminderColor.USER_CREATED_EVENT_COLOR,
+        color: ReminderColor.USER_CREATED_REMINDER_COLOR,
       };
       this.isEditMode = 0;
-      this.editingEvent = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_EVENT }; // Clear the reference to the edited event
+      this.editingReminder = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_REMINDER }; // Clear the reference to the edited event
     }, 300);
   }
 
   chooseColor(event: ReminderResponse): string {
     if (!event.color) {
-      if (event.type == ReminderType.USER_CREATED_EVENT) {
-        return '#' + ReminderColor.USER_CREATED_EVENT_COLOR;
+      if (event.type == ReminderType.USER_CREATED_REMINDER) {
+        return '#' + ReminderColor.USER_CREATED_REMINDER_COLOR;
       }
       if (event.type == ReminderType.FOLLOW_UP_MEETING) {
         return '#' + ReminderColor.FOLLOW_UP_MEETING_COLOR;
@@ -281,7 +270,7 @@ export class CalendarComponent {
           content: '',
           remind_date: targetDate.toLocaleDateString('en-CA'),
           color: draggedTheme.color,
-          type: ReminderType.USER_CREATED_EVENT,
+          type: ReminderType.USER_CREATED_REMINDER,
         };
         this._calendarService.createReminder(newEvent).subscribe(() => {});
       } else {
@@ -315,9 +304,9 @@ export class CalendarComponent {
       };
 
       // Add to events array
-      this.events.update((events) => {
-        events.push(newEvent);
-        return events;
+      this.reminderArraySignal.update((event) => {
+        event.push(newEvent);
+        return event;
       });
 
       // Note: We always preserve themes when dropping them into calendar dates
@@ -333,63 +322,65 @@ export class CalendarComponent {
   // Add these methods for edit and delete functionality
   editEvent(event: ReminderResponse, status: number) {
     // Prepare the form with the selected event
-    this.newEvent = { ...event };
+    this.newReminder = { ...event };
     this.isEditMode = status;
-    this.editingEvent = event; // Store a reference to the edited event
+    this.editingReminder = event; // Store a reference to the edited event
 
     // Set a timeout before showing the modal for a smoother effect
     setTimeout(() => {
-      this.showEventModal = true;
+      this.showReminderModal = true;
     }, 10);
   }
 
   updateEvent() {
     //store the updated event
-    if (this.newEvent.title) {
-      this.editingEvent.title = this.newEvent.title;
+    if (this.newReminder.title) {
+      this.editingReminder.title = this.newReminder.title;
     }
-    if (this.newEvent.content) {
-      this.editingEvent.content = this.newEvent.content;
+    if (this.newReminder.content) {
+      this.editingReminder.content = this.newReminder.content;
     }
-    if (this.newEvent.color) {
-      this.editingEvent.color = this.newEvent.color;
+    if (this.newReminder.color) {
+      this.editingReminder.color = this.newReminder.color;
     }
 
     //convert to ReminderUpdateRequest
     const reminderUpdateRequest: ReminderUpdateRequest = {
-      reminder_id: this.editingEvent.reminder_id,
-      title: this.editingEvent.title,
-      content: this.editingEvent.content,
-      remind_date: new Date(this.editingEvent.remind_date).toLocaleDateString('en-CA'),
-      color: this.editingEvent.color,
+      reminder_id: this.editingReminder.reminder_id,
+      title: this.editingReminder.title,
+      content: this.editingReminder.content,
+      remind_date: new Date(this.editingReminder.remind_date).toLocaleDateString('en-CA'),
+      color: this.editingReminder.color,
     };
 
     this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {});
     //reset newEvent
-    this.newEvent = {
+    this.newReminder = {
       title: '',
       content: '',
-      color: ReminderColor.USER_CREATED_EVENT_COLOR,
-      type: ReminderType.USER_CREATED_EVENT,
+      color: ReminderColor.USER_CREATED_REMINDER_COLOR,
+      type: ReminderType.USER_CREATED_REMINDER,
     };
     //close modal
-    this.showEventModal = false;
+    this.showReminderModal = false;
   }
 
   deleteEvent(event: ReminderResponse) {
     if (event.type == ReminderType.USER_DUE_DATE) {
       return;
     }
-    this.newEvent = {
+    this.newReminder = {
       title: '',
       content: '',
-      color: ReminderColor.USER_CREATED_EVENT_COLOR,
-      type: ReminderType.USER_CREATED_EVENT,
+      color: ReminderColor.USER_CREATED_REMINDER_COLOR,
+      type: ReminderType.USER_CREATED_REMINDER,
     };
     this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {});
     //đóng modal
-    this.showEventModal = false;
+    this.showReminderModal = false;
   }
 
-  protected readonly ReminderType = ReminderType;
+  private isSameDay(date1: Date, date2: Date): boolean {
+    return date1.toDateString() === date2.toDateString();
+  }
 }

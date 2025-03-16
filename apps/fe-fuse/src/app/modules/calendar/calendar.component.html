@@ -73,7 +73,7 @@
               >
                 <div class="flex items-center">
                   <div class="mr-3 h-3 w-3 rounded-full bg-white/80"></div>
-                  <span class="text-sm font-medium text-white">{{ theme.title }}</span>
+                  <span class="text-sm font-medium text-black">{{ theme.title }}</span>
                 </div>
               </div>
 
@@ -129,7 +129,7 @@
               }"
               (click)="selectDate(date)"
               cdkDropList
-              [cdkDropListData]="this.events()"
+              [cdkDropListData]="this.reminderArraySignal()"
               [id]="'date-' + i"
               (cdkDropListDropped)="dropEvent($event, date)"
             >
@@ -144,7 +144,7 @@
 
               <!-- Events indicators -->
               <div class="z-10 mt-1 flex flex-wrap justify-center gap-1">
-                @for (event of this.getEventsForDate(date); track $index) {
+                @for (event of this.getRemindersForDate(date); track $index) {
                   <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
                 }
               </div>
@@ -157,10 +157,10 @@
                 (mouseleave)="isHovering = false"
               >
                 <div class="py-1">
-                  @if (this.getEventsForDate(date).length > 0) {
+                  @if (this.getRemindersForDate(date).length > 0) {
                     <h4 class="mb-2 px-2 text-xs font-medium text-gray-500">{{ date | date: 'dd/MM/yyyy' }}</h4>
                     <!-- Show only first 3 events -->
-                    @for (event of this.getEventsForDate(date).slice(0, 3); track $index) {
+                    @for (event of this.getRemindersForDate(date).slice(0, 3); track $index) {
                       <div class="mb-1 rounded-md p-2 text-black" [style.background-color]="chooseColor(event)">
                         <div class="flex items-center justify-between">
                           <h5 class="text-sm font-medium">{{ event.title }}</h5>
@@ -172,10 +172,10 @@
                     }
 
                     <!-- Add "View more" if there are more than 3 events -->
-                    @if (this.getEventsForDate(date).length > 3) {
+                    @if (this.getRemindersForDate(date).length > 3) {
                       <div class="mt-2 flex justify-center">
                         <div class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200">
-                          Ngày này còn {{ this.getEventsForDate(date).length - 3 }} sự kiện
+                          Ngày này còn {{ this.getRemindersForDate(date).length - 3 }} sự kiện
                         </div>
                       </div>
                     }
@@ -218,10 +218,10 @@
             <div
               class="example-list max-h-110 overflow-y-scroll"
               cdkDropList
-              [cdkDropListData]="events()"
+              [cdkDropListData]="reminderArraySignal()"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
-              @if (this.getEventsForDate(this.selectedDate).length == 0) {
+              @if (this.getRemindersForDate(this.selectedDate).length == 0) {
                 <div class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
                   <div class="mb-4 rounded-full bg-pink-50 p-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -237,7 +237,7 @@
                   <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
                 </div>
               } @else {
-                <div *ngFor="let event of this.getEventsForDate(this.selectedDate)" class="mb-3 last:mb-0">
+                <div *ngFor="let event of this.getRemindersForDate(this.selectedDate)" class="mb-3 last:mb-0">
                   <div class="event-card group">
                     <div
                       class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
@@ -307,12 +307,12 @@
 
     <div
       class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden"
-      [ngClass]="{ 'pointer-events-none': !showEventModal }"
+      [ngClass]="{ 'pointer-events-none': !showReminderModal }"
     >
       <!-- Backdrop with fade effect -->
       <div
         class="fixed inset-0 bg-black transition-opacity duration-300 ease-in-out"
-        [ngClass]="{ 'pointer-events-none opacity-0': !showEventModal, 'opacity-50': showEventModal }"
+        [ngClass]="{ 'pointer-events-none opacity-0': !showReminderModal, 'opacity-50': showReminderModal }"
         (click)="closeCreateEventModal()"
       ></div>
 
@@ -320,8 +320,8 @@
       <div
         class="relative w-full max-w-md transform rounded-xl bg-white p-6 shadow-xl transition-all duration-300 ease-in-out"
         [ngClass]="{
-          'translate-y-4 scale-95 opacity-0': !showEventModal,
-          'translate-y-0 scale-100 opacity-100': showEventModal,
+          'translate-y-4 scale-95 opacity-0': !showReminderModal,
+          'translate-y-0 scale-100 opacity-100': showReminderModal,
         }"
       >
         <!-- Update the modal title and button text based on mode -->
@@ -331,7 +331,7 @@
             <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
           </div>
         }
-        @if (this.editingEvent.type == ReminderType.FOLLOW_UP_MEETING) {
+        @if (this.editingReminder.type == ReminderType.FOLLOW_UP_MEETING) {
           Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa hoặc xóa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái
           khám.
         } @else if (isEditMode == 1 || isEditMode == 0) {
@@ -340,7 +340,7 @@
               <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
               <input
                 type="text"
-                [(ngModel)]="newEvent.title"
+                [(ngModel)]="newReminder.title"
                 name="title"
                 #title="ngModel"
                 required
@@ -355,7 +355,7 @@
             <div class="mb-4">
               <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
               <textarea
-                [(ngModel)]="newEvent.content"
+                [(ngModel)]="newReminder.content"
                 name="content"
                 rows="4"
                 placeholder="Nhập nội dung chi tiết..."
@@ -366,15 +366,15 @@
               <label class="mb-2 block text-sm font-medium text-gray-700">Chọn màu</label>
               <div class="flex items-center gap-2">
                 @for (color of getReminderColors(); track $index) {
-                  @if (newEvent.color == color) {
+                  @if (newReminder.color == color) {
                     <div
-                      (click)="this.newEvent.color = color"
+                      (click)="this.newReminder.color = color"
                       class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
                   } @else {
                     <div
-                      (click)="this.newEvent.color = color"
+                      (click)="this.newReminder.color = color"
                       class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
@@ -395,7 +395,7 @@
                 type="submit"
                 [disabled]="title.invalid"
                 class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
-                (click)="isEditMode > 0 ? updateEvent() : createEvent()"
+                (click)="isEditMode > 0 ? updateEvent() : createReminder()"
               >
                 {{ isEditMode ? 'Cập Nhật' : 'Tạo Lịch' }}
               </button>
@@ -413,7 +413,7 @@
             <button
               type="button"
               class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg"
-              (click)="deleteEvent(editingEvent)"
+              (click)="deleteEvent(editingReminder)"
             >
               Xác Nhận
             </button>

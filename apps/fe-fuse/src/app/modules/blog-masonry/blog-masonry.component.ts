@@ -1,13 +1,13 @@
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
+
 import { BlogResponseType, CategoryResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { AuthService } from '../../core/auth/auth.service';
 import { BlogMasonryService } from './blog-masonry.service';
 
 @Component({
   selector: 'app-blog-masonry',
-  imports: [RouterLink, DatePipe, CommonModule, NgClass],
+  imports: [DatePipe, CommonModule, NgClass],
   templateUrl: './blog-masonry.component.html',
   styleUrl: './blog-masonry.component.css',
 })
