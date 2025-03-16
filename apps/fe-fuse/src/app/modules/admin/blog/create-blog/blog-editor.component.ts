@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, effect, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatAutocomplete, MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatButton, MatIconButton } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
@@ -33,6 +33,7 @@ import { BlogsService } from '../blogs.service';
     MatSelect,
     FileUploadComponent,
     ImagePreviewComponent,
+    FormsModule,
   ],
   templateUrl: './blog-editor.component.html',
   styleUrl: './blog-editor.component.css',
@@ -47,6 +48,7 @@ export class BlogEditorComponent implements OnInit {
   tagsOptions: TagResponse[] = [];
   categories: CategoryResponse[] = [];
   image = signal<MediaResponse>({ media_url: '' });
+  imageByUrl = signal<string>('');
   quillModules = {
     toolbar: [
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
@@ -94,6 +96,16 @@ export class BlogEditorComponent implements OnInit {
     });
     this._blog = this._blogService.getBlog();
     this.image = this._blogService.Media;
+
+    effect(() => {
+      try {
+        const url = new URL(this.imageByUrl());
+        this.imageByUrl.set(url.href);
+        this._blogService.addImage({ media_id: Date.now().toString(), media_url: url.href });
+      } catch (error) {
+        return;
+      }
+    });
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -166,6 +178,7 @@ export class BlogEditorComponent implements OnInit {
 
   deleteImage(id: string) {
     this._blogService.deleteImage(id);
+    this.imageByUrl.set('');
   }
 
   addImage(img: MediaResponse) {

@@ -88,6 +88,15 @@
             <div class="mb-8 w-full px-2 md:w-1/2">
               <file-upload (insertImg)="addImage($event)" class="block w-full"></file-upload>
             </div>
+            <div class="mb-8 w-full px-2 md:w-1/2">
+              <input
+                [(ngModel)]="imageByUrl"
+                [ngModelOptions]="{ standalone: true }"
+                type="text"
+                class="w-full rounded-lg border border-teal-200"
+                placeholder="URL hình ảnh"
+              />
+            </div>
           }
         </div>
 

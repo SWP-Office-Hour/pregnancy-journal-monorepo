@@ -170,25 +170,33 @@
         <ng-container fuseCardExpansion>
           <hr class="m-0 border-gray-100" />
           <div class="mx-4 mb-3 mt-6 flex flex-col sm:mx-8">
-            <!-- Comment Input -->
-            <div class="flex items-start">
-              <img class="mr-5 h-10 w-10 rounded-full border-2 border-pink-50 object-cover" [src]="getAvatarUrl(post.user)" alt="Avatar" />
-              <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
-                <textarea matInput [placeholder]="'Viết bình luận...'" [rows]="2" cdkTextareaAutosize class="resize-none"></textarea>
-              </mat-form-field>
-            </div>
-            <!-- Comment Tools -->
-            <div class="-mr-3 ml-auto mt-3 flex items-center">
-              <button mat-icon-button class="text-pink-400 hover:text-pink-500">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
-              </button>
-              <button mat-icon-button class="text-pink-400 hover:text-pink-500">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:face-smile'"></mat-icon>
-              </button>
-              <button mat-icon-button class="text-pink-400 hover:text-pink-500">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:photo'"></mat-icon>
-              </button>
-            </div>
+            <form (submit)="onCommentInput($event)" id="{{ post.post_id }}">
+              <!-- Comment Input -->
+              <div class="flex items-start">
+                <img class="mr-5 h-10 w-10 rounded-full border-2 border-pink-50 object-cover" [src]="getAvatarUrl(post.user)" alt="Avatar" />
+                <mat-form-field class="w-full" [subscriptSizing]="'dynamic'">
+                  <textarea matInput [placeholder]="'Viết bình luận...'" [rows]="2" cdkTextareaAutosize class="resize-none" name="comment"></textarea>
+                </mat-form-field>
+              </div>
+              <!-- Comment Tools -->
+              <div class="-mr-3 ml-auto mt-3 flex items-center justify-between">
+                <div>
+                  <button mat-icon-button class="text-pink-400 hover:text-pink-500">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:sparkles'"></mat-icon>
+                  </button>
+                  <button mat-icon-button class="text-pink-400 hover:text-pink-500">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:face-smile'"></mat-icon>
+                  </button>
+                  <button mat-icon-button class="text-pink-400 hover:text-pink-500">
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:photo'"></mat-icon>
+                  </button>
+                </div>
+                <!--  Comment  -->
+                <button type="submit" mat-icon-button class="text-pink-400 hover:text-pink-500">
+                  <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:paper-airplane'"></mat-icon>
+                </button>
+              </div>
+            </form>
           </div>
 
           <hr class="mx-4 my-0 border-gray-100 sm:mx-8" />
