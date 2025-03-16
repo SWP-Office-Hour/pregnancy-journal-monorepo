@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { ChildCreateRequestType, ChildType, Gender } from '@pregnancy-journal-monorepo/contract';
+import { ChildCreateRequestType, ChildType, ChildUpdateRequestType, Gender } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonDirective } from 'primeng/button';
 import { Calendar } from 'primeng/calendar';
@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../../environments/environment.staging';
 import { AuthService } from '../../../core/auth/auth.service';
+
 interface GenderOption {
   name: string;
   value: Gender;
@@ -60,7 +61,7 @@ export class ChildrenProfileTableComponent implements OnInit {
     this.genders = [
       { name: 'Nam', value: Gender.MALE },
       { name: 'Nữ', value: Gender.FEMALE },
-      { name: 'Chưa xác định', value: null },
+      { name: 'Chưa xác định', value: Gender.UNKNOWN },
     ];
   }
 
@@ -92,6 +93,17 @@ export class ChildrenProfileTableComponent implements OnInit {
   }
 
   onSubmit(): void {
+    // Before sending to the API, adjust the date to prevent timezone shifts
+    let formValue = this.profileForm.value;
+
+    // Create a new date that preserves the local date values
+    if (formValue.expected_birth_date) {
+      const date = new Date(formValue.expected_birth_date);
+      // Set time to noon to avoid day boundary issues across timezones
+      formValue.expected_birth_date = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0));
+    } // Before sending to the API, adjust the date to prevent timezone shifts
+    formValue = this.profileForm.value;
+
     if (this.profileForm.valid) {
       const formData: ChildCreateRequestType = {
         name: this.profileForm.value.name,
@@ -101,10 +113,13 @@ export class ChildrenProfileTableComponent implements OnInit {
       if (formData.gender === null) {
         formData.gender = undefined;
       }
-      console.log(formData);
       if (this.isEditMode) {
         // Update existing child
-        this.http.patch(`${environment.apiUrl}child/${this.childId}`, formData).subscribe({
+        const updatedData: ChildUpdateRequestType = {
+          child_id: this.childId,
+          ...formData,
+        };
+        this.http.patch(`${environment.apiUrl}child`, updatedData).subscribe({
           next: () => {
             this.messageService.add({
               severity: 'success',
@@ -186,7 +201,7 @@ export class ChildrenProfileTableComponent implements OnInit {
     return '';
   }
 
-  selectGender(gender: Gender | null): void {
+  selectGender(gender: Gender): void {
     this.profileForm.get('gender')?.setValue(gender);
   }
 }
