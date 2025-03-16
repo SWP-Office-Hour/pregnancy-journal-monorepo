@@ -105,10 +105,9 @@ export class ChildrenProfileComponent {
   }
 
   getDaysUntilDueDate(dueDate: Date): number {
-    const today = new Date();
-    const due = new Date(dueDate);
-    const diffTime = due.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const expectedDate = new Date(dueDate);
+    const currentDate = new Date();
+    const diffDays = Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
     return diffDays > 0 ? diffDays : 0;
   }
 
