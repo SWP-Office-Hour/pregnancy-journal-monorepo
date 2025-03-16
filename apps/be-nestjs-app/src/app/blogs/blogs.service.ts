@@ -117,7 +117,13 @@ export class BlogsService {
       },
     });
 
-    const total_page = Math.ceil((await this.databaseService.Blog.count()) / limit);
+    const total_blogs = await this.databaseService.Blog.count({
+      where: {
+        category_id,
+      },
+    });
+
+    const total_page = Math.ceil(total_blogs / limit);
 
     const blogs = result.map((blog) => ({
       blog_id: blog.blog_id,
