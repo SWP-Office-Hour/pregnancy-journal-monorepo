@@ -14,7 +14,7 @@ export enum UserStatus {
 
 export enum ReminderColor {
   FOLLOW_UP_MEETING_COLOR = 'FFA0BF',
-  USER_CREATED_EVENT_COLOR = 'BFD4FF',
+  USER_CREATED_REMINDER_COLOR = 'BFD4FF',
   CUSTOM_ONE = 'D8C4FF',
   CUSTOM_TWO = 'FFD4A0',
   CUSTOM_THREE = 'FFBFCB',
@@ -46,7 +46,7 @@ export const membershipDaySchema = z.nativeEnum(membershipDay);
 
 // Định nghĩa ReminderType enum
 export enum ReminderType {
-  USER_CREATED_EVENT = 0,
+  USER_CREATED_REMINDER = 0,
   FOLLOW_UP_MEETING = 1,
   USER_DUE_DATE = 2,
 }

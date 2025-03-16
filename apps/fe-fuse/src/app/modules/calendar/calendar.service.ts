@@ -13,20 +13,6 @@ export class CalendarService {
     private _authService: AuthService,
   ) {}
 
-  deleteReminder(reminderId: string) {
-    return this._httpClient.delete(environment.apiUrl + 'reminders/' + reminderId).pipe(
-      map((res) => {
-        this._meetings.set(this.meetings.value().filter((meeting) => meeting.reminder_id !== reminderId));
-        return res;
-      }),
-    );
-  }
-
-  reloadMeetings() {
-    this._meetings.reload();
-    console.log('reloaded', this.meetings.value());
-  }
-
   private _reminder: ReminderResponse | null;
 
   get reminder(): ReminderResponse | null {
@@ -47,7 +33,7 @@ export class CalendarService {
     this._activeDay.set(value);
   }
 
-  protected _meetings: ResourceRef<ReminderResponse[]> = resource({
+  protected _reminderResource: ResourceRef<ReminderResponse[]> = resource({
     loader: async () => {
       const response = await fetch(environment.apiUrl + 'reminders', {
         headers: {
@@ -64,8 +50,22 @@ export class CalendarService {
     },
   });
 
-  get meetings() {
-    return this._meetings;
+  get reminderResource() {
+    return this._reminderResource;
+  }
+
+  deleteReminder(reminderId: string) {
+    return this._httpClient.delete(environment.apiUrl + 'reminders/' + reminderId).pipe(
+      map((res) => {
+        this._reminderResource.set(this.reminderResource.value().filter((meeting) => meeting.reminder_id !== reminderId));
+        return res;
+      }),
+    );
+  }
+
+  reloadMeetings() {
+    this._reminderResource.reload();
+    console.log('reloaded', this.reminderResource.value());
   }
 
   clearReminder() {
@@ -73,7 +73,7 @@ export class CalendarService {
   }
 
   getMeetingByDate(date: DateTime) {
-    return this.meetings.value()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
+    return this.reminderResource.value()?.filter((meeting) => meeting.remind_date.toISOString().slice(0, 10) === date.toISODate());
   }
 
   createReminder(reminder: ReminderCreateRequest) {
@@ -85,7 +85,7 @@ export class CalendarService {
       })
       .pipe(
         map((response: ReminderResponse) => {
-          this._meetings.set([...this.meetings.value(), { ...response, remind_date: new Date(response.remind_date) }]);
+          this._reminderResource.set([...this.reminderResource.value(), { ...response, remind_date: new Date(response.remind_date) }]);
           return response;
         }),
       );
@@ -95,13 +95,13 @@ export class CalendarService {
     console.log(reminder.color);
     return this._httpClient.patch<ReminderResponse>(environment.apiUrl + 'reminders/', reminder).pipe(
       map((response: ReminderResponse) => {
-        const updatedMeetings = this.meetings.value().map((meeting) => {
+        const updatedMeetings = this.reminderResource.value().map((meeting) => {
           if (meeting.reminder_id === response.reminder_id) {
             return { ...response, remind_date: new Date(response.remind_date) };
           }
           return meeting;
         });
-        this._meetings.set(updatedMeetings);
+        this._reminderResource.set(updatedMeetings);
         return response;
       }),
     );
