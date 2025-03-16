@@ -5,17 +5,26 @@ import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BlogMasonryService {
+  private limit = 9;
+
   constructor(private _httpClient: HttpClient) {}
 
-  getBlogs(categoryId: string) {
+  getBlogs(categoryId: string, page: number) {
     if (!categoryId) {
-      return this._httpClient.get<{ blogs: BlogResponseType[]; total_page: number }>(environment.apiUrl + 'blogs');
+      return this._httpClient.get<{
+        blogs: BlogResponseType[];
+        total_page: number;
+      }>(environment.apiUrl + 'blogs?limit=' + this.limit + '&page=' + page);
     } else {
       return this._httpClient.get<{
         blogs: BlogResponseType[];
         total_page: number;
-      }>(environment.apiUrl + 'blogs/category/' + categoryId);
+      }>(environment.apiUrl + 'blogs/category/' + categoryId + '?limit=' + this.limit + '&page=' + page);
     }
+  }
+
+  getTrendBlogs() {
+    return this._httpClient.get<{ blogs: BlogResponseType[]; total_page: number }>(environment.apiUrl + 'blogs');
   }
 
   getCategories() {
