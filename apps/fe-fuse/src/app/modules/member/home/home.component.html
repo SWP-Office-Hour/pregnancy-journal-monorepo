@@ -13,8 +13,9 @@
             </div>
             <div class="ml-4 flex min-w-0 flex-col">
               <ng-container *transloco="let t">
-                <div class="truncate text-2xl font-semibold leading-7 tracking-tight md:text-5xl md:leading-snug">
-                  {{ t('welcome-back') }}, {{ user.name }}!
+                <div class="flex">
+                  <div class="logo-font pr-4 text-4xl tracking-wide text-pink-500">{{ t('welcome-back') }}</div>
+                  <div class="logo-font text-4xl tracking-widest text-pink-500">{{ user.name }}!</div>
                 </div>
               </ng-container>
               <div class="flex items-center">
