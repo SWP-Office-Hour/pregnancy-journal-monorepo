@@ -109,14 +109,14 @@
             </div>
 
             <!-- Unknown option -->
-            <div class="gender-option" (click)="selectGender(null)">
-              <input type="radio" id="gender-unknown" formControlName="gender" [value]="null" class="hidden" />
+            <div class="gender-option" (click)="selectGender(Gender.UNKNOWN)">
+              <input type="radio" id="gender-unknown" formControlName="gender" [value]="Gender.UNKNOWN" class="hidden" />
               <label for="gender-unknown" class="flex cursor-pointer flex-col items-center">
                 <div
                   class="mb-2 flex h-16 w-16 items-center justify-center rounded-full transition-all"
                   [ngClass]="{
-                    'bg-purple-500 text-white': profileForm.get('gender')?.value === null,
-                    'bg-purple-100 text-purple-500': profileForm.get('gender')?.value !== null,
+                    'bg-purple-500 text-white': profileForm.get('gender')?.value === Gender.UNKNOWN,
+                    'bg-purple-100 text-purple-500': profileForm.get('gender')?.value !== Gender.UNKNOWN,
                   }"
                 >
                   <i class="pi pi-question text-2xl"></i>
@@ -124,8 +124,8 @@
                 <span
                   class="text-base"
                   [ngClass]="{
-                    'font-bold text-purple-700': profileForm.get('gender')?.value === null,
-                    'font-medium text-gray-700': profileForm.get('gender')?.value !== null,
+                    'font-bold text-purple-700': profileForm.get('gender')?.value === Gender.UNKNOWN,
+                    'font-medium text-gray-700': profileForm.get('gender')?.value !== Gender.UNKNOWN,
                   }"
                 >
                   Chưa xác định
