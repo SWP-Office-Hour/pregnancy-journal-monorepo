@@ -11,7 +11,6 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 export class PaginationComponent implements OnChanges {
   @Input() currentPage = 1;
   @Input() totalPages = 1;
-  @Input() totalItems = 0;
   @Input() itemsPerPage = 6;
 
   @Output() pageChanged = new EventEmitter<number>();
