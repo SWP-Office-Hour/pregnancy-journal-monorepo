@@ -14,11 +14,16 @@ export const membershipResponseContract = z.object({
 });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi tạo mới membership
-const membershipCreateRequestContract = membershipResponseContract.omit({
-  membership_id: true,
-  created_at: true,
-  updated_at: true,
-});
+const membershipCreateRequestContract = membershipResponseContract
+  .omit({
+    membership_id: true,
+    created_at: true,
+    updated_at: true,
+  })
+  .refine((data) => data.price >= 2000, {
+    message: 'Price must be greater than or equal to 2000',
+    path: ['price'],
+  });
 
 // Sử dụng omit để loại bỏ các trường không cần thiết khi cập nhật membership
 const membershipUpdateRequestContract = membershipResponseContract
@@ -29,6 +34,10 @@ const membershipUpdateRequestContract = membershipResponseContract
   .partial()
   .extend({
     membership_id: z.string(),
+  })
+  .refine((data) => data.price === undefined || data.price >= 2000, {
+    message: 'Price must be greater than or equal to 2000',
+    path: ['price'],
   });
 
 export type Membership = z.infer<typeof membershipResponseContract>;
