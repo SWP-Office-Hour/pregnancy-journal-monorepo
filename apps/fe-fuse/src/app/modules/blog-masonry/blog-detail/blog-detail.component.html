@@ -1,16 +1,19 @@
 <!-- Blog Detail Component -->
 <div id="fb-root"></div>
 <script async defer crossorigin="anonymous" src="https://connect.facebook.net/vi_VN/sdk.js#xfbml=1&version=v22.0"></script>
-<div class="min-h-screen w-full bg-gray-50">
+<div class="min-h-screen w-full bg-white p-5">
   <!-- Loading state -->
   <div *ngIf="loading" class="flex min-h-screen items-center justify-center">
     <div class="h-12 w-12 animate-spin rounded-full border-b-2 border-t-2 border-indigo-600"></div>
   </div>
 
-  <div *ngIf="!loading && blog" class="container mx-auto px-4 py-12">
+  <div *ngIf="!loading && blog" class="container mx-auto px-4">
     <!-- Back button -->
-    <div class="mb-8">
-      <button (click)="goBack()" class="group flex items-center text-gray-600 transition-colors hover:text-indigo-600">
+    <div class="mb-3">
+      <button
+        (click)="goBack()"
+        class="group flex items-center rounded-[2rem] border-2 border-pink-100 bg-gradient-to-r from-pink-50/30 to-purple-50/30 p-3 text-pink-500 shadow-lg transition-colors hover:text-rose-600"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="mr-2 h-5 w-5 transition-transform group-hover:-translate-x-1"

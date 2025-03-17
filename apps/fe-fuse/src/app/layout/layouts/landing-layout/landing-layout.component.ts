@@ -7,6 +7,7 @@ import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/co
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
+import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { FuseLoadingBarComponent } from '../../../../@fuse/components/loading-bar';
 import { LanguagesComponent } from '../../common/languages/languages.component';
 
@@ -15,7 +16,7 @@ import { LanguagesComponent } from '../../common/languages/languages.component';
   templateUrl: './landing-layout.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, RouterModule, FuseVerticalNavigationComponent, FuseLoadingBarComponent, LanguagesComponent],
+  imports: [CommonModule, RouterModule, FuseVerticalNavigationComponent, FuseLoadingBarComponent, LanguagesComponent, NgAutoAnimateDirective],
 })
 export class LandingLayoutComponent implements OnInit, OnDestroy {
   /**
