@@ -1,0 +1,91 @@
+<div class="pregnancy-week-slider mb-10 w-full">
+  <!-- Section Heading with Maternal-Friendly Styling -->
+  <div class="relative mb-6 text-center">
+    <h2
+      class="relative z-10 mx-auto inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent md:text-4xl"
+    >
+      Thai kỳ theo tuần
+    </h2>
+    <div class="mx-auto mt-2 h-1 w-24 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></div>
+  </div>
+
+  <!-- Drag-to-scroll instruction with new icon -->
+  <div class="mb-4 text-center text-sm text-gray-500">
+    <span class="flex items-center justify-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+        />
+      </svg>
+      Nhấp và kéo để khám phá từng tuần
+      <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+
+<splide
+  [options]="{
+    rewind: true,
+    isNavigation: false,
+    gap: 5,
+    focus: 'center',
+    pagination: false,
+    cover: false,
+    lazyLoad: 'nearby',
+    preloadPages: 20,
+    fixedWidth: 200,
+    fixedHeight: 280,
+  }"
+>
+  <!-- Week Cards -->
+  <splide-slide
+    *ngFor="let week of pregnancyWeeks; let i = index"
+    class="week-card group relative mx-2 flex-shrink-0 select-none snap-center overflow-visible"
+  >
+    <div
+      class="relative my-4 flex w-44 flex-col items-center justify-center rounded-2xl border-2 border-pink-100 bg-gradient-to-b from-white to-pink-50 p-4 shadow-md transition-all duration-300 hover:border-pink-300 hover:shadow-lg"
+    >
+      <!-- Week Number Badge -->
+      <div
+        class="absolute -right-2 -top-2 rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-3 py-1 text-xs font-semibold text-white shadow-md"
+      >
+        Tuần {{ i + 2 }}
+      </div>
+
+      <!-- Fetal Size Image -->
+      <div
+        class="mb-4 flex h-28 w-28 rounded-full bg-gradient-to-b from-pink-100 to-pink-200 ring-2 ring-pink-100 ring-offset-2 transition-all group-hover:ring-pink-300"
+      >
+        <img
+          [src]="'/images/ui/illustration/week_' + getImageWeek(i + 2) + '.svg'"
+          [alt]="'Tuần ' + (i + 2)"
+          class="h-full w-full shadow-inner transition-all duration-500 group-hover:scale-110"
+          onError="this.onerror=null;this.src='/images/ui/illustration/week_2.svg';"
+        />
+      </div>
+
+      <!-- Week Description -->
+      <div class="mt-2 text-center">
+        <p class="text-sm font-medium text-gray-500">
+          <span class="block text-xl font-bold text-pink-500">{{ i + 2 }}</span>
+          tuần thai kỳ
+        </p>
+      </div>
+
+      <!-- Size Comparison (optional) -->
+      <div *ngIf="weekSizeComparisons[i - 2]" class="mt-2 flex items-center justify-center text-xs text-gray-500">
+        <span>Kích thước: {{ weekSizeComparisons[i - 2] }}</span>
+      </div>
+    </div>
+  </splide-slide>
+</splide>

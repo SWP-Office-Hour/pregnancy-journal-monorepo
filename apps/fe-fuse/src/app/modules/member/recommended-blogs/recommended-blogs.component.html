@@ -1,143 +1,42 @@
-<!-- Main -->
-<div class="mx-auto w-full">
-  @if (this.blogs.length) {
-    <p-carousel class="" [value]="this.blogs" [numVisible]="4" [numScroll]="1" [autoplayInterval]="3000">
-      <ng-template let-blog #item>
-        <fuse-card class="mx-auto flex h-full w-full max-w-72 flex-col" #expandableCard01="fuseCard">
-          <img class="object-cover" src="/images/fetal-growth/Female_View_0015.jpg" alt="Card cover image" />
-          <div class="m-6 mb-3">
-            <div class="text-2xl font-semibold leading-tight">{{ blog.title }}</div>
-            <div class="text-secondary text-md mt-1">{{ blog.category.title }}</div>
-            <div class="mt-4">{{ blog.summary }}</div>
+<div class="container mx-auto px-4 py-8">
+  <div class="grid gap-8 lg:grid-cols-2">
+    <!-- Main Featured Article -->
+    <div class="group relative cursor-pointer overflow-hidden rounded-xl shadow-md transition-transform hover:scale-105">
+      <img [src]="mainArticle.imageUrl" [alt]="mainArticle.title" class="h-[400px] w-full object-cover" loading="lazy" />
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+        <h2 class="mb-2 line-clamp-2 text-3xl font-bold text-white">{{ mainArticle.title }}</h2>
+        <div class="flex items-center text-sm text-gray-300">
+          <span>{{ mainArticle.date | date: 'MMM d, yyyy' }}</span>
+          <div class="ml-4 flex items-center">
+            <svg class="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"></path>
+            </svg>
+            <span>{{ mainArticle.comments }} comments</span>
           </div>
-        </fuse-card>
-      </ng-template>
-    </p-carousel>
-  } @else {
-    <div class="flex flex-auto flex-col items-center justify-center bg-gray-100 dark:bg-transparent">
-      <mat-icon class="icon-size-24" [svgIcon]="'heroicons_outline:question-mark-circle'"></mat-icon>
-      <div class="text-secondary mt-6 text-2xl font-semibold tracking-tight">No blog!</div>
+        </div>
+      </div>
     </div>
-  }
+
+    <!-- Secondary Articles -->
+    <div class="space-y-4">
+      <div
+        *ngFor="let article of secondaryArticles"
+        class="flex cursor-pointer gap-4 rounded-lg bg-white p-4 shadow-sm transition-shadow hover:shadow-md"
+      >
+        <img [src]="article.imageUrl" [alt]="article.title" class="h-24 w-32 rounded-lg object-cover" loading="lazy" />
+        <div class="flex-1">
+          <h3 class="mb-2 line-clamp-2 text-lg font-semibold text-gray-800">{{ article.title }}</h3>
+          <div class="flex items-center text-sm text-gray-500">
+            <span>{{ article.date | date: 'MMM d, yyyy' }}</span>
+            <div class="ml-4 flex items-center">
+              <svg class="mr-1 h-4 w-4" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"></path>
+              </svg>
+              <span>{{ article.comments }} comments</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-<!-- Card #3 - Flippable card -->
-<!--    <fuse-card-->
-<!--      class="filter-article filter-interactive flex w-full max-w-80 flex-col"-->
-<!--      [flippable]="true"-->
-<!--      [face]="'front'"-->
-<!--      #flippableCard01="fuseCard"-->
-<!--    >-->
-<!--      <ng-container fuseCardFront>-->
-<!--        <img class="object-cover" src="/images/cards/03-320x200.jpg" alt="Card cover image" />-->
-<!--        <div class="m-8 mb-4">-->
-<!--          <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>-->
-<!--          <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>-->
-<!--          <div class="-mx-3 mt-3">-->
-<!--            <button class="px-3" mat-button [color]="'primary'" (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">-->
-<!--              Read More-->
-<!--            </button>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </ng-container>-->
-<!--      <ng-container fuseCardBack>-->
-<!--        <div class="m-4 flex flex-auto flex-col">-->
-<!--          <button class="ml-1.5" mat-icon-button (click)="flippableCard01.face = flippableCard01.face === 'front' ? 'back' : 'front'">-->
-<!--            <mat-icon [svgIcon]="'heroicons_outline:arrow-long-left'"></mat-icon>-->
-<!--          </button>-->
-<!--          <div class="m-4 mt-3">-->
-<!--            <div class="text-2xl font-semibold leading-tight">Most beautiful and quite places to see</div>-->
-<!--            <div class="mt-4">-->
-<!--              From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a little-->
-<!--              picnic on top of the amazing grasslands.-->
-<!--            </div>-->
-<!--            <div class="mt-4">-->
-<!--              From rocky mountains to crystal clear lakes, these are the places you must see and enjoy. You can bring your own food and have a little-->
-<!--              picnic on top of the amazing grasslands.-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </ng-container>-->
-<!--    </fuse-card>-->
-
-<!--    &lt;!&ndash; Card #4 &ndash;&gt;-->
-<!--    <fuse-card class="filter-article flex w-full max-w-80 flex-col">-->
-<!--      <img class="object-cover" src="/images/cards/04-320x200.jpg" alt="Card cover image" />-->
-<!--      <div class="m-8 mb-4">-->
-<!--        <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>-->
-<!--        <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>-->
-<!--        <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>-->
-<!--        <div class="-mx-3 mt-3">-->
-<!--          <a class="px-3" mat-button [color]="'primary'" [routerLink]="['./']"> Read More </a>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </fuse-card>-->
-
-<!--    &lt;!&ndash; Card #5 - Expandable card &ndash;&gt;-->
-<!--        <fuse-card class="filter-article filter-interactive flex w-full max-w-80 flex-col" #expandableCard01="fuseCard">-->
-<!--          <img class="object-cover" src="/images/cards/05-320x200.jpg" alt="Card cover image" />-->
-<!--          <div class="m-8 mb-4">-->
-<!--            <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>-->
-<!--            <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>-->
-<!--            <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>-->
-<!--            <div class="-mx-3 mt-3">-->
-<!--              <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">-->
-<!--                <span class="mr-1">Details</span>-->
-<!--                <mat-icon-->
-<!--                  class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"-->
-<!--                  [ngClass]="{-->
-<!--                    'rotate-180': expandableCard01.expanded,-->
-<!--                  }"-->
-<!--                  [svgIcon]="'heroicons_mini:chevron-down'"-->
-<!--                ></mat-icon>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          <ng-container fuseCardExpansion>-->
-<!--            <div class="m-8 mt-0">-->
-<!--              <div class="flex items-baseline">-->
-<!--                <div class="mr-2">Open now:</div>-->
-<!--                <div class="text-secondary">08:00AM - 09:00PM</div>-->
-<!--              </div>-->
-<!--              <div class="mt-1 flex items-baseline">-->
-<!--                <div class="mr-2">Entrance fee:</div>-->
-<!--                <div class="text-secondary">$20 (USD)</div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </ng-container>-->
-<!--        </fuse-card>-->
-
-<!--    &lt;!&ndash; Card #5 - Expandable card &ndash;&gt;-->
-<!--    <fuse-card class="filter-article filter-interactive flex w-full max-w-80 flex-col" #expandableCard01="fuseCard">-->
-<!--      <img class="object-cover" src="/images/cards/05-320x200.jpg" alt="Card cover image" />-->
-<!--      <div class="m-8 mb-4">-->
-<!--        <div class="text-2xl font-semibold leading-tight">Rocky mountain tops</div>-->
-<!--        <div class="text-secondary text-md mt-1">Updated with 20 new locations</div>-->
-<!--        <div class="mt-4">From rocky mountains to crystal clear lakes, there are the places you must see and enjoy.</div>-->
-<!--        <div class="-mx-3 mt-3">-->
-<!--          <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">-->
-<!--            <span class="mr-1">Details</span>-->
-<!--            <mat-icon-->
-<!--              class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"-->
-<!--              [ngClass]="{-->
-<!--                'rotate-180': expandableCard01.expanded,-->
-<!--              }"-->
-<!--              [svgIcon]="'heroicons_mini:chevron-down'"-->
-<!--            ></mat-icon>-->
-<!--          </button>-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--      <ng-container fuseCardExpansion>-->
-<!--        <div class="m-8 mt-0">-->
-<!--          <div class="flex items-baseline">-->
-<!--            <div class="mr-2">Open now:</div>-->
-<!--            <div class="text-secondary">08:00AM - 09:00PM</div>-->
-<!--          </div>-->
-<!--          <div class="mt-1 flex items-baseline">-->
-<!--            <div class="mr-2">Entrance fee:</div>-->
-<!--            <div class="text-secondary">$20 (USD)</div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </ng-container>-->
-<!--    </fuse-card>-->

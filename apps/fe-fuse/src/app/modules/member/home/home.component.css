@@ -2,9 +2,8 @@
   --r: 50px; /* control the rounded part*/
   --s: 50px; /* control the size of the cut */
   --a: 30deg; /* control the depth of the curvature*/
-  background: linear-gradient(180deg, #fff, #d91656);
   --_m: 0 / calc(2 * var(--r)) calc(2 * var(--r)) no-repeat radial-gradient(50% 50%, #000 calc(100% - 1px), #0000);
-  --_d: (var(--s) + var(--r)) * cos(var(--a));
+  --_d: calc((var(--s) + var(--r)) * cos(var(--a)));
   mask:
     calc(50% + var(--_d)) var(--_m),
     calc(50% - var(--_d)) var(--_m),
@@ -13,11 +12,6 @@
     linear-gradient(90deg, #000 calc(50% - var(--_d)), #0000 0 calc(50% + var(--_d)), #000 0);
 }
 
-.box-hover {
-  --r: 40px;
-  --s: 60px;
-  --a: 28deg;
-}
 .bottom {
   --_m: 100% / calc(2 * var(--r)) calc(2 * var(--r)) no-repeat radial-gradient(50% 50%, #000 calc(100% - 1px), #0000);
   mask:
@@ -54,12 +48,6 @@ body {
   );
   background-position: top left;
   background-size: 100%;
-  box-shadow:
-    0px 0px 400px rgba(255, 59, 242, 1),
-    0px 0px 200px rgba(255, 59, 242, 0.75),
-    0px 0px 100px rgba(255, 59, 242, 0.5),
-    0px 0px 50px rgba(255, 59, 242, 0.35),
-    0px 0px 25px rgba(255, 59, 242, 0.2);
   border-radius: 100%;
   border: none;
   margin: 0;
@@ -282,4 +270,109 @@ aside {
   to {
     transform: rotate(360deg);
   }
+}
+@keyframes gentle-pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Font for friendly welcome messages */
+.font-playful {
+  font-family: 'Comic Sans MS', 'Bubblegum Sans', 'Nunito', sans-serif;
+}
+
+/* Cloud animation */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-10px) translateX(5px);
+  }
+}
+
+.animate-float-slow {
+  animation: float 20s ease-in-out infinite;
+}
+
+.animate-float-slow-delayed {
+  animation: float 25s ease-in-out 2s infinite;
+}
+
+.animate-float-med {
+  animation: float 15s ease-in-out infinite;
+}
+
+/* Star twinkling animation */
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.animate-twinkle {
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+.animate-twinkle-delay {
+  animation: twinkle 4s ease-in-out 1s infinite;
+}
+
+/* Gentle pulsing for sun */
+@keyframes pulse-slow {
+  0%,
+  100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 10s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 1.5s ease-out forwards;
+}
+
+/* Slide up animation */
+@keyframes slideUp {
+  0% {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out forwards;
 }
