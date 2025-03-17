@@ -1,43 +1,20 @@
 <fuse-loading-bar></fuse-loading-bar>
 
 <!-- Điều hướng -->
-@if (isScreenSmall) {
-  <fuse-vertical-navigation
-    class="bg-gradient-to-b from-pink-500 to-pink-300 text-white print:hidden"
-    [mode]="'over'"
-    [name]="'landingNavigation'"
-    [navigation]="navigation.landing"
-    [opened]="false"
-  >
-    <!-- Móc tiêu đề điều hướng -->
-    <ng-container fuseVerticalNavigationContentHeader>
-      <!-- Logo -->
-      <a routerLink="/">
-        <div class="flex h-20 items-center px-8 pt-6">
-          <div class="flex items-center">
-            <img class="h-10 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
-            <div class="logo-font self-end text-4xl tracking-wider text-pink-500">
-              <i>Pregnancy Journal</i>
-            </div>
-          </div>
-        </div>
-      </a>
-    </ng-container>
-  </fuse-vertical-navigation>
-}
 
 <div class="flex h-full w-full flex-col">
   <!-- Tiêu đề/Điều hướng -->
   <header
-    class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+    class="inset-x-0 top-0 z-50 bg-white transition-all duration-300"
     [ngClass]="{
       'bg-white/95 shadow-md backdrop-blur-lg': scrollPosition > 10,
       'py-1': scrollPosition > 100,
       'py-2': scrollPosition > 10 && scrollPosition <= 100,
     }"
   >
-    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4 sm:p-6 lg:px-8" aria-label="Global">
-      <div class="flex-1">
+    <nav class="flex w-full items-center justify-between p-4" aria-label="Global">
+      <!-- Logo section (left) -->
+      <div class="flex">
         <a routerLink="/" class="-m-1.5 flex items-center p-1.5">
           <span class="sr-only">Pregnancy Journal</span>
           <!-- Logo nhỏ cho tất cả màn hình -->
@@ -49,36 +26,25 @@
         </a>
       </div>
 
-      <!-- Nút chuyển đổi điều hướng trên điện thoại -->
-      @if (isScreenSmall) {
-        <button
-          class="mr-2 flex h-10 w-10 items-center justify-center rounded-full text-gray-700 transition-colors hover:bg-pink-100"
-          (click)="toggleNavigation('landingNavigation')"
-        >
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
-      }
-
       <!-- Điều hướng máy tính để bàn -->
       @if (!isScreenSmall) {
-        <div class="flex items-center lg:justify-between lg:gap-x-8 xl:gap-x-12">
+        <!-- Navigation links (center) -->
+        <div class="flex items-center justify-center gap-x-8 text-xl">
           <a
             routerLink="/blog"
-            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
+            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
             Blog
           </a>
           <a
             routerLink="/features"
-            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
+            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
             Tính năng
           </a>
           <a
             routerLink="/about"
-            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
+            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
             Về chúng tôi
           </a>
@@ -86,16 +52,18 @@
             <languages></languages>
           </div>
         </div>
-        <div class="flex-1 space-x-4 lg:justify-end">
+
+        <!-- Authentication links (right) -->
+        <div class="pr-15 flex items-center space-x-5">
           <a
             routerLink="/sign-in"
-            class="rounded-md px-3 py-2 text-sm font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
+            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
           >
             Đăng nhập
           </a>
           <a
             routerLink="/sign-up"
-            class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 text-sm font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+            class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
           >
             Đăng ký
           </a>
@@ -105,7 +73,7 @@
   </header>
 
   <!-- Nội dung chính -->
-  <main class="flex-auto">
+  <main class="flex-auto" auto-animate>
     <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
     <router-outlet></router-outlet>
     <ng-content></ng-content>
@@ -119,7 +87,7 @@
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
           <img class="h-12" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
-          <p class="text-sm leading-6 text-gray-300">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
+          <p class="leading-6 text-gray-300">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
           <div class="flex space-x-6">
             <a href="#" class="text-gray-400 hover:text-gray-300">
               <span class="sr-only">Facebook</span>
@@ -156,57 +124,57 @@
         <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Sản phẩm</h3>
+              <h3 class="font-semibold leading-6 text-white">Sản phẩm</h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li>
-                  <a routerLink="/features" class="text-sm leading-6 text-gray-300 hover:text-white">Tính năng</a>
+                  <a routerLink="/features" class="leading-6 text-gray-300 hover:text-white">Tính năng</a>
                 </li>
                 <li>
-                  <a routerLink="/pricing" class="text-sm leading-6 text-gray-300 hover:text-white">Bảng giá</a>
+                  <a routerLink="/pricing" class="leading-6 text-gray-300 hover:text-white">Bảng giá</a>
                 </li>
                 <li>
-                  <a routerLink="/help" class="text-sm leading-6 text-gray-300 hover:text-white">Trợ giúp</a>
+                  <a routerLink="/help" class="leading-6 text-gray-300 hover:text-white">Trợ giúp</a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Công ty</h3>
+              <h3 class="font-semibold leading-6 text-white">Công ty</h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li>
-                  <a routerLink="/about" class="text-sm leading-6 text-gray-300 hover:text-white">Về chúng tôi</a>
+                  <a routerLink="/about" class="leading-6 text-gray-300 hover:text-white">Về chúng tôi</a>
                 </li>
                 <li>
-                  <a routerLink="/blog" class="text-sm leading-6 text-gray-300 hover:text-white">Blog</a>
+                  <a routerLink="/blog" class="leading-6 text-gray-300 hover:text-white">Blog</a>
                 </li>
                 <li>
-                  <a routerLink="/careers" class="text-sm leading-6 text-gray-300 hover:text-white">Tuyển dụng</a>
+                  <a routerLink="/careers" class="leading-6 text-gray-300 hover:text-white">Tuyển dụng</a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="text-sm font-semibold leading-6 text-white">Trợ giúp</h3>
+              <h3 class="font-semibold leading-6 text-white">Trợ giúp</h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li>
-                  <a routerLink="/faq" class="text-sm leading-6 text-gray-300 hover:text-white">FAQ</a>
+                  <a routerLink="/faq" class="leading-6 text-gray-300 hover:text-white">FAQ</a>
                 </li>
                 <li>
-                  <a routerLink="/contact" class="text-sm leading-6 text-gray-300 hover:text-white">Liên hệ</a>
+                  <a routerLink="/contact" class="leading-6 text-gray-300 hover:text-white">Liên hệ</a>
                 </li>
                 <li>
-                  <a routerLink="/support" class="text-sm leading-6 text-gray-300 hover:text-white">Hỗ trợ</a>
+                  <a routerLink="/support" class="leading-6 text-gray-300 hover:text-white">Hỗ trợ</a>
                 </li>
               </ul>
             </div>
             <div class="mt-10 md:mt-0">
-              <h3 class="text-sm font-semibold leading-6 text-white">Pháp lý</h3>
+              <h3 class="font-semibold leading-6 text-white">Pháp lý</h3>
               <ul role="list" class="mt-6 space-y-4">
                 <li>
-                  <a routerLink="/privacy" class="text-sm leading-6 text-gray-300 hover:text-white">Chính sách bảo mật</a>
+                  <a routerLink="/privacy" class="leading-6 text-gray-300 hover:text-white">Chính sách bảo mật</a>
                 </li>
                 <li>
-                  <a routerLink="/terms" class="text-sm leading-6 text-gray-300 hover:text-white">Điều khoản sử dụng</a>
+                  <a routerLink="/terms" class="leading-6 text-gray-300 hover:text-white">Điều khoản sử dụng</a>
                 </li>
               </ul>
             </div>
