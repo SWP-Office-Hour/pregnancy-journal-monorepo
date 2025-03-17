@@ -104,6 +104,13 @@
           <small *ngIf="isSubmittedForm && f['email'].errors?.['email']" class="text-red-500">Email format is invalid.</small>
         </div>
 
+        @if (isCreate) {
+          <div>
+            <label class="block font-bold" for="password">Password</label>
+            <input formControlName="password" fluid="true" id="password" pInputText type="password" class="w-full" />
+            <small *ngIf="isSubmittedForm && f['password'].errors?.['required']" class="text-red-500">Password is required.</small>
+          </div>
+        }
         <!-- Phone -->
         <div>
           <label class="block font-bold" for="phone">Phone</label>
@@ -194,8 +201,17 @@
 
         <!-- Membership ID (optional) -->
         <div>
-          <label class="block font-bold" for="membershipId">Membership ID (optional)</label>
-          <input formControlName="membershipId" fluid="true" id="membershipId" pInputText type="text" class="w-full" />
+          <label class="block font-bold" for="membership_id">Membership ID (optional)</label>
+          <p-select
+            formControlName="membership_id"
+            [options]="membershipResource.value()"
+            fluid="true"
+            id="membership_id"
+            optionLabel="title"
+            optionValue="membership_id"
+            placeholder="Select a Membership"
+            class="w-full"
+          />
         </div>
       </form>
     </ng-template>

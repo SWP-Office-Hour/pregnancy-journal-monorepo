@@ -14,7 +14,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSortModule } from '@angular/material/sort';
-import { UserRole, UserStatus, UserTypeFromContract } from '@pregnancy-journal-monorepo/contract';
+import { Membership, Status, UserRole, UserStatus, UserTypeFromContract } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
@@ -91,6 +91,7 @@ export class UserTableComponent implements OnInit {
   isLoading = false;
   userDialogToggle = false;
   isSubmittedForm = false;
+  isCreate = false;
 
   // Form
   userForm!: FormGroup;
@@ -120,6 +121,17 @@ export class UserTableComponent implements OnInit {
     },
   });
 
+  membershipResource = resource<Membership[], {}>({
+    loader: async ({ abortSignal }) => {
+      const response = await fetch(environment.apiUrl + 'memberships', {
+        signal: abortSignal,
+      });
+      if (!response.ok) throw Error(`Could not fetch...`);
+      const data = await response.json();
+      return data.filter((m: Membership) => m.status === Status.ACTIVE);
+    },
+  });
+
   /**
    * Constructor
    */
@@ -144,10 +156,12 @@ export class UserTableComponent implements OnInit {
    * Public Methods
    */
   openNew(): void {
+    this.isCreate = true;
     this.userForm.reset({
       user_id: '',
       name: '',
       email: '',
+      password: '',
       phone: '',
       province: '',
       district: '',
@@ -155,8 +169,14 @@ export class UserTableComponent implements OnInit {
       address: '',
       role: UserRole.MEMBER,
       status: UserStatus.ACTIVE,
-      membershipId: '',
+      memberships: this.membershipResource.value(),
     });
+    console.log(this.membershipResource.value());
+
+    // Set password validator for new users
+    this.f['password'].setValidators(Validators.required);
+    this.f['password'].updateValueAndValidity();
+
     this.isSubmittedForm = false;
     this.userDialogToggle = true;
   }
@@ -165,19 +185,41 @@ export class UserTableComponent implements OnInit {
     this.userDialogToggle = false;
     this.isSubmittedForm = false;
     this.userForm.reset();
+    this.isCreate = false;
   }
 
   saveUser(event: Event): void {
     this.isSubmittedForm = true;
+
+    // Add password validator dynamically if creating a new user
+    if (this.isCreate) {
+      this.f['password'].setValidators(Validators.required);
+    } else {
+      this.f['password'].clearValidators();
+    }
+    this.f['password'].updateValueAndValidity();
+
     if (this.userForm.invalid) {
       this.userForm.markAllAsTouched();
       return;
     }
 
-    const _user: UserTypeFromContract = this.userForm.value;
+    console.log('Form value:', this.userForm.value);
+
+    const _user = this.userForm.value;
+
+    if (!this.isCreate && (_user.password === '' || _user.password === null)) {
+      delete _user.password;
+    }
+
+    if (_user.membership_id === null || _user.membership_id === '') {
+      delete _user.membership_id;
+    }
+
     const isUpdate = !!_user.user_id;
     const actionType = isUpdate ? 'update' : 'create';
     const method = isUpdate ? 'PATCH' : 'POST';
+    this.isCreate = false;
 
     this.confirmationService.confirm({
       target: event.target as EventTarget,
@@ -202,7 +244,7 @@ export class UserTableComponent implements OnInit {
       address: userToEdit.address,
       role: userToEdit.role,
       status: userToEdit.status,
-      membershipId: userToEdit.membership_id,
+      membership_id: userToEdit.membership_id,
     });
 
     this.user = { ...userToEdit };
@@ -280,6 +322,7 @@ export class UserTableComponent implements OnInit {
       user_id: [''],
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
+      password: [''],
       phone: ['', Validators.required],
       province: ['', Validators.required],
       district: ['', Validators.required],
@@ -287,7 +330,7 @@ export class UserTableComponent implements OnInit {
       address: ['', Validators.required],
       role: [UserRole.MEMBER, Validators.required],
       status: [UserStatus.ACTIVE, Validators.required],
-      membershipId: [''],
+      membership_id: [''],
     });
   }
 
@@ -314,7 +357,7 @@ export class UserTableComponent implements OnInit {
       this.userForm.reset();
       this.user = {} as UserTypeFromContract;
       this.userResource.reload();
-
+      this.membershipResource.reload();
       this.messageService.add({
         severity: 'success',
         summary: 'Successful',
