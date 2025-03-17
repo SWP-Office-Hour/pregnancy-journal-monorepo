@@ -39,6 +39,7 @@ export class PaymentController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
   @TsRestHandler(paymentContract.getPaymentByUserId)
   handleGetPaymentByUserId(@Req() req: RequestWithJWT) {
     return tsRestHandler(paymentContract.getPaymentByUserId, async () => {
