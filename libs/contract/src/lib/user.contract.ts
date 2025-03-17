@@ -60,7 +60,7 @@ const userProfileUpdateSchema = userProfileSchema
   })
   .partial();
 
-// const test: UserTypeFromContract;
+const userIncludeMembershipSchema = userResponseSchema.extend({ membership_id: z.string().optional() });
 
 export type UserTypeFromContract = z.infer<typeof userResponseSchema>;
 export type UserCreateRequestType = z.infer<typeof userCreateRequestSchema>;
@@ -68,6 +68,7 @@ export type UserUpdateRequestType = z.infer<typeof userUpdateRequestSchema>;
 export type UserResponseType = z.infer<typeof userResponseSchema>;
 export type UserProfileResponseType = z.infer<typeof userProfileSchema>;
 export type UserProfileUpdateType = z.infer<typeof userProfileUpdateSchema>;
+export type UserIncludeMembershipType = z.infer<typeof userIncludeMembershipSchema>;
 
 export const userContract = c.router({
   getAll: {
@@ -75,7 +76,7 @@ export const userContract = c.router({
     path: '/users',
     description: 'Get all users (đã xong)',
     responses: {
-      200: z.array(userResponseSchema),
+      200: z.array(userIncludeMembershipSchema),
       // 404: object({ message: string() }),
     },
   },

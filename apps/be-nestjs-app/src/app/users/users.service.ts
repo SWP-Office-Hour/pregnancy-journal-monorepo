@@ -8,6 +8,7 @@ import {
   RegisterRequest,
   Status,
   UserCreateRequestType,
+  UserIncludeMembershipType,
   UserProfileResponseType,
   UserProfileUpdateType,
   UserResponseType,
@@ -630,5 +631,34 @@ export class UsersService {
       return !hasExpired;
     }
     return false;
+  }
+
+  async getAllUsersAtAdminPage(): Promise<UserIncludeMembershipType[]> {
+    const re = await this.databaseService.User.findMany({
+      omit: {
+        password: true,
+      },
+      include: {
+        payment_history: true,
+      },
+    });
+    return re.map((user) => {
+      const membershipDate = user.payment_history?.at(0)?.expired_at;
+
+      if (membershipDate) {
+        const hasExpired = new Date(membershipDate) < new Date();
+        if (!hasExpired) {
+          return {
+            ...user,
+            payment_history: undefined,
+            membership_id: user.payment_history.at(0)?.membership_id,
+          };
+        }
+      }
+      return {
+        ...user,
+        payment_history: undefined,
+      };
+    });
   }
 }

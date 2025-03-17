@@ -81,7 +81,7 @@ export class UsersController {
   @TsRestHandler(userContract.getAll)
   handleGetAll() {
     return tsRestHandler(userContract.getAll, async () => {
-      const users = await this.usersService.users();
+      const users = await this.usersService.getAllUsersAtAdminPage();
       return { status: 200, body: users };
     });
   }
