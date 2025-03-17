@@ -20,10 +20,10 @@ export class ReminderService {
     user_id: string;
     next_visit_doctor_date: string;
   }): Promise<ReminderResponse> {
-    const nextVisitDoctorDate = new Date(next_visit_doctor_date);
-    const remind_date = new Date(nextVisitDoctorDate);
+    const remind_date = new Date(next_visit_doctor_date);
+
     remind_date.setDate(remind_date.getDate() - 1);
-    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${remind_date.getFullYear()}`;
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${remind_date.getDate()}/${remind_date.getMonth() + 1}/${remind_date.getFullYear()}`;
 
     return await this.databaseService.Reminder.create({
       data: {
@@ -100,10 +100,10 @@ export class ReminderService {
     visit_record_id: string;
     user_id: string;
   }) {
-    const nextVisitDoctorDate = new Date(next_visit_doctor_date);
-    const remind_date = new Date(nextVisitDoctorDate);
+    const remind_date = new Date(next_visit_doctor_date);
+
     remind_date.setDate(remind_date.getDate() - 1);
-    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${remind_date.getFullYear()}`;
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${remind_date.getDate()}/${remind_date.getMonth() + 1}/${remind_date.getFullYear()}`;
 
     const reminder = await this.databaseService.Reminder.findFirst({
       where: {
