@@ -1,0 +1,59 @@
+<section class="mb-8 grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+  <!-- Cấu trúc thai -->
+  <div
+    class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+  >
+    <div class="flex items-center justify-between">
+      <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>
+      <button
+        class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"
+        (click)="goToThisWeek()"
+      >
+        <span class="text-sm font-medium">Tuần thứ</span>
+        <span class="ml-1 text-xl font-bold">{{ this.countWeekNumber }}</span>
+      </button>
+    </div>
+
+    <div class="relative mt-6 flex flex-auto flex-col">
+      <!-- Hình ảnh mẹ -->
+      <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">
+        <img
+          class="w-full transition-transform duration-500 hover:scale-105"
+          [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'"
+          [alt]="'mẹ tuần ' + countWeek"
+          style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
+        />
+      </div>
+
+      <!-- Hình ảnh thai nhi -->
+      <div
+        class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"
+        style="
+          box-shadow:
+            inset 0 1px 2px rgba(0, 0, 0, 0.05),
+            0 10px 15px -3px rgba(236, 72, 153, 0.5),
+            0 4px 6px -2px rgba(236, 72, 153, 0.5);
+          animation: gentle-pulse 3s infinite ease-in-out;
+        "
+      >
+        <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">
+          <img
+            class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"
+            style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
+            [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
+            [alt]="'con tuần ' + countWeekNumber"
+          />
+        </div>
+        <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
+          <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{ countWeekNumber }}</span>
+        </div>
+      </div>
+    </div>
+
+    <app-week-pregnancy-slider></app-week-pregnancy-slider>
+  </div>
+  <!-- Quan lý thai nhi -->
+  <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">
+    <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>
+  </div>
+</section>

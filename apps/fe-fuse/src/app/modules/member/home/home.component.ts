@@ -2,7 +2,7 @@ import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -27,8 +27,8 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
-import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
+import { WeekPregnancySliderComponent } from '../../../common/week-pregnancy-slider/week-pregnancy-slider.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
@@ -40,6 +40,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
 @Component({
   selector: 'app-home',
   imports: [
+    NgClass,
     TranslocoModule,
     MatIconModule,
     MatButtonModule,
@@ -58,19 +59,18 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     MatInputModule,
     MatCheckboxModule,
     MatProgressSpinnerModule,
-    NgClass,
     TextFieldModule,
     MatSelectModule,
     MatOptionModule,
     MatChipsModule,
     MatDatepickerModule,
     MatExpansionModule,
-    FuseCardComponent,
     TooltipModule,
     ButtonModule,
     NgxSplideModule,
     RouterLink,
     HomeReminderComponent,
+    WeekPregnancySliderComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
@@ -81,12 +81,6 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
 export class HomeComponent {
   public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
   public formatDate: string;
-  countDownForm = new FormGroup({
-    lastMenstrualPeriod: new FormControl('', Validators.required),
-    menstrualCycle: new FormControl('', Validators.required),
-  });
-  isButtonHovered = false;
-  //1. Lấy User
   //get data standard of metric from API
   protected metrics: MetricResponseType[];
   protected weightMetricId: string;
@@ -104,6 +98,14 @@ export class HomeComponent {
     private _userService: UserService,
     private _childService: ChildV2Service,
   ) {
+    // Initialize any required properties
+    this.updateTimeOfDay();
+
+    // Update the time of day every minute
+    setInterval(() => {
+      this.updateTimeOfDay();
+    }, 60000); // 60000ms = 1 minute
+
     this._userService.user$.subscribe((user) => {
       this.user = user;
       this._childService.child$.subscribe((child) => {
@@ -143,21 +145,11 @@ export class HomeComponent {
 
   private _countWeek: number = this._currentPregnancyWeek;
 
-  public get countWeek(): string {
-    return this._countWeek.toString().padStart(4, '0');
-  }
-
-  public get countWeekNumber(): number {
-    return this._countWeek;
-  }
-
   remainingDays() {
     const expectedDate = new Date(this._expectedDate);
     const currentDate = new Date();
     return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
   }
-
-  // Form tính ngày dự sinh
 
   //Hàm tính tuần thai
   calculateCurrentPregnancyWeek() {
@@ -182,43 +174,78 @@ export class HomeComponent {
     this._currentPregnancyWeek = currentPregnancyWeek;
   }
 
-  // });
-  padNumberToFourDigits(value: number): string {
-    if (!Number.isInteger(value) || value < 0) {
-      throw new Error('Giá trị phải là một số nguyên không âm.');
+  timeOfDay;
+  // Method to determine the time of day for UI changes
+  getTimeOfDay(): 'morning' | 'afternoon' | 'evening' | 'night' {
+    const hour = new Date().getHours();
+
+    if (hour >= 5 && hour < 12) {
+      return 'morning';
+    } else if (hour >= 12 && hour < 18) {
+      return 'afternoon';
+    } else if (hour >= 18 && hour < 23) {
+      return 'evening';
+    } else {
+      return 'night';
     }
-    return value.toString().padStart(4, '0');
   }
 
-  goToPreviousWeek() {
-    if (this._countWeek > 1) this._countWeek--;
+  // Update the time of day
+  updateTimeOfDay(): void {
+    this.timeOfDay = this.getTimeOfDay();
   }
 
-  goToNextWeek() {
-    if (this._countWeek < 40) this._countWeek++;
+  // Get the appropriate greeting based on time
+  getGreetingMessage(): string {
+    const timeOfDay = this.getTimeOfDay();
+
+    switch (timeOfDay) {
+      case 'morning':
+        return 'Chào buổi sáng,';
+      case 'afternoon':
+        return 'Chào buổi chiều,';
+      case 'evening':
+        return 'Chúc buổi tối an lành,';
+      case 'night':
+        return 'Đã khuya rồi,';
+      default:
+        return 'Xin chào,';
+    }
   }
 
-  goToThisWeek() {
-    this._countWeek = this._currentPregnancyWeek;
+  // Get time-specific emoji
+  getTimeEmoji(): string {
+    const timeOfDay = this.getTimeOfDay();
+
+    switch (timeOfDay) {
+      case 'morning':
+        return '☀️';
+      case 'afternoon':
+        return '🌤️';
+      case 'evening':
+        return '🌙';
+      case 'night':
+        return '😴';
+      default:
+        return '👋';
+    }
   }
 
-  calculateExpectedDate() {
-    const lastMenstrualPeriodString: string | null = this.countDownForm.get('lastMenstrualPeriod')!.value;
-    const lastMenstrualPeriod: Date | null = lastMenstrualPeriodString ? new Date(lastMenstrualPeriodString) : null;
-    const menstrualCycleString: string | null = this.countDownForm.get('menstrualCycle')!.value;
-    const menstrualCycle: number | null = menstrualCycleString ? Number(menstrualCycleString) : null;
+  // Get time-specific message
+  getTimeMessage(): string {
+    const timeOfDay = this.getTimeOfDay();
 
-    if (lastMenstrualPeriod instanceof Date && typeof menstrualCycle === 'number') {
-      // Ngày dự sinh tiêu chuẩn với chu kỳ 28 ngày (40 tuần = 280 ngày)
-      let dueDate = new Date(lastMenstrualPeriod);
-      dueDate.setDate(dueDate.getDate() + 280);
-
-      // Điều chỉnh theo độ dài chu kỳ kinh nguyệt
-      let adjustment = menstrualCycle - 28;
-      dueDate.setDate(dueDate.getDate() + adjustment);
-
-      this._expectedDate = dueDate;
-      this.formatDate = this._expectedDate.toLocaleDateString('vi-VN');
+    switch (timeOfDay) {
+      case 'morning':
+        return 'Chúc bạn có một ngày tràn đầy năng lượng!';
+      case 'afternoon':
+        return 'Hôm nay bé cưng có ngoan không nào?';
+      case 'evening':
+        return 'Hãy nghỉ ngơi thật tốt nhé!';
+      case 'night':
+        return 'Nghỉ ngơi để bé yêu khỏe mạnh nhé!';
+      default:
+        return 'Chúc bạn và bé luôn khỏe mạnh!';
     }
   }
 }

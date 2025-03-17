@@ -1,0 +1,86 @@
+<fuse-card class="flex w-full flex-col p-6" #expandableCard01="fuseCard">
+  <div class="flex items-start justify-between md:col-span-2">
+    <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>
+    <div class="-mr-3 -mt-2 ml-2">
+      <button mat-icon-button>
+        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:calculator'"></mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
+  <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">
+    <div class="grid gap-6 md:grid-cols-2">
+      <!--Ngày đầu chu kì kinh cuối-->
+      <div class="flex w-full flex-col">
+        <mat-form-field class="flex-auto">
+          <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
+          <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />
+          <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+          <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <!--Chu kì kinh cuối-->
+      <div class="gt-xs:flex-row flex w-full flex-col">
+        <mat-form-field class="gt-xs:pr-3 flex-auto">
+          <mat-label>Chu kỳ kinh nguyệt</mat-label>
+          <mat-select formControlName="menstrualCycle">
+            <mat-option [value]="15">15 Ngày</mat-option>
+            <mat-option [value]="16">16 Ngày</mat-option>
+            <mat-option [value]="17">17 Ngày</mat-option>
+            <mat-option [value]="18">18 Ngày</mat-option>
+            <mat-option [value]="19">19 Ngày</mat-option>
+            <mat-option [value]="20">20 Ngày</mat-option>
+            <mat-option [value]="21">21 Ngày</mat-option>
+            <mat-option [value]="22">22 Ngày</mat-option>
+            <mat-option [value]="23">23 Ngày</mat-option>
+            <mat-option [value]="24">24 Ngày</mat-option>
+            <mat-option [value]="25">25 Ngày</mat-option>
+            <mat-option [value]="26">26 Ngày</mat-option>
+            <mat-option [value]="27">27 Ngày</mat-option>
+            <mat-option [value]="28">28 Ngày</mat-option>
+            <mat-option [value]="29">29 Ngày</mat-option>
+            <mat-option [value]="30">30 Ngày</mat-option>
+            <mat-option [value]="31">31 Ngày</mat-option>
+            <mat-option [value]="32">32 Ngày</mat-option>
+            <mat-option [value]="33">33 Ngày</mat-option>
+            <mat-option [value]="34">34 Ngày</mat-option>
+            <mat-option [value]="35">35 Ngày</mat-option>
+            <mat-option [value]="36">36 Ngày</mat-option>
+            <mat-option [value]="37">37 Ngày</mat-option>
+            <mat-option [value]="38">38 Ngày</mat-option>
+            <mat-option [value]="39">39 Ngày</mat-option>
+            <mat-option [value]="40">40 Ngày</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+    <button
+      class="fuse-mat-button-large mt-6 w-full"
+      mat-flat-button
+      [color]="'primary'"
+      [disabled]="!countDownForm.valid"
+      (click)="expandableCard01.expanded = true"
+    >
+      Xem Kết Quả Ngay
+    </button>
+  </form>
+  <ng-container fuseCardExpansion>
+    <div class="mt-10 flex flex-col items-center">
+      <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>
+      <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>
+      <div class="mt-3">
+        <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.
+      </div>
+      <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">
+        <mat-icon
+          class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"
+          [ngClass]="{
+            'rotate-180': expandableCard01.expanded,
+          }"
+          [svgIcon]="'heroicons_mini:chevron-down'"
+        ></mat-icon>
+      </button>
+    </div>
+  </ng-container>
+</fuse-card>

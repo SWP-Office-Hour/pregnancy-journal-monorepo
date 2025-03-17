@@ -1,0 +1,98 @@
+/* Card hover and active states */
+.week-card {
+  transition: transform 0.3s ease;
+}
+
+.week-card:hover {
+  transform: translateY(-8px);
+}
+
+.active-week {
+  border-color: #ec4899 !important;
+  box-shadow:
+    0 10px 15px -3px rgba(236, 72, 153, 0.3),
+    0 4px 6px -4px rgba(236, 72, 153, 0.3) !important;
+  transform: translateY(-4px) scale(1.05);
+}
+
+/* Improved scrollbar for the pregnancy week container */
+.pregnancy-week-container {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(236, 72, 153, 0.3) rgba(255, 241, 242, 0.5);
+  -webkit-overflow-scrolling: touch; /* Improved touch scrolling */
+}
+
+.pregnancy-week-container::-webkit-scrollbar {
+  height: 6px;
+}
+
+.pregnancy-week-container::-webkit-scrollbar-track {
+  background: rgba(255, 241, 242, 0.5);
+  border-radius: 100px;
+}
+
+.pregnancy-week-container::-webkit-scrollbar-thumb {
+  background-color: rgba(236, 72, 153, 0.3);
+  border-radius: 100px;
+}
+
+.pregnancy-week-container::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(236, 72, 153, 0.5);
+}
+
+/* Enhanced cursor states */
+.pregnancy-week-container {
+  cursor: grab;
+}
+
+.pregnancy-week-container:active {
+  cursor: grabbing !important;
+}
+
+/* Prevent text selection during drag */
+.pregnancy-week-container * {
+  user-select: none;
+}
+
+/* Animated glow effect for active week */
+.active-week::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 1rem;
+  background: linear-gradient(45deg, #f9a8d4, #ec4899, #db2777, #be185d);
+  opacity: 0.5;
+  z-index: -1;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Pulsing animation for active week image */
+.active-week img {
+  animation: pulse 2s infinite ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Add elastic overscroll feedback */
+.pregnancy-week-container.overscrolling {
+  will-change: transform;
+}

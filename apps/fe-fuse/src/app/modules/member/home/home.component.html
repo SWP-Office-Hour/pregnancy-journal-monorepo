@@ -1,32 +1,126 @@
-<div class="flex min-w-0 flex-auto flex-col">
+<div class="flex min-w-0 flex-auto flex-col bg-white p-6">
   <!-- Header -->
+  <section class="mb-12 flex w-full flex-col bg-transparent">
+    <!-- Time-sensitive Welcome Section -->
+    <div class="relative h-64 w-full overflow-hidden rounded-3xl shadow-lg">
+      <!-- Dynamic Time-Based Backgrounds -->
+      <!-- Morning Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-blue-200 via-blue-100 to-pink-50 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'morning', 'opacity-0': getTimeOfDay() !== 'morning' }"
+      >
+        <!-- Morning Sun -->
+        <div class="animate-pulse-slow absolute right-10 top-6 h-20 w-20 rounded-full bg-yellow-200 shadow-lg shadow-yellow-300/50"></div>
+        <!-- Morning Clouds -->
+        <div class="animate-float-slow absolute left-10 top-12 h-10 w-24 opacity-80">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"
+            />
+          </svg>
+        </div>
+        <div class="animate-float-slow-delayed absolute right-20 top-20 h-6 w-16 opacity-70">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"
+            />
+          </svg>
+        </div>
+      </div>
 
-  <div class="flex flex-col bg-transparent">
-    <div class="box bottom w-full bg-gradient-to-b from-white via-indigo-100 to-pink-100" [class.box-hover]="isButtonHovered">
-      <div class="mx-auto flex w-full max-w-screen-xl flex-col px-6 sm:px-8">
-        <!--Chào mừng-->
-        <div class="my-8 flex min-w-0 flex-auto flex-col sm:my-12 sm:flex-row sm:items-center">
-          <!-- Avatar and name -->
+      <!-- Afternoon Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-blue-100 via-yellow-50 to-orange-50 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'afternoon', 'opacity-0': getTimeOfDay() !== 'afternoon' }"
+      >
+        <!-- Afternoon Sun -->
+        <div class="absolute right-16 top-10 h-16 w-16 rounded-full bg-yellow-300 shadow-lg shadow-yellow-400/30"></div>
+        <!-- Afternoon Clouds -->
+        <div class="animate-float-med absolute left-16 top-8 h-8 w-20 opacity-80">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"
+            />
+          </svg>
+        </div>
+      </div>
+
+      <!-- Evening Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-indigo-200 via-purple-100 to-pink-200 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'evening', 'opacity-0': getTimeOfDay() !== 'evening' }"
+      >
+        <!-- Evening Moon -->
+        <div class="absolute right-12 top-8 h-14 w-14 rounded-full bg-white shadow-lg shadow-white/40"></div>
+        <!-- Evening Stars -->
+        <div class="animate-twinkle absolute left-24 top-14 h-2 w-2 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute left-40 top-10 h-1 w-1 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute right-40 top-20 h-1.5 w-1.5 rounded-full bg-white"></div>
+      </div>
+
+      <!-- Night Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-indigo-900 via-purple-800 to-indigo-800 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'night', 'opacity-0': getTimeOfDay() !== 'night' }"
+      >
+        <!-- Night Moon -->
+        <div class="absolute right-16 top-8 h-12 w-12 rounded-full bg-gray-100 shadow-lg shadow-white/20"></div>
+        <!-- Night Stars -->
+        <div class="animate-twinkle absolute left-14 top-10 h-1.5 w-1.5 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute left-28 top-16 h-2 w-2 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute right-36 top-8 h-1 w-1 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute right-20 top-24 h-1.5 w-1.5 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute left-40 top-20 h-1 w-1 rounded-full bg-white"></div>
+      </div>
+
+      <!-- Content Container -->
+      <div class="relative z-10 flex w-full px-6 py-8 sm:px-8">
+        <div class="my-4 flex min-w-0 flex-auto flex-col sm:my-6 sm:flex-row sm:items-center">
+          <!-- Left Side: Avatar and Greeting -->
           <div class="flex min-w-0 flex-auto items-center">
-            <div class="flex-0 h-16 w-16 overflow-hidden rounded-full">
-              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" />
+            <div class="flex-0 animate-fade-in h-20 w-20 overflow-hidden rounded-full border-4 border-white/30 shadow-lg">
+              <img class="h-full w-full object-cover" src="images/avatars/brian-hughes.jpg" alt="Profile" />
             </div>
-            <div class="ml-4 flex min-w-0 flex-col">
-              <ng-container *transloco="let t">
-                <div class="flex">
-                  <div class="logo-font pr-4 text-4xl tracking-wide text-pink-500">{{ t('welcome-back') }}</div>
-                  <div class="logo-font text-4xl tracking-widest text-pink-500">{{ user.name }}!</div>
-                </div>
-              </ng-container>
-              <div class="flex items-center">
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
-                <div class="text-secondary ml-1.5 truncate leading-6">Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới</div>
+
+            <div class="animate-slide-up ml-4 flex min-w-0 flex-col">
+              <div class="flex flex-col items-start">
+                <!-- Time-based greeting message -->
+                <h2 class="text-2xl font-bold text-white drop-shadow-md">
+                  {{ getGreetingMessage() }}
+                </h2>
+                <h1 class="font-playful text-3xl tracking-wide text-white drop-shadow-md">
+                  {{ user.name }}! <span class="ml-2">{{ getTimeEmoji() }}</span>
+                </h1>
+              </div>
+
+              <!-- Time-based message -->
+              <p class="mt-3 max-w-md text-lg text-white/90 drop-shadow-sm">
+                {{ getTimeMessage() }}
+              </p>
+
+              <!-- Notifications -->
+              <div class="mt-5 flex items-center rounded-full bg-white/20 px-4 py-2 backdrop-blur-sm">
+                <mat-icon class="icon-size-5 text-white/90" [svgIcon]="'heroicons_solid:bell'"></mat-icon>
+                <div class="ml-2 truncate text-sm font-medium text-white/90">Bạn có 2 tin nhắn mới và 15 nhiệm vụ mới</div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <!-- Time-appropriate SVG Illustration -->
+      <div class="pointer-events-none absolute bottom-0 right-0 z-10 h-40 w-40 opacity-80">
+        <!-- Morning illustration -->
+        <img *ngIf="getTimeOfDay() === 'morning'" src="/images/ui/doodles/d9.svg" class="h-full w-full" alt="Morning illustration" />
+        <!-- Afternoon illustration -->
+        <img *ngIf="getTimeOfDay() === 'afternoon'" src="/images/ui/doodles/d5.svg" class="h-full w-full" alt="Afternoon illustration" />
+        <!-- Evening illustration -->
+        <img *ngIf="getTimeOfDay() === 'evening'" src="/images/ui/doodles/d17.svg" class="h-full w-full" alt="Evening illustration" />
+        <!-- Night illustration -->
+        <img *ngIf="getTimeOfDay() === 'night'" src="/images/ui/doodles/d3.svg" class="h-full w-full" alt="Night illustration" />
+      </div>
     </div>
+
     <!-- Visit record Button -->
     <a
       class="trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"
@@ -34,8 +128,6 @@
       pTooltip="Hôm nay mẹ đi khám"
       tooltipPosition="top"
       [routerLink]="'/record'"
-      (mouseenter)="isButtonHovered = true"
-      (mouseleave)="isButtonHovered = false"
     >
       <i>
         <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
@@ -46,319 +138,214 @@
         </svg>
       </i>
     </a>
-  </div>
+  </section>
 
-  <!-- Main -->
-  <div class="-mt-px flex-auto pt-4 sm:pt-6">
-    <div class="mx-auto w-full max-w-screen-xl">
-      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
-        <mat-tab label="Bé con">
-          <ng-template matTabContent>
-            <!--Thai nhi-->
-            <div class="mb-6 grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-              <!-- Cấu trúc thai -->
-              <div
-                class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
-              >
-                <div class="flex items-center justify-between">
-                  <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>
-                  <button
-                    class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"
-                    (click)="goToThisWeek()"
-                  >
-                    <span class="text-sm font-medium">Tuần thứ</span>
-                    <span class="ml-1 text-xl font-bold">{{ this.countWeekNumber }}</span>
-                  </button>
-                </div>
-
-                <div class="relative mt-6 flex flex-auto flex-col">
-                  <!-- Hình ảnh mẹ -->
-                  <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">
-                    <img
-                      class="w-full transition-transform duration-500 hover:scale-105"
-                      [src]="'/images/fetal-growth/Female_View_' + countWeek + '.jpg'"
-                      [alt]="'mẹ tuần ' + countWeek"
-                      style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
-                    />
-                  </div>
-
-                  <!-- Hình ảnh thai nhi -->
-                  <div
-                    class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"
-                    style="
-                      box-shadow:
-                        inset 0 1px 2px rgba(0, 0, 0, 0.05),
-                        0 10px 15px -3px rgba(236, 72, 153, 0.5),
-                        0 4px 6px -2px rgba(236, 72, 153, 0.5);
-                      animation: gentle-pulse 3s infinite ease-in-out;
-                    "
-                  >
-                    <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">
-                      <img
-                        class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"
-                        style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"
-                        [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"
-                        [alt]="'con tuần ' + countWeekNumber"
-                      />
-                    </div>
-                    <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">
-                      <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{
-                        countWeekNumber
-                      }}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="mt-8 flex flex-col">
-                  <div class="mb-2 text-center text-sm font-medium text-pink-500">Chọn tuần thai để xem sự phát triển của bé</div>
-                  <div class="flex flex-wrap items-center justify-center gap-2">
-                    <button
-                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
-                    >
-                      <span class="text-xs font-medium">Tuần</span>
-                      <span class="text-base font-bold">1</span>
-                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0001'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            fill="#EC4899"
-                          />
-                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-                    <button
-                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
-                    >
-                      <span class="text-xs font-medium">Tuần</span>
-                      <span class="text-base font-bold">2</span>
-                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0002'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            fill="#EC4899"
-                          />
-                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-                    <button
-                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
-                    >
-                      <span class="text-xs font-medium">Tuần</span>
-                      <span class="text-base font-bold">3-38</span>
-                      <div
-                        class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300"
-                        [class.opacity-100]="countWeek >= '0003' && countWeek <= '0038'"
-                      >
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            fill="#EC4899"
-                          />
-                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-                    <button
-                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
-                    >
-                      <span class="text-xs font-medium">Tuần</span>
-                      <span class="text-base font-bold">39</span>
-                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek == '0039'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            fill="#EC4899"
-                          />
-                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-                    <button
-                      class="dateButton relative flex h-14 w-14 flex-col items-center justify-center rounded-full bg-gradient-to-br from-pink-50 to-pink-100 text-pink-800 shadow-sm transition-all duration-300 hover:from-pink-100 hover:to-pink-200 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2 dark:from-pink-900 dark:to-pink-800 dark:text-pink-100"
-                    >
-                      <span class="text-xs font-medium">Tuần</span>
-                      <span class="text-base font-bold">40</span>
-                      <div class="absolute -right-1 -top-1 opacity-0 transition-opacity duration-300" [class.opacity-100]="countWeek === '0040'">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path
-                            d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                            fill="#EC4899"
-                          />
-                          <path d="M7.5 12L10.5 15L16.5 9" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                      </div>
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <!-- Quan lý thai nhi -->
-              <!--              <div class="bg-card max-h-140 flex flex-auto flex-col overflow-y-auto rounded-2xl p-6 shadow sm:col-span-2 md:col-span-4 lg:col-span-2">-->
-              <!--&lt;!&ndash;                <app-pregnancy-week-info [countWeek]="countWeekNumber"></app-pregnancy-week-info>&ndash;&gt;-->
-              <!--              </div>-->
-              <!-- Nhắc nhở -->
-              <div
-                class="bg-card flex h-full flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
-              >
-                <app-home-reminder></app-home-reminder>
-              </div>
-            </div>
-
-            <!--Tính ngày dự sinh-->
-            <div class="grid w-full min-w-0 grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
-              <!-- Content -->
-              <fuse-card class="flex w-full flex-col p-6 md:col-span-3" #expandableCard01="fuseCard">
-                <!--              <div class="bg-card  flex-col gap-6 overflow-hidden rounded-2xl p-6 shadow ">-->
-                <div class="flex items-start justify-between md:col-span-2">
-                  <div class="text-3xl font-bold leading-none tracking-tight text-pink-500 sm:text-4xl">Tính Ngày Dự Sinh</div>
-                  <div class="-mr-3 -mt-2 ml-2">
-                    <button mat-icon-button>
-                      <mat-icon class="icon-size-5" [svgIcon]="'heroicons_outline:calculator'"></mat-icon>
-                    </button>
-                  </div>
-                </div>
-
-                <div class="text-lg font-medium"><i>"Giúp Mẹ dự đoán được ngày dự sinh của bé để có sự chuẩn bị tốt nhất"</i></div>
-                <form class="mt-8 flex flex-col overflow-hidden" [formGroup]="countDownForm" (ngSubmit)="calculateExpectedDate()">
-                  <div class="grid gap-6 md:grid-cols-2">
-                    <!--Ngày đầu chu kì kinh cuối-->
-                    <div class="flex w-full flex-col">
-                      <mat-form-field class="flex-auto">
-                        <mat-label>Ngày đầu tiên của kỳ kinh cuối</mat-label>
-                        <input matInput [matDatepicker]="picker1" formControlName="lastMenstrualPeriod" placeholder="Chọn một ngày" />
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                      </mat-form-field>
-                    </div>
-                    <!--Chu kì kinh cuối-->
-                    <div class="gt-xs:flex-row flex w-full flex-col">
-                      <mat-form-field class="gt-xs:pr-3 flex-auto">
-                        <mat-label>Chu kỳ kinh nguyệt</mat-label>
-                        <mat-select formControlName="menstrualCycle">
-                          <mat-option value="15">15 Ngày</mat-option>
-                          <mat-option value="16">16 Ngày</mat-option>
-                          <mat-option value="17">17 Ngày</mat-option>
-                          <mat-option value="18">18 Ngày</mat-option>
-                          <mat-option value="19">19 Ngày</mat-option>
-                          <mat-option value="20">20 Ngày</mat-option>
-                          <mat-option value="21">21 Ngày</mat-option>
-                          <mat-option value="22">22 Ngày</mat-option>
-                          <mat-option value="23">23 Ngày</mat-option>
-                          <mat-option value="24">24 Ngày</mat-option>
-                          <mat-option value="25">25 Ngày</mat-option>
-                          <mat-option value="26">26 Ngày</mat-option>
-                          <mat-option value="27">27 Ngày</mat-option>
-                          <mat-option value="28">28 Ngày</mat-option>
-                          <mat-option value="29">29 Ngày</mat-option>
-                          <mat-option value="30">30 Ngày</mat-option>
-                          <mat-option value="31">31 Ngày</mat-option>
-                          <mat-option value="32">32 Ngày</mat-option>
-                          <mat-option value="33">33 Ngày</mat-option>
-                          <mat-option value="34">34 Ngày</mat-option>
-                          <mat-option value="35">35 Ngày</mat-option>
-                          <mat-option value="36">36 Ngày</mat-option>
-                          <mat-option value="37">37 Ngày</mat-option>
-                          <mat-option value="38">38 Ngày</mat-option>
-                          <mat-option value="39">39 Ngày</mat-option>
-                          <mat-option value="40">40 Ngày</mat-option>
-                        </mat-select>
-                      </mat-form-field>
-                    </div>
-                  </div>
-                  <button
-                    class="fuse-mat-button-large mt-6 w-full"
-                    mat-flat-button
-                    [color]="'primary'"
-                    [disabled]="!countDownForm.valid"
-                    (click)="expandableCard01.expanded = true"
-                  >
-                    Xem Kết Quả Ngay
-                  </button>
-                </form>
-                <ng-container fuseCardExpansion>
-                  <div class="mt-10 flex flex-col items-center">
-                    <div class="text-3xl leading-none tracking-tight">Chúc mừng bé được sinh vào ngày</div>
-                    <div class="mt-3 text-4xl font-bold leading-none tracking-tight text-red-500">{{ formatDate }}</div>
-                    <div class="mt-3">
-                      <strong>Lưu ý: </strong>Công cụ này chỉ mang tính tham khảo. Bạn nên hỏi ý kiến bác sĩ để có được ngày dự sinh chính xác.
-                    </div>
-                    <button class="px-3" mat-button [color]="'primary'" (click)="expandableCard01.expanded = !expandableCard01.expanded">
-                      <mat-icon
-                        class="icon-size-5 rotate-0 transition-transform duration-150 ease-in-out"
-                        [ngClass]="{
-                          'rotate-180': expandableCard01.expanded,
-                        }"
-                        [svgIcon]="'heroicons_mini:chevron-down'"
-                      ></mat-icon>
-                    </button>
-                  </div>
-                </ng-container>
-              </fuse-card>
-              <!-- Lịch countdown  -->
-              <div
-                class="bg-card relative flex h-80 flex-auto flex-col rounded-2xl"
-                style="
-                  box-shadow:
-                    0 1px 1px rgba(0, 0, 0, 0.15),
-                    0 10px 0 -5px #eee,
-                    0 10px 1px -4px rgba(0, 0, 0, 0.15),
-                    0 20px 0 -10px #eee,
-                    0 20px 1px -9px rgba(0, 0, 0, 0.15);
-                "
-              >
-                <div class="flex h-full flex-col">
-                  <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">
-                    <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">
-                      <div class="tracking-widest text-pink-100">
-                        <i>Đếm ngược kỳ diệu</i>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex h-2/3 w-full items-center justify-center">
-                    <div class="flex flex-col items-center">
-                      <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">
-                        {{ remainingDays() < 1 ? 0 : remainingDays() }}
-                      </div>
-                      <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                  <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-                </div>
-                <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                  <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-                </div>
-              </div>
-            </div>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
-      <mat-tab-group class="sm:px-2" mat-stretch-tabs="false" [animationDuration]="'0'">
-        <mat-tab label="Bài viết nên đọc">
-          <ng-template matTabContent class="overflow-auto">
-            <app-recommended-blogs></app-recommended-blogs>
-          </ng-template>
-        </mat-tab>
-      </mat-tab-group>
+  <!-- Noti & Blog-->
+  <section class="mb-8 grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+    <!-- Nhắc nhở-->
+    <div
+      class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+    >
+      <app-home-reminder></app-home-reminder>
     </div>
-  </div>
-</div>
+    <!-- Recommend Blog -->
+    <div
+      class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+    >
+      <app-recommended-blogs></app-recommended-blogs>
+    </div>
+  </section>
 
-<style>
-  @keyframes gentle-pulse {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.02);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-</style>
+  <!-- Tool for Pregnancy-->
+  <!--  <app-week-pregnancy-slider></app-week-pregnancy-slider>-->
+  <section>
+    <!-- Popular Tools Section -->
+    <div class="popular-tools mb-12">
+      <h2 class="mb-6 text-center text-2xl font-bold text-gray-800 md:text-3xl">
+        <span class="relative">
+          Công Cụ Phổ Biến
+          <span class="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-pink-300 to-purple-300 opacity-70"></span>
+        </span>
+      </h2>
+
+      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <!-- Baby Names Finder Tool -->
+        <div
+          class="group relative rounded-xl bg-gradient-to-b from-pink-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+        >
+          <div class="flex h-full flex-col rounded-lg p-6">
+            <!-- Tool Icon -->
+            <div
+              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-pink-400 to-pink-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+              </svg>
+            </div>
+
+            <!-- Tool Title -->
+            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Tìm Tên Em Bé</h3>
+
+            <!-- Tool Description -->
+            <p class="mb-4 text-center text-gray-600">Khám phá hàng nghìn tên cho bé gái và bé trai với ý nghĩa đặc biệt và nguồn gốc.</p>
+
+            <!-- Tool Button -->
+            <a
+              href="#"
+              class="group/btn mt-auto flex items-center justify-center rounded-full bg-pink-100 py-2 text-sm font-medium text-pink-600 transition-all hover:bg-pink-200"
+            >
+              Khám phá ngay
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Due Date Calculator Tool -->
+        <div
+          class="group relative rounded-xl bg-gradient-to-b from-purple-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+        >
+          <div class="flex h-full flex-col rounded-lg p-6">
+            <!-- Tool Icon -->
+            <div
+              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+            </div>
+
+            <!-- Tool Title -->
+            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Tính Ngày Dự Sinh</h3>
+
+            <!-- Tool Description -->
+            <p class="mb-4 text-center text-gray-600">Dự đoán ngày sinh của em bé và tìm hiểu các cột mốc quan trọng trong thai kỳ của bạn.</p>
+
+            <!-- Tool Button -->
+            <a
+              href="#"
+              class="group/btn mt-auto flex items-center justify-center rounded-full bg-purple-100 py-2 text-sm font-medium text-purple-600 transition-all hover:bg-purple-200"
+            >
+              Tính ngay
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <!-- Decorative element -->
+          <div class="absolute -right-2 -top-2 h-12 w-12 opacity-10">
+            <img src="/images/ui/doodles/d9.svg" alt="Calendar decoration" />
+          </div>
+        </div>
+
+        <!-- Pregnancy Evolution Tool -->
+        <div
+          class="group relative rounded-xl bg-gradient-to-b from-blue-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+        >
+          <div class="flex h-full flex-col rounded-lg p-6">
+            <!-- Tool Icon -->
+            <div
+              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-blue-400 to-blue-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+            </div>
+
+            <!-- Tool Title -->
+            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Quá Trình Phát Triển</h3>
+
+            <!-- Tool Description -->
+            <p class="mb-4 text-center text-gray-600">Theo dõi sự phát triển của em bé qua từng tuần với hình ảnh và thông tin chi tiết.</p>
+
+            <!-- Tool Button -->
+            <a
+              href="#"
+              class="group/btn mt-auto flex items-center justify-center rounded-full bg-blue-100 py-2 text-sm font-medium text-blue-600 transition-all hover:bg-blue-200"
+            >
+              Xem chi tiết
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Side: Countdown Calendar (keep existing calendar) -->
+        <div
+          class="bg-card relative mt-4 flex flex-auto flex-col rounded-2xl bg-white/80 backdrop-blur-sm"
+          style="
+            box-shadow:
+              0 1px 1px rgba(0, 0, 0, 0.15),
+              0 10px 0 -5px #eee,
+              0 10px 1px -4px rgba(0, 0, 0, 0.15),
+              0 20px 0 -10px #eee,
+              0 20px 1px -9px rgba(0, 0, 0, 0.15);
+          "
+        >
+          <div class="flex h-full flex-col">
+            <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">
+              <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">
+                <div class="tracking-widest text-pink-100">
+                  <i>Đếm ngược kỳ diệu</i>
+                </div>
+              </div>
+            </div>
+            <div class="flex h-2/3 w-full items-center justify-center">
+              <div class="flex flex-col items-center">
+                <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">
+                  {{ remainingDays() < 1 ? 0 : remainingDays() }}
+                </div>
+                <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
+            <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+            <div class="h-8 w-4 rounded-full bg-pink-950"></div>
+          </div>
+          <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
+            <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+            <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
