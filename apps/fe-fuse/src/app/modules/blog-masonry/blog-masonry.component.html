@@ -36,7 +36,7 @@
               class="mb-4 flex max-w-24 items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-5 py-1.5 shadow-lg"
               [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
             >
-              <span class="text-sm font-semibold tracking-wide text-white">Mẹ bầu</span>
+              <span class="text-sm font-semibold tracking-wide text-white">{{ item.category.title }}</span>
             </div>
 
             <!-- Title with maternal font and styling -->
@@ -76,8 +76,10 @@
               <button
                 class="group ml-auto flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-pink-600"
                 [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+                (click)="blog.click()"
               >
                 <span class="text-sm font-medium text-white transition-colors group-hover:text-pink-600">Đọc tiếp</span>
+                <a [routerLink]="['/blog', item.blog_id]" hidden #blog></a>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-4 w-4 text-white transition-all group-hover:translate-x-1 group-hover:text-pink-600"
@@ -169,7 +171,11 @@
         <!-- Ticker content with improved styling for expectant mothers -->
         <div class="ticker-container flex flex-1 items-center overflow-hidden whitespace-nowrap">
           <div class="ticker-content flex" [style.transform]="'translateX(' + tickerPosition + 'px)'">
-            <span *ngFor="let news of trendingNews" class="mr-8 flex cursor-pointer items-center text-gray-600 transition-colors hover:text-pink-500">
+            <span
+              *ngFor="let news of trendingNews"
+              (click)="blog.click()"
+              class="mr-8 flex cursor-pointer items-center text-gray-600 transition-colors hover:text-pink-500"
+            >
               <!-- Small decorative heart icon -->
               <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-4 w-4 text-pink-300" viewBox="0 0 20 20" fill="currentColor">
                 <path
@@ -180,6 +186,7 @@
               </svg>
               <!-- News title -->
               <span class="font-medium" style="font-family: var(--font-text)">{{ news.title }}</span>
+              <a [routerLink]="['/blog', news.blog_id]" hidden #blog></a>
             </span>
           </div>
         </div>
@@ -232,7 +239,9 @@
                   <div
                     *ngFor="let item of carouselItems"
                     class="group transform cursor-pointer rounded-xl bg-white/70 p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-md"
+                    (click)="blog.click()"
                   >
+                    <a [routerLink]="['/blog', item.blog_id]" hidden #blog></a>
                     <div class="flex gap-4">
                       <img
                         [src]="item.blog_cover"
@@ -262,19 +271,22 @@
                 </h3>
                 <div class="space-y-3">
                   <div
-                    *ngFor="let category of categoriesV2"
-                    (click)="toggleCategory(category)"
+                    *ngFor="let category of categories"
+                    (click)="filterByCategory(category.category_id)"
                     class="transform transition-all duration-300 hover:-translate-x-1"
                   >
                     <button
                       class="flex w-full items-center rounded-r-full py-3 pl-5 pr-4 text-left text-lg font-medium transition-all duration-200"
                       [ngClass]="{
-                        'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': category.isSelected,
-                        'bg-white/70 text-gray-700 hover:bg-white hover:text-pink-500 hover:shadow-sm': !category.isSelected,
+                        'bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': category.category_id == selectedCategory,
+                        'bg-white/70 text-gray-700 hover:bg-white hover:text-pink-500 hover:shadow-sm': category.category_id != selectedCategory,
                       }"
                     >
-                      <span class="flex-1">{{ category.name }}</span>
-                      <span *ngIf="category.isSelected" class="ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 text-white">
+                      <span class="flex-1">{{ category.title }}</span>
+                      <span
+                        *ngIf="category.category_id == selectedCategory"
+                        class="ml-2 flex h-6 w-6 items-center justify-center rounded-full bg-white/30 text-white"
+                      >
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                         </svg>
@@ -293,18 +305,19 @@
                   </span>
                 </h3>
                 <div class="flex flex-wrap gap-3">
-                  <button
-                    *ngFor="let tag of tags"
-                    (click)="toggleTag(tag)"
-                    [ngClass]="{
-                      'border-transparent bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': tag.isSelected,
-                      'border-pink-100 bg-white/70 text-gray-600 hover:border-pink-300 hover:bg-white hover:text-pink-500 hover:shadow-sm':
-                        !tag.isSelected,
-                    }"
-                    class="rounded-full border px-4 py-2 text-base font-medium transition-all duration-200"
-                  >
-                    {{ tag.name }}
-                  </button>
+                  <!--                  <button-->
+                  <!--                    *ngFor="let tag of tags"-->
+                  <!--                    (click)="toggleTag(tag)"-->
+                  <!--                    [ngClass]="{-->
+                  <!--                      'border-transparent bg-gradient-to-r from-pink-400 to-purple-400 text-white shadow-md': tag.isSelected,-->
+                  <!--                      'border-pink-100 bg-white/70 text-gray-600 hover:border-pink-300 hover:bg-white hover:text-pink-500 hover:shadow-sm':-->
+                  <!--                        !tag.isSelected,-->
+                  <!--                    }"-->
+                  <!--                    class="rounded-full border px-4 py-2 text-base font-medium transition-all duration-200"-->
+                  <!--                  >-->
+                  <!--                    {{ tag.name }}-->
+                  <!--                  </button>-->
+                  <p>Tính năng này đang được phát triển</p>
                 </div>
               </div>
             </div>
@@ -332,12 +345,14 @@
           </p-breadcrumb>
         </div>
         <!-- Masonry - Updated to use paginated blogs -->
-        <div class="mb-6 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div class="mb-6 grid grid-cols-1 gap-6 hover:cursor-pointer md:grid-cols-2 lg:grid-cols-3">
           <!-- Blog List - Now using paginated data -->
           <div
-            *ngFor="let category of getPaginatedBlogs()"
+            *ngFor="let blog of blogs"
+            (click)="blog_id.click()"
             class="group relative overflow-hidden rounded-3xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
+            <a [routerLink]="['/blog', blog.blog_id]" hidden #blog_id></a>
             <!-- Decorative baby-themed accents -->
             <div class="absolute -right-6 -top-6 h-16 w-16 rotate-12 opacity-20">
               <img src="/images/ui/doodles/d9.svg" alt="Baby decoration" class="h-full w-full" />
@@ -346,15 +361,16 @@
             <!-- Image with gentle overlay -->
             <div class="relative overflow-hidden">
               <img
-                [src]="category.imageUrl"
-                [alt]="category.name"
+                [src]="blog.blog_cover"
+                [alt]="blog.title"
+                (error)="handleImageErrorV2($event)"
                 class="h-52 w-full object-cover transition-transform duration-500 group-hover:scale-105"
               />
               <div class="absolute inset-0 bg-gradient-to-b from-transparent to-pink-50/30"></div>
 
               <!-- Category badge with maternal color scheme -->
               <span class="absolute left-4 top-4 rounded-full bg-pink-100 px-3 py-1 text-base font-medium text-pink-600 shadow-sm">
-                {{ category.name }}
+                {{ blog.category.title }}
               </span>
             </div>
 
@@ -363,12 +379,12 @@
               <div class="flex flex-col">
                 <!-- Headline with more readable size -->
                 <h3 class="mb-3 line-clamp-2 font-sans text-2xl font-bold text-gray-800 group-hover:text-pink-600">
-                  {{ category.headline }}
+                  {{ blog.title }}
                 </h3>
 
                 <!-- Summary with improved line clamping -->
                 <p class="mb-5 line-clamp-3 min-h-16 text-lg text-gray-600">
-                  {{ category.summary }}
+                  {{ blog.summary }}
                 </p>
               </div>
 
@@ -389,7 +405,7 @@
 
                   <!-- Author name and date with nurturing style -->
                   <div>
-                    <p class="font-semibold text-pink-700" style="font-family: var(--font-playful)">Bác sĩ Thanh Hương</p>
+                    <p class="font-semibold text-pink-700" style="font-family: var(--font-playful)">{{ blog.author }}</p>
                     <p class="flex items-center text-sm text-pink-500/80">
                       <svg xmlns="http://www.w3.org/2000/svg" class="mr-1.5 h-3.5 w-3.5 text-purple-400" viewBox="0 0 20 20" fill="currentColor">
                         <path
@@ -398,7 +414,7 @@
                           clip-rule="evenodd"
                         />
                       </svg>
-                      Đăng tải ngày 16/03/2024
+                      Đăng tải ngày {{ blog.created_at | date: 'dd/MM/yyyy' }}
                     </p>
                   </div>
                 </div>
@@ -415,7 +431,7 @@
                         clip-rule="evenodd"
                       />
                     </svg>
-                    {{ category.readTime }} phút đọc
+                    {{ calculateReadingTime(blog.content) }} phút đọc
                   </span>
 
                   <!-- Read more button with maternity-friendly styling -->
@@ -447,7 +463,6 @@
           <app-pagination
             [currentPage]="currentPage"
             [totalPages]="totalPages"
-            [totalItems]="newsCategories.length"
             [itemsPerPage]="itemsPerPage"
             (pageChanged)="handlePageChange($event)"
           ></app-pagination>
