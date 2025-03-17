@@ -182,10 +182,12 @@ export class AuthService {
   signUp(user: RegisterRequest): Observable<any> {
     return this._httpClient.post(environment.apiUrl + 'users/auth/register', user).pipe(
       map((response: AuthResponse) => {
-        this.accessToken = response.access_token;
-        this._authenticated = true;
-        this._userService.user = response.user;
-        this._childService.child = response.user.child[0];
+        if (response.access_token) {
+          this.accessToken = response.access_token;
+          this._authenticated = true;
+          this._userService.user = response.user;
+          this._childService.child = response.user.child[0];
+        }
         return response;
       }),
     );

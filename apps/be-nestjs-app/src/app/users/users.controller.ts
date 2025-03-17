@@ -39,10 +39,8 @@ export class UsersController {
         const users = await this.usersService.register(body);
         return { status: 201, body: users };
       } else {
-        return {
-          status: 401,
-          body: { message: 'Email is already registered' },
-        };
+        console.log('Email is already registered');
+        throw new ConflictException('Email is already registered');
       }
     });
   }
@@ -64,64 +62,6 @@ export class UsersController {
       return { status: 201, body: user };
     });
   }
-
-  // @TsRestHandler(authContract.changePassword)
-  // async handleChangePassword(@Body() body: any) {
-  //   return tsRestHandler(authContract.changePassword, async () => {
-  //     const user = await this.usersService.changePassword(body);
-  //     if (!user) {
-  //       throw new NotFoundException('Token is invalid');
-  //     }
-  //     return { status: 201, body: user };
-  //   });
-  // }
-
-  // @UseGuards(AccessTokenAuthGuard, RefreshTokenAuthGuard)
-  // @TsRestHandler(authContract.logout)
-  // async handleLogout(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
-  //   return tsRestHandler(authContract.logout, async () => {
-  //     const user_id = req.decoded_authorization;
-  //     const { refresh_token } = body;
-  //
-  //     if (!user_id) {
-  //       throw new UnauthorizedException('Unauthorized');
-  //     }
-  //
-  //     // const refresh_token_id = await this.usersService.checkRefreshToken({
-  //     //   user_id,
-  //     //   refresh_token,
-  //     // });
-  //     // if (!refresh_token_id) {
-  //     //   throw new UnauthorizedException('Unauthorized Refresh Token');
-  //     // }
-  //     await this.usersService.logout(user_id);
-  //     return {
-  //       status: 200,
-  //       body: { message: 'Logout successfully' },
-  //     };
-  //   });
-  // }
-
-  // @UseGuards(RefreshTokenAuthGuard)
-  // @TsRestHandler(authContract.refreshToken)
-  // async handleRefreshToken(@Body() body: TokenRequest, @Req() req: RequestWithJWT) {
-  //   return tsRestHandler(authContract.refreshToken, async () => {
-  //     const { user_id } = req.decoded_refresh_token;
-  //     const { refresh_token } = body;
-  //     const refresh_token_id = await this.usersService.checkRefreshToken({
-  //       user_id,
-  //       refresh_token,
-  //     });
-  //     if (!refresh_token_id) {
-  //       throw new UnauthorizedException('Unauthorized Refresh Token');
-  //     }
-  //     const users = await this.usersService.refreshToken({
-  //       refresh_token_id,
-  //       user_id,
-  //     });
-  //     return { status: 200, body: users };
-  //   });
-  // }
 
   @TsRestHandler(userContract.create)
   async handleCreate(@Body() body: UserCreateRequestType) {
