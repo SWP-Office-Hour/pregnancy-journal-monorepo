@@ -20,6 +20,7 @@ import { LandingComponent } from './modules/landing/landing.component';
 import { HomeComponent } from './modules/member/home/home.component';
 import { MembershipDetailComponent } from './modules/membership-detail/membership-detail.component';
 import { MembershipComponent } from './modules/membership/membership.component';
+import { PaymentComponent } from './modules/payment/payment.component';
 import { postRoutes } from './modules/post/post.routes';
 import { UserProfileComponent } from './modules/profile/user-profile.component';
 
@@ -185,6 +186,10 @@ export const appRoutes: Route[] = [
           {
             path: 'change-password',
             loadComponent: () => ChangePasswordComponent,
+          },
+          {
+            path: 'payment',
+            loadComponent: () => PaymentComponent,
           },
         ],
       },
