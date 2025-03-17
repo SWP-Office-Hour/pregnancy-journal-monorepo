@@ -1,3 +1,4 @@
+import { animate, style, transition, trigger } from '@angular/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -78,6 +79,11 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
   styleUrl: 'home.component.css',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('countChange', [
+      transition('* => *', [style({ opacity: 0, transform: 'scale(0.8)' }), animate('600ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
+    ]),
+  ],
 })
 export class HomeComponent {
   public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
@@ -88,7 +94,7 @@ export class HomeComponent {
   protected readonly Status = Status;
   protected lastRecord: RecordResponse | null = null;
   protected user: User | null = null;
-  //2. Lấy ngày đẻ
+  //2. Lấy ngày đẻ của con mà người dùng đã chọn
   private _expectedDate: Date = new Date();
   //3. Tính tuần thai
   private _currentPregnancyWeek: number = 4;
@@ -173,6 +179,10 @@ export class HomeComponent {
       return; //'Lỗi: Ngày dự sinh không hợp lệ!';
     }
     this._currentPregnancyWeek = currentPregnancyWeek;
+  }
+
+  protected get currentPregnancyWeek(): number {
+    return this._currentPregnancyWeek;
   }
 
   timeOfDay;

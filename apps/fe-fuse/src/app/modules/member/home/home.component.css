@@ -421,3 +421,144 @@ aside {
     font-size: 0.95rem;
   }
 }
+
+/* Calendar Countdown Styling */
+.calendar-countdown {
+  box-shadow:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  transform-origin: center;
+}
+
+/* Calendar ring styling */
+.calendar-ring-outer {
+  box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.calendar-ring-inner {
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Calendar days number animation */
+.calendar-days-number {
+  position: relative;
+  text-shadow: 2px 2px 0 rgba(236, 72, 153, 0.2);
+  background: linear-gradient(to bottom, #ec4899, #be185d);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Calendar days text styling */
+.calendar-days-text {
+  letter-spacing: 0.05em;
+}
+
+/* For the page curl effect */
+.calendar-bottom {
+  position: relative;
+  background-image:
+    linear-gradient(to right, rgba(255, 241, 242, 0.5), transparent, rgba(255, 241, 242, 0.5)),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.8), transparent);
+}
+
+/* Animation for scale-in elements */
+.animation-scale-in {
+  animation: scale-in 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animation for celebration when countdown reaches zero */
+.animate-celebration {
+  animation: celebration 3s ease infinite;
+}
+
+@keyframes celebration {
+  0% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 20px 10px rgba(236, 72, 153, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .calendar-countdown {
+    max-width: 240px;
+  }
+  .calendar-days-number {
+    font-size: 4rem;
+  }
+}
+
+/* Maternal Tools Section */
+.maternal-tool-card {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.maternal-tool-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 0.75rem;
+  padding: 2px;
+  background: linear-gradient(to bottom right, transparent, rgba(236, 72, 153, 0.1), transparent);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.maternal-tool-card:hover::before {
+  opacity: 1;
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-progress {
+  animation: progress-fill 1.5s ease-out forwards;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .maternal-tool-card {
+    min-height: 280px;
+  }
+}
+
+@media (max-width: 640px) {
+  .maternal-tool-card {
+    min-height: 260px;
+  }
+}

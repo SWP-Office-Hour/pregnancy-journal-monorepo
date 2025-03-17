@@ -172,17 +172,23 @@
     </a>
   </section>
 
-  <!-- Noti & Blog-->
-  <section class="mb-8 grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4">
+  <!-- Noti & Blog & Mini Chart-->
+  <section class="mb-8 grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3">
     <!-- Nhắc nhở-->
     <div
-      class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
+    >
+      <app-home-reminder></app-home-reminder>
+    </div>
+    <!-- Mini Tracking Chart -->
+    <div
+      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
     >
       <app-home-reminder></app-home-reminder>
     </div>
     <!-- Recommend Blog -->
     <div
-      class="bg-card flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm sm:col-span-2 md:col-span-4 lg:col-span-2"
+      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
     >
       <app-recommended-blogs></app-recommended-blogs>
     </div>
@@ -192,44 +198,44 @@
   <!--  <app-week-pregnancy-slider></app-week-pregnancy-slider>-->
   <section>
     <!-- Popular Tools Section -->
-    <div class="popular-tools mb-12">
-      <h2 class="mb-6 text-center text-2xl font-bold text-gray-800 md:text-3xl">
-        <span class="relative">
-          Công Cụ Phổ Biến
-          <span class="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-pink-300 to-purple-300 opacity-70"></span>
-        </span>
-      </h2>
+    <div class="mb-12 rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50/30 to-pink-50/30 p-6 shadow-lg">
+      <div class="flex flex-col gap-8 lg:flex-row">
+        <!-- Left Section: Title & Description -->
+        <div class="flex flex-col items-start justify-center space-y-6 lg:w-1/4">
+          <div>
+            <h2 class="mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
+              Công cụ đặc biệt dành riêng cho mẹ bầu!
+            </h2>
+            <p class="text-lg text-gray-600">Hành trình mang thai trở nên dễ dàng hơn với các công cụ hỗ trợ thông minh. Khám phá ngay!</p>
+          </div>
+        </div>
 
-      <div class="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <!-- Baby Names Finder Tool -->
-        <div
-          class="group relative rounded-xl bg-gradient-to-b from-pink-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-        >
-          <div class="flex h-full flex-col rounded-lg p-6">
+        <!-- Right Section: Tool Cards -->
+        <div class="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-3">
+          <!-- Baby Names Finder Tool -->
+          <div
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-pink-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-pink-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-pink-50 opacity-30"></div>
+
             <!-- Tool Icon -->
-            <div
-              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-pink-400 to-pink-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                />
-              </svg>
-            </div>
+            <img
+              src="/images/ui/tool/Tool2.svg"
+              alt="Baby Names Finder"
+              class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+            />
 
             <!-- Tool Title -->
-            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Tìm Tên Em Bé</h3>
+            <h3 class="mb-2 text-xl font-bold text-gray-800">Tìm Tên Em Bé</h3>
 
             <!-- Tool Description -->
-            <p class="mb-4 text-center text-gray-600">Khám phá hàng nghìn tên cho bé gái và bé trai với ý nghĩa đặc biệt và nguồn gốc.</p>
+            <p class="mb-6 text-gray-600">Khám phá hàng nghìn tên cho bé gái và bé trai với ý nghĩa đặc biệt và nguồn gốc.</p>
 
             <!-- Tool Button -->
             <a
               href="#"
-              class="group/btn mt-auto flex items-center justify-center rounded-full bg-pink-100 py-2 text-sm font-medium text-pink-600 transition-all hover:bg-pink-200"
+              class="group/btn mt-auto inline-flex items-center rounded-full bg-green-100 px-5 py-2 text-sm font-medium text-green-600 transition-all hover:bg-green-200 active:scale-95"
             >
               Khám phá ngay
               <svg
@@ -243,37 +249,31 @@
               </svg>
             </a>
           </div>
-        </div>
 
-        <!-- Due Date Calculator Tool -->
-        <div
-          class="group relative rounded-xl bg-gradient-to-b from-purple-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-        >
-          <div class="flex h-full flex-col rounded-lg p-6">
+          <!-- Due Date Calculator Tool -->
+          <div
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-purple-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-purple-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-purple-50 opacity-30"></div>
+
             <!-- Tool Icon -->
-            <div
-              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-purple-400 to-purple-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                />
-              </svg>
-            </div>
+            <img
+              src="/images/ui/tool/Tool3.svg"
+              alt="Due Date Calculator"
+              class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+            />
 
             <!-- Tool Title -->
-            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Tính Ngày Dự Sinh</h3>
+            <h3 class="mb-2 text-xl font-bold text-gray-800">Tính Ngày Dự Sinh</h3>
 
             <!-- Tool Description -->
-            <p class="mb-4 text-center text-gray-600">Dự đoán ngày sinh của em bé và tìm hiểu các cột mốc quan trọng trong thai kỳ của bạn.</p>
+            <p class="mb-6 text-gray-600">Dự đoán ngày sinh của em bé và tìm hiểu các cột mốc quan trọng trong thai kỳ của bạn.</p>
 
             <!-- Tool Button -->
             <a
               href="#"
-              class="group/btn mt-auto flex items-center justify-center rounded-full bg-purple-100 py-2 text-sm font-medium text-purple-600 transition-all hover:bg-purple-200"
+              class="group/btn mt-auto inline-flex items-center rounded-full bg-orange-100 px-5 py-2 text-sm font-medium text-orange-600 transition-all hover:bg-orange-200 active:scale-95"
             >
               Tính ngay
               <svg
@@ -288,41 +288,30 @@
             </a>
           </div>
 
-          <!-- Decorative element -->
-          <div class="absolute -right-2 -top-2 h-12 w-12 opacity-10">
-            <img src="/images/ui/doodles/d9.svg" alt="Calendar decoration" />
-          </div>
-        </div>
+          <!-- Pregnancy Evolution Tool -->
+          <div
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          >
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-blue-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-blue-50 opacity-30"></div>
 
-        <!-- Pregnancy Evolution Tool -->
-        <div
-          class="group relative rounded-xl bg-gradient-to-b from-blue-50 to-white p-1 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
-        >
-          <div class="flex h-full flex-col rounded-lg p-6">
             <!-- Tool Icon -->
-            <div
-              class="mb-4 flex h-16 w-16 items-center justify-center self-center rounded-full bg-gradient-to-br from-blue-400 to-blue-600 p-3 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-                />
-              </svg>
-            </div>
+            <img
+              src="/images/ui/tool/Tool1.svg"
+              alt="Pregnancy Evolution"
+              class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+            />
 
             <!-- Tool Title -->
-            <h3 class="mb-3 text-center text-xl font-bold text-gray-800">Quá Trình Phát Triển</h3>
+            <h3 class="mb-2 text-xl font-bold text-gray-800">Quá Trình Phát Triển</h3>
 
             <!-- Tool Description -->
-            <p class="mb-4 text-center text-gray-600">Theo dõi sự phát triển của em bé qua từng tuần với hình ảnh và thông tin chi tiết.</p>
+            <p class="mb-6 text-gray-600">Theo dõi sự phát triển của em bé qua từng tuần với hình ảnh và thông tin chi tiết.</p>
 
             <!-- Tool Button -->
             <a
               href="#"
-              class="group/btn mt-auto flex items-center justify-center rounded-full bg-blue-100 py-2 text-sm font-medium text-blue-600 transition-all hover:bg-blue-200"
+              class="group/btn mt-auto inline-flex items-center rounded-full bg-pink-100 px-5 py-2 text-sm font-medium text-pink-600 transition-all hover:bg-pink-200 active:scale-95"
             >
               Xem chi tiết
               <svg
@@ -338,43 +327,83 @@
           </div>
         </div>
 
-        <!-- Right Side: Countdown Calendar (keep existing calendar) -->
+        <!-- Pregnancy Countdown Calendar -->
         <div
-          class="bg-card relative mt-4 flex flex-auto flex-col rounded-2xl bg-white/80 backdrop-blur-sm"
-          style="
-            box-shadow:
-              0 1px 1px rgba(0, 0, 0, 0.15),
-              0 10px 0 -5px #eee,
-              0 10px 1px -4px rgba(0, 0, 0, 0.15),
-              0 20px 0 -10px #eee,
-              0 20px 1px -9px rgba(0, 0, 0, 0.15);
-          "
+          class="calendar-countdown relative mx-auto w-full max-w-xs transform rounded-2xl bg-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl sm:max-w-sm"
+          [ngClass]="{ 'animate-celebration': remainingDays() <= 0 }"
         >
-          <div class="flex h-full flex-col">
-            <div class="h-1/3 w-full self-start rounded-t-2xl bg-pink-500 pt-10">
-              <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight">
-                <div class="tracking-widest text-pink-100">
-                  <i>Đếm ngược kỳ diệu</i>
-                </div>
-              </div>
+          <!-- Calendar Top Part with Hanging Rings -->
+          <div class="calendar-top relative rounded-t-2xl bg-gradient-to-r from-pink-400 to-pink-500 pb-6 pt-4 shadow-lg">
+            <!-- Calendar Rings -->
+            <div class="absolute left-0 top-0 z-50 flex w-full justify-around">
+              <div class="calendar-ring-outer -mt-2 h-8 w-6 rounded-full bg-gradient-to-r from-pink-800 via-pink-950 to-pink-800 shadow-lg"></div>
+              <div class="calendar-ring-outer -mt-2 h-8 w-6 rounded-full bg-gradient-to-r from-pink-800 via-pink-950 to-pink-800 shadow-lg"></div>
             </div>
-            <div class="flex h-2/3 w-full items-center justify-center">
-              <div class="flex flex-col items-center">
-                <div class="text-7xl font-bold leading-none tracking-tight text-red-500 sm:text-8xl">
-                  {{ remainingDays() < 1 ? 0 : remainingDays() }}
-                </div>
-                <div class="text-xl font-medium text-red-600 dark:text-red-500">Ngày Còn Lại</div>
-              </div>
+            <div class="absolute left-0 top-0 z-20 flex w-full justify-around">
+              <div
+                class="calendar-ring-inner mt-1 h-8 w-8 rounded-full border-2 border-solid border-pink-500 shadow-inner"
+                style="background-image: radial-gradient(#0a0a0a, #be5985, #ec7fa9, #ffb8e0, #ffedfa)"
+              ></div>
+              <div
+                class="calendar-ring-inner mt-1 h-8 w-8 rounded-full border-2 border-solid border-pink-500 shadow-inner"
+                style="background-image: radial-gradient(#0a0a0a, #be5985, #ec7fa9, #ffb8e0, #ffedfa)"
+              ></div>
+            </div>
+
+            <!-- Calendar Tear Effect -->
+            <div class="absolute left-0 top-10 h-px w-full bg-gradient-to-r from-pink-200 via-white to-pink-200 opacity-30"></div>
+
+            <!-- Calendar Title -->
+            <div class="mt-6 text-center">
+              <h2 class="font-playful text-3xl font-bold italic tracking-wide text-white drop-shadow-md">Đếm ngược kỳ diệu</h2>
+              <!-- Decorative accents -->
+              <div class="mx-auto mt-1 h-1 w-24 rounded-full bg-white/30"></div>
             </div>
           </div>
 
-          <div class="z-90 absolute -top-2 right-0 flex w-full justify-around">
-            <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-            <div class="h-8 w-4 rounded-full bg-pink-950"></div>
-          </div>
-          <div class="absolute right-0 top-2 z-10 flex w-full justify-around">
-            <div class="h-6 w-6 rounded-full bg-pink-200"></div>
-            <div class="h-6 w-6 rounded-full bg-pink-200"></div>
+          <!-- Calendar Bottom Part with Days Count -->
+          <div
+            class="calendar-bottom relative rounded-b-2xl px-4 pb-8 pt-6"
+            style="background-image: linear-gradient(#ffffff 1.1rem, #ccc 1.2rem); background-size: 100% 1.2rem"
+          >
+            <!-- Paper texture effect -->
+            <div class="absolute inset-0 bg-[url('/images/ui/textures/paper.png')] opacity-5"></div>
+
+            <!-- Days Counter -->
+            <div class="relative z-10">
+              <div *ngIf="remainingDays() <= 0" class="animation-scale-in text-center">
+                <div class="text-2xl font-bold text-pink-500">Chúc mừng mẹ bầu!</div>
+                <div class="mt-2 text-lg font-medium text-pink-400">Bé yêu đã đến ngày chào đời</div>
+                <div class="mt-4">
+                  <!--                  <lottie-player-->
+                  <!--                    src="https://assets10.lottiefiles.com/packages/lf20_ky24lmgu.json"-->
+                  <!--                    background="transparent"-->
+                  <!--                    speed="1"-->
+                  <!--                    style="width: 150px; height: 150px; margin: 0 auto"-->
+                  <!--                    loop-->
+                  <!--                    autoplay-->
+                  <!--                  >-->
+                  <!--                  </lottie-player>-->
+                </div>
+              </div>
+
+              <div *ngIf="remainingDays() > 0" class="text-center">
+                <div
+                  [@countChange]="remainingDays()"
+                  class="calendar-days-number text-center text-6xl font-black tracking-tighter text-pink-600 sm:text-8xl"
+                >
+                  {{ remainingDays() }}
+                </div>
+                <div class="calendar-days-text mt-1 text-center text-lg font-medium text-pink-400">Ngày Còn Lại</div>
+
+                <!-- Week indicator -->
+                <div class="mt-4 inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-medium text-pink-600">
+                  Tuần thứ {{ currentPregnancyWeek }}
+                </div>
+              </div>
+              <!-- Calendar page curl effect -->
+              <div class="absolute bottom-0 right-0 h-12 w-12 rounded-tl-lg bg-gradient-to-br from-transparent to-gray-200/50 shadow-inner"></div>
+            </div>
           </div>
         </div>
       </div>
