@@ -1,5 +1,5 @@
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -40,6 +40,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
 @Component({
   selector: 'app-home',
   imports: [
+    NgIf,
     NgClass,
     TranslocoModule,
     MatIconModule,

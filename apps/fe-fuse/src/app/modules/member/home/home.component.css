@@ -376,3 +376,48 @@ aside {
 .animate-slide-up {
   animation: slideUp 0.8s ease-out forwards;
 }
+
+/* Gentle attention animation for the checkup reminder button */
+@keyframes gentle-attention {
+  0%,
+  100% {
+    transform: translateY(0);
+    box-shadow:
+      0 10px 15px -3px rgba(236, 72, 153, 0.3),
+      0 4px 6px -4px rgba(236, 72, 153, 0.3);
+  }
+  50% {
+    transform: translateY(-4px);
+    box-shadow:
+      0 20px 25px -5px rgba(236, 72, 153, 0.25),
+      0 8px 10px -6px rgba(236, 72, 153, 0.25);
+  }
+}
+
+.animate-gentle-attention {
+  animation: gentle-attention 3s ease-in-out infinite;
+}
+
+/* Enhance the maternal checkup button with a beautiful glow effect on hover */
+.maternal-checkup-btn:hover {
+  background-size: 200%;
+  box-shadow: 0 15px 30px -10px rgba(236, 72, 153, 0.3);
+}
+
+/* Subtle ripple effect on button press */
+.maternal-checkup-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 5px 10px -3px rgba(236, 72, 153, 0.3);
+  transition:
+    transform 0.1s,
+    box-shadow 0.1s;
+}
+
+/* Ensure the button displays properly on small screens */
+@media (max-width: 640px) {
+  .maternal-checkup-btn {
+    width: 90%;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}
