@@ -105,4 +105,12 @@ export const paymentContract = c.router({
   //     }),
   //   },
   // },
+  getPaymentByUserId: {
+    method: 'GET',
+    path: '/payments/user',
+    description: 'Get payment by user id',
+    responses: {
+      200: z.array(paymentIncludeUserInfoSchema),
+    },
+  },
 });
