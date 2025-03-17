@@ -141,7 +141,7 @@ export class UserTableComponent implements OnInit {
     private messageService: MessageService,
   ) {
     effect(() => {
-      console.log('Users loaded:', this.userResource.value());
+      // console.log('Users loaded:', this.userResource.value());
     });
   }
 
@@ -204,7 +204,7 @@ export class UserTableComponent implements OnInit {
       return;
     }
 
-    console.log('Form value:', this.userForm.value);
+    // console.log('Form value:', this.userForm.value);
 
     const _user = this.userForm.value;
 
@@ -246,6 +246,8 @@ export class UserTableComponent implements OnInit {
       status: userToEdit.status,
       membership_id: userToEdit.membership_id,
     });
+
+    this.isCreate = false;
 
     this.user = { ...userToEdit };
     this.userDialogToggle = true;
