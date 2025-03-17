@@ -21,8 +21,7 @@ export class ReminderService {
     next_visit_doctor_date: string;
   }): Promise<ReminderResponse> {
     const remind_date = new Date(next_visit_doctor_date);
-
-    remind_date.setDate(remind_date.getDate() - 1);
+    // remind_date.setDate(remind_date.getDate() - 1);
     const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${remind_date.getDate()}/${remind_date.getMonth() + 1}/${remind_date.getFullYear()}`;
 
     return await this.databaseService.Reminder.create({
