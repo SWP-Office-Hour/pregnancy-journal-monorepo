@@ -1,172 +1,346 @@
-<div class="flex min-w-0 flex-auto flex-col items-center sm:flex-row sm:justify-center md:items-start md:justify-start">
+<div class="-z-10">
   <div
-    class="sm:bg-card w-full px-4 py-8 sm:w-auto sm:rounded-2xl sm:p-12 sm:shadow md:flex md:h-full md:w-1/2 md:items-center md:justify-end md:rounded-none md:p-16 md:shadow-none"
+    class="absolute bottom-0 left-0 top-0 h-full w-full overflow-hidden bg-gradient-to-b from-violet-400/75 via-pink-500/75 to-red-300/75 leading-5"
+  ></div>
+  <svg class="absolute bottom-0 left-0" viewBox="0 0 1440 320">
+    <path
+      fill="#ff597d"
+      fill-opacity="1"
+      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z"
+    ></path>
+  </svg>
+  <svg
+    class="pointer-events-none absolute inset-0"
+    viewBox="0 0 960 540"
+    width="100%"
+    height="100%"
+    preserveAspectRatio="xMidYMax slice"
+    xmlns="http://www.w3.org/2000/svg"
   >
-    <div class="mx-auto w-full max-w-80 sm:mx-0 sm:w-80">
-      <!-- Logo -->
-      <div class="w-12">
-        <img src="/images/logo/logo.svg" />
-      </div>
-
-      <!-- Title -->
-      <div class="mt-8 text-4xl font-extrabold leading-tight tracking-tight">Yêu cầu xác nhận</div>
-      <div class="mt-4">Thông tin cá nhân</div>
-
-      <!-- Alert -->
-      @if (showAlert) {
-        <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
-          {{ alert.message }}
-        </fuse-alert>
-      }
-
-      <!-- Form -->
-      <form id="confirmationNgForm" [formGroup]="confirmationForm">
-        <!-- Name -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Họ và tên</mat-label>
-            <input matInput formControlName="name" />
-          </mat-form-field>
+    <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
+      <circle r="234" cx="196" cy="23"></circle>
+      <circle r="234" cx="790" cy="491"></circle>
+    </g>
+  </svg>
+</div>
+<div class="flex h-full w-full justify-center">
+  <div class="bg-card sm:mx-30 md:mx-50 my-12 flex justify-center rounded-3xl py-8">
+    <!-- Left Block: Form -->
+    <div class="w-full sm:w-auto sm:rounded-2xl md:flex md:h-full md:items-center md:rounded-none md:shadow-none lg:w-1/2">
+      <div class="m-auto w-2/3">
+        <div class="mx-auto w-24">
+          <img src="/images/logo/logo.svg" alt="logo" />
         </div>
-
-        <!-- Expected Birth Date -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Ngày sinh dự kiến</mat-label>
-            <input matInput [matDatepicker]="expected_birth_date" formControlName="expected_birth_date" readonly />
-            <mat-datepicker-toggle matSuffix [for]="expected_birth_date"></mat-datepicker-toggle>
-            <mat-datepicker #expected_birth_date></mat-datepicker>
-          </mat-form-field>
+        <div class="mt-6 flex justify-center">
+          <div class="flex items-center space-x-2">
+            <span
+              [ngClass]="{ 'bg-pink-500 text-white': step === 1, 'bg-gray-200': step !== 1 }"
+              class="flex h-8 w-8 items-center justify-center rounded-full"
+              >1</span
+            >
+            <span class="h-1 w-8 bg-gray-200" [ngClass]="{ 'bg-pink-500': step > 1 }"></span>
+            <span
+              [ngClass]="{ 'bg-pink-500 text-white': step === 2, 'bg-gray-200': step !== 2 }"
+              class="flex h-8 w-8 items-center justify-center rounded-full"
+              >2</span
+            >
+            <span class="h-1 w-8 bg-gray-200" [ngClass]="{ 'bg-pink-500': step > 2 }"></span>
+            <span
+              [ngClass]="{ 'bg-pink-500 text-white': step === 3, 'bg-gray-200': step !== 3 }"
+              class="flex h-8 w-8 items-center justify-center rounded-full"
+              >3</span
+            >
+          </div>
         </div>
-
-        <!-- Phone -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Số điện thoại</mat-label>
-            <input type="phone" matInput formControlName="phone" />
-          </mat-form-field>
+        <div *ngIf="step === 1" class="mt-8">
+          <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Thông tin cơ bản</div>
+          <!-- Insert Step 1 form fields here -->
+          <fuse-alert
+            *ngIf="showAlert"
+            [appearance]="'outline'"
+            [showIcon]="false"
+            [type]="alert.type"
+            [@shake]="alert.type === 'error'"
+            class="mt-4"
+          >
+            {{ alert.message }}
+          </fuse-alert>
+          <form [formGroup]="basicInfoForm" class="space-y-5">
+            <div class="mt-5">
+              <mat-form-field class="w-full">
+                <mat-label>Họ và tên</mat-label>
+                <input matInput formControlName="name" class="rounded-md" />
+                <mat-icon matSuffix class="text-gray-400">person</mat-icon>
+              </mat-form-field>
+            </div>
+            <div>
+              <mat-form-field class="w-full">
+                <mat-label>Số điện thoại</mat-label>
+                <input type="phone" matInput formControlName="phone" class="rounded-md" />
+                <mat-icon matSuffix class="text-gray-400">phone</mat-icon>
+              </mat-form-field>
+            </div>
+            <button
+              class="fuse-mat-button-large mt-8 w-full transform rounded-full bg-gradient-to-r from-pink-500 to-violet-500 py-2 font-medium text-white transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-violet-600"
+              mat-flat-button
+              [color]="'primary'"
+              [disabled]="basicInfoForm.invalid"
+              (click)="goToStep2()"
+            >
+              <span class="flex items-center justify-center">
+                <span>Tiếp tục</span>
+                <mat-icon class="ml-2 text-lg">arrow_forward</mat-icon>
+              </span>
+            </button>
+          </form>
         </div>
-
-        <!-- Province -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Tỉnh/Thành phố</mat-label>
-            <mat-select formControlName="province" (selectionChange)="selectProvince($event)">
-              <mat-option value="" disabled="true">Chọn tỉnh/thành phố</mat-option>
-              @for (province of provinces; track $index) {
-                <mat-option value="{{ province.code }}">{{ province.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+        <div *ngIf="step === 2" class="mt-8">
+          <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Địa chỉ</div>
+          <!-- Insert Step 2 form fields here -->
+          <fuse-alert
+            *ngIf="showAlert"
+            [appearance]="'outline'"
+            [showIcon]="false"
+            [type]="alert.type"
+            [@shake]="alert.type === 'error'"
+            class="mt-4"
+          >
+            {{ alert.message }}
+          </fuse-alert>
+          <form [formGroup]="addressInfoForm" class="space-y-5">
+            <div class="rounded-lg border border-gray-100 bg-gray-50 px-4 py-2 dark:border-gray-700 dark:bg-gray-800">
+              <div class="mb-2 text-sm font-medium text-gray-500">Địa chỉ của bạn</div>
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Tỉnh/Thành phố</mat-label>
+                  <mat-select formControlName="province" (selectionChange)="selectProvince($event)" class="rounded-md">
+                    <mat-option value="" disabled="true">Chọn tỉnh/thành phố</mat-option>
+                    <mat-option *ngFor="let province of provinces" value="{{ province.code }}">{{ province.name }} </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix class="text-gray-400">location_city</mat-icon>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Quận/Huyện</mat-label>
+                  <mat-select formControlName="district" (selectionChange)="selectDistrict($event)" class="rounded-md">
+                    <mat-option value="" disabled="true">Chọn quận/huyện</mat-option>
+                    <mat-option *ngFor="let district of districts" value="{{ district.code }}">{{ district.name }} </mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix class="text-gray-400">apartment</mat-icon>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Phường/Xã</mat-label>
+                  <mat-select formControlName="ward" class="rounded-md">
+                    <mat-option value="" disabled="true">Chọn phường/xã</mat-option>
+                    <mat-option *ngFor="let ward of wards" value="{{ ward.code }}">{{ ward.name }}</mat-option>
+                  </mat-select>
+                  <mat-icon matSuffix class="text-gray-400">home</mat-icon>
+                </mat-form-field>
+              </div>
+              <div>
+                <mat-form-field class="w-full">
+                  <mat-label>Địa chỉ</mat-label>
+                  <input matInput formControlName="address" class="rounded-md" />
+                  <mat-icon matSuffix class="text-gray-400">pin_drop</mat-icon>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="mt-8 flex gap-4">
+              <button
+                class="flex flex-1 items-center justify-center rounded-full border border-pink-300 py-2 font-medium text-pink-700 transition-all duration-300 hover:bg-pink-50"
+                mat-stroked-button
+                [color]="'primary'"
+                (click)="goToStep1()"
+              >
+                <mat-icon class="mr-1">arrow_back</mat-icon>
+                <span>Quay lại</span>
+              </button>
+              <button
+                class="flex flex-1 transform items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 py-2 font-medium text-white transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-violet-600"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="addressInfoForm.invalid"
+                (click)="goToStep3()"
+              >
+                <span>Tiếp tục</span>
+                <mat-icon class="ml-1">arrow_forward</mat-icon>
+              </button>
+            </div>
+          </form>
         </div>
-
-        <!-- District -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Quận/Huyện</mat-label>
-            <mat-select formControlName="district" (selectionChange)="selectDistrict($event)">
-              <mat-option value="" disabled="true">Chọn quận/huyện</mat-option>
-              @for (district of districts; track $index) {
-                <mat-option value="{{ district.code }}">{{ district.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+        <div *ngIf="step === 3" class="mt-8">
+          <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Step 3: Thông tin sinh nở</div>
+          <!-- Insert Step 3 form fields here -->
+          <fuse-alert
+            *ngIf="showBirthInfoAlert"
+            [appearance]="'outline'"
+            [showIcon]="false"
+            [type]="birthInfoAlert.type"
+            [@shake]="birthInfoAlert.type === 'error'"
+          >
+            {{ birthInfoAlert.message }}
+          </fuse-alert>
+          <form [formGroup]="birthInfoForm" class="space-y-5">
+            <div class="mb-4 mt-6 flex items-center justify-center">
+              <div class="flex w-full flex-col items-center rounded-xl bg-pink-50 p-4 shadow-sm dark:bg-gray-800">
+                <img
+                  src="/assets/images/baby-icon.svg"
+                  alt="Baby"
+                  class="mb-2 h-16 w-16 transform drop-shadow-md transition-transform duration-300 hover:scale-110"
+                  onerror="this.src='/images/logo/logo.svg'; this.style.opacity=0.5;"
+                />
+                <div class="text-center text-lg font-medium text-pink-700 dark:text-pink-300">Tính ngày dự sinh của bé yêu</div>
+                <div class="mt-1 text-center text-xs text-gray-500">Hãy chọn một trong hai cách dưới đây</div>
+              </div>
+            </div>
+            <div
+              class="mt-6 rounded-lg border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+              [ngClass]="{ 'ring-2 ring-pink-300': birthInfoForm.get('expected_birth_date')?.value }"
+              [hidden]="birthInfoForm.get('last_period_date')?.value"
+            >
+              <div class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Lựa chọn 1: Nhập trực tiếp</div>
+              <mat-form-field class="w-full">
+                <mat-label>Ngày sinh dự kiến</mat-label>
+                <input matInput [matDatepicker]="expected_birth_date" formControlName="expected_birth_date" readonly />
+                <mat-datepicker-toggle matSuffix [for]="expected_birth_date"></mat-datepicker-toggle>
+                <mat-datepicker #expected_birth_date>
+                  <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Hủy bỏ</button>
+                    <button mat-raised-button matDatepickerApply>Xác nhận</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div
+              class="mb-4 mt-4 flex items-center"
+              *ngIf="!birthInfoForm.get('expected_birth_date')?.value && !birthInfoForm.get('last_period_date')?.value"
+            >
+              <div class="h-px flex-1 bg-gray-300"></div>
+              <div class="px-4 text-sm font-medium text-gray-500">HOẶC</div>
+              <div class="h-px flex-1 bg-gray-300"></div>
+            </div>
+            <div
+              class="mt-4 rounded-lg border border-gray-100 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+              [ngClass]="{ 'ring-2 ring-pink-300': birthInfoForm.get('last_period_date')?.value }"
+              [hidden]="birthInfoForm.get('expected_birth_date')?.value"
+            >
+              <div class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Lựa chọn 2: Tính từ kỳ kinh nguyệt</div>
+              <div class="mb-2 text-center text-xs text-pink-600">Mẹ muốn biết ngày dự sinh của bé?</div>
+              <mat-form-field class="w-full">
+                <mat-label>Ngày đầu tiên của kỳ kinh nguyệt cuối</mat-label>
+                <input matInput [matDatepicker]="last_period_date" formControlName="last_period_date" readonly />
+                <mat-datepicker-toggle matSuffix [for]="last_period_date"></mat-datepicker-toggle>
+                <mat-datepicker #last_period_date>
+                  <mat-datepicker-actions>
+                    <button mat-button matDatepickerCancel>Hủy bỏ</button>
+                    <button mat-raised-button matDatepickerApply>Xác nhận</button>
+                  </mat-datepicker-actions>
+                </mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div
+              *ngIf="calculatedDueDate"
+              class="animate-fadeIn mt-4 rounded-lg border-2 border-pink-200 bg-gradient-to-r from-pink-50 to-purple-50 p-4 text-center shadow-md"
+            >
+              <div class="font-medium text-pink-800">Ngày dự sinh của bạn là:</div>
+              <div class="text-2xl font-bold text-pink-900">{{ calculatedDueDate | date: 'dd/MM/yyyy' }}</div>
+              <div class="mt-2 text-xs text-gray-500">Hãy lưu lại thông tin này để theo dõi quá trình mang thai của bạn</div>
+            </div>
+            <div class="mt-8 flex gap-4">
+              <button
+                class="flex flex-1 items-center justify-center rounded-full border border-pink-300 py-2 font-medium text-pink-700 transition-all duration-300 hover:bg-pink-50"
+                mat-stroked-button
+                [color]="'primary'"
+                (click)="goToStep2FromStep3()"
+              >
+                <mat-icon class="mr-1">arrow_back</mat-icon>
+                <span>Quay lại</span>
+              </button>
+              <button
+                class="flex flex-1 transform items-center justify-center rounded-full bg-gradient-to-r from-pink-500 to-violet-500 py-2 font-medium text-white transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-violet-600"
+                mat-flat-button
+                [color]="'primary'"
+                [disabled]="birthInfoForm.invalid"
+                (click)="signUp()"
+              >
+                <span>Đăng ký</span>
+                <mat-icon class="ml-1">check_circle</mat-icon>
+              </button>
+            </div>
+          </form>
         </div>
-
-        <!-- Ward -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Phường/Xã</mat-label>
-            <mat-select formControlName="ward">
-              <mat-option value="" disabled="true">Chọn phường/xã</mat-option>
-              @for (ward of wards; track $index) {
-                <mat-option value="{{ ward.code }}">{{ ward.name }}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+        <form #confirmationNgForm="ngForm" [formGroup]="confirmationForm" class="hidden">
+          <!-- Keep original hidden inputs -->
+          <form #confirmationNgForm="ngForm" [formGroup]="confirmationForm" class="hidden">
+            <input type="hidden" formControlName="email" />
+            <input type="hidden" formControlName="password" />
+            <input type="hidden" formControlName="confirm_password" />
+            <input type="hidden" formControlName="name" />
+            <input type="hidden" formControlName="expected_birth_date" />
+            <input type="hidden" formControlName="phone" />
+            <input type="hidden" formControlName="province" />
+            <input type="hidden" formControlName="district" />
+            <input type="hidden" formControlName="ward" />
+            <input type="hidden" formControlName="address" />
+          </form>
+        </form>
+        <div class="mt-8 text-center">
+          <div class="text-sm text-gray-500">
+            <span>Quay lại</span>
+            <a class="ml-1 font-medium text-pink-600 hover:underline" [routerLink]="['/sign-in']">đăng nhập</a>
+          </div>
         </div>
-
-        <!-- Address -->
-        <div class="mt-8">
-          <mat-form-field class="w-full">
-            <mat-label>Địa chỉ</mat-label>
-            <input matInput formControlName="address" />
-          </mat-form-field>
-        </div>
-
-        <!-- Submit -->
-        <button
-          class="fuse-mat-button-large mt-8 w-full"
-          mat-flat-button
-          [color]="'primary'"
-          [disabled]="confirmationForm.disabled"
-          (click)="signUp()"
-        >
-          Đăng ký
-        </button>
-      </form>
-
-      <!-- Form footer -->
-      <div class="text-secondary text-md mt-8 font-medium">
-        <span>Quay lại</span>
-        <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['/sign-in']">đăng nhập</a>
       </div>
     </div>
-  </div>
-  <div class="relative hidden h-full w-1/2 flex-auto items-center justify-center overflow-hidden bg-gray-800 p-16 md:flex lg:px-28 dark:border-l">
-    <!-- Background -->
-    <!-- Rings -->
-    <!-- prettier-ignore -->
-    <svg class="absolute inset-0 pointer-events-none"
-         viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice"
-         xmlns="http://www.w3.org/2000/svg">
-      <g class="text-gray-700 opacity-25" fill="none" stroke="currentColor" stroke-width="100">
-        <circle r="234" cx="196" cy="23"></circle>
-        <circle r="234" cx="790" cy="491"></circle>
-      </g>
-    </svg>
-    <!-- Dots -->
-    <!-- prettier-ignore -->
-    <svg class="absolute -top-16 -right-16 text-gray-700"
-         viewBox="0 0 220 192" width="220" height="192" fill="none">
-      <defs>
-        <pattern id="837c3e70-6c3a-44e6-8854-cc48c737b659" x="0" y="0" width="20" height="20"
-                 patternUnits="userSpaceOnUse">
-          <rect x="0" y="0" width="4" height="4" fill="currentColor"></rect>
-        </pattern>
-      </defs>
-      <rect width="220" height="192" fill="url(#837c3e70-6c3a-44e6-8854-cc48c737b659)"></rect>
-    </svg>
-    <!-- Content -->
-    <div class="relative z-10 w-full max-w-2xl">
-      <div class="text-7xl font-bold leading-none text-gray-100">
-        <div>Chào mừng đến với</div>
-        <div>cộng đồng của chúng tôi</div>
+    <!-- Right Block: Decorative -->
+    <div class="relative mr-8 flex h-full w-1/2 flex-col justify-between lg:flex">
+      <div class="bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10">
+        <div class="h-auto self-center">
+          <div class="mb-4 flex">
+            <div class="niconne-regular self-end text-6xl font-extrabold leading-tight tracking-tight text-pink-50">
+              <i>Pregnancy Journal</i>
+            </div>
+          </div>
+          <div class="mt-4 w-2/3 text-xl leading-6 tracking-tight text-gray-50">
+            <p>
+              <i style="text-align: justify-all"
+                ><strong class="text-2xl">"</strong> Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức
+                khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. <strong class="text-2xl">"</strong></i
+              >
+            </p>
+          </div>
+        </div>
       </div>
-      <div class="mt-6 text-lg leading-6 tracking-tight text-gray-400">
-        Fuse giúp các nhà phát triển xây dựng các bảng điều khiển có tổ chức và được lập trình tốt, đầy đủ các mô-đun đẹp và phong phú. Hãy tham gia
-        cùng chúng tôi và bắt đầu xây dựng ứng dụng của bạn ngay hôm nay.
-      </div>
-      <div class="mt-8 flex items-center">
+      <div class="bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10">
         <div class="flex-0 flex items-center -space-x-1.5">
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-gray-800 ring-offset-1 ring-offset-gray-800"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="/images/avatars/female-18.jpg"
+            alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-gray-800 ring-offset-1 ring-offset-gray-800"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
             src="/images/avatars/female-11.jpg"
+            alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-gray-800 ring-offset-1 ring-offset-gray-800"
-            src="/images/avatars/male-09.jpg"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+            src="/images/avatars/female-01.jpg"
+            alt="Mẹ sử dụng ứng dụng"
           />
           <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-gray-800 ring-offset-1 ring-offset-gray-800"
-            src="/images/avatars/male-16.jpg"
+            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+            src="/images/avatars/female-04.jpg"
+            alt="Mẹ sử dụng ứng dụng"
           />
         </div>
-        <div class="ml-4 font-medium tracking-tight text-gray-400">Hơn 17 nghìn người đã tham gia với chúng tôi, đến lượt bạn</div>
+        <div class="ml-4 font-medium tracking-tight text-pink-50"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>
+      </div>
+      <div class="absolute -right-10 bottom-24 z-10 w-60 lg:w-80">
+        <img src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg" alt="pregnancy" />
       </div>
     </div>
   </div>
