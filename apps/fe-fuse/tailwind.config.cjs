@@ -15,6 +15,36 @@ const customPalettes = {
   brand: generatePalette('#2196F3'),
 };
 
+// ĐỘ LẠI TỪ MÀU CỦA TAILWIND
+const myFuckingColorPalette = {
+  pink: {
+    50: '#fdf2f8',
+    100: '#fce7f3',
+    200: '#fbcfe8',
+    300: '#f9a8d4',
+    400: '#f472b6',
+    500: '#f472b6',
+    600: '#db2777',
+    700: '#be185d',
+    800: '#9d174d',
+    900: '#831843',
+    950: '#500724',
+  },
+  rose: {
+    50: '#fff1f2',
+    100: '#ffe4e6',
+    200: '#fecdd3',
+    300: '#fda4af',
+    400: '#fb7185',
+    500: '#f43f5e',
+    600: '#e11d48',
+    700: '#be123c',
+    800: '#9f1239',
+    900: '#881337',
+    950: '#4c0519',
+  },
+};
+
 /**
  * Themes
  */
@@ -22,12 +52,12 @@ const themes = {
   // Default theme is required for theming system to work correctly!
   default: {
     primary: {
-      ...colors.pink,
-      DEFAULT: colors.pink[450],
+      ...myFuckingColorPalette.pink,
+      DEFAULT: myFuckingColorPalette.pink[500],
     },
     accent: {
-      ...colors.slate,
-      DEFAULT: colors.slate[800],
+      ...colors.neutral,
+      DEFAULT: colors.neutral[50],
     },
     warn: {
       ...colors.red,
