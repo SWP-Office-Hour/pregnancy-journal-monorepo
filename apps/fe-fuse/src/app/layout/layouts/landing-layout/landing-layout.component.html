@@ -12,9 +12,9 @@
       'py-2': scrollPosition > 10 && scrollPosition <= 100,
     }"
   >
-    <nav class="flex w-full items-center justify-between p-4" aria-label="Global">
+    <nav class="flex w-full items-center justify-between p-4 !px-28" aria-label="Global">
       <!-- Logo section (left) -->
-      <div class="flex">
+      <div class="px-auto flex">
         <a routerLink="/" class="-m-1.5 flex items-center p-1.5">
           <span class="sr-only">Pregnancy Journal</span>
           <!-- Logo nhỏ cho tất cả màn hình -->
@@ -54,7 +54,7 @@
         </div>
 
         <!-- Authentication links (right) -->
-        <div class="pr-15 flex items-center space-x-5">
+        <div class="flex items-center space-x-5 pr-10">
           <a
             routerLink="/sign-in"
             class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"

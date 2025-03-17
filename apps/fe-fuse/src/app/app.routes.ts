@@ -24,6 +24,8 @@ import { PaymentComponent } from './modules/payment/payment.component';
 import { postRoutes } from './modules/post/post.routes';
 import { UserProfileComponent } from './modules/profile/user-profile.component';
 
+export const wrapperRoute: Route[] = [{ path: '', loadChildren: () => appRoutes }];
+
 // @formatter:off
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
