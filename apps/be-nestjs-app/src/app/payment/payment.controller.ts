@@ -38,4 +38,16 @@ export class PaymentController {
       return { status: 200, body: payments };
     });
   }
+
+  @TsRestHandler(paymentContract.getPaymentByUserId)
+  handleGetPaymentByUserId(@Req() req: RequestWithJWT) {
+    return tsRestHandler(paymentContract.getPaymentByUserId, async () => {
+      const user = req.decoded_authorization;
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      const payments = await this.paymentService.getPaymentByUserId(user.user_id);
+      return { status: 200, body: payments };
+    });
+  }
 }

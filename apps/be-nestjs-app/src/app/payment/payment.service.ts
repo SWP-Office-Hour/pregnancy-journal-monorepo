@@ -144,4 +144,22 @@ export class PaymentService {
 
     return payment;
   }
+
+  getPaymentByUserId(userId: string): Promise<PayIncludeUserInfo[]> {
+    return this.databaseService.Payment.findMany({
+      where: { user_id: userId },
+      orderBy: { created_at: 'desc' },
+      include: {
+        membership: true,
+        user: {
+          select: {
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
+      },
+    });
+  }
+
 }
