@@ -14,9 +14,11 @@
 
 <!-- Notifications panel -->
 <ng-template #notificationsPanel>
-  <div class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden shadow-lg sm:static sm:inset-auto sm:rounded-2xl">
+  <div
+    class="sm:w-90 sm:min-w-90 fixed inset-0 flex flex-col overflow-hidden rounded-[2rem] border-2 border-pink-100 bg-pink-200 p-1 shadow-lg sm:static sm:inset-auto sm:rounded-2xl"
+  >
     <!-- Header -->
-    <div class="bg-primary text-on-primary flex shrink-0 items-center py-4 pl-6 pr-4">
+    <div class="flex shrink-0 items-center py-1 pl-6 pr-4 text-xl font-bold text-pink-500">
       <div class="-ml-1 mr-3 sm:hidden">
         <button mat-icon-button (click)="closePanel()">
           <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:x-mark'"></mat-icon>
@@ -31,7 +33,7 @@
     </div>
 
     <!-- Content -->
-    <div class="bg-card sm:max-h-120 relative flex flex-auto flex-col divide-y overflow-y-auto">
+    <div class="bg-card sm:max-h-120 relative flex flex-auto flex-col divide-y overflow-y-auto rounded-[1rem]">
       <!-- Notifications -->
       @for (notification of notifications; track trackByFn($index, notification)) {
         <div class="group flex hover:bg-gray-50 dark:hover:bg-black dark:hover:bg-opacity-5" [ngClass]="{ unread: !notification.read }">

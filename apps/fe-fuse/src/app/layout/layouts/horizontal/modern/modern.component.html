@@ -2,23 +2,23 @@
 <fuse-loading-bar></fuse-loading-bar>
 
 <!-- Navigation -->
-<!--@if (isScreenSmall) {-->
-<!--  <fuse-vertical-navigation-->
-<!--    class="dark bg-gray-900 print:hidden"-->
-<!--    [mode]="'over'"-->
-<!--    [name]="'mainNavigation'"-->
-<!--    [navigation]="navigation.default"-->
-<!--    [opened]="false"-->
-<!--  >-->
-<!--    &lt;!&ndash; Navigation header hook &ndash;&gt;-->
-<!--    <ng-container fuseVerticalNavigationContentHeader>-->
-<!--      &lt;!&ndash; Logo &ndash;&gt;-->
-<!--      <div class="flex h-20 items-center px-8 pt-6">-->
-<!--        <img class="w-24" ngSrc="/images/logo/logo-text-on-dark.svg" alt="Logo image" height="96" width="96" />-->
-<!--      </div>-->
-<!--    </ng-container>-->
-<!--  </fuse-vertical-navigation>-->
-<!--}-->
+@if (isScreenSmall) {
+  <fuse-vertical-navigation
+    class="dark bg-gray-900 print:hidden"
+    [mode]="'over'"
+    [name]="'mainNavigation'"
+    [navigation]="navigation.default"
+    [opened]="false"
+  >
+    <!-- Navigation header hook -->
+    <ng-container fuseVerticalNavigationContentHeader>
+      <!-- Logo -->
+      <div class="flex h-20 items-center px-8 pt-6">
+        <img class="w-24" ngSrc="/images/logo/logo-text-on-dark.svg" alt="Logo image" height="96" width="96" />
+      </div>
+    </ng-container>
+  </fuse-vertical-navigation>
+}
 
 <!-- Wrapper -->
 <div class="flex w-full min-w-0 flex-auto flex-col">
@@ -29,7 +29,7 @@
       <!-- LOGO -->
       <div class="flex">
         <div class="hidden lg:flex">
-          <img class="w-14" src="/images/logo/logo-text.svg" alt="Logo image" />
+          <img class="w-14" ngSrc="/images/logo/logo-text.svg" alt="Logo image" height="96" width="96" />
           <div class="w-full self-center">
             <i class="logo-font text-3xl tracking-wider text-pink-500">Pregnancy Journal</i>
           </div>
