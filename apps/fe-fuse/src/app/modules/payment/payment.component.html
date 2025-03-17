@@ -76,7 +76,6 @@
         <td style="min-width: 7rem">{{ payment.user?.phone }}</td>
         <td style="min-width: 8rem">{{ payment.membership?.title }}</td>
         <td style="min-width: 7rem">{{ payment.value | number: '1.0-0' : 'vi-VN' }} VNĐ</td>
-        <!--        @let formatedDate = formatDate(payment.created_at);-->
         <td style="min-width: 7rem">{{ payment.created_at }}</td>
         <td style="min-width: 7rem">
           <p-tag [severity]="getSeverityStatus(payment.status)" [value]="payment.status" />
