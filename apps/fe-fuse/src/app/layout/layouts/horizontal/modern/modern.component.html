@@ -23,29 +23,22 @@
 <!-- Wrapper -->
 <div class="flex w-full min-w-0 flex-auto flex-col">
   <!-- Header - Added position:sticky and top:0 classes -->
-  <div
-    class="bg-card z-49 flex-0 sticky top-0 flex h-16 w-full items-center px-4 shadow sm:h-20 md:px-6 dark:border-b dark:bg-transparent dark:shadow-none print:hidden"
-  >
+  <div class="bg-card z-49 flex-0 sticky top-0 flex h-16 w-full items-center justify-between px-4 shadow sm:h-20 md:px-6 print:hidden">
+    <!-- THIS IS BIG SCREEN -->
     @if (!isScreenSmall) {
-      <!-- Logo -->
-      <div class="mx-2 flex items-center lg:mr-8">
+      <!-- LOGO -->
+      <div class="flex">
         <div class="hidden lg:flex">
-          <!-- Light version -->
-          <img class="w-14 dark:hidden" ngSrc="/images/logo/logo-text.svg" alt="Logo image" height="105" width="105" />
-          <!-- Dark version -->
-          <img class="hidden w-10 dark:flex" ngSrc="/images/logo/logo-text-on-dark.svg" alt="Logo image" height="96" width="96" />
-          <!--   LOGO -->
-          <div class="logo-font self-end text-4xl tracking-wider text-pink-500">
-            <i>Pregnancy Journal</i>
+          <img class="w-14" src="/images/logo/logo-text.svg" alt="Logo image" />
+          <div class="w-full self-center">
+            <i class="logo-font text-3xl tracking-wider text-pink-500">Pregnancy Journal</i>
           </div>
         </div>
-        <img class="flex w-8 lg:hidden" ngSrc="/images/logo/logo.svg" priority alt="" height="96" width="96" />
       </div>
-      <!-- Small version -->
-      <img class="flex w-8 lg:hidden" ngSrc="/images/logo/logo.svg" alt="Logo image" height="96" width="96" priority />
       <!-- Horizontal navigation -->
       <fuse-horizontal-navigation class="mr-2" [name]="'mainNavigation'" [navigation]="navigation.default"></fuse-horizontal-navigation>
     }
+
     <!-- Navigation toggle button -->
     @if (isScreenSmall) {
       <button mat-icon-button (click)="toggleNavigation('mainNavigation')">
@@ -53,7 +46,7 @@
       </button>
     }
     <!-- Components -->
-    <div class="ml-auto flex items-center space-x-0.5 pl-2 sm:space-x-2">
+    <div class="flex items-center space-x-0.5 pl-2 sm:space-x-2">
       <app-children-profile-selector></app-children-profile-selector>
       <languages></languages>
       <fuse-fullscreen class="hidden md:block"></fuse-fullscreen>
