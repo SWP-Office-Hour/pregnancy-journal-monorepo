@@ -107,36 +107,68 @@
           </div>
         </div>
       </div>
-
-      <!-- Time-appropriate SVG Illustration -->
-      <div class="pointer-events-none absolute bottom-0 right-0 z-10 h-40 w-40 opacity-80">
-        <!-- Morning illustration -->
-        <img *ngIf="getTimeOfDay() === 'morning'" src="/images/ui/doodles/d9.svg" class="h-full w-full" alt="Morning illustration" />
-        <!-- Afternoon illustration -->
-        <img *ngIf="getTimeOfDay() === 'afternoon'" src="/images/ui/doodles/d5.svg" class="h-full w-full" alt="Afternoon illustration" />
-        <!-- Evening illustration -->
-        <img *ngIf="getTimeOfDay() === 'evening'" src="/images/ui/doodles/d17.svg" class="h-full w-full" alt="Evening illustration" />
-        <!-- Night illustration -->
-        <img *ngIf="getTimeOfDay() === 'night'" src="/images/ui/doodles/d3.svg" class="h-full w-full" alt="Night illustration" />
-      </div>
     </div>
 
-    <!-- Visit record Button -->
+    <!-- Visit record Button - Enhanced Maternal Version -->
     <a
-      class="trackingButton bg-default border-primary -mt-10 flex h-20 w-20 cursor-pointer items-center justify-center self-center rounded-full border-4"
-      matRipple
-      pTooltip="Hôm nay mẹ đi khám"
-      tooltipPosition="top"
       [routerLink]="'/record'"
+      class="maternal-checkup-btn group relative z-10 -mt-10 mb-4 flex w-full max-w-md cursor-pointer items-center justify-center self-center overflow-hidden rounded-full bg-gradient-to-r from-pink-400/90 via-purple-300/90 to-pink-400/90 px-6 py-4 text-center text-white shadow-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-500/90 hover:via-purple-400/90 hover:to-pink-500/90 hover:shadow-xl sm:mb-6"
     >
-      <i>
-        <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+      <!-- Icon changes based on time of day -->
+      <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/25 backdrop-blur-sm">
+        <svg
+          *ngIf="getTimeOfDay() === 'morning'"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
-            fill="#fff"
-            d="m232.49 55.51l-32-32a12 12 0 0 0-17 0l-96 96A12 12 0 0 0 84 128v32a12 12 0 0 0 12 12h32a12 12 0 0 0 8.49-3.51l96-96a12 12 0 0 0 0-16.98M192 49l15 15l-11 11l-15-15Zm-69 99h-15v-15l56-56l15 15Zm105-7.43V208a20 20 0 0 1-20 20H48a20 20 0 0 1-20-20V48a20 20 0 0 1 20-20h67.43a12 12 0 0 1 0 24H52v152h152v-63.43a12 12 0 0 1 24 0"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
           />
         </svg>
-      </i>
+        <svg
+          *ngIf="getTimeOfDay() === 'afternoon'"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+          />
+        </svg>
+        <svg
+          *ngIf="getTimeOfDay() === 'evening' || getTimeOfDay() === 'night'"
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+          />
+        </svg>
+      </div>
+
+      <!-- Text changes based on whether a checkup has been recorded today -->
+      <div class="text-2xl font-medium">
+        <span class="flex items-center">
+          <span class="block font-bold">Ghi lại ngày khám hôm nay</span>
+        </span>
+      </div>
     </a>
   </section>
 
