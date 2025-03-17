@@ -237,6 +237,16 @@ export class MembershipTableComponent implements OnInit {
   }
 
   private async saveMembershipToServer(membership: Membership, method: string, actionType: string): Promise<void> {
+    if (membership.price < 2000) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Membership price must be greater than or equal 2000',
+        life: 4000,
+      });
+      return;
+    }
+
     this.isLoading = true;
 
     try {
