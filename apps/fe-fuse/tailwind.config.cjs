@@ -52,8 +52,8 @@ const themes = {
   // Default theme is required for theming system to work correctly!
   default: {
     primary: {
-      ...myFuckingColorPalette.pink,
-      DEFAULT: myFuckingColorPalette.pink[500],
+      ...colors.pink,
+      DEFAULT: colors.pink[500],
     },
     accent: {
       ...colors.neutral,

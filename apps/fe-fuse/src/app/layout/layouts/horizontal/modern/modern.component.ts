@@ -43,10 +43,10 @@ import { HomeNoteComponent } from '../../../common/home-note/home-note.component
     UserComponent,
     RouterOutlet,
     QuickChatComponent,
-    NgOptimizedImage,
     HomeNoteComponent,
     NgAutoAnimateDirective,
     ChildrenProfileSelectorComponent,
+    NgOptimizedImage,
   ],
 })
 export class ModernLayoutComponent implements OnInit, OnDestroy {

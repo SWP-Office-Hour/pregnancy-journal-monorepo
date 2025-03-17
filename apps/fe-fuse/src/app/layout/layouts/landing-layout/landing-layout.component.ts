@@ -16,7 +16,7 @@ import { LanguagesComponent } from '../../common/languages/languages.component';
   templateUrl: './landing-layout.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, RouterModule, FuseVerticalNavigationComponent, FuseLoadingBarComponent, LanguagesComponent, NgAutoAnimateDirective],
+  imports: [CommonModule, RouterModule, FuseLoadingBarComponent, LanguagesComponent, NgAutoAnimateDirective],
 })
 export class LandingLayoutComponent implements OnInit, OnDestroy {
   /**
