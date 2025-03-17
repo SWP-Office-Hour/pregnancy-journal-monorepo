@@ -151,22 +151,21 @@ export class ReminderService {
     remindersByUser: { [userId: string]: ReminderToSendMailEntity[] };
     usersWithReminders: UserWithReminder[];
   }> {
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    const today = new Date();
 
     // Set time to midnight to compare only date part
-    tomorrow.setHours(0, 0, 0, 0);
+    today.setHours(0, 0, 0, 0);
 
     // Calculate the end of tomorrow
-    const endOfTomorrow = new Date(tomorrow);
-    endOfTomorrow.setHours(23, 59, 59, 999);
+    const endOfToday = new Date();
+    endOfToday.setHours(23, 59, 59, 999);
 
     // Fetch all reminders matching the criteria
     const reminders = await this.databaseService.Reminder.findMany({
       where: {
         remind_date: {
-          gte: tomorrow,
-          lte: endOfTomorrow,
+          gte: today,
+          lte: endOfToday,
         },
       },
       include: {
