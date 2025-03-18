@@ -89,7 +89,7 @@ export const appRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     data: {
-      layout: 'landing', // Changed from 'nothing' to 'landing'
+      layout: 'landing',
     },
     resolve: {
       initialData: landingDataResolver,
@@ -224,6 +224,9 @@ export const appRoutes: Route[] = [
 
   {
     path: '404-not-found',
+    data: {
+      layout: 'landing',
+    },
     loadChildren: () => import('app/modules/pages/pages.routes'),
   },
   { path: '**', redirectTo: '404-not-found' },
