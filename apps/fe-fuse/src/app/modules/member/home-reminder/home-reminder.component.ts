@@ -1,6 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit, resource } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
@@ -29,39 +28,49 @@ export class HomeReminderComponent implements OnInit {
   upcomingReminders: ReminderResponse[] = [];
   allReminders: ReminderResponse[] = [];
 
+  // Resource
+  reminderResource = resource<ReminderResponse[], {}>({
+    loader: async ({ abortSignal }) => {
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}reminders`, {
+          signal: abortSignal,
+          headers: {
+            Authorization: `Bearer ${this._authService.accessToken}`,
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch reminders: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        this.notifyError(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
+    },
+  });
+
   constructor(
     private calendarService: CalendarService,
     private dialog: MatDialog,
     private router: Router,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
-    private http: HttpClient,
     private _authService: AuthService,
-  ) {}
+  ) {
+    effect(() => {
+      this.allReminders = this.reminderResource.value();
+      this.loadReminders();
+    });
+  }
 
   ngOnInit(): void {
-    this.http
-      .get<ReminderResponse[]>(environment.apiUrl + 'reminders', {
-        headers: {
-          Authorization: `Bearer ${this._authService.accessToken}`,
-        },
-      })
-      .subscribe((reminders) => {
-        this.allReminders = reminders.map((reminder) => {
-          return {
-            ...reminder,
-            remind_date: new Date(reminder.remind_date),
-          };
-        });
-        this.loadReminders();
-      });
+    // Initial data load happens automatically through the resource and effect
   }
 
   loadReminders(): void {
-    this.isLoading = true;
-
-    // Get all reminders from the service
-
     if (this.allReminders && this.allReminders.length > 0) {
       // Get current date values
       const today = DateTime.now().startOf('day');
@@ -97,8 +106,6 @@ export class HomeReminderComponent implements OnInit {
       const totalShown = this.todayReminders.length + this.tomorrowReminders.length + this.upcomingReminders.length;
       this.hasMoreReminders = this.allReminders.length > totalShown;
     }
-
-    this.isLoading = false;
   }
 
   openReminderEditor(): void {
@@ -108,7 +115,9 @@ export class HomeReminderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.loadReminders();
+      if (result) {
+        this.reminderResource.reload();
+      }
     });
   }
 
@@ -120,11 +129,13 @@ export class HomeReminderComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result) => {
-      this.loadReminders();
+      if (result) {
+        this.reminderResource.reload();
+      }
     });
   }
 
-  deleteReminder(reminder: ReminderResponse, event?: Event): void {
+  async deleteReminder(reminder: ReminderResponse, event?: Event): Promise<void> {
     if (event) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
@@ -134,19 +145,55 @@ export class HomeReminderComponent implements OnInit {
         rejectLabel: 'Hủy',
         acceptButtonStyleClass: 'p-button-danger',
         rejectButtonStyleClass: 'p-button-text',
-        accept: () => {
-          this.calendarService.deleteReminder(reminder.reminder_id).subscribe(() => {
+        accept: async () => {
+          try {
+            const response = await fetch(`${environment.apiUrl}reminders/${reminder.reminder_id}`, {
+              method: 'DELETE',
+              headers: {
+                Authorization: `Bearer ${this._authService.accessToken}`,
+              },
+            });
+
+            if (!response.ok) {
+              throw new Error(`Failed to delete reminder: ${response.status}`);
+            }
+
             this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đã xóa nhắc nhở', life: 3000 });
-            this.loadReminders();
-          });
+            this.reminderResource.reload();
+          } catch (error) {
+            this.notifyError(error);
+          }
         },
       });
     } else {
-      this.calendarService.deleteReminder(reminder.reminder_id).subscribe(() => {
+      try {
+        const response = await fetch(`${environment.apiUrl}reminders/${reminder.reminder_id}`, {
+          method: 'DELETE',
+          headers: {
+            Authorization: `Bearer ${this._authService.accessToken}`,
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Failed to delete reminder: ${response.status}`);
+        }
+
         this.messageService.add({ severity: 'success', summary: 'Thành công', detail: 'Đã xóa nhắc nhở', life: 3000 });
-        this.loadReminders();
-      });
+        this.reminderResource.reload();
+      } catch (error) {
+        this.notifyError(error);
+      }
     }
+  }
+
+  private notifyError(error: any): void {
+    console.error('Error in HomeReminderComponent:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Lỗi',
+      detail: error.message || 'Đã xảy ra lỗi không mong muốn',
+      life: 4000,
+    });
   }
 
   protected readonly ReminderType = ReminderType;
