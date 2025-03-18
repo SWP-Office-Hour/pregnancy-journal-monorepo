@@ -5,7 +5,12 @@ import { AuthGuard } from 'app/core/auth/guards/auth.guard';
 import { NoAuthGuard } from 'app/core/auth/guards/noAuth.guard';
 import { LayoutComponent } from 'app/layout/layout.component';
 import { AdminAuthGuard } from './core/auth/guards/adminAuth.guard';
+import { AuthConfirmationRequiredComponent } from './modules/auth/confirmation-required/confirmation-required.component';
 import { ForgotPasswordComponent } from './modules/auth/forgot-password/forgot-password.component';
+import { AuthResetPasswordComponent } from './modules/auth/reset-password/reset-password.component';
+import { AuthSignInWithGoogleComponent } from './modules/auth/sign-in-with-google/sign-in-with-google.component';
+import { AuthSignInComponent } from './modules/auth/sign-in/sign-in.component';
+import { AuthSignUpComponent } from './modules/auth/sign-up/sign-up.component';
 import { blogAuthGuard, blogNoAuthGuard } from './modules/blog-masonry/blog-auth.guard';
 import { blogMasonryRoutes } from './modules/blog-masonry/blog-masonry.routes';
 import { CalendarComponent } from './modules/calendar/calendar.component';
@@ -53,16 +58,16 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: 'confirmation-required',
-        loadChildren: () => import('app/modules/auth/confirmation-required/confirmation-required.routes'),
+        loadComponent: () => AuthConfirmationRequiredComponent,
       },
       {
         path: 'forgot-password',
         loadComponent: () => ForgotPasswordComponent,
       },
-      { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes') },
-      { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
-      { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
-      { path: 'sign-in-with-google', loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes') },
+      { path: 'reset-password', loadComponent: () => AuthResetPasswordComponent },
+      { path: 'sign-in', loadComponent: () => AuthSignInComponent },
+      { path: 'sign-up', loadComponent: () => AuthSignUpComponent },
+      { path: 'sign-in-with-google', loadComponent: () => AuthSignInWithGoogleComponent },
     ],
   },
 
@@ -73,7 +78,7 @@ export const appRoutes: Route[] = [
     canActivateChild: [AuthGuard],
     component: LayoutComponent,
     data: {
-      layout: 'empty',
+      layout: 'nothing',
     },
     children: [{ path: 'sign-out', loadChildren: () => import('app/modules/auth/sign-out/sign-out.routes') }],
   },

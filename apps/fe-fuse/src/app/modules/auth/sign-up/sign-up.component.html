@@ -1,158 +1,99 @@
-<div class="flex h-full w-full justify-center">
-  <!-- Content -->
-  <div class="bg-card sm:mx-30 md:mx-50 my-12 flex justify-center rounded-3xl py-8">
-    <!--block left: form-->
-    <div class="w-full sm:w-auto sm:rounded-2xl md:flex md:h-full md:items-center md:rounded-none md:shadow-none lg:w-1/2">
-      <div class="m-auto w-2/3">
-        <!-- Logo -->
-        <div class="mx-auto w-24">
-          <img src="/images/logo/logo.svg" alt="logo" />
-        </div>
-
-        <!-- Title -->
-        <div class="mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight">Đăng kí</div>
-
-        <!-- Alert -->
-        @if (showAlert()) {
-          <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
-            {{ alert.message }}
-          </fuse-alert>
-        }
-
-        <!-- Sign Up form -->
-        <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">
-          <!-- Email field -->
-          <mat-form-field class="w-full">
-            <mat-label>Email</mat-label>
-            <input id="email" matInput [formControlName]="'email'" />
-            @if (signUpForm.get('email').hasError('required')) {
-              <mat-error> Vui lòng nhập địa chỉ email</mat-error>
-            }
-            @if (signUpForm.get('email').hasError('email')) {
-              <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
-            }
-          </mat-form-field>
-
-          <!-- Password field -->
-          <mat-form-field class="w-full">
-            <mat-label>Mật khẩu</mat-label>
-            <input id="password" matInput type="password" [formControlName]="'password'" #passwordField />
-            <button
-              mat-icon-button
-              type="button"
-              (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
-              matSuffix
-            >
-              @if (passwordField.type === 'password') {
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-              }
-              @if (passwordField.type === 'text') {
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-              }
-            </button>
-            <mat-error> Vui lòng nhập mật khẩu</mat-error>
-          </mat-form-field>
-
-          <!-- ConfirmedPassword field -->
-          <mat-form-field class="w-full">
-            <mat-label>Xác nhận mật khẩu</mat-label>
-            <input id="confirmedPassword" matInput type="password" [formControlName]="'confirm_password'" #confirmedPasswordField />
-            <button
-              mat-icon-button
-              type="button"
-              (click)="
-                confirmedPasswordField.type === 'password' ? (confirmedPasswordField.type = 'text') : (confirmedPasswordField.type = 'password')
-              "
-              matSuffix
-            >
-              @if (confirmedPasswordField.type === 'password') {
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
-              }
-              @if (confirmedPasswordField.type === 'text') {
-                <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
-              }
-            </button>
-            <mat-error> Vui lòng nhập xác nhận mật khẩu</mat-error>
-          </mat-form-field>
-
-          <!-- ToS and PP -->
-          <div class="mt-1.5 inline-flex w-full items-end">
-            <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'agreements'">
-              <span>Bạn đồng ý</span>
-              <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Điều khoản </a>
-              <span>và</span>
-              <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Chính sách bảo mật </a>
-            </mat-checkbox>
-          </div>
-          @if (signUpForm.get('agreements').hasError('required')) {
-            <mat-error> Vui lòng đồng ý với Điều khoản và Chính sách bảo mật</mat-error>
-          }
-
-          <!-- Submit button -->
-          <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signUpForm.disabled" (click)="signUp()">
-            @if (!signUpForm.disabled) {
-              <span> Tạo tài khoản ngay </span>
-            }
-            @if (signUpForm.disabled) {
-              <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
-            }
-          </button>
-          <div class="mt-8 flex items-baseline justify-center font-medium">
-            <div>Bạn đã có tài khoản?</div>
-            <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['/sign-in']">Đăng nhập </a>
-          </div>
-        </form>
-      </div>
-    </div>
-    <!--block right-->
-    <div class="relative mr-8 flex h-full w-1/2 flex-col justify-between lg:flex">
-      <div class="bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10">
-        <div class="h-auto self-center">
-          <div class="mb-4 flex">
-            <div class="logo-font self-end text-6xl font-extrabold leading-tight tracking-tight text-pink-50">
-              <i>Pregnancy Journal</i>
-            </div>
-          </div>
-          <div class="mt-4 w-2/3 text-xl leading-6 tracking-tight text-gray-50">
-            <p>
-              <i style="text-align: justify-all"
-                ><strong class="text-2xl">"</strong> Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi sức
-                khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. <strong class="text-2xl">"</strong></i
-              >
-            </p>
-          </div>
-        </div>
-      </div>
-      <div class="bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10">
-        <div class="flex-0 flex items-center -space-x-1.5">
-          <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
-            src="/images/avatars/female-18.jpg"
-            alt="Mẹ sử dụng ứng dụng"
-          />
-          <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
-            src="/images/avatars/female-11.jpg"
-            alt="Mẹ sử dụng ứng dụng"
-          />
-          <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
-            src="/images/avatars/female-01.jpg"
-            alt="Mẹ sử dụng ứng dụng"
-          />
-          <img
-            class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
-            src="/images/avatars/female-04.jpg"
-            alt="Mẹ sử dụng ứng dụng"
-          />
-        </div>
-        <div class="ml-4 font-medium tracking-tight text-pink-50"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>
-      </div>
-      <div class="absolute -right-10 bottom-24 z-10 w-60 lg:w-80">
-        <img src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg" alt="pregnancy" />
-      </div>
-    </div>
+<!--block left: form-->
+<div class="m-auto w-2/3">
+  <!-- Logo -->
+  <div class="mx-auto w-24">
+    <img src="/images/logo/logo.svg" alt="logo" />
   </div>
-</div>
 
-<h1>aaaaaa</h1>
+  <!-- Title -->
+  <div class="mt-8 text-center text-4xl font-extrabold leading-tight tracking-tight">Đăng kí</div>
+
+  <!-- Alert -->
+  @if (showAlert()) {
+    <fuse-alert class="mt-8" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'">
+      {{ alert.message }}
+    </fuse-alert>
+  }
+
+  <!-- Sign Up form -->
+  <form class="mt-8" [formGroup]="signUpForm" #signUpNgForm="ngForm">
+    <!-- Email field -->
+    <mat-form-field class="w-full">
+      <mat-label>Email</mat-label>
+      <input id="email" matInput [formControlName]="'email'" />
+      @if (signUpForm.get('email').hasError('required')) {
+        <mat-error> Vui lòng nhập địa chỉ email</mat-error>
+      }
+      @if (signUpForm.get('email').hasError('email')) {
+        <mat-error> Vui lòng nhập một địa chỉ email hợp lệ</mat-error>
+      }
+    </mat-form-field>
+
+    <!-- Password field -->
+    <mat-form-field class="w-full">
+      <mat-label>Mật khẩu</mat-label>
+      <input id="password" matInput type="password" [formControlName]="'password'" #passwordField />
+      <button
+        mat-icon-button
+        type="button"
+        (click)="passwordField.type === 'password' ? (passwordField.type = 'text') : (passwordField.type = 'password')"
+        matSuffix
+      >
+        @if (passwordField.type === 'password') {
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+        }
+        @if (passwordField.type === 'text') {
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+        }
+      </button>
+      <mat-error> Vui lòng nhập mật khẩu</mat-error>
+    </mat-form-field>
+
+    <!-- ConfirmedPassword field -->
+    <mat-form-field class="w-full">
+      <mat-label>Xác nhận mật khẩu</mat-label>
+      <input id="confirmedPassword" matInput type="password" [formControlName]="'confirm_password'" #confirmedPasswordField />
+      <button
+        mat-icon-button
+        type="button"
+        (click)="confirmedPasswordField.type === 'password' ? (confirmedPasswordField.type = 'text') : (confirmedPasswordField.type = 'password')"
+        matSuffix
+      >
+        @if (confirmedPasswordField.type === 'password') {
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye'"></mat-icon>
+        }
+        @if (confirmedPasswordField.type === 'text') {
+          <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:eye-slash'"></mat-icon>
+        }
+      </button>
+      <mat-error> Vui lòng nhập xác nhận mật khẩu</mat-error>
+    </mat-form-field>
+
+    <!-- ToS and PP -->
+    <div class="mt-1.5 inline-flex w-full items-end">
+      <mat-checkbox class="-ml-2" [color]="'primary'" [formControlName]="'agreements'">
+        <span>Bạn đồng ý</span>
+        <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Điều khoản </a>
+        <span>và</span>
+        <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Chính sách bảo mật </a>
+      </mat-checkbox>
+    </div>
+    @if (signUpForm.get('agreements').hasError('required')) {
+      <mat-error> Vui lòng đồng ý với Điều khoản và Chính sách bảo mật</mat-error>
+    }
+
+    <!-- Submit button -->
+    <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signUpForm.disabled" (click)="signUp()">
+      @if (!signUpForm.disabled) {
+        <span> Tạo tài khoản ngay </span>
+      }
+      @if (signUpForm.disabled) {
+        <mat-progress-spinner [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
+      }
+    </button>
+    <div class="mt-8 flex items-baseline justify-center font-medium">
+      <div>Bạn đã có tài khoản?</div>
+      <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['/sign-in']">Đăng nhập </a>
+    </div>
+  </form>
+</div>

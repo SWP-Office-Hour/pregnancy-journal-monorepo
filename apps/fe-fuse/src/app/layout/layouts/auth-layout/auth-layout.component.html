@@ -29,14 +29,7 @@
 </div>
 <div class="flex h-full w-full flex-col">
   <!-- Tiêu đề/Điều hướng -->
-  <header
-    class="inset-x-0 top-0 z-50 !text-white transition-all duration-300"
-    [ngClass]="{
-      'bg-white/95 shadow-md backdrop-blur-lg': scrollPosition > 10,
-      'py-1': scrollPosition > 100,
-      'py-2': scrollPosition > 10 && scrollPosition <= 100,
-    }"
-  >
+  <header class="inset-x-0 top-0 z-50 !text-white transition-all duration-300">
     <nav class="flex w-full items-center justify-between p-4 !px-28" aria-label="Global">
       <!-- Logo section (left) -->
       <div class="px-auto flex">
@@ -81,15 +74,69 @@
   <!-- Nội dung chính -->
   <main class="flex-auto" auto-animate>
     <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
-    <router-outlet></router-outlet>
+
+    <div class="px-30 h-ful py-10">
+      <!-- Content -->
+      <div class="bg-card grid grid-cols-2 gap-1 rounded-3xl py-8">
+        <router-outlet class="hidden"></router-outlet>
+        <!--block right-->
+        <div class="col-span-1 flex h-full w-full flex-col pr-3">
+          <div class="bg-card flex h-full w-full rounded-2xl bg-gradient-to-r from-pink-500 to-pink-200 p-10">
+            <div class="h-auto self-center">
+              <div class="mb-4 flex">
+                <div class="logo-font self-end text-4xl tracking-wider text-white">
+                  <i>Pregnancy Journal</i>
+                </div>
+              </div>
+              <div class="mt-4 w-2/3 text-xl leading-6 tracking-tight text-gray-50">
+                <p>
+                  <i style="text-align: justify-all"
+                    ><strong class="text-2xl">"</strong> Sẽ đồng hành cùng mẹ bầu, giúp mẹ an tâm qua từng giai đoạn thai kỳ. Cùng chúng tôi theo dõi
+                    sức khỏe, ghi lại kỷ niệm, và nhận những lời khuyên hữu ích từ các chuyên gia hàng đầu. <strong class="text-2xl">"</strong></i
+                  >
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-card mt-3 flex h-24 w-full items-center rounded-2xl bg-gradient-to-r from-pink-500 to-indigo-200 px-10">
+            <div class="flex-0 flex items-center -space-x-1.5">
+              <img
+                class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+                src="/images/avatars/female-18.jpg"
+                alt="Mẹ sử dụng ứng dụng"
+              />
+              <img
+                class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+                src="/images/avatars/female-11.jpg"
+                alt="Mẹ sử dụng ứng dụng"
+              />
+              <img
+                class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+                src="/images/avatars/female-01.jpg"
+                alt="Mẹ sử dụng ứng dụng"
+              />
+              <img
+                class="flex-0 h-10 w-10 rounded-full object-cover ring-4 ring-pink-100 ring-offset-1 ring-offset-pink-200"
+                src="/images/avatars/female-04.jpg"
+                alt="Mẹ sử dụng ứng dụng"
+              />
+            </div>
+            <div class="ml-4 font-medium tracking-tight text-pink-50"><strong>Hơn 10,000 bà mẹ</strong> đã tin dùng. Còn mẹ thì sao?</div>
+          </div>
+          <div class="right-18 absolute bottom-40 z-10 w-60 lg:w-80">
+            <img src="/images/logo/a-pregnant-woman-with-long-hair-minimalist-and-flat-symbol.svg" alt="pregnancy" />
+          </div>
+        </div>
+      </div>
+    </div>
+
     <ng-content></ng-content>
   </main>
 
   <!-- Chân trang giữ nguyên không thay đổi -->
   <!-- Chân trang -->
-  <footer class="bg-gray-900" aria-labelledby="footer-heading">
-    <h2 id="footer-heading" class="sr-only">Chân trang</h2>
-    <div class="mx-auto max-w-7xl px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+  <footer class="flex justify-around bg-gray-900" aria-labelledby="footer-heading">
+    <div class="px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-8">
           <img class="h-12" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />

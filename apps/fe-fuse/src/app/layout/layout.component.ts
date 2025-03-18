@@ -1,6 +1,6 @@
 import { DOCUMENT } from '@angular/common';
 import { Component, Inject, OnDestroy, OnInit, Renderer2, ViewEncapsulation } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { FuseConfig, FuseConfigService } from '@fuse/services/config';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { FusePlatformService } from '@fuse/services/platform';
@@ -9,6 +9,7 @@ import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 
+import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.component';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 
@@ -33,6 +34,8 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.
     AdminLayoutComponent,
     LandingLayoutComponent,
     AuthLayoutComponent,
+    NgAutoAnimateDirective,
+    RouterOutlet,
   ],
 })
 export class LayoutComponent implements OnInit, OnDestroy {

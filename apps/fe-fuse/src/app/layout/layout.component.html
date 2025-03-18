@@ -74,6 +74,14 @@
   <landing-layout></landing-layout>
 }
 
+@if (layout === 'nothing') {
+  <main class="flex-auto bg-white" auto-animate>
+    <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
+    <router-outlet></router-outlet>
+    <ng-content></ng-content>
+  </main>
+}
+
 <!-- ----------------------------------------------------------------------------------------------------- -->
 <!-- Settings drawer - Remove this to remove the drawer and its button -->
 <!-- ----------------------------------------------------------------------------------------------------- -->
