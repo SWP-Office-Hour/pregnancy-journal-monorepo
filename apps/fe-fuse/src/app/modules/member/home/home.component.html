@@ -3,30 +3,30 @@
   <section class="mb-12 flex w-full flex-col bg-transparent">
     <!-- Time-sensitive Welcome Section -->
     <div class="relative h-64 w-full overflow-hidden rounded-3xl shadow-lg">
-      <!-- Dynamic Time-Based Backgrounds -->
-      <!--      &lt;!&ndash; Morning Background &ndash;&gt;-->
-      <!--      <div-->
-      <!--        class="absolute inset-0 bg-gradient-to-b from-blue-200 via-blue-100 to-pink-50 transition-opacity duration-1000"-->
-      <!--        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'morning', 'opacity-0': getTimeOfDay() !== 'morning' }"-->
-      <!--      >-->
-      <!--        &lt;!&ndash; Morning Sun &ndash;&gt;-->
-      <!--        <div class="animate-pulse-slow absolute right-10 top-6 h-20 w-20 rounded-full bg-yellow-200 shadow-lg shadow-yellow-300/50"></div>-->
-      <!--        &lt;!&ndash; Morning Clouds &ndash;&gt;-->
-      <!--        <div class="animate-float-slow absolute left-10 top-12 h-10 w-24 opacity-80">-->
-      <!--          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">-->
-      <!--            <path-->
-      <!--              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"-->
-      <!--            />-->
-      <!--          </svg>-->
-      <!--        </div>-->
-      <!--        <div class="animate-float-slow-delayed absolute right-20 top-20 h-6 w-16">-->
-      <!--          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">-->
-      <!--            <path-->
-      <!--              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"-->
-      <!--            />-->
-      <!--          </svg>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      Dynamic Time-Based Backgrounds
+      <!-- Morning Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-blue-200 via-blue-100 to-pink-50 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'morning', 'opacity-0': getTimeOfDay() !== 'morning' }"
+      >
+        <!-- Morning Sun -->
+        <div class="animate-pulse-slow absolute right-10 top-6 h-20 w-20 rounded-full bg-yellow-200 shadow-lg shadow-yellow-300/50"></div>
+        <!-- Morning Clouds -->
+        <div class="animate-float-slow absolute left-10 top-12 h-10 w-24 opacity-80">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"
+            />
+          </svg>
+        </div>
+        <div class="animate-float-slow-delayed absolute right-20 top-20 h-6 w-16">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
+            <path
+              d="M6.5 20C4.01 20 2 17.99 2 15.5c0-2.27 1.7-4.14 3.9-4.43c.98-1.66 2.77-2.57 4.6-2.57c2.4 0 4.4 1.5 5.1 3.7c1.9.3 3.4 1.9 3.4 3.8c0 2.21-1.79 4-4 4H6.5z"
+            />
+          </svg>
+        </div>
+      </div>
 
       <!-- Afternoon Background -->
       <div
@@ -45,33 +45,33 @@
         </div>
       </div>
 
-      <!--      &lt;!&ndash; Evening Background &ndash;&gt;-->
-      <!--      <div-->
-      <!--        class="absolute inset-0 bg-gradient-to-b from-indigo-200 via-purple-100 to-pink-200 transition-opacity duration-1000"-->
-      <!--        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'evening', 'opacity-0': getTimeOfDay() !== 'evening' }"-->
-      <!--      >-->
-      <!--        &lt;!&ndash; Evening Moon &ndash;&gt;-->
-      <!--        <div class="absolute right-12 top-8 h-14 w-14 rounded-full bg-white shadow-lg shadow-white/40"></div>-->
-      <!--        &lt;!&ndash; Evening Stars &ndash;&gt;-->
-      <!--        <div class="animate-twinkle absolute left-24 top-14 h-2 w-2 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle-delay absolute left-40 top-10 h-1 w-1 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle absolute right-40 top-20 h-1.5 w-1.5 rounded-full bg-white"></div>-->
-      <!--      </div>-->
+      <!-- Evening Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-indigo-200 via-purple-100 to-pink-200 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'evening', 'opacity-0': getTimeOfDay() !== 'evening' }"
+      >
+        <!-- Evening Moon -->
+        <div class="absolute right-12 top-8 h-14 w-14 rounded-full bg-white shadow-lg shadow-white/40"></div>
+        <!-- Evening Stars -->
+        <div class="animate-twinkle absolute left-24 top-14 h-2 w-2 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute left-40 top-10 h-1 w-1 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute right-40 top-20 h-1.5 w-1.5 rounded-full bg-white"></div>
+      </div>
 
-      <!--      &lt;!&ndash; Night Background &ndash;&gt;-->
-      <!--      <div-->
-      <!--        class="absolute inset-0 bg-gradient-to-b from-indigo-900 via-purple-800 to-indigo-800 transition-opacity duration-1000"-->
-      <!--        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'night', 'opacity-0': getTimeOfDay() !== 'night' }"-->
-      <!--      >-->
-      <!--        &lt;!&ndash; Night Moon &ndash;&gt;-->
-      <!--        <div class="absolute right-16 top-8 h-12 w-12 rounded-full bg-gray-100 shadow-lg shadow-white/20"></div>-->
-      <!--        &lt;!&ndash; Night Stars &ndash;&gt;-->
-      <!--        <div class="animate-twinkle absolute left-14 top-10 h-1.5 w-1.5 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle-delay absolute left-28 top-16 h-2 w-2 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle-delay absolute right-36 top-8 h-1 w-1 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle absolute right-20 top-24 h-1.5 w-1.5 rounded-full bg-white"></div>-->
-      <!--        <div class="animate-twinkle absolute left-40 top-20 h-1 w-1 rounded-full bg-white"></div>-->
-      <!--      </div>-->
+      <!-- Night Background -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-indigo-900 via-purple-800 to-indigo-800 transition-opacity duration-1000"
+        [ngClass]="{ 'opacity-100': getTimeOfDay() === 'night', 'opacity-0': getTimeOfDay() !== 'night' }"
+      >
+        <!-- Night Moon -->
+        <div class="absolute right-16 top-8 h-12 w-12 rounded-full bg-gray-100 shadow-lg shadow-white/20"></div>
+        <!-- Night Stars -->
+        <div class="animate-twinkle absolute left-14 top-10 h-1.5 w-1.5 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute left-28 top-16 h-2 w-2 rounded-full bg-white"></div>
+        <div class="animate-twinkle-delay absolute right-36 top-8 h-1 w-1 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute right-20 top-24 h-1.5 w-1.5 rounded-full bg-white"></div>
+        <div class="animate-twinkle absolute left-40 top-20 h-1 w-1 rounded-full bg-white"></div>
+      </div>
 
       <!-- Content Container -->
       <div class="relative z-10 flex w-full px-6 py-8 sm:px-8">
@@ -116,51 +116,34 @@
     >
       <!-- Icon changes based on time of day -->
       <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/25 backdrop-blur-sm">
-        <svg
-          *ngIf="getTimeOfDay() === 'morning'"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-          />
-        </svg>
-        <svg
-          *ngIf="getTimeOfDay() === 'afternoon'"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-          />
-        </svg>
-        <svg
-          *ngIf="getTimeOfDay() === 'evening' || getTimeOfDay() === 'night'"
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-          />
-        </svg>
+        @if (getTimeOfDay() === 'morning') {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
+        } @else if (getTimeOfDay() === 'afternoon') {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+            />
+          </svg>
+        } @else if (getTimeOfDay() === 'evening' || getTimeOfDay() === 'night') {
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+        }
       </div>
 
       <!-- Text changes based on whether a checkup has been recorded today -->
@@ -194,10 +177,8 @@
     </div>
   </section>
 
-  <!-- Tool for Pregnancy-->
-  <!--  <app-week-pregnancy-slider></app-week-pregnancy-slider>-->
+  <!-- Popular Tools Section -->
   <section>
-    <!-- Popular Tools Section -->
     <div class="mb-12 rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50/30 to-pink-50/30 p-6 shadow-lg">
       <div class="flex flex-col gap-8 lg:flex-row">
         <!-- Left Section: Title & Description -->
@@ -213,11 +194,12 @@
         <!-- Right Section: Tool Cards -->
         <div class="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-3">
           <!-- Baby Names Finder Tool -->
-          <div
-            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-pink-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          <a
+            href="#"
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-green-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-pink-50 opacity-40"></div>
-            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-pink-50 opacity-30"></div>
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-green-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-green-50 opacity-30"></div>
 
             <!-- Tool Icon -->
             <img
@@ -233,8 +215,7 @@
             <p class="mb-6 text-gray-600">Khám phá hàng nghìn tên cho bé gái và bé trai với ý nghĩa đặc biệt và nguồn gốc.</p>
 
             <!-- Tool Button -->
-            <a
-              href="#"
+            <div
               class="group/btn mt-auto inline-flex items-center rounded-full bg-green-100 px-5 py-2 text-sm font-medium text-green-600 transition-all hover:bg-green-200 active:scale-95"
             >
               Khám phá ngay
@@ -247,15 +228,16 @@
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
-            </a>
-          </div>
+            </div>
+          </a>
 
           <!-- Due Date Calculator Tool -->
-          <div
-            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-purple-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          <a
+            href="#"
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-orange-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-purple-50 opacity-40"></div>
-            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-purple-50 opacity-30"></div>
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-orange-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-orange-50 opacity-30"></div>
 
             <!-- Tool Icon -->
             <img
@@ -271,8 +253,7 @@
             <p class="mb-6 text-gray-600">Dự đoán ngày sinh của em bé và tìm hiểu các cột mốc quan trọng trong thai kỳ của bạn.</p>
 
             <!-- Tool Button -->
-            <a
-              href="#"
+            <div
               class="group/btn mt-auto inline-flex items-center rounded-full bg-orange-100 px-5 py-2 text-sm font-medium text-orange-600 transition-all hover:bg-orange-200 active:scale-95"
             >
               Tính ngay
@@ -285,15 +266,16 @@
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
-            </a>
-          </div>
+            </div>
+          </a>
 
           <!-- Pregnancy Evolution Tool -->
-          <div
-            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-blue-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+          <a
+            href="#"
+            class="maternal-tool-card group relative overflow-hidden rounded-xl border border-pink-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
-            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-blue-50 opacity-40"></div>
-            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-blue-50 opacity-30"></div>
+            <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-pink-50 opacity-40"></div>
+            <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-pink-50 opacity-30"></div>
 
             <!-- Tool Icon -->
             <img
@@ -309,8 +291,7 @@
             <p class="mb-6 text-gray-600">Theo dõi sự phát triển của em bé qua từng tuần với hình ảnh và thông tin chi tiết.</p>
 
             <!-- Tool Button -->
-            <a
-              href="#"
+            <div
               class="group/btn mt-auto inline-flex items-center rounded-full bg-pink-100 px-5 py-2 text-sm font-medium text-pink-600 transition-all hover:bg-pink-200 active:scale-95"
             >
               Xem chi tiết
@@ -323,8 +304,8 @@
               >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
-            </a>
-          </div>
+            </div>
+          </a>
         </div>
 
         <!-- Pregnancy Countdown Calendar -->
@@ -366,41 +347,40 @@
             class="calendar-bottom relative rounded-b-2xl px-4 pb-8 pt-6"
             style="background-image: linear-gradient(#ffffff 1.1rem, #ccc 1.2rem); background-size: 100% 1.2rem"
           >
-            <!-- Paper texture effect -->
-            <div class="absolute inset-0 bg-[url('/images/ui/textures/paper.png')] opacity-5"></div>
-
             <!-- Days Counter -->
             <div class="relative z-10">
-              <div *ngIf="remainingDays() <= 0" class="animation-scale-in text-center">
-                <div class="text-2xl font-bold text-pink-500">Chúc mừng mẹ bầu!</div>
-                <div class="mt-2 text-lg font-medium text-pink-400">Bé yêu đã đến ngày chào đời</div>
-                <div class="mt-4">
-                  <!--                  <lottie-player-->
-                  <!--                    src="https://assets10.lottiefiles.com/packages/lf20_ky24lmgu.json"-->
-                  <!--                    background="transparent"-->
-                  <!--                    speed="1"-->
-                  <!--                    style="width: 150px; height: 150px; margin: 0 auto"-->
-                  <!--                    loop-->
-                  <!--                    autoplay-->
-                  <!--                  >-->
-                  <!--                  </lottie-player>-->
+              @if (remainingDays() <= 0) {
+                <div class="animation-scale-in text-center">
+                  <div class="text-2xl font-bold text-pink-500">Chúc mừng mẹ bầu!</div>
+                  <div class="mt-2 text-lg font-medium text-pink-400">Bé yêu đã đến ngày chào đời</div>
+                  <div class="mt-4">
+                    <!--                  <lottie-player-->
+                    <!--                    src="https://assets10.lottiefiles.com/packages/lf20_ky24lmgu.json"-->
+                    <!--                    background="transparent"-->
+                    <!--                    speed="1"-->
+                    <!--                    style="width: 150px; height: 150px; margin: 0 auto"-->
+                    <!--                    loop-->
+                    <!--                    autoplay-->
+                    <!--                  >-->
+                    <!--                  </lottie-player>-->
+                  </div>
                 </div>
-              </div>
+              } @else {
+                <div class="text-center">
+                  <div
+                    [@countChange]="remainingDays()"
+                    class="calendar-days-number text-center text-6xl font-black tracking-tighter text-pink-600 sm:text-8xl"
+                  >
+                    {{ remainingDays() }}
+                  </div>
+                  <div class="calendar-days-text mt-1 text-center text-lg font-medium text-pink-400">Ngày Còn Lại</div>
 
-              <div *ngIf="remainingDays() > 0" class="text-center">
-                <div
-                  [@countChange]="remainingDays()"
-                  class="calendar-days-number text-center text-6xl font-black tracking-tighter text-pink-600 sm:text-8xl"
-                >
-                  {{ remainingDays() }}
+                  <!-- Week indicator -->
+                  <div class="mt-4 inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-medium text-pink-600">
+                    Tuần thứ {{ currentPregnancyWeek }}
+                  </div>
                 </div>
-                <div class="calendar-days-text mt-1 text-center text-lg font-medium text-pink-400">Ngày Còn Lại</div>
-
-                <!-- Week indicator -->
-                <div class="mt-4 inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-medium text-pink-600">
-                  Tuần thứ {{ currentPregnancyWeek }}
-                </div>
-              </div>
+              }
               <!-- Calendar page curl effect -->
               <div class="absolute bottom-0 right-0 h-12 w-12 rounded-tl-lg bg-gradient-to-br from-transparent to-gray-200/50 shadow-inner"></div>
             </div>
