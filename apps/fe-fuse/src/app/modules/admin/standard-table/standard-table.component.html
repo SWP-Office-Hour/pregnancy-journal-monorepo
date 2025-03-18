@@ -73,7 +73,7 @@
     </ng-template>
 
     <ng-template #paginatorleft>
-      <p-button (onClick)="openBatchMode()" class="mr-2" icon="pi pi-list" label="Batch Add" severity="secondary" [disabled]="!currentMetric" />
+      <p-button (onClick)="openBatchMode()" class="mr-2" icon="pi pi-list" label="Batch Add" severity="primary" [disabled]="!currentMetric" />
     </ng-template>
     <ng-template #paginatorright> </ng-template>
   </p-table>
@@ -188,7 +188,7 @@
 
       <div class="flex w-full items-center justify-between px-4 pt-1">
         <div>
-          <p-button (click)="addRow()" icon="pi pi-plus" label="Add Row" severity="secondary"></p-button>
+          <p-button (click)="addRow()" icon="pi pi-plus" label="Add Row" severity="primary"></p-button>
         </div>
         <div class="mx-auto flex gap-2">
           <p-button (click)="cancelBatchMode()" icon="pi pi-times" label="Cancel" styleClass="p-button-text"></p-button>

@@ -1,5 +1,5 @@
 import { BooleanInput } from '@angular/cdk/coercion';
-import { NgClass } from '@angular/common';
+import { NgClass, NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
@@ -17,7 +17,7 @@ import { Subject, takeUntil } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'user',
   standalone: true,
-  imports: [MatButtonModule, MatMenuModule, MatIconModule, NgClass, MatDividerModule],
+  imports: [MatButtonModule, MatMenuModule, MatIconModule, NgClass, MatDividerModule, NgOptimizedImage],
 })
 export class UserComponent implements OnInit, OnDestroy {
   /* eslint-disable @typescript-eslint/naming-convention */

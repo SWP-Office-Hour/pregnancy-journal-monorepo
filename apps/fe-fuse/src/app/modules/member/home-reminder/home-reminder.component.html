@@ -307,8 +307,20 @@
     </div>
 
     <!-- Loading State -->
-    <div *ngIf="isLoading" class="flex justify-center py-8">
-      <div class="h-10 w-10 animate-spin rounded-full border-b-2 border-t-2 border-pink-500"></div>
+    <!--    <div *ngIf="isLoading" class="flex justify-center bg-red-600 py-8">-->
+    <div class="flex justify-center py-8">
+      <div class="bg-yellow-600">
+        <div class="cloud front">
+          <span class="left-front"></span>
+          <span class="right-front"></span>
+        </div>
+        <span class="sun sunshine"></span>
+        <span class="sun"></span>
+        <div class="cloud back">
+          <span class="left-back"></span>
+          <span class="right-back"></span>
+        </div>
+      </div>
     </div>
   </div>
 

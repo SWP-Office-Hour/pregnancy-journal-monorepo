@@ -216,7 +216,7 @@ export class HealthMetricTableComponent implements OnInit {
   }
 
   getSeverityRequired(required: boolean): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
-    return required ? 'success' : 'warn';
+    return required ? 'success' : 'info';
   }
 
   convertRequireToReadable(required: boolean): string {

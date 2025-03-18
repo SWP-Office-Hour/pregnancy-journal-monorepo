@@ -143,31 +143,24 @@ export const adminNavigation: FuseNavigationItem[] = [
     ],
   },
   // Nhóm quản lý người dùng
+
   {
-    id: 'user-management',
+    id: 'membership',
+    title: 'Quản lý gói',
+    type: 'basic',
+    icon: 'heroicons_outline:identification',
+    link: 'admin/membership',
+  },
+  {
+    id: 'users',
     title: 'Quản lý người dùng',
-    type: 'collapsable',
+    type: 'basic',
     icon: 'heroicons_outline:user-group',
-    children: [
-      {
-        id: 'membership',
-        title: 'Tư cách thành viên',
-        type: 'basic',
-        icon: 'heroicons_outline:identification',
-        link: 'admin/membership',
-      },
-      {
-        id: 'users',
-        title: 'Người dùng',
-        type: 'basic',
-        icon: 'heroicons_outline:user-group',
-        link: 'admin/users',
-      },
-    ],
+    link: 'admin/users',
   },
   {
     id: 'payment',
-    title: 'Payment History',
+    title: 'Lịch sử giao dịch',
     type: 'basic',
     icon: 'heroicons_outline:credit-card',
     link: 'admin/payment',

@@ -5,10 +5,16 @@
 
 html {
   overflow-y: scroll;
+  --fuse-text-default: 15px;
 }
 
 .fuse-horizontal-navigation-item {
   font-size: 15px !important;
+  font-weight: 600 !important;
+}
+
+.fuse-vertical-navigation-item {
+  font-size: 14px !important;
   font-weight: 600 !important;
 }
 
