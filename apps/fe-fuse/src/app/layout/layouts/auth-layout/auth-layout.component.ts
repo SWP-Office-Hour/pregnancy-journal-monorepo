@@ -8,16 +8,15 @@ import { Navigation } from 'app/core/navigation/navigation.types';
 import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseLoadingBarComponent } from '../../../../@fuse/components/loading-bar';
-import { LanguagesComponent } from '../../common/languages/languages.component';
 
 @Component({
-  selector: 'landing-layout',
-  templateUrl: './landing-layout.component.html',
+  selector: 'auth-layout',
+  templateUrl: './auth-layout.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [CommonModule, RouterModule, FuseLoadingBarComponent, LanguagesComponent, NgAutoAnimateDirective],
+  imports: [CommonModule, RouterModule, FuseLoadingBarComponent, NgAutoAnimateDirective],
 })
-export class LandingLayoutComponent implements OnInit, OnDestroy {
+export class AuthLayoutComponent implements OnInit, OnDestroy {
   /**
    * Track the mobile menu open state
    */

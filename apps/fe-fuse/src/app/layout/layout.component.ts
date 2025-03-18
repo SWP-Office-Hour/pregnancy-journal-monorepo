@@ -7,7 +7,8 @@ import { FusePlatformService } from '@fuse/services/platform';
 import { FUSE_VERSION } from '@fuse/version';
 import { combineLatest, filter, map, Subject, takeUntil } from 'rxjs';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
-import { EmptyLayoutComponent } from './layouts/empty/empty.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+
 import { ModernLayoutComponent } from './layouts/horizontal/modern/modern.component';
 import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.component';
 
@@ -18,7 +19,7 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.
   encapsulation: ViewEncapsulation.None,
   standalone: true,
   imports: [
-    EmptyLayoutComponent,
+    // EmptyLayoutComponent,
     // CenteredLayoutComponent,
     // EnterpriseLayoutComponent,
     // MaterialLayoutComponent,
@@ -31,6 +32,7 @@ import { LandingLayoutComponent } from './layouts/landing-layout/landing-layout.
     // ThinLayoutComponent,
     AdminLayoutComponent,
     LandingLayoutComponent,
+    AuthLayoutComponent,
   ],
 })
 export class LayoutComponent implements OnInit, OnDestroy {
