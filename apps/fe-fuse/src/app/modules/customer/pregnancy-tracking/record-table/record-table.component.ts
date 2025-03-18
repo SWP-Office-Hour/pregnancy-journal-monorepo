@@ -8,7 +8,7 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
-import { TableModule, TableRowCollapseEvent, TableRowExpandEvent } from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TrackingFormComponent } from '../form/tracking-form.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
@@ -81,13 +81,13 @@ export class RecordTableComponent implements OnInit {
     return this.rows.find((r) => r.week === week)!.records.length;
   }
 
-  onRowExpand(event: TableRowExpandEvent) {
-    this.messageService.add({ severity: 'info', summary: 'Row Expanded', detail: event.data.name, life: 3000 });
-  }
-
-  onRowCollapse(event: TableRowCollapseEvent) {
-    this.messageService.add({ severity: 'success', summary: 'Row Collapsed', detail: event.data.name, life: 3000 });
-  }
+  // onRowExpand(event: TableRowExpandEvent) {
+  //   this.messageService.add({ severity: 'info', summary: 'Row Expanded', detail: event.data.name, life: 3000 });
+  // }
+  //
+  // onRowCollapse(event: TableRowCollapseEvent) {
+  //   this.messageService.add({ severity: 'success', summary: 'Row Collapsed', detail: event.data.name, life: 3000 });
+  // }
 
   editTracking(record_id: string) {
     this.recordService.SelectedRecordData = record_id;

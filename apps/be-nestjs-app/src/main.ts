@@ -91,7 +91,7 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, apiDocument);
   app.useWebSocketAdapter(new SocketIoAdapter(app));
   app.enableCors({
-    origin: [process.env.FE_PAGE_URL as string, 'http://localhost:4222'],
+    origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
     allowedHeaders: [
       'DNT',

@@ -8,7 +8,7 @@ import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { provideFuse } from '@fuse';
 
 import { provideTransloco, TranslocoService } from '@jsverse/transloco';
-import { wrapperRoute } from 'app/app.routes';
+import { appRoutes } from 'app/app.routes';
 
 import { provideAuth } from 'app/core/auth/auth.provider';
 import { provideIcons } from 'app/core/icons/icons.provider';
@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
     provideOAuthClient(),
     provideAnimations(),
     provideHttpClient(),
-    provideRouter(wrapperRoute, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
+    provideRouter(appRoutes, withInMemoryScrolling({ scrollPositionRestoration: 'enabled' })),
     providePrimeNG({
       theme: {
         preset: MyPresetPrimeNG,
