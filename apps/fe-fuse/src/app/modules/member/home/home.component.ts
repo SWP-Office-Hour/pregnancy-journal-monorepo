@@ -1,6 +1,6 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
-import { NgClass, NgIf } from '@angular/common';
+import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -29,7 +29,6 @@ import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { environment } from '../../../../environments/environment';
-
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
@@ -41,7 +40,6 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
 @Component({
   selector: 'app-home',
   imports: [
-    NgIf,
     NgClass,
     TranslocoModule,
     MatIconModule,
@@ -244,7 +242,6 @@ export class HomeComponent {
   // Get time-specific message
   getTimeMessage(): string {
     const timeOfDay = this.getTimeOfDay();
-
     switch (timeOfDay) {
       case 'morning':
         return 'Chúc bạn có một ngày tràn đầy năng lượng!';
