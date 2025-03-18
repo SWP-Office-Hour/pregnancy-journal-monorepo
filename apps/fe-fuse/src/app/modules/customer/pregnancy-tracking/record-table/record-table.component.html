@@ -1,18 +1,17 @@
-<div class="card w-full overflow-hidden rounded-xl bg-white shadow-sm">
+<div class="card w-full overflow-hidden rounded-xl bg-pink-50 shadow-sm">
   <p-toast />
+  <h2 class="flex justify-self-center bg-pink-50 text-xl font-medium text-pink-500">Hồ Sơ Theo Tuần</h2>
   <div class="flex flex-col items-center justify-between gap-4 bg-pink-50 p-4 md:flex-row">
-    <h2 class="text-lg font-medium text-pink-500">Hồ Sơ Theo Tuần</h2>
-
     <div class="flex w-full items-center md:w-auto">
       <span class="p-input-icon-left w-full md:w-auto">
-        <i class="pi pi-search"></i>
+        <i class="pi pi-search pr-2"></i>
         <input
           type="text"
           pInputText
           [(ngModel)]="searchText"
           (input)="searchRecords()"
           placeholder="Tìm kiếm hồ sơ..."
-          class="p-inputtext-sm w-full rounded-lg border-pink-200 focus:border-pink-400 md:w-64"
+          class="p-inputtext w-full rounded-lg border-pink-200 focus:border-pink-400 md:w-64"
         />
       </span>
       <button

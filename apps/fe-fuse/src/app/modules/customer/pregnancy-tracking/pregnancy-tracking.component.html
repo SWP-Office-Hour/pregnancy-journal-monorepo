@@ -50,15 +50,17 @@
   </div>
 
   <!--  CỤC GIỮA-->
-  <div class="col-span col-span-3 p-2">
-    <div class="w-full">
-      <app-record-table></app-record-table>
+  <div class="col-span-5 grid grid-cols-3">
+    <div class="col-span-2 p-2">
+      <div class="w-full">
+        <app-record-table></app-record-table>
+      </div>
     </div>
-  </div>
 
-  <div class="col-span col-span-2">
-    <div class="w-full">
-      <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
+    <div class="col-span-1">
+      <div class="w-full">
+        <app-line-chart [title]="'Theo dõi chỉ số'" [multi_data]="getRecordDataForChart()"></app-line-chart>
+      </div>
     </div>
   </div>
 </div>

@@ -62,7 +62,13 @@ export const appRoutes: Route[] = [
       { path: 'reset-password', loadChildren: () => import('app/modules/auth/reset-password/reset-password.routes') },
       { path: 'sign-in', loadChildren: () => import('app/modules/auth/sign-in/sign-in.routes') },
       { path: 'sign-up', loadChildren: () => import('app/modules/auth/sign-up/sign-up.routes') },
-      { path: 'sign-in-with-google', loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes') },
+      {
+        data: {
+          layout: 'nothing',
+        },
+        path: 'sign-in-with-google',
+        loadChildren: () => import('app/modules/auth/sign-in-with-google/sign-in-with-google.routes'),
+      },
     ],
   },
 
@@ -83,7 +89,7 @@ export const appRoutes: Route[] = [
     path: '',
     component: LayoutComponent,
     data: {
-      layout: 'landing', // Changed from 'empty' to 'landing'
+      layout: 'landing', // Changed from 'nothing' to 'landing'
     },
     resolve: {
       initialData: landingDataResolver,
@@ -206,7 +212,7 @@ export const appRoutes: Route[] = [
     path: 'record-view',
     component: LayoutComponent,
     data: {
-      layout: 'empty',
+      layout: 'landing',
     },
     children: [
       {
