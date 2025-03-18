@@ -30,7 +30,7 @@
 <div class="flex h-full w-full flex-col">
   <!-- Tiêu đề/Điều hướng -->
   <header
-    class="inset-x-0 top-0 z-50 transition-all duration-300"
+    class="inset-x-0 top-0 z-50 !text-white transition-all duration-300"
     [ngClass]="{
       'bg-white/95 shadow-md backdrop-blur-lg': scrollPosition > 10,
       'py-1': scrollPosition > 100,
@@ -55,22 +55,11 @@
       @if (!isScreenSmall) {
         <!-- Navigation links (center) -->
         <div class="flex items-center justify-center gap-x-8 text-xl">
-          <a
-            routerLink="/blog"
-            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
-          >
-            Blog
-          </a>
-          <a
-            routerLink="/features"
-            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
-          >
+          <a routerLink="/blog" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> Blog </a>
+          <a routerLink="/features" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
             Tính năng
           </a>
-          <a
-            routerLink="/about"
-            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
-          >
+          <a routerLink="/about" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
             Về chúng tôi
           </a>
           <div class="px-2"></div>
@@ -78,11 +67,7 @@
 
         <!-- Authentication links (right) -->
         <div class="hidden items-center space-x-5 pr-10">
-          <a
-            routerLink="/sign-in"
-            class="rounded-md px-3 py-2 font-semibold leading-6 text-gray-900 transition-colors hover:bg-pink-50 hover:text-pink-500"
-          >
-          </a>
+          <a routerLink="/sign-in" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> </a>
           <a
             routerLink="/sign-up"
             class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"

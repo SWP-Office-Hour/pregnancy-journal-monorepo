@@ -57,11 +57,23 @@ html {
   src: url('../../public/fonts/SVN-Claytonia.otf') format('opentype');
 }
 
+@font-face {
+  font-family: 'Pencerio';
+  src: url('../../public/fonts/DFVN Pencerio.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'CapricaScript';
+  src: url('../../public/fonts/SVN-Caprica Script.ttf') format('truetype');
+}
+
 .font-nghe-nghe {
-  font-family: Claytonia, cursive;
-  font-weight: normal;
-  font-size: small;
+  font-family: 'Pencerio', cursive;
+  font-weight: 900;
+  font-size: 4rem !important;
   font-style: normal;
+
+  //letter-spacing: var(--tracking-widest) !important;
 }
 
 .quicksand-medium {
