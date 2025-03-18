@@ -29,7 +29,7 @@ import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { environment } from '../../../../environments/environment';
-import { WeekPregnancySliderComponent } from '../../../common/week-pregnancy-slider/week-pregnancy-slider.component';
+
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
@@ -72,7 +72,6 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     NgxSplideModule,
     RouterLink,
     HomeReminderComponent,
-    WeekPregnancySliderComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',

@@ -23,12 +23,12 @@ const myFuckingColorPalette = {
     200: '#fbcfe8',
     300: '#f9a8d4',
     400: '#f472b6',
-    500: '#f472b6',
+    500: '#ec4899',
     600: '#db2777',
     700: '#be185d',
     800: '#9d174d',
     900: '#831843',
-    950: '#500724',
+    950: '#ffffff',
   },
   rose: {
     50: '#fff1f2',
@@ -52,8 +52,8 @@ const themes = {
   // Default theme is required for theming system to work correctly!
   default: {
     primary: {
-      ...colors.pink,
-      DEFAULT: colors.pink[500],
+      ...myFuckingColorPalette.pink,
+      DEFAULT: myFuckingColorPalette.pink[500],
     },
     accent: {
       ...colors.neutral,

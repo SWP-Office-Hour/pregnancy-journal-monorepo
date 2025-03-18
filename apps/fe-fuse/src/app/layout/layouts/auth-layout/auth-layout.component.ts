@@ -1,9 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnDestroy, OnInit, signal, ViewEncapsulation } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MatButton } from '@angular/material/button';
-import { MatCheckbox } from '@angular/material/checkbox';
-import { MatError } from '@angular/material/form-field';
+
 import { RouterModule } from '@angular/router';
 import { FuseNavigationService, FuseVerticalNavigationComponent } from '@fuse/components/navigation';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
@@ -11,7 +9,7 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { Subject, takeUntil } from 'rxjs';
-import { FuseAlertComponent } from '../../../../@fuse/components/alert';
+
 import { FuseLoadingBarComponent } from '../../../../@fuse/components/loading-bar';
 
 @Component({
@@ -19,17 +17,7 @@ import { FuseLoadingBarComponent } from '../../../../@fuse/components/loading-ba
   templateUrl: './auth-layout.component.html',
   encapsulation: ViewEncapsulation.None,
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterModule,
-    FuseLoadingBarComponent,
-    NgAutoAnimateDirective,
-    FormsModule,
-    FuseAlertComponent,
-    MatButton,
-    MatCheckbox,
-    MatError,
-  ],
+  imports: [CommonModule, RouterModule, FuseLoadingBarComponent, NgAutoAnimateDirective, FormsModule],
 })
 export class AuthLayoutComponent implements OnInit, OnDestroy {
   /**
