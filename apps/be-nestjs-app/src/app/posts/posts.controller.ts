@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Query, Req, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { postContract, PostCreateType, PostUpdateType } from '@pregnancy-journal-monorepo/contract';
+import { postContract, PostCreateType, PostType, PostUpdateType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { RequestWithJWT } from 'express';
 import { AccessTokenAuthGuard } from '../auth/auth.guard';
@@ -73,6 +73,26 @@ export class PostsController {
         status: 200,
         body: {
           message: 'Delete successfully',
+        },
+      };
+    });
+  }
+
+  @UseGuards(AccessTokenAuthGuard)
+  @TsRestHandler(postContract.getPostByUserId)
+  handleGetPostByUserId(@Req() req: RequestWithJWT) {
+    return tsRestHandler(postContract.getPostByUserId, async () => {
+      const user = req.decoded_authorization?.user_id;
+      if (!user) {
+        throw new UnauthorizedException('Access token is invalid');
+      }
+
+      const posts: PostType[] = await this.postsService.getPostByUserId(user);
+      return {
+        status: 200,
+        body: {
+          total: posts.length,
+          data: posts,
         },
       };
     });

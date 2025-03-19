@@ -146,6 +146,20 @@ export const authContract = c.router({
       401: messageResponseSchema,
     },
   },
+
+  checkEmail: {
+    method: 'POST',
+    path: '/users/auth/check-email',
+    description: 'Check email (đã xong)',
+    body: z.object({
+      email: z.string().min(1, 'Email is required').email(),
+    }),
+    responses: {
+      200: messageResponseSchema,
+      401: messageResponseSchema,
+    },
+  },
+
   //   method: 'POST',
   //   path: '/users/auth/refresh',
   //   body: tokenSchema,
