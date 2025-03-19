@@ -127,4 +127,16 @@ export const postContract = c.router({
       }),
     },
   },
+
+  getPostByUserId: {
+    method: 'GET',
+    path: '/posts/user',
+    description: 'Get a post by user id',
+    responses: {
+      200: z.object({
+        total: z.number(),
+        data: z.array(PostSchema),
+      }),
+    },
+  },
 });

@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { PostCreateType, PostType, PostUpdateType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
@@ -7,7 +7,7 @@ import { UsersService } from '../users/users.service';
 export class PostsService {
   constructor(
     private readonly databaseService: DatabaseService,
-    private readonly userService: UsersService,
+    @Inject(forwardRef(() => UsersService)) private readonly userService: UsersService,
   ) {}
 
   async count(): Promise<number> {
@@ -156,24 +156,111 @@ export class PostsService {
 
   //tạm trc rồi thêm xóa comment react vs media sau
   async remove(id: string) {
-    await this.findOne(id);
+    try {
+      await this.findOne(id);
 
-    const existingMedia = await this.databaseService.Media.findMany({
-      where: {
-        post_id: id,
-      },
-    });
-    if (existingMedia.length > 0) {
-      await this.databaseService.Media.deleteMany({
+      const existingMedia = await this.databaseService.Media.findMany({
         where: {
           post_id: id,
         },
       });
+      if (existingMedia.length > 0) {
+        await this.databaseService.Media.deleteMany({
+          where: {
+            post_id: id,
+          },
+        });
+      }
+
+      const existingComment = await this.databaseService.Comment.findMany({
+        where: {
+          post_id: id,
+        },
+      });
+
+      if (existingComment.length > 0) {
+        await this.databaseService.Comment.deleteMany({
+          where: {
+            post_id: id,
+          },
+        });
+      }
+
+      const existingReaction = await this.databaseService.Reaction.findMany({
+        where: {
+          post_id: id,
+        },
+      });
+
+      if (existingReaction.length > 0) {
+        await this.databaseService.Reaction.deleteMany({
+          where: {
+            post_id: id,
+          },
+        });
+      }
+
+      await this.databaseService.Post.delete({
+        where: {
+          post_id: id,
+        },
+      });
+    } catch (error) {
+      throw new ConflictException(error.message);
+    }
+  }
+
+  async getPostByUserId(userId: string): Promise<PostType[]> {
+    const user = await this.userService.getUserById(userId);
+    if (!user) {
+      throw new NotFoundException('User not found');
     }
 
-    await this.databaseService.Post.delete({
+    return await this.databaseService.Post.findMany({
       where: {
-        post_id: id,
+        user_id: userId,
+      },
+      include: {
+        media: {
+          select: {
+            media_id: true,
+            media_url: true,
+          },
+        },
+        comment: {
+          select: {
+            comment_id: true,
+            content: true,
+            created_at: true,
+            updated_at: true,
+            user: {
+              select: {
+                user_id: true,
+                name: true,
+                avatar: true,
+              },
+            },
+          },
+        },
+        reaction: {
+          select: {
+            reaction_id: true,
+            user: {
+              select: {
+                user_id: true,
+                avatar: true,
+                name: true,
+              },
+            },
+          },
+        },
+        user: {
+          select: {
+            user_id: true,
+            name: true,
+            avatar: true,
+          },
+        },
       },
     });
   }
