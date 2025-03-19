@@ -103,6 +103,7 @@ async function bootstrap() {
       'Range',
       'Authorization',
       'child_id',
+      'Access-Control-Allow-Origin',
     ],
     exposedHeaders: ['Content-Length', 'Content-Range', 'Content-Type'],
     maxAge: 86400,

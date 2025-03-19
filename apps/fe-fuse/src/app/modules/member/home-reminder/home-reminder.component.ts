@@ -1,5 +1,6 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, effect, OnInit, resource } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, effect, OnInit, resource, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
@@ -23,9 +24,9 @@ import { ReminderEditorComponent } from '../../calendar/reminder-editor/reminder
 export class HomeReminderComponent implements OnInit {
   isLoading = true;
   hasMoreReminders = false;
-  todayReminders: ReminderResponse[] = [];
-  tomorrowReminders: ReminderResponse[] = [];
-  upcomingReminders: ReminderResponse[] = [];
+  todayReminders = signal<ReminderResponse[]>([]);
+  tomorrowReminders = signal<ReminderResponse[]>([]);
+  upcomingReminders = signal<ReminderResponse[]>([]);
   allReminders: ReminderResponse[] = [];
 
   // Resource
@@ -59,8 +60,14 @@ export class HomeReminderComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private _authService: AuthService,
+    private _httpClient: HttpClient,
   ) {
+    this._httpClient.get(`${environment.apiUrl}reminders`).subscribe((data) => {
+      console.log(data);
+    });
     effect(() => {
+      console.log(this.reminderResource.value());
+
       this.allReminders = this.reminderResource.value();
       this.loadReminders();
     });
@@ -72,36 +79,42 @@ export class HomeReminderComponent implements OnInit {
 
   loadReminders(): void {
     if (this.allReminders && this.allReminders.length > 0) {
+      console.log('All reminders:', this.allReminders);
       // Get current date values
       const today = DateTime.now().startOf('day');
       const tomorrow = today.plus({ days: 1 }).startOf('day');
       const dayAfterTomorrow = today.plus({ days: 2 }).startOf('day');
-
       // Filter reminders for today
-      this.todayReminders = this.allReminders
-        .filter((reminder) => {
-          const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
-          return reminderDate >= today && reminderDate < tomorrow;
-        })
-        .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime());
-
+      this.todayReminders.set(
+        this.allReminders
+          .filter((reminder) => {
+            const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
+            return reminderDate >= today && reminderDate < tomorrow;
+          })
+          .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime()),
+      );
+      console.log('Today reminders:', this.todayReminders);
       // Filter reminders for tomorrow
-      this.tomorrowReminders = this.allReminders
-        .filter((reminder) => {
-          const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
-          return reminderDate >= tomorrow && reminderDate < dayAfterTomorrow;
-        })
-        .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime());
-
+      this.tomorrowReminders.set(
+        this.allReminders
+          .filter((reminder) => {
+            const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
+            return reminderDate >= tomorrow && reminderDate < dayAfterTomorrow;
+          })
+          .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime()),
+      );
+      console.log('Tomorrow reminders:', this.tomorrowReminders);
       // Filter reminders for upcoming days
-      this.upcomingReminders = this.allReminders
-        .filter((reminder) => {
-          const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
-          return reminderDate >= dayAfterTomorrow;
-        })
-        .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime())
-        .slice(0, 3); // Display only next 3 upcoming reminders
-
+      this.upcomingReminders.set(
+        this.allReminders
+          .filter((reminder) => {
+            const reminderDate = DateTime.fromJSDate(new Date(reminder.remind_date));
+            return reminderDate >= dayAfterTomorrow;
+          })
+          .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime())
+          .slice(0, 3),
+      ); // Display only next 3 upcoming reminders
+      console.log('Upcoming reminders:', this.upcomingReminders);
       // Check if we have more reminders than we're showing
       const totalShown = this.todayReminders.length + this.tomorrowReminders.length + this.upcomingReminders.length;
       this.hasMoreReminders = this.allReminders.length > totalShown;
