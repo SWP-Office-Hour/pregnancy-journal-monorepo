@@ -65,7 +65,6 @@ export class ChildrenProfileComponent {
       });
       if (!response.ok) throw Error(`Could not fetch...`);
       const data: ChildType[] = await response.json();
-      console.log(data);
       return data.map((item: any) => {
         return {
           child_id: item.child_id,
@@ -91,7 +90,7 @@ export class ChildrenProfileComponent {
   }
 
   getGenderText(genderValue: number | undefined | null): string {
-    if (genderValue == undefined || genderValue == null) return 'Chưa xác định';
+    if (genderValue == undefined) return 'Chưa xác định';
     return genderValue === Gender.FEMALE ? 'Nữ' : 'Nam';
   }
 

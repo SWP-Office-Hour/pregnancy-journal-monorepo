@@ -25,7 +25,11 @@
             </button>
             <input #fileInput type="file" hidden (change)="onFileSelected($event)" accept="image/*" />
           </div>
-          <h2 class="text-2xl font-medium text-pink-500">Hồ sơ của tôi</h2>
+          <div>
+            <h2 class="text-2xl font-medium text-pink-500">Hồ sơ của tôi</h2>
+            <p *ngIf="membershipStatus()" class="text-sm text-pink-500">Đã kích hoạt gói thành viên</p>
+            <p *ngIf="!membershipStatus()" class="text-sm text-gray-500">Chưa kích hoạt gói thành viên</p>
+          </div>
         </div>
 
         <!-- Form Section -->
