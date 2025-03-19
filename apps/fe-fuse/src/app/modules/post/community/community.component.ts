@@ -212,6 +212,7 @@ export class CommunityComponent {
     if (comment.value) {
       const content = comment.value;
       this.commentPost(target.id, content);
+      comment.value = '';
     } else {
       return;
     }
