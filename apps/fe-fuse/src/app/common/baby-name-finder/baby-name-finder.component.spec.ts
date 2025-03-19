@@ -8,9 +8,8 @@ describe('BabyNameFinderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BabyNameFinderComponent]
-    })
-    .compileComponents();
+      imports: [BabyNameFinderComponent],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(BabyNameFinderComponent);
     component = fixture.componentInstance;

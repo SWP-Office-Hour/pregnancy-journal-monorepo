@@ -4,8 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-baby-name-finder',
   imports: [],
   templateUrl: './baby-name-finder.component.html',
-  styleUrl: './baby-name-finder.component.css'
+  styleUrl: './baby-name-finder.component.css',
 })
-export class BabyNameFinderComponent {
-
-}
+export class BabyNameFinderComponent {}

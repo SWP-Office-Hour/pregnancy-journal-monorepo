@@ -1,10 +1,11 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NgxSplideModule } from 'ngx-splide';
+import { WeekIllustrationComponent } from '../week-illustration/week-illustration.component';
 
 @Component({
   selector: 'app-week-pregnancy-slider',
-  imports: [NgFor, CommonModule, NgxSplideModule],
+  imports: [NgFor, CommonModule, NgxSplideModule, WeekIllustrationComponent],
   templateUrl: './week-pregnancy-slider.component.html',
   styleUrl: './week-pregnancy-slider.component.css',
 })
