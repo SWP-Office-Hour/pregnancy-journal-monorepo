@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation, WritableSignal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
@@ -10,7 +10,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatOptionModule, MatRippleModule, provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -29,6 +29,9 @@ import { NgxSplideModule } from 'ngx-splide';
 import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { environment } from '../../../../environments/environment';
+import { BabyNameFinderComponent } from '../../../common/baby-name-finder/baby-name-finder.component';
+import { CalculateDueDateComponent } from '../../../common/calculate-due-date/calculate-due-date.component';
+import { WeekPregnancySliderComponent } from '../../../common/week-pregnancy-slider/week-pregnancy-slider.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
@@ -70,6 +73,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     NgxSplideModule,
     RouterLink,
     HomeReminderComponent,
+    MatDialogModule,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
@@ -254,5 +258,29 @@ export class HomeComponent {
       default:
         return 'Chúc bạn và bé luôn khỏe mạnh!';
     }
+  }
+
+  readonly dialog = inject(MatDialog);
+
+  openFirstTool() {
+    const dialogRef = this.dialog.open(BabyNameFinderComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openSecondTool() {
+    const dialogRef = this.dialog.open(CalculateDueDateComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
+  }
+  openThirdTool() {
+    const dialogRef = this.dialog.open(WeekPregnancySliderComponent);
+
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

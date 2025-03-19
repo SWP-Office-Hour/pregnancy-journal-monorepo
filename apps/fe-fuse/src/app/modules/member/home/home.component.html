@@ -166,9 +166,7 @@
     <!-- Mini Tracking Chart -->
     <div
       class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
-    >
-      <app-home-reminder></app-home-reminder>
-    </div>
+    ></div>
     <!-- Recommend Blog -->
     <div
       class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
@@ -194,8 +192,8 @@
         <!-- Right Section: Tool Cards -->
         <div class="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-3">
           <!-- Baby Names Finder Tool -->
-          <a
-            href="#"
+          <div
+            (click)="openFirstTool()"
             class="maternal-tool-card group relative overflow-hidden rounded-xl border border-green-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-green-50 opacity-40"></div>
@@ -229,11 +227,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </a>
+          </div>
 
           <!-- Due Date Calculator Tool -->
-          <a
-            href="#"
+          <div
+            (click)="openSecondTool()"
             class="maternal-tool-card group relative overflow-hidden rounded-xl border border-orange-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-orange-50 opacity-40"></div>
@@ -267,11 +265,11 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </a>
+          </div>
 
           <!-- Pregnancy Evolution Tool -->
-          <a
-            href="#"
+          <div
+            (click)="openThirdTool()"
             class="maternal-tool-card group relative overflow-hidden rounded-xl border border-pink-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
           >
             <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-pink-50 opacity-40"></div>
@@ -305,7 +303,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </div>
-          </a>
+          </div>
         </div>
 
         <!-- Pregnancy Countdown Calendar -->
