@@ -123,8 +123,8 @@ export class CalendarComponent {
       return [];
     }
     // Find existing reminder
-    console.log('date', date);
-    console.log('getRemindersForDate có chạy nè');
+    // console.log('date', date);
+    // console.log('getRemindersForDate có chạy nè');
     return !date ? [] : this.reminderArraySignal()?.filter((r) => this.getDateKey(r.remind_date) == this.getDateKey(date));
   }
 

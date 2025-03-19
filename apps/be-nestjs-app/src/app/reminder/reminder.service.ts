@@ -20,9 +20,10 @@ export class ReminderService {
     user_id: string;
     next_visit_doctor_date: string;
   }): Promise<ReminderResponse> {
-    const remind_date = new Date(next_visit_doctor_date);
+    const nextVisitDoctorDate = new Date(next_visit_doctor_date);
+    const remind_date = new Date(nextVisitDoctorDate);
     remind_date.setDate(remind_date.getDate() - 1);
-    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${remind_date.getDate()}/${remind_date.getMonth() + 1}/${remind_date.getFullYear()}`;
+    const reminder_content = `Bạn có lịch hẹn tái khám vào ngày ${nextVisitDoctorDate.getDate()}/${nextVisitDoctorDate.getMonth() + 1}/${nextVisitDoctorDate.getFullYear()}`;
 
     return await this.databaseService.Reminder.create({
       data: {
@@ -65,16 +66,27 @@ export class ReminderService {
     });
   }
 
-  findAll(userId: string) {
+  async findAll(userId: string) {
     const user = this.userService.getUserById(userId);
     if (!user) {
       throw new NotFoundException('User not found');
     }
 
-    return this.databaseService.Reminder.findMany({
+    const reminder = await this.databaseService.Reminder.findMany({
       where: {
         user_id: userId,
       },
+    });
+
+    return reminder.map((r) => {
+      if (r.visit_record_id) {
+        r.remind_date.setDate(r.remind_date.getDate() + 1);
+
+        return {
+          ...r,
+        };
+      }
+      return r;
     });
   }
 
