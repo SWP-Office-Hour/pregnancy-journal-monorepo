@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { CheckoutRequestType } from '@payos/node/lib/type';
 import {
   PayIncludeUserInfo,
@@ -19,7 +19,7 @@ export class PaymentService {
   constructor(
     private readonly databaseService: DatabaseService,
     private readonly payosService: PayosService,
-    private readonly userService: UsersService,
+    @Inject(forwardRef(() => UsersService)) private readonly userService: UsersService,
     private readonly membershipService: MembershipsService,
   ) {}
 
