@@ -368,7 +368,6 @@ export class RecordsService {
 
   private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child): Promise<RecordResponse[]> {
     // Fetch all needed standards in one query if not provided
-    console.log('formatRecord');
 
     // Get unique metric IDs from all records
     const metricIds = new Set<string>();
@@ -377,7 +376,6 @@ export class RecordsService {
         metricIds.add(metric.metric_id);
       });
     });
-    console.log(metricIds);
 
     // Fetch all standards for these metrics in one query
     const standards = await this.dataService.Standard.findMany({
