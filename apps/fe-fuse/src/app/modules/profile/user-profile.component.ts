@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -13,6 +13,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { UserProfileResponseType, UserUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { environment } from '../../../environments/environment';
+import { UserService } from '../../core/user/user.service';
 import { District, Province, Ward } from '../auth/confirmation-required/confirmation-required.type';
 import { ChildrenProfileComponent } from '../children-profile/children-profile.component';
 
@@ -42,11 +43,13 @@ export class UserProfileComponent {
   protected provinces: Province[] = [];
   protected districts: District[] = [];
   protected wards: Ward[] = [];
+  protected membershipStatus = signal<boolean>(false);
 
   constructor(
     private fb: FormBuilder,
     private _httpClient: HttpClient,
     private router: Router,
+    private userService: UserService,
   ) {
     this.profileForm = this.fb.group({
       avatar: [null],
@@ -88,8 +91,12 @@ export class UserProfileComponent {
           district: profile.district,
           ward: profile.ward,
         });
-        console.log(this.profileForm.value);
       });
+    });
+
+    //   Check user membership
+    this.userService.checkMember().subscribe((checkMember) => {
+      this.membershipStatus.set(checkMember);
     });
   }
 

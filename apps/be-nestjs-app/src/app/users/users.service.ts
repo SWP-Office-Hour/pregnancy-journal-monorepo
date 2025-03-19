@@ -631,6 +631,7 @@ export class UsersService {
 
     const membership = user.payment_history?.at(0)?.expired_at;
 
+    console.log(user.payment_history?.at(0));
     if (membership) {
       const hasExpired = new Date(membership) < new Date();
       return !hasExpired;

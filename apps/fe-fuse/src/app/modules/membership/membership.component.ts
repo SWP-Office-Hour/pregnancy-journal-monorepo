@@ -11,7 +11,9 @@ import { CardModule } from 'primeng/card';
 import { CarouselModule } from 'primeng/carousel';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../environments/environment';
+import { AuthService } from '../../core/auth/auth.service';
 import { membershipService } from '../../core/membership/membership.service';
+import { UserService } from '../../core/user/user.service';
 import { DialogComponent } from './dialog/dialog.component';
 
 @Component({
@@ -45,11 +47,14 @@ export class MembershipComponent {
     public dialog: MatDialog,
     private membershipService: membershipService,
     private messageService: MessageService,
+    private authService: AuthService,
+    private userService: UserService,
   ) {
     //dùng để coi giá trị của resource
     effect(() => {
       this.handleSuccessUrl();
     });
+    this.authService.signInUsingToken().subscribe();
   }
 
   openDialog(membershipId: string): void {
