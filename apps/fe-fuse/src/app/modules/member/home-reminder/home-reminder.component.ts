@@ -62,12 +62,7 @@ export class HomeReminderComponent implements OnInit {
     private _authService: AuthService,
     private _httpClient: HttpClient,
   ) {
-    this._httpClient.get(`${environment.apiUrl}reminders`).subscribe((data) => {
-      console.log(data);
-    });
     effect(() => {
-      console.log(this.reminderResource.value());
-
       this.allReminders = this.reminderResource.value();
       this.loadReminders();
     });
@@ -93,7 +88,6 @@ export class HomeReminderComponent implements OnInit {
           })
           .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime()),
       );
-      console.log('Today reminders:', this.todayReminders);
       // Filter reminders for tomorrow
       this.tomorrowReminders.set(
         this.allReminders
@@ -103,7 +97,6 @@ export class HomeReminderComponent implements OnInit {
           })
           .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime()),
       );
-      console.log('Tomorrow reminders:', this.tomorrowReminders);
       // Filter reminders for upcoming days
       this.upcomingReminders.set(
         this.allReminders
@@ -114,7 +107,6 @@ export class HomeReminderComponent implements OnInit {
           .sort((a, b) => new Date(a.remind_date).getTime() - new Date(b.remind_date).getTime())
           .slice(0, 3),
       ); // Display only next 3 upcoming reminders
-      console.log('Upcoming reminders:', this.upcomingReminders);
       // Check if we have more reminders than we're showing
       const totalShown = this.todayReminders.length + this.tomorrowReminders.length + this.upcomingReminders.length;
       this.hasMoreReminders = this.allReminders.length > totalShown;
