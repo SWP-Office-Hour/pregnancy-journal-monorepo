@@ -29,6 +29,7 @@ export const reminderResSchema = reminderBaseSchema
   .omit({ remind_date: true })
   .extend({
     remind_date: z.date(),
+    visit_record_id: z.string().nullable(),
   });
 
 export type ReminderResponse = z.infer<typeof reminderResSchema>;
