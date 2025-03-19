@@ -133,4 +133,17 @@ export const userContract = c.router({
       404: z.object({ message: z.string() }),
     },
   },
+
+  delete: {
+    method: 'DELETE',
+    path: '/users/:id',
+    description: '!!! NGUY HIỂM !!! Delete a user by id',
+    pathParams: z.object({
+      id: z.string(),
+    }),
+    responses: {
+      200: z.object({ message: z.string() }),
+      404: z.object({ message: z.string() }),
+    },
+  },
 });

@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { RecordCreateRequest, RecordResponse, RecordUpdateRequest, Standard } from '@pregnancy-journal-monorepo/contract';
 import { ChildService } from '../child/child.service';
 import { Child } from '../child/entities/child.entity';
@@ -13,8 +13,8 @@ export class RecordsService {
   constructor(
     private readonly dataService: DatabaseService,
     private readonly timeUtilsService: TimeUtilsService,
-    private readonly childService: ChildService,
-    private readonly reminderService: ReminderService,
+    @Inject(forwardRef(() => ChildService)) private readonly childService: ChildService,
+    @Inject(forwardRef(() => ReminderService)) private readonly reminderService: ReminderService,
     private readonly mediaService: MediaService,
   ) {}
 
@@ -601,32 +601,5 @@ export class RecordsService {
         });
       }
     }
-  }
-
-  private async getStandardIdByWeek({ week, metric_id }: { week: number; metric_id: string }): Promise<string | null> {
-    const standards = await this.dataService.Standard.findMany({
-      where: {
-        metric_id,
-      },
-    });
-
-    if (standards.length === 0) {
-      return null;
-    }
-
-    if (week < standards[0].week) {
-      return null;
-    }
-
-    if (week > standards[standards.length - 1].week) {
-      return standards[standards.length - 1].standard_id;
-    }
-
-    const standard = standards.find((s) => s.week === week);
-    if (standard) {
-      return standard.standard_id;
-    }
-
-    return standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0].standard_id;
   }
 }

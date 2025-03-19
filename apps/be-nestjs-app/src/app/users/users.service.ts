@@ -15,9 +15,11 @@ import {
   UserRole,
   UserUpdateRequestType,
 } from '@pregnancy-journal-monorepo/contract';
+import { ChildService } from '../child/child.service';
 import { DatabaseService } from '../database/database.service';
 import { MailService } from '../mail/mail.service';
 import { PaymentService } from '../payment/payment.service';
+import { PostsService } from '../posts/posts.service';
 import { TokenDto } from '../utils/jwt/jwt.dto';
 import { JwtUtilsService } from '../utils/jwt/jwtUtils.service';
 
@@ -30,6 +32,10 @@ export class UsersService {
     private readonly mailService: MailService,
     @Inject(forwardRef(() => PaymentService))
     private readonly paymentService: PaymentService,
+    @Inject(forwardRef(() => PostsService))
+    private readonly postsService: PostsService,
+    @Inject(forwardRef(() => ChildService))
+    private readonly childService: ChildService,
   ) {}
 
   signAccessToken({ user_id, role }: { user_id: string; role: UserRole }) {
@@ -101,12 +107,11 @@ export class UsersService {
   // }
 
   async checkEmail(email: string): Promise<UserResponseType | null> {
-    const result = await this.databaseService.User.findFirst({
+    return await this.databaseService.User.findFirst({
       where: {
         email,
       },
     });
-    return result;
   }
 
   async checkRefreshToken({ user_id, refresh_token }: { user_id: string; refresh_token: string }) {
@@ -659,6 +664,74 @@ export class UsersService {
         ...user,
         payment_history: undefined,
       };
+    });
+  }
+
+  async deleteUser(userId: string) {
+    const post = await this.postsService.getPostByUserId(userId);
+
+    if (post) {
+      for (const p of post) {
+        await this.postsService.remove(p.post_id);
+      }
+    }
+
+    const payment = await this.paymentService.getPaymentByUserId(userId);
+
+    if (payment) {
+      await this.databaseService.Payment.deleteMany({
+        where: {
+          user_id: userId,
+        },
+      });
+    }
+
+    await this.databaseService.Token.deleteMany({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    const child = await this.childService.getAllChildren(userId);
+
+    if (child) {
+      for (const c of child) {
+        await this.childService.deleteChild(c.child_id);
+      }
+    }
+
+    const reminders = await this.databaseService.Reminder.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    if (reminders) {
+      await this.databaseService.Reminder.deleteMany({
+        where: {
+          user_id: userId,
+        },
+      });
+    }
+
+    const note = await this.databaseService.Note.findMany({
+      where: {
+        user_id: userId,
+      },
+    });
+
+    if (note) {
+      await this.databaseService.Note.deleteMany({
+        where: {
+          user_id: userId,
+        },
+      });
+    }
+
+    return this.databaseService.User.delete({
+      where: {
+        user_id: userId,
+      },
     });
   }
 }

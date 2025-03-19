@@ -8,5 +8,6 @@ import { StandardService } from './standard.service';
   imports: [MetricModule, DatabaseModule],
   controllers: [StandardController],
   providers: [StandardService],
+  exports: [StandardService],
 })
 export class StandardModule {}

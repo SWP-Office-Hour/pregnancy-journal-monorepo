@@ -63,6 +63,22 @@ export class UsersController {
     });
   }
 
+  @TsRestHandler(authContract.checkEmail)
+  handleCheckEmail(@Body() body: { email: string }) {
+    return tsRestHandler(authContract.checkEmail, async () => {
+      const user = await this.usersService.checkEmail(body.email);
+      if (user) {
+        throw new ConflictException('Email already exists');
+      }
+      return {
+        status: 200,
+        body: {
+          message: 'Email is valid',
+        },
+      };
+    });
+  }
+
   @TsRestHandler(userContract.create)
   async handleCreate(@Body() body: UserCreateRequestType) {
     //check if email already exists
@@ -159,6 +175,19 @@ export class UsersController {
         status: 201,
         body: {
           message: result,
+        },
+      };
+    });
+  }
+
+  @TsRestHandler(userContract.delete)
+  handleDelete(@Param('id') id: string) {
+    return tsRestHandler(userContract.delete, async () => {
+      await this.usersService.deleteUser(id);
+      return {
+        status: 200,
+        body: {
+          message: 'User deleted successfully',
         },
       };
     });
