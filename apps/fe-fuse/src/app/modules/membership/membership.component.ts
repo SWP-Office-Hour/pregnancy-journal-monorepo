@@ -1,3 +1,4 @@
+import { DecimalPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, effect, resource, ViewEncapsulation } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +21,7 @@ import { DialogComponent } from './dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   providers: [MessageService],
-  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent, ToastModule],
+  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent, ToastModule, DecimalPipe],
 })
 export class MembershipComponent {
   yearlyBilling: boolean = true;
