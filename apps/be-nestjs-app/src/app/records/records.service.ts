@@ -1,5 +1,5 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { RecordCreateRequest, RecordResponse, RecordUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import { RecordCreateRequest, RecordResponse, RecordUpdateRequest, Standard } from '@pregnancy-journal-monorepo/contract';
 import { ChildService } from '../child/child.service';
 import { Child } from '../child/entities/child.entity';
 import { DatabaseService } from '../database/database.service';
@@ -319,50 +319,144 @@ export class RecordsService {
    * Format records for response
    * @param records
    * @param child
+   * @param standards
    * @returns Promise<RecordResponse[]>
    * @async
    * @private
    */
+  // private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child, standards: Standard[]): Promise<RecordResponse[]> {
+  //   return await Promise.all(
+  //     records.map(async (record) => {
+  //       // Calculate pregnancy week for this record
+  //       const week = this.timeUtilsService.calculatePregnancyWeeks({
+  //         expectedBirthDate: child.expected_birth_date,
+  //         visitDate: record.visit_doctor_date,
+  //       });
+  //
+  //       // Extract just the values and metric IDs from the metrics
+  //       const data = await Promise.all(
+  //         record.visit_record_metric.map(async (metricRecord) => {
+  //           const standardId = await this.getStandardIdByWeek({ week, metric_id: metricRecord.metric_id });
+  //           return {
+  //             metric_id: metricRecord.metric_id,
+  //             value: metricRecord.value,
+  //             tag_id: metricRecord.tag_id,
+  //             standard_id: standardId,
+  //             child_id: record.child_id,
+  //           };
+  //         }),
+  //       );
+  //
+  //       // Return the simplified record structure
+  //       return {
+  //         week,
+  //         visit_record_id: record.visit_record_id,
+  //         visit_doctor_date: record.visit_doctor_date,
+  //
+  //         next_visit_doctor_date: record.next_visit_doctor_date as Date,
+  //         hospital: record.hospital,
+  //         doctor_name: record.doctor_name,
+  //         media: record.media.map((m) => ({
+  //           media_id: m.media_id,
+  //           media_url: m.media_url,
+  //         })),
+  //         data,
+  //       };
+  //     }),
+  //   );
+  // }
+
   private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child): Promise<RecordResponse[]> {
-    return await Promise.all(
-      records.map(async (record) => {
-        // Calculate pregnancy week for this record
-        const week = this.timeUtilsService.calculatePregnancyWeeks({
-          expectedBirthDate: child.expected_birth_date,
-          visitDate: record.visit_doctor_date,
-        });
+    // Fetch all needed standards in one query if not provided
+    console.log('formatRecord');
 
-        // Extract just the values and metric IDs from the metrics
-        const data = await Promise.all(
-          record.visit_record_metric.map(async (metricRecord) => {
-            const standardId = await this.getStandardIdByWeek({ week, metric_id: metricRecord.metric_id });
-            return {
-              metric_id: metricRecord.metric_id,
-              value: metricRecord.value,
-              tag_id: metricRecord.tag_id,
-              standard_id: standardId,
-              child_id: record.child_id,
-            };
-          }),
-        );
+    // Get unique metric IDs from all records
+    const metricIds = new Set<string>();
+    records.forEach((record) => {
+      record.visit_record_metric.forEach((metric) => {
+        metricIds.add(metric.metric_id);
+      });
+    });
+    console.log(metricIds);
 
-        // Return the simplified record structure
+    // Fetch all standards for these metrics in one query
+    const standards = await this.dataService.Standard.findMany({
+      where: {
+        metric_id: { in: Array.from(metricIds) },
+      },
+    });
+
+    // Create a lookup map for faster access
+    const standardsMap = new Map<string, Standard[]>();
+    standards.forEach((standard) => {
+      if (!standardsMap.has(standard.metric_id)) {
+        standardsMap.set(standard.metric_id, []);
+      }
+      standardsMap.get(standard.metric_id)?.push(standard);
+    });
+
+    // Sort standards by week for each metric
+    standardsMap.forEach((standards, _) => {
+      standards.sort((a, b) => a.week - b.week);
+    });
+
+    return records.map((record) => {
+      const week = this.timeUtilsService.calculatePregnancyWeeks({
+        expectedBirthDate: child.expected_birth_date,
+        visitDate: record.visit_doctor_date,
+      });
+
+      const data = record.visit_record_metric.map((metricRecord) => {
+        // Use the cached standards instead of making a DB call
+        const standardId = this.getStandardIdFromCache(week, metricRecord.metric_id, standardsMap);
+
         return {
-          week,
-          visit_record_id: record.visit_record_id,
-          visit_doctor_date: record.visit_doctor_date,
-
-          next_visit_doctor_date: record.next_visit_doctor_date as Date,
-          hospital: record.hospital,
-          doctor_name: record.doctor_name,
-          media: record.media.map((m) => ({
-            media_id: m.media_id,
-            media_url: m.media_url,
-          })),
-          data,
+          metric_id: metricRecord.metric_id,
+          value: metricRecord.value,
+          tag_id: metricRecord.tag_id,
+          standard_id: standardId,
+          child_id: record.child_id,
         };
-      }),
-    );
+      });
+
+      return {
+        week,
+        visit_record_id: record.visit_record_id,
+        visit_doctor_date: record.visit_doctor_date,
+        next_visit_doctor_date: record.next_visit_doctor_date as Date,
+        hospital: record.hospital,
+        doctor_name: record.doctor_name,
+        media: record.media.map((m) => ({
+          media_id: m.media_id,
+          media_url: m.media_url,
+        })),
+        data,
+      };
+    });
+  }
+
+  // New helper method to get standard ID from cached data
+  private getStandardIdFromCache(week: number, metric_id: string, standardsMap: Map<string, Standard[]>): string | null {
+    const standards = standardsMap.get(metric_id) || [];
+
+    if (standards.length === 0) {
+      return null;
+    }
+
+    if (week < standards[0].week) {
+      return null;
+    }
+
+    if (week > standards[standards.length - 1].week) {
+      return standards[standards.length - 1].standard_id;
+    }
+
+    const standard = standards.find((s) => s.week === week);
+    if (standard) {
+      return standard.standard_id;
+    }
+
+    return standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0].standard_id;
   }
 
   /**
