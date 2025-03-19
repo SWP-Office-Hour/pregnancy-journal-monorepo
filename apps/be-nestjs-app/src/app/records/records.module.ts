@@ -1,6 +1,6 @@
 import { forwardRef, Module } from '@nestjs/common';
 import { ChildModule } from '../child/child.module';
-import { DatabaseService } from '../database/database.service';
+import { DatabaseModule } from '../database/database.module';
 import { MediaModule } from '../media/media.module';
 import { MetricModule } from '../metric/metric.module';
 import { ReminderModule } from '../reminder/reminder.module';
@@ -12,9 +12,9 @@ import { RecordsController } from './records.controller';
 import { RecordsService } from './records.service';
 
 @Module({
-  imports: [JwtUtilsModule, MetricModule, TagModule, forwardRef(() => ChildModule), ReminderModule, MediaModule],
+  imports: [JwtUtilsModule, MetricModule, TagModule, forwardRef(() => ChildModule), ReminderModule, MediaModule, DatabaseModule],
   controllers: [RecordsController],
-  providers: [RecordsService, DatabaseService, TimeUtilsService, StandardService],
+  providers: [RecordsService, TimeUtilsService, StandardService],
   exports: [RecordsService],
 })
 export class RecordsModule {}

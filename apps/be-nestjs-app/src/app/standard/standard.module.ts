@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { DatabaseService } from '../database/database.service';
+import { DatabaseModule } from '../database/database.module';
 import { MetricModule } from '../metric/metric.module';
 import { StandardController } from './standard.controller';
 import { StandardService } from './standard.service';
 
 @Module({
-  imports: [MetricModule],
+  imports: [MetricModule, DatabaseModule],
   controllers: [StandardController],
-  providers: [StandardService, DatabaseService],
+  providers: [StandardService],
 })
 export class StandardModule {}
