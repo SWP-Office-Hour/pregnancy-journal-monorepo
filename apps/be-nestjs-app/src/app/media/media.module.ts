@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MulterModule } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
-import { DatabaseService } from '../database/database.service';
+import { DatabaseModule } from '../database/database.module';
 import { FileService } from '../file/file.service';
 import { MediaController } from './media.controller';
 import { MediaService } from './media.service';
@@ -17,9 +17,10 @@ import { MediaService } from './media.service';
         },
       }),
     }),
+    DatabaseModule,
   ],
   controllers: [MediaController],
-  providers: [MediaService, DatabaseService, FileService],
+  providers: [MediaService, FileService],
   exports: [MediaService, FileService],
 })
 export class MediaModule {}
