@@ -60,6 +60,8 @@ const recordUpdateReqSchema = recordBaseSchema
     data: z.array(recordMetricUpdateReqSchema).optional(),
   });
 
+const warningSchema = z.array(z.string());
+
 const recordResSchema = recordBaseSchema
   .omit({
     hospital_id: true,
@@ -73,12 +75,17 @@ const recordResSchema = recordBaseSchema
     media: z.array(mediaResSchema),
   });
 
+const recordWithWarningResSchema = recordResSchema.extend({
+  warnings: warningSchema,
+});
+
 export type RecordCreateRequest = z.infer<typeof recordCreateReqSchema>;
 export type RecordUpdateRequest = z.infer<typeof recordUpdateReqSchema>;
 
 export type RecordResponse = z.infer<typeof recordResSchema>;
-
+export type RecordWithWarningResponse = z.infer<typeof recordWithWarningResSchema>;
 export type DataMetric = z.infer<typeof recordMetricCreateReqSchema>;
+export type WarningListType = z.infer<typeof warningSchema>;
 
 const c = initContract();
 
@@ -147,6 +154,21 @@ export const recordContract = c.router({
     description: 'Get pregnancy by id',
     responses: {
       200: z.object({ recordResSchema }),
+      400: z.object({
+        message: z.string(),
+      }),
+    },
+  },
+
+  getWarning: {
+    method: 'GET',
+    path: '/record/warning/:record_id',
+    description: 'Get warning message',
+    pathParams: z.object({
+      record_id: z.string(),
+    }),
+    responses: {
+      200: warningSchema,
       400: z.object({
         message: z.string(),
       }),

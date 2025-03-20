@@ -38,6 +38,17 @@ export class RecordsController {
     });
   }
 
+  @TsRestHandler(recordContract.getWarning)
+  handleGetWarning(@Param('record_id') record_id: string) {
+    return tsRestHandler(recordContract.getWarning, async () => {
+      const record = await this.recordService.getWarning(record_id);
+      return {
+        status: 201,
+        body: record,
+      };
+    });
+  }
+
   @TsRestHandler(recordContract.updateRecord)
   handleUpdateRecord(@Body() record: RecordUpdateRequest) {
     return tsRestHandler(recordContract.createRecord, async () => {
