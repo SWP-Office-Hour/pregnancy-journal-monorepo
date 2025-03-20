@@ -75,7 +75,7 @@
                         <div>
                           <div class="text-sm text-gray-500 dark:text-gray-400">Ngày dự sinh</div>
                           <div class="text-2xl font-semibold text-pink-600 dark:text-blue-400">
-                            {{ child.expected_birth_date | date: 'dd MMM, yyyy' }}
+                            {{ formatDateInVietnamese(child.expected_birth_date) }}
                           </div>
                         </div>
                       </div>
