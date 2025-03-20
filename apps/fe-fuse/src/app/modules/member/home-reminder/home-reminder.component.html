@@ -1,4 +1,4 @@
-<div class="h-full w-full">
+<div class="w-full p-2">
   <!-- Header -->
   <div class="mb-6 flex items-center justify-between">
     <div class="flex items-center">
@@ -13,19 +13,10 @@
       </div>
       <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-xl font-bold text-transparent">Lịch nhắc nhở</h2>
     </div>
-    <button
-      class="flex items-center space-x-1 rounded-full bg-pink-50 px-3 py-1 text-sm font-medium text-pink-600 shadow-sm transition hover:bg-pink-100"
-      [routerLink]="'/calendar'"
-    >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-        <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
-      </svg>
-      <span>Thêm mới</span>
-    </button>
   </div>
 
   <!-- Reminders List -->
-  <div class="space-y-6">
+  <div class="max-h-128 space-y-6 overflow-y-auto rounded-lg bg-white px-4">
     <!-- Today's Reminders -->
     <div *ngIf="todayReminders().length > 0">
       <h3 class="mb-3 text-sm font-medium text-gray-500">Hôm nay</h3>
@@ -78,34 +69,6 @@
               </div>
             </div>
           </div>
-          <!--          <div class="flex items-center space-x-2" *ngIf="reminder.type == ReminderType.USER_CREATED_REMINDER">-->
-          <!--            <button-->
-          <!--              (click)="editReminder(reminder)"-->
-          <!--              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-pink-50 hover:text-pink-500 group-hover:visible"-->
-          <!--            >-->
-          <!--              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
-          <!--                <path-->
-          <!--                  stroke-linecap="round"-->
-          <!--                  stroke-linejoin="round"-->
-          <!--                  stroke-width="2"-->
-          <!--                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"-->
-          <!--                />-->
-          <!--              </svg>-->
-          <!--            </button>-->
-          <!--            <button-->
-          <!--              (click)="deleteReminder(reminder)"-->
-          <!--              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-pink-50 hover:text-pink-500 group-hover:visible"-->
-          <!--            >-->
-          <!--              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">-->
-          <!--                <path-->
-          <!--                  stroke-linecap="round"-->
-          <!--                  stroke-linejoin="round"-->
-          <!--                  stroke-width="2"-->
-          <!--                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"-->
-          <!--                />-->
-          <!--              </svg>-->
-          <!--            </button>-->
-          <!--          </div>-->
         </div>
       </div>
     </div>
@@ -161,34 +124,6 @@
                 {{ reminder.remind_date | date: 'HH:mm' }}
               </div>
             </div>
-          </div>
-          <div class="flex items-center space-x-2" *ngIf="reminder.type == ReminderType.USER_CREATED_REMINDER">
-            <button
-              (click)="editReminder(reminder)"
-              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-500 group-hover:visible"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                />
-              </svg>
-            </button>
-            <button
-              (click)="deleteReminder(reminder)"
-              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-blue-50 hover:text-blue-500 group-hover:visible"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-            </button>
           </div>
         </div>
       </div>
@@ -251,34 +186,6 @@
               </div>
             </div>
           </div>
-          <div class="flex items-center space-x-2" *ngIf="reminder.type == ReminderType.USER_CREATED_REMINDER">
-            <button
-              (click)="editReminder(reminder)"
-              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-purple-50 hover:text-purple-500 group-hover:visible"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
-                />
-              </svg>
-            </button>
-            <button
-              (click)="deleteReminder(reminder)"
-              class="invisible rounded-full p-1.5 text-gray-400 hover:bg-purple-50 hover:text-purple-500 group-hover:visible"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                />
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
     </div>
@@ -325,7 +232,7 @@
   </div>
 
   <!-- View All Link (if more than 5 reminders) -->
-  <div *ngIf="hasMoreReminders" class="mt-6 text-center">
+  <div *ngIf="hasMoreReminders" class="mt-2 text-center">
     <a routerLink="/calendar" class="inline-flex items-center space-x-1 text-sm font-medium text-pink-600 hover:text-pink-700">
       <span>Xem tất cả</span>
       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
