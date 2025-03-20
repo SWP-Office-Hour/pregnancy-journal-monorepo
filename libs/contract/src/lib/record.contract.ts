@@ -96,7 +96,7 @@ export const recordContract = c.router({
     description: 'Create a new record (đã xong)',
     body: recordCreateReqSchema,
     responses: {
-      200: recordResSchema,
+      200: recordWithWarningResSchema,
       400: z.object({
         message: z.string(),
       }),
