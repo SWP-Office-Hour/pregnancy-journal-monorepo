@@ -13,6 +13,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { ToastModule } from 'primeng/toast';
 import { environment } from '../../../../environments/environment.staging';
 import { AuthService } from '../../../core/auth/auth.service';
+import { ChildV2Service } from '../../../core/children/child.v2.service';
 
 interface GenderOption {
   name: string;
@@ -53,6 +54,7 @@ export class ChildrenProfileTableComponent implements OnInit {
     private http: HttpClient,
     private dialogRef: MatDialogRef<ChildrenProfileTableComponent>,
     private _authService: AuthService,
+    private childV2Service: ChildV2Service,
     @Inject(MAT_DIALOG_DATA) public data: { child?: ChildType },
   ) {
     // Set max date to 9 months from today
@@ -147,11 +149,16 @@ export class ChildrenProfileTableComponent implements OnInit {
           })
           .subscribe({
             next: () => {
-              this._authService.signInUsingToken().subscribe({
-                next: () => {
-                  window.location.reload();
-                },
+              this.http.get<ChildType[]>(environment.apiUrl + 'child').subscribe((children) => {
+                console.log(children);
+                this.childV2Service.children = children;
               });
+              this.messageService.add({
+                severity: 'success',
+                summary: 'Tạo thành công',
+                detail: 'Thêm thông tin em bé thành công',
+              });
+              this.dialogRef.close(true);
             },
             error: (error) => {
               console.log(error);
@@ -180,6 +187,7 @@ export class ChildrenProfileTableComponent implements OnInit {
 
   // Add these methods to children-profile-table.component.ts
   isFieldInvalid(field: string): boolean {
+    console.log(this.profileForm.get(field));
     const control = this.profileForm.get(field);
     return control !== null && control.invalid && (control.dirty || control.touched);
   }

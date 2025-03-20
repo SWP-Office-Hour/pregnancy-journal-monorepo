@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, effect, resource } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -91,6 +92,7 @@ export class ChildrenProfileComponent {
     private _userService: UserService,
     private _childService: ChildV2Service,
     private _router: Router,
+    private http: HttpClient,
   ) {
     //dùng để coi giá trị của resource
     effect(() => {});
@@ -143,13 +145,16 @@ export class ChildrenProfileComponent {
         })
           .then((response) => {
             if (response.ok) {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Thành công',
-                detail: `Đã xóa hồ sơ của ${child.name}`,
-                life: 3000,
+              this.http.get<ChildType[]>(environment.apiUrl + 'child/').subscribe((children) => {
+                this._childService.children = children;
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Thành công',
+                  detail: `Đã xóa hồ sơ của ${child.name}`,
+                  life: 3000,
+                });
+                this.childResource.reload();
               });
-              this.childResource.reload();
             } else {
               this.messageService.add({
                 severity: 'error',
