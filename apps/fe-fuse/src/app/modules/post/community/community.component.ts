@@ -74,7 +74,7 @@ export class CommunityComponent {
       .pipe(
         map((res) => {
           res.data.forEach((post) => {
-            post.media.forEach((media) => {
+            post!.media!.forEach((media) => {
               if (media) {
                 this.getImagesById(media.media_id).subscribe((image) => {
                   media.media_url = image.imgLink;
@@ -129,7 +129,10 @@ export class CommunityComponent {
     });
   }
 
-  createPostAt(date: string | Date): string {
+  createPostAt(date: Date | null): string {
+    if (!date) {
+      return '';
+    }
     const dateObj = new Date(date);
     return DateTime.fromJSDate(dateObj).toLocaleString();
   }

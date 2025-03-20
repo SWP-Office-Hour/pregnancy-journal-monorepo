@@ -16,7 +16,7 @@
 
   <p-table
     #dt
-    [value]="paymentResource.value()"
+    [value]="paymentResource.value() || []"
     [globalFilterFields]="['user.name', 'user.email', 'user.phone', 'membership.title', 'value', 'status', 'created_at', 'formatedDate']"
     [paginator]="true"
     [rowHover]="true"

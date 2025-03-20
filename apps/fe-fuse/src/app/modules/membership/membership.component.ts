@@ -79,7 +79,7 @@ export class MembershipComponent {
     const orderCode = urlParams.get('orderCode');
 
     if (status === 'PAID' && code === '00') {
-      const res = this.membershipService.updatePayment({ payos_order_code: orderCode });
+      const res = this.membershipService.updatePayment({ payos_order_code: orderCode! });
       res.then((response) => {
         console.log('Backend function called successfully', response);
         this.messageService.add({ severity: 'success', summary: 'Membership', detail: 'Payment success', life: 3000 });

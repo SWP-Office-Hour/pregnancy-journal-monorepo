@@ -15,7 +15,7 @@ import { membershipService } from '../../core/membership/membership.service';
   styleUrl: './membership-detail.component.css',
 })
 export class MembershipDetailComponent implements OnInit {
-  membership?: membershipResponse;
+  membership: membershipResponse | undefined;
   paymentForm: FormGroup;
 
   constructor(
@@ -52,6 +52,7 @@ export class MembershipDetailComponent implements OnInit {
   }
 
   onSubmit(): void {
+    if (!this.membership) return;
     console.log(this.membership);
     const response = this.membershipService.createPayment({ membership_id: this.membership.membership_id });
 
