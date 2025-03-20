@@ -9,17 +9,17 @@
     placeholder="Select a child"
   >
     <ng-template pTemplate="selectedItem">
-      <div class="flex items-center gap-2" *ngIf="selectedChild()">
+      <div class="flex items-center gap-2" *ngIf="_selectedChild()">
         <div
           class="flex h-6 w-6 items-center justify-center rounded-full"
           [ngClass]="{
-            'bg-blue-100 text-blue-600': selectedChild()?.gender === gender.MALE,
-            'bg-pink-100 text-pink-600': selectedChild()?.gender === gender.FEMALE,
+            'bg-blue-100 text-blue-600': _selectedChild()?.gender === gender.MALE,
+            'bg-pink-100 text-pink-600': _selectedChild()?.gender === gender.FEMALE,
           }"
         >
-          <span class="text-xs font-medium">{{ selectedChild()?.name.charAt(0) }}</span>
+          <span class="text-xs font-medium">{{ _selectedChild()?.name.charAt(0) }}</span>
         </div>
-        <span>{{ selectedChild()?.name }}</span>
+        <span>{{ _selectedChild()?.name }}</span>
       </div>
     </ng-template>
     <ng-template let-child pTemplate="item">

@@ -18,6 +18,7 @@ import { provideOAuthClient } from 'angular-oauth2-oidc';
 import { GLOBAL_AUTO_ANIMATE_OPTIONS } from 'ng-auto-animate';
 import { NgxImageCompressService } from 'ngx-image-compress';
 import { vi } from 'primelocale/js/vi.js';
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { firstValueFrom } from 'rxjs';
 import { MyPresetPrimeNG } from '../../primeng-color-preset';
@@ -27,6 +28,7 @@ import { TranslocoHttpLoader } from './core/transloco/transloco.http-loader';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    MessageService,
     provideAnimationsAsync(),
     provideOAuthClient(),
     provideAnimations(),

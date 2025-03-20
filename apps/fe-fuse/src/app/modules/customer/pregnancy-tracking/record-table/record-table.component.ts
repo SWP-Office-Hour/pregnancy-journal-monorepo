@@ -46,7 +46,6 @@ export class RecordTableComponent implements OnInit {
   protected originalRows: { week: number; records: RecordResponse[] }[] = []; // Store original rows for filtering
 
   constructor(
-    private messageService: MessageService,
     private recordService: PregnancyTrackingService,
     private _dialog: MatDialog,
   ) {}

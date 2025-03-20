@@ -1,92 +1,92 @@
-<div class="mx-auto w-full max-w-7xl">
-  <div class="">
-    <div class="flex flex-col overflow-hidden rounded-xl bg-white shadow-lg">
-      <!-- Phần đầu với các điều khiển -->
-      <div class="flex flex-col justify-between border-b border-gray-100 p-4 pb-3">
-        <div class="flex items-center">
-          <h2 class="text-lg font-medium leading-6 text-gray-800">{{ title }}</h2>
-          <div class="ml-2 rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">
-            {{ selectedPeriod }}
-          </div>
-        </div>
-        <div class="mt-3 flex items-center space-x-2">
-          <button
-            *ngFor="let period of periods"
-            (click)="changePeriod(period.label)"
-            [class.bg-blue-500]="selectedPeriod === period.label"
-            [class.text-white]="selectedPeriod === period.label"
-            [class.bg-gray-100]="selectedPeriod !== period.label"
-            [class.text-gray-700]="selectedPeriod !== period.label"
-            class="h-8 min-h-8 rounded-full px-3 py-1 text-sm font-medium transition-all duration-200 hover:bg-opacity-90"
-          >
-            {{ period.label }}
-          </button>
-        </div>
-      </div>
+<!--<div class="mx-auto w-full max-w-7xl">-->
+<!--  <div class="">-->
+<!--    <div class="flex flex-col overflow-hidden rounded-xl bg-white shadow-lg">-->
+<!--      &lt;!&ndash; Phần đầu với các điều khiển &ndash;&gt;-->
+<!--      <div class="flex flex-col justify-between border-b border-gray-100 p-4 pb-3">-->
+<!--        <div class="flex items-center">-->
+<!--          <h2 class="text-lg font-medium leading-6 text-gray-800">{{ title }}</h2>-->
+<!--          <div class="ml-2 rounded-full bg-blue-50 px-2 py-1 text-xs text-blue-600">-->
+<!--            {{ selectedPeriod }}-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="mt-3 flex items-center space-x-2">-->
+<!--          <button-->
+<!--            *ngFor="let period of periods"-->
+<!--            (click)="changePeriod(period.label)"-->
+<!--            [class.bg-blue-500]="selectedPeriod === period.label"-->
+<!--            [class.text-white]="selectedPeriod === period.label"-->
+<!--            [class.bg-gray-100]="selectedPeriod !== period.label"-->
+<!--            [class.text-gray-700]="selectedPeriod !== period.label"-->
+<!--            class="h-8 min-h-8 rounded-full px-3 py-1 text-sm font-medium transition-all duration-200 hover:bg-opacity-90"-->
+<!--          >-->
+<!--            {{ period.label }}-->
+<!--          </button>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <!-- Vùng chứa biểu đồ -->
-      <div class="relative flex-1 p-4 sm:p-6">
-        <!-- Trạng thái đang tải -->
-        <div *ngIf="!multi_data?.length" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60">
-          <div class="flex flex-col items-center">
-            <div class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500"></div>
-            <span class="mt-3 text-sm text-gray-500">Đang tải dữ liệu biểu đồ...</span>
-          </div>
-        </div>
+<!--      &lt;!&ndash; Vùng chứa biểu đồ &ndash;&gt;-->
+<!--      <div class="relative flex-1 p-4 sm:p-6">-->
+<!--        &lt;!&ndash; Trạng thái đang tải &ndash;&gt;-->
+<!--        <div *ngIf="!multi_data?.length" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-60">-->
+<!--          <div class="flex flex-col items-center">-->
+<!--            <div class="h-10 w-10 animate-spin rounded-full border-4 border-blue-200 border-t-blue-500"></div>-->
+<!--            <span class="mt-3 text-sm text-gray-500">Đang tải dữ liệu biểu đồ...</span>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <!-- Trạng thái không có dữ liệu -->
-        <div *ngIf="multi_data?.length === 0" class="absolute inset-0 flex items-center justify-center">
-          <div class="flex flex-col items-center p-6 text-center">
-            <mat-icon class="text-gray-300" style="font-size: 48px; height: 48px; width: 48px">insert_chart</mat-icon>
-            <h3 class="mt-2 text-lg font-medium text-gray-900">Không có dữ liệu</h3>
-            <p class="mt-1 text-sm text-gray-500">Không có dữ liệu khả dụng cho khoảng thời gian đã chọn.</p>
-          </div>
-        </div>
+<!--        &lt;!&ndash; Trạng thái không có dữ liệu &ndash;&gt;-->
+<!--        <div *ngIf="multi_data?.length === 0" class="absolute inset-0 flex items-center justify-center">-->
+<!--          <div class="flex flex-col items-center p-6 text-center">-->
+<!--            <mat-icon class="text-gray-300" style="font-size: 48px; height: 48px; width: 48px">insert_chart</mat-icon>-->
+<!--            <h3 class="mt-2 text-lg font-medium text-gray-900">Không có dữ liệu</h3>-->
+<!--            <p class="mt-1 text-sm text-gray-500">Không có dữ liệu khả dụng cho khoảng thời gian đã chọn.</p>-->
+<!--          </div>-->
+<!--        </div>-->
 
-        <!-- Biểu đồ -->
-        <div class="h-[300px] w-full sm:h-[400px]" *ngIf="multi_data?.length">
-          <apx-chart
-            #chart
-            [series]="chartOptions.series"
-            [chart]="chartOptions.chart"
-            [xaxis]="chartOptions.xaxis"
-            [yaxis]="chartOptions.yaxis"
-            [dataLabels]="chartOptions.dataLabels"
-            [grid]="chartOptions.grid"
-            [stroke]="chartOptions.stroke"
-            [tooltip]="chartOptions.tooltip"
-            [legend]="chartOptions.legend"
-            [fill]="chartOptions.fill"
-            [colors]="chartOptions.colors"
-          ></apx-chart>
-        </div>
-      </div>
+<!--        &lt;!&ndash; Biểu đồ &ndash;&gt;-->
+<!--        <div class="h-[300px] w-full sm:h-[400px]" *ngIf="multi_data?.length">-->
+<!--          <apx-chart-->
+<!--            #chart-->
+<!--            [series]="chartOptions.series"-->
+<!--            [chart]="chartOptions.chart"-->
+<!--            [xaxis]="chartOptions.xaxis"-->
+<!--            [yaxis]="chartOptions.yaxis"-->
+<!--            [dataLabels]="chartOptions.dataLabels"-->
+<!--            [grid]="chartOptions.grid"-->
+<!--            [stroke]="chartOptions.stroke"-->
+<!--            [tooltip]="chartOptions.tooltip"-->
+<!--            [legend]="chartOptions.legend"-->
+<!--            [fill]="chartOptions.fill"-->
+<!--            [colors]="chartOptions.colors"-->
+<!--          ></apx-chart>-->
+<!--        </div>-->
+<!--      </div>-->
 
-      <!-- Phần cuối với các thông số tóm tắt -->
-      <div *ngIf="multi_data?.length" class="border-t border-gray-100 bg-gray-50 p-4">
-        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div *ngFor="let series of multi_data; let i = index" class="flex flex-col">
-            <span class="text-xs text-gray-500">{{ series.name }}</span>
-            <div class="mt-1 flex items-center">
-              <span class="text-lg font-semibold" [ngStyle]="{ color: chartOptions.colors ? chartOptions.colors?.[i] : '#000' }">
-                {{ series.data[series.data.length - 1]?.value.toLocaleString() }}
-              </span>
-              <ng-container *ngIf="series.data.length > 1">
-                <div
-                  class="ml-2 text-xs"
-                  [class.text-green-500]="calculatePercentageChange(i).isPositive"
-                  [class.text-red-500]="!calculatePercentageChange(i).isPositive"
-                >
-                  <mat-icon class="align-middle text-xs" style="font-size: 16px; height: 16px; width: 16px">
-                    {{ calculatePercentageChange(i).isPositive ? 'arrow_upward' : 'arrow_downward' }}
-                  </mat-icon>
-                  {{ calculatePercentageChange(i).value }}%
-                </div>
-              </ng-container>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+<!--      &lt;!&ndash; Phần cuối với các thông số tóm tắt &ndash;&gt;-->
+<!--      <div *ngIf="multi_data?.length" class="border-t border-gray-100 bg-gray-50 p-4">-->
+<!--        <div class="grid grid-cols-2 gap-4 md:grid-cols-4">-->
+<!--          <div *ngFor="let series of multi_data; let i = index" class="flex flex-col">-->
+<!--            <span class="text-xs text-gray-500">{{ series.name }}</span>-->
+<!--            <div class="mt-1 flex items-center">-->
+<!--              <span class="text-lg font-semibold" [ngStyle]="{ color: chartOptions.colors ? chartOptions.colors?.[i] : '#000' }">-->
+<!--                {{ series.data[series.data.length - 1]?.value.toLocaleString() }}-->
+<!--              </span>-->
+<!--              <ng-container *ngIf="series.data.length > 1">-->
+<!--                <div-->
+<!--                  class="ml-2 text-xs"-->
+<!--                  [class.text-green-500]="calculatePercentageChange(i).isPositive"-->
+<!--                  [class.text-red-500]="!calculatePercentageChange(i).isPositive"-->
+<!--                >-->
+<!--                  <mat-icon class="align-middle text-xs" style="font-size: 16px; height: 16px; width: 16px">-->
+<!--                    {{ calculatePercentageChange(i).isPositive ? 'arrow_upward' : 'arrow_downward' }}-->
+<!--                  </mat-icon>-->
+<!--                  {{ calculatePercentageChange(i).value }}%-->
+<!--                </div>-->
+<!--              </ng-container>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
