@@ -147,12 +147,11 @@ export class ChildrenProfileTableComponent implements OnInit {
           })
           .subscribe({
             next: () => {
-              this.messageService.add({
-                severity: 'success',
-                summary: 'Thành công',
-                detail: 'Thông tin em bé đã được lưu',
+              this._authService.signInUsingToken().subscribe({
+                next: () => {
+                  window.location.reload();
+                },
               });
-              this.dialogRef.close(true);
             },
             error: (error) => {
               console.log(error);
