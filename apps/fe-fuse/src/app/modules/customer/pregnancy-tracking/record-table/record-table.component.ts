@@ -68,6 +68,17 @@ export class RecordTableComponent implements OnInit {
     });
   }
 
+  //flag expand all
+  protected isExpanded: boolean = false;
+  toggleExpansion() {
+    this.isExpanded = !this.isExpanded;
+    if (this.isExpanded) {
+      this.expandAll();
+    } else {
+      this.collapseAll();
+    }
+  }
+
   expandAll() {
     // this.expandedRows = this.products.reduce((acc, p) => (acc[p.id] = true) && acc, {});
     this.expandedRows = this.rows.reduce((acc, r) => (acc[r.week] = true) && acc, {});

@@ -1,17 +1,32 @@
-<div class="card w-full overflow-hidden rounded-xl bg-pink-50 shadow-sm">
+<div
+  class="w-full overflow-hidden rounded-2xl bg-gradient-to-br from-pink-200/90 to-purple-50/90 p-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:shadow-lg"
+>
   <p-toast />
-  <h2 class="flex justify-self-center bg-pink-50 text-xl font-medium text-pink-500">Hồ Sơ Theo Tuần</h2>
-  <div class="flex flex-col items-center justify-between gap-4 bg-pink-50 p-4 md:flex-row">
+
+  <!-- Header Section with Title and Decoration -->
+  <div class="relative mb-6 text-center">
+    <div class="absolute -left-3 -top-3 h-12 w-12 rounded-full bg-pink-100/60"></div>
+    <div class="absolute -right-3 -top-3 h-12 w-12 rounded-full bg-pink-100/60"></div>
+
+    <h2 class="text-2xl font-bold text-pink-600">Hồ Sơ Thai Kỳ</h2>
+    <p class="mt-1 text-sm text-pink-500">Theo dõi lịch sử khám thai của bạn</p>
+    <div class="mx-auto mt-2 h-1 w-24 rounded-full bg-gradient-to-r from-pink-300 to-pink-200"></div>
+  </div>
+
+  <!-- Search and Actions Bar -->
+  <div class="mb-6 flex flex-col items-center justify-between gap-4 rounded-xl bg-white/80 p-4 shadow-sm backdrop-blur-sm md:flex-row">
     <div class="flex w-full items-center md:w-auto">
-      <span class="p-input-icon-left w-full md:w-auto">
-        <i class="pi pi-search pr-2"></i>
+      <span class="relative w-full md:w-auto">
+        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+          <i class="pi pi-search text-pink-400"></i>
+        </div>
         <input
           type="text"
           pInputText
           [(ngModel)]="searchText"
           (input)="searchRecords()"
           placeholder="Tìm kiếm hồ sơ..."
-          class="p-inputtext w-full rounded-lg border-pink-200 focus:border-pink-400 md:w-64"
+          class="w-full rounded-full border-none bg-pink-50/80 py-2 pl-10 pr-4 text-sm shadow-inner focus:bg-white focus:outline-none focus:ring-2 focus:ring-pink-300 md:w-64"
         />
       </span>
       <button
@@ -20,33 +35,30 @@
         type="button"
         icon="pi pi-times"
         (click)="clearSearch()"
-        class="p-button-rounded p-button-text p-button-sm bg-primary ml-2 text-pink-500"
+        class="ml-2 rounded-full bg-pink-100 p-2 text-pink-500 shadow-sm hover:bg-pink-200"
       ></button>
     </div>
 
     <div class="flex flex-wrap justify-end gap-2">
-      <p-button
+      <button
+        pButton
         label="Hồ Sơ Mới"
         icon="pi pi-plus-circle"
         [routerLink]="'/record'"
-        styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
-      />
-      <p-button
-        label="Mở Rộng Tất Cả"
-        icon="pi pi-expand"
-        (onClick)="expandAll()"
-        styleClass="p-button-rounded p-button-sm bg-pink-500 hover:bg-pink-600 border-none"
-      />
-      <p-button
-        label="Thu Gọn Tất Cả"
-        icon="pi pi-arrow-down-left-and-arrow-up-right-to-center"
-        (onClick)="collapseAll()"
-        styleClass="p-button-rounded p-button-sm p-button-text text-pink-500 hover:text-pink-600"
-      />
+        class="rounded-full bg-gradient-to-r from-pink-400 to-pink-500 px-4 py-2 text-xs font-medium text-white shadow transition-all hover:from-pink-500 hover:to-pink-600 hover:shadow-md"
+      ></button>
+      <button
+        pButton
+        [label]="isExpanded ? 'Thu Gọn Tất Cả' : 'Mở Rộng Tất Cả'"
+        [icon]="isExpanded ? 'pi pi-compress' : 'pi pi-expand'"
+        (click)="toggleExpansion()"
+        class="rounded-full bg-gradient-to-r from-pink-500/80 to-purple-400/80 px-4 py-2 text-xs font-medium text-white shadow transition-all hover:from-pink-600/80 hover:to-purple-500/80 hover:shadow-md"
+      ></button>
     </div>
   </div>
 
-  <div class="overflow-x-auto">
+  <!-- Table Container with Soft Background -->
+  <div class="overflow-hidden rounded-xl bg-white/70 shadow-sm backdrop-blur-sm">
     <p-table
       [value]="rows"
       dataKey="week"
@@ -56,37 +68,45 @@
       [rowHover]="true"
     >
       <ng-template pTemplate="header">
-        <tr class="bg-gray-50">
-          <th style="width: 5rem" class="text-gray-700"></th>
-          <th pSortableColumn="week" class="p-3 text-gray-700">
-            Tuần
+        <tr class="border-b border-pink-100 bg-gradient-to-r from-pink-50 to-pink-100/50">
+          <th style="width: 5rem" class="p-3 text-pink-700"></th>
+          <th pSortableColumn="week" class="p-3 text-pink-700">
+            Tuần Thai
             <p-sortIcon field="name" />
           </th>
-          <th class="p-3 text-gray-700">Kích Thước</th>
+          <th class="p-3 text-pink-700">Kích Thước</th>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="body" let-row let-expanded="expanded">
-        <tr class="border-b border-gray-100">
+        <tr class="border-b border-pink-50 transition-colors hover:bg-pink-50/50">
           <td class="p-3">
-            <p-button
+            <button
+              pButton
               type="button"
               pRipple
               [pRowToggler]="row"
-              [text]="true"
-              [rounded]="true"
               [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"
-              styleClass="text-pink-500 hover:text-pink-600 focus:shadow-none"
-            />
+              class="rounded-full bg-pink-100 p-2 text-pink-500 transition-all hover:bg-pink-200"
+            ></button>
           </td>
-          <td class="p-3 font-medium">{{ row.week }}</td>
-          <td class="p-3">{{ getLength(row.week) }}</td>
+          <td class="p-3 font-medium text-pink-600">Tuần {{ row.week }}</td>
+          <td class="p-3">
+            <div class="flex items-center">
+              <span class="text-gray-600">{{ getLength(row.week) }}</span>
+              <div class="ml-2 h-2 w-12 overflow-hidden rounded-full bg-pink-100">
+                <div class="h-full bg-gradient-to-r from-pink-300 to-pink-500" [style.width]="(row.week / 40) * 100 + '%'"></div>
+              </div>
+            </div>
+          </td>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="expandedrow" let-row>
         <tr>
           <td colspan="7" class="border-none p-0">
-            <div class="bg-gray-50 p-4">
-              <div class="overflow-x-auto">
+            <div class="bg-gradient-to-br from-pink-50/40 to-purple-50/40 p-4">
+              <div class="overflow-hidden rounded-xl bg-white/90 shadow-sm">
                 <p-table
                   [value]="row.records"
                   dataKey="visit_record_id"
@@ -97,54 +117,84 @@
                   [responsive]="true"
                 >
                   <ng-template pTemplate="header">
-                    <tr class="border-b border-gray-200 bg-white">
-                      <th pSortableColumn="week" class="sticky top-0 bg-white p-3 text-gray-700">
+                    <tr class="border-b border-pink-100 bg-gradient-to-r from-pink-50 to-pink-100/50">
+                      <th pSortableColumn="week" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm">
                         Tuần
                         <p-sortIcon field="week" />
                       </th>
-                      <th pSortableColumn="hospital.name" class="sticky top-0 bg-white p-3 text-gray-700">
+                      <th pSortableColumn="hospital.name" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm">
                         Bệnh viện
                         <p-sortIcon field="hospital.name" />
                       </th>
-                      <th pSortableColumn="visit_doctor_date" class="sticky top-0 bg-white p-3 text-gray-700">
+                      <th pSortableColumn="visit_doctor_date" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm">
                         Ngày khám
                         <p-sortIcon field="visit_doctor_date" />
                       </th>
-                      <th pSortableColumn="next_visit_doctor_date" class="sticky top-0 bg-white p-3 text-gray-700">
+                      <th pSortableColumn="next_visit_doctor_date" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm">
                         Ngày tái khám
                         <p-sortIcon field="next_visit_doctor_date" />
                       </th>
-                      <th pSortableColumn="doctor_name" class="sticky top-0 bg-white p-3 text-gray-700">
+                      <th pSortableColumn="doctor_name" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm">
                         Bác sĩ
                         <p-sortIcon field="doctor_name" />
                       </th>
-                      <th style="width: 4rem" class="sticky top-0 bg-white p-3 text-gray-700"></th>
+                      <th style="width: 4rem" class="sticky top-0 bg-white/95 p-3 text-pink-700 backdrop-blur-sm"></th>
                     </tr>
                   </ng-template>
+
                   <ng-template pTemplate="body" let-record>
-                    <tr class="border-b border-gray-100">
-                      <td class="p-3">{{ record.week }}</td>
-                      <td class="p-3">{{ record.hospital.name }}</td>
-                      <td class="p-3">{{ record.visit_doctor_date | date }}</td>
-                      <td class="p-3">{{ record.next_visit_doctor_date | date }}</td>
-                      <td class="p-3">{{ record.doctor_name }}</td>
+                    <tr class="border-b border-pink-50 transition-colors hover:bg-pink-50/50">
                       <td class="p-3">
-                        <p-button
+                        <span class="rounded-full bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-600">Tuần {{ record.week }}</span>
+                      </td>
+                      <td class="p-3">
+                        <div class="flex items-center">
+                          <i class="pi pi-home-fill mr-2 text-pink-400"></i>
+                          <span>{{ record.hospital.name }}</span>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="flex items-center">
+                          <i class="pi pi-calendar mr-2 text-pink-400"></i>
+                          <span>{{ record.visit_doctor_date | date }}</span>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="flex items-center">
+                          <i class="pi pi-calendar-plus mr-2 text-pink-400"></i>
+                          <span>{{ record.next_visit_doctor_date | date }}</span>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <div class="flex items-center">
+                          <i class="pi pi-user mr-2 text-pink-400"></i>
+                          <span>{{ record.doctor_name }}</span>
+                        </div>
+                      </td>
+                      <td class="p-3">
+                        <button
                           (click)="editTracking(record.visit_record_id)"
                           type="button"
-                          icon="pi pi-ellipsis-h"
-                          styleClass="p-button-rounded p-button-text text-pink-500 hover:text-pink-600"
-                        />
+                          class="rounded-full bg-pink-100 p-2 text-pink-500 transition-all hover:bg-pink-200"
+                        >
+                          <i class="pi pi-pencil text-xs"></i>
+                        </button>
                       </td>
                     </tr>
                   </ng-template>
+
                   <ng-template pTemplate="emptymessage">
                     <tr>
-                      <td colspan="6" class="p-4 text-center text-gray-500">
-                        <div class="flex flex-col items-center justify-center p-6">
-                          <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-                          <span *ngIf="!searchText">Chưa có hồ sơ nào trong tuần này.</span>
-                          <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}' trong tuần này.</span>
+                      <td colspan="6" class="p-0">
+                        <div class="flex flex-col items-center justify-center p-10">
+                          <div class="mb-4 h-20 w-20 rounded-full bg-pink-100 p-5">
+                            <i class="pi pi-calendar-times text-3xl text-pink-400"></i>
+                          </div>
+                          <p class="mb-2 text-lg font-medium text-pink-500">Chưa có thông tin</p>
+                          <p class="text-center text-sm text-gray-500">
+                            <span *ngIf="!searchText">Chưa có hồ sơ nào trong tuần này.</span>
+                            <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}' trong tuần này.</span>
+                          </p>
                         </div>
                       </td>
                     </tr>
@@ -155,13 +205,19 @@
           </td>
         </tr>
       </ng-template>
+
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="3" class="p-4 text-center text-gray-500">
-            <div class="flex flex-col items-center justify-center p-6">
-              <i class="pi pi-calendar-times mb-4 text-5xl text-pink-300"></i>
-              <span *ngIf="!searchText">Không tìm thấy hồ sơ nào</span>
-              <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}'</span>
+          <td colspan="3" class="p-0">
+            <div class="flex flex-col items-center justify-center p-10">
+              <div class="mb-4 h-20 w-20 rounded-full bg-pink-100 p-5">
+                <i class="pi pi-calendar-times text-3xl text-pink-400"></i>
+              </div>
+              <p class="mb-2 text-lg font-medium text-pink-500">Chưa có hồ sơ</p>
+              <p class="text-center text-sm text-gray-500">
+                <span *ngIf="!searchText">Chưa có hồ sơ thai kỳ nào. Hãy thêm hồ sơ đầu tiên của bạn.</span>
+                <span *ngIf="searchText">Không tìm thấy hồ sơ nào khớp với '{{ searchText }}'</span>
+              </p>
               <button
                 *ngIf="searchText"
                 pButton
@@ -169,7 +225,7 @@
                 label="Xóa tìm kiếm"
                 icon="pi pi-times"
                 (click)="clearSearch()"
-                class="p-button-text p-button-sm mt-3 text-pink-500"
+                class="mt-4 rounded-full bg-pink-100 px-4 py-2 text-xs font-medium text-pink-600 transition-all hover:bg-pink-200"
               ></button>
             </div>
           </td>
