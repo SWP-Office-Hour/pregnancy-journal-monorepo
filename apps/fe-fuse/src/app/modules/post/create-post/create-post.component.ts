@@ -48,6 +48,6 @@ export class CreatePostComponent {
 
   getUserAvatar() {
     const prefix = 'https://api.dicebear.com/9.x/initials/svg?seed=';
-    return this.user?.avatar || prefix + this.user?.name.charAt(0);
+    return this.user.avatar || prefix + this.user!.name!.charAt(0);
   }
 }

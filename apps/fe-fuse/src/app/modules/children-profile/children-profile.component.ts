@@ -70,12 +70,14 @@ export class ChildrenProfileComponent {
       });
       if (!response.ok) throw Error(`Could not fetch...`);
       const data: ChildType[] = await response.json();
-      return data.map((item: any) => {
+
+      return data.map((item: ChildType) => {
         return {
           child_id: item.child_id,
           name: item.name || 'Em bé chưa đặt tên',
           expected_birth_date: new Date(item.expected_birth_date),
           gender: item.gender || null,
+          user_id: item.user_id,
         };
       });
     },
