@@ -1,0 +1,17 @@
+<p-tabs value="0" scrollable="true">
+  <p-tablist>
+    @for (metric of standardResourceOfUniqueMetric.value(); track $index) {
+      <span>{{ metric }}</span>
+      <!--      <p-tab [value]="tab.value">-->
+      <!--        {{ tab.title }}-->
+      <!--      </p-tab>-->
+    }
+  </p-tablist>
+  <!--  <p-tabpanels>-->
+  <!--    @for (tab of scrollableTabs; track tab.value) {-->
+  <!--      <p-tabpanel [value]="tab.value">-->
+  <!--        <p class="m-0">{{ tab.content }}</p>-->
+  <!--      </p-tabpanel>-->
+  <!--    }-->
+  <!--  </p-tabpanels>-->
+</p-tabs>

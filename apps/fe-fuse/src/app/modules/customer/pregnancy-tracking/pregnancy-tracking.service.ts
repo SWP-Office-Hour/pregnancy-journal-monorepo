@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Standard } from '@pregnancy-journal-monorepo/contract';
 import { map } from 'rxjs';
 import { environment } from '../../../../environments/environment';
@@ -7,7 +7,7 @@ import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
-  private _recordData: WritableSignal<RecordResponse[]> = signal([]);
+  private _recordData = signal<RecordResponse[]>([]);
   private _media: MediaResponse[] = [];
   private _hospitals: HospitalResponse[];
   private _metrics: MetricResponseType[];
