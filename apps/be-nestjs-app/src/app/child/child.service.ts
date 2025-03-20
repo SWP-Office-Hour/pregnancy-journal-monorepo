@@ -1,5 +1,5 @@
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { ChildCreateRequestType, ChildUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { ChildCreateRequestType, ChildType, ChildUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { RecordsService } from '../records/records.service';
 import { Child } from './entities/child.entity';
@@ -20,7 +20,7 @@ export class ChildService {
     return child;
   }
 
-  async getAllChildren(user_id: string): Promise<Child[]> {
+  async getAllChildren(user_id: string): Promise<ChildType[]> {
     return await this.databaseService.Child.findMany({
       where: {
         user_id: user_id,
