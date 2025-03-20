@@ -36,10 +36,13 @@
     <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
     <span>Settings</span>
   </button>
-  <!--  <button mat-menu-item [matMenuTriggerFor]="userStatus">-->
-  <!--    <mat-icon [svgIcon]="'heroicons_outline:ellipsis-horizontal-circle'"></mat-icon>-->
-  <!--    <span>Status</span>-->
-  <!--  </button>-->
+  @if (isAdmin()) {
+    <button mat-menu-item (click)="admin.click()">
+      <mat-icon [svgIcon]="'heroicons_outline:command-line'"></mat-icon>
+      <span>Admin</span>
+      <a hidden [routerLink]="'/admin'" #admin></a>
+    </button>
+  }
   <mat-divider class="my-2"></mat-divider>
   <button mat-menu-item (click)="signOut()">
     <mat-icon [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"></mat-icon>

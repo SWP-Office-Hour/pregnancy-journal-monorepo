@@ -6,11 +6,11 @@
     </div>
     <div class="flex place-content-evenly pt-3">
       <div class="flex flex-col items-center">
-        <div class="text-7xl font-bold leading-none tracking-tight text-blue-500">{{dashboardResource.overview.data[0].total}}</div>
+        <div class="text-7xl font-bold leading-none tracking-tight text-blue-500">{{ dashboardResource.overview.data[0].total }}</div>
         <div class="text-lg font-medium text-blue-600">Người</div>
       </div>
       <div class="">
-        <div class="text-4xl font-bold leading-none tracking-tight text-blue-500">{{dashboardResource.overview.data[0].currentMonth}}</div>
+        <div class="text-4xl font-bold leading-none tracking-tight text-blue-500">{{ dashboardResource.overview.data[0].currentMonth }}</div>
         <div class="text-lg font-medium text-blue-600">Nguời tháng vừa rồi</div>
       </div>
     </div>
@@ -25,11 +25,11 @@
     </div>
     <div class="flex place-content-evenly pt-3">
       <div class="flex flex-col items-center">
-        <div class="text-7xl font-bold leading-none tracking-tight text-red-500">{{dashboardResource.overview.data[1].total}}</div>
+        <div class="text-7xl font-bold leading-none tracking-tight text-red-500">{{ dashboardResource.overview.data[1].total }}</div>
         <div class="text-lg font-medium text-red-600">Người</div>
       </div>
       <div class="">
-        <div class="text-4xl font-bold leading-none tracking-tight text-red-500">{{dashboardResource.overview.data[1].currentMonth}}</div>
+        <div class="text-4xl font-bold leading-none tracking-tight text-red-500">{{ dashboardResource.overview.data[1].currentMonth }}</div>
         <div class="text-lg font-medium text-red-600">Nguời tháng vừa rồi</div>
       </div>
     </div>
@@ -44,11 +44,11 @@
     </div>
     <div class="flex place-content-evenly pt-3">
       <div class="flex flex-col items-center">
-        <div class="text-7xl font-bold leading-none tracking-tight text-amber-500">{{dashboardResource.overview.data[2].total}}</div>
+        <div class="text-7xl font-bold leading-none tracking-tight text-amber-500">{{ dashboardResource.overview.data[2].total }}</div>
         <div class="text-lg font-medium text-amber-600">Gói</div>
       </div>
       <div class="">
-        <div class="text-4xl font-bold leading-none tracking-tight text-amber-500">{{dashboardResource.overview.data[2].currentMonth}}</div>
+        <div class="text-4xl font-bold leading-none tracking-tight text-amber-500">{{ dashboardResource.overview.data[2].currentMonth }}</div>
         <div class="text-lg font-medium text-amber-600">Gói tháng vừa rồi</div>
       </div>
     </div>
@@ -63,12 +63,16 @@
     </div>
     <div class="flex flex-col pl-3 pt-2">
       <div class="flex">
-        <div class="text-4xl font-bold leading-none tracking-tight text-green-500">{{dashboardResource.overview.data[3].total}}</div>
+        <div class="text-4xl font-bold leading-none tracking-tight text-green-500">
+          {{ dashboardResource.overview.data[3].total | number : '1.0-0' : 'vi-VN' }}
+        </div>
         <div class="flex items-end text-lg font-medium text-green-600">VNĐ</div>
       </div>
       <div class="truncate pt-3 text-xl font-medium leading-6 tracking-tight">Tháng vừa rồi</div>
       <div class="flex">
-        <div class="text-3xl font-bold leading-none tracking-tight text-green-500">{{dashboardResource.overview.data[3].currentMonth}}</div>
+        <div class="text-3xl font-bold leading-none tracking-tight text-green-500">
+          {{ dashboardResource.overview.data[3].currentMonth | number : '1.0-0' : 'vi-VN' }}
+        </div>
         <div class="flex items-end text-lg font-medium text-green-600">VNĐ</div>
       </div>
     </div>

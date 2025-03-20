@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { Router, RouterLink } from '@angular/router';
 import { ChildType, Gender } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -17,6 +18,8 @@ import { ToastModule } from 'primeng/toast';
 import { FuseCardComponent } from '../../../@fuse/components/card';
 import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
+import { ChildV2Service } from '../../core/children/child.v2.service';
+import { UserService } from '../../core/user/user.service';
 import { ChildrenProfileTableComponent } from './children-profile-table/children-profile-table.component';
 
 @Component({
@@ -49,6 +52,7 @@ import { ChildrenProfileTableComponent } from './children-profile-table/children
     FuseCardComponent,
     MatDialogModule,
     ConfirmDialogModule,
+    RouterLink,
   ],
   providers: [MessageService, ConfirmationService],
 })
@@ -84,6 +88,9 @@ export class ChildrenProfileComponent {
     private messageService: MessageService,
     private _authService: AuthService,
     private confirmationService: ConfirmationService,
+    private _userService: UserService,
+    private _childService: ChildV2Service,
+    private _router: Router,
   ) {
     //dùng để coi giá trị của resource
     effect(() => {});
@@ -162,6 +169,14 @@ export class ChildrenProfileComponent {
             });
           });
       },
+    });
+  }
+
+  createChildRecord(_child: ChildType): void {
+    this._userService.user$.subscribe((user) => {
+      const child: ChildType = user.child.find((c) => c.child_id == _child.child_id);
+      this._childService.child = child;
+      this._router.navigate(['/tracking']);
     });
   }
 }

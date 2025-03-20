@@ -11,7 +11,6 @@ export class ChildV2Service {
   private _child: ReplaySubject<ChildType> = new ReplaySubject<ChildType>(1);
 
   set child(value: ChildType) {
-    localStorage.setItem('child', JSON.stringify(value));
     this._child.next(value);
   }
 
