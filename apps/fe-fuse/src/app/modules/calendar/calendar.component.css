@@ -294,8 +294,3 @@ button.btn-secondary {
   transform: scale(0.95);
   filter: grayscale(40%);
 }
-
-/* Capitalize first letter of dates */
-.date-capitalize {
-  text-transform: capitalize;
-}

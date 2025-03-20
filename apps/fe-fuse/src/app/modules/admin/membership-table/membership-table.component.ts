@@ -143,6 +143,7 @@ export class MembershipTableComponent implements OnInit {
       description: '',
       price: 0,
       status: Status.INACTIVE,
+      duration_days: membershipDay.YEARLY, // Set default duration
     });
     this.isSubmittedForm = false;
     this.membershipDialogToggle = true;
@@ -184,6 +185,7 @@ export class MembershipTableComponent implements OnInit {
       description: membershipToEdit.description,
       price: membershipToEdit.price,
       status: membershipToEdit.status,
+      duration_days: membershipToEdit.duration_days, // Include duration_days when editing
     });
 
     this.membership = { ...membershipToEdit };
@@ -233,6 +235,7 @@ export class MembershipTableComponent implements OnInit {
       description: ['', Validators.required],
       price: [0, [Validators.required, Validators.min(0)]],
       status: [Status.INACTIVE, Validators.required],
+      duration_days: [membershipDay.YEARLY, Validators.required], // Add duration_days to form
     });
   }
 
@@ -248,7 +251,6 @@ export class MembershipTableComponent implements OnInit {
     }
 
     this.isLoading = true;
-
     try {
       const response = await fetch(`${environment.apiUrl}memberships`, {
         method,
@@ -257,7 +259,7 @@ export class MembershipTableComponent implements OnInit {
         },
         body: JSON.stringify({
           ...membership,
-          duration_days: membershipDay.YEARLY,
+          // Use the form value for duration_days instead of hardcoding
         }),
       });
 
@@ -295,4 +297,6 @@ export class MembershipTableComponent implements OnInit {
       life: 4000,
     });
   }
+
+  protected readonly membershipDay = membershipDay;
 }

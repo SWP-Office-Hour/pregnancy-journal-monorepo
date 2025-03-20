@@ -7,34 +7,29 @@
     @if (!showAvatar || !user.avatar) {
       <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
     }
-    <span
-      class="absolute bottom-0 right-0 h-2 w-2 rounded-full bg-red-500"
-      [ngClass]="{
-        'mb-px mr-px': !showAvatar || !user.avatar,
-        'bg-green-500': user.onlineStatus === 'online',
-        'bg-amber-500': user.onlineStatus === 'away',
-        'bg-red-500': user.onlineStatus === 'busy',
-        'bg-gray-400': user.onlineStatus === 'not-visible',
-      }"
-    ></span>
   </span>
 </button>
 
 <mat-menu [xPosition]="'before'" #userActions="matMenu">
   <button mat-menu-item>
     <span class="flex flex-col leading-none">
-      <span>Signed in as {{ user.name }}</span>
+      <span class="font-nghe-nghe pt-1 text-3xl text-pink-500">Xin chào {{ user.name }}</span>
       <span class="text-md mt-1.5 font-medium">{{ user.email }}</span>
     </span>
   </button>
   <mat-divider class="my-2"></mat-divider>
   <button mat-menu-item [matMenuTriggerFor]="profile_menu">
     <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
-    <span>Profile</span>
+    <span>Hồ sơ</span>
   </button>
   <button mat-menu-item>
     <mat-icon [svgIcon]="'heroicons_outline:cog-8-tooth'"></mat-icon>
-    <span>Settings</span>
+    <span>Cài đặt</span>
+  </button>
+  <button mat-menu-item (click)="payment.click()">
+    <mat-icon [svgIcon]="'heroicons_outline:wallet'"></mat-icon>
+    <span>Lịch sử thanh toán</span>
+    <a hidden [routerLink]="'/payment'" #payment></a>
   </button>
   @if (isAdmin()) {
     <button mat-menu-item (click)="admin.click()">
@@ -46,7 +41,7 @@
   <mat-divider class="my-2"></mat-divider>
   <button mat-menu-item (click)="signOut()">
     <mat-icon [svgIcon]="'heroicons_outline:arrow-right-on-rectangle'"></mat-icon>
-    <span>Sign out</span>
+    <span>Đăng xuất</span>
   </button>
 </mat-menu>
 
@@ -71,9 +66,9 @@
 
 <mat-menu class="user-status-menu" #profile_menu="matMenu">
   <button mat-menu-item (click)="profile()">
-    <span>Profile</span>
+    <span>Hồ sơ</span>
   </button>
   <button mat-menu-item (click)="changePassword()">
-    <span>Change Password</span>
+    <span>Đổi mật khẩu</span>
   </button>
 </mat-menu>

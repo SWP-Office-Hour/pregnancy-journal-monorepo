@@ -1,18 +1,16 @@
 <!--suppress TypeScriptValidateTypes -->
-<div class="flex w-full flex-col">
+<div class="flex w-full flex-col bg-gradient-to-br from-purple-50 to-pink-50">
   @if (isLoading) {
     <div class="absolute inset-x-0 top-0">
       <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
     </div>
   }
-  <p-toolbar styleClass="mb-6" class="flex justify-end">
-    <ng-template #start>
-      <h3>Payment History</h3>
-    </ng-template>
-    <ng-template #end>
-      <!-- Export functionality could go here in the future -->
-    </ng-template>
-  </p-toolbar>
+  <div class="flex justify-center bg-gradient-to-br from-purple-50 to-pink-50">
+    <div class="flex justify-end">
+      <i class="pi pi-money-bill text-primary mr-2 text-xl"></i>
+      <h3 class="text-primary m-0 text-4xl font-bold">Lịch sử thanh toán</h3>
+    </div>
+  </div>
 
   <p-table
     #dt

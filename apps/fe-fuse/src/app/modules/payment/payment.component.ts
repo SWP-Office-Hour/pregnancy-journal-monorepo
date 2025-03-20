@@ -149,11 +149,12 @@ export class PaymentComponent implements OnInit {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
   }
 
-  getSeverityStatus(status: Status): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
+  getSeverityStatus(status: string): 'success' | 'secondary' | 'info' | 'warn' | 'danger' | 'contrast' {
+    console.log('Status của payment:', status);
     switch (status) {
-      case Status.ACTIVE:
+      case 'SUCCESS':
         return 'success';
-      case Status.INACTIVE:
+      case 'FAILED':
         return 'warn';
       default:
         return 'info';

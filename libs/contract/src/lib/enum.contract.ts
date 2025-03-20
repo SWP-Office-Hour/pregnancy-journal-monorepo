@@ -39,6 +39,7 @@ export enum Status {
 export enum membershipDay {
   MONTHLY = 30,
   YEARLY = 365,
+  QUARTERLY = 90,
 }
 
 export const statusSchema = z.nativeEnum(Status);

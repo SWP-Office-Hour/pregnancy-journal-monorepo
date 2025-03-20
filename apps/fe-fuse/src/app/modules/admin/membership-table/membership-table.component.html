@@ -17,7 +17,7 @@
   <p-table
     #dt
     [value]="membershipResource.value()"
-    [globalFilterFields]="['title', 'description', 'price', 'status']"
+    [globalFilterFields]="['title', 'description', 'price', 'status', 'duration_days']"
     [paginator]="true"
     [rowHover]="true"
     [rowsPerPageOptions]="[10, 20, 30]"
@@ -47,6 +47,10 @@
           Description
           <p-sortIcon field="description" />
         </th>
+        <th pSortableColumn="duration_days" style="min-width: 14rem">
+          duration_days
+          <p-sortIcon field="duration_days" />
+        </th>
         <th pSortableColumn="price" style="min-width: 6rem">
           Price
           <p-sortIcon field="price" />
@@ -62,6 +66,7 @@
       <tr>
         <td style="min-width: 6rem">{{ membership.title }}</td>
         <td style="min-width: 14rem">{{ membership.description }}</td>
+        <td style="min-width: 14rem">{{ membership.duration_days }}</td>
         <td>{{ membership.price | number: '1.0-0' : 'vi-VN' }} VNĐ</td>
         <td>
           <p-tag [severity]="getSeverityStatus(membership.status)" [value]="convertStatusToReadable(membership.status)" />
@@ -76,7 +81,7 @@
   <p-dialog
     [(visible)]="membershipDialogToggle"
     [modal]="true"
-    [style]="{ width: '550px', height: '600px' }"
+    [style]="{ width: '550px', height: '670px' }"
     [resizable]="true"
     [draggable]="true"
     header="Membership Details"
@@ -104,6 +109,25 @@
           >
           </textarea>
           <small *ngIf="isSubmittedForm && f['description'].errors?.['required']" class="text-red-500">Description is required.</small>
+        </div>
+
+        <!--Duration Days-->
+        <div>
+          <label class="block font-bold" for="duration_days">Duration</label>
+          <p-select
+            formControlName="duration_days"
+            [options]="[
+              { label: 'Monthly', value: membershipDay.MONTHLY },
+              { label: 'Quarterly', value: membershipDay.QUARTERLY },
+              { label: 'Yearly', value: membershipDay.YEARLY },
+            ]"
+            fluid="true"
+            id="duration_days"
+            optionLabel="label"
+            optionValue="value"
+            placeholder="Select Duration"
+          />
+          <small *ngIf="isSubmittedForm && f['duration_days'].errors?.['required']" class="text-red-500">Duration is required.</small>
         </div>
 
         <!--Price-->
