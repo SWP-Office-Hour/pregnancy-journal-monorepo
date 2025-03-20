@@ -179,4 +179,18 @@ export class ChildrenProfileComponent {
       this._router.navigate(['/tracking']);
     });
   }
+
+  formatDateInVietnamese(date: Date | null): string {
+    if (!date) {
+      return '';
+    }
+
+    const options: Intl.DateTimeFormatOptions = {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+    };
+
+    return new Date(date).toLocaleDateString('vi', options);
+  }
 }
