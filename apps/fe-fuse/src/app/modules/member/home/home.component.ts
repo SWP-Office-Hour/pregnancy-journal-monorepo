@@ -1,4 +1,3 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { TextFieldModule } from '@angular/cdk/text-field';
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -80,11 +79,6 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
   styleUrl: 'home.component.css',
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [
-    trigger('countChange', [
-      transition('* => *', [style({ opacity: 0, transform: 'scale(0.8)' }), animate('600ms ease-out', style({ opacity: 1, transform: 'scale(1)' }))]),
-    ]),
-  ],
 })
 export class HomeComponent {
   public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
