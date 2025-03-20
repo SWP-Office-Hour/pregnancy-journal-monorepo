@@ -139,6 +139,7 @@ export class RecordFormComponent {
 
   clear() {
     this.recordForm.reset();
+    this._router.navigateByUrl('tracking');
   }
 
   visitDateChange(e: MatDatepickerInputEvent<any>) {
