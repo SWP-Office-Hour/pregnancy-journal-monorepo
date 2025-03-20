@@ -169,14 +169,17 @@
                       <!-- Action buttons -->
                       <div class="mt-6 grid grid-cols-1 gap-3">
                         <button
+                          (click)="reminder_link.click()"
                           class="border-primary text-primary hover:bg-primary/10 group flex w-full items-center justify-center rounded-xl border-2 py-3 shadow-sm transition-all hover:shadow"
                           mat-stroked-button
                         >
                           <mat-icon class="mr-2 transition-transform group-hover:scale-110">notifications_active</mat-icon>
                           <span class="font-medium">THÊM LỊCH HẸN</span>
+                          <a hidden #reminder_link [routerLink]="'/calendar'"></a>
                         </button>
 
                         <button
+                          (click)="createChildRecord(child)"
                           class="border-accent text-accent hover:bg-accent/10 group flex w-full items-center justify-center rounded-xl border-2 py-3 shadow-sm transition-all hover:shadow"
                           mat-stroked-button
                         >
