@@ -10,7 +10,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import {
+  HospitalResponse,
+  MediaResponse,
+  MetricResponseType,
+  RecordCreateRequest,
+  RecordResponse,
+  RecordUpdateRequest,
+  Status,
+} from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -69,56 +77,19 @@ export class TrackingFormComponent {
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
     });
-    this.trackingForm.patchValue({
-      visit_record_id: this.selectedRecordData.visit_record_id,
-      hospital: this.selectedRecordData.hospital.hospital_id,
-      doctor_name: this.selectedRecordData.doctor_name,
-      visit_doctor_date: DateTime.fromJSDate(new Date(this.selectedRecordData.visit_doctor_date)),
-      next_visit_doctor_date: DateTime.fromJSDate(new Date(this.selectedRecordData.next_visit_doctor_date)),
-    });
     this._trackingService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
     });
-    this._trackingService
-      .getMetrics()
-      .pipe(
-        map((metrics) => {
-          this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
-          this.metrics.forEach((metric) => {
-            const value = this.selectedRecordData.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
-            this.metricsFormArray.push(this._formBuilder.control(value, metric.required ? Validators.required : []));
-          });
-        }),
-      )
-      .subscribe(() => {
-        this._trackingService.SelectedRecordData.data.forEach((data) => {
-          // Compare data value with standard value
-          const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
-          if (metric) {
-            this._trackingService
-              .getStandardValue({
-                metric_id: metric.metric_id,
-                week: this._trackingService.SelectedRecordData.week,
-              })
-              .subscribe((res) => {
-                if (!res) return;
-                const [value, value_extended] = data.value.split('/');
-                if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
-                if (value_extended) {
-                  const report_msg =
-                    Number(value_extended) > res.upperbound ? metric.upperbound_msg : Number(value) < res.lowerbound ? metric.lowerbound_msg : '';
-                  console.log(report_msg);
-                  this.report_messages.set([...this.report_messages(), report_msg]);
-                } else {
-                  const report_msg =
-                    Number(value) > res.upperbound ? metric.upperbound_msg : Number(value) < res.lowerbound ? metric.lowerbound_msg : '';
-                  console.log(report_msg);
-                  this.report_messages.set([...this.report_messages(), report_msg]);
-                }
-              });
-          }
+    if (this._trackingService.SelectedRecordData) {
+      this.patchValue(this.selectedRecordData);
+    } else {
+      this._trackingService.getMetrics().subscribe((metrics) => {
+        this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
+        this.metrics.forEach((metric) => {
+          this.metricsFormArray.push(this._formBuilder.control(0, metric.required ? Validators.required : []));
         });
       });
+    }
   }
 
   get metricsFormArray() {
@@ -141,26 +112,48 @@ export class TrackingFormComponent {
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
     const formData = {
-      visit_record_id,
       hospital_id: hospital,
       doctor_name,
       visit_doctor_date: visit_doctor_date.toJSDate(),
       next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
+    if (this._trackingService.SelectedRecordData) {
+      this.updateRecord({ ...formData, visit_record_id });
+    } else {
+      this.createRecord(formData);
+    }
+  }
 
-    console.log(formData);
-    this._trackingService.updateRecord(formData).subscribe({
-      next: (res) => {
-        this._trackingService.updateImage(visit_record_id).subscribe((res) => {
+  createRecord(formData: RecordCreateRequest) {
+    this._trackingService.createRecord(formData).subscribe({
+      next: (res: RecordResponse) => {
+        this._trackingService.createImage(res.visit_record_id).subscribe(() => {
+          this.trackingForm.disable();
           this.submitSuccess();
-          this.closeForm();
         });
       },
       error: (err) => {
         console.log(err);
         this.submitFail();
-        this.closeForm();
+      },
+    });
+  }
+
+  updateRecord(formData: RecordUpdateRequest) {
+    this._trackingService.updateRecord(formData).subscribe({
+      next: (res: RecordResponse) => {
+        this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
+          this.submitSuccess();
+          this._trackingService.closeForm();
+          this.dialogRef.close();
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.submitFail();
+        this._trackingService.closeForm();
+        this.dialogRef.close();
       },
     });
   }
@@ -171,11 +164,6 @@ export class TrackingFormComponent {
 
   insertImg(img: MediaResponse) {
     this._trackingService.addImage(img);
-  }
-
-  closeForm() {
-    this._trackingService.SelectedRecordData = '';
-    this.dialogRef.close();
   }
 
   submitSuccess(
@@ -220,5 +208,64 @@ export class TrackingFormComponent {
       summary: 'Sao chép thành công',
       detail: 'Đã sao chép link chia sẻ',
     });
+  }
+
+  patchValue(value: RecordResponse) {
+    this.trackingForm.patchValue({
+      visit_record_id: value.visit_record_id,
+      hospital: value.hospital.hospital_id,
+      doctor_name: value.doctor_name,
+      visit_doctor_date: DateTime.fromJSDate(new Date(value.visit_doctor_date)),
+      next_visit_doctor_date: DateTime.fromJSDate(new Date(value.next_visit_doctor_date)),
+    });
+    this._trackingService
+      .getMetrics()
+      .pipe(
+        map((metrics) => {
+          this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
+          this.metrics.forEach((metric) => {
+            const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
+            this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
+          });
+        }),
+      )
+      .subscribe(() => {
+        value.data.forEach((data) => {
+          // Compare data value with standard value
+          const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
+          if (metric) {
+            this._trackingService
+              .getStandardValue({
+                metric_id: metric.metric_id,
+                week: value.week,
+              })
+              .subscribe((standard) => {
+                if (!standard) return;
+                const [value, value_extended] = data.value.split('/');
+                if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
+                if (value_extended) {
+                  const report_msg =
+                    Number(value_extended) > standard.upperbound
+                      ? metric.upperbound_msg
+                      : Number(value) < standard.lowerbound
+                        ? metric.lowerbound_msg
+                        : '';
+                  console.log(report_msg);
+                  this.report_messages.set([...this.report_messages(), report_msg]);
+                } else {
+                  const report_msg =
+                    Number(value) > standard.upperbound ? metric.upperbound_msg : Number(value) < standard.lowerbound ? metric.lowerbound_msg : '';
+                  console.log(report_msg);
+                  this.report_messages.set([...this.report_messages(), report_msg]);
+                }
+              });
+          }
+        });
+      });
+  }
+
+  closeForm() {
+    this._trackingService.closeForm();
+    this.dialogRef.close();
   }
 }

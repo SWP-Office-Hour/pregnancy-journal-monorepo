@@ -1,13 +1,21 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
-import { HospitalResponse, MediaResponse, MetricResponseType, RecordResponse, Standard } from '@pregnancy-journal-monorepo/contract';
-import { map } from 'rxjs';
+import { Injectable, signal, WritableSignal } from '@angular/core';
+import {
+  HospitalResponse,
+  MediaResponse,
+  MetricResponseType,
+  RecordCreateRequest,
+  RecordResponse,
+  RecordUpdateRequest,
+  Standard,
+} from '@pregnancy-journal-monorepo/contract';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../core/auth/auth.service';
 
 @Injectable({ providedIn: 'root' })
 export class PregnancyTrackingService {
-  private _recordData = signal<RecordResponse[]>([]);
+  private _recordData: WritableSignal<RecordResponse[]> = signal([]);
   private _media: MediaResponse[] = [];
   private _hospitals: HospitalResponse[];
   private _metrics: MetricResponseType[];
@@ -102,33 +110,44 @@ export class PregnancyTrackingService {
     this._media.push(img);
   }
 
-  updateRecord(pregnancy_data: any) {
+  createRecord(pregnancy_data: RecordCreateRequest) {
     return this._httpClient
-      .patch(environment.apiUrl + 'record', pregnancy_data, {
+      .post(environment.apiUrl + 'record', pregnancy_data, {
         headers: {
           Authorization: `Bearer ${this._authService.accessToken}`,
         },
       })
       .pipe(
         map((res: RecordResponse) => {
-          this._recordData.set(this._recordData().map((record) => (record.visit_record_id === res.visit_record_id ? res : record)));
           return res;
         }),
       );
   }
 
-  updateImage(record_id: string) {
-    return this._httpClient
-      .patch(environment.apiUrl + 'multi_media?record_id=' + record_id, this._media, {
-        headers: {
-          Authorization: `Bearer ${this._authService.accessToken}`,
-        },
-      })
-      .pipe(
-        map((res: MediaResponse) => {
-          this.RecordData.subscribe();
-          return res;
-        }),
-      );
+  createImage(record_id: string): Observable<MediaResponse[]> {
+    return this._httpClient.post<MediaResponse[]>(environment.apiUrl + 'multi_media?record_id=' + record_id, this._media);
+  }
+
+  updateRecord(pregnancy_data: RecordUpdateRequest) {
+    return this._httpClient.patch<RecordResponse>(environment.apiUrl + 'record', pregnancy_data).pipe(
+      map((res: RecordResponse) => {
+        this._recordData.set(this._recordData().map((record) => (record.visit_record_id === res.visit_record_id ? res : record)));
+        return res;
+      }),
+    );
+  }
+
+  updateImage(record_id: string): Observable<MediaResponse[]> {
+    return this._httpClient.patch<MediaResponse[]>(environment.apiUrl + 'multi_media?record_id=' + record_id, this._media).pipe(
+      map((res: MediaResponse[]) => {
+        this.RecordData.subscribe();
+        return res;
+      }),
+    );
+  }
+
+  closeForm() {
+    this.SelectedRecordData = '';
+    this._media = [];
   }
 }
