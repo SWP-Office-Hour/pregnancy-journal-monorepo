@@ -83,7 +83,7 @@ export class RecordFormComponent {
     }
     const data = this.metricsFormArray.controls.map((control, index) => ({
       metric_id: this.metrics[index].metric_id,
-      value: Number(control.value),
+      value: control.value,
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.recordForm.value;
     const formData = {
@@ -93,6 +93,8 @@ export class RecordFormComponent {
       next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
+
+    // console.log(formData);
     this._recordService.submit(formData).subscribe({
       next: (res) => {
         if (res) this.submitSuccess();

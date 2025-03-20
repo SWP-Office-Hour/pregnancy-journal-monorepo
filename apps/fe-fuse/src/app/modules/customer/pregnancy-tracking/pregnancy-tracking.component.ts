@@ -50,11 +50,20 @@ export class PregnancyTrackingComponent {
       record.data.forEach((data) => {
         const metric = this.metrics.find((m) => m.metric_id == data.metric_id);
         if (metric) {
+          const [value, value_extended] = data.value.split('/');
+          if (value_extended) {
+            data_for_chart
+              .find((d) => d.name == metric.title)!
+              .data.push({
+                timestamp: DateTime.fromISO(new Date(record.visit_doctor_date).toISOString()),
+                value: Number(value_extended),
+              });
+          }
           data_for_chart
             .find((d) => d.name == metric.title)!
             .data.push({
               timestamp: DateTime.fromISO(new Date(record.visit_doctor_date).toISOString()),
-              value: data.value,
+              value: Number(value),
             });
         }
       });

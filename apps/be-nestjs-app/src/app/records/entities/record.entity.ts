@@ -12,6 +12,7 @@ export class VisitRecordMetric {
   visit_record_id: string;
   created_at: Date;
   value: number;
+  value_extended: number | null;
   metric_id: string;
   updated_at: Date;
   visit_record_metric_id: string;

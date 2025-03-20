@@ -102,9 +102,19 @@ export class TrackingFormComponent {
               })
               .subscribe((res) => {
                 if (!res) return;
-                const report_msg = data.value > res.upperbound ? metric.upperbound_msg : data.value < res.lowerbound ? metric.lowerbound_msg : '';
-                console.log(report_msg);
-                this.report_messages.set([...this.report_messages(), report_msg]);
+                const [value, value_extended] = data.value.split('/');
+                if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
+                if (value_extended) {
+                  const report_msg =
+                    Number(value_extended) > res.upperbound ? metric.upperbound_msg : Number(value) < res.lowerbound ? metric.lowerbound_msg : '';
+                  console.log(report_msg);
+                  this.report_messages.set([...this.report_messages(), report_msg]);
+                } else {
+                  const report_msg =
+                    Number(value) > res.upperbound ? metric.upperbound_msg : Number(value) < res.lowerbound ? metric.lowerbound_msg : '';
+                  console.log(report_msg);
+                  this.report_messages.set([...this.report_messages(), report_msg]);
+                }
               });
           }
         });
@@ -127,7 +137,7 @@ export class TrackingFormComponent {
     }
     const data = this.metricsFormArray.controls.map((control, index) => ({
       metric_id: this.metrics[index].metric_id,
-      value: Number(control.value),
+      value: control.value,
     }));
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
     const formData = {
@@ -138,6 +148,8 @@ export class TrackingFormComponent {
       next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
+
+    console.log(formData);
     this._trackingService.updateRecord(formData).subscribe({
       next: (res) => {
         this._trackingService.updateImage(visit_record_id).subscribe((res) => {
