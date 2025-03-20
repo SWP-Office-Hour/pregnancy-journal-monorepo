@@ -1,9 +1,10 @@
 import { CommonModule, NgStyle } from '@angular/common';
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, signal, ViewChild } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
 import {
   ApexAxisChartSeries,
@@ -18,6 +19,7 @@ import {
   ApexYAxis,
   ChartComponent,
 } from 'ng-apexcharts';
+import { PregnancyTrackingService } from '../../modules/customer/pregnancy-tracking/pregnancy-tracking.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -41,27 +43,63 @@ export type ChartOptions = {
 })
 export class LineChartComponent implements OnInit {
   @ViewChild('chart') chart: ChartComponent;
-  public chartOptions: Partial<ChartOptions>;
-
+  chartOptions: Partial<ChartOptions>;
   selectedPeriod: string = '30 days';
   periods = [
     { label: '30 days', days: 30 },
     { label: '3 months', days: 90 },
     { label: '9 months', days: 270 },
   ];
+  title: string = 'Theo dõi chỉ số';
+  multi_data = this.getRecordDataForChart();
+  recordsData = signal<RecordResponse[]>([]);
+  metrics: MetricResponseType[];
 
-  @Input() title: string = 'Visitors vs. Page Views';
-  @Input() multi_data: {
-    name: string;
-    data: { timestamp: DateTime; value: number }[];
-  }[];
-
-  constructor() {
+  constructor(private _trackingService: PregnancyTrackingService) {
     this.initChartOptions();
+    this._trackingService.RecordData.subscribe((data) => {
+      this.recordsData = data;
+    });
+    this._trackingService.getMetrics().subscribe((data) => {
+      this.metrics = data.filter((m) => m.status != Status.INACTIVE);
+    });
   }
 
   ngOnInit() {
     this.updateChartData();
+  }
+
+  getRecordDataForChart() {
+    const data_for_chart: RecordDataForChart[] = this.metrics.map((metric) => {
+      return {
+        name: metric.title,
+        data: [],
+      };
+    });
+
+    this.recordsData().forEach((record) => {
+      record.data.forEach((data) => {
+        const metric = this.metrics.find((m) => m.metric_id == data.metric_id);
+        if (metric) {
+          const [value, value_extended] = data.value.split('/');
+          if (value_extended) {
+            data_for_chart
+              .find((d) => d.name == metric.title)!
+              .data.push({
+                timestamp: DateTime.fromISO(new Date(record.visit_doctor_date).toISOString()),
+                value: Number(value_extended),
+              });
+          }
+          data_for_chart
+            .find((d) => d.name == metric.title)!
+            .data.push({
+              timestamp: DateTime.fromISO(new Date(record.visit_doctor_date).toISOString()),
+              value: Number(value),
+            });
+        }
+      });
+    });
+    return data_for_chart;
   }
 
   initChartOptions() {
@@ -218,4 +256,9 @@ export class LineChartComponent implements OnInit {
       isPositive: change >= 0,
     };
   }
+}
+
+interface RecordDataForChart {
+  name: string;
+  data: { timestamp: DateTime; value: number }[];
 }
