@@ -83,15 +83,16 @@ export class RecordsService {
     // Process metrics sequentially to avoid any race conditions
     for (const data of record.data) {
       const tag_id = await this.getTagIdByValue({
-        value: data.value,
+        valueAsString: data.value,
         metric_id: data.metric_id,
         userExpectBirthDate: child.expected_birth_date,
         visit_doctor_date: new Date(record.visit_doctor_date),
       });
-
+      const [value, value_extended] = data.value.split('/');
       await this.dataService.RecordMetric.create({
         data: {
-          value: data.value,
+          value: Number(value),
+          value_extended: value_extended ? Number(value_extended) : null,
           created_at: new Date(Date.now()),
           updated_at: new Date(Date.now()),
           metric_id: data.metric_id,
@@ -407,10 +408,10 @@ export class RecordsService {
       const data = record.visit_record_metric.map((metricRecord) => {
         // Use the cached standards instead of making a DB call
         const standardId = this.getStandardIdFromCache(week, metricRecord.metric_id, standardsMap);
-
+        const value = metricRecord.value_extended ? `${metricRecord.value}/${metricRecord.value_extended}` : metricRecord.value.toString();
         return {
           metric_id: metricRecord.metric_id,
-          value: metricRecord.value,
+          value,
           tag_id: metricRecord.tag_id,
           standard_id: standardId,
           child_id: record.child_id,
@@ -468,16 +469,20 @@ export class RecordsService {
    * @async
    */
   private async getTagIdByValue({
-    value,
+    valueAsString,
     metric_id,
     userExpectBirthDate,
     visit_doctor_date,
   }: {
-    value: number;
+    valueAsString: string;
     metric_id: string;
     userExpectBirthDate: Date;
     visit_doctor_date: Date;
   }): Promise<string | null> {
+    const [value, value_extended] = valueAsString.split('/');
+    if (value == '0' || value == '') {
+      return null;
+    }
     const week = this.timeUtilsService.calculatePregnancyWeeks({
       expectedBirthDate: userExpectBirthDate,
       visitDate: visit_doctor_date,
@@ -510,16 +515,26 @@ export class RecordsService {
     // Find exact match first
     const exactMatch = standards.find((s) => s.week === week);
     if (exactMatch) {
+      const [value, value_extended] = valueAsString.split('/');
       const { lowerbound, upperbound } = exactMatch;
-      return value < lowerbound || value > upperbound ? metric.tag_id : null;
+      if (value_extended) {
+        return Number(value) < lowerbound || Number(value_extended) > upperbound ? metric.tag_id : null;
+      } else {
+        return Number(value) < lowerbound || Number(value) > upperbound ? metric.tag_id : null;
+      }
     }
 
     // Find the last standard with week less than current week
     const applicableStandard = standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0]; // Get the highest applicable week
 
     if (applicableStandard) {
+      const [value, value_extended] = valueAsString.split('/');
       const { lowerbound, upperbound } = applicableStandard;
-      return value < lowerbound || value > upperbound ? metric.tag_id : null;
+      if (value_extended) {
+        return Number(value) < lowerbound || Number(value_extended) > upperbound ? metric.tag_id : null;
+      } else {
+        return Number(value) < lowerbound || Number(value) > upperbound ? metric.tag_id : null;
+      }
     }
 
     return null;
@@ -538,7 +553,7 @@ export class RecordsService {
    */
   private async updateRecordMetrics(
     visitRecordId: string,
-    metricsData: Array<{ metric_id: string; value: number }>,
+    metricsData: Array<{ metric_id: string; value: string }>,
     childExpectBirthDate: Date,
     visitDoctorDate: Date,
   ): Promise<void> {
@@ -567,7 +582,7 @@ export class RecordsService {
     for (const metricData of metricsData) {
       // Check value and determine tag
       const tagId = await this.getTagIdByValue({
-        value: metricData.value,
+        valueAsString: metricData.value,
         metric_id: metricData.metric_id,
         userExpectBirthDate: childExpectBirthDate,
         visit_doctor_date: visitDoctorDate,
@@ -575,14 +590,15 @@ export class RecordsService {
 
       const existingMetric = existingMetricMap.get(metricData.metric_id);
 
+      const [value, value_extended] = metricData.value.split('/');
       if (existingMetric) {
-        // Update existing metric
         await this.dataService.RecordMetric.update({
           where: {
             visit_record_metric_id: existingMetric.visit_record_metric_id,
           },
           data: {
-            value: metricData.value,
+            value: Number(value),
+            value_extended: value_extended ? Number(value_extended) : null,
             tag_id: tagId || null,
             updated_at: new Date(Date.now()),
           },
@@ -591,7 +607,8 @@ export class RecordsService {
         // Create new metric
         await this.dataService.RecordMetric.create({
           data: {
-            value: metricData.value,
+            value: Number(value),
+            value_extended: value_extended ? Number(value_extended) : null,
             created_at: new Date(Date.now()),
             updated_at: new Date(Date.now()),
             metric_id: metricData.metric_id,

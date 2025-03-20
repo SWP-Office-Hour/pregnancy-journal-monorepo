@@ -252,6 +252,7 @@ model visit_record {
 model visit_record_metric {
   visit_record_metric_id String       @id @default(dbgenerated("(uuid())")) @db.Char(36)
   value                  Float        @db.Float
+  value_extended         Int?
   metric_id              String       @db.Char(36)
   visit_record_id        String       @db.Char(36)
   updated_at             DateTime     @db.Date
