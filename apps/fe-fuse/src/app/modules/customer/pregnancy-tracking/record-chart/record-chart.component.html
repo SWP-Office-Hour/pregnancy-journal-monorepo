@@ -1,17 +1,14 @@
 <p-tabs value="0" scrollable="true">
   <p-tablist>
-    @for (metric of standardResourceOfUniqueMetric.value(); track $index) {
-      <span>{{ metric }}</span>
-      <!--      <p-tab [value]="tab.value">-->
-      <!--        {{ tab.title }}-->
-      <!--      </p-tab>-->
+    @for (standard of standardResourceOfUniqueMetric.value(); track $index) {
+      <p-tab [value]="standard.metric_id"> chỉ số {{ standard.metric_id }} </p-tab>
     }
   </p-tablist>
-  <!--  <p-tabpanels>-->
-  <!--    @for (tab of scrollableTabs; track tab.value) {-->
-  <!--      <p-tabpanel [value]="tab.value">-->
-  <!--        <p class="m-0">{{ tab.content }}</p>-->
-  <!--      </p-tabpanel>-->
-  <!--    }-->
-  <!--  </p-tabpanels>-->
+  <p-tabpanels>
+    @for (standard of standardResourceOfUniqueMetric.value(); track $index) {
+      <p-tabpanel [value]="standard.metric_id">
+        <p class="m-0">{{ standard.who_standard_value }}</p>
+      </p-tabpanel>
+    }
+  </p-tabpanels>
 </p-tabs>

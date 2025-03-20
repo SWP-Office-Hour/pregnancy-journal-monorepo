@@ -1,16 +1,13 @@
 import { Component, computed, effect, resource, signal } from '@angular/core';
 import { Standard } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
-import { TabList, TabPanels, Tabs } from 'primeng/tabs';
-import { TabPanel } from 'primeng/tabview';
+import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../../../environments/environment';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 
-interface MetricTabType {}
-
 @Component({
   selector: 'app-record-chart',
-  imports: [Tabs, TabList, TabPanels, TabPanel],
+  imports: [TabsModule],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
@@ -18,6 +15,7 @@ export class RecordChartComponent {
   flag = signal(false);
   // Component state
   isLoading = false;
+
   metricArrayCurrentlyInRecordOfChild = computed(() => {
     const tmp = this.getUniqueMetricIds(this.signalPregnancyTrackingService.recordResourceOfSelectedChild.value());
     return tmp || [];
@@ -109,3 +107,4 @@ export class RecordChartComponent {
     });
   }
 }
+interface MetricTabType {}
