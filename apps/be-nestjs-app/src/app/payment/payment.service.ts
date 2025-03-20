@@ -1,4 +1,5 @@
 import { forwardRef, Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { CheckoutRequestType } from '@payos/node/lib/type';
 import {
   PayIncludeUserInfo,
@@ -21,6 +22,7 @@ export class PaymentService {
     private readonly payosService: PayosService,
     @Inject(forwardRef(() => UsersService)) private readonly userService: UsersService,
     private readonly membershipService: MembershipsService,
+    private readonly configService: ConfigService,
   ) {}
 
   async createPayment(paymentRequest: PaymentCreateRequestType, userId: string): Promise<PaymentResponseWithLinkType> {
@@ -56,12 +58,14 @@ export class PaymentService {
         membership: true,
       },
     });
+    const returnUrl = `${this.configService.get<string>('FE_PAGE_URL')}/payment-landing`;
+    console.log('returnUrl', returnUrl);
 
     const payRequest: CheckoutRequestType = {
       orderCode: payOsOrderCode,
       amount: membership.price,
-      returnUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
-      cancelUrl: 'https://pregnancy-journal-monorepo.pages.dev/membership',
+      returnUrl: returnUrl,
+      cancelUrl: returnUrl,
       description: membership.title,
     };
 
