@@ -1,5 +1,13 @@
 import { forwardRef, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { ChildType, RecordCreateRequest, RecordResponse, RecordUpdateRequest, Standard, WarningListType } from '@pregnancy-journal-monorepo/contract';
+import {
+  ChildType,
+  RecordCreateRequest,
+  RecordResponse,
+  RecordUpdateRequest,
+  RecordWithWarningResponse,
+  Standard,
+  WarningListType,
+} from '@pregnancy-journal-monorepo/contract';
 import { ChildService } from '../child/child.service';
 import { Child } from '../child/entities/child.entity';
 import { DatabaseService } from '../database/database.service';
@@ -29,7 +37,7 @@ export class RecordsService {
    * @returns Promise<RecordResponse>
    * @throws NotFoundException
    */
-  async createRecord({ record, childId }: { record: RecordCreateRequest; childId: string }): Promise<RecordResponse> {
+  async createRecord({ record, childId }: { record: RecordCreateRequest; childId: string }): Promise<RecordWithWarningResponse> {
     const child = await this.dataService.Child.findUnique({
       where: { child_id: childId },
     });
@@ -113,7 +121,7 @@ export class RecordsService {
     const warnings = await this.getWarningMessages(newRecord, child);
 
     const formatRecord = await this.getRecordById(newRecord.visit_record_id);
-    return formatRecord[0];
+    return { ...formatRecord[0], warnings };
   }
 
   /**
