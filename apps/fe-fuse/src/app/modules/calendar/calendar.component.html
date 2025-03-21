@@ -1,19 +1,30 @@
 <div class="grid h-full w-full grid-cols-6 overflow-hidden" cdkDropListGroup>
-  <div class="bg-card h-c-vh col-span-1 hidden lg:flex">
+  <div class="h-c-vh col-span-1 hidden bg-gradient-to-br from-pink-50/90 to-purple-50/90 shadow-inner lg:flex">
     <div class="flex flex-auto flex-col overflow-y-auto p-6" style="scrollbar-width: none; -ms-overflow-style: none" id="custom-scrollbar">
       <!--Minicalendar-->
-      <div class="container mb-4 w-full max-w-4xl">
-        <div class="mb-2 flex w-full items-center justify-between">
-          <h2 class="date-capitalize text-xl font-semibold text-gray-800">{{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}</h2>
-          <div class="">
-            <button (click)="navigateMonth(-1)" class="rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Previous month">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <div class="container mb-4 w-full max-w-4xl rounded-xl bg-white/70 p-4 shadow-md backdrop-blur-sm transition-all duration-300 hover:shadow-lg">
+        <div class="mb-3 flex w-full items-center justify-between">
+          <!-- Calendar title with animation -->
+          <h2 class="date-capitalize text-xl font-bold text-pink-600 transition-all duration-300 ease-in-out hover:scale-105">
+            {{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}
+          </h2>
+          <div class="flex space-x-1">
+            <button
+              (click)="navigateMonth(-1)"
+              class="rounded-full bg-pink-100 p-2 transition-all hover:scale-110 hover:bg-pink-200 hover:shadow-md"
+              aria-label="Previous month"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
               </svg>
             </button>
 
-            <button (click)="navigateMonth(1)" class="-mr-2 rounded-full p-2 transition-colors hover:bg-gray-100" aria-label="Next month">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button
+              (click)="navigateMonth(1)"
+              class="rounded-full bg-pink-100 p-2 transition-all hover:scale-110 hover:bg-pink-200 hover:shadow-md"
+              aria-label="Next month"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
               </svg>
             </button>
@@ -21,20 +32,20 @@
         </div>
 
         <div class="mb-2 grid grid-cols-7 gap-1 text-center">
-          <div *ngFor="let day of weekDays" class="text-sm font-medium text-gray-600">{{ day }}</div>
+          <div *ngFor="let day of weekDays" class="text-sm font-medium text-pink-600 opacity-80">{{ day }}</div>
         </div>
 
-        <div class="grid grid-cols-7 gap-1">
+        <div class="grid grid-cols-7 gap-1.5">
           <div
             *ngFor="let date of calendarDays"
             [ngClass]="{
-              'text-pink-450 !bg-pink-50': isSelected(date),
-              'bg-pink-450 text-white': isToday(date),
-              'text-gray-400': !isMonth(date),
-              'bg-rainbow-gradient !text-white': isDueDate(date),
+              'border-2 border-pink-300 bg-gradient-to-br from-pink-200 to-pink-100 font-semibold text-pink-800': isSelected(date),
+              'bg-gradient-to-br from-pink-500 to-pink-400 font-semibold text-white shadow-md': isToday(date),
+              'text-gray-400 hover:text-pink-500': !isMonth(date),
+              'bg-rainbow-gradient !text-white shadow-md': isDueDate(date),
             }"
             (click)="selectDate(date)"
-            class="hover:text-pink-450 aspect-square cursor-pointer rounded-full transition-all duration-200 hover:scale-[1.02] hover:bg-gray-100"
+            class="aspect-square cursor-pointer rounded-full transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-md"
             [attr.aria-selected]="isSelected(date)"
           >
             <div class="flex h-full items-center justify-center">
@@ -44,7 +55,13 @@
             </div>
           </div>
         </div>
+
+        <!-- Decorative element -->
+        <div class="mt-2 flex justify-center">
+          <div class="h-1 w-24 rounded-full bg-gradient-to-r from-pink-300 to-pink-200"></div>
+        </div>
       </div>
+
       <!--Drag and Drop-->
       <div class="container mx-auto w-full overscroll-y-contain">
         <h1 class="mb-4 text-lg font-medium text-gray-800">Mẫu sự kiện</h1>
@@ -93,39 +110,44 @@
 
   <!--Big Calendar-->
   <div class="col-span-6 p-4 lg:col-span-5">
-    <div class="flex h-full w-full flex-col justify-between rounded-xl bg-white p-6 shadow-lg">
-      <div class="flex w-full items-center justify-between">
+    <div class="flex h-full w-full flex-col justify-between rounded-xl bg-gradient-to-br from-white to-pink-50/50 p-6 shadow-lg">
+      <div class="mb-4 flex w-full items-center justify-between">
         <div class="flex items-center">
-          <button (click)="navigateMonth(-1)" class="rounded-lg p-2 transition-all hover:bg-purple-50">
+          <button (click)="navigateMonth(-1)" class="rounded-lg bg-pink-100 p-2 text-pink-700 transition-all hover:bg-pink-200 hover:shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button (click)="navigateMonth(1)" class="rounded-lg p-2 transition-all hover:bg-purple-50">
+          <button (click)="navigateMonth(1)" class="ml-1 rounded-lg bg-pink-100 p-2 text-pink-700 transition-all hover:bg-pink-200 hover:shadow-sm">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
-          <h2 class="date-capitalize text-xl font-semibold">{{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}</h2>
+          <h2 class="date-capitalize ml-2 text-xl font-bold text-pink-700">{{ currentDate | date: 'MMMM yyyy' : '' : 'vi-VN' }}</h2>
         </div>
-        <p-button label="Hôm nay" (onClick)="navigateThisMonth()" variant="outlined" [rounded]="true" severity="primary" />
+        <button
+          (click)="navigateThisMonth()"
+          class="rounded-full bg-gradient-to-r from-pink-400 to-pink-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-all hover:from-pink-500 hover:to-pink-700 hover:shadow-lg"
+        >
+          Hôm nay
+        </button>
       </div>
 
       <div class="grid flex-auto grid-cols-1 gap-4 lg:grid-cols-7">
         <div class="flex h-full flex-col pb-4 lg:col-span-5">
           <div class="mb-4 grid grid-cols-7 gap-2">
-            <div *ngFor="let day of weekDays" class="py-2 text-center font-medium text-gray-500">{{ day }}</div>
+            <div *ngFor="let day of weekDays" class="py-2 text-center font-medium text-pink-600">{{ day }}</div>
           </div>
 
-          <div class="grid h-full grid-cols-7 grid-rows-6 gap-1 rounded-lg">
+          <div class="grid h-full grid-cols-7 grid-rows-6 gap-1.5 rounded-lg">
             <div
               *ngFor="let date of calendarDays; let i = index"
-              class="calendar-cell min-h-15 group relative z-0 flex cursor-pointer flex-col items-center justify-center rounded-md bg-white transition-all hover:z-10 hover:bg-gray-50 hover:shadow-md hover:shadow-pink-500/50 md:h-20"
+              class="calendar-cell min-h-15 group relative z-0 flex cursor-pointer flex-col items-center justify-center rounded-lg bg-white/80 p-1 backdrop-blur-sm transition-all hover:z-10 hover:bg-pink-50 hover:shadow-md hover:shadow-pink-300/50 md:h-20"
               [ngClass]="{
                 'text-gray-300': !isMonth(date),
-                'border-2 border-dashed border-pink-500 !bg-pink-50': isSelected(date),
-                '!bg-white shadow-md': isToday(date),
-                'bg-gradient-to-r from-rose-50 to-pink-300': isDueDate(date),
+                'border-2 border-dashed border-pink-400 !bg-pink-50/90': isSelected(date),
+                '!bg-white shadow-md ring-1 ring-pink-200': isToday(date),
+                'bg-gradient-to-r from-pink-100 to-pink-200': isDueDate(date),
               }"
               (click)="selectDate(date)"
               cdkDropList
@@ -135,33 +157,33 @@
             >
               <span
                 [ngClass]="{
-                  'text-pink-450 font-semibold': isMonth(date),
-                  'lg:text-2xl': isToday(date),
+                  'font-semibold text-pink-600': isMonth(date),
+                  'text-pink-700 lg:text-xl': isToday(date),
                 }"
               >
                 {{ date | date: 'd' }}
               </span>
 
-              <!-- Events indicators -->
+              <!-- Events indicators with softer styling -->
               <div class="z-10 mt-1 flex flex-wrap justify-center gap-1">
                 @for (event of this.getRemindersForDate(date); track $index) {
-                  <div class="event-indicator h-2 w-2 rounded-full" [style.background-color]="chooseColor(event)"></div>
+                  <div class="event-indicator h-2 w-2 rounded-full shadow-sm" [style.background-color]="chooseColor(event)"></div>
                 }
               </div>
 
-              <!-- Hover Events Popup -->
+              <!-- Hover Events Popup with maternal styling -->
               <div
-                class="absolute -left-64 -top-5 mt-1 hidden min-h-20 w-60 scale-95 rounded-lg bg-rose-100 p-2 shadow-lg shadow-pink-400 transition-all delay-500 duration-1000 ease-in-out group-hover:block group-hover:scale-100"
+                class="absolute -left-64 -top-5 mt-1 hidden min-h-20 w-60 scale-95 rounded-xl bg-gradient-to-br from-pink-100 to-pink-50 p-3 shadow-lg shadow-pink-300/30 transition-all delay-500 duration-1000 ease-in-out group-hover:block group-hover:scale-100"
                 style="z-index: 9999; opacity: 1"
                 (mouseenter)="isHovering = true"
                 (mouseleave)="isHovering = false"
               >
                 <div class="py-1">
                   @if (this.getRemindersForDate(date).length > 0) {
-                    <h4 class="mb-2 px-2 text-xs font-medium text-black">{{ date | date: 'dd/MM/yyyy' }}</h4>
+                    <h4 class="mb-2 px-2 text-xs font-medium text-pink-700">{{ date | date: 'dd/MM/yyyy' }}</h4>
                     <!-- Show only first 3 events -->
                     @for (event of this.getRemindersForDate(date).slice(0, 3); track $index) {
-                      <div class="mb-1 rounded-md p-2 text-white" [style.background-color]="chooseColor(event)">
+                      <div class="mb-1.5 overflow-hidden rounded-lg p-2 text-white shadow-sm" [style.background-color]="chooseColor(event)">
                         <div class="flex items-center justify-between">
                           <h5 class="text-sm font-medium">{{ event.title }}</h5>
                         </div>
@@ -174,37 +196,36 @@
                     <!-- Add "View more" if there are more than 3 events -->
                     @if (this.getRemindersForDate(date).length > 3) {
                       <div class="mt-2 flex justify-center">
-                        <div class="rounded-md bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 hover:bg-gray-200">
+                        <div class="rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-pink-600 shadow-sm hover:bg-white">
                           Ngày này còn {{ this.getRemindersForDate(date).length - 3 }} sự kiện
                         </div>
                       </div>
                     }
                   } @else {
-                    <div class="py-6 text-center text-sm text-gray-500">Không có sự kiện</div>
+                    <div class="py-6 text-center text-sm text-pink-400">Không có sự kiện</div>
                   }
                 </div>
               </div>
 
-              <!-- Today indicators -->
+              <!-- Today indicators with maternal-friendly styling -->
               @if (isToday(date) && !isDueDate(date)) {
-                <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
-                  <img
-                    class="-rotate-15 w-15 absolute -right-5 -top-5 md:w-20 lg:-right-6 lg:-top-6"
-                    src="/images/ui/doodles/d9.svg"
-                    alt="doodles background"
-                  />
-                  <img
-                    class="w-15 absolute -left-5 -top-5 -rotate-6 md:w-20 lg:-left-6 lg:-top-5"
-                    src="/images/ui/doodles/d17.svg"
-                    alt="doodles background"
-                  />
+                <div class="absolute left-0 top-0 h-full w-full overflow-hidden rounded-lg">
+                  <div class="absolute -right-5 -top-5 h-12 w-12 rounded-full bg-pink-100/40"></div>
+                  <div class="absolute -left-5 -top-5 h-12 w-12 rounded-full bg-pink-100/40"></div>
                 </div>
               }
-              <!-- Today indicators -->
+              <!-- Due Date indicators -->
               @if (isDueDate(date)) {
                 <div class="absolute left-0 top-0 h-full w-full overflow-hidden">
-                  <div class="w-15 lg: absolute -right-4 top-6 -rotate-45 md:w-20">
-                    <img src="/images/ui/background/deco-calculateur.svg" alt="doodles background" />
+                  <div class="absolute inset-0 bg-gradient-to-br from-pink-200/20 to-pink-300/20"></div>
+                  <div class="absolute -right-2 bottom-1 animate-pulse">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
+                      <path
+                        fill-rule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
                   </div>
                 </div>
               }
@@ -212,19 +233,21 @@
           </div>
         </div>
 
-        <div class="my-2 mb-4 flex flex-col justify-between rounded-xl p-4 shadow-inner shadow-pink-300 lg:col-span-2">
+        <div
+          class="my-2 mb-4 flex flex-col justify-between rounded-xl bg-white/80 p-4 shadow-inner shadow-pink-300/30 backdrop-blur-sm lg:col-span-2"
+        >
           <div class="">
-            <h3 class="date-capitalize mb-4 text-xl font-semibold">Lịch hẹn {{ selectedDate | date: 'dd MMMM, yyyy' : '' : 'vi-VN' }}</h3>
+            <h3 class="date-capitalize mb-4 text-xl font-bold text-pink-700">Lịch hẹn {{ selectedDate | date: 'dd MMMM, yyyy' : '' : 'vi-VN' }}</h3>
             <div
-              class="example-list max-h-110 overflow-y-scroll"
+              class="example-list max-h-110 overflow-y-scroll rounded-lg p-2"
               cdkDropList
               [cdkDropListData]="reminderArraySignal()"
               (cdkDropListDropped)="dropEvent($event, selectedDate)"
             >
               @if (this.getRemindersForDate(this.selectedDate).length == 0) {
                 <div class="flex h-full flex-col items-center justify-center px-4 py-8 text-center">
-                  <div class="mb-4 rounded-full bg-pink-50 p-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="text-pink-450 h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <div class="mb-4 rounded-full bg-pink-100 p-4 shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -233,7 +256,7 @@
                       />
                     </svg>
                   </div>
-                  <h4 class="mb-2 text-lg font-semibold text-gray-700">Chưa có cuộc hẹn nào</h4>
+                  <h4 class="mb-2 text-lg font-bold text-pink-600">Chưa có cuộc hẹn nào</h4>
                   <p class="mb-6 text-sm text-gray-500">Ngày này chưa có lịch hẹn nào được tạo. Bạn có thể tạo ngay một lịch hẹn mới.</p>
                 </div>
               } @else {
@@ -250,7 +273,7 @@
                       <div class="flex items-center justify-between">
                         <h4 class="truncate pr-2 font-medium">{{ event.title }}</h4>
 
-                        <!-- Controls wrapper - visible on hover -->
+                        <!-- Controls wrapper with softer styling -->
                         <div class="flex items-center gap-1 opacity-0 transition-opacity duration-200 group-hover:opacity-100">
                           <!-- Edit button -->
                           <button type="button" class="rounded-md p-1 transition-colors hover:bg-white/20" (click)="editEvent(event, 1)">
@@ -293,7 +316,7 @@
           <div class="my-2 flex w-full flex-col">
             <button
               (click)="openCreateEventModal()"
-              class="create-event-btn flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 py-3 font-medium text-white shadow-lg shadow-pink-500/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-pink-500/40 active:scale-[0.98] active:shadow-sm"
+              class="create-event-btn flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-400 to-pink-600 py-3 font-medium text-white shadow-lg shadow-pink-300/30 transition-all hover:scale-[1.02] hover:shadow-xl hover:shadow-pink-400/40 active:scale-[0.98] active:shadow-sm"
             >
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
@@ -305,20 +328,21 @@
       </div>
     </div>
 
+    <!-- Modal with maternal-friendly styling -->
     <div
       class="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden"
       [ngClass]="{ 'pointer-events-none': !showReminderModal }"
     >
       <!-- Backdrop with fade effect -->
       <div
-        class="fixed inset-0 bg-black transition-opacity duration-300 ease-in-out"
-        [ngClass]="{ 'pointer-events-none opacity-0': !showReminderModal, 'opacity-50': showReminderModal }"
+        class="fixed inset-0 bg-pink-950/40 backdrop-blur-sm transition-opacity duration-300 ease-in-out"
+        [ngClass]="{ 'pointer-events-none opacity-0': !showReminderModal, 'opacity-100': showReminderModal }"
         (click)="closeCreateEventModal()"
       ></div>
 
       <!-- Modal container with transform effect -->
       <div
-        class="relative w-full max-w-md transform rounded-xl bg-white p-6 shadow-xl transition-all duration-300 ease-in-out"
+        class="relative w-full max-w-md transform rounded-2xl bg-white p-6 shadow-xl shadow-pink-300/20 transition-all duration-300 ease-in-out"
         [ngClass]="{
           'translate-y-4 scale-95 opacity-0': !showReminderModal,
           'translate-y-0 scale-100 opacity-100': showReminderModal,
@@ -327,17 +351,19 @@
         <!-- Update the modal title and button text based on mode -->
         @if (isEditMode != 2) {
           <div class="mb-4 flex items-center justify-between">
-            <h3 class="text-xl font-semibold">{{ isEditMode > 0 ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn' }}</h3>
-            <p class="text-xl font-semibold">{{ selectedDate.getDate() }}/{{ selectedDate.getMonth() + 1 }} /{{ selectedDate.getFullYear() }}</p>
+            <h3 class="text-xl font-bold text-pink-700">{{ isEditMode > 0 ? 'Cập Nhật Lịch Hẹn' : 'Tạo Lịch Hẹn Mới' }}</h3>
+            <p class="rounded-lg bg-pink-50 px-2 py-1 text-sm font-medium text-pink-600">{{ selectedDate | date: 'dd/MM/yyyy' }}</p>
           </div>
         }
         @if (this.editingReminder.type == ReminderType.FOLLOW_UP_MEETING) {
-          Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa hoặc xóa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái
-          khám.
+          <div class="rounded-lg bg-pink-50 p-4 text-sm text-pink-600">
+            Bạn chỉ được xem thông tin cuộc họp theo dõi này. Nếu muốn chỉnh sửa hoặc xóa thì phải vào trang theo dõi sức khỏe để cập nhật ngày tái
+            khám.
+          </div>
         } @else if (isEditMode == 1 || isEditMode == 0) {
           <form class="space-y-4">
             <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Tiêu đề</label>
+              <label class="mb-2 block text-sm font-medium text-pink-700">Tiêu đề</label>
               <input
                 type="text"
                 [(ngModel)]="newReminder.title"
@@ -345,37 +371,37 @@
                 #title="ngModel"
                 required
                 placeholder="Nhập tiêu đề sự kiện..."
-                class="w-full rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                class="w-full rounded-lg border-pink-200 bg-pink-50/50 px-3 py-2 placeholder:text-pink-300 focus:border-pink-300 focus:bg-white focus:ring-2 focus:ring-pink-200"
               />
-              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="text-sm text-red-500">
+              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
                 <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
               </div>
             </div>
 
             <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Nội dung</label>
+              <label class="mb-2 block text-sm font-medium text-pink-700">Nội dung</label>
               <textarea
                 [(ngModel)]="newReminder.content"
                 name="content"
                 rows="4"
                 placeholder="Nhập nội dung chi tiết..."
-                class="min-h-[100px] w-full resize-y rounded-lg border px-3 py-2 focus:border-transparent focus:ring-2 focus:ring-purple-500"
+                class="min-h-[100px] w-full resize-y rounded-lg border-pink-200 bg-pink-50/50 px-3 py-2 placeholder:text-pink-300 focus:border-pink-300 focus:bg-white focus:ring-2 focus:ring-pink-200"
               ></textarea>
             </div>
             <div class="mb-4">
-              <label class="mb-2 block text-sm font-medium text-gray-700">Chọn màu</label>
-              <div class="flex items-center gap-2">
+              <label class="mb-2 block text-sm font-medium text-pink-700">Chọn màu</label>
+              <div class="flex flex-wrap items-center gap-2">
                 @for (color of getReminderColors(); track $index) {
                   @if (newReminder.color == color) {
                     <div
                       (click)="this.newReminder.color = color"
-                      class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-slate-300"
+                      class="h-8 w-8 cursor-pointer rounded-full ring-2 ring-pink-300 transition-transform hover:scale-110"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
                   } @else {
                     <div
                       (click)="this.newReminder.color = color"
-                      class="h-8 w-8 cursor-pointer rounded-full hover:ring-1 hover:ring-slate-400 active:ring-slate-100"
+                      class="h-8 w-8 cursor-pointer rounded-full transition-transform hover:scale-110 hover:ring-1 hover:ring-pink-200"
                       [style.background-color]="chooseColorTheme(color)"
                     ></div>
                   }
@@ -387,14 +413,14 @@
               <button
                 type="button"
                 (click)="closeCreateEventModal()"
-                class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100"
+                class="rounded-lg bg-pink-50 px-4 py-2 text-pink-600 transition-all hover:bg-pink-100"
               >
                 Hủy
               </button>
               <button
                 type="submit"
                 [disabled]="title.invalid"
-                class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
+                class="rounded-lg bg-gradient-to-r from-pink-400 to-pink-600 px-4 py-2 font-medium text-white shadow-md transition-all hover:from-pink-500 hover:to-pink-700 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-50"
                 (click)="isEditMode > 0 ? updateEvent() : createReminder()"
               >
                 {{ isEditMode ? 'Cập Nhật' : 'Tạo Lịch' }}
@@ -402,17 +428,21 @@
             </div>
           </form>
         } @else if (isEditMode == 2) {
-          <div class="mb-4">
-            <h4 class="text-lg font-medium text-gray-700">Bạn có chắc chắn muốn xóa sự kiện này?</h4>
-            <p class="text-sm text-gray-500">Sự kiện này sẽ bị xóa vĩnh viễn khỏi lịch hẹn của bạn.</p>
+          <div class="mb-4 rounded-lg bg-pink-50 p-4">
+            <h4 class="text-lg font-medium text-pink-700">Bạn có chắc chắn muốn xóa sự kiện này?</h4>
+            <p class="mt-2 text-sm text-pink-500">Sự kiện này sẽ bị xóa vĩnh viễn khỏi lịch hẹn của bạn.</p>
           </div>
           <div class="flex justify-end gap-4">
-            <button type="button" (click)="closeCreateEventModal()" class="mr-2 rounded-lg px-4 py-2 text-gray-600 transition-all hover:bg-gray-100">
+            <button
+              type="button"
+              (click)="closeCreateEventModal()"
+              class="rounded-lg bg-pink-50 px-4 py-2 text-pink-600 transition-all hover:bg-pink-100"
+            >
               Hủy
             </button>
             <button
               type="button"
-              class="rounded-lg bg-gradient-to-r from-pink-500 via-pink-400 to-purple-500 px-4 py-2 font-medium text-white shadow-md transition-all hover:shadow-lg"
+              class="rounded-lg bg-gradient-to-r from-pink-400 to-pink-600 px-4 py-2 font-medium text-white shadow-md transition-all hover:from-pink-500 hover:to-pink-700 hover:shadow-lg"
               (click)="deleteEvent(editingReminder)"
             >
               Xác Nhận
