@@ -1,13 +1,29 @@
 <p-tabs value="0" scrollable="true">
   <p-tablist>
-    @for (standard of standardResourceOfUniqueMetric.value(); track $index) {
-      <p-tab [value]="standard.metric_id"> chỉ số {{ standard.metric_id }} </p-tab>
+    @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
+      <p-tab [value]="standardList[0].metric_id" (click)="click(standardResourceOfUniqueMetric.value())">
+        {{ getMetricTitle(standardList[0].metric_id) }}
+      </p-tab>
     }
   </p-tablist>
   <p-tabpanels>
-    @for (standard of standardResourceOfUniqueMetric.value(); track $index) {
-      <p-tabpanel [value]="standard.metric_id">
-        <p class="m-0">{{ standard.who_standard_value }}</p>
+    @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
+      <p-tabpanel [value]="standardList[0].metric_id">
+        @for (standard of sortStandardByWeek(standardList); track $index) {
+          @if (standard.who_standard_value) {
+            <div class="flex items-center gap-2">
+              <div class="flex items-center gap-1">
+                <span class="text-gray-500">Tuần: </span>
+                <span class="text-gray-800">{{ standard.week }} - </span>
+              </div>
+              <div class="flex items-center gap-1">
+                <span class="text-gray-500">Chỉ số tiêu chuẩn: </span>
+                <span class="text-gray-800">{{ standard.who_standard_value }}</span>
+              </div>
+            </div>
+          }
+        }
+        <p-chart type="line" [data]="getChartData(standardList[0].metric_id, standardList)" [options]="options"></p-chart>
       </p-tabpanel>
     }
   </p-tabpanels>

@@ -1,13 +1,15 @@
 import { Component, computed, effect, resource, signal } from '@angular/core';
-import { Standard } from '@pregnancy-journal-monorepo/contract';
+import { MetricResponseType, Standard, Status } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
+import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../../../environments/environment';
+import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 
 @Component({
   selector: 'app-record-chart',
-  imports: [TabsModule],
+  imports: [TabsModule, ChartModule],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
@@ -15,13 +17,40 @@ export class RecordChartComponent {
   flag = signal(false);
   // Component state
   isLoading = false;
+  metrics = resource<MetricResponseType[], {}>({
+    loader: async ({ abortSignal }) => {
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}metrics`, {
+          signal: abortSignal,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          method: 'GET',
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch metrics: ${response.status}`);
+        }
+        const metrics: MetricResponseType[] = await response.json();
+        return metrics.filter((metric: MetricResponseType) => {
+          return metric.status == Status.ACTIVE;
+        });
+      } catch (error) {
+        this.notifyError(error);
+        console.error('Error fetching metrics:', error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
+    },
+  });
 
   metricArrayCurrentlyInRecordOfChild = computed(() => {
     const tmp = this.getUniqueMetricIds(this.signalPregnancyTrackingService.recordResourceOfSelectedChild.value());
     return tmp || [];
   });
 
-  standardResourceOfUniqueMetric = resource<Standard[], {}>({
+  standardResourceOfUniqueMetric = resource<Standard[][], {}>({
     request: () => ({ fl: this.flag() }),
     loader: async ({ abortSignal }) => {
       // loading true
@@ -56,6 +85,7 @@ export class RecordChartComponent {
   constructor(
     private messageService: MessageService,
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
+    private apiPregnancyTrackingService: PregnancyTrackingService,
   ) {
     effect(() => {
       console.log('metricArrayCurrentlyInRecordOfChild', this.metricArrayCurrentlyInRecordOfChild());
@@ -97,6 +127,76 @@ export class RecordChartComponent {
     return Array.from(metricIdsSet);
   }
 
+  getMetricTitle(metricId: string): string {
+    const metric = this.metrics.value().find((metric) => metric.metric_id === metricId);
+    return metric ? metric.title : '';
+  }
+
+  sortStandardByWeek(standards: Standard[]): Standard[] {
+    return standards.sort((a, b) => {
+      return a.week - b.week;
+    });
+  }
+
+  click(content?: any) {
+    console.log('click');
+    console.log('content: ', content);
+  }
+
+  getRecordValueByMetricId(metricId: string) {
+    return this.apiPregnancyTrackingService.getRecordDataByMetricId(metricId);
+  }
+
+  getChartData(metricId: string, standards: Standard[]) {
+    const totalWeeks = Array.from({ length: 42 }, (_, i) => i + 1);
+    const metricValues = Array(42).fill(null);
+    const standardValues = Array(42).fill(null);
+
+    const recordData = this.getRecordValueByMetricId(metricId);
+    const standardData = standards.map((standard) => {
+      return {
+        week: standard.week,
+        value: standard.who_standard_value,
+      };
+    });
+
+    recordData.forEach((item) => {
+      metricValues[item.week - 1] = item.value;
+    });
+
+    standardData.forEach((item) => {
+      standardValues[item.week - 1] = item.value;
+    });
+    return {
+      labels: totalWeeks,
+      datasets: [
+        {
+          label: 'Giá trị',
+          data: metricValues,
+          fill: false,
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+        },
+        {
+          label: 'Giá trị chuẩn',
+          data: standardValues,
+          fill: false,
+          borderColor: 'rgb(255, 99, 132)',
+          tension: 0.1,
+        },
+      ],
+    };
+  }
+
+  options = {
+    spanGaps: false,
+    scales: {
+      y: {
+        beginAtZero: false,
+      },
+    },
+  };
+
   private notifyError(error: any): void {
     console.error('Error in HealthMetricTableComponent:', error);
     this.messageService.add({
@@ -107,4 +207,5 @@ export class RecordChartComponent {
     });
   }
 }
+
 interface MetricTabType {}

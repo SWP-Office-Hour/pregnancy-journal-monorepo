@@ -150,4 +150,17 @@ export class PregnancyTrackingService {
     this.SelectedRecordData = '';
     this._media = [];
   }
+
+  getRecordDataByMetricId(metric_id: string) {
+    const value = this._recordData().map((record) => {
+      const data = record.data.find((value) => value.metric_id === metric_id);
+      return {
+        week: record.week,
+        value: data ? Number(data.value) : null,
+      };
+    });
+
+    console.log('value', value);
+    return value;
+  }
 }
