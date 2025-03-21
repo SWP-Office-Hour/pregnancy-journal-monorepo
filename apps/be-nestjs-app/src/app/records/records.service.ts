@@ -118,8 +118,8 @@ export class RecordsService {
       next_visit_doctor_date: record.next_visit_doctor_date,
     });
 
-    const warnings = await this.getWarningMessages(newRecord, child);
-
+    const warnings = await this.getWarning(newRecord.visit_record_id);
+    console.log(warnings);
     const formatRecord = await this.getRecordById(newRecord.visit_record_id);
     return { ...formatRecord[0], warnings };
   }
@@ -327,57 +327,6 @@ export class RecordsService {
   //                          PRIVATE FUNCTIONS - HELPER FUNCTIONS
   //================================================================================================
 
-  /**
-   * Format records for response
-   * @param records
-   * @param child
-   * @param standards
-   * @returns Promise<RecordResponse[]>
-   * @async
-   * @private
-   */
-  // private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child, standards: Standard[]): Promise<RecordResponse[]> {
-  //   return await Promise.all(
-  //     records.map(async (record) => {
-  //       // Calculate pregnancy week for this record
-  //       const week = this.timeUtilsService.calculatePregnancyWeeks({
-  //         expectedBirthDate: child.expected_birth_date,
-  //         visitDate: record.visit_doctor_date,
-  //       });
-  //
-  //       // Extract just the values and metric IDs from the metrics
-  //       const data = await Promise.all(
-  //         record.visit_record_metric.map(async (metricRecord) => {
-  //           const standardId = await this.getStandardIdByWeek({ week, metric_id: metricRecord.metric_id });
-  //           return {
-  //             metric_id: metricRecord.metric_id,
-  //             value: metricRecord.value,
-  //             tag_id: metricRecord.tag_id,
-  //             standard_id: standardId,
-  //             child_id: record.child_id,
-  //           };
-  //         }),
-  //       );
-  //
-  //       // Return the simplified record structure
-  //       return {
-  //         week,
-  //         visit_record_id: record.visit_record_id,
-  //         visit_doctor_date: record.visit_doctor_date,
-  //
-  //         next_visit_doctor_date: record.next_visit_doctor_date as Date,
-  //         hospital: record.hospital,
-  //         doctor_name: record.doctor_name,
-  //         media: record.media.map((m) => ({
-  //           media_id: m.media_id,
-  //           media_url: m.media_url,
-  //         })),
-  //         data,
-  //       };
-  //     }),
-  //   );
-  // }
-
   private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child): Promise<RecordResponse[]> {
     // Fetch all needed standards in one query if not provided
 
@@ -457,6 +406,7 @@ export class RecordsService {
       return null;
     }
 
+    // Find exact match first
     if (week > standards[standards.length - 1].week) {
       return standards[standards.length - 1].standard_id;
     }
@@ -466,6 +416,7 @@ export class RecordsService {
       return standard.standard_id;
     }
 
+    // Find the last standard with week less than current week
     return standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week)[0].standard_id;
   }
 
