@@ -48,6 +48,7 @@ export class SignalPregnancyTrackingService {
     effect(() => {
       if (this.globalSelectedChild() != undefined) {
         this.currentChildId.set(this.globalSelectedChild().child_id);
+        this.recordResourceOfSelectedChild.reload();
       }
     });
   }

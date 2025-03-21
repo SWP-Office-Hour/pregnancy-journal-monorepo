@@ -26,7 +26,7 @@ export class PregnancyTrackingService {
     private _authService: AuthService,
   ) {}
 
-  get RecordData() {
+  get RecordData$() {
     return this._httpClient.get<{ total: number; data: RecordResponse[] }>(environment.apiUrl + 'record').pipe(
       map((res: { total: number; data: RecordResponse[] }) => {
         this._recordData.set(res.data);
@@ -147,7 +147,7 @@ export class PregnancyTrackingService {
   updateImage(record_id: string): Observable<MediaResponse[]> {
     return this._httpClient.patch<MediaResponse[]>(environment.apiUrl + 'multi_media?record_id=' + record_id, this._media).pipe(
       map((res: MediaResponse[]) => {
-        this.RecordData.subscribe();
+        this.RecordData$.subscribe();
         return res;
       }),
     );

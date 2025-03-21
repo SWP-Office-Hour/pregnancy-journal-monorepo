@@ -153,7 +153,7 @@ export class RecordChartComponent {
     });
 
     recordData.forEach((item) => {
-      metricValues[item.week - 1] = item.value;
+      metricValues[item.week - 1] = item.value == 0 ? null : item.value;
     });
 
     standardData.forEach((item) => {
