@@ -173,7 +173,7 @@ export class RecordsService {
    * @returns Promise<RecordResponse>
    * @async
    */
-  async updateRecord(record: RecordUpdateRequest): Promise<RecordResponse> {
+  async updateRecord(record: RecordUpdateRequest): Promise<RecordWithWarningResponse> {
     // Find existing record to get child ID
     const existingRecord = await this.dataService.Record.findUnique({
       where: { visit_record_id: record.visit_record_id },
@@ -229,9 +229,11 @@ export class RecordsService {
       await this.updateRecordMetrics(record.visit_record_id, record.data, child.expected_birth_date, new Date(newRecord.visit_doctor_date));
     }
 
+    const warnings = await this.getWarning(record.visit_record_id);
+
     // Return formatted record
     const formatRecord = await this.getRecordById(record.visit_record_id);
-    return formatRecord[0];
+    return { ...formatRecord[0], warnings: warnings };
   }
 
   /**
