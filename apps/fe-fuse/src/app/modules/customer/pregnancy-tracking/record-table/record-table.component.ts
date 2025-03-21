@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { ChildType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -12,6 +12,7 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TrackingFormComponent } from '../form/tracking-form.component';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 
 @Component({
   selector: 'app-record-table',
@@ -46,18 +47,31 @@ export class RecordTableComponent implements OnInit {
   protected originalRows: { week: number; records: RecordResponse[] }[] = []; // Store original rows for filtering
   //flag expand all
   protected isExpanded: boolean = false;
+  protected child = signal<ChildType>({} as ChildType);
 
   constructor(
     private recordService: PregnancyTrackingService,
+    private signalPregnancyTrackingService: SignalPregnancyTrackingService,
     private _dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
-  ) {}
+  ) {
+    this.child = this.signalPregnancyTrackingService.globalSelectedChild;
+    effect(() => {
+      if (this.child() != undefined) {
+        this.getRecords();
+      }
+    });
+  }
 
   ngOnInit() {
     if (this.activatedRoute.snapshot.queryParams['create'] == 'true') {
       this.createRecord();
     }
-    this.recordService.RecordData.subscribe((data) => {
+    this.getRecords();
+  }
+
+  getRecords() {
+    this.recordService.RecordData$.subscribe((data) => {
       this.recordsData = data();
       this.originalRecords = [...this.recordsData]; // Store original data
 
@@ -103,7 +117,7 @@ export class RecordTableComponent implements OnInit {
       });
 
       dialogRef.afterClosed().subscribe(() => {
-        this.recordService.RecordData.subscribe();
+        this.recordService.RecordData$.subscribe();
         this.recordService.closeForm();
       });
     } else {
@@ -167,7 +181,7 @@ export class RecordTableComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.recordService.RecordData.subscribe();
+        this.recordService.RecordData$.subscribe();
         this.recordService.closeForm();
       }
     });
