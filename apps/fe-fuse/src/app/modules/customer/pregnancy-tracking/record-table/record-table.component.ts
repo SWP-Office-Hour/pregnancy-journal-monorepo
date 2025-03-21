@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -44,13 +44,19 @@ export class RecordTableComponent implements OnInit {
     },
   ];
   protected originalRows: { week: number; records: RecordResponse[] }[] = []; // Store original rows for filtering
+  //flag expand all
+  protected isExpanded: boolean = false;
 
   constructor(
     private recordService: PregnancyTrackingService,
     private _dialog: MatDialog,
+    private activatedRoute: ActivatedRoute,
   ) {}
 
   ngOnInit() {
+    if (this.activatedRoute.snapshot.queryParams['id']) {
+      this.editTracking(this.activatedRoute.snapshot.queryParams['id']);
+    }
     this.recordService.RecordData.subscribe((data) => {
       this.recordsData = data();
       this.originalRecords = [...this.recordsData]; // Store original data
@@ -67,8 +73,6 @@ export class RecordTableComponent implements OnInit {
     });
   }
 
-  //flag expand all
-  protected isExpanded: boolean = false;
   toggleExpansion() {
     this.isExpanded = !this.isExpanded;
     if (this.isExpanded) {
@@ -101,9 +105,13 @@ export class RecordTableComponent implements OnInit {
 
   editTracking(record_id: string) {
     this.recordService.SelectedRecordData = record_id;
-    this._dialog.open(TrackingFormComponent, {
-      autoFocus: false,
-    });
+    if (this.recordService.SelectedRecordData) {
+      this._dialog.open(TrackingFormComponent, {
+        autoFocus: false,
+      });
+    } else {
+      console.log('Record not found. Id ', record_id);
+    }
   }
 
   searchRecords() {
@@ -116,18 +124,18 @@ export class RecordTableComponent implements OnInit {
     const searchTerm = this.searchText.toLowerCase().trim();
 
     // Create a deep copy of the original rows structure
-    const filteredRows = JSON.parse(JSON.stringify(this.originalRows));
+    const filteredRows: { week: number; records: RecordResponse[] }[] = JSON.parse(JSON.stringify(this.originalRows));
 
     // Filter records in each week group
-    filteredRows.forEach((weekGroup) => {
+    filteredRows.forEach((weekGroup: { week: number; records: RecordResponse[] }) => {
       weekGroup.records = weekGroup.records.filter(
         (record) =>
           // Search by different record properties
           record.week.toString().includes(searchTerm) ||
           record.hospital?.name?.toLowerCase().includes(searchTerm) ||
           record.doctor_name?.toLowerCase().includes(searchTerm) ||
-          this.formatDate(record.visit_doctor_date).toLowerCase().includes(searchTerm) ||
-          this.formatDate(record.next_visit_doctor_date).toLowerCase().includes(searchTerm),
+          this.formatDate(new Date(record.visit_doctor_date).toString()).toLowerCase().includes(searchTerm) ||
+          this.formatDate(new Date(record.next_visit_doctor_date).toString()).toLowerCase().includes(searchTerm),
       );
     });
 
@@ -153,5 +161,18 @@ export class RecordTableComponent implements OnInit {
     this.searchText = '';
     this.rows = JSON.parse(JSON.stringify(this.originalRows));
     this.expandedRows = {};
+  }
+
+  createRecord() {
+    this.recordService.SelectedRecordData = '';
+    const dialogRef = this._dialog.open(TrackingFormComponent, {
+      autoFocus: false,
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.recordService.RecordData.subscribe();
+        this.recordService.closeForm();
+      }
+    });
   }
 }

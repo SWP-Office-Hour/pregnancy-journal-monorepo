@@ -17,6 +17,7 @@ import {
   RecordCreateRequest,
   RecordResponse,
   RecordUpdateRequest,
+  RecordWithWarningResponse,
   Status,
 } from '@pregnancy-journal-monorepo/contract';
 import { DateTime } from 'luxon';
@@ -68,11 +69,11 @@ export class TrackingFormComponent {
   ) {
     this.selectedRecordData = this._trackingService.SelectedRecordData;
     this.images = this._trackingService.Media;
-    this.week = this.selectedRecordData.week;
+    this.week = this.selectedRecordData?.week;
     this.trackingForm = this._formBuilder.group({
-      visit_record_id: ['', Validators.required],
-      visit_doctor_date: [new Date(), Validators.required],
-      next_visit_doctor_date: [new Date(), Validators.required],
+      visit_record_id: [''],
+      visit_doctor_date: [DateTime.fromJSDate(new Date()), Validators.required],
+      next_visit_doctor_date: [DateTime.fromJSDate(new Date()), Validators.required],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
@@ -86,7 +87,7 @@ export class TrackingFormComponent {
       this._trackingService.getMetrics().subscribe((metrics) => {
         this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
         this.metrics.forEach((metric) => {
-          this.metricsFormArray.push(this._formBuilder.control(0, metric.required ? Validators.required : []));
+          this.metricsFormArray.push(this._formBuilder.control('0', metric.required ? Validators.required : []));
         });
       });
     }
@@ -126,11 +127,13 @@ export class TrackingFormComponent {
   }
 
   createRecord(formData: RecordCreateRequest) {
+    console.log(formData);
     this._trackingService.createRecord(formData).subscribe({
-      next: (res: RecordResponse) => {
+      next: (res: RecordWithWarningResponse) => {
         this._trackingService.createImage(res.visit_record_id).subscribe(() => {
           this.trackingForm.disable();
           this.submitSuccess();
+          this.messages.set(res.warnings);
         });
       },
       error: (err) => {
