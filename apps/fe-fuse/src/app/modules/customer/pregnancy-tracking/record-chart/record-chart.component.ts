@@ -1,6 +1,6 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, effect, inject, OnInit, PLATFORM_ID, resource, signal } from '@angular/core';
-import { MetricResponseType, Standard, Status } from '@pregnancy-journal-monorepo/contract';
+import { MetricResponseType, Standard } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
@@ -34,9 +34,7 @@ export class RecordChartComponent implements OnInit {
           throw new Error(`Failed to fetch metrics: ${response.status}`);
         }
         const metrics: MetricResponseType[] = await response.json();
-        return metrics.filter((metric: MetricResponseType) => {
-          return metric.status == Status.ACTIVE;
-        });
+        return metrics;
       } catch (error) {
         this.notifyError(error);
         console.error('Error fetching metrics:', error);
