@@ -91,6 +91,7 @@ export class RecordChartComponent implements OnInit {
       if (this.metricArrayCurrentlyInRecordOfChild().length > 0) {
         this.flag.set(true);
       }
+      console.log('Hưng đa');
     });
   }
 

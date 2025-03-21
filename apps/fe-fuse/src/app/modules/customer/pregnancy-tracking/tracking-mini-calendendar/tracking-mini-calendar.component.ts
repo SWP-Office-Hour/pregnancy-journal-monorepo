@@ -22,14 +22,12 @@ export class TrackingMiniCalendarComponent {
   protected currentDate: Date = new Date();
   protected selectedDate: Date = new Date();
   protected calendarDays: Date[] = [];
-
-  //giả data
-  protected _expectedDate: Date = new Date(new Date().setMonth(new Date().getMonth() + 9));
+  protected _expectedDate: Date;
   @Input() set expectedDate(date: Date) {
     this._expectedDate = new Date(date);
   }
   //countdown
-  private _currentPregnancyWeek: number = 4;
+  private _currentPregnancyWeek: number;
   remainingDays() {
     const expectedDate = new Date(this._expectedDate);
     const currentDate = new Date();
@@ -41,7 +39,34 @@ export class TrackingMiniCalendarComponent {
   }
 
   protected get currentPregnancyWeek(): number {
-    return this._currentPregnancyWeek;
+    //hàm tính tuần thai dựa vào ngày hiện tại và ngày dự sinh
+    const expectedDate = new Date(this._expectedDate);
+    const currentDate = new Date();
+    if (expectedDate.getTime() < currentDate.getTime()) {
+      return 0;
+    }
+    const diffInMs = expectedDate.getTime() - currentDate.getTime();
+    const weeksRemaining = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+    return 40 - weeksRemaining;
+  }
+
+  // Function to calculate the week of fetal development
+  calculateWeekOfFetalDevelopment(): number {
+    //check if expected date is set
+    if (!this._expectedDate) {
+      return 0;
+    }
+    // Tính số ngày chênh lệch giữa ngày dự sinh và ngày được chọn
+    const diffInMs = this._expectedDate.getTime() - this.selectedDate.getTime();
+
+    // Chuyển đổi số ngày thành số tuần
+    const weeksRemaining = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
+
+    // Tuần thai hiện tại = 40 - số tuần còn lại
+    const currentWeek = 40 - weeksRemaining;
+
+    // Ensure week is between 1-40 for valid images
+    return currentWeek;
   }
 
   constructor() {
@@ -126,24 +151,5 @@ export class TrackingMiniCalendarComponent {
       this.selectedDate = new Date();
       this.generateMonthView();
     }, 100);
-  }
-
-  // Function to calculate the week of fetal development
-  calculateWeekOfFetalDevelopment(): number {
-    //check if expected date is set
-    if (!this._expectedDate) {
-      return 0;
-    }
-    // Tính số ngày chênh lệch giữa ngày dự sinh và ngày được chọn
-    const diffInMs = this._expectedDate.getTime() - this.selectedDate.getTime();
-
-    // Chuyển đổi số ngày thành số tuần
-    const weeksRemaining = Math.floor(diffInMs / (1000 * 60 * 60 * 24 * 7));
-
-    // Tuần thai hiện tại = 40 - số tuần còn lại
-    const currentWeek = 40 - weeksRemaining;
-
-    // Ensure week is between 1-40 for valid images
-    return currentWeek;
   }
 }
