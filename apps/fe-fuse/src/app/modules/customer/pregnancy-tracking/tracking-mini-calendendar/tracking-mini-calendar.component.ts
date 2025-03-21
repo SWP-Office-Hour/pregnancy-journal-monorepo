@@ -26,13 +26,17 @@ export class TrackingMiniCalendarComponent {
   //giả data
   protected _expectedDate: Date = new Date(new Date().setMonth(new Date().getMonth() + 9));
   @Input() set expectedDate(date: Date) {
-    this._expectedDate = date;
+    this._expectedDate = new Date(date);
   }
   //countdown
   private _currentPregnancyWeek: number = 4;
   remainingDays() {
     const expectedDate = new Date(this._expectedDate);
     const currentDate = new Date();
+    if (expectedDate.getTime() < currentDate.getTime()) {
+      return 0;
+    }
+    console.log('expectedDate', expectedDate);
     return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
   }
 
