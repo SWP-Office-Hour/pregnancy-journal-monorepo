@@ -58,8 +58,6 @@ import { ChildrenProfileTableComponent } from './children-profile-table/children
   providers: [MessageService, ConfirmationService],
 })
 export class ChildrenProfileComponent {
-  protected Gender = Gender;
-
   childResource = resource<ChildType[], {}>({
     loader: async ({ abortSignal }) => {
       const response = await fetch(environment.apiUrl + 'child', {
@@ -82,6 +80,7 @@ export class ChildrenProfileComponent {
       });
     },
   });
+  protected Gender = Gender;
 
   /**
    * Constructor
@@ -181,9 +180,8 @@ export class ChildrenProfileComponent {
 
   createChildRecord(_child: ChildType): void {
     this._userService.user$.subscribe((user) => {
-      const child: ChildType = user.child.find((c) => c.child_id == _child.child_id);
-      this._childService.child = child;
-      this._router.navigate(['/tracking']);
+      this._childService.child = user.child.find((c) => c.child_id == _child.child_id);
+      this._router.navigate(['/tracking'], { queryParams: { create: true } });
     });
   }
 

@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { RecordResponse } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -15,7 +15,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 
 @Component({
   selector: 'app-record-table',
-  imports: [TableModule, ToastModule, ButtonModule, CommonModule, Ripple, RouterLink, FormsModule, InputTextModule],
+  imports: [TableModule, ToastModule, ButtonModule, CommonModule, Ripple, FormsModule, InputTextModule],
   providers: [MessageService],
   templateUrl: './record-table.component.html',
   styleUrl: './record-table.component.css',
@@ -54,8 +54,8 @@ export class RecordTableComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    if (this.activatedRoute.snapshot.queryParams['id']) {
-      this.editTracking(this.activatedRoute.snapshot.queryParams['id']);
+    if (this.activatedRoute.snapshot.queryParams['create'] == 'true') {
+      this.createRecord();
     }
     this.recordService.RecordData.subscribe((data) => {
       this.recordsData = data();
@@ -94,14 +94,6 @@ export class RecordTableComponent implements OnInit {
   getLength(week: number) {
     return this.rows.find((r) => r.week === week)!.records.length;
   }
-
-  // onRowExpand(event: TableRowExpandEvent) {
-  //   this.messageService.add({ severity: 'info', summary: 'Row Expanded', detail: event.data.name, life: 3000 });
-  // }
-  //
-  // onRowCollapse(event: TableRowCollapseEvent) {
-  //   this.messageService.add({ severity: 'success', summary: 'Row Collapsed', detail: event.data.name, life: 3000 });
-  // }
 
   editTracking(record_id: string) {
     this.recordService.SelectedRecordData = record_id;
