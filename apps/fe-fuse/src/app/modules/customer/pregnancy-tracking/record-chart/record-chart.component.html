@@ -1,7 +1,7 @@
 <p-tabs value="0" scrollable="true">
   <p-tablist>
     @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
-      <p-tab [value]="standardList[0].metric_id" (click)="click(standardResourceOfUniqueMetric.value())">
+      <p-tab [value]="standardList[0].metric_id">
         {{ getMetricTitle(standardList[0].metric_id) }}
       </p-tab>
     }

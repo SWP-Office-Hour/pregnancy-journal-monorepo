@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { Router } from '@angular/router';
 import {
   HospitalResponse,
   MediaResponse,
@@ -65,7 +64,6 @@ export class TrackingFormComponent {
     private _trackingService: PregnancyTrackingService,
     private _formBuilder: FormBuilder,
     private messageService: MessageService,
-    private router: Router,
   ) {
     this.selectedRecordData = this._trackingService.SelectedRecordData;
     this.images = this._trackingService.Media;
@@ -146,16 +144,14 @@ export class TrackingFormComponent {
   updateRecord(formData: RecordUpdateRequest) {
     this._trackingService.updateRecord(formData).subscribe({
       next: (res: RecordResponse) => {
-        this._trackingService.updateImage(res.visit_record_id).subscribe((res) => {
+        this._trackingService.updateImage(res.visit_record_id).subscribe(() => {
           this.submitSuccess();
-          this._trackingService.closeForm();
           this.dialogRef.close();
         });
       },
       error: (err) => {
         console.log(err);
         this.submitFail();
-        this._trackingService.closeForm();
         this.dialogRef.close();
       },
     });
@@ -265,6 +261,16 @@ export class TrackingFormComponent {
           }
         });
       });
+  }
+
+  deleteRecord() {
+    this._trackingService.deleteRecord(this.selectedRecordData.visit_record_id).subscribe(() => {
+      this.dialogRef.close();
+      this.submitSuccess({
+        summary: 'Xóa thành công',
+        detail: 'Xóa hồ sơ thành công',
+      });
+    });
   }
 
   closeForm() {
