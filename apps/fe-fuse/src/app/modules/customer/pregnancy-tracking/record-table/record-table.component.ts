@@ -98,8 +98,13 @@ export class RecordTableComponent implements OnInit {
   editTracking(record_id: string) {
     this.recordService.SelectedRecordData = record_id;
     if (this.recordService.SelectedRecordData) {
-      this._dialog.open(TrackingFormComponent, {
+      const dialogRef = this._dialog.open(TrackingFormComponent, {
         autoFocus: false,
+      });
+
+      dialogRef.afterClosed().subscribe(() => {
+        this.recordService.RecordData.subscribe();
+        this.recordService.closeForm();
       });
     } else {
       console.log('Record not found. Id ', record_id);

@@ -40,6 +40,10 @@ export class PregnancyTrackingService {
   }
 
   set SelectedRecordData(record_id: string) {
+    if (record_id === '') {
+      this._selectedRecord = null;
+      this._media = [];
+    }
     const record = this._recordData().find((record) => record.visit_record_id === record_id);
     if (record) {
       this._selectedRecord = record;
@@ -110,18 +114,21 @@ export class PregnancyTrackingService {
     this._media.push(img);
   }
 
+  deleteRecord(record_id: string) {
+    return this._httpClient.delete(environment.apiUrl + 'record/' + record_id).pipe(
+      map((res) => {
+        this._recordData.set(this._recordData().filter((record) => record.visit_record_id !== record_id));
+        return res;
+      }),
+    );
+  }
+
   createRecord(pregnancy_data: RecordCreateRequest) {
-    return this._httpClient
-      .post(environment.apiUrl + 'record', pregnancy_data, {
-        headers: {
-          Authorization: `Bearer ${this._authService.accessToken}`,
-        },
-      })
-      .pipe(
-        map((res: RecordResponse) => {
-          return res;
-        }),
-      );
+    return this._httpClient.post(environment.apiUrl + 'record', pregnancy_data).pipe(
+      map((res: RecordResponse) => {
+        return res;
+      }),
+    );
   }
 
   createImage(record_id: string): Observable<MediaResponse[]> {
@@ -148,19 +155,15 @@ export class PregnancyTrackingService {
 
   closeForm() {
     this.SelectedRecordData = '';
-    this._media = [];
   }
 
   getRecordDataByMetricId(metric_id: string) {
-    const value = this._recordData().map((record) => {
+    return this._recordData().map((record) => {
       const data = record.data.find((value) => value.metric_id === metric_id);
       return {
         week: record.week,
         value: data ? Number(data.value) : null,
       };
     });
-
-    console.log('value', value);
-    return value;
   }
 }

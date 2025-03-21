@@ -46,13 +46,9 @@ export class SignalPregnancyTrackingService {
 
   constructor(private messageService: MessageService) {
     effect(() => {
-      console.log('globalSelectedChild', this.globalSelectedChild());
       if (this.globalSelectedChild() != undefined) {
         this.currentChildId.set(this.globalSelectedChild().child_id);
       }
-    });
-    effect(() => {
-      console.log('recordResourceOfSelectedChild', this.recordResourceOfSelectedChild.value());
     });
   }
 

@@ -69,7 +69,6 @@ export class RecordChartComponent {
             return await response.json();
           };
           promiseArr.push(promiseMetric());
-          console.log('promiseArr', promiseArr);
         });
         return Promise.all(promiseArr);
       } catch (error) {
@@ -88,12 +87,9 @@ export class RecordChartComponent {
     private apiPregnancyTrackingService: PregnancyTrackingService,
   ) {
     effect(() => {
-      console.log('metricArrayCurrentlyInRecordOfChild', this.metricArrayCurrentlyInRecordOfChild());
-      console.log('standardResourceOfUniqueMetric', this.standardResourceOfUniqueMetric.value());
       if (this.metricArrayCurrentlyInRecordOfChild().length > 0) {
         this.flag.set(true);
       }
-      console.log('flag', this.flag());
     });
   }
 
@@ -143,16 +139,12 @@ export class RecordChartComponent {
     console.log('content: ', content);
   }
 
-  getRecordValueByMetricId(metricId: string) {
-    return this.apiPregnancyTrackingService.getRecordDataByMetricId(metricId);
-  }
-
   getChartData(metricId: string, standards: Standard[]) {
     const totalWeeks = Array.from({ length: 42 }, (_, i) => i + 1);
     const metricValues = Array(42).fill(null);
     const standardValues = Array(42).fill(null);
 
-    const recordData = this.getRecordValueByMetricId(metricId);
+    const recordData = this.apiPregnancyTrackingService.getRecordDataByMetricId(metricId);
     const standardData = standards.map((standard) => {
       return {
         week: standard.week,
