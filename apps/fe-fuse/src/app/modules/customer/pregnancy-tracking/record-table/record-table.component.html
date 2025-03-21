@@ -44,7 +44,7 @@
         pButton
         label="Hồ Sơ Mới"
         icon="pi pi-plus-circle"
-        [routerLink]="'/record'"
+        (click)="createRecord()"
         class="rounded-full bg-gradient-to-r from-pink-400 to-pink-500 px-4 py-2 text-xs font-medium text-white shadow transition-all hover:from-pink-500 hover:to-pink-600 hover:shadow-md"
       ></button>
       <button

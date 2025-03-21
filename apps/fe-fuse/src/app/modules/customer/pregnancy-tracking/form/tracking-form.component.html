@@ -6,7 +6,9 @@
   <!-- Header Section - Enhanced with gradient background -->
   <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-4 pb-4">
     <h2 class="text-2xl font-bold text-pink-600">Theo dõi bệnh án</h2>
-    <p class="mt-2 text-gray-600"><strong>Tuần:</strong> {{ week }}</p>
+    @if (week) {
+      <p class="mt-2 text-gray-600"><strong>Tuần:</strong> {{ week }}</p>
+    }
   </div>
 
   <!-- Main Content -->
@@ -83,7 +85,7 @@
         <h3 class="text-md font-medium text-pink-600">Chỉ số sức khỏe</h3>
         @for (metric of metrics; track $index) {
           <mat-form-field class="w-full" appearance="outline">
-            <mat-label class="font-medium text-gray-700">{{ metric.title }}</mat-label>
+            <mat-label class="font-medium text-gray-700">{{ metric.title }}({{ metric.measurement_unit }})</mat-label>
             <input matInput [formControlName]="$index" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
             <mat-icon svgIcon="heroicons_mini:calculator" class="text-pink-400"></mat-icon>
           </mat-form-field>
@@ -120,15 +122,17 @@
 
   <!-- Footer Buttons -->
   <div class="mt-8 flex justify-end gap-3 border-t border-gray-200 pt-6">
-    <button
-      (click)="copyToClipboard()"
-      type="button"
-      cdkCopyToClipboard="{{ sharedRecord() }}"
-      mat-stroked-button
-      class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
-    >
-      Chia sẻ
-    </button>
+    @if (selectedRecordData) {
+      <button
+        (click)="copyToClipboard()"
+        type="button"
+        cdkCopyToClipboard="{{ sharedRecord() }}"
+        mat-stroked-button
+        class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
+      >
+        Chia sẻ
+      </button>
+    }
     <button
       mat-flat-button
       type="submit"
