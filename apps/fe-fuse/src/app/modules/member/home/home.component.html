@@ -1,6 +1,6 @@
 <div class="flex min-w-0 flex-auto flex-col bg-white p-6">
   <!-- Header -->
-  <section class="mb-12 flex w-full flex-col bg-transparent">
+  <section class="mb-1 flex w-full flex-col bg-transparent">
     <!-- Time-sensitive Welcome Section -->
     <div class="relative h-64 w-full overflow-hidden rounded-3xl shadow-lg">
       Dynamic Time-Based Backgrounds
@@ -163,21 +163,26 @@
     >
       <app-home-reminder></app-home-reminder>
     </div>
-    <!-- Mini Tracking Chart -->
+    <!--        &lt;!&ndash; Mini Tracking Chart &ndash;&gt;-->
+    <!--        <div-->
+    <!--          class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"-->
+    <!--        ></div>-->
+    <!--        &lt;!&ndash; Recommend Blog &ndash;&gt;-->
+    <!--        <div-->
+    <!--          class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"-->
+    <!--        >-->
+    <!--          <app-recommended-blogs></app-recommended-blogs>-->
+    <!--        </div>-->
     <div
-      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
-    ></div>
-    <!-- Recommend Blog -->
-    <div
-      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm lg:col-span-1"
+      class="bg-card col-span-2 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm"
     >
-      <app-recommended-blogs></app-recommended-blogs>
+      <app-week-pregnancy-slider></app-week-pregnancy-slider>
     </div>
   </section>
 
   <!-- Popular Tools Section -->
-  <section>
-    <div class="mb-12 rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50/30 to-pink-50/30 p-6 shadow-lg">
+  <section class="flex flex-row justify-around">
+    <div class="rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50/30 to-pink-50/30 p-6 shadow-lg">
       <div class="flex flex-col gap-8 lg:flex-row">
         <!-- Left Section: Title & Description -->
         <div class="flex flex-col items-start justify-center space-y-6 lg:w-1/4">
@@ -304,6 +309,76 @@
               </svg>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+    <!-- Pregnancy Countdown Calendar -->
+    <div
+      class="calendar-countdown relative w-full max-w-xs transform rounded-2xl bg-white shadow-lg transition-all duration-500 hover:scale-105 hover:shadow-xl"
+      [ngClass]="{ 'animate-celebration': remainingDays() <= 0 }"
+      style="background-image: linear-gradient(#ffffff 1.1rem, #ccc 1.2rem); background-size: 100% 1.2rem"
+    >
+      <!-- Calendar Top Part with Hanging Rings -->
+      <div class="calendar-top rounded-t-2xl bg-gradient-to-r from-pink-400 to-pink-500 pb-2 pt-4 shadow-lg">
+        <!-- Calendar Rings -->
+        <div class="absolute left-0 top-0 z-50 flex w-full justify-around">
+          <div class="calendar-ring-outer -mt-2 h-8 w-5 rounded-full bg-gradient-to-r from-pink-800 via-pink-950 to-pink-800 shadow-lg"></div>
+          <div class="calendar-ring-outer -mt-2 h-8 w-5 rounded-full bg-gradient-to-r from-pink-800 via-pink-950 to-pink-800 shadow-lg"></div>
+        </div>
+        <div class="absolute left-0 top-0 z-20 flex w-full justify-around">
+          <div
+            class="calendar-ring-inner mt-1 h-6 w-6 rounded-full border-2 border-solid border-pink-500 shadow-inner"
+            style="background-image: radial-gradient(#0a0a0a, #be5985, #ec7fa9, #ffb8e0, #ffedfa)"
+          ></div>
+          <div
+            class="calendar-ring-inner mt-1 h-6 w-6 rounded-full border-2 border-solid border-pink-500 shadow-inner"
+            style="background-image: radial-gradient(#0a0a0a, #be5985, #ec7fa9, #ffb8e0, #ffedfa)"
+          ></div>
+        </div>
+
+        <!-- Calendar Title -->
+        <div class="mt-3 text-center">
+          <h2 class="font-playful text-3xl font-bold italic tracking-wide text-white drop-shadow-md">Đếm ngược kỳ diệu</h2>
+          <!-- Decorative accents -->
+          <div class="mx-auto mt-1 h-1 w-24 rounded-full bg-white/30"></div>
+        </div>
+      </div>
+
+      <!-- Calendar Bottom Part with Days Count -->
+      <div class="calendar-bottom relative rounded-b-2xl px-4 pt-2">
+        <!-- Days Counter -->
+        <div class="relative z-10">
+          @if (remainingDays() <= 0) {
+            <div class="animation-scale-in text-center">
+              <div class="text-2xl font-bold text-pink-500">Chúc mừng mẹ bầu!</div>
+              <div class="mt-2 text-lg font-medium text-pink-400">Bé yêu đã chào đời</div>
+              <!--            <div class="mt-4">-->
+              <!--                                <lottie-player-->
+              <!--                                  src="https://assets10.lottiefiles.com/packages/lf20_ky24lmgu.json"-->
+              <!--                                  background="transparent"-->
+              <!--                                  speed="1"-->
+              <!--                                  style="width: 150px; height: 150px; margin: 0 auto"-->
+              <!--                                  loop-->
+              <!--                                  autoplay-->
+              <!--                                >-->
+              <!--                                </lottie-player>-->
+              <!--            </div>-->
+            </div>
+          } @else {
+            <div class="text-center">
+              <div class="calendar-days-number text-center text-6xl font-black tracking-tighter text-pink-600 sm:text-7xl">
+                {{ remainingDays() }}
+              </div>
+              <div class="calendar-days-text mt-1 text-center text-lg font-medium text-pink-400">Ngày Còn Lại</div>
+
+              <!-- Week indicator -->
+              <div class="mt-4 inline-block rounded-full bg-pink-100 px-4 py-1 text-sm font-medium text-pink-600">
+                Tuần thứ {{ currentPregnancyWeek }}
+              </div>
+            </div>
+          }
+          <!-- Calendar page curl effect -->
+          <div class="absolute bottom-0 right-0 h-12 w-12 rounded-tl-lg bg-gradient-to-br from-transparent to-gray-200/50 shadow-inner"></div>
         </div>
       </div>
     </div>

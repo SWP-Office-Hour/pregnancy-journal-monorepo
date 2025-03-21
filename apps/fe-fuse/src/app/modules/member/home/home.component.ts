@@ -72,6 +72,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     NgxSplideModule,
     HomeReminderComponent,
     MatDialogModule,
+    WeekPregnancySliderComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',

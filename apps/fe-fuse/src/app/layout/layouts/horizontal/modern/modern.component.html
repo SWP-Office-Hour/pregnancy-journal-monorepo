@@ -56,7 +56,7 @@
   </div>
 
   <!-- Content -->
-  <div class="flex w-full flex-auto flex-col" auto-animate>
+  <div class="flex w-full flex-auto flex-col">
     <!-- *ngIf="true" hack is required here for router-outlet to work correctly.
              Otherwise, layout changes won't be registered and the view won't be updated! -->
     @if (true) {
@@ -65,7 +65,7 @@
   </div>
 
   <!-- Footer -->
-  <div class="bg-card z-49 flex-0 relative flex h-14 w-full items-center border-t px-4 sm:h-20 md:px-6 dark:bg-transparent print:hidden">
+  <div class="bg-card z-49 flex-0 flex h-14 w-full items-center border-t px-4 sm:h-20 md:px-6 dark:bg-transparent print:hidden">
     <span class="text-secondary font-medium">Pregnancy Journal &copy; {{ currentYear }}</span>
   </div>
 </div>

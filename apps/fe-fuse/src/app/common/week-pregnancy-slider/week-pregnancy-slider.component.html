@@ -35,7 +35,7 @@
   </div>
   <splide
     #mainSplide
-    [options]="{ type: 'slide', pagination: false, arrows: false, drag: true, lazyLoad: 'nearby', preloadPages: 3, fixedHeight: 400 }"
+    [options]="{ type: 'slide', pagination: false, arrows: false, drag: true, lazyLoad: 'nearby', preloadPages: 3, fixedHeight: 280 }"
   >
     <splide-slide *ngFor="let week of pregnancyWeeks; let i = index">
       <app-week-illustration [countWeek]="week"></app-week-illustration>
