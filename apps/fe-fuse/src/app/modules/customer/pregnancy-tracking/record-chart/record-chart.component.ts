@@ -1,4 +1,5 @@
-import { Component, computed, effect, resource, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ChangeDetectorRef, Component, computed, effect, inject, OnInit, PLATFORM_ID, resource, signal } from '@angular/core';
 import { MetricResponseType, Standard, Status } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
@@ -6,14 +7,15 @@ import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../../../environments/environment';
 import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
-
 @Component({
   selector: 'app-record-chart',
   imports: [TabsModule, ChartModule],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
-export class RecordChartComponent {
+export class RecordChartComponent implements OnInit {
+  platformId = inject(PLATFORM_ID);
+
   flag = signal(false);
   // Component state
   isLoading = false;
@@ -83,6 +85,7 @@ export class RecordChartComponent {
 
   constructor(
     private messageService: MessageService,
+    private cd: ChangeDetectorRef,
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
     private apiPregnancyTrackingService: PregnancyTrackingService,
   ) {
@@ -92,6 +95,76 @@ export class RecordChartComponent {
       }
     });
   }
+
+  ngOnInit() {
+    this.initChart();
+  }
+
+  basicOptions: any;
+
+  initChart() {
+    if (isPlatformBrowser(this.platformId)) {
+      const documentStyle = getComputedStyle(document.documentElement);
+      const textColor = documentStyle.getPropertyValue('--p-text-color');
+      const textColorSecondary = documentStyle.getPropertyValue('--p-text-muted-color');
+      const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
+
+      // this.basicData = {
+      //   labels: ['Q1', 'Q2', 'Q3', 'Q4'],
+      //   datasets: [
+      //     {
+      //       label: 'Sales',
+      //       data: [540, 325, 702, 620],
+      //       backgroundColor: ['rgba(249, 115, 22, 0.2)', 'rgba(6, 182, 212, 0.2)', 'rgb(107, 114, 128, 0.2)', 'rgba(139, 92, 246, 0.2)'],
+      //       borderColor: ['rgb(249, 115, 22)', 'rgb(6, 182, 212)', 'rgb(107, 114, 128)', 'rgb(139, 92, 246)'],
+      //       borderWidth: 1,
+      //     },
+      //   ],
+      // };
+
+      this.basicOptions = {
+        maintainAspectRatio: false,
+        aspectRatio: 0.8,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
+          },
+        },
+        spanGaps: false,
+        scales: {
+          x: {
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            beginAtZero: false,
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+        },
+      };
+      this.cd.markForCheck();
+    }
+  }
+
+  // options = {
+  //   spanGaps: false,
+  //   scales: {
+  //     y: {
+  //       beginAtZero: false,
+  //     },
+  //   },
+  // };
 
   /**
    * LÀM ơn đưa RESOURCE resource chứ ko phải Record
@@ -179,15 +252,6 @@ export class RecordChartComponent {
       ],
     };
   }
-
-  options = {
-    spanGaps: false,
-    scales: {
-      y: {
-        beginAtZero: false,
-      },
-    },
-  };
 
   private notifyError(error: any): void {
     console.error('Error in HealthMetricTableComponent:', error);
