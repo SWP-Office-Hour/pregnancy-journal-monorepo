@@ -20,7 +20,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { TranslocoModule } from '@jsverse/transloco';
 import { MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
 import { NgApexchartsModule } from 'ng-apexcharts';
@@ -70,7 +70,6 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     TooltipModule,
     ButtonModule,
     NgxSplideModule,
-    RouterLink,
     HomeReminderComponent,
     MatDialogModule,
   ],
@@ -83,6 +82,8 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
 export class HomeComponent {
   public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
   public formatDate: string;
+  timeOfDay;
+  readonly dialog = inject(MatDialog);
   //get data standard of metric from API
   protected metrics: MetricResponseType[];
   protected weightMetricId: string;
@@ -91,14 +92,13 @@ export class HomeComponent {
   protected user: User | null = null;
   //2. Lấy ngày đẻ của con mà người dùng đã chọn
   private _expectedDate: Date = new Date();
-  //3. Tính tuần thai
-  private _currentPregnancyWeek: number = 4;
 
   constructor(
     private _recordService: PregnancyRecordService,
     private _httpClient: HttpClient,
     private _userService: UserService,
     private _childService: ChildV2Service,
+    private router: Router,
   ) {
     // Initialize any required properties
     this.updateTimeOfDay();
@@ -145,7 +145,14 @@ export class HomeComponent {
       });
   }
 
+  //3. Tính tuần thai
+  private _currentPregnancyWeek: number = 4;
+
   private _countWeek: number = this._currentPregnancyWeek;
+
+  protected get currentPregnancyWeek(): number {
+    return this._currentPregnancyWeek;
+  }
 
   remainingDays() {
     const expectedDate = new Date(this._expectedDate);
@@ -176,11 +183,6 @@ export class HomeComponent {
     this._currentPregnancyWeek = currentPregnancyWeek;
   }
 
-  protected get currentPregnancyWeek(): number {
-    return this._currentPregnancyWeek;
-  }
-
-  timeOfDay;
   // Method to determine the time of day for UI changes
   getTimeOfDay(): 'morning' | 'afternoon' | 'evening' | 'night' {
     const hour = new Date().getHours();
@@ -254,8 +256,6 @@ export class HomeComponent {
     }
   }
 
-  readonly dialog = inject(MatDialog);
-
   openFirstTool() {
     const dialogRef = this.dialog.open(BabyNameFinderComponent);
 
@@ -263,6 +263,7 @@ export class HomeComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+
   openSecondTool() {
     const dialogRef = this.dialog.open(CalculateDueDateComponent);
 
@@ -270,11 +271,16 @@ export class HomeComponent {
       console.log(`Dialog result: ${result}`);
     });
   }
+
   openThirdTool() {
     const dialogRef = this.dialog.open(WeekPregnancySliderComponent);
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(`Dialog result: ${result}`);
     });
+  }
+
+  createRecord() {
+    this.router.navigate(['/tracking'], { queryParams: { create: true } });
   }
 }
