@@ -124,7 +124,7 @@ export const recordContract = c.router({
     description: 'Update a record (đã xong)',
     body: recordUpdateReqSchema,
     responses: {
-      200: recordResSchema,
+      200: recordWithWarningResSchema,
       400: z.object({
         message: z.string(),
       }),
