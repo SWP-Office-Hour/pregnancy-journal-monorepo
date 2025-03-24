@@ -35,6 +35,12 @@ export class PregnancyTrackingService {
     );
   }
 
+  getNewestRecord() {
+    return this._recordData().sort(
+      (a, b) => new Date(a.visit_doctor_date).getTimezoneOffset() - new Date(b.visit_doctor_date).getTimezoneOffset(),
+    )[0];
+  }
+
   get SelectedRecordData(): RecordResponse {
     return this._selectedRecord;
   }
