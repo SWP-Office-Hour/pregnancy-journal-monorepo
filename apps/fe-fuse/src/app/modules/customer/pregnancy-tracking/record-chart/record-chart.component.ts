@@ -1,6 +1,7 @@
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, effect, inject, OnInit, PLATFORM_ID, resource, signal } from '@angular/core';
 import { MetricResponseType, Standard } from '@pregnancy-journal-monorepo/contract';
+import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
@@ -9,7 +10,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 @Component({
   selector: 'app-record-chart',
-  imports: [TabsModule, ChartModule, NgClass],
+  imports: [TabsModule, ChartModule, NgClass, NgAutoAnimateDirective],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
