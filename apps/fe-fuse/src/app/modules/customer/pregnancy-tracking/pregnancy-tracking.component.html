@@ -14,7 +14,7 @@
       class="col-span-2 flex h-[calc(100vh-12rem)] flex-col gap-4 overflow-y-scroll rounded-2xl"
       style="scrollbar-width: none; -ms-overflow-style: none"
     >
-      <div class="rounded-2xl bg-pink-200/90 p-4 backdrop-blur-md">
+      <div class="rounded-2xl bg-pink-200/90 p-4 backdrop-blur-md" auto-animate>
         <app-record-chart></app-record-chart>
       </div>
       <div class="">
@@ -175,7 +175,7 @@
         <!-- Khối dưới - List warning -->
         <div class="flex-grow space-y-2 overflow-y-auto rounded-xl" style="scrollbar-width: none; -ms-overflow-style: none">
           <!-- Check có warning nào chưa-->
-          @if (false) {
+          @if (true) {
             <!-- Nhớ cho data thiệt vào đây nha-->
             @for (item of [0, 1, 2, 3]; track item) {
               <div

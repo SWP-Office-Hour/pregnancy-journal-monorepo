@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ChildType } from '@pregnancy-journal-monorepo/contract';
+import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
@@ -13,7 +14,7 @@ import { TrackingMiniCalendarComponent } from './tracking-mini-calendendar/track
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, RecordChartComponent],
+  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, RecordChartComponent, NgAutoAnimateDirective],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
