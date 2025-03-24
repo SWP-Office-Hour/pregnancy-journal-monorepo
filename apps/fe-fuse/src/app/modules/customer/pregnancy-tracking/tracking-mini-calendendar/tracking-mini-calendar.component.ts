@@ -34,7 +34,6 @@ export class TrackingMiniCalendarComponent {
     if (expectedDate.getTime() < currentDate.getTime()) {
       return 0;
     }
-    console.log('expectedDate', expectedDate);
     return Math.floor((expectedDate.getTime() - currentDate.getTime()) / (1000 * 60 * 60 * 24));
   }
 

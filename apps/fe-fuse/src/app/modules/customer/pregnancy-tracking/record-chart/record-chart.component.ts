@@ -1,4 +1,4 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, effect, inject, OnInit, PLATFORM_ID, resource, signal } from '@angular/core';
 import { MetricResponseType, Standard } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
@@ -9,7 +9,7 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 @Component({
   selector: 'app-record-chart',
-  imports: [TabsModule, ChartModule],
+  imports: [TabsModule, ChartModule, NgClass],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
@@ -19,6 +19,7 @@ export class RecordChartComponent implements OnInit {
   flag = signal(false);
   // Component state
   isLoading = false;
+  showStandards = false;
   metrics = resource<MetricResponseType[], {}>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
@@ -91,7 +92,6 @@ export class RecordChartComponent implements OnInit {
       if (this.metricArrayCurrentlyInRecordOfChild().length > 0) {
         this.flag.set(true);
       }
-      console.log('Hưng đa');
     });
   }
 
@@ -260,6 +260,19 @@ export class RecordChartComponent implements OnInit {
       detail: error.message || 'An unexpected error occurred',
       life: 4000,
     });
+  }
+
+  toggleStandards(event: any): void {
+    // If the event comes from the close button, prevent toggling back on
+    if (event.target && (event.target.classList.contains('pi-times') || event.target.closest('button')?.querySelector('.pi-times'))) {
+      event.stopPropagation();
+      this.showStandards = false;
+      return;
+    }
+
+    // Otherwise toggle as usual
+    this.showStandards = !this.showStandards;
+    console.log('showStandards: ', this.showStandards);
   }
 }
 

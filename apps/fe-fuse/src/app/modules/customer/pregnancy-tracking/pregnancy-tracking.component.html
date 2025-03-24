@@ -7,148 +7,192 @@
     </div>
   </div>
 
-  <!--  CỤC GIỮA-->
-  <div class="col-span-5 grid grid-cols-3 gap-2 overflow-y-scroll p-4">
-    <div class="col-span-3">
-      <div class="h-128 mb-4 grid w-full grid-cols-3 gap-4">
-        <div
-          class="col-span-1 overflow-y-scroll rounded-2xl bg-gradient-to-br from-pink-200/90 to-purple-50/90 p-4 backdrop-blur-md"
-          style="scrollbar-width: none; -ms-overflow-style: none"
-        >
-          <div class="pregnancy-tracker h-full">
-            <!-- Pregnancy Week Cards -->
-            <div class="space-y-4">
-              <!-- Current Week - Expanded -->
-              <div
-                class="group relative overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-3 shadow-md transition-all duration-300 hover:shadow-lg"
-              >
-                <!-- Date & Week -->
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="text-xs text-gray-500">Thứ 7, 23.03.2024</span>
-                  <span class="rounded-full bg-pink-500 px-2 py-0.5 text-xs font-semibold text-white">Theo dõi gần nhất</span>
-                </div>
-
-                <h3 class="mb-3 text-lg font-bold text-pink-600">Tuần 12</h3>
-
-                <!-- Development Metrics -->
-                <div class="mb-3 grid grid-cols-2 gap-2 text-center">
-                  <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
-                    <p class="text-xs text-gray-500">Chiều dài</p>
-                    <p class="text-base font-bold text-pink-600">6-7 cm</p>
-                    <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
-                      <div class="h-full w-1/2 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
-                    </div>
-                  </div>
-                  <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
-                    <p class="text-xs text-gray-500">Cân nặng</p>
-                    <p class="text-base font-bold text-pink-600">14-20g</p>
-                    <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
-                      <div class="h-full w-1/3 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Key Development -->
-                <div class="mb-3 rounded-lg bg-green-50/80 p-2 backdrop-blur-sm">
-                  <div class="flex items-start space-x-2">
-                    <div class="rounded-full bg-green-100 p-1.5">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                      </svg>
-                    </div>
-                    <div>
-                      <p class="text-xs font-medium text-green-700">Phát triển bình thường</p>
-                      <p class="text-xs text-green-600">Các khớp tay chân đã hình thành, bé có thể di chuyển.</p>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Expanded Content -->
-                <div class="overflow-hidden transition-all duration-300">
-                  <div class="flex justify-between">
-                    <div class="relative">
-                      <img src="/images/ui/flo2/b_12.png" alt="Thai nhi tuần 12" class="h-32 w-auto object-contain" />
-                      <div class="absolute -right-2 bottom-0 animate-pulse rounded-full bg-pink-100 p-1.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
-                          <path
-                            fill-rule="evenodd"
-                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="ml-3 flex-1">
-                      <h4 class="text-sm font-medium text-pink-700">Sự phát triển tuần này</h4>
-                      <ul class="mt-1 text-xs text-gray-600">
-                        <li class="mb-1 flex items-start">
-                          <span class="mr-1 text-pink-500">•</span>
-                          <span>Các cơ quan nội tạng đang hoạt động</span>
-                        </li>
-                        <li class="mb-1 flex items-start">
-                          <span class="mr-1 text-pink-500">•</span>
-                          <span>Bé có thể cử động ngón tay</span>
-                        </li>
-                        <li class="flex items-start">
-                          <span class="mr-1 text-pink-500">•</span>
-                          <span>Các nét mặt đang dần hình thành</span>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Actions -->
-                <div class="mt-3 flex justify-between">
-                  <button
-                    class="flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Thời gian
-                  </button>
-                  <button
-                    class="flex items-center rounded-full bg-gradient-to-r from-pink-500 to-pink-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:from-pink-600 hover:to-pink-700"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    Xem chi tiết
-                  </button>
-                </div>
-
-                <!-- Floating Bubbles -->
-                <div class="absolute -right-3 -top-3 h-8 w-8 rounded-full bg-pink-100/60"></div>
-                <div class="absolute -bottom-3 -left-3 h-6 w-6 rounded-full bg-pink-100/60"></div>
+  <!-- Tổng -->
+  <div class="col-span-5 grid grid-cols-3 gap-2 px-4 pt-4">
+    <!-- CỤC GIỮA-->
+    <div
+      class="col-span-2 flex h-[calc(100vh-12rem)] flex-col gap-4 overflow-y-scroll rounded-2xl"
+      style="scrollbar-width: none; -ms-overflow-style: none"
+    >
+      <div class="rounded-2xl bg-pink-200/90 p-4 backdrop-blur-md">
+        <app-record-chart></app-record-chart>
+      </div>
+      <div class="">
+        <app-record-table></app-record-table>
+      </div>
+    </div>
+    <!-- CỤC PHẢI-->
+    <div class="col-span-1 flex h-[calc(100vh-12rem)] flex-col gap-4 overflow-hidden">
+      <div class="col-span-1 flex h-full flex-col rounded-2xl bg-gradient-to-br from-pink-200/90 to-purple-50/90 p-4 backdrop-blur-md">
+        <!-- Khối trên -->
+        <div class="pregnancy-tracker mb-4 flex-shrink-0">
+          <!-- Current Week - Expanded -->
+          @if (getNewestRecord()) {
+            <div
+              class="group relative h-full overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-3 shadow-md transition-all duration-300 hover:shadow-lg"
+            >
+              <!-- Date & Week -->
+              <div class="mb-2 flex items-center justify-between">
+                <span class="text-xs text-gray-500">Thứ 7, 23.03.2024</span>
+                <span class="rounded-full bg-pink-500 px-2 py-0.5 text-xs font-semibold text-white">Theo dõi gần nhất</span>
               </div>
 
-              <!-- Previous Week - Collapsed -->
+              <h3 class="mb-3 text-lg font-bold text-pink-600">Tuần {{ getNewestRecord().week }}</h3>
+
+              <!-- Development Metrics -->
+              <div class="mb-3 grid grid-cols-2 gap-2 text-center">
+                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
+                  <p class="text-xs text-gray-500">Chiều dài</p>
+                  <p class="text-base font-bold text-pink-600">6-7 cm</p>
+                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
+                    <div class="h-full w-1/2 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
+                  </div>
+                </div>
+                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
+                  <p class="text-xs text-gray-500">Cân nặng</p>
+                  <p class="text-base font-bold text-pink-600">14-20g</p>
+                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
+                    <div class="h-full w-1/3 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Key Development -->
+              <div class="mb-3 rounded-lg bg-green-50/80 p-2 backdrop-blur-sm">
+                <div class="flex items-start space-x-2">
+                  <div class="rounded-full bg-green-100 p-1.5">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p class="text-xs font-medium text-green-700">Phát triển bình thường</p>
+                    <p class="text-xs text-green-600">Các khớp tay chân đã hình thành, bé có thể di chuyển.</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Expanded Content -->
+              <div class="overflow-hidden transition-all duration-300">
+                <div class="flex justify-between">
+                  <div class="relative">
+                    <img src="/images/ui/flo2/b_12.png" alt="Thai nhi tuần 12" class="h-32 w-auto object-contain" />
+                    <div class="absolute -right-2 bottom-0 animate-pulse rounded-full bg-pink-100 p-1.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
+                        <path
+                          fill-rule="evenodd"
+                          d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div class="ml-3 flex-1">
+                    <h4 class="text-sm font-medium text-pink-700">Sự phát triển tuần này</h4>
+                    <ul class="mt-1 text-xs text-gray-600">
+                      <li class="mb-1 flex items-start">
+                        <span class="mr-1 text-pink-500">•</span>
+                        <span>Các cơ quan nội tạng đang hoạt động</span>
+                      </li>
+                      <li class="mb-1 flex items-start">
+                        <span class="mr-1 text-pink-500">•</span>
+                        <span>Bé có thể cử động ngón tay</span>
+                      </li>
+                      <li class="flex items-start">
+                        <span class="mr-1 text-pink-500">•</span>
+                        <span>Các nét mặt đang dần hình thành</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions -->
+              <div class="mt-3 flex justify-between">
+                <button
+                  class="flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                    />
+                  </svg>
+                  Thời gian
+                </button>
+                <button
+                  class="flex items-center rounded-full bg-gradient-to-r from-pink-500 to-pink-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm transition hover:from-pink-600 hover:to-pink-700"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  Xem chi tiết
+                </button>
+              </div>
+
+              <!-- Floating Bubbles -->
+              <div class="absolute -right-3 -top-3 h-8 w-8 rounded-full bg-pink-100/60"></div>
+              <div class="absolute -bottom-3 -left-3 h-6 w-6 rounded-full bg-pink-100/60"></div>
+            </div>
+          } @else {
+            <div
+              class="flex h-full flex-col items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-3 text-center shadow-md transition-all duration-300 hover:shadow-lg"
+            >
+              <!-- Empty State Illustration -->
+              <div class="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-pink-100/80 shadow-inner">
+                <i class="pi pi-calendar-plus text-3xl text-pink-400"></i>
+              </div>
+
+              <!-- Title and description -->
+              <h3 class="mb-2 text-xl font-semibold text-pink-600">Chưa có thông tin khám thai</h3>
+              <p class="mb-6 text-sm text-gray-600">Hãy bắt đầu theo dõi hành trình mang thai của bạn bằng cách thêm thông tin khám thai đầu tiên</p>
+
+              <!-- Action button -->
+              <button
+                (click)="createRecord()"
+                class="group flex items-center rounded-full bg-gradient-to-r from-pink-400 to-pink-600 px-6 py-3 text-sm font-medium text-white shadow-md transition-all duration-300 hover:from-pink-500 hover:to-pink-700 hover:shadow-lg"
+              >
+                <i class="pi pi-plus-circle mr-2 text-white transition-transform group-hover:scale-110"></i>
+                Thêm thông tin khám ngay
+              </button>
+
+              <!-- Decorative elements -->
+              <div class="mt-6 flex w-full justify-center space-x-4">
+                <div class="h-2 w-2 rounded-full bg-pink-200"></div>
+                <div class="h-2 w-2 rounded-full bg-pink-300"></div>
+                <div class="h-2 w-2 rounded-full bg-pink-400"></div>
+              </div>
+            </div>
+          }
+        </div>
+        <!-- Khối dưới - List warning -->
+        <div class="flex-grow space-y-2 overflow-y-auto rounded-xl" style="scrollbar-width: none; -ms-overflow-style: none">
+          <!-- Check có warning nào chưa-->
+          @if (false) {
+            <!-- Nhớ cho data thiệt vào đây nha-->
+            @for (item of [0, 1, 2, 3]; track item) {
               <div
-                class="overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-3 shadow-md transition-all duration-300 hover:shadow-lg"
+                class="overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-2 shadow-md transition-all duration-300 hover:shadow-lg"
               >
                 <!-- Date & Week -->
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="text-xs text-gray-500">Thứ 7, 16.03.2024</span>
-                  <span class="rounded-full bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600">Đã qua</span>
+                <div class="mb-1 flex items-center justify-between">
+                  <span class="text-sm text-gray-500">Thứ 7, 16.03.2024</span>
+                  <span class="rounded-full bg-gray-200 px-2 py-0.5 text-sm font-semibold text-gray-600">Đã qua</span>
                 </div>
 
-                <h3 class="text-lg font-bold text-pink-600">Tuần 11</h3>
+                <h3 class="text-xl font-bold text-pink-600">Tuần {{ 8 - item }}</h3>
 
-                <!-- Warning/Alert State (Example) -->
-                <div class="mt-3 rounded-lg bg-yellow-50/80 p-2 backdrop-blur-sm">
+                <!-- Warning/Alert State (Example) - More compact with larger text -->
+                <div class="mt-2 rounded-lg bg-yellow-50/80 p-1.5 backdrop-blur-sm">
                   <div class="flex items-start space-x-2">
-                    <div class="rounded-full bg-yellow-100 p-1.5">
+                    <div class="rounded-full bg-yellow-100 p-1">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path
                           stroke-linecap="round"
@@ -159,16 +203,16 @@
                       </svg>
                     </div>
                     <div>
-                      <p class="text-xs font-medium text-yellow-700">Cần lưu ý</p>
-                      <p class="text-xs text-yellow-600">Thiếu hụt dinh dưỡng, cần bổ sung thêm acid folic.</p>
+                      <p class="text-sm font-medium text-yellow-700">Cần lưu ý</p>
+                      <p class="text-sm text-yellow-600">Thiếu hụt dinh dưỡng, cần bổ sung thêm acid folic.</p>
                     </div>
                   </div>
                 </div>
 
-                <!-- Toggle/Details Button -->
-                <div class="mt-3 text-center">
+                <!-- Toggle/Details Button - More compact -->
+                <div class="mt-2 text-center">
                   <button
-                    class="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
+                    class="inline-flex items-center rounded-full bg-white px-3 py-1 text-sm font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -177,49 +221,54 @@
                   </button>
                 </div>
               </div>
-
-              <!-- Upcoming Week - Collapsed -->
-              <div
-                class="overflow-hidden rounded-xl bg-gradient-to-br from-white/70 to-blue-50/70 p-3 shadow-md transition-all duration-300 hover:shadow-lg"
-              >
-                <!-- Date & Week -->
-                <div class="mb-2 flex items-center justify-between">
-                  <span class="text-xs text-gray-500">Thứ 7, 30.03.2024</span>
-                  <span class="rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-600">Sắp tới</span>
+            }
+          } @else {
+            <div class="flex h-full items-center justify-center">
+              <div class="animate-fade-in flex w-full max-w-md flex-col items-center justify-center p-4 text-center">
+                <!-- Friendly illustration with maternal-friendly colors -->
+                <div class="relative mb-4">
+                  <div class="flex h-24 w-24 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-pink-50 shadow-inner">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                  </div>
+                  <!-- Softer decorative elements with maternal-friendly colors -->
+                  <div class="absolute -right-3 -top-3 h-8 w-8 rounded-full bg-purple-100/50"></div>
+                  <div class="absolute -bottom-2 -left-3 h-6 w-6 rounded-full bg-pink-100/50"></div>
                 </div>
 
-                <h3 class="text-lg font-bold text-blue-600">Tuần 13</h3>
+                <!-- Positive message with warmer color -->
+                <h3 class="mb-3 text-xl font-bold text-pink-500">Mẹ và bé đều khỏe mạnh!</h3>
 
-                <!-- Simple Preview -->
-                <div class="mt-3 rounded-lg bg-blue-50/80 p-2 backdrop-blur-sm">
-                  <div class="flex items-center justify-between">
-                    <p class="text-xs text-blue-600">Sắp kết thúc 3 tháng đầu thai kỳ</p>
-                    <img src="/images/ui/flo2/b_13.png" alt="Thai nhi tuần 13" class="h-10 w-auto object-contain" />
+                <!-- Supportive description with softer text -->
+                <p class="mb-6 text-gray-600">Hiện tại không có cảnh báo nào cần lưu ý. Hãy tiếp tục chăm sóc tốt cho bạn và bé yêu nhé!</p>
+
+                <!-- Helpful tips section with maternal-friendly colors -->
+                <div class="w-full rounded-xl border border-pink-100 bg-pink-50/50 p-4">
+                  <div class="flex items-start space-x-3">
+                    <div class="mt-1 flex-shrink-0">
+                      <div class="flex h-6 w-6 items-center justify-center rounded-full bg-pink-100">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium text-pink-600">Mẹo nhỏ cho mẹ bầu hôm nay</p>
+                      <p class="text-sm text-pink-500">Uống đủ nước và nghỉ ngơi hợp lý sẽ giúp cả mẹ và bé khỏe mạnh hơn.</p>
+                    </div>
                   </div>
                 </div>
-
-                <!-- Toggle/Details Button -->
-                <div class="mt-3 text-center">
-                  <button
-                    class="inline-flex items-center rounded-full bg-white px-3 py-1.5 text-xs font-medium text-blue-600 shadow-sm transition hover:bg-blue-50"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                    Xem chi tiết
-                  </button>
-                </div>
               </div>
-
-              <!-- Add more weeks as needed -->
             </div>
-          </div>
-        </div>
-        <div class="bg-pink-200/ col-span-2 overflow-scroll rounded-2xl">
-          <app-record-chart></app-record-chart>
+          }
         </div>
       </div>
-      <app-record-table></app-record-table>
     </div>
   </div>
 </div>
