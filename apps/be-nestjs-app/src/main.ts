@@ -32,6 +32,7 @@ import { generateOpenApi } from '@ts-rest/open-api';
 import { json, urlencoded } from 'express';
 import { AppModule } from './app/app.module';
 import { SocketIoAdapter } from './socket-io.adapter';
+import { UnsubscribeOnCloseInterceptor } from './unsubscribe-on-close.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -112,6 +113,8 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.use(json({ limit: '50mb' }));
   app.use(urlencoded({ extended: true, limit: '50mb' }));
+  // Handle abort request by intercepting close event
+  app.useGlobalInterceptors(new UnsubscribeOnCloseInterceptor());
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(`🚀 Server running on DB: ${process.env.DB_URL}`);
