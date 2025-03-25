@@ -33,6 +33,7 @@
               <button mat-raised-button matDatepickerApply>Apply</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="recordForm.get('visit_doctor_date')?.hasError('futureDate')"> Ngày khám không được lớn hơn ngày hôm nay </mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-full">
@@ -54,6 +55,7 @@
               <button mat-raised-button matDatepickerApply>Apply</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="recordForm.get('next_visit_doctor_date')?.hasError('futureDate')"> Ngày khám không được lớn hơn ngày hôm nay </mat-error>
         </mat-form-field>
       </div>
 
