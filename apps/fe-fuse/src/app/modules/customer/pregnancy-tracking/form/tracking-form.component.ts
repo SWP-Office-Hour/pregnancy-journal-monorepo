@@ -67,6 +67,7 @@ export class TrackingFormComponent {
   protected metrics: MetricResponseType[];
   protected selectedRecordData: RecordResponse;
   protected week: number;
+  protected isDisabled = signal<boolean>(false);
   private report_messages = signal<string[]>([]);
 
   constructor(
@@ -155,6 +156,7 @@ export class TrackingFormComponent {
   // }
 
   submitForm() {
+    this.isDisabled.set(true);
     if (this.trackingForm.invalid) {
       this.trackingForm.markAllAsTouched();
       this.submitFail();
