@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ChildType } from '@pregnancy-journal-monorepo/contract';
@@ -20,7 +20,7 @@ import { TrackingMiniCalendarComponent } from './tracking-mini-calendendar/track
   standalone: true,
   providers: [MessageService],
 })
-export class PregnancyTrackingComponent {
+export class PregnancyTrackingComponent implements OnInit {
   child: ChildType;
   private _dialog: MatDialog;
   constructor(

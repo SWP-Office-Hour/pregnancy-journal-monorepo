@@ -214,19 +214,19 @@ export class BlogDetailComponent implements OnInit, AfterViewInit, OnDestroy {
     if (!this.blog) return;
 
     // Clear any existing og tags
-    this.metaService.removeTag("property='og:url'");
-    this.metaService.removeTag("property='og:type'");
-    this.metaService.removeTag("property='og:title'");
-    this.metaService.removeTag("property='og:description'");
-    this.metaService.removeTag("property='og:image'");
+    this.metaService.removeTag("name='url'");
+    this.metaService.removeTag("name='type'");
+    this.metaService.removeTag("name='title'");
+    this.metaService.removeTag("name='description'");
+    this.metaService.removeTag("name='image'");
 
     // Add Open Graph meta tags
     this.metaService.addTags([
-      { property: 'og:url', content: this.url },
-      { property: 'og:type', content: 'article' },
-      { property: 'og:title', content: this.blog.title },
-      { property: 'og:description', content: this.blog.summary },
-      { property: 'og:image', content: this.blog.blog_cover },
+      { property: 'og:url', name: 'url', content: this.url },
+      { property: 'og:type', name: 'type', content: 'article' },
+      { property: 'og:title', name: 'title', content: this.blog.title },
+      { property: 'og:description', name: 'description', content: this.blog.summary },
+      { property: 'og:image', name: 'image', content: this.blog.blog_cover },
     ]);
   }
 

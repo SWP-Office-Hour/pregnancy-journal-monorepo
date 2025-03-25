@@ -121,15 +121,17 @@ export class ChildrenProfileTableComponent implements OnInit {
           child_id: this.childId,
           ...formData,
         };
-        this.http.patch(`${environment.apiUrl}child`, updatedData).subscribe({
-          next: () => {
+        this.http.patch<ChildType>(`${environment.apiUrl}child`, updatedData).subscribe({
+          next: (updatedChild) => {
             this.messageService.add({
               severity: 'success',
               summary: 'Thành công',
               detail: 'Thông tin em bé đã được cập nhật',
             });
+            this.childV2Service.child = updatedChild;
             this.dialogRef.close(true);
           },
+          complete: () => {},
           error: (error) => {
             console.log(error);
             this.messageService.add({
