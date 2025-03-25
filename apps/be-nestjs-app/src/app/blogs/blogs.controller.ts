@@ -1,5 +1,5 @@
 import { Body, Controller, Param, Query } from '@nestjs/common';
-import { blogContract, BlogCreateRequestType, BlogUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import { blogContract, BlogCreateRequestType, BlogTagArray, BlogUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
 import { tsRestHandler, TsRestHandler } from '@ts-rest/nest';
 import { BlogsService } from './blogs.service';
 
@@ -37,11 +37,11 @@ export class BlogsController {
   }
 
   @TsRestHandler(blogContract.getBlogByTag)
-  handleGetBlogByTag(@Param('tag_id') tagId: string[], @Query('page') page: number, @Query('limit') limit: number) {
+  handleGetBlogByTag(@Body() body: BlogTagArray, @Query('page') page: number, @Query('limit') limit: number) {
     return tsRestHandler(blogContract.getBlogByTag, async () => {
       page = page ? page : 1;
       limit = limit ? limit : 10;
-      const result = await this.blogsService.findByTag(page, limit, tagId);
+      const result = await this.blogsService.findByTag(page, limit, body.tag_id);
       return { status: 200, body: result };
     });
   }

@@ -48,6 +48,10 @@ export const blogUpdateReqSchema = blogResponeSchema
     category_id: z.string().optional(),
   });
 
+const blogTagArraySchema = z.object({
+  tag_id: z.array(z.string()),
+});
+
 export type Blog = z.infer<typeof blogResponeSchema>;
 
 export type BlogResponseType = z.infer<typeof blogResponeSchema>;
@@ -55,6 +59,8 @@ export type BlogResponseType = z.infer<typeof blogResponeSchema>;
 export type BlogCreateRequestType = z.infer<typeof blogCreateReqSchema>;
 
 export type BlogUpdateRequestType = z.infer<typeof blogUpdateReqSchema>;
+
+export type BlogTagArray = z.infer<typeof blogTagArraySchema>;
 
 const c = initContract();
 
@@ -95,16 +101,14 @@ export const blogContract = c.router({
     },
   },
   getBlogByTag: {
-    method: 'GET',
-    path: '/blogs/tag/:tag_id',
+    method: 'POST',
+    path: '/blogs/tag',
     description: 'Get a blog by tag id (đã xong)',
     query: z.object({
       limit: z.coerce.number().min(0).default(10),
       page: z.coerce.number().min(1).default(1),
     }),
-    pathParams: z.object({
-      tag_id: z.array(z.string()),
-    }),
+    body: blogTagArraySchema,
     responses: {
       200: z.object({
         blogs: z.array(blogResponeSchema),
