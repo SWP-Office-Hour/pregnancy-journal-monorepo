@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { ChildType } from '@pregnancy-journal-monorepo/contract';
-import { ReplaySubject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +15,7 @@ export class ChildV2Service {
     this._child.next(value);
   }
 
-  get child$() {
+  get child$(): Observable<ChildType> {
     return this._child.asObservable();
   }
 

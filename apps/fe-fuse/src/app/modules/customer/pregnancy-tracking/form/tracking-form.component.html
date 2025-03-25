@@ -148,7 +148,12 @@
     <button
       mat-flat-button
       type="submit"
-      class="rounded-lg !bg-gradient-to-r !from-pink-500 !to-pink-600 px-6 py-2 !text-white shadow-sm transition-all hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md"
+      class="rounded-lg px-6 py-2 !text-white shadow-sm transition-all"
+      [disabled]="isDisabled()"
+      [ngClass]="{
+        '!bg-gradient-to-r !from-pink-500 !to-pink-600 hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md': !isDisabled(),
+        '!cursor-not-allowed !bg-gray-300': isDisabled(),
+      }"
     >
       Lưu hồ sơ
     </button>

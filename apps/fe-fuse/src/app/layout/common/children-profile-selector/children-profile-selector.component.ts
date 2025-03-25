@@ -27,7 +27,6 @@ export class ChildrenProfileSelectorComponent implements OnInit {
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
   ) {
     effect(() => {
-      console.log('Change children: ', this._selectedChild().name);
       this.signalPregnancyTrackingService.globalSelectedChild.set(this._selectedChild());
     });
   }
