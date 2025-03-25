@@ -39,7 +39,7 @@ const recordBaseSchema = z.object({
 });
 
 const recordCreateReqSchema = recordBaseSchema.refine((data) => data.next_visit_doctor_date > data.visit_doctor_date, {
-  message: 'next visit doctor day must be greater than visit doctor day',
+  message: 'Ngày tái khám phải sau ngày khám',
   path: ['next_visit_doctor_date'],
 });
 
