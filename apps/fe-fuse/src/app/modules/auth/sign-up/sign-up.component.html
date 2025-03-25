@@ -78,12 +78,12 @@
         <a class="text-primary-500 ml-1 hover:underline" [routerLink]="['./']">Chính sách bảo mật </a>
       </mat-checkbox>
     </div>
-    @if (signUpForm.get('agreements').hasError('required')) {
+    @if (signUpForm.get('agreements').invalid && signUpForm.get('agreements').dirty) {
       <mat-error> Vui lòng đồng ý với Điều khoản và Chính sách bảo mật</mat-error>
     }
 
     <!-- Submit button -->
-    <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" [disabled]="signUpForm.disabled" (click)="signUp()">
+    <button class="fuse-mat-button-large mt-6 w-full" mat-flat-button [color]="'primary'" (click)="signUp()">
       @if (!signUpForm.disabled) {
         <span> Tạo tài khoản ngay </span>
       }
