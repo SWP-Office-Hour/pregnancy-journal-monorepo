@@ -36,6 +36,7 @@
               <button mat-raised-button matDatepickerApply>Xác nhận</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="trackingForm.get('visit_doctor_date')?.hasError('futureDate')"> Ngày khám không được lớn hơn ngày hôm nay </mat-error>
         </mat-form-field>
 
         <mat-form-field class="w-full" appearance="outline">
@@ -57,6 +58,9 @@
               <button mat-raised-button matDatepickerApply>Xác nhận</button>
             </mat-datepicker-actions>
           </mat-datepicker>
+          <mat-error *ngIf="trackingForm.get('next_visit_doctor_date')?.hasError('tooFar')">
+            Ngày khám tiếp theo không được quá 42 tuần từ hôm nay
+          </mat-error>
         </mat-form-field>
       </div>
 

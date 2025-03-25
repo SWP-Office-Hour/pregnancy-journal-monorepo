@@ -1,6 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -53,8 +63,8 @@ export class RecordFormComponent {
     private messageService: MessageService,
   ) {
     this.recordForm = this._formBuilder.group({
-      visit_doctor_date: ['', Validators.required],
-      next_visit_doctor_date: ['', Validators.required],
+      visit_doctor_date: ['', [Validators.required, this.maxTodayValidator()]],
+      next_visit_doctor_date: ['', [Validators.required, this.max42WeeksValidator()]],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
@@ -76,15 +86,51 @@ export class RecordFormComponent {
   }
 
   submitForm() {
+    console.log('submit');
     if (this.recordForm.invalid) {
       this.recordForm.markAllAsTouched();
       this.submitFail();
       return;
     }
-    const data = this.metricsFormArray.controls.map((control, index) => ({
-      metric_id: this.metrics[index].metric_id,
-      value: control.value,
-    }));
+
+    // Validate metric values
+    let hasInvalidValue = false;
+    const data = this.metricsFormArray.controls.map((control, index) => {
+      const value = control.value;
+      // Skip validation for empty non-required fields
+      if (value === '' && !this.metrics[index].required) {
+        return {
+          metric_id: this.metrics[index].metric_id,
+          value: null,
+        };
+      }
+
+      // Check if value is a valid number and >= 0
+      const numberValue = Number(value);
+      const isValid = !isNaN(numberValue) && numberValue >= 0;
+
+      if (!isValid && value !== '') {
+        hasInvalidValue = true;
+      }
+      console.log(this.recordForm.value);
+
+      return {
+        metric_id: this.metrics[index].metric_id,
+        value: isValid ? value : null,
+      };
+    });
+
+    if (hasInvalidValue) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lưu thất bại',
+        detail: 'Giá trị không hợp lệ. Vui lòng nhập số lớn hơn hoặc bằng 0',
+        key: 'tr',
+        life: 3000,
+      });
+      return;
+    }
+
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital } = this.recordForm.value;
     const formData = {
       hospital_id: hospital,
@@ -94,7 +140,6 @@ export class RecordFormComponent {
       data,
     };
 
-    // console.log(formData);
     this._recordService.submit(formData).subscribe({
       next: (res) => {
         if (res) this.submitSuccess();
@@ -148,5 +193,25 @@ export class RecordFormComponent {
 
   nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
     this.recordForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  private maxTodayValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const today = DateTime.now().startOf('day');
+      return value > today ? { futureDate: true } : null;
+    };
+  }
+
+  private max42WeeksValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const maxDate = DateTime.now().plus({ weeks: 42 }).startOf('day');
+      return value > maxDate ? { tooFar: true } : null;
+    };
   }
 }

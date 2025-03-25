@@ -1,7 +1,17 @@
 import { CdkCopyToClipboard } from '@angular/cdk/clipboard';
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef } from '@angular/material/dialog';
@@ -70,8 +80,8 @@ export class TrackingFormComponent {
     this.week = this.selectedRecordData?.week;
     this.trackingForm = this._formBuilder.group({
       visit_record_id: [''],
-      visit_doctor_date: [DateTime.fromJSDate(new Date()), Validators.required],
-      next_visit_doctor_date: [DateTime.fromJSDate(new Date()), Validators.required],
+      visit_doctor_date: [DateTime.fromJSDate(new Date()), [Validators.required, this.maxTodayValidator()]],
+      next_visit_doctor_date: [DateTime.fromJSDate(new Date()), [Validators.required, this.max42WeeksValidator()]],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
@@ -99,16 +109,134 @@ export class TrackingFormComponent {
     return this.report_messages;
   }
 
+  private maxTodayValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const today = DateTime.now().startOf('day');
+      return value.startOf('day') > today ? { futureDate: true } : null;
+    };
+  }
+
+  private max42WeeksValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const maxDate = DateTime.now().plus({ weeks: 42 }).startOf('day');
+      return value.startOf('day') > maxDate ? { tooFar: true } : null;
+    };
+  }
+
+  // submitForm() {
+  //   if (this.trackingForm.invalid) {
+  //     this.trackingForm.markAllAsTouched();
+  //     this.submitFail();
+  //     return;
+  //   }
+  //   const data = this.metricsFormArray.controls.map((control, index) => ({
+  //     metric_id: this.metrics[index].metric_id,
+  //     value: control.value,
+  //   }));
+  //   const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
+  //   const formData = {
+  //     hospital_id: hospital,
+  //     doctor_name,
+  //     visit_doctor_date: visit_doctor_date.toJSDate(),
+  //     next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
+  //     data,
+  //   };
+  //   if (this._trackingService.SelectedRecordData) {
+  //     this.updateRecord({ ...formData, visit_record_id });
+  //   } else {
+  //     this.createRecord(formData);
+  //   }
+  // }
+
   submitForm() {
     if (this.trackingForm.invalid) {
       this.trackingForm.markAllAsTouched();
       this.submitFail();
       return;
     }
-    const data = this.metricsFormArray.controls.map((control, index) => ({
-      metric_id: this.metrics[index].metric_id,
-      value: control.value,
-    }));
+
+    // Standardize date comparison by removing time component
+    const visitDate = this.trackingForm.get('visit_doctor_date')?.value as DateTime;
+    const nextVisitDate = this.trackingForm.get('next_visit_doctor_date')?.value as DateTime;
+    const today = DateTime.now().startOf('day');
+    const maxDate = today.plus({ weeks: 42 }).startOf('day');
+
+    // Replace console logs with more structured debugging
+    console.log({
+      visitDate: visitDate.toISO(),
+      today: today.toISO(),
+      isVisitDateFuture: visitDate > today,
+      nextVisitDate: nextVisitDate.toISO(),
+      maxDate: maxDate.toISO(),
+      isNextVisitTooFar: nextVisitDate > maxDate,
+    });
+
+    // Compare only dates (ignore time)
+    if (visitDate.startOf('day') > today) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lưu thất bại',
+        detail: 'Ngày khám không được lớn hơn ngày hôm nay',
+        key: 'tr',
+        life: 3000,
+      });
+      return;
+    }
+
+    if (nextVisitDate.startOf('day') > maxDate) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lưu thất bại',
+        detail: 'Ngày khám tiếp theo không được quá 42 tuần từ hôm nay',
+        key: 'tr',
+        life: 3000,
+      });
+      return;
+    }
+
+    // Validate metric values
+    let hasInvalidValue = false;
+    const data = this.metricsFormArray.controls.map((control, index) => {
+      const value = control.value;
+      // Skip validation for empty non-required fields
+      if (value === '' && !this.metrics[index].required) {
+        return {
+          metric_id: this.metrics[index].metric_id,
+          value: null,
+        };
+      }
+
+      // Check if value is a valid number and >= 0
+      const numberValue = Number(value);
+      const isValid = !isNaN(numberValue) && numberValue >= 0;
+
+      if (!isValid && value !== '') {
+        hasInvalidValue = true;
+      }
+
+      return {
+        metric_id: this.metrics[index].metric_id,
+        value: isValid ? value : null,
+      };
+    });
+
+    if (hasInvalidValue) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lưu thất bại',
+        detail: 'Giá trị không hợp lệ. Vui lòng nhập số lớn hơn hoặc bằng 0',
+        key: 'tr',
+        life: 3000,
+      });
+      return;
+    }
+
     const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
     const formData = {
       hospital_id: hospital,
@@ -117,11 +245,22 @@ export class TrackingFormComponent {
       next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
       data,
     };
+
     if (this._trackingService.SelectedRecordData) {
       this.updateRecord({ ...formData, visit_record_id });
     } else {
       this.createRecord(formData);
     }
+  }
+
+  submitFail(msg?: string) {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Lưu thất bại',
+      detail: msg || 'Lưu chỉ số thất bại',
+      key: 'tr',
+      life: 3000,
+    });
   }
 
   createRecord(formData: RecordCreateRequest) {
@@ -175,16 +314,6 @@ export class TrackingFormComponent {
       severity: 'success',
       summary,
       detail,
-      key: 'tr',
-      life: 3000,
-    });
-  }
-
-  submitFail() {
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Lưu thất bại',
-      detail: 'Lưu chỉ số thất bại',
       key: 'tr',
       life: 3000,
     });
