@@ -1,5 +1,5 @@
 <!--suppress TypeScriptValidateTypes -->
-<div class="flex w-full flex-col">
+<div class="flex h-full w-full flex-col overflow-y-scroll">
   @if (isLoading) {
     <div class="absolute inset-x-0 top-0">
       <mat-progress-bar [mode]="'indeterminate'"></mat-progress-bar>
@@ -118,33 +118,6 @@
           <small *ngIf="isSubmittedForm && f['phone'].errors?.['required']" class="text-red-500">Phone is required.</small>
         </div>
 
-        <!-- Address fields in a grid -->
-        <div class="grid grid-cols-2 gap-4">
-          <div>
-            <label class="block font-bold" for="province">Province</label>
-            <input formControlName="province" fluid="true" id="province" pInputText type="text" class="w-full" />
-            <small *ngIf="isSubmittedForm && f['province'].errors?.['required']" class="text-red-500">Province is required.</small>
-          </div>
-
-          <div>
-            <label class="block font-bold" for="district">District</label>
-            <input formControlName="district" fluid="true" id="district" pInputText type="text" class="w-full" />
-            <small *ngIf="isSubmittedForm && f['district'].errors?.['required']" class="text-red-500">District is required.</small>
-          </div>
-
-          <div>
-            <label class="block font-bold" for="ward">Ward</label>
-            <input formControlName="ward" fluid="true" id="ward" pInputText type="text" class="w-full" />
-            <small *ngIf="isSubmittedForm && f['ward'].errors?.['required']" class="text-red-500">Ward is required.</small>
-          </div>
-
-          <div>
-            <label class="block font-bold" for="address">Address</label>
-            <input formControlName="address" fluid="true" id="address" pInputText type="text" class="w-full" />
-            <small *ngIf="isSubmittedForm && f['address'].errors?.['required']" class="text-red-500">Address is required.</small>
-          </div>
-        </div>
-
         <!--        &lt;!&ndash; Expected Birth Date &ndash;&gt;-->
         <!--        <div>-->
         <!--          <label class="block font-bold" for="expected_birth_date">Expected Birth Date</label>-->
@@ -201,7 +174,7 @@
 
         <!-- Membership ID (optional) -->
         <div>
-          <label class="block font-bold" for="membership_id">Membership ID (optional)</label>
+          <label class="block font-bold" for="membership_id">Membership</label>
           <p-select
             formControlName="membership_id"
             [options]="membershipResource.value()"
@@ -212,6 +185,33 @@
             placeholder="Select a Membership"
             class="w-full"
           />
+        </div>
+
+        <!-- Address fields in a grid -->
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block font-bold" for="province">Province</label>
+            <input formControlName="province" fluid="true" id="province" pInputText type="text" class="w-full" />
+            <small *ngIf="isSubmittedForm && f['province'].errors?.['required']" class="text-red-500">Province is required.</small>
+          </div>
+
+          <div>
+            <label class="block font-bold" for="district">District</label>
+            <input formControlName="district" fluid="true" id="district" pInputText type="text" class="w-full" />
+            <small *ngIf="isSubmittedForm && f['district'].errors?.['required']" class="text-red-500">District is required.</small>
+          </div>
+
+          <div>
+            <label class="block font-bold" for="ward">Ward</label>
+            <input formControlName="ward" fluid="true" id="ward" pInputText type="text" class="w-full" />
+            <small *ngIf="isSubmittedForm && f['ward'].errors?.['required']" class="text-red-500">Ward is required.</small>
+          </div>
+
+          <div>
+            <label class="block font-bold" for="address">Address</label>
+            <input formControlName="address" fluid="true" id="address" pInputText type="text" class="w-full" />
+            <small *ngIf="isSubmittedForm && f['address'].errors?.['required']" class="text-red-500">Address is required.</small>
+          </div>
         </div>
       </form>
     </ng-template>
