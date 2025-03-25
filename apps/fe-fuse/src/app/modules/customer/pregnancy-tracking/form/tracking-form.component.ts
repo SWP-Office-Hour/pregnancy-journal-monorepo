@@ -200,6 +200,17 @@ export class TrackingFormComponent {
       return;
     }
 
+    if (nextVisitDate.startOf('day') < visitDate.startOf('day')) {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Lưu thất bại',
+        detail: 'Ngày tái khám không được sớm hơn ngày khám',
+        key: 'tr',
+        life: 3000,
+      });
+      return;
+    }
+
     // Validate metric values
     let hasInvalidValue = false;
     const data = this.metricsFormArray.controls.map((control, index) => {
