@@ -93,7 +93,7 @@ export class TrackingFormComponent {
       next_visit_doctor_date: [DateTime.fromJSDate(new Date()), [Validators.required, this.max42WeeksValidator()]],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
-      metrics: this._formBuilder.array([]),
+      metrics: this._formBuilder.array([], [Validators.required, this.minMetricsValidator(), this.numericValidator()]),
     });
     this.hospitals = this._trackingService.hospitals.value();
     this.filteredHospitals = this._trackingService.hospitals.value(); // Initialize with all hospitals
@@ -110,6 +110,23 @@ export class TrackingFormComponent {
         this.metricsFormArray.push(this._formBuilder.control('0', metric.required ? Validators.required : []));
       });
     }
+  }
+  private numericValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value || value === '') return null;
+
+      const isNumeric = !isNaN(Number(value)) && Number(value) >= 0;
+      return isNumeric ? null : { invalidNumber: true };
+    };
+  }
+  private minMetricsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formArray = control as FormArray;
+      // Validate at least one metric has a value
+      const hasValue = formArray.controls.some((ctrl) => ctrl.value && ctrl.value !== '0' && ctrl.value !== 0);
+      return hasValue ? null : { noMetrics: true };
+    };
   }
 
   get metricsFormArray() {

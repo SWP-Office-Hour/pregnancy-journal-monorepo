@@ -1,11 +1,13 @@
 import { CommonModule, NgFor } from '@angular/common';
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { NgxSplideModule } from 'ngx-splide';
+import { StyleClass } from 'primeng/styleclass';
+import { PregnancyWeekInfoComponent } from '../../modules/member/pregnancy-week-info/pregnancy-week-info.component';
 import { WeekIllustrationComponent } from '../week-illustration/week-illustration.component';
 
 @Component({
   selector: 'app-week-pregnancy-slider',
-  imports: [NgFor, CommonModule, NgxSplideModule, WeekIllustrationComponent],
+  imports: [NgFor, CommonModule, NgxSplideModule, WeekIllustrationComponent, PregnancyWeekInfoComponent, StyleClass],
   templateUrl: './week-pregnancy-slider.component.html',
   styleUrl: './week-pregnancy-slider.component.css',
 })
