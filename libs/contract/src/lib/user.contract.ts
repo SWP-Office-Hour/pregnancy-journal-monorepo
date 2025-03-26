@@ -49,6 +49,8 @@ const userUpdateRequestSchema = baseUserSchema
 //user profile
 const userProfileSchema = userResponseSchema.omit({ status: true, created_at: true, role: true, user_id: true }).extend({
   child: z.array(childSchema),
+  membership_buy_date: z.date().optional(),
+  membership_expire_date: z.date().optional().nullable(),
 });
 
 //user profile update
