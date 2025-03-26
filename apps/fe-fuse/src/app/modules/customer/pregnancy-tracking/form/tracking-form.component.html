@@ -65,19 +65,46 @@
       </div>
 
       <!-- Hospital and Doctor -->
+      <!--      <mat-form-field class="w-full" appearance="outline">-->
+      <!--        <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>-->
+      <!--        <mat-select formControlName="hospital" class="!pt-1">-->
+      <!--          <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>-->
+      <!--          @for (hospital of hospitals; track $index) {-->
+      <!--            <mat-option value="{{ hospital.hospital_id }}" class="hover:bg-pink-50">-->
+      <!--              {{ hospital.name }}-->
+      <!--            </mat-option>-->
+      <!--          }-->
+      <!--        </mat-select>-->
+      <!--        <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>-->
+      <!--      </mat-form-field>-->
       <mat-form-field class="w-full" appearance="outline">
         <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>
         <mat-select formControlName="hospital" class="!pt-1">
           <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>
-          @for (hospital of hospitals; track $index) {
-            <mat-option value="{{ hospital.hospital_id }}" class="hover:bg-pink-50">
+
+          <!-- Search input inside the panel -->
+          <mat-option>
+            <div (click)="$event.stopPropagation()">
+              <input
+                #searchInput
+                type="text"
+                placeholder="Tìm kiếm bệnh viện..."
+                class="w-full rounded border border-gray-200 p-2 focus:outline-none focus:ring-1 focus:ring-pink-300"
+                (keyup)="filterHospitals(searchInput.value)"
+              />
+            </div>
+          </mat-option>
+
+          <mat-divider></mat-divider>
+
+          @for (hospital of filteredHospitals; track hospital.hospital_id) {
+            <mat-option [value]="hospital.hospital_id" class="hover:bg-pink-50">
               {{ hospital.name }}
             </mat-option>
           }
         </mat-select>
         <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>
       </mat-form-field>
-
       <mat-form-field class="w-full" appearance="outline">
         <mat-label class="font-medium text-gray-700">Bác sĩ</mat-label>
         <input matInput formControlName="doctor_name" class="!pt-1 focus:ring-2 focus:ring-pink-300" />

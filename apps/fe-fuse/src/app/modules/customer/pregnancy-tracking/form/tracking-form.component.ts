@@ -5,6 +5,7 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -12,9 +13,11 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatDivider } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -55,6 +58,8 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     MatSelectModule,
     ToastModule,
     CdkCopyToClipboard,
+    MatAutocompleteModule,
+    MatDivider,
   ],
   providers: [MessageService],
   templateUrl: './tracking-form.component.html',
@@ -69,6 +74,10 @@ export class TrackingFormComponent {
   protected week: number;
   protected isDisabled = signal<boolean>(false);
   private report_messages = signal<string[]>([]);
+  hospitalSearchControl = new FormControl('');
+  selectedHospital: HospitalResponse | null = null;
+  protected filteredHospitals: HospitalResponse[] = [];
+  protected searchTerm: string = '';
 
   constructor(
     protected dialogRef: MatDialogRef<TrackingFormComponent>,
@@ -89,6 +98,12 @@ export class TrackingFormComponent {
     });
     this._trackingService.getHospitals().subscribe((hospitals) => {
       this.hospitals = hospitals;
+      this.filteredHospitals = hospitals; // Initialize with all hospitals
+    });
+    this.hospitalSearchControl.valueChanges.subscribe((value) => {
+      if (typeof value === 'string') {
+        this.filterHospitals(value);
+      }
     });
     if (this._trackingService.SelectedRecordData) {
       this.patchValue(this.selectedRecordData);
@@ -130,30 +145,27 @@ export class TrackingFormComponent {
     };
   }
 
-  // submitForm() {
-  //   if (this.trackingForm.invalid) {
-  //     this.trackingForm.markAllAsTouched();
-  //     this.submitFail();
-  //     return;
-  //   }
-  //   const data = this.metricsFormArray.controls.map((control, index) => ({
-  //     metric_id: this.metrics[index].metric_id,
-  //     value: control.value,
-  //   }));
-  //   const { visit_doctor_date, next_visit_doctor_date, doctor_name, hospital, visit_record_id } = this.trackingForm.value;
-  //   const formData = {
-  //     hospital_id: hospital,
-  //     doctor_name,
-  //     visit_doctor_date: visit_doctor_date.toJSDate(),
-  //     next_visit_doctor_date: next_visit_doctor_date.toJSDate(),
-  //     data,
-  //   };
-  //   if (this._trackingService.SelectedRecordData) {
-  //     this.updateRecord({ ...formData, visit_record_id });
-  //   } else {
-  //     this.createRecord(formData);
-  //   }
-  // }
+  // Update filter method
+  filterHospitals(searchValue: string): void {
+    if (!searchValue) {
+      this.filteredHospitals = this.hospitals;
+      return;
+    }
+
+    const search = searchValue.toLowerCase();
+    this.filteredHospitals = this.hospitals.filter((hospital) => hospital.name.toLowerCase().includes(search));
+  }
+
+  // Display method for autocomplete
+  displayFn(hospital: HospitalResponse): string {
+    return hospital && hospital.name ? hospital.name : '';
+  }
+
+  // Method to handle hospital selection
+  selectHospital(hospital: HospitalResponse): void {
+    this.selectedHospital = hospital;
+    this.trackingForm.get('hospital').setValue(hospital.hospital_id);
+  }
 
   submitForm() {
     // this.isDisabled.set(true);
@@ -359,6 +371,9 @@ export class TrackingFormComponent {
       visit_doctor_date: DateTime.fromJSDate(new Date(value.visit_doctor_date)),
       next_visit_doctor_date: DateTime.fromJSDate(new Date(value.next_visit_doctor_date)),
     });
+    if (this.hospitals) {
+      this.filteredHospitals = this.hospitals;
+    }
     this._trackingService
       .getMetrics()
       .pipe(
