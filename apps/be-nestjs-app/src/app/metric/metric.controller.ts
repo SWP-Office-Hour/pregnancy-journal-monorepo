@@ -26,7 +26,7 @@ export class MetricController {
   @TsRestHandler(metricContract.getOne)
   handleGetOne(@Param('id') id: string) {
     return tsRestHandler(metricContract.getOne, async () => {
-      const result = await this.metricService.findOne(id);
+      const result = await this.metricService.findOneWithStandard(id);
       return { status: 200, body: result };
     });
   }
