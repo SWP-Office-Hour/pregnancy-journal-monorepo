@@ -44,6 +44,8 @@ export class UserProfileComponent {
   protected districts: District[] = [];
   protected wards: Ward[] = [];
   protected membershipStatus = signal<boolean>(false);
+  protected purchaseDate = signal<Date>(null);
+  protected expirationDate = signal<Date>(null);
 
   constructor(
     private fb: FormBuilder,
@@ -95,8 +97,11 @@ export class UserProfileComponent {
     });
 
     //   Check user membership
-    this.userService.checkMember().subscribe((checkMember) => {
-      this.membershipStatus.set(checkMember);
+    this.userService.getMembershipOfUser().subscribe((checkMember) => {
+      console.log(checkMember);
+      this.membershipStatus.set(checkMember.has_membership);
+      this.purchaseDate.set(checkMember.membership_buy_date);
+      this.expirationDate.set(checkMember.membership_expire_date);
     });
   }
 

@@ -29,6 +29,13 @@
             <h2 class="text-2xl font-medium text-pink-500">Hồ sơ của tôi</h2>
             <p *ngIf="membershipStatus()" class="text-sm text-pink-500">Đã kích hoạt gói thành viên</p>
             <p *ngIf="!membershipStatus()" class="text-sm text-gray-500">Chưa kích hoạt gói thành viên</p>
+            <!-- Add purchase and expiration dates -->
+            @if (purchaseDate()) {
+              <p class="text-sm text-gray-600">Ngày mua: {{ purchaseDate() | date: 'dd/MM/yyyy' }}</p>
+            }
+            @if (expirationDate()) {
+              <p class="text-sm text-gray-600">Ngày hết hạn: {{ expirationDate() | date: 'dd/MM/yyyy' }}</p>
+            }
           </div>
         </div>
 
