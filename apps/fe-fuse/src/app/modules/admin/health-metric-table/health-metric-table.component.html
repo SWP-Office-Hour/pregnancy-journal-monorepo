@@ -129,6 +129,20 @@
           <input formControlName="measurement_unit" fluid="true" id="measurement_unit" pInputText type="text" />
           <small *ngIf="isSubmittedForm && f['measurement_unit'].errors?.['required']" class="text-red-500">Unit is required.</small>
         </div>
+        <!--Tag-->
+        <div>
+          <label class="block font-bold" for="tag_id">Tag</label>
+          <p-select
+            formControlName="tag_id"
+            [options]="tagResource.value()"
+            fluid="true"
+            id="tag_id"
+            optionLabel="title"
+            optionValue="tag_id"
+            placeholder="Select a Tag"
+          />
+          <small *ngIf="isSubmittedForm && f['status'].errors?.['required']" class="text-red-500">Status is required.</small>
+        </div>
         <!--Status-->
         <div>
           <label class="block font-bold" for="status">Status</label>

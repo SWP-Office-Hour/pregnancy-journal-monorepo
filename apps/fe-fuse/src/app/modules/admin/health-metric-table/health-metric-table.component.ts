@@ -6,7 +6,7 @@ import { AbstractControl, FormBuilder, FormGroup, FormsModule, ReactiveFormsModu
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-import { HealthMetric, Status } from '@pregnancy-journal-monorepo/contract';
+import { HealthMetric, Status, Tag } from '@pregnancy-journal-monorepo/contract';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -108,6 +108,27 @@ export class HealthMetricTableComponent implements OnInit {
     },
   });
 
+  // Tag Resource
+  tagResource = resource<Tag[], {}>({
+    loader: async ({ abortSignal }) => {
+      this.isLoading = true;
+      try {
+        const response = await fetch(`${environment.apiUrl}tags`, {
+          signal: abortSignal,
+        });
+        if (!response.ok) {
+          throw new Error(`Failed to fetch tags: ${response.status}`);
+        }
+        return await response.json();
+      } catch (error) {
+        this.notifyError(error);
+        return [];
+      } finally {
+        this.isLoading = false;
+      }
+    },
+  });
+
   /**
    * Constructor
    */
@@ -140,6 +161,7 @@ export class HealthMetricTableComponent implements OnInit {
       required: false,
       upperbound_msg: '',
       lowerbound_msg: '',
+      tag_id: this.tagResource.value(),
     });
     this.isSubmittedForm = false;
     this.metricDialogToggle = true;
@@ -183,6 +205,7 @@ export class HealthMetricTableComponent implements OnInit {
       required: metricToEdit.required,
       upperbound_msg: metricToEdit.upperbound_msg,
       lowerbound_msg: metricToEdit.lowerbound_msg,
+      tag_id: metricToEdit.tag.tag_id,
     });
 
     this.metric = { ...metricToEdit };
@@ -242,6 +265,7 @@ export class HealthMetricTableComponent implements OnInit {
       required: [false, Validators.required],
       upperbound_msg: ['', Validators.required],
       lowerbound_msg: ['', Validators.required],
+      tag_id: ['', Validators.required],
     });
   }
 
