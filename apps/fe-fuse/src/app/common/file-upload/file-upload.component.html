@@ -1,12 +1,28 @@
-<button
-  class="flex items-center gap-2 rounded-full bg-white px-3 py-1.5 text-sm font-medium text-pink-600 shadow-sm transition-all hover:bg-pink-50 hover:text-pink-700 hover:shadow"
-  type="button"
-  mat-raised-button
-  (click)="fileInput.click()"
->
-  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-    <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-  </svg>
-  <span class="hidden sm:inline">{{ buttonText || 'Chọn hình' }}</span>
-</button>
-<input accept="image/*" type="file" [formControl]="control" (change)="onFileChange($event)" hidden #fileInput />
+<div class="group relative w-full overflow-hidden rounded-full transition-all duration-300">
+  <!-- Main upload button with maternal-friendly styling -->
+  <button
+    class="flex justify-between bg-gradient-to-r from-pink-300 to-purple-300 p-2 py-6 text-sm font-medium text-white shadow-md transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-400/80 hover:to-purple-400/80 hover:shadow-lg hover:shadow-pink-200/50 active:scale-[0.98]"
+    mat-raised-button
+    type="button"
+    (click)="fileInput.click()"
+  >
+    <!-- Text content with animated details -->
+    <span class="flex items-center transition-all duration-300">
+      <!-- Animated photo icon -->
+      <div
+        class="flex h-8 w-8 items-center justify-center rounded-full bg-white/30 backdrop-blur-sm transition-all duration-300 group-hover:scale-110"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
+          <path
+            fill-rule="evenodd"
+            d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+            clip-rule="evenodd"
+          />
+        </svg>
+      </div>
+      <span class="mx-2 text-lg font-medium tracking-wide">{{ buttonText || 'Chọn ảnh' }}</span>
+    </span>
+  </button>
+  <!-- Hidden file input -->
+  <input accept="image/*" type="file" [formControl]="control" (change)="onFileChange($event)" hidden #fileInput />
+</div>

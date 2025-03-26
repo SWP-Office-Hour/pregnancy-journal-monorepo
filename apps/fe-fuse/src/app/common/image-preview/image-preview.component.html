@@ -1,6 +1,6 @@
 <mat-card
   [ngClass]="{
-    'p-auto rounded-lg': true,
+    'p-auto rounded-xl': true,
     'h-56 w-56': !heightAsPx && !widthAsPx,
   }"
   [style.height.px]="heightAsPx ? heightAsPx : 'auto'"
@@ -8,14 +8,7 @@
   appearance="outlined"
   (click)="openDialog()"
 >
-  <img
-    alt="image"
-    [ngClass]="{
-      'overflow-hidden rounded-lg hover:cursor-pointer': true,
-      'h-56 w-56': !heightAsPx && !widthAsPx,
-    }"
-    [style.height.px]="heightAsPx ? heightAsPx : 'auto'"
-    [style.width.px]="widthAsPx ? widthAsPx : 'auto'"
-    src="{{ imgObj.media_url }}"
-  />
+  <div class="h-full w-full overflow-hidden rounded-xl">
+    <img [src]="imgObj.media_url" [alt]="'Preview image '" class="h-full w-full object-cover transition-transform duration-500 hover:scale-105" />
+  </div>
 </mat-card>

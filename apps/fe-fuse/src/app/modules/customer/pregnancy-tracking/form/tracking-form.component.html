@@ -1,200 +1,260 @@
-<form
-  [formGroup]="trackingForm"
-  class="mt-4 flex max-h-[800px] flex-col overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-md"
-  (submit)="submitForm()"
->
-  <!-- Header Section - Enhanced with gradient background -->
-  <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-4 pb-4">
-    <h2 class="text-2xl font-bold text-pink-600">Theo dõi bệnh án</h2>
-    @if (week) {
-      <p class="mt-2 text-gray-600"><strong>Tuần:</strong> {{ week }}</p>
-    }
-  </div>
-
-  <!-- Main Content -->
-  <div class="flex flex-col gap-8 md:flex-row">
-    <!-- Left Column -->
-    <div class="flex-1 space-y-6">
-      <!-- Date Inputs -->
-      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
-        <mat-form-field class="w-full" appearance="outline">
-          <mat-label class="font-medium text-gray-700">Ngày khám bệnh</mat-label>
-          <input
-            matInput
-            (dateChange)="visitDateChange($event)"
-            [matDatepicker]="visit_doctor_date"
-            formControlName="visit_doctor_date"
-            readonly
-            class="!pt-1 focus:ring-2 focus:ring-pink-300"
-          />
-          <mat-datepicker-toggle matIconSuffix [for]="visit_doctor_date">
-            <mat-icon class="text-pink-400">calendar_today</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #visit_doctor_date>
-            <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Hủy bỏ</button>
-              <button mat-raised-button matDatepickerApply>Xác nhận</button>
-            </mat-datepicker-actions>
-          </mat-datepicker>
-          <mat-error *ngIf="trackingForm.get('visit_doctor_date')?.hasError('futureDate')"> Ngày khám không được lớn hơn ngày hôm nay </mat-error>
-        </mat-form-field>
-
-        <mat-form-field class="w-full" appearance="outline">
-          <mat-label class="font-medium text-gray-700">Ngày tái khám</mat-label>
-          <input
-            matInput
-            (dateChange)="nextVisitDateChange($event)"
-            [matDatepicker]="next_visit_doctor_date"
-            formControlName="next_visit_doctor_date"
-            readonly
-            class="!pt-1 focus:ring-2 focus:ring-pink-300"
-          />
-          <mat-datepicker-toggle matIconSuffix [for]="next_visit_doctor_date">
-            <mat-icon class="text-pink-400">calendar_today</mat-icon>
-          </mat-datepicker-toggle>
-          <mat-datepicker #next_visit_doctor_date>
-            <mat-datepicker-actions>
-              <button mat-button matDatepickerCancel>Hủy bỏ</button>
-              <button mat-raised-button matDatepickerApply>Xác nhận</button>
-            </mat-datepicker-actions>
-          </mat-datepicker>
-          <mat-error *ngIf="trackingForm.get('next_visit_doctor_date')?.hasError('tooFar')">
-            Ngày khám tiếp theo không được quá 42 tuần từ hôm nay
-          </mat-error>
-        </mat-form-field>
-      </div>
-
-      <!-- Hospital and Doctor -->
-      <!--      <mat-form-field class="w-full" appearance="outline">-->
-      <!--        <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>-->
-      <!--        <mat-select formControlName="hospital" class="!pt-1">-->
-      <!--          <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>-->
-      <!--          @for (hospital of hospitals; track $index) {-->
-      <!--            <mat-option value="{{ hospital.hospital_id }}" class="hover:bg-pink-50">-->
-      <!--              {{ hospital.name }}-->
-      <!--            </mat-option>-->
-      <!--          }-->
-      <!--        </mat-select>-->
-      <!--        <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>-->
-      <!--      </mat-form-field>-->
-
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>
-        <mat-select formControlName="hospital" class="!pt-1">
-          <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>
-
-          <!-- Search input inside the panel -->
-          <mat-option>
-            <div (click)="$event.stopPropagation()">
-              <input
-                #searchInput
-                type="text"
-                placeholder="Tìm kiếm bệnh viện..."
-                class="w-full rounded border border-gray-200 p-2 focus:outline-none focus:ring-1 focus:ring-pink-300"
-                (keyup)="filterHospitals(searchInput.value)"
-              />
-            </div>
-          </mat-option>
-
-          <mat-divider></mat-divider>
-
-          @for (hospital of filteredHospitals; track hospital.hospital_id) {
-            <mat-option [value]="hospital.hospital_id" class="hover:bg-pink-50">
-              {{ hospital.name }}
-            </mat-option>
-          }
-        </mat-select>
-        <mat-icon svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>
-      </mat-form-field>
-
-      <mat-form-field class="w-full" appearance="outline">
-        <mat-label class="font-medium text-gray-700">Bác sĩ</mat-label>
-        <input matInput formControlName="doctor_name" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
-        <mat-icon svgIcon="heroicons_mini:identification" class="text-pink-400"></mat-icon>
-      </mat-form-field>
-
-      <!-- Metrics -->
-      <div formArrayName="metrics" class="space-y-4">
-        <h3 class="text-md font-medium text-pink-600">Chỉ số sức khỏe</h3>
-        @for (metric of metrics; track $index) {
-          <mat-form-field class="w-full" appearance="outline">
-            <mat-label class="font-medium text-gray-700">{{ metric.title }}({{ metric.measurement_unit }})</mat-label>
-            <input matInput [formControlName]="$index" class="!pt-1 focus:ring-2 focus:ring-pink-300" />
-            <mat-icon svgIcon="heroicons_mini:calculator" class="text-pink-400"></mat-icon>
-          </mat-form-field>
-        }
-      </div>
+<div class="max-h-[800px] overflow-y-scroll" style="scrollbar-width: none; -ms-overflow-style: none">
+  <form
+    [formGroup]="trackingForm"
+    class="mt-4 flex h-full flex-col overflow-auto rounded-xl border border-gray-200 bg-gray-50 p-6 shadow-md"
+    (submit)="submitForm()"
+  >
+    <!-- Header Section - Enhanced with gradient background -->
+    <div class="-mx-6 -mt-6 mb-6 rounded-t-xl border-b border-gray-200 bg-gradient-to-r from-pink-50 to-purple-50 px-6 py-4 pb-4">
+      <h2 class="text-2xl font-bold text-pink-600">Theo dõi bệnh án</h2>
+      @if (week) {
+        <p class="mt-2 text-gray-600"><strong>Tuần:</strong> {{ week }}</p>
+      }
     </div>
 
-    <!-- Right Column -->
-    <div class="flex-1">
-      <div class="rounded-lg border-2 border-dashed border-pink-300 bg-white p-6 shadow-sm">
-        <h3 class="mb-4 text-lg font-medium text-pink-600">Tải lên hình ảnh</h3>
-        <p class="mb-4 text-sm text-gray-600">Tải lên hình ảnh siêu âm, xét nghiệm hoặc tài liệu y tế khác</p>
-        <file-upload (insertImg)="insertImg($event)" class="w-full"></file-upload>
-        <!-- Image Previews -->
-        <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
-          @for (src of images; track $index) {
-            <image-preview
-              [imgObj]="src"
-              (deleteImg)="deleteImg($event)"
-              class="cursor-pointer overflow-hidden rounded-lg border-2 border-pink-50 shadow-sm transition-all hover:scale-105 hover:shadow-md"
-            >
-            </image-preview>
+    <!-- Main Content -->
+    <div class="grid h-full grid-cols-2 gap-8">
+      <!-- Left Column -->
+      <div class="col-span-1 flex-auto flex-col pt-4">
+        <!-- Date Inputs -->
+        <div class="mb-4 grid grid-cols-1 gap-4 md:grid-cols-2">
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label class="font-medium text-gray-700">Ngày khám bệnh</mat-label>
+            <input matInput (dateChange)="visitDateChange($event)" [matDatepicker]="visit_doctor_date" formControlName="visit_doctor_date" />
+            <mat-datepicker-toggle class="text-pink-400" matIconSuffix [for]="visit_doctor_date"></mat-datepicker-toggle>
+            <mat-datepicker #visit_doctor_date></mat-datepicker>
+            <mat-error *ngIf="trackingForm.get('visit_doctor_date')?.hasError('futureDate')"> Ngày khám không được lớn hơn ngày hôm nay </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="w-full" appearance="outline">
+            <mat-label class="font-medium text-gray-700">Ngày tái khám</mat-label>
+            <input
+              matInput
+              (dateChange)="nextVisitDateChange($event)"
+              [matDatepicker]="next_visit_doctor_date"
+              formControlName="next_visit_doctor_date"
+            />
+            <mat-datepicker-toggle class="text-pink-400" matIconSuffix [for]="next_visit_doctor_date"></mat-datepicker-toggle>
+            <mat-datepicker #next_visit_doctor_date></mat-datepicker>
+            <mat-error *ngIf="trackingForm.get('next_visit_doctor_date')?.hasError('tooFar')">
+              Ngày khám tiếp theo không được quá 42 tuần từ hôm nay
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Hospital and Doctor -->
+        <mat-form-field class="mb-4 w-full" appearance="outline">
+          <mat-label class="font-medium text-gray-700">Bệnh viện</mat-label>
+          <mat-select #hospital formControlName="hospital">
+            <mat-option value="" disabled="true" class="text-gray-400">Chọn bệnh viện</mat-option>
+            @for (hospital of hospitals; track $index) {
+              <mat-option value="{{ hospital.hospital_id }}" class="hover:bg-pink-50">
+                {{ hospital.name }}
+              </mat-option>
+            }
+          </mat-select>
+          <mat-icon matSuffix svgIcon="heroicons_mini:building-library" class="text-pink-400"></mat-icon>
+          <mat-error *ngIf="trackingForm.get('hospital')?.hasError('required')"> Hãy nhập thông tin bệnh viện </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="mb-4 w-full" appearance="outline">
+          <mat-label class="font-medium text-gray-700">Bác sĩ</mat-label>
+          <input matInput formControlName="doctor_name" />
+          <mat-icon matSuffix svgIcon="heroicons_mini:identification" class="text-pink-400"></mat-icon>
+          <mat-error *ngIf="trackingForm.get('doctor_name')?.hasError('required')"> Hãy nhập thông tin bác sĩ </mat-error>
+        </mat-form-field>
+
+        <!-- Metrics -->
+        <div formArrayName="metrics" class="">
+          <h3 class="text-md py-4 font-medium text-pink-600">Chỉ số sức khỏe</h3>
+          @for (metric of metrics; track $index) {
+            <mat-form-field class="mb-4 w-full p-0" appearance="outline">
+              <mat-label class="font-medium text-gray-700">{{ metric.title }}({{ metric.measurement_unit }})</mat-label>
+              <input matInput [formControlName]="$index" class="text-lg" />
+              <mat-icon matSuffix svgIcon="heroicons_mini:calculator" class="text-pink-400"></mat-icon>
+              <mat-error *ngIf="metricsFormArray.controls[$index]?.errors">Hãy nhập thông tin chỉ số (số lớn hơn không)</mat-error>
+            </mat-form-field>
           }
         </div>
       </div>
-      <div class="mt-8 rounded-lg bg-white p-4 shadow-sm" id="health_report_messages">
-        <h3 class="mb-3 text-lg font-medium text-pink-600">Ghi chú</h3>
-        @for (msg of messages(); track $index) {
-          <p class="mb-2 text-gray-700">{{ msg }}</p>
-        }
+
+      <!-- Right Column -->
+      <div class="col-span-1 flex flex-auto flex-col justify-between pt-4">
+        <div class="space-y-4">
+          <!-- Image Upload Section -->
+          <div class="relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-50 via-white to-purple-50 p-1 shadow-lg">
+            <!-- Main content with soft borders -->
+            <div class="relative rounded-xl border-2 border-dashed border-pink-300 bg-white/90 p-6 backdrop-blur-sm">
+              <div class="mb-2 flex items-center">
+                <div class="mr-3 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-200 to-pink-100 shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-xl font-bold text-pink-600">Kỷ niệm hành trình mang thai</h3>
+              </div>
+
+              <p class="mb-4 rounded-lg bg-pink-50/70 p-3 text-sm leading-relaxed text-gray-600">
+                Lưu lại những khoảnh khắc quý giá của thai kỳ như ảnh siêu âm, kết quả xét nghiệm, hoặc bất kỳ hình ảnh nào bạn muốn lưu giữ trong
+                hành trình làm mẹ đặc biệt này.
+              </p>
+
+              <!-- Image previews with improved styling -->
+              <div class="mt-6 flex flex-col">
+                @if (images.length === 0) {
+                  <div class="flex justify-center">
+                    <!-- Upload component with animation -->
+                    <file-upload (insertImg)="insertImg($event)" class=""></file-upload>
+                  </div>
+                } @else {
+                  <div class="mb-6 flex justify-center">
+                    <!-- Upload component with animation -->
+                    <file-upload (insertImg)="insertImg($event)" class=""></file-upload>
+                  </div>
+
+                  <!-- Maternal-friendly gallery layout -->
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
+                    @for (src of images; track $index) {
+                      <div
+                        class="group relative aspect-square overflow-hidden rounded-2xl border-2 border-pink-100 bg-pink-50/30 shadow-sm transition-all duration-300 hover:border-pink-300 hover:shadow-md"
+                      >
+                        <image-preview [imgObj]="src" (deleteImg)="deleteImg($event)" class="h-full w-full cursor-pointer"></image-preview>
+
+                        <!-- Hover overlay with actions -->
+                        <div
+                          class="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-pink-500/50 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                        >
+                          <div class="absolute bottom-3 right-3 flex space-x-2">
+                            <button
+                              type="button"
+                              class="flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-pink-600 shadow-md backdrop-blur-sm transition-transform hover:scale-110 hover:bg-white"
+                              (click)="deleteImg(src.media_id)"
+                            >
+                              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                />
+                              </svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    }
+                  </div>
+
+                  <!-- Image count indicator -->
+                  <div class="mt-4 flex justify-center">
+                    <div class="rounded-full bg-pink-100 px-4 py-1.5 text-xs font-medium text-pink-600">
+                      {{ images.length }} {{ images.length === 1 ? 'hình ảnh' : 'hình ảnh' }} đã tải lên
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <!-- Notes Section -->
+          <div class="relative overflow-hidden rounded-2xl">
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-50/50 via-white to-pink-50/50 blur-xl"></div>
+            <div class="relative flex-grow rounded-xl border border-pink-100 bg-white/90 p-5 shadow-md backdrop-blur-sm">
+              <div class="mb-3 flex items-center">
+                <div class="mr-3 flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-purple-200 to-purple-100 shadow-sm">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </div>
+                <h3 class="text-lg font-bold text-purple-600">Ghi chú</h3>
+              </div>
+
+              @if (messages().length === 0) {
+                <div class="rounded-lg bg-purple-50/70 p-4 text-center">
+                  <p class="text-sm text-purple-600">Chưa có ghi chú nào được thêm</p>
+                </div>
+              } @else {
+                <div class="space-y-2">
+                  @for (msg of messages(); track $index) {
+                    <p class="rounded-lg bg-purple-50/70 p-3 text-sm leading-relaxed text-gray-700">{{ msg }}</p>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!--  Buttons -->
+        <div class="my-4 flex flex-col items-end gap-4">
+          <div class="flex items-center gap-4">
+            @if (selectedRecordData) {
+              <button
+                (click)="deleteRecord()"
+                mat-flat-button
+                type="submit"
+                class="rounded-lg !bg-red-700 px-6 py-2 !text-white shadow-sm transition-all hover:bg-red-800 hover:shadow-md"
+              >
+                Xóa hồ sơ
+              </button>
+              <button
+                (click)="copyToClipboard()"
+                type="button"
+                cdkCopyToClipboard="{{ sharedRecord() }}"
+                mat-stroked-button
+                class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
+              >
+                Chia sẻ
+              </button>
+            }
+            <button
+              mat-flat-button
+              type="submit"
+              class="rounded-lg !bg-gradient-to-r !from-pink-500 !to-pink-600 px-6 py-2 !text-white shadow-sm transition-all hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+              [disabled]="!trackingForm.valid"
+            >
+              Lưu hồ sơ
+            </button>
+            <button
+              mat-stroked-button
+              type="reset"
+              (click)="closeForm()"
+              class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
+            >
+              Hủy bỏ
+            </button>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Footer Buttons -->
-  <div class="mt-8 flex justify-end gap-3 border-t border-gray-200 pt-6">
-    @if (selectedRecordData) {
-      <button
-        (click)="deleteRecord()"
-        mat-flat-button
-        type="submit"
-        class="rounded-lg !bg-red-700 px-6 py-2 !text-white shadow-sm transition-all hover:bg-red-800 hover:shadow-md"
-      >
-        Xóa hồ sơ
-      </button>
-      <button
-        (click)="copyToClipboard()"
-        type="button"
-        cdkCopyToClipboard="{{ sharedRecord() }}"
-        mat-stroked-button
-        class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
-      >
-        Chia sẻ
-      </button>
-    }
-    <button
-      mat-flat-button
-      type="submit"
-      class="rounded-lg px-6 py-2 !text-white shadow-sm transition-all"
-      [disabled]="isDisabled()"
-      [ngClass]="{
-        '!bg-gradient-to-r !from-pink-500 !to-pink-600 hover:!from-pink-600 hover:!to-pink-700 hover:shadow-md': !isDisabled(),
-        '!cursor-not-allowed !bg-gray-300': isDisabled(),
-      }"
-    >
-      Lưu hồ sơ
-    </button>
-    <button
-      mat-stroked-button
-      type="reset"
-      (click)="closeForm()"
-      class="rounded-lg !border-gray-300 px-6 py-2 !text-gray-700 transition-colors hover:!bg-pink-50"
-    >
-      Hủy bỏ
-    </button>
-  </div>
-
-  <p-toast position="top-right" key="tr" class="!font-sans" />
-</form>
+    <!-- Information Footer -->
+    <div class="w-full transform border-t border-gray-200 pt-6 transition-all duration-300">
+      <div class="flex items-start space-x-4">
+        <div class="mt-1 flex-shrink-0">
+          <div class="flex items-center justify-center rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+        </div>
+        <div class="flex-1">
+          <p class="text-sm font-medium text-pink-700">Lưu ý nhỏ cho mẹ bầu:</p>
+          <p class="mt-1 text-sm leading-relaxed text-gray-600">
+            Hệ thống dựa trên thông tin mẹ cung cấp để phân tích. Nếu số tuần thai có chút chênh lệch so với thực tế, mẹ yêu hãy kiểm tra và cập nhật
+            ngày dự sinh trong hồ sơ nhé, để kết quả được chính xác và phù hợp hơn!
+          </p>
+        </div>
+      </div>
+    </div>
+    <p-toast position="top-right" key="tr" class="!font-sans" />
+  </form>
+</div>

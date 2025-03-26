@@ -37,8 +37,13 @@
     #mainSplide
     [options]="{ type: 'slide', pagination: false, arrows: false, drag: true, lazyLoad: 'nearby', preloadPages: 3, fixedHeight: 280 }"
   >
-    <splide-slide *ngFor="let week of pregnancyWeeks; let i = index">
-      <app-week-illustration [countWeek]="week"></app-week-illustration>
+    <splide-slide *ngFor="let week of pregnancyWeeks; let i = index" pStyleClass="grid w-full flex flex-grow">
+      <div class="">
+        <app-week-illustration [countWeek]="week"></app-week-illustration>
+      </div>
+      <div class="">
+        <app-pregnancy-week-info [countWeek]="week"></app-pregnancy-week-info>
+      </div>
     </splide-slide>
   </splide>
 
