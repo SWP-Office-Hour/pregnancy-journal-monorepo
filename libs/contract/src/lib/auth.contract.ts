@@ -61,6 +61,8 @@ const authResponseSchema = z.object({
     role: userRoleSchema,
     email: z.string(),
     has_membership: z.boolean(),
+    membership_buy_date: z.date().optional(),
+    membership_expire_date: z.date().optional().nullable(),
     child: z.array(childSchema),
   }),
 });
