@@ -1,6 +1,7 @@
 import { initContract } from '@ts-rest/core';
 import { z } from 'zod';
 import { statusSchema } from './enum.contract';
+import { standardSchema } from './standard.contract';
 import { tagResponseSchema } from './tag.contract';
 
 // METRIC ============================================
@@ -14,6 +15,18 @@ export const metricResponseSchema = z.object({
   upperbound_msg: z.string(),
   lowerbound_msg: z.string(),
   tag: tagResponseSchema.optional(),
+});
+
+export const metricWithStandardResponseSchema = z.object({
+  metric_id: z.string(),
+  title: z.string(),
+  measurement_unit: z.string(),
+  status: statusSchema,
+  required: z.boolean(),
+  upperbound_msg: z.string(),
+  lowerbound_msg: z.string(),
+  tag: tagResponseSchema.optional(),
+  standardArray: z.array(standardSchema).optional(),
 });
 
 // Create Request Schema
@@ -49,6 +62,8 @@ export type MetricCreateRequestType = z.infer<typeof metricCreateRequestSchema>;
 
 export type MetricUpdateRequestType = z.infer<typeof metricUpdateRequestSchema>;
 
+export type MetricWithStandardResponseType = z.infer<typeof metricWithStandardResponseSchema>;
+
 const c = initContract();
 
 export const metricContract = c.router({
@@ -66,7 +81,7 @@ export const metricContract = c.router({
     path: '/metrics/:id',
     description: 'Get a metric by metric id (đã xong)',
     responses: {
-      200: metricResponseSchema,
+      200: metricWithStandardResponseSchema,
       404: z.object({ message: z.string() }),
     },
   },

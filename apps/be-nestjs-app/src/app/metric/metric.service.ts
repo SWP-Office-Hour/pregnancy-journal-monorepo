@@ -1,5 +1,10 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { MetricCreateRequestType, MetricResponseType, MetricUpdateRequestType } from '@pregnancy-journal-monorepo/contract';
+import {
+  MetricCreateRequestType,
+  MetricResponseType,
+  MetricUpdateRequestType,
+  MetricWithStandardResponseType,
+} from '@pregnancy-journal-monorepo/contract';
 import { DatabaseService } from '../database/database.service';
 import { TagService } from '../tags/tag.service';
 
@@ -126,6 +131,30 @@ export class MetricService {
       throw new NotFoundException('Metric not found');
     }
     return cur;
+  }
+
+  async findOneWithStandard(id: string): Promise<MetricWithStandardResponseType> {
+    const metricResult = await this.databaseService.Metric.findUnique({
+      where: {
+        metric_id: id,
+      },
+      include: {
+        standard: true,
+      },
+    });
+    if (!metricResult) {
+      throw new NotFoundException('Metric not found');
+    }
+    return {
+      metric_id: metricResult.metric_id,
+      title: metricResult.title,
+      measurement_unit: metricResult.measurement_unit,
+      status: metricResult.status,
+      required: metricResult.required,
+      upperbound_msg: metricResult.upperbound_msg,
+      lowerbound_msg: metricResult.lowerbound_msg,
+      standardArray: metricResult.standard || [],
+    };
   }
 
   async update(updateMetricDto: MetricUpdateRequestType) {
