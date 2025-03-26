@@ -215,8 +215,21 @@ export class AuthConfirmationRequiredComponent implements OnInit {
     }
 
     this.confirmationForm.get('expected_birth_date')!.setValue(this.birthInfoForm.get('expected_birth_date')!.value);
-    const expectedBirthDate = new Date(this.confirmationForm.get('expected_birth_date')!.value).toISOString();
-    this.confirmationForm.get('expected_birth_date')!.setValue(expectedBirthDate);
+
+    // With this timezone-aware approach:
+    const selectedDate = this.birthInfoForm.get('expected_birth_date')!.value;
+    if (selectedDate) {
+      // Preserve the local date by using date parts instead of direct ISO conversion
+      const date = new Date(selectedDate);
+      // Create ISO date string but force the time to noon to avoid timezone issues
+      const year = date.getFullYear();
+      const month = date.getMonth();
+      const day = date.getDate();
+
+      // Create a new date with the time set to 12:00:00
+      const adjustedDate = new Date(year, month, day, 12, 0, 0);
+      this.confirmationForm.get('expected_birth_date')!.setValue(adjustedDate.toISOString());
+    }
 
     this.confirmationForm.disable();
     this.basicInfoForm.disable();
@@ -278,5 +291,18 @@ export class AuthConfirmationRequiredComponent implements OnInit {
         this.calculateDueDate();
       }
     });
+  }
+
+  resetBirthDateSelection(): void {
+    // Clear both form controls
+    this.birthInfoForm.get('expected_birth_date').setValue(null);
+    this.birthInfoForm.get('last_period_date').setValue(null);
+
+    // Reset the calculated due date
+    this.calculatedDueDate = null;
+
+    // Make sure validation state is updated
+    this.birthInfoForm.markAsUntouched();
+    this.birthInfoForm.updateValueAndValidity();
   }
 }
