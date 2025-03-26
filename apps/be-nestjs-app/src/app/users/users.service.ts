@@ -591,6 +591,8 @@ export class UsersService {
       ward: user.ward,
       address: user.address,
       membership_id: user.payment_history?.at(user.payment_history.length - 1)?.membership_id,
+      membership_buy_date: user.payment_history?.at(user.payment_history.length - 1)?.created_at,
+      membership_expire_date: user.payment_history?.at(user.payment_history.length - 1)?.expired_at,
       child: user.child,
     };
   }
