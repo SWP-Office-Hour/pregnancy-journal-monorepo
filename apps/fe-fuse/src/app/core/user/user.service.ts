@@ -59,4 +59,16 @@ export class UserService {
       }),
     );
   }
+
+  getMembershipOfUser() {
+    return this._user.pipe(
+      map((user: User) => {
+        return {
+          has_membership: user.has_membership,
+          membership_buy_date: user.membership_buy_date,
+          membership_expire_date: user.membership_expire_date,
+        };
+      }),
+    );
+  }
 }

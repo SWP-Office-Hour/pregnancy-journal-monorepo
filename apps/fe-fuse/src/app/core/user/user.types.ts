@@ -9,6 +9,8 @@ export interface User {
   status?: UserStatus;
   onlineStatus?: string;
   has_membership?: boolean;
+  membership_buy_date?: Date;
+  membership_expire_date?: Date;
   child?: ChildType[];
 }
 

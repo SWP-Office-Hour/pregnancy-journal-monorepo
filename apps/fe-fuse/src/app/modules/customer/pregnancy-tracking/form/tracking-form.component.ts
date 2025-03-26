@@ -156,7 +156,7 @@ export class TrackingFormComponent {
   // }
 
   submitForm() {
-    this.isDisabled.set(true);
+    // this.isDisabled.set(true);
     if (this.trackingForm.invalid) {
       this.trackingForm.markAllAsTouched();
       this.submitFail();
