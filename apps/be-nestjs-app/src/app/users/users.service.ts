@@ -267,23 +267,13 @@ export class UsersService {
     const membership = await this.getAccountMembership(user.user_id);
     let hasMembership = false;
 
-    if (membership) {
+    if (
+      membership &&
+      membership.membership_buy_date &&
+      membership.membership_expire_date &&
+      new Date(membership.membership_expire_date) > new Date()
+    ) {
       hasMembership = true;
-      return {
-        access_token,
-        // refresh_token,
-        user: {
-          user_id: user.user_id,
-          name: user.name,
-          role: user.role,
-          email: user.email,
-          // expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
-          has_membership: hasMembership,
-          membership_buy_date: membership.membership_buy_date,
-          membership_expire_date: membership.membership_expire_date,
-          child: child,
-        },
-      };
     }
 
     return {
@@ -296,6 +286,8 @@ export class UsersService {
         email: user.email,
         // expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        membership_buy_date: membership?.membership_buy_date ?? undefined,
+        membership_expire_date: membership?.membership_expire_date ?? undefined,
         child: child,
       },
     };
@@ -325,24 +317,15 @@ export class UsersService {
     const membership = await this.getAccountMembership(user.user_id);
     const child = user.child;
     let hasMembership = false;
-    if (membership) {
+    if (
+      membership &&
+      membership.membership_buy_date &&
+      membership.membership_expire_date &&
+      new Date(membership.membership_expire_date) > new Date()
+    ) {
       hasMembership = true;
-      return {
-        access_token,
-        // refresh_token,
-        user: {
-          user_id: user.user_id,
-          name: user.name,
-          role: user.role,
-          email: user.email,
-          // expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
-          has_membership: hasMembership,
-          membership_buy_date: membership.membership_buy_date,
-          membership_expire_date: membership.membership_expire_date,
-          child: child,
-        },
-      };
     }
+
     return {
       access_token,
       // refresh_token,
@@ -353,6 +336,8 @@ export class UsersService {
         email: user.email,
         // expected_birth_date: child[child.length - 1].expected_birth_date.toISOString(),
         has_membership: hasMembership,
+        membership_buy_date: membership?.membership_buy_date ?? undefined,
+        membership_expire_date: membership?.membership_expire_date ?? undefined,
         child: child,
       },
     };
@@ -682,8 +667,8 @@ export class UsersService {
   }
 
   public async getAccountMembership(userId: string): Promise<{
-    membership_buy_date: Date;
-    membership_expire_date: Date;
+    membership_buy_date: Date | null;
+    membership_expire_date: Date | null;
   } | null> {
     const user = await this.databaseService.User.findUnique({
       where: {
@@ -703,14 +688,15 @@ export class UsersService {
     }
 
     const membership = user.payment_history?.at(0)?.expired_at;
+    const createAt = user.payment_history?.at(0)?.created_at;
 
     console.log(user.payment_history?.at(0));
     if (membership) {
       const hasExpired = new Date(membership) < new Date();
       if (!hasExpired) {
         return {
-          membership_buy_date: user.payment_history?.at(0)?.created_at,
-          membership_expire_date: user.payment_history?.at(0)?.expired_at,
+          membership_buy_date: createAt ? new Date(createAt) : null,
+          membership_expire_date: membership ? new Date(membership) : null,
         };
       }
     }
