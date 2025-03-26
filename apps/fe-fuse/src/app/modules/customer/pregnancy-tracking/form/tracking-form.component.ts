@@ -17,7 +17,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerInputEvent, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogRef } from '@angular/material/dialog';
-import { MatDivider } from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -35,10 +35,9 @@ import {
 import { DateTime } from 'luxon';
 import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
-import { map } from 'rxjs';
 import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../../../common/image-preview/image-preview.component';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 
 @Component({
   selector: 'tracking-form',
@@ -59,13 +58,15 @@ import { PregnancyTrackingService } from '../pregnancy-tracking.service';
     ToastModule,
     CdkCopyToClipboard,
     MatAutocompleteModule,
-    MatDivider,
+    MatDividerModule,
   ],
   providers: [MessageService],
   templateUrl: './tracking-form.component.html',
   styleUrl: './tracking-form.component.css',
 })
 export class TrackingFormComponent {
+  hospitalSearchControl = new FormControl('');
+  selectedHospital: HospitalResponse | null = null;
   protected trackingForm: FormGroup;
   protected images: MediaResponse[];
   protected hospitals: HospitalResponse[];
@@ -73,20 +74,18 @@ export class TrackingFormComponent {
   protected selectedRecordData: RecordResponse;
   protected week: number;
   protected isDisabled = signal<boolean>(false);
-  private report_messages = signal<string[]>([]);
-  hospitalSearchControl = new FormControl('');
-  selectedHospital: HospitalResponse | null = null;
   protected filteredHospitals: HospitalResponse[] = [];
   protected searchTerm: string = '';
+  private report_messages = signal<string[]>([]);
 
   constructor(
     protected dialogRef: MatDialogRef<TrackingFormComponent>,
-    private _trackingService: PregnancyTrackingService,
+    private _trackingService: PregnancyTrackingV2Service,
     private _formBuilder: FormBuilder,
     private messageService: MessageService,
   ) {
-    this.selectedRecordData = this._trackingService.SelectedRecordData;
-    this.images = this._trackingService.Media;
+    this.selectedRecordData = this._trackingService.selectedRecord;
+    this.images = this._trackingService.media;
     this.week = this.selectedRecordData?.week;
     this.trackingForm = this._formBuilder.group({
       visit_record_id: [''],
@@ -96,23 +95,19 @@ export class TrackingFormComponent {
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([]),
     });
-    this._trackingService.getHospitals().subscribe((hospitals) => {
-      this.hospitals = hospitals;
-      this.filteredHospitals = hospitals; // Initialize with all hospitals
-    });
+    this.hospitals = this._trackingService.hospitals.value();
+    this.filteredHospitals = this._trackingService.hospitals.value(); // Initialize with all hospitals
     this.hospitalSearchControl.valueChanges.subscribe((value) => {
       if (typeof value === 'string') {
         this.filterHospitals(value);
       }
     });
-    if (this._trackingService.SelectedRecordData) {
+    if (this.selectedRecordData) {
       this.patchValue(this.selectedRecordData);
     } else {
-      this._trackingService.getMetrics().subscribe((metrics) => {
-        this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
-        this.metrics.forEach((metric) => {
-          this.metricsFormArray.push(this._formBuilder.control('0', metric.required ? Validators.required : []));
-        });
+      this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
+      this.metrics.forEach((metric) => {
+        this.metricsFormArray.push(this._formBuilder.control('0', metric.required ? Validators.required : []));
       });
     }
   }
@@ -123,26 +118,6 @@ export class TrackingFormComponent {
 
   get messages() {
     return this.report_messages;
-  }
-
-  private maxTodayValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value as DateTime;
-      if (!value) return null;
-
-      const today = DateTime.now().startOf('day');
-      return value.startOf('day') > today ? { futureDate: true } : null;
-    };
-  }
-
-  private max42WeeksValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value as DateTime;
-      if (!value) return null;
-
-      const maxDate = DateTime.now().plus({ weeks: 42 }).startOf('day');
-      return value.startOf('day') > maxDate ? { tooFar: true } : null;
-    };
   }
 
   // Update filter method
@@ -181,16 +156,6 @@ export class TrackingFormComponent {
     const nextVisitDate = this.trackingForm.get('next_visit_doctor_date')?.value as DateTime;
     const today = DateTime.now().startOf('day');
     const maxDate = today.plus({ weeks: 42 }).startOf('day');
-
-    // Replace console logs with more structured debugging
-    console.log({
-      visitDate: visitDate.toISO(),
-      today: today.toISO(),
-      isVisitDateFuture: visitDate > today,
-      nextVisitDate: nextVisitDate.toISO(),
-      maxDate: maxDate.toISO(),
-      isNextVisitTooFar: nextVisitDate > maxDate,
-    });
 
     // Compare only dates (ignore time)
     if (visitDate.startOf('day') > today) {
@@ -276,7 +241,7 @@ export class TrackingFormComponent {
       data,
     };
 
-    if (this._trackingService.SelectedRecordData) {
+    if (this.selectedRecordData) {
       this.updateRecord({ ...formData, visit_record_id });
     } else {
       this.createRecord(formData);
@@ -381,50 +346,43 @@ export class TrackingFormComponent {
     if (this.hospitals) {
       this.filteredHospitals = this.hospitals;
     }
-    this._trackingService
-      .getMetrics()
-      .pipe(
-        map((metrics) => {
-          this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
-          this.metrics.forEach((metric) => {
-            const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
-            this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
+    this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
+    this.metrics.forEach((metric) => {
+      const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
+      this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
+    });
+    const week = value.week;
+    value.data.forEach((data) => {
+      // Compare data value with standard value
+      const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
+      if (metric) {
+        this._trackingService
+          .getStandardValue({
+            metric_id: metric.metric_id,
+            week,
+          })
+          .subscribe((standard) => {
+            if (!standard) return;
+            const [value, value_extended] = data.value.split('/');
+            if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
+            if (value_extended) {
+              const report_msg =
+                Number(value_extended) > standard.upperbound
+                  ? metric.upperbound_msg
+                  : Number(value) < standard.lowerbound
+                    ? metric.lowerbound_msg
+                    : '';
+              console.log(report_msg);
+              this.report_messages.set([...this.report_messages(), report_msg]);
+            } else {
+              const report_msg =
+                Number(value) > standard.upperbound ? metric.upperbound_msg : Number(value) < standard.lowerbound ? metric.lowerbound_msg : '';
+              console.log(report_msg);
+              this.report_messages.set([...this.report_messages(), report_msg]);
+            }
           });
-        }),
-      )
-      .subscribe(() => {
-        value.data.forEach((data) => {
-          // Compare data value with standard value
-          const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
-          if (metric) {
-            this._trackingService
-              .getStandardValue({
-                metric_id: metric.metric_id,
-                week: value.week,
-              })
-              .subscribe((standard) => {
-                if (!standard) return;
-                const [value, value_extended] = data.value.split('/');
-                if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
-                if (value_extended) {
-                  const report_msg =
-                    Number(value_extended) > standard.upperbound
-                      ? metric.upperbound_msg
-                      : Number(value) < standard.lowerbound
-                        ? metric.lowerbound_msg
-                        : '';
-                  console.log(report_msg);
-                  this.report_messages.set([...this.report_messages(), report_msg]);
-                } else {
-                  const report_msg =
-                    Number(value) > standard.upperbound ? metric.upperbound_msg : Number(value) < standard.lowerbound ? metric.lowerbound_msg : '';
-                  console.log(report_msg);
-                  this.report_messages.set([...this.report_messages(), report_msg]);
-                }
-              });
-          }
-        });
-      });
+      }
+    });
   }
 
   deleteRecord() {
@@ -440,5 +398,25 @@ export class TrackingFormComponent {
   closeForm() {
     this._trackingService.closeForm();
     this.dialogRef.close();
+  }
+
+  private maxTodayValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const today = DateTime.now().startOf('day');
+      return value.startOf('day') > today ? { futureDate: true } : null;
+    };
+  }
+
+  private max42WeeksValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value as DateTime;
+      if (!value) return null;
+
+      const maxDate = DateTime.now().plus({ weeks: 42 }).startOf('day');
+      return value.startOf('day') > maxDate ? { tooFar: true } : null;
+    };
   }
 }

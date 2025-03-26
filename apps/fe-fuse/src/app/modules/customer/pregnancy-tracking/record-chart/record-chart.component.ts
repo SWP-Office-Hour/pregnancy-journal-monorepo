@@ -1,16 +1,16 @@
 import { isPlatformBrowser, NgClass } from '@angular/common';
 import { ChangeDetectorRef, Component, computed, effect, inject, OnInit, PLATFORM_ID, resource, signal } from '@angular/core';
 import { MetricResponseType, Standard } from '@pregnancy-journal-monorepo/contract';
-import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../../../environments/environment';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
+
 @Component({
   selector: 'app-record-chart',
-  imports: [TabsModule, ChartModule, NgClass, NgAutoAnimateDirective],
+  imports: [TabsModule, ChartModule, NgClass],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })
@@ -76,18 +76,19 @@ export class RecordChartComponent implements OnInit {
       } catch (error) {
         this.notifyError(error);
         console.error('Error fetching metrics:', error);
-        return [];
+        return [[]];
       } finally {
         //loading false
       }
     },
   });
+  basicOptions: any;
 
   constructor(
     private messageService: MessageService,
     private cd: ChangeDetectorRef,
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
-    private apiPregnancyTrackingService: PregnancyTrackingService,
+    private apiPregnancyTrackingService: PregnancyTrackingV2Service,
   ) {
     effect(() => {
       if (this.metricArrayCurrentlyInRecordOfChild().length > 0) {
@@ -99,8 +100,6 @@ export class RecordChartComponent implements OnInit {
   ngOnInit() {
     this.initChart();
   }
-
-  basicOptions: any;
 
   initChart() {
     if (isPlatformBrowser(this.platformId)) {
@@ -253,16 +252,6 @@ export class RecordChartComponent implements OnInit {
     };
   }
 
-  private notifyError(error: any): void {
-    console.error('Error in HealthMetricTableComponent:', error);
-    this.messageService.add({
-      severity: 'error',
-      summary: 'Error',
-      detail: error.message || 'An unexpected error occurred',
-      life: 4000,
-    });
-  }
-
   toggleStandards(event: any): void {
     // If the event comes from the close button, prevent toggling back on
     if (event.target && (event.target.classList.contains('pi-times') || event.target.closest('button')?.querySelector('.pi-times'))) {
@@ -274,6 +263,16 @@ export class RecordChartComponent implements OnInit {
     // Otherwise toggle as usual
     this.showStandards = !this.showStandards;
     console.log('showStandards: ', this.showStandards);
+  }
+
+  private notifyError(error: any): void {
+    console.error('Error in HealthMetricTableComponent:', error);
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Error',
+      detail: error.message || 'An unexpected error occurred',
+      life: 4000,
+    });
   }
 }
 

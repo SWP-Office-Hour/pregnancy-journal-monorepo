@@ -1,7 +1,10 @@
 <div class="min-h-120 h-full overflow-hidden rounded-2xl bg-white shadow-lg">
   @if (standardResourceOfUniqueMetric.value() !== null) {
     @defer {
-      <p-tabs value="{{ standardResourceOfUniqueMetric.value()[0][0].metric_id }}" scrollable="true">
+      <p-tabs
+        value="{{ standardResourceOfUniqueMetric.value().length > 0 ? standardResourceOfUniqueMetric.value()[0][0].metric_id : 0 }}"
+        scrollable="true"
+      >
         <p-tablist class="relative flex">
           <div class="flex">
             @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
