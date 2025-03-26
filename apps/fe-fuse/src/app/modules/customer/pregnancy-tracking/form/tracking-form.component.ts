@@ -168,10 +168,11 @@ export class TrackingFormComponent {
   }
 
   submitForm() {
-    // this.isDisabled.set(true);
+    this.isDisabled.set(true);
     if (this.trackingForm.invalid) {
       this.trackingForm.markAllAsTouched();
       this.submitFail();
+      this.isDisabled.set(false);
       return;
     }
 
@@ -200,6 +201,7 @@ export class TrackingFormComponent {
         key: 'tr',
         life: 3000,
       });
+      this.isDisabled.set(false);
       return;
     }
 
@@ -211,10 +213,11 @@ export class TrackingFormComponent {
         key: 'tr',
         life: 3000,
       });
+      this.isDisabled.set(false);
       return;
     }
 
-    if (nextVisitDate.startOf('day') < visitDate.startOf('day')) {
+    if (nextVisitDate.startOf('day') <= visitDate.startOf('day')) {
       this.messageService.add({
         severity: 'error',
         summary: 'Lưu thất bại',
@@ -222,6 +225,7 @@ export class TrackingFormComponent {
         key: 'tr',
         life: 3000,
       });
+      this.isDisabled.set(false);
       return;
     }
 
@@ -259,6 +263,7 @@ export class TrackingFormComponent {
         key: 'tr',
         life: 3000,
       });
+      this.isDisabled.set(false);
       return;
     }
 
@@ -303,6 +308,7 @@ export class TrackingFormComponent {
         this.submitFail();
       },
     });
+    this.isDisabled.set(false);
   }
 
   updateRecord(formData: RecordUpdateRequest) {
@@ -319,6 +325,7 @@ export class TrackingFormComponent {
         this.dialogRef.close();
       },
     });
+    this.isDisabled.set(false);
   }
 
   deleteImg(id: string) {
