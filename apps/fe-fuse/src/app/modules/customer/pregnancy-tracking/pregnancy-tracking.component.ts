@@ -7,14 +7,14 @@ import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { TrackingFormComponent } from './form/tracking-form.component';
-import { PregnancyTrackingService } from './pregnancy-tracking.service';
+import { PregnancyTrackingV2Service } from './pregnancy-tracking-v2.service';
 import { RecordChartComponent } from './record-chart/record-chart.component';
 import { RecordTableComponent } from './record-table/record-table.component';
 import { TrackingMiniCalendarComponent } from './tracking-mini-calendendar/tracking-mini-calendar.component';
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, RecordChartComponent, NgAutoAnimateDirective],
+  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, NgAutoAnimateDirective, RecordChartComponent],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
@@ -23,9 +23,10 @@ import { TrackingMiniCalendarComponent } from './tracking-mini-calendendar/track
 export class PregnancyTrackingComponent implements OnInit {
   child: ChildType;
   private _dialog: MatDialog;
+
   constructor(
     private childService: ChildV2Service,
-    private _recordService: PregnancyTrackingService,
+    private _trackingService: PregnancyTrackingV2Service,
   ) {}
 
   ngOnInit() {
@@ -36,19 +37,17 @@ export class PregnancyTrackingComponent implements OnInit {
   }
 
   getNewestRecord() {
-    return this._recordService.getNewestRecord();
+    return this._trackingService.getNewestRecord();
   }
 
   createRecord() {
-    this._recordService.SelectedRecordData = '';
+    this._trackingService.SelectRecordData('');
     const dialogRef = this._dialog.open(TrackingFormComponent, {
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this._recordService.RecordData$.subscribe();
-        this._recordService.closeForm();
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this._trackingService.records.reload();
+      this._trackingService.closeForm();
     });
   }
 }

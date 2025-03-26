@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit, signal } from '@angular/core';
+import { Component, effect, OnInit, signal, WritableSignal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -11,7 +11,7 @@ import { Ripple } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TrackingFormComponent } from '../form/tracking-form.component';
-import { PregnancyTrackingService } from '../pregnancy-tracking.service';
+import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 
 @Component({
@@ -24,7 +24,7 @@ import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.ser
 export class RecordTableComponent implements OnInit {
   expandedRows = {};
   searchText: string = '';
-  protected recordsData: RecordResponse[] = [];
+  protected recordsData: WritableSignal<RecordResponse[]>;
   protected originalRecords: RecordResponse[] = []; // Store the original data for filtering
   protected rows: { week: number; records: RecordResponse[] }[] = [
     {
@@ -50,12 +50,13 @@ export class RecordTableComponent implements OnInit {
   protected child = signal<ChildType>({} as ChildType);
 
   constructor(
-    private recordService: PregnancyTrackingService,
+    private _trackingService: PregnancyTrackingV2Service,
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
     private _dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
   ) {
     this.child = this.signalPregnancyTrackingService.globalSelectedChild;
+    this.recordsData = this._trackingService.records.value;
     effect(() => {
       if (this.child() != undefined) {
         this.getRecords();
@@ -71,20 +72,17 @@ export class RecordTableComponent implements OnInit {
   }
 
   getRecords() {
-    this.recordService.RecordData$.subscribe((data) => {
-      this.recordsData = data();
-      this.originalRecords = [...this.recordsData]; // Store original data
+    this.originalRecords = [...this.recordsData()]; // Store original data
 
-      // Reset rows data before populating
-      this.rows.forEach((row) => (row.records = []));
+    // Reset rows data before populating
+    this.rows.forEach((row) => (row.records = []));
 
-      this.recordsData.forEach((record) => {
-        this.rows.find((r) => r.week >= record.week)!.records.push(record);
-      });
-
-      // Store the original rows structure after populating
-      this.originalRows = JSON.parse(JSON.stringify(this.rows));
+    this.recordsData().forEach((record) => {
+      this.rows.find((r) => r.week >= record.week)!.records.push(record);
     });
+
+    // Store the original rows structure after populating
+    this.originalRows = JSON.parse(JSON.stringify(this.rows));
   }
 
   toggleExpansion() {
@@ -110,19 +108,16 @@ export class RecordTableComponent implements OnInit {
   }
 
   editTracking(record_id: string) {
-    this.recordService.SelectedRecordData = record_id;
-    if (this.recordService.SelectedRecordData) {
-      const dialogRef = this._dialog.open(TrackingFormComponent, {
-        autoFocus: false,
-      });
+    this._trackingService.SelectRecordData(record_id);
 
-      dialogRef.afterClosed().subscribe(() => {
-        this.recordService.RecordData$.subscribe();
-        this.recordService.closeForm();
-      });
-    } else {
-      console.log('Record not found. Id ', record_id);
-    }
+    const dialogRef = this._dialog.open(TrackingFormComponent, {
+      autoFocus: false,
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      this._trackingService.records.reload();
+      this._trackingService.closeForm();
+    });
   }
 
   searchRecords() {
@@ -175,15 +170,13 @@ export class RecordTableComponent implements OnInit {
   }
 
   createRecord() {
-    this.recordService.SelectedRecordData = '';
+    this._trackingService.SelectRecordData('');
     const dialogRef = this._dialog.open(TrackingFormComponent, {
       autoFocus: false,
     });
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.recordService.RecordData$.subscribe();
-        this.recordService.closeForm();
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this._trackingService.records.reload();
+      this._trackingService.closeForm();
     });
   }
 }
