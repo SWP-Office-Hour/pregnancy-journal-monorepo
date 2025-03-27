@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { ReminderColor, ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
-import { Button, ButtonModule } from 'primeng/button';
+import { ButtonModule } from 'primeng/button';
 import { CalendarService } from './calendar.service';
 
 interface Theme {
@@ -33,7 +33,6 @@ registerLocaleData(localeVi);
     ReactiveFormsModule,
     DragDropModule,
     FormsModule,
-    Button,
     ButtonModule,
     DragDropModule,
   ],
@@ -171,6 +170,7 @@ export class CalendarComponent {
 
   createReminder() {
     // Using the template-driven form validation
+    console.log('click create reminder');
     if (this.newReminder.title && this.newReminder.title.length >= 3) {
       if (this.isEditMode && this.editingReminder) {
         // Update existing event using the stored reference instead of trying to match by title
