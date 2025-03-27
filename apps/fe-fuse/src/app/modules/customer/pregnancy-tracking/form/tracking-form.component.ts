@@ -93,7 +93,7 @@ export class TrackingFormComponent {
       next_visit_doctor_date: [DateTime.fromJSDate(new Date()), [Validators.required, this.max42WeeksValidator()]],
       hospital: ['', Validators.required],
       doctor_name: ['', Validators.required],
-      metrics: this._formBuilder.array([], [Validators.required, this.minMetricsValidator(), this.numericValidator()]),
+      metrics: this._formBuilder.array([], [this.minMetricsValidator()]),
     });
     this.hospitals = this._trackingService.hospitals.value();
     this.filteredHospitals = this._trackingService.hospitals.value(); // Initialize with all hospitals
@@ -107,7 +107,9 @@ export class TrackingFormComponent {
     } else {
       this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
-        this.metricsFormArray.push(this._formBuilder.control('0', metric.required ? Validators.required : []));
+        this.metricsFormArray.push(
+          this._formBuilder.control('0', metric.required ? [Validators.required, this.numericValidator()] : [this.numericValidator()]),
+        );
       });
     }
   }
