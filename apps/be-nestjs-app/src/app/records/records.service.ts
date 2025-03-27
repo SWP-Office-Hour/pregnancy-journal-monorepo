@@ -329,6 +329,196 @@ export class RecordsService {
   //                          PRIVATE FUNCTIONS - HELPER FUNCTIONS
   //================================================================================================
 
+  async getWarningMessageV2(record_id: string): Promise<string[]> {
+    const record = await this.dataService.Record.findUnique({
+      where: { visit_record_id: record_id },
+      include: {
+        visit_record_metric: true,
+        child: true,
+      },
+    });
+    if (!record) {
+      return [];
+    }
+    const standards = await this.dataService.Standard.findMany({
+      where: {
+        metric_id: {
+          in: record.visit_record_metric.map((m) => m.metric_id),
+        },
+      },
+      include: {
+        metric: true,
+      },
+      orderBy: {
+        week: 'desc',
+      },
+    });
+
+    const week = this.timeUtilsService.calculatePregnancyWeeks({
+      expectedBirthDate: record.child.expected_birth_date,
+      visitDate: record.visit_doctor_date,
+    });
+
+    const warnings: string[] = [];
+
+    for (const metric of record.visit_record_metric) {
+      const { value, value_extended } = metric;
+      const standard = standards.find((s) => {
+        // Find the last standard with week less than current week
+        return s.week <= week;
+      });
+
+      if (!standard) {
+        continue;
+      }
+
+      if (value === 0) continue;
+
+      if (value_extended) {
+        if (Number(value_extended) < standard.upperbound) {
+          warnings.push(standard.metric.upperbound_msg);
+        } else if (Number(value_extended) > standard.lowerbound) {
+          warnings.push(standard.metric.lowerbound_msg);
+        }
+      } else {
+        if (Number(value) > standard.upperbound) {
+          warnings.push(standard.metric.upperbound_msg);
+        } else if (Number(value) < standard.lowerbound) {
+          warnings.push(standard.metric.lowerbound_msg);
+        }
+      }
+    }
+    return warnings;
+  }
+
+  async getWarningMessages(record: VisitRecordIncludeOtherTables, child: ChildType): Promise<WarningListType> {
+    const metricIds = record.visit_record_metric.map((metric) => metric.metric_id);
+
+    if (metricIds.length === 0) return [];
+
+    // Fetch all metrics and standards in bulk (just two queries)
+    const [metrics, standards] = await Promise.all([
+      this.dataService.Metric.findMany({
+        where: { metric_id: { in: metricIds } },
+        select: {
+          metric_id: true,
+          upperbound_msg: true,
+          lowerbound_msg: true,
+        },
+      }),
+      this.dataService.Standard.findMany({
+        where: { metric_id: { in: metricIds } },
+        orderBy: { week: 'asc' },
+        select: {
+          metric_id: true,
+          week: true,
+          lowerbound: true,
+          upperbound: true,
+        },
+      }),
+    ]);
+
+    // Create efficient lookup maps
+    const metricsMap = new Map(metrics.map((m) => [m.metric_id, m]));
+    const standardsMap = new Map<string, any[]>();
+
+    // Group standards by metric_id
+    for (const standard of standards) {
+      if (!standardsMap.has(standard.metric_id)) {
+        standardsMap.set(standard.metric_id, []);
+      }
+      standardsMap.get(standard.metric_id)!.push(standard);
+    }
+
+    // Calculate week once
+    const week = this.timeUtilsService.calculatePregnancyWeeks({
+      expectedBirthDate: child.expected_birth_date,
+      visitDate: record.visit_doctor_date,
+    });
+
+    const warnings: string[] = [];
+
+    // Process all metrics
+    for (const metric of record.visit_record_metric) {
+      // Skip invalid values immediately
+      if (!metric.value || metric.value === 0) continue;
+
+      const metricInfo = metricsMap.get(metric.metric_id);
+      if (!metricInfo) continue;
+
+      const standards = standardsMap.get(metric.metric_id);
+      if (!standards || standards.length === 0) continue;
+
+      // Skip if week is before first standard
+      if (week < standards[0].week) continue;
+
+      const valueAsString = metric.value_extended ? `${metric.value}/${metric.value_extended}` : String(metric.value);
+
+      const [value, value_extended] = valueAsString.split('/');
+      if (value === '0' || value === '' || value === ' ') continue;
+
+      // Find applicable standard - find exact match first
+      let applicable = standards.find((s) => s.week === week);
+
+      // If no exact match, find the MOST RECENT standard before current week
+      // THIS IS THE KEY CORRECTION - sort in DESCENDING order to get most recent!
+      if (!applicable) {
+        const applicableStandards = standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week); // FIXED: descending order
+
+        applicable = applicableStandards.length > 0 ? applicableStandards[0] : null;
+      }
+
+      if (!applicable) continue;
+
+      // Check bounds and create warning if needed
+      const { lowerbound, upperbound } = applicable;
+
+      // Correct comparison logic for warnings
+      if (value_extended) {
+        if (Number(value_extended) > upperbound) {
+          warnings.push(metricInfo.upperbound_msg);
+        } else if (Number(value) < lowerbound) {
+          warnings.push(metricInfo.lowerbound_msg);
+        }
+      } else {
+        if (Number(value) > upperbound) {
+          warnings.push(metricInfo.upperbound_msg);
+        } else if (Number(value) < lowerbound) {
+          warnings.push(metricInfo.lowerbound_msg);
+        }
+      }
+    }
+
+    return warnings;
+  }
+
+  async getWarning(record_id: string) {
+    const record = await this.dataService.Record.findUnique({
+      where: { visit_record_id: record_id },
+      include: {
+        media: true,
+        hospital: true,
+        visit_record_metric: true,
+      },
+    });
+
+    if (!record) {
+      throw new NotFoundException('Record not found');
+    }
+
+    const child = await this.dataService.Child.findUnique({
+      where: { child_id: record.child_id },
+    });
+
+    if (!child) {
+      throw new NotFoundException('Child not found');
+    }
+
+    console.log(record);
+
+    return await this.getWarningMessageV2(record_id);
+  }
+
   private async formatRecord(records: VisitRecordIncludeOtherTables[], child: Child): Promise<RecordResponse[]> {
     // Fetch all needed standards in one query if not provided
 
@@ -582,139 +772,5 @@ export class RecordsService {
         });
       }
     }
-  }
-
-  async getWarningMessages(record: VisitRecordIncludeOtherTables, child: ChildType): Promise<WarningListType> {
-    // Early exit if no metrics
-    if (!record.visit_record_metric || record.visit_record_metric.length === 0) {
-      return [];
-    }
-
-    // Get unique metric IDs using Set for efficiency
-    const metricIds = Array.from(new Set(record.visit_record_metric.map((metric) => metric.metric_id)));
-
-    if (metricIds.length === 0) return [];
-
-    // Fetch all metrics and standards in bulk (just two queries)
-    const [metrics, standards] = await Promise.all([
-      this.dataService.Metric.findMany({
-        where: { metric_id: { in: metricIds } },
-        select: {
-          metric_id: true,
-          upperbound_msg: true,
-          lowerbound_msg: true,
-        },
-      }),
-      this.dataService.Standard.findMany({
-        where: { metric_id: { in: metricIds } },
-        orderBy: { week: 'asc' },
-        select: {
-          metric_id: true,
-          week: true,
-          lowerbound: true,
-          upperbound: true,
-        },
-      }),
-    ]);
-
-    // Create efficient lookup maps
-    const metricsMap = new Map(metrics.map((m) => [m.metric_id, m]));
-    const standardsMap = new Map<string, any[]>();
-
-    // Group standards by metric_id
-    for (const standard of standards) {
-      if (!standardsMap.has(standard.metric_id)) {
-        standardsMap.set(standard.metric_id, []);
-      }
-      standardsMap.get(standard.metric_id)!.push(standard);
-    }
-
-    // Calculate week once
-    const week = this.timeUtilsService.calculatePregnancyWeeks({
-      expectedBirthDate: child.expected_birth_date,
-      visitDate: record.visit_doctor_date,
-    });
-
-    const warnings: string[] = [];
-
-    // Process all metrics
-    for (const metric of record.visit_record_metric) {
-      // Skip invalid values immediately
-      if (!metric.value || metric.value === 0) continue;
-
-      const metricInfo = metricsMap.get(metric.metric_id);
-      if (!metricInfo) continue;
-
-      const standards = standardsMap.get(metric.metric_id);
-      if (!standards || standards.length === 0) continue;
-
-      // Skip if week is before first standard
-      if (week < standards[0].week) continue;
-
-      const valueAsString = metric.value_extended ? `${metric.value}/${metric.value_extended}` : String(metric.value);
-
-      const [value, value_extended] = valueAsString.split('/');
-      if (value === '0' || value === '' || value === ' ') continue;
-
-      // Find applicable standard - find exact match first
-      let applicable = standards.find((s) => s.week === week);
-
-      // If no exact match, find the MOST RECENT standard before current week
-      // THIS IS THE KEY CORRECTION - sort in DESCENDING order to get most recent!
-      if (!applicable) {
-        const applicableStandards = standards.filter((s) => s.week < week).sort((a, b) => b.week - a.week); // FIXED: descending order
-
-        applicable = applicableStandards.length > 0 ? applicableStandards[0] : null;
-      }
-
-      if (!applicable) continue;
-
-      // Check bounds and create warning if needed
-      const { lowerbound, upperbound } = applicable;
-
-      // Correct comparison logic for warnings
-      if (value_extended) {
-        if (Number(value_extended) > upperbound) {
-          warnings.push(metricInfo.upperbound_msg);
-        } else if (Number(value) < lowerbound) {
-          warnings.push(metricInfo.lowerbound_msg);
-        }
-      } else {
-        if (Number(value) > upperbound) {
-          warnings.push(metricInfo.upperbound_msg);
-        } else if (Number(value) < lowerbound) {
-          warnings.push(metricInfo.lowerbound_msg);
-        }
-      }
-    }
-
-    return warnings;
-  }
-
-  async getWarning(record_id: string) {
-    const record = await this.dataService.Record.findUnique({
-      where: { visit_record_id: record_id },
-      include: {
-        media: true,
-        hospital: true,
-        visit_record_metric: true,
-      },
-    });
-
-    if (!record) {
-      throw new NotFoundException('Record not found');
-    }
-
-    const child = await this.dataService.Child.findUnique({
-      where: { child_id: record.child_id },
-    });
-
-    if (!child) {
-      throw new NotFoundException('Child not found');
-    }
-
-    console.log(record);
-
-    return await this.getWarningMessages(record, child);
   }
 }

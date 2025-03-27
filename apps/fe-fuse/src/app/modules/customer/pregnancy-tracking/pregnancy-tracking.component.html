@@ -33,29 +33,29 @@
             >
               <!-- Date & Week -->
               <div class="mb-2 flex items-center justify-between">
-                <span class="text-xs text-gray-500">Thứ 7, 23.03.2024</span>
+                <span class="text-xs text-gray-500">{{ getNewestRecord().visit_doctor_date | date: 'fullDate' : undefined : 'vi-VN' }}</span>
                 <span class="rounded-full bg-pink-500 px-2 py-0.5 text-xs font-semibold text-white">Theo dõi gần nhất</span>
               </div>
 
               <h3 class="mb-3 text-lg font-bold text-pink-600">Tuần {{ getNewestRecord().week }}</h3>
 
               <!-- Development Metrics -->
-              <div class="mb-3 grid grid-cols-2 gap-2 text-center">
-                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
-                  <p class="text-xs text-gray-500">Chiều dài</p>
-                  <p class="text-base font-bold text-pink-600">6-7 cm</p>
-                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
-                    <div class="h-full w-1/2 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
-                  </div>
-                </div>
-                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">
-                  <p class="text-xs text-gray-500">Cân nặng</p>
-                  <p class="text-base font-bold text-pink-600">14-20g</p>
-                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">
-                    <div class="h-full w-1/3 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>
-                  </div>
-                </div>
-              </div>
+              <!--              <div class="mb-3 grid grid-cols-2 gap-2 text-center">-->
+              <!--                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">-->
+              <!--                  <p class="text-xs text-gray-500">Chiều dài</p>-->
+              <!--                  <p class="text-base font-bold text-pink-600">6-7 cm</p>-->
+              <!--                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">-->
+              <!--                    <div class="h-full w-1/2 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--                <div class="rounded-lg bg-white/70 p-2 backdrop-blur-sm">-->
+              <!--                  <p class="text-xs text-gray-500">Cân nặng</p>-->
+              <!--                  <p class="text-base font-bold text-pink-600">14-20g</p>-->
+              <!--                  <div class="mx-auto mt-1 h-1.5 w-2/3 overflow-hidden rounded-full bg-gray-200">-->
+              <!--                    <div class="h-full w-1/3 animate-pulse rounded-full bg-gradient-to-r from-pink-400 to-pink-500"></div>-->
+              <!--                  </div>-->
+              <!--                </div>-->
+              <!--              </div>-->
 
               <!-- Key Development -->
               <div class="mb-3 rounded-lg bg-green-50/80 p-2 backdrop-blur-sm">
@@ -175,21 +175,22 @@
         <!-- Khối dưới - List warning -->
         <div class="flex-grow space-y-2 overflow-y-auto rounded-xl" style="scrollbar-width: none; -ms-overflow-style: none">
           <!-- Check có warning nào chưa-->
-          @if (true) {
-            <!-- Nhớ cho data thiệt vào đây nha-->
-            @for (item of [0, 1, 2, 3]; track item) {
-              <div
-                class="overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-2 shadow-md transition-all duration-300 hover:shadow-lg"
-              >
-                <!-- Date & Week -->
-                <div class="mb-1 flex items-center justify-between">
-                  <span class="text-sm text-gray-500">Thứ 7, 16.03.2024</span>
-                  <span class="rounded-full bg-gray-200 px-2 py-0.5 text-sm font-semibold text-gray-600">Đã qua</span>
-                </div>
 
-                <h3 class="text-xl font-bold text-pink-600">Tuần {{ 8 - item }}</h3>
+          <!-- Nhớ cho data thiệt vào đây nha-->
+          @for (recordWithWarning of recordsWithWarning.value(); track $index) {
+            <div
+              class="overflow-hidden rounded-xl bg-gradient-to-br from-white/80 to-pink-50/80 p-2 shadow-md transition-all duration-300 hover:shadow-lg"
+            >
+              <!-- Date & Week -->
+              <div class="mb-1 flex items-center justify-between">
+                <span class="text-sm text-gray-500">{{ recordWithWarning.record.visit_doctor_date | date: 'fullDate' : undefined : 'vi-VN' }}</span>
+                <span class="rounded-full bg-gray-200 px-2 py-0.5 text-sm font-semibold text-gray-600">Đã qua</span>
+              </div>
 
-                <!-- Warning/Alert State (Example) - More compact with larger text -->
+              <h3 class="text-xl font-bold text-pink-600">Tuần {{ recordWithWarning.record.week }}</h3>
+
+              <!-- Warning/Alert State (Example) - More compact with larger text -->
+              @for (warning of recordWithWarning.warnings; track $index) {
                 <div class="mt-2 rounded-lg bg-yellow-50/80 p-1.5 backdrop-blur-sm">
                   <div class="flex items-start space-x-2">
                     <div class="rounded-full bg-yellow-100 p-1">
@@ -204,25 +205,24 @@
                     </div>
                     <div>
                       <p class="text-sm font-medium text-yellow-700">Cần lưu ý</p>
-                      <p class="text-sm text-yellow-600">Thiếu hụt dinh dưỡng, cần bổ sung thêm acid folic.</p>
+                      <p class="text-sm text-yellow-600">{{ warning }}</p>
                     </div>
                   </div>
                 </div>
-
-                <!-- Toggle/Details Button - More compact -->
-                <div class="mt-2 text-center">
-                  <button
-                    class="inline-flex items-center rounded-full bg-white px-3 py-1 text-sm font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                    Xem chi tiết
-                  </button>
-                </div>
+              }
+              <!-- Toggle/Details Button - More compact -->
+              <div class="mt-2 text-center">
+                <button
+                  class="inline-flex items-center rounded-full bg-white px-3 py-1 text-sm font-medium text-pink-600 shadow-sm transition hover:bg-pink-50"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                  Xem chi tiết
+                </button>
               </div>
-            }
-          } @else {
+            </div>
+          } @empty {
             <div class="flex h-full items-center justify-center">
               <div class="animate-fade-in flex w-full max-w-md flex-col items-center justify-center p-4 text-center">
                 <!-- Friendly illustration with maternal-friendly colors -->
