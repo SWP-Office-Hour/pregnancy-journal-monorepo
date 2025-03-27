@@ -35,6 +35,7 @@ import { User } from '../../../core/user/user.types';
 import { SystemReminder, SystemReminders } from '../../../mock-api/system-remind.data';
 import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnancy-record.service';
 import { HomeReminderComponent } from '../home-reminder/home-reminder.component';
+import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
 
 @Component({
   selector: 'app-home',
@@ -68,6 +69,7 @@ import { HomeReminderComponent } from '../home-reminder/home-reminder.component'
     NgxSplideModule,
     HomeReminderComponent,
     PopularToolComponent,
+    RecommendedBlogsComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
