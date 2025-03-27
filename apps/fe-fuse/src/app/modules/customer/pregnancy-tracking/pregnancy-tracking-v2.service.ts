@@ -69,10 +69,11 @@ export class PregnancyTrackingV2Service {
     return this.records.value().sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime())[0];
   }
 
-  getStandardValue({ week, metric_id }: { metric_id: string; week: number }) {
+  getStandardValue({ week, metric_id }: { metric_id: string; week: number }): Observable<Standard> {
     return this._httpClient.get<Standard[]>(environment.apiUrl + 'standards/' + metric_id).pipe(
       map((res: Standard[]) => {
-        return res.find((standard) => standard.metric_id === metric_id);
+        res.sort((a, b) => b.week - a.week);
+        return res.find((standard) => standard.week <= week);
       }),
     );
   }
