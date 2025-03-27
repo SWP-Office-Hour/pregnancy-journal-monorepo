@@ -1,0 +1,95 @@
+/* Timeline animations and styling */
+.timeline-stage {
+  position: relative;
+  overflow: hidden;
+  animation: gentle-fade-in 0.8s ease-out forwards;
+  max-width: 100%;
+  width: 100%;
+}
+
+@keyframes gentle-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progress bar animation */
+@keyframes progress-fill {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* Gentle floating animation for decorative elements */
+@keyframes gentle-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Subtle pulse animation for accent elements */
+@keyframes subtle-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Apply animations to specific elements */
+.timeline-stage img {
+  animation: gentle-float 6s ease-in-out infinite;
+}
+
+.timeline-stage h2,
+.timeline-stage h3 {
+  position: relative;
+}
+
+.timeline-stage h2::after,
+.timeline-stage h3::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  border-radius: 1px;
+  background: linear-gradient(to right, #ec4899, #a855f7);
+  opacity: 0.7;
+}
+
+/* Custom scrollbar for any scrollable areas */
+.timeline-stage *::-webkit-scrollbar {
+  width: 6px;
+}
+
+.timeline-stage *::-webkit-scrollbar-track {
+  background: rgba(252, 231, 243, 0.3);
+  border-radius: 3px;
+}
+
+.timeline-stage *::-webkit-scrollbar-thumb {
+  background-color: rgba(236, 72, 153, 0.3);
+  border-radius: 3px;
+}
+
+.timeline-stage *::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(236, 72, 153, 0.5);
+}

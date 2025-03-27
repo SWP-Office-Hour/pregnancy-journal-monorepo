@@ -1,6 +1,6 @@
-<div class="flex min-w-0 flex-auto flex-col bg-white p-6">
+<div class="max-w-3/4 mx-auto flex min-w-0 flex-auto flex-col items-center py-8">
   <!-- Header -->
-  <section class="mb-1 flex w-full flex-col bg-transparent">
+  <section class="flex w-full flex-col bg-transparent">
     <!-- Time-sensitive Welcome Section -->
     <div class="relative h-64 w-full overflow-hidden rounded-3xl shadow-lg">
       Dynamic Time-Based Backagrounds
@@ -155,23 +155,11 @@
     </a>
   </section>
 
-  <!-- Noti & Blog & Mini Chart-->
-  <section class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3">
-    <!-- Nhắc nhở-->
-    <div
-      class="col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-2 shadow-lg backdrop-blur-sm lg:col-span-1"
-    >
-      <app-home-reminder></app-home-reminder>
-      <!-- Recommend Blog-->
-      <app-recommended-blogs></app-recommended-blogs>
-    </div>
+  <!-- Pregnancy Week-->
+  <app-week-illustration [currentPregnancyWeek]="currentPregnancyWeek"></app-week-illustration>
+  <!-- Tool-->
+  <app-popular-tool></app-popular-tool>
 
-    <!-- Recommend Info Week-->
-    <div
-      class="col-span-2 flex flex-auto flex-col justify-between overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm"
-    >
-      <app-week-illustration></app-week-illustration>
-      <app-popular-tool></app-popular-tool>
-    </div>
-  </section>
+  <!-- Recommend blogs-->
+  <!--  <app-recommended-blogs></app-recommended-blogs>-->
 </div>
