@@ -49,7 +49,7 @@ export class CommunityComponent {
   protected total = 0;
   private limit = 10;
   private loaded = 0;
-
+  protected showMyPosts = false;
   //End Infinite scroll properties
 
   constructor(
@@ -64,13 +64,39 @@ export class CommunityComponent {
     this.fetchPosts(this.page);
   }
 
+  toggleMyPosts(): void {
+    this.showMyPosts = true;
+    // this.resetPosts();
+    this.fetchPosts(this.page);
+  }
+
+  showAllPosts(): void {
+    this.showMyPosts = false;
+    // this.resetPosts();
+    this.fetchPosts(this.page);
+  }
+
+  resetPosts(): void {
+    this.page = 1;
+    this.posts.set([]);
+    this.loaded = 0;
+    this.total = 0;
+  }
+
   fetchPosts(page: number) {
     if (this.loading || (this.loaded >= this.total && this.loaded > 0)) {
       return;
     }
     this.loading = true;
+
+    // Build URL with user filter if showing only my posts
+    let url = environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit;
+    if (this.showMyPosts && this.user) {
+      url += '&user_id=' + this.user.user_id;
+    }
+
     this._httpClient
-      .get<{ total: number; data: PostType[] }>(environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit)
+      .get<{ total: number; data: PostType[] }>(url)
       .pipe(
         map((res) => {
           res.data.forEach((post) => {
@@ -93,11 +119,45 @@ export class CommunityComponent {
         } else {
           this.lastPosts = this.posts();
         }
-        this.posts.set([...this.posts().slice(-this.limit), ...body.data]);
-
+        this.posts.set([...this.posts(), ...body.data]);
         this.loading = false;
       });
   }
+
+  // fetchPosts(page: number) {
+  //   if (this.loading || (this.loaded >= this.total && this.loaded > 0)) {
+  //     return;
+  //   }
+  //   this.loading = true;
+  //   this._httpClient
+  //     .get<{ total: number; data: PostType[] }>(environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit)
+  //     .pipe(
+  //       map((res) => {
+  //         res.data.forEach((post) => {
+  //           post!.media!.forEach((media) => {
+  //             if (media) {
+  //               this.getImagesById(media.media_id).subscribe((image) => {
+  //                 media.media_url = image.imgLink;
+  //               });
+  //             }
+  //           });
+  //         });
+  //         return res;
+  //       }),
+  //     )
+  //     .subscribe((body) => {
+  //       this.total = body.total;
+  //       this.loaded += body.data.length;
+  //       if (this.posts().length > 0) {
+  //         this.lastPosts = this.posts().slice(-this.limit);
+  //       } else {
+  //         this.lastPosts = this.posts();
+  //       }
+  //       this.posts.set([...this.posts().slice(-this.limit), ...body.data]);
+  //
+  //       this.loading = false;
+  //     });
+  // }
 
   onScroll() {
     this.page++;

@@ -26,6 +26,26 @@ export class PostsController {
     });
   }
 
+  @UseGuards(AccessTokenAuthGuard)
+  @TsRestHandler(postContract.getPostByUserId)
+  handleGetPostByUserId(@Req() req: RequestWithJWT) {
+    return tsRestHandler(postContract.getPostByUserId, async () => {
+      const user = req.decoded_authorization?.user_id;
+      if (!user) {
+        throw new UnauthorizedException('Access token is invalid');
+      }
+
+      const posts: PostType[] = await this.postsService.getPostByUserId(user);
+      return {
+        status: 200,
+        body: {
+          total: posts.length,
+          data: posts,
+        },
+      };
+    });
+  }
+
   @TsRestHandler(postContract.getAll)
   handleGetAll(@Query('page') page: number, @Query('limit') limit: number) {
     return tsRestHandler(postContract.getAll, async () => {
@@ -73,26 +93,6 @@ export class PostsController {
         status: 200,
         body: {
           message: 'Delete successfully',
-        },
-      };
-    });
-  }
-
-  @UseGuards(AccessTokenAuthGuard)
-  @TsRestHandler(postContract.getPostByUserId)
-  handleGetPostByUserId(@Req() req: RequestWithJWT) {
-    return tsRestHandler(postContract.getPostByUserId, async () => {
-      const user = req.decoded_authorization?.user_id;
-      if (!user) {
-        throw new UnauthorizedException('Access token is invalid');
-      }
-
-      const posts: PostType[] = await this.postsService.getPostByUserId(user);
-      return {
-        status: 200,
-        body: {
-          total: posts.length,
-          data: posts,
         },
       };
     });

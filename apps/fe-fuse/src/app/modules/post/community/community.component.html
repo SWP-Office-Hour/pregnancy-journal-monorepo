@@ -1,4 +1,26 @@
 <div class="flex w-full flex-col items-center justify-center bg-gradient-to-b from-pink-50/50 to-white py-6">
+  <!--  chọn giữa tất cả bài viết và bài viết của mình-->
+  <div class="my-4 flex justify-center">
+    <div class="inline-flex rounded-md shadow-sm">
+      <button
+        (click)="showAllPosts()"
+        class="rounded-l-lg border border-gray-200 px-4 py-2 text-sm font-medium transition-colors"
+        [ngClass]="!showMyPosts ? 'bg-gradient-to-r from-pink-500 to-pink-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+      >
+        <mat-icon class="icon-size-4 mr-2" [svgIcon]="'heroicons_solid:globe-alt'"></mat-icon>
+        Tất cả bài viết
+      </button>
+      <button
+        (click)="toggleMyPosts()"
+        class="rounded-r-lg border border-gray-200 px-4 py-2 text-sm font-medium transition-colors"
+        [ngClass]="showMyPosts ? 'bg-gradient-to-r from-pink-500 to-pink-600 text-white' : 'bg-white text-gray-700 hover:bg-gray-50'"
+      >
+        <mat-icon class="icon-size-4 mr-2" [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+        Bài viết của tôi
+      </button>
+    </div>
+  </div>
+
   <!-- Create Post Card -->
   <fuse-card class="max-w-140 mb-6 flex w-full flex-col rounded-xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md sm:p-8">
     <div class="text-xl font-semibold text-pink-600">Tạo Bài Viết</div>
