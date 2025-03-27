@@ -54,7 +54,7 @@
       class="week-card group relative mx-2 flex flex-shrink-0 select-none snap-center flex-col items-center justify-center overflow-visible"
     >
       <div
-        class="relative my-4 flex w-44 flex-col items-center justify-center rounded-2xl border-2 border-pink-100 bg-gradient-to-b from-white to-pink-50 p-4 shadow-md transition-all duration-300 hover:border-pink-300 hover:shadow-lg"
+        class="relative my-4 flex w-44 flex-col items-center justify-center rounded-2xl border-2 border-pink-100 bg-gradient-to-b from-white to-pink-50 p-4 text-center shadow-md transition-all duration-300 hover:border-pink-300 hover:shadow-lg"
       >
         <!-- Week Number Badge -->
         <div
@@ -84,9 +84,20 @@
         </div>
 
         <!-- Size Comparison (optional) -->
-        <div *ngIf="weekSizeComparisons[i - 2]" class="mt-2 flex items-center justify-center text-xs text-gray-500">
-          <span>Kích thước: {{ weekSizeComparisons[i - 2] }}</span>
-        </div>
+
+        @if (i == 39) {
+          {{ weekSizeComparisons[i - 2] }}
+        } @else {
+          @if (weekSizeComparisons[i - 2]) {
+            <div class="mt-2 flex items-center justify-center text-xs text-gray-500">
+              <span>Kích thước: {{ weekSizeComparisons[i - 2] }}</span>
+            </div>
+          } @else {
+            <div class="mt-2 flex items-center justify-center text-xs text-gray-500">
+              <span>Chưa có kích thước</span>
+            </div>
+          }
+        }
       </div>
     </splide-slide>
   </splide>

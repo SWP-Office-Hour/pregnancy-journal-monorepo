@@ -14,7 +14,7 @@ export class WeekPregnancySliderComponent implements AfterViewInit {
   pregnancyWeeks: number[] = Array(40)
     .fill(1)
     .map((_, i) => i + 2);
-  currentWeek: number = 16; // Default to a middle week, update with actual pregnancy week
+  currentWeek: number = 0; // Default to a middle week, update with actual pregnancy week
 
   // Sample size comparisons (update with actual data)
   weekSizeComparisons: string[] = [
@@ -55,7 +55,7 @@ export class WeekPregnancySliderComponent implements AfterViewInit {
     'Quả dưa hấu nhỏ',
     'Quả bí ngô',
     'Quả dưa hấu lớn',
-    'Quả Em bé',
+    'Em bé ra đời',
   ];
 
   constructor() {}

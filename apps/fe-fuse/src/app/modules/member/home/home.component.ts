@@ -29,6 +29,7 @@ import { ButtonModule } from 'primeng/button';
 import { TooltipModule } from 'primeng/tooltip';
 import { environment } from '../../../../environments/environment';
 import { PopularToolComponent } from '../../../common/popular-tool/popular-tool.component';
+import { WeekIllustrationComponent } from '../../../common/week-illustration/week-illustration.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
@@ -70,6 +71,7 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     HomeReminderComponent,
     PopularToolComponent,
     RecommendedBlogsComponent,
+    WeekIllustrationComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
