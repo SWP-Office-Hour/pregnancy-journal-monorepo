@@ -192,15 +192,20 @@
   },
   "pnpm": {
     "ignoredBuiltDependencies": [
+      "@scarf/scarf",
       "nx"
     ],
     "onlyBuiltDependencies": [
       "@nestjs/core",
+      "@parcel/watcher",
       "@prisma/client",
+      "@prisma/engines",
       "@swc/core",
       "core-js-pure",
       "cypress",
       "esbuild",
+      "lmdb",
+      "msgpackr-extract",
       "nx",
       "prisma"
     ]

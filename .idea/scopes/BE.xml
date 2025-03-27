@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="BE" pattern="file[pregnancy-journal-monorepo]:apps/be-nestjs-app//*" />
+</component>

@@ -5,7 +5,6 @@ import {
   AbstractControl,
   FormArray,
   FormBuilder,
-  FormControl,
   FormGroup,
   FormsModule,
   ReactiveFormsModule,
@@ -65,7 +64,6 @@ import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
   styleUrl: './tracking-form.component.css',
 })
 export class TrackingFormComponent {
-  hospitalSearchControl = new FormControl('');
   selectedHospital: HospitalResponse | null = null;
   protected trackingForm: FormGroup;
   protected images: MediaResponse[];
@@ -74,8 +72,6 @@ export class TrackingFormComponent {
   protected selectedRecordData: RecordResponse;
   protected week: number;
   protected isDisabled = signal<boolean>(false);
-  protected filteredHospitals: HospitalResponse[] = [];
-  protected searchTerm: string = '';
   private report_messages = signal<string[]>([]);
 
   constructor(
@@ -96,12 +92,7 @@ export class TrackingFormComponent {
       metrics: this._formBuilder.array([], [this.minMetricsValidator()]),
     });
     this.hospitals = this._trackingService.hospitals.value();
-    this.filteredHospitals = this._trackingService.hospitals.value(); // Initialize with all hospitals
-    this.hospitalSearchControl.valueChanges.subscribe((value) => {
-      if (typeof value === 'string') {
-        this.filterHospitals(value);
-      }
-    });
+
     if (this.selectedRecordData) {
       this.patchValue(this.selectedRecordData);
     } else {
@@ -113,24 +104,8 @@ export class TrackingFormComponent {
       });
     }
   }
-  private numericValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const value = control.value;
-      if (!value || value === '') return null;
 
-      const isNumeric = !isNaN(Number(value)) && Number(value) >= 0;
-      return isNumeric ? null : { invalidNumber: true };
-    };
-  }
-  private minMetricsValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      const formArray = control as FormArray;
-      // Validate at least one metric has a value
-      const hasValue = formArray.controls.some((ctrl) => ctrl.value && ctrl.value !== '0' && ctrl.value !== 0);
-      return hasValue ? null : { noMetrics: true };
-    };
-  }
-
+  // Getters
   get metricsFormArray() {
     return this.trackingForm.get('metrics') as FormArray;
   }
@@ -139,33 +114,101 @@ export class TrackingFormComponent {
     return this.report_messages;
   }
 
-  // Update filter method
-  filterHospitals(searchValue: string): void {
-    if (!searchValue) {
-      this.filteredHospitals = this.hospitals;
-      return;
-    }
-
-    const search = searchValue.toLowerCase();
-    this.filteredHospitals = this.hospitals.filter((hospital) => hospital.name.toLowerCase().includes(search));
+  // Form data handling methods
+  patchValue(value: RecordResponse) {
+    this.trackingForm.patchValue({
+      visit_record_id: value.visit_record_id,
+      hospital: value.hospital.hospital_id,
+      doctor_name: value.doctor_name,
+      visit_doctor_date: DateTime.fromJSDate(new Date(value.visit_doctor_date)),
+      next_visit_doctor_date: DateTime.fromJSDate(new Date(value.next_visit_doctor_date)),
+    });
+    this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
+    this.metrics.forEach((metric) => {
+      const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
+      this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
+    });
+    const week = value.week;
+    value.data.forEach((data) => {
+      // Compare data value with standard value
+      const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
+      if (metric) {
+        this._trackingService
+          .getStandardValue({
+            metric_id: metric.metric_id,
+            week,
+          })
+          .subscribe((standard) => {
+            if (!standard) return;
+            const [value, value_extended] = data.value.split('/');
+            if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
+            if (value_extended) {
+              const report_msg =
+                Number(value_extended) > standard.upperbound
+                  ? metric.upperbound_msg
+                  : Number(value) < standard.lowerbound
+                    ? metric.lowerbound_msg
+                    : '';
+              console.log(report_msg);
+              this.report_messages.set([...this.report_messages(), report_msg]);
+            } else {
+              const report_msg =
+                Number(value) > standard.upperbound ? metric.upperbound_msg : Number(value) < standard.lowerbound ? metric.lowerbound_msg : '';
+              console.log(report_msg);
+              this.report_messages.set([...this.report_messages(), report_msg]);
+            }
+          });
+      }
+    });
   }
 
-  // Display method for autocomplete
   displayFn(hospital: HospitalResponse): string {
     return hospital && hospital.name ? hospital.name : '';
   }
 
-  // Method to handle hospital selection
   selectHospital(hospital: HospitalResponse): void {
     this.selectedHospital = hospital;
     this.trackingForm.get('hospital').setValue(hospital.hospital_id);
   }
 
+  visitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.trackingForm.get('visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
+    this.trackingForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  }
+
+  deleteImg(id: string) {
+    this.images = this._trackingService.deleteImage(id);
+  }
+
+  insertImg(img: MediaResponse) {
+    this._trackingService.addImage(img);
+  }
+
+  sharedRecord() {
+    return window.location.href.split('/').slice(0, 3).join('/') + '/record-view?record_id=' + this.selectedRecordData.visit_record_id;
+  }
+
+  copyToClipboard() {
+    this.handleSubmitSuccess({
+      summary: 'Sao chép thành công',
+      detail: 'Đã sao chép link chia sẻ',
+    });
+  }
+
+  closeForm() {
+    this._trackingService.closeForm();
+    this.dialogRef.close();
+  }
+
+  // Form submission methods
   submitForm() {
     this.isDisabled.set(true);
     if (this.trackingForm.invalid) {
       this.trackingForm.markAllAsTouched();
-      this.submitFail();
+      this.handleSubmitFail();
       this.isDisabled.set(false);
       return;
     }
@@ -267,7 +310,7 @@ export class TrackingFormComponent {
     }
   }
 
-  submitFail(msg?: string) {
+  handleSubmitFail(msg?: string) {
     this.messageService.add({
       severity: 'error',
       summary: 'Lưu thất bại',
@@ -277,50 +320,7 @@ export class TrackingFormComponent {
     });
   }
 
-  createRecord(formData: RecordCreateRequest) {
-    console.log(formData);
-    this._trackingService.createRecord(formData).subscribe({
-      next: (res: RecordWithWarningResponse) => {
-        this._trackingService.createImage(res.visit_record_id).subscribe(() => {
-          this.trackingForm.disable();
-          this.submitSuccess();
-          this.messages.set(res.warnings);
-        });
-      },
-      error: (err) => {
-        console.log(err);
-        this.submitFail();
-      },
-    });
-    this.isDisabled.set(true);
-  }
-
-  updateRecord(formData: RecordUpdateRequest) {
-    this._trackingService.updateRecord(formData).subscribe({
-      next: (res: RecordResponse) => {
-        this._trackingService.updateImage(res.visit_record_id).subscribe(() => {
-          this.submitSuccess();
-          this.dialogRef.close();
-        });
-      },
-      error: (err) => {
-        console.log(err);
-        this.submitFail();
-        this.dialogRef.close();
-      },
-    });
-    this.isDisabled.set(false);
-  }
-
-  deleteImg(id: string) {
-    this.images = this._trackingService.deleteImage(id);
-  }
-
-  insertImg(img: MediaResponse) {
-    this._trackingService.addImage(img);
-  }
-
-  submitSuccess(
+  handleSubmitSuccess(
     { summary, detail }: { summary?: string; detail?: string } = {
       summary: 'Lưu thành công',
       detail: 'Lưu chỉ số thành công',
@@ -335,88 +335,69 @@ export class TrackingFormComponent {
     });
   }
 
-  visitDateChange(e: MatDatepickerInputEvent<any>) {
-    this.trackingForm.get('visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  createRecord(formData: RecordCreateRequest) {
+    console.log(formData);
+    this._trackingService.createRecord(formData).subscribe({
+      next: (res: RecordWithWarningResponse) => {
+        this._trackingService.createImage(res.visit_record_id).subscribe(() => {
+          this.trackingForm.disable();
+          this.handleSubmitSuccess();
+          this.messages.set(res.warnings);
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.handleSubmitFail();
+      },
+    });
+    this.isDisabled.set(true);
   }
 
-  nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
-    this.trackingForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
-  }
-
-  sharedRecord() {
-    return window.location.href.split('/').slice(0, 3).join('/') + '/record-view?record_id=' + this.selectedRecordData.visit_record_id;
-  }
-
-  copyToClipboard() {
-    this.submitSuccess({
-      summary: 'Sao chép thành công',
-      detail: 'Đã sao chép link chia sẻ',
+  updateRecord(formData: RecordUpdateRequest) {
+    this._trackingService.updateRecord(formData).subscribe({
+      next: (res: RecordResponse) => {
+        this._trackingService.updateImage(res.visit_record_id).subscribe(() => {
+          this.handleSubmitSuccess();
+          this.dialogRef.close();
+        });
+      },
+      error: (err) => {
+        console.log(err);
+        this.handleSubmitFail();
+        this.dialogRef.close();
+      },
     });
-  }
-
-  patchValue(value: RecordResponse) {
-    this.trackingForm.patchValue({
-      visit_record_id: value.visit_record_id,
-      hospital: value.hospital.hospital_id,
-      doctor_name: value.doctor_name,
-      visit_doctor_date: DateTime.fromJSDate(new Date(value.visit_doctor_date)),
-      next_visit_doctor_date: DateTime.fromJSDate(new Date(value.next_visit_doctor_date)),
-    });
-    if (this.hospitals) {
-      this.filteredHospitals = this.hospitals;
-    }
-    this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
-    this.metrics.forEach((metric) => {
-      const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
-      this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
-    });
-    const week = value.week;
-    value.data.forEach((data) => {
-      // Compare data value with standard value
-      const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
-      if (metric) {
-        this._trackingService
-          .getStandardValue({
-            metric_id: metric.metric_id,
-            week,
-          })
-          .subscribe((standard) => {
-            if (!standard) return;
-            const [value, value_extended] = data.value.split('/');
-            if (value == '0' || value == '0/0' || value == '' || value == ' ') return;
-            if (value_extended) {
-              const report_msg =
-                Number(value_extended) > standard.upperbound
-                  ? metric.upperbound_msg
-                  : Number(value) < standard.lowerbound
-                    ? metric.lowerbound_msg
-                    : '';
-              console.log(report_msg);
-              this.report_messages.set([...this.report_messages(), report_msg]);
-            } else {
-              const report_msg =
-                Number(value) > standard.upperbound ? metric.upperbound_msg : Number(value) < standard.lowerbound ? metric.lowerbound_msg : '';
-              console.log(report_msg);
-              this.report_messages.set([...this.report_messages(), report_msg]);
-            }
-          });
-      }
-    });
+    this.isDisabled.set(false);
   }
 
   deleteRecord() {
     this._trackingService.deleteRecord(this.selectedRecordData.visit_record_id).subscribe(() => {
       this.dialogRef.close();
-      this.submitSuccess({
+      this.handleSubmitSuccess({
         summary: 'Xóa thành công',
         detail: 'Xóa hồ sơ thành công',
       });
     });
   }
 
-  closeForm() {
-    this._trackingService.closeForm();
-    this.dialogRef.close();
+  // Validator methods
+  private numericValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const value = control.value;
+      if (!value || value === '') return null;
+
+      const isNumeric = !isNaN(Number(value)) && Number(value) >= 0;
+      return isNumeric ? null : { invalidNumber: true };
+    };
+  }
+
+  private minMetricsValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const formArray = control as FormArray;
+      // Validate at least one metric has a value
+      const hasValue = formArray.controls.some((ctrl) => ctrl.value && ctrl.value !== '0' && ctrl.value !== 0);
+      return hasValue ? null : { noMetrics: true };
+    };
   }
 
   private maxTodayValidator(): ValidatorFn {

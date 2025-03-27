@@ -39,8 +39,8 @@
           <div
             *ngFor="let date of calendarDays"
             [ngClass]="{
-              'border-2 border-pink-300 bg-gradient-to-br from-pink-200 to-pink-100 font-semibold text-pink-800': isSelected(date),
-              'bg-gradient-to-br from-pink-500 to-pink-400 font-semibold text-white shadow-md': isToday(date),
+              'border-2 border-pink-300 bg-gradient-to-br from-pink-200 to-pink-100 font-semibold text-pink-800': isToday(date),
+              '!bg-gradient-to-br !from-pink-500 !to-pink-400 font-semibold text-white shadow-md': isSelected(date),
               'text-gray-400 hover:text-pink-500': !isMonth(date),
               'bg-rainbow-gradient !text-white shadow-md': isDueDate(date),
             }"
@@ -281,7 +281,7 @@
                       class="relative flex w-full flex-col overflow-hidden rounded-lg p-3 shadow-sm transition-all hover:shadow-md"
                       [style.background-color]="chooseColor(event)"
                       [ngClass]="{
-                        '!bg-rainbow-gradient': isDueDate(event.remind_date),
+                        '': isDueDate(event.remind_date),
                       }"
                     >
                       <!-- Event content -->
