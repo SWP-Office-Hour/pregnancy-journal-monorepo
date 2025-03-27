@@ -388,9 +388,15 @@
                 placeholder="Nhập tiêu đề sự kiện..."
                 class="w-full rounded-lg border-pink-200 bg-pink-50/50 px-3 py-2 placeholder:text-pink-300 focus:border-pink-300 focus:bg-white focus:ring-2 focus:ring-pink-200"
               />
-              <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
-                <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
-              </div>
+              @if (newReminder.title.length < 3 && newReminder.title.length > 0) {
+                <div *ngIf="title.dirty || title.touched" class="mt-1 text-sm text-red-500">
+                  <div>Tiêu đề phải có ít nhất 3 ký tự</div>
+                </div>
+              } @else {
+                <div *ngIf="title.invalid && (title.dirty || title.touched)" class="mt-1 text-sm text-red-500">
+                  <div *ngIf="title.errors?.['required']">Tiêu đề không được để trống</div>
+                </div>
+              }
             </div>
 
             <div class="mb-4">

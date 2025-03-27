@@ -273,7 +273,7 @@ export class TrackingFormComponent {
         this.submitFail();
       },
     });
-    this.isDisabled.set(false);
+    this.isDisabled.set(true);
   }
 
   updateRecord(formData: RecordUpdateRequest) {
