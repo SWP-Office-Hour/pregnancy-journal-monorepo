@@ -5,12 +5,13 @@ import { MessageService } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../../../environments/environment';
+import { LoadingHeartComponent } from '../../../../common/loading-heart/loading-heart.component';
 import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
 
 @Component({
   selector: 'app-record-chart',
-  imports: [TabsModule, ChartModule, NgClass],
+  imports: [TabsModule, ChartModule, NgClass, LoadingHeartComponent],
   templateUrl: './record-chart.component.html',
   styleUrl: './record-chart.component.css',
 })

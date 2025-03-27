@@ -1,87 +1,87 @@
 <div class="min-h-120 h-full overflow-hidden rounded-2xl bg-white shadow-lg">
-  @if (standardResourceOfUniqueMetric.value() !== null) {
-    @defer {
-      <p-tabs
-        value="{{ standardResourceOfUniqueMetric.value().length > 0 ? standardResourceOfUniqueMetric.value()[0][0].metric_id : 0 }}"
-        scrollable="true"
-      >
-        <p-tablist class="relative flex">
-          <div class="flex">
-            @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
-              <p-tab [value]="standardList[0].metric_id">
-                {{ getMetricTitle(standardList[0].metric_id) }}
-              </p-tab>
-            }
-          </div>
-          @defer {
-            <div class="absolute right-4 top-1/2 flex -translate-y-1/2 transform items-center">
-              <button
-                (click)="toggleStandards($event)"
-                class="rounded-full bg-gradient-to-r from-pink-400 to-pink-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-all hover:from-pink-500 hover:to-pink-700 hover:shadow-lg"
-              >
-                Xem tiêu chuẩn
-              </button>
-            </div>
-          } @loading (minimum 500) {}
-        </p-tablist>
-        <p-tabpanels>
+  @if (standardResourceOfUniqueMetric.value().length > 0) {
+    <p-tabs
+      value="{{ standardResourceOfUniqueMetric.value().length > 0 ? standardResourceOfUniqueMetric.value()[0][0].metric_id : 0 }}"
+      scrollable="true"
+    >
+      <p-tablist class="relative flex">
+        <div class="flex">
           @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
-            <p-tabpanel [value]="standardList[0].metric_id">
-              <div class="relative">
-                <!-- Standards info - with Tailwind classes replacing CSS -->
-                @if (showStandards) {
-                  @if (getMetricTitle(standardList[0].metric_id) === 'Cân nặng mẹ') {
-                    <div
-                      class="absolute right-0 top-0 z-10 max-h-[300px] w-56 origin-top-left overflow-y-auto rounded-lg bg-white/95 p-4 shadow-lg transition-opacity transition-transform duration-300 ease-in-out"
-                      [ngClass]="{ '-translate-x-4 opacity-0': !showStandards, 'translate-x-0 opacity-100': showStandards }"
-                      style="scrollbar-width: thin; scrollbar-color: #ffb1c1 #f7f7f7"
-                    >
-                      <div class="mb-2 flex items-center justify-between">
-                        <h4 class="font-medium text-pink-600">Chỉ số tiêu chuẩn</h4>
-                        <button (click)="toggleStandards($event)" class="rounded-full p-1 text-gray-400 hover:bg-pink-50 hover:text-pink-500">
-                          <i class="pi pi-times text-xs"></i>
-                        </button>
-                      </div>
-                      Không có tiêu chuẩn
-                    </div>
-                  } @else {
-                    <div
-                      class="absolute right-0 top-0 z-10 max-h-[300px] w-56 origin-top-left overflow-y-auto rounded-lg bg-white/95 p-4 shadow-lg transition-opacity transition-transform duration-300 ease-in-out"
-                      [ngClass]="{ '-translate-x-4 opacity-0': !showStandards, 'translate-x-0 opacity-100': showStandards }"
-                      style="scrollbar-width: thin; scrollbar-color: #ffb1c1 #f7f7f7"
-                    >
-                      <div class="space-y-2">
-                        @for (standard of sortStandardByWeek(standardList); track $index) {
-                          @if (standard.who_standard_value) {
-                            <div class="flex items-center gap-2 rounded-lg p-2 hover:bg-pink-50">
-                              <div class="flex items-center gap-1">
-                                <span class="text-gray-500">Tuần: </span>
-                                <span class="font-medium text-gray-800">{{ standard.week }}</span>
-                              </div>
-                              <div class="flex items-center gap-1">
-                                <span class="text-gray-500">-</span>
-                                <span class="font-medium text-pink-600">{{ standard.who_standard_value }}</span>
-                              </div>
-                            </div>
-                          }
-                        }
-                      </div>
-                    </div>
-                  }
-                }
-
-                <!-- Chart with click handler -->
-                <p-chart
-                  type="line"
-                  [data]="getChartData(standardList[0].metric_id, standardList)"
-                  [options]="basicOptions"
-                  class="cursor-pointer"
-                ></p-chart>
-              </div>
-            </p-tabpanel>
+            <p-tab [value]="standardList[0].metric_id">
+              {{ getMetricTitle(standardList[0].metric_id) }}
+            </p-tab>
           }
-        </p-tabpanels>
-      </p-tabs>
-    }
+        </div>
+        @defer {
+          <div class="absolute right-4 top-1/2 flex -translate-y-1/2 transform items-center">
+            <button
+              (click)="toggleStandards($event)"
+              class="rounded-full bg-gradient-to-r from-pink-400 to-pink-600 px-4 py-2 text-sm font-medium text-white shadow-md transition-all hover:from-pink-500 hover:to-pink-700 hover:shadow-lg"
+            >
+              Xem tiêu chuẩn
+            </button>
+          </div>
+        } @loading (minimum 500) {}
+      </p-tablist>
+      <p-tabpanels>
+        @for (standardList of standardResourceOfUniqueMetric.value(); track $index) {
+          <p-tabpanel [value]="standardList[0].metric_id">
+            <div class="relative">
+              <!-- Standards info - with Tailwind classes replacing CSS -->
+              @if (showStandards) {
+                @if (getMetricTitle(standardList[0].metric_id) === 'Cân nặng mẹ') {
+                  <div
+                    class="absolute right-0 top-0 z-10 max-h-[300px] w-56 origin-top-left overflow-y-auto rounded-lg bg-white/95 p-4 shadow-lg transition-opacity transition-transform duration-300 ease-in-out"
+                    [ngClass]="{ '-translate-x-4 opacity-0': !showStandards, 'translate-x-0 opacity-100': showStandards }"
+                    style="scrollbar-width: thin; scrollbar-color: #ffb1c1 #f7f7f7"
+                  >
+                    <div class="mb-2 flex items-center justify-between">
+                      <h4 class="font-medium text-pink-600">Chỉ số tiêu chuẩn</h4>
+                      <button (click)="toggleStandards($event)" class="rounded-full p-1 text-gray-400 hover:bg-pink-50 hover:text-pink-500">
+                        <i class="pi pi-times text-xs"></i>
+                      </button>
+                    </div>
+                    Không có tiêu chuẩn
+                  </div>
+                } @else {
+                  <div
+                    class="absolute right-0 top-0 z-10 max-h-[300px] w-56 origin-top-left overflow-y-auto rounded-lg bg-white/95 p-4 shadow-lg transition-opacity transition-transform duration-300 ease-in-out"
+                    [ngClass]="{ '-translate-x-4 opacity-0': !showStandards, 'translate-x-0 opacity-100': showStandards }"
+                    style="scrollbar-width: thin; scrollbar-color: #ffb1c1 #f7f7f7"
+                  >
+                    <div class="space-y-2">
+                      @for (standard of sortStandardByWeek(standardList); track $index) {
+                        @if (standard.who_standard_value) {
+                          <div class="flex items-center gap-2 rounded-lg p-2 hover:bg-pink-50">
+                            <div class="flex items-center gap-1">
+                              <span class="text-gray-500">Tuần: </span>
+                              <span class="font-medium text-gray-800">{{ standard.week }}</span>
+                            </div>
+                            <div class="flex items-center gap-1">
+                              <span class="text-gray-500">-</span>
+                              <span class="font-medium text-pink-600">{{ standard.who_standard_value }}</span>
+                            </div>
+                          </div>
+                        }
+                      }
+                    </div>
+                  </div>
+                }
+              }
+
+              <!-- Chart with click handler -->
+              <p-chart
+                type="line"
+                [data]="getChartData(standardList[0].metric_id, standardList)"
+                [options]="basicOptions"
+                class="cursor-pointer"
+              ></p-chart>
+            </div>
+          </p-tabpanel>
+        }
+      </p-tabpanels>
+    </p-tabs>
+  } @else {
+    <div class="h-96 w-60"><app-loading-heart></app-loading-heart></div>
   }
 </div>

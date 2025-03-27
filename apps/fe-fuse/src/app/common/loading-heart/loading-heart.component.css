@@ -1,4 +1,89 @@
-/* From Uiverse.io by Alderx */
+body fuse-splash-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 25%, #fbcfe8 50%, #f9a8d4 75%, #f472b6 100%);
+  color: #f9fafb;
+  z-index: 999999;
+  pointer-events: none;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body fuse-splash-screen img {
+  width: 120px;
+  max-width: 120px;
+}
+
+body fuse-splash-screen .spinner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+  width: 56px;
+}
+
+body fuse-splash-screen .spinner > div {
+  width: 12px;
+  height: 12px;
+  background-color: #1e96f7;
+  border-radius: 100%;
+  display: inline-block;
+  -webkit-animation: fuse-bouncedelay 1s infinite ease-in-out both;
+  animation: fuse-bouncedelay 1s infinite ease-in-out both;
+}
+
+body fuse-splash-screen .spinner .bounce1 {
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+
+body fuse-splash-screen .spinner .bounce2 {
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+
+@-webkit-keyframes fuse-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+  }
+}
+
+@keyframes fuse-bouncedelay {
+  0%,
+  80%,
+  100% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  40% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+body:not(.fuse-splash-screen-hidden) {
+  overflow: hidden;
+}
+
+body.fuse-splash-screen-hidden fuse-splash-screen {
+  visibility: hidden;
+  opacity: 0;
+}
+
+/*Test*/
 /* heart beat */
 .heartbeatloader {
   position: absolute;
@@ -128,5 +213,201 @@
 
   75% {
     transform: scale(1.3);
+  }
+}
+
+/* Maternal Loader - Enhanced Styling */
+.maternal-loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.heartbeat-container {
+  position: relative;
+  width: 15vmin;
+  height: 15vmin;
+  margin-bottom: 2rem;
+}
+
+/* EKG Line Animation */
+.heartbeat-line {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 30%;
+  transform: translate(-50%, -50%) scale(1.8);
+  z-index: 5;
+}
+
+.ekg-path {
+  stroke: rgba(255, 255, 255, 0.95);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1000px;
+  stroke-dashoffset: 1000px;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5));
+  animation: drawLine 2s infinite ease-out forwards;
+}
+
+@keyframes drawLine {
+  0% {
+    stroke-dashoffset: 1000px;
+  }
+  50% {
+    stroke-dashoffset: 0;
+  }
+  85% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.2;
+  }
+}
+
+/* Heart Animation */
+.heart-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -60%) scale(0.8);
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  animation: innerPulse 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+.heart-inner:before,
+.heart-inner:after {
+  position: absolute;
+  content: '';
+  width: 50%;
+  height: 80%;
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+  border-radius: 50px 50px 0 0;
+}
+
+.heart-inner:before {
+  left: 50%;
+  transform: rotate(-45deg);
+  transform-origin: 0 100%;
+}
+
+.heart-inner:after {
+  left: 0;
+  transform: rotate(45deg);
+  transform-origin: 100% 100%;
+}
+
+@keyframes innerPulse {
+  0%,
+  100% {
+    transform: translate(-50%, -60%) scale(0.8);
+  }
+  50% {
+    transform: translate(-50%, -60%) scale(0.9);
+  }
+}
+
+.heart-outer {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(219, 39, 119, 0.6) 0%, rgba(236, 72, 153, 0.4) 70%, rgba(244, 114, 182, 0.2) 100%);
+  box-shadow:
+    0 0 15px 5px rgba(244, 114, 182, 0.3),
+    0 0 30px 10px rgba(236, 72, 153, 0.2),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
+  position: absolute;
+  z-index: 2;
+  opacity: 0.8;
+  top: 0;
+  left: 0;
+  transform: scale(1);
+  animation: outerPulse 1.5s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+@keyframes outerPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.6;
+  }
+}
+
+/* Loading Text */
+.loading-text {
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: white;
+  letter-spacing: 0.1em;
+  margin-top: 1rem;
+  opacity: 0.9;
+  animation: fadeInOut 1.5s infinite ease-in-out;
+}
+
+@keyframes fadeInOut {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Decorative Elements */
+.decorative-circle {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.2;
+  background: white;
+}
+
+.circle-1 {
+  width: 8vmin;
+  height: 8vmin;
+  top: 20%;
+  left: 15%;
+  animation: float 7s infinite ease-in-out;
+}
+
+.circle-2 {
+  width: 5vmin;
+  height: 5vmin;
+  bottom: 25%;
+  right: 20%;
+  animation: float 5s infinite ease-in-out reverse;
+}
+
+.circle-3 {
+  width: 3vmin;
+  height: 3vmin;
+  top: 40%;
+  right: 25%;
+  animation: float 4s infinite ease-in-out 1s;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.05);
   }
 }
