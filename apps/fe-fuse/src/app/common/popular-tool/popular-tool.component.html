@@ -1,0 +1,132 @@
+<section class="flex flex-row justify-around">
+  <div class="rounded-3xl bg-gradient-to-br from-blue-50 via-purple-50/30 to-pink-50/30 p-6 shadow-lg">
+    <div class="flex flex-col gap-8 lg:flex-row">
+      <!-- Left Section: Title & Description -->
+      <div class="flex flex-col items-start justify-center space-y-6 lg:w-1/4">
+        <div>
+          <h2 class="mb-2 bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent md:text-4xl">
+            Công cụ đặc biệt dành riêng cho mẹ bầu!
+          </h2>
+          <p class="text-lg text-gray-600">Hành trình mang thai trở nên dễ dàng hơn với các công cụ hỗ trợ thông minh. Khám phá ngay!</p>
+        </div>
+      </div>
+
+      <!-- Right Section: Tool Cards -->
+      <div class="grid flex-1 grid-cols-1 gap-6 sm:grid-cols-3">
+        <!-- Baby Names Finder Tool -->
+        <div
+          (click)="openFirstTool()"
+          class="maternal-tool-card group relative overflow-hidden rounded-xl border border-green-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        >
+          <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-green-50 opacity-40"></div>
+          <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-green-50 opacity-30"></div>
+
+          <!-- Tool Icon -->
+          <img
+            src="/images/ui/tool/Tool2.svg"
+            alt="Baby Names Finder"
+            class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+          />
+
+          <!-- Tool Title -->
+          <h3 class="mb-2 text-xl font-bold text-gray-800">Tìm Tên Em Bé</h3>
+
+          <!-- Tool Description -->
+          <p class="mb-6 text-gray-600">Khám phá hàng nghìn tên cho bé gái và bé trai với ý nghĩa đặc biệt và nguồn gốc.</p>
+
+          <!-- Tool Button -->
+          <div
+            class="group/btn mt-auto inline-flex items-center rounded-full bg-green-100 px-5 py-2 text-sm font-medium text-green-600 transition-all hover:bg-green-200 active:scale-95"
+          >
+            Khám phá ngay
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Due Date Calculator Tool -->
+        <div
+          (click)="openSecondTool()"
+          class="maternal-tool-card group relative overflow-hidden rounded-xl border border-orange-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        >
+          <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-orange-50 opacity-40"></div>
+          <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-orange-50 opacity-30"></div>
+
+          <!-- Tool Icon -->
+          <img
+            src="/images/ui/tool/Tool3.svg"
+            alt="Due Date Calculator"
+            class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+          />
+
+          <!-- Tool Title -->
+          <h3 class="mb-2 text-xl font-bold text-gray-800">Tính Ngày Dự Sinh</h3>
+
+          <!-- Tool Description -->
+          <p class="mb-6 text-gray-600">Dự đoán ngày sinh của em bé và tìm hiểu các cột mốc quan trọng trong thai kỳ của bạn.</p>
+
+          <!-- Tool Button -->
+          <div
+            class="group/btn mt-auto inline-flex items-center rounded-full bg-orange-100 px-5 py-2 text-sm font-medium text-orange-600 transition-all hover:bg-orange-200 active:scale-95"
+          >
+            Tính ngay
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Pregnancy Evolution Tool -->
+        <div
+          (click)="openThirdTool()"
+          class="maternal-tool-card group relative overflow-hidden rounded-xl border border-pink-100 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+        >
+          <div class="absolute -right-12 -top-12 h-24 w-24 rounded-full bg-pink-50 opacity-40"></div>
+          <div class="absolute -bottom-6 -left-6 h-20 w-20 rounded-full bg-pink-50 opacity-30"></div>
+
+          <!-- Tool Icon -->
+          <img
+            src="/images/ui/tool/Tool1.svg"
+            alt="Pregnancy Evolution"
+            class="mb-6 h-16 w-16 transition-all duration-300 group-hover:rotate-6 group-hover:scale-110"
+          />
+
+          <!-- Tool Title -->
+          <h3 class="mb-2 text-xl font-bold text-gray-800">Quá Trình Phát Triển</h3>
+
+          <!-- Tool Description -->
+          <p class="mb-6 text-gray-600">Theo dõi sự phát triển của em bé qua từng tuần với hình ảnh và thông tin chi tiết.</p>
+
+          <!-- Tool Button -->
+          <div
+            class="group/btn mt-auto inline-flex items-center rounded-full bg-pink-100 px-5 py-2 text-sm font-medium text-pink-600 transition-all hover:bg-pink-200 active:scale-95"
+          >
+            Xem chi tiết
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="ml-1 h-4 w-4 transition-transform duration-300 group-hover/btn:translate-x-1"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

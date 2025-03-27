@@ -1,9 +1,12 @@
+import { NgForOf } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { NgxSplideModule } from 'ngx-splide';
+import { StyleClass } from 'primeng/styleclass';
 import { PregnancyWeekInfoComponent } from '../../modules/member/pregnancy-week-info/pregnancy-week-info.component';
 
 @Component({
   selector: 'app-week-illustration',
-  imports: [PregnancyWeekInfoComponent],
+  imports: [PregnancyWeekInfoComponent, NgForOf, NgxSplideModule, StyleClass],
   templateUrl: './week-illustration.component.html',
   styleUrl: './week-illustration.component.css',
 })
