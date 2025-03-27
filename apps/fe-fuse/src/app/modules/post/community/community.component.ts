@@ -16,6 +16,7 @@ import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
 import { map, tap } from 'rxjs';
 import { FuseCardComponent } from '../../../../@fuse/components/card';
 import { environment } from '../../../../environments/environment';
+import { AuthService } from '../../../core/auth/auth.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
 import { CreatePostComponent } from '../create-post/create-post.component';
@@ -56,6 +57,7 @@ export class CommunityComponent {
     private _userService: UserService,
     private _httpClient: HttpClient,
     private dialog: MatDialog,
+    private _authService: AuthService,
   ) {
     this._userService.user$.subscribe((user) => {
       this.user = user;
@@ -66,13 +68,13 @@ export class CommunityComponent {
 
   toggleMyPosts(): void {
     this.showMyPosts = true;
-    // this.resetPosts();
+    this.resetPosts();
     this.fetchPosts(this.page);
   }
 
   showAllPosts(): void {
     this.showMyPosts = false;
-    // this.resetPosts();
+    this.resetPosts();
     this.fetchPosts(this.page);
   }
 
@@ -92,11 +94,15 @@ export class CommunityComponent {
     // Build URL with user filter if showing only my posts
     let url = environment.apiUrl + 'posts?page=' + page + '&limit=' + this.limit;
     if (this.showMyPosts && this.user) {
-      url += '&user_id=' + this.user.user_id;
+      url = environment.apiUrl + 'posts/user';
     }
+    // Create headers with authorization token
+    const headers = {
+      Authorization: `Bearer ${this._authService.accessToken}`,
+    };
 
     this._httpClient
-      .get<{ total: number; data: PostType[] }>(url)
+      .get<{ total: number; data: PostType[] }>(url, {})
       .pipe(
         map((res) => {
           res.data.forEach((post) => {
