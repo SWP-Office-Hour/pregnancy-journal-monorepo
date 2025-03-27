@@ -30,8 +30,7 @@ export class PregnancyTrackingV2Service {
           child_id: this.child.child_id,
         },
       }).then((res) => res.json());
-      console.log(res.data);
-      return res.data;
+      return res.data.sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime());
     },
   });
 
@@ -67,9 +66,7 @@ export class PregnancyTrackingV2Service {
   }
 
   getNewestRecord() {
-    return this.records
-      .value()
-      .sort((a, b) => new Date(a.visit_doctor_date).getTimezoneOffset() - new Date(b.visit_doctor_date).getTimezoneOffset())[0];
+    return this.records.value().sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime())[0];
   }
 
   getStandardValue({ week, metric_id }: { metric_id: string; week: number }) {
