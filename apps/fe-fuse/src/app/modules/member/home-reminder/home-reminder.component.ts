@@ -1,4 +1,4 @@
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, effect, OnInit, resource, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -17,7 +17,7 @@ import { ReminderEditorComponent } from '../../calendar/reminder-editor/reminder
 @Component({
   selector: 'app-home-reminder',
   standalone: true,
-  imports: [CommonModule, MatIconModule, RouterLink, ToastModule, ConfirmPopupModule, DatePipe],
+  imports: [CommonModule, MatIconModule, RouterLink, ToastModule, ConfirmPopupModule],
   providers: [ConfirmationService, MessageService],
   templateUrl: './home-reminder.component.html',
 })

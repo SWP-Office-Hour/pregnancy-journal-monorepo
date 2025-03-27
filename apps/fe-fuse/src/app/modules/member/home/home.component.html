@@ -156,23 +156,22 @@
   </section>
 
   <!-- Noti & Blog & Mini Chart-->
-  <section class="mb-8 grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3">
+  <section class="grid w-full min-w-0 grid-cols-1 gap-8 sm:grid-cols-1 md:grid-cols-3">
     <!-- Nhắc nhở-->
     <div
-      class="bg-card col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-2 shadow-lg backdrop-blur-sm lg:col-span-1"
+      class="col-span-3 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-2 shadow-lg backdrop-blur-sm lg:col-span-1"
     >
       <app-home-reminder></app-home-reminder>
+      <!-- Recommend Blog-->
+      <app-recommended-blogs></app-recommended-blogs>
     </div>
 
     <!-- Recommend Info Week-->
     <div
-      class="bg-card col-span-2 flex flex-auto flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm"
-    ></div>
+      class="col-span-2 flex flex-auto flex-col justify-between overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm"
+    >
+      <app-week-illustration></app-week-illustration>
+      <app-popular-tool></app-popular-tool>
+    </div>
   </section>
-
-  <!-- Popular Tools Section -->
-  <app-popular-tool></app-popular-tool>
-
-  <!-- Recommend Blog-->
-  <app-recommended-blogs></app-recommended-blogs>
 </div>
