@@ -7,10 +7,10 @@ import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { environment } from '../../../../environments/environment';
+import { LineChartComponent } from '../../../common/line-chart/line-chart.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { TrackingFormComponent } from './form/tracking-form.component';
 import { PregnancyTrackingV2Service } from './pregnancy-tracking-v2.service';
-import { RecordChartComponent } from './record-chart/record-chart.component';
 import { RecordTableComponent } from './record-table/record-table.component';
 import { TrackingMiniCalendarComponent } from './tracking-mini-calendendar/tracking-mini-calendar.component';
 
@@ -21,7 +21,7 @@ interface RecordWithWarning {
 
 @Component({
   selector: 'app-pregnancy-service',
-  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, NgAutoAnimateDirective, RecordChartComponent, DatePipe],
+  imports: [RecordTableComponent, FormsModule, Toast, TrackingMiniCalendarComponent, NgAutoAnimateDirective, DatePipe, LineChartComponent],
   templateUrl: './pregnancy-tracking.component.html',
   styleUrl: './pregnancy-tracking.component.css',
   standalone: true,
