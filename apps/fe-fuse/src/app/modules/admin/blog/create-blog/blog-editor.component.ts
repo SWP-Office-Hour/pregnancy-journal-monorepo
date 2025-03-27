@@ -13,6 +13,7 @@ import { BlogResponseType, BlogUpdateRequestType, CategoryResponse, MediaRespons
 import { QuillEditorComponent } from 'ngx-quill';
 import { imageCompressor } from 'quill-image-compress';
 
+import { MessageService } from 'primeng/api';
 import { FileUploadComponent } from '../../../../common/file-upload/file-upload.component';
 import { ImagePreviewComponent } from '../../../../common/image-preview/image-preview.component';
 import { BlogsService } from '../blogs.service';
@@ -35,6 +36,7 @@ import { BlogsService } from '../blogs.service';
     ImagePreviewComponent,
     FormsModule,
   ],
+  providers: [MessageService],
   templateUrl: './blog-editor.component.html',
   styleUrl: './blog-editor.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -86,6 +88,7 @@ export class BlogEditorComponent implements OnInit {
   constructor(
     private _formBuilder: FormBuilder,
     private _blogService: BlogsService,
+    private _msgService: MessageService,
     private _router: Router,
   ) {
     this._blogService.getTags().subscribe((tags) => {
@@ -199,12 +202,22 @@ export class BlogEditorComponent implements OnInit {
       };
       this._blogService.createBlog(blogCreateData).subscribe({
         next: () => {
-          window.alert('Blog created successfully');
+          this._msgService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: `Tạo blog thành công`,
+            life: 3000,
+          });
           this._router.navigateByUrl('/admin/blog');
         },
         error: (error) => {
           console.log(error);
-          window.alert(error.error.message);
+          this._msgService.add({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: 'Tạo Blog không thành công',
+            life: 3000,
+          });
         },
       });
     } else {
@@ -219,12 +232,22 @@ export class BlogEditorComponent implements OnInit {
       };
       this._blogService.updateBlog(blogUpdateData).subscribe({
         next: () => {
-          window.alert('Blog updated successfully');
+          this._msgService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: `Chỉnh sửa blog thành công`,
+            life: 3000,
+          });
           this._router.navigateByUrl('/admin/blog');
         },
         error: (error) => {
           console.log(error);
-          window.alert(error.error.message);
+          this._msgService.add({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: 'Tạo Blog không thành công',
+            life: 3000,
+          });
         },
       });
     }
@@ -234,12 +257,22 @@ export class BlogEditorComponent implements OnInit {
     if (this._blog) {
       this._blogService.deleteBlog(this._blog.blog_id).subscribe({
         next: () => {
-          window.alert('Blog deleted successfully');
+          this._msgService.add({
+            severity: 'success',
+            summary: 'Successful',
+            detail: `Xóa blog thành công`,
+            life: 3000,
+          });
           this._router.navigateByUrl('/admin/blog');
         },
         error: (error) => {
           console.log(error);
-          window.alert(error.error.message);
+          this._msgService.add({
+            severity: 'error',
+            summary: 'Lỗi',
+            detail: 'Tạo Blog không thành công',
+            life: 3000,
+          });
         },
       });
     }
