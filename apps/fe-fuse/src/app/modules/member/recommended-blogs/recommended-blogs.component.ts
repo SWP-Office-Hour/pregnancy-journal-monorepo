@@ -1,7 +1,8 @@
 import { CommonModule, DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
-import { BlogResponseType, CategoryResponse } from '@pregnancy-journal-monorepo/contract';
+import { RouterLink } from '@angular/router';
+import { BlogResponseType, CategoryResponse, ChildType } from '@pregnancy-journal-monorepo/contract';
 import { MenuItem } from 'primeng/api';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
@@ -13,7 +14,7 @@ import { PregnancyRecordService } from '../../customer/pregnancy-record/pregnanc
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [DatePipe, CommonModule],
+  imports: [DatePipe, CommonModule, RouterLink],
   templateUrl: './recommended-blogs.component.html',
   styleUrl: './recommended-blogs.component.css',
 })
@@ -22,6 +23,7 @@ export class RecommendedBlogsComponent {
   categories: CategoryResponse[] = [];
   items: MenuItem[] | undefined;
   recommendedBlogs: BlogResponseType[] = [];
+  child: ChildType;
 
   currentPage = 1;
   totalPages = 0;
