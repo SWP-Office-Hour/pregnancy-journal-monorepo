@@ -1,51 +1,200 @@
-<section class="mx-auto mb-8 flex w-1/2 min-w-0 items-center justify-center">
-  <!-- Cấu trúc thai -->
-  <div class="bg-card flex w-1/2 flex-col overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm">
-    <div class="flex items-center justify-between">
-      <h2 class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-2xl font-bold text-transparent">Sự phát triển của bé</h2>
-      <button
-        class="flex items-center rounded-full bg-gradient-to-r from-pink-50 to-pink-100 px-3 py-1 text-pink-600 shadow-sm hover:scale-105"
-        (click)="goToThisWeek()"
-      >
-        <span class="text-sm font-medium">Tuần thứ</span>
-        <span class="ml-1 text-xl font-bold">{{ this.countWeekNumber }}</span>
-      </button>
-    </div>
+<div class="container mx-auto my-4 w-full" style="max-width: 1024px; width: 100%">
+  <div class="relative w-full">
+    <!-- Main pregnancy week illustration with maternal styling -->
+    <div
+      class="timeline-stage w-full rounded-3xl bg-gradient-to-br from-pink-50 via-white to-purple-50 p-6 shadow-lg transition-all duration-300 hover:shadow-xl"
+    >
+      <!-- Week Header with Feminine Design -->
+      <div class="mb-6 flex items-center justify-between">
+        <div class="flex items-center">
+          <div
+            class="relative mr-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 to-pink-400 shadow-md transition-all duration-300 hover:scale-105"
+          >
+            <span class="text-2xl font-bold text-white">{{ countWeek }}</span>
+            <div
+              class="absolute -right-1 -top-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-400 text-xs font-bold text-white shadow-sm"
+            >
+              <span>tuần</span>
+            </div>
+          </div>
+          <div>
+            <h2 class="bg-gradient-to-r from-pink-600 to-purple-500 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
+              Tuần thứ {{ countWeek }} thai kỳ
+            </h2>
+            <p class="mt-1 text-gray-600">Khoảng {{ (countWeek - 1) * 7 }} - {{ countWeek * 7 }} ngày</p>
+          </div>
+        </div>
 
-    <div class="relative mt-6 flex flex-auto flex-col">
-      <!-- Hình ảnh mẹ -->
-      <div class="overflow-hidden rounded-xl shadow-lg ring-2 ring-pink-100 ring-offset-2">
-        <img
-          class="w-full transition-transform duration-500 hover:scale-105"
-          [src]="'/images/fetal-growth/Female_View_' + countWeekString + '.jpg'"
-          [alt]="'mẹ tuần ' + countWeekString"
-          style="filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1))"
-        />
+        <div class="hidden flex-shrink-0 items-center md:flex">
+          <span class="mr-3 rounded-full bg-pink-100 px-4 py-1.5 text-sm font-medium text-pink-600 shadow-sm">
+            <ng-container *ngIf="countWeek <= 13">Tam cá nguyệt 1</ng-container>
+            <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Tam cá nguyệt 2</ng-container>
+            <ng-container *ngIf="countWeek > 27">Tam cá nguyệt 3</ng-container>
+          </span>
+        </div>
       </div>
 
-      <!-- Hình ảnh thai nhi -->
-      <!--            <div-->
-      <!--              class="absolute left-5 top-0 size-72 overflow-hidden rounded-full bg-gradient-to-tr from-pink-500 to-red-500 p-3 ring-4 ring-white ring-offset-4 transition-all duration-300 hover:scale-105 hover:from-pink-600 hover:to-red-600"-->
-      <!--              style="-->
-      <!--                box-shadow:-->
-      <!--                  inset 0 1px 2px rgba(0, 0, 0, 0.05),-->
-      <!--                  0 10px 15px -3px rgba(236, 72, 153, 0.5),-->
-      <!--                  0 4px 6px -2px rgba(236, 72, 153, 0.5);-->
-      <!--                animation: gentle-pulse 3s infinite ease-in-out;-->
-      <!--              "-->
-      <!--            >-->
-      <!--              <div class="h-full w-full overflow-hidden rounded-full border-4 border-white/30">-->
-      <!--                <img-->
-      <!--                  class="h-full w-full rounded-full object-cover transition-transform duration-500 hover:scale-110"-->
-      <!--                  style="box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.25)"-->
-      <!--                  [src]="'/images/fetal-growth/Baby_View_' + countWeek + '.jpg'"-->
-      <!--                  [alt]="'con tuần ' + countWeekNumber"-->
-      <!--                />-->
-      <!--              </div>-->
-      <!--              <div class="absolute -right-2 -top-2 flex h-10 w-10 items-center justify-center rounded-full bg-white shadow-md">-->
-      <!--                <span class="bg-gradient-to-r from-pink-600 to-rose-500 bg-clip-text text-sm font-bold text-transparent">{{ countWeekNumber }}</span>-->
-      <!--              </div>-->
-      <!--            </div>-->
+      <!-- Main Content with Mother and Baby Development -->
+      <div class="flex w-full flex-col md:flex-row md:space-x-6">
+        <!-- Mother Image Column -->
+        <div class="mb-6 md:mb-0 md:w-1/3">
+          <div class="overflow-hidden rounded-2xl border-2 border-pink-100 shadow-lg">
+            <img
+              class="w-full transition-transform duration-500 hover:scale-105"
+              [src]="'/images/fetal-growth/Female_View_' + countWeekString + '.jpg'"
+              [alt]="'mẹ tuần ' + countWeekString"
+              style="filter: drop-shadow(0 4px 6px rgba(236, 72, 153, 0.1))"
+            />
+          </div>
+
+          <!-- Optional: Size Comparison -->
+          <div class="mt-4 rounded-xl bg-gradient-to-r from-pink-50 to-purple-50 p-3 text-center shadow-sm">
+            <p class="text-sm text-gray-600">Bé có kích thước gần bằng</p>
+            <p class="text-lg font-medium text-pink-600">
+              <ng-container *ngIf="countWeek === 8">Một quả nho</ng-container>
+              <ng-container *ngIf="countWeek === 12">Một quả chanh</ng-container>
+              <ng-container *ngIf="countWeek === 16">Một quả bơ</ng-container>
+              <ng-container *ngIf="countWeek === 20">Một quả chuối</ng-container>
+              <ng-container *ngIf="countWeek === 24">Một quả đu đủ</ng-container>
+              <ng-container *ngIf="countWeek === 28">Một quả dừa</ng-container>
+              <ng-container *ngIf="countWeek === 32">Một quả dưa hấu nhỏ</ng-container>
+              <ng-container *ngIf="countWeek === 36">Một bí ngô</ng-container>
+              <ng-container *ngIf="countWeek >= 38">Một em bé sơ sinh</ng-container>
+              <ng-container *ngIf="![8, 12, 16, 20, 24, 28, 32, 36, 38, 39, 40].includes(countWeek)">Đang phát triển</ng-container>
+            </p>
+          </div>
+        </div>
+
+        <!-- Development Information Column -->
+        <div class="md:w-2/3">
+          <!-- Baby Development Information with improved styling -->
+          <div class="mb-4 rounded-2xl bg-white p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <h3 class="mb-4 flex items-center font-bold text-pink-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                />
+              </svg>
+              Sự phát triển của bé
+            </h3>
+            <p class="leading-relaxed text-gray-600">{{ getSystemReminderMessage() }}</p>
+
+            <!-- Development Progress Indicator -->
+            <div class="mt-4 flex items-center">
+              <div class="mr-2 h-2 w-full overflow-hidden rounded-full bg-pink-100">
+                <div
+                  class="h-full rounded-full bg-gradient-to-r from-pink-400 to-purple-400 transition-all duration-500"
+                  [style.width]="progressWidth + '%'"
+                ></div>
+              </div>
+              <span class="ml-2 text-sm font-medium text-pink-600">{{ progressWidth }}%</span>
+            </div>
+          </div>
+
+          <!-- Mother's Experience -->
+          <div class="mb-4 rounded-2xl bg-purple-50/50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <h3 class="mb-4 flex items-center font-bold text-purple-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"
+                />
+              </svg>
+              Các thay đổi ở mẹ
+            </h3>
+
+            <!-- Mother's Changes -->
+            <ul class="space-y-2">
+              <li class="flex items-start rounded-lg p-2 transition-all duration-300 hover:bg-white">
+                <div class="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-purple-100 text-purple-500">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-gray-600">
+                  <ng-container *ngIf="countWeek <= 13">Mẹ có thể cảm thấy mệt mỏi và buồn nôn vào buổi sáng</ng-container>
+                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Bụng bắt đầu to lên, mẹ có thể cảm nhận được bé đạp</ng-container>
+                  <ng-container *ngIf="countWeek > 27">Mẹ có thể khó ngủ và di chuyển khó khăn hơn</ng-container>
+                </span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tips for Mom -->
+          <div class="rounded-2xl bg-gradient-to-br from-green-50/50 to-blue-50/50 p-5 shadow-sm transition-all duration-300 hover:shadow-md">
+            <h3 class="mb-4 flex items-center font-bold text-green-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Lời khuyên cho mẹ
+            </h3>
+
+            <!-- Tips Content -->
+            <div class="space-y-3">
+              <div class="flex items-start rounded-lg bg-white/70 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                <div class="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500">1</div>
+                <p class="text-gray-600">
+                  <ng-container *ngIf="countWeek <= 13">Uống vitamin tổng hợp cho bà bầu có chứa acid folic</ng-container>
+                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Đi khám thai định kỳ để theo dõi sức khỏe mẹ và bé</ng-container>
+                  <ng-container *ngIf="countWeek > 27">Chuẩn bị sẵn sàng cho ngày sinh, nghỉ ngơi nhiều hơn</ng-container>
+                </p>
+              </div>
+
+              <div class="flex items-start rounded-lg bg-white/70 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                <div class="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500">2</div>
+                <p class="text-gray-600">
+                  <ng-container *ngIf="countWeek <= 13">Nghỉ ngơi đầy đủ, tránh các thực phẩm không an toàn cho thai kỳ</ng-container>
+                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Tập các bài tập nhẹ nhàng dành cho bà bầu</ng-container>
+                  <ng-container *ngIf="countWeek > 27">Theo dõi cử động của bé và các dấu hiệu chuyển dạ</ng-container>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline Navigation Controls -->
+      <div class="mt-6 flex justify-center space-x-4">
+        <button
+          (click)="previousStage()"
+          [disabled]="countWeek === 1"
+          class="flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-pink-600 shadow-sm transition-all duration-300 hover:bg-pink-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+          Tuần trước
+        </button>
+
+        <!-- Return to Current Week Button -->
+        <button
+          (click)="goToWeek()"
+          *ngIf="countWeek !== currentPregnancyWeek"
+          class="flex items-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 hover:from-pink-500 hover:to-purple-500 hover:shadow-md"
+        >
+          Tuần hiện tại
+        </button>
+
+        <button
+          (click)="nextStage()"
+          [disabled]="countWeek === 40"
+          class="flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-pink-600 shadow-sm transition-all duration-300 hover:bg-pink-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          Tuần sau
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Decorative Elements -->
+      <div class="absolute -bottom-3 -right-3 h-12 w-12 rounded-full bg-pink-100/40"></div>
+      <div class="absolute -left-3 -top-3 h-10 w-10 rounded-full bg-purple-100/40"></div>
     </div>
   </div>
-</section>
+</div>
