@@ -1,7 +1,9 @@
+import { ChildV2Service } from '../../core/children/child.v2.service';
+
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BlogResponseType, CategoryResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { BlogResponseType, CategoryResponse, ChildType, Status } from '@pregnancy-journal-monorepo/contract';
 import { MenuItem } from 'primeng/api';
 import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PaginationComponent } from '../../common/pagination/pagination.component';
@@ -35,6 +37,8 @@ export class BlogMasonryComponent implements OnInit {
   categories: CategoryResponse[] = [];
   items: MenuItem[] | undefined;
   selectedCategory: string = '';
+  recommendedBlogs: BlogResponseType[] = [];
+  child: ChildType;
 
   // Properties to track the currently displayed featured blogs
   featuredMainBlog: BlogResponseType | null = null;
@@ -56,12 +60,17 @@ export class BlogMasonryComponent implements OnInit {
   constructor(
     private blogService: BlogMasonryService,
     private _authService: AuthService,
+    private childService: ChildV2Service,
   ) {}
 
   ngOnInit(): void {
+    this.childService.child$.subscribe((data) => {
+      this.child = data;
+    });
     this.loadTrendBlogs();
     this.loadCategories();
     this.loadBlogs();
+    this.loadRecommendedBlogs();
     this.startTicker();
     this.startAutoSlide();
     this.items = [
@@ -70,13 +79,50 @@ export class BlogMasonryComponent implements OnInit {
     ];
   }
 
+  loadRecommendedBlogs(): void {
+    // Get tags for the child
+
+    this.blogService.getTagByChildId(this.child.child_id).subscribe((response) => {
+      if (response) {
+        // Extract tag IDs
+        const tagIds = response.map((tag) => tag.tag_id);
+        // Get blog recommendations based on tags
+        this.blogService.getBlogRecommendationByTagArray(tagIds).subscribe((result) => {
+          console.log(result);
+          this.recommendedBlogs = result.blogs;
+          // If no recommendations, fall back to regular blogs
+          if (!this.recommendedBlogs || this.recommendedBlogs.length === 0) {
+            this.recommendedBlogs = [...this.blogs].slice(0, 5);
+          }
+        });
+      } else {
+        // Fallback if no tags
+        this.recommendedBlogs = [...this.blogs].slice(0, 5);
+      }
+    });
+  }
+
+  // loadBlogs(categoryId: string = ''): void {
+  //   // Replace with your actual API call
+  //   this.blogService.getBlogs(categoryId, this.currentPage).subscribe((data) => {
+  //     this.totalPages = data.total_page;
+  //     this.blogs = data.blogs;
+  //     this.updateFeaturedBlogs();
+  //     console.log(this.blogs);
+  //   });
+  // }
+
   loadBlogs(categoryId: string = ''): void {
-    // Replace with your actual API call
     this.blogService.getBlogs(categoryId, this.currentPage).subscribe((data) => {
       this.totalPages = data.total_page;
       this.blogs = data.blogs;
+
+      // Only use as fallback if recommendations haven't loaded
+      if (this.recommendedBlogs.length === 0) {
+        this.recommendedBlogs = [...this.blogs].slice(0, 5);
+      }
+
       this.updateFeaturedBlogs();
-      console.log(this.blogs);
     });
   }
 

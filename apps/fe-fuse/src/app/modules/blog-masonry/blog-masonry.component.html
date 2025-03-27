@@ -8,7 +8,7 @@
       <div class="relative h-[500px] w-full overflow-hidden rounded-[calc(2rem-4px)]">
         <!-- Carousel slides with Angular ngForOf and ngClass -->
         <div
-          *ngFor="let item of carouselItems; let i = index"
+          *ngFor="let item of recommendedBlogs; let i = index"
           [ngClass]="{ 'pointer-events-none opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i }"
           class="absolute inset-0 h-full w-full transition-all duration-700"
           [ngStyle]="{ 'z-index': currentIndex === i ? 20 : 10 }"
