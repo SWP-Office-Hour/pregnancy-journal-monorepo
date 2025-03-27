@@ -136,6 +136,7 @@ export class ReminderEditorComponent {
         this.matDialogRef.close();
       });
     } else {
+      console.log('click create reminder');
       const reminderData: ReminderCreateRequest = {
         title: this.reminderForm.get('title')?.value,
         content: this.reminderForm.get('content')?.value,
