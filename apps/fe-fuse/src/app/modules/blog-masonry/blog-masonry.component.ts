@@ -90,6 +90,12 @@ export class BlogMasonryComponent implements OnInit {
         this.blogService.getBlogRecommendationByTagArray(tagIds).subscribe((result) => {
           console.log(result);
           this.recommendedBlogs = result.blogs;
+          if (this.recommendedBlogs.length < 5) {
+            // If not enough recommendations, get additional blogs
+            const totalBlogs = this.recommendedBlogs.length;
+            this.recommendedBlogs = [...this.recommendedBlogs, ...this.blogs].slice(0, 5);
+          }
+
           // If no recommendations, fall back to regular blogs
           if (!this.recommendedBlogs || this.recommendedBlogs.length === 0) {
             this.recommendedBlogs = [...this.blogs].slice(0, 5);

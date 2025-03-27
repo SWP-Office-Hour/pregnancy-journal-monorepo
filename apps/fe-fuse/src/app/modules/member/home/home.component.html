@@ -383,4 +383,151 @@
       </div>
     </div>
   </section>
+
+  <!--  <div *ngIf="recommendedBlogs && recommendedBlogs.length > 0" class="relative h-[500px] w-full overflow-hidden rounded-[calc(2rem-4px)]">-->
+  <!-- Maternal Blog Carousel -->
+  <div
+    class="relative mb-8 mt-3 overflow-hidden rounded-[2rem] border-2 border-pink-100 bg-gradient-to-r from-pink-50/30 to-purple-50/30 p-1 shadow-lg"
+  >
+    <div class="relative h-[500px] w-full overflow-hidden rounded-[calc(2rem-4px)]">
+      <!-- Carousel slides with Angular ngForOf and ngClass -->
+      <div
+        *ngFor="let item of blogs; let i = index"
+        [ngClass]="{ 'pointer-events-none opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i }"
+        class="absolute inset-0 h-full w-full transition-all duration-700"
+        [ngStyle]="{ 'z-index': currentIndex === i ? 20 : 10 }"
+      >
+        <!-- Image with maternal-friendly overlay gradient -->
+        <img
+          [src]="item.blog_cover"
+          [alt]="item.title"
+          class="h-full w-full scale-[1.02] object-cover object-center blur-[2px] transition-transform duration-700"
+          (error)="handleImageError($event)"
+        />
+
+        <!-- Semi-transparent backdrop for better readability -->
+        <div class="absolute inset-0 bg-gradient-to-t from-pink-900/80 via-purple-800/60 to-transparent"></div>
+
+        <!-- Content container with improved layout -->
+        <div class="absolute inset-x-0 bottom-0 z-30 px-20 pb-12 pt-24">
+          <!-- "New" badge with maternal styling -->
+          <div
+            class="mb-4 inline-flex items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-5 py-1.5 shadow-lg"
+            [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+          >
+            <span class="text-sm font-semibold tracking-wide text-white">{{ item.category.title }}</span>
+          </div>
+
+          <!-- Title with maternal font and styling -->
+          <h1
+            class="mb-3 max-w-3xl text-4xl font-bold leading-tight text-white drop-shadow-md md:text-5xl"
+            [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+          >
+            {{ item.title }}
+          </h1>
+
+          <!-- Summary with better readability -->
+          <p class="mb-6 max-w-2xl text-lg leading-relaxed text-pink-50 drop-shadow-md md:text-xl">
+            {{ item.summary }}
+          </p>
+
+          <!-- Meta information with maternal-friendly icons -->
+          <div class="flex flex-wrap items-center gap-6">
+            <div class="flex items-center gap-2 text-sm text-pink-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+              <span>{{ item.created_at | date: 'dd MMM, yyyy' }}</span>
+            </div>
+
+            <div class="flex items-center gap-2 text-sm text-pink-100">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+              </svg>
+              <span>{{ item.author }}</span>
+            </div>
+
+            <!-- Read more button -->
+            <button
+              class="group ml-auto flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-pink-600"
+              [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+              (click)="blog.click()"
+            >
+              <span class="text-sm font-medium text-white transition-colors group-hover:text-pink-600">Đọc tiếp</span>
+              <a [routerLink]="['/blog', item.blog_id]" hidden #blog></a>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-4 w-4 text-white transition-all group-hover:translate-x-1 group-hover:text-pink-600"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation controls -->
+      <div class="absolute inset-0 z-30 flex items-center justify-between px-4">
+        <!-- Previous button with maternal styling -->
+        <button
+          (click)="prevSlide()"
+          class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
+          aria-label="Previous slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Next button with maternal styling -->
+        <button
+          (click)="nextSlide()"
+          class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
+          aria-label="Next slide"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Fix the dot indicators to use recommendedBlogs instead of carouselItems -->
+      <div class="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-3">
+        <button
+          *ngFor="let item of recommendedBlogs; let i = index"
+          (click)="goToSlide(i)"
+          [ngClass]="{
+            'w-6 bg-white': currentIndex === i,
+            'bg-white/50 hover:bg-white/70': currentIndex !== i,
+          }"
+          class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <!--  </div>-->
+  <!--  <div *ngIf="!recommendedBlogs || recommendedBlogs.length === 0" class="py-10 text-center text-gray-500">Không có bài viết nào để hiển thị</div>-->
 </div>
