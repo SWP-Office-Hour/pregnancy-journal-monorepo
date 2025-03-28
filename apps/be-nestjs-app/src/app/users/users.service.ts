@@ -209,7 +209,7 @@ export class UsersService {
     await this.databaseService.Reminder.create({
       data: {
         title: 'Ngày sinh dự kiến',
-        content: `Ngày sinh dự kiến của bé là ngày ${firstChild.expected_birth_date}`,
+        content: `Ngày sinh dự kiến của bé`,
         remind_date: new Date(data.expected_birth_date),
         type: ReminderType.USER_DUE_DATE,
         status: Status.ACTIVE,
