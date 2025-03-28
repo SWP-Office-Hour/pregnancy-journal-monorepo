@@ -115,7 +115,7 @@ export class ChildrenProfileTableComponent implements OnInit {
       if (formData.gender === null) {
         formData.gender = undefined;
       }
-      if (this.isEditMode) {
+      if (this.isEditMode && this.childId) {
         // Update existing child
         const updatedData: ChildUpdateRequestType = {
           child_id: this.childId,
@@ -131,7 +131,6 @@ export class ChildrenProfileTableComponent implements OnInit {
             this.childV2Service.child = updatedChild;
             this.dialogRef.close(true);
           },
-          complete: () => {},
           error: (error) => {
             console.log(error);
             this.messageService.add({

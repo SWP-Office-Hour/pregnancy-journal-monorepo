@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, effect, resource } from '@angular/core';
+import { Component, resource } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -58,7 +58,7 @@ import { ChildrenProfileTableComponent } from './children-profile-table/children
   providers: [MessageService, ConfirmationService],
 })
 export class ChildrenProfileComponent {
-  childResource = resource<ChildType[], {}>({
+  childResource = resource<ChildType[], object>({
     loader: async ({ abortSignal }) => {
       const response = await fetch(environment.apiUrl + 'child', {
         headers: {
@@ -95,8 +95,7 @@ export class ChildrenProfileComponent {
     private _router: Router,
     private http: HttpClient,
   ) {
-    //dùng để coi giá trị của resource
-    effect(() => {});
+    // Initialize component
   }
 
   getGenderText(genderValue: number | undefined | null): string {
@@ -180,8 +179,14 @@ export class ChildrenProfileComponent {
 
   createChildRecord(_child: ChildType): void {
     this._userService.user$.subscribe((user) => {
-      this._childService.child = user.child.find((c) => c.child_id == _child.child_id);
-      this._router.navigate(['/tracking'], { queryParams: { create: true } });
+      const foundChild = user.child?.find((c) => c.child_id == _child.child_id);
+      if (foundChild) {
+        this._childService.child = foundChild;
+        this._router.navigate(['/tracking'], { queryParams: { create: true } });
+      } else {
+        // Handle case when child is not found
+        console.error('Child not found');
+      }
     });
   }
 

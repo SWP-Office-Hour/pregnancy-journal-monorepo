@@ -55,7 +55,11 @@ export class ChangePasswordComponent {
     this._http.post<AuthResponse>(environment.apiUrl + 'users/auth/change-password', this.changePasswordForm.value).subscribe({
       next: (res) => {
         this._authService.accessToken = res.access_token;
-        this._userService.user = res.user;
+        const user = {
+          ...res.user,
+          membership_expire_date: res.user.membership_expire_date ?? undefined,
+        };
+        this._userService.user = user;
         this.router.navigate(['/home']);
       },
       error: (err) => {
@@ -111,7 +115,9 @@ export class ChangePasswordComponent {
       confirmPassword.setErrors({ passwordMismatch: true });
       return false;
     } else {
-      confirmPassword.setErrors(null);
+      if (confirmPassword) {
+        confirmPassword.setErrors(null);
+      }
       return true;
     }
   }

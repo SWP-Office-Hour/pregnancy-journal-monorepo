@@ -44,8 +44,8 @@ export class UserProfileComponent {
   protected districts: District[] = [];
   protected wards: Ward[] = [];
   protected membershipStatus = signal<boolean>(false);
-  protected purchaseDate = signal<Date>(null);
-  protected expirationDate = signal<Date>(null);
+  protected purchaseDate = signal<Date | null>(null);
+  protected expirationDate = signal<Date | null>(null);
 
   constructor(
     private fb: FormBuilder,
@@ -86,8 +86,8 @@ export class UserProfileComponent {
       ]).then(async ([province_response, district_response]) => {
         const province = await province_response.json();
         const district = await district_response.json();
-        this.districts = province.districts!;
-        this.wards = district.wards!;
+        this.districts = province.districts ?? [];
+        this.wards = district.wards ?? [];
         this.profileForm.patchValue({
           province: profile.province,
           district: profile.district,
@@ -99,9 +99,9 @@ export class UserProfileComponent {
     //   Check user membership
     this.userService.getMembershipOfUser().subscribe((checkMember) => {
       console.log(checkMember);
-      this.membershipStatus.set(checkMember.has_membership);
-      this.purchaseDate.set(checkMember.membership_buy_date);
-      this.expirationDate.set(checkMember.membership_expire_date);
+      this.membershipStatus.set(checkMember.has_membership ?? false);
+      this.purchaseDate.set(checkMember.membership_buy_date ?? null);
+      this.expirationDate.set(checkMember.membership_expire_date ?? null);
     });
   }
 
@@ -114,7 +114,7 @@ export class UserProfileComponent {
         return response.json();
       })
       .then((province: Province) => {
-        this.districts = province.districts!;
+        this.districts = province.districts ?? [];
       });
   }
 
@@ -126,7 +126,7 @@ export class UserProfileComponent {
         return response.json();
       })
       .then((district: District) => {
-        this.wards = district.wards!;
+        this.wards = district.wards ?? [];
       });
   }
 

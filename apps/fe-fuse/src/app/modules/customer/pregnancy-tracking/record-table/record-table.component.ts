@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, effect, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
@@ -23,8 +23,8 @@ import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.ser
 })
 export class RecordTableComponent implements OnInit {
   expandedRows = {};
-  searchText: string = '';
-  protected recordsData: WritableSignal<RecordResponse[]>;
+  searchText = '';
+  protected recordsData = signal<RecordResponse[]>([]);
   protected originalRecords: RecordResponse[] = []; // Store the original data for filtering
   protected rows: { week: number; records: RecordResponse[] }[] = [
     {
@@ -46,7 +46,7 @@ export class RecordTableComponent implements OnInit {
   ];
   protected originalRows: { week: number; records: RecordResponse[] }[] = []; // Store original rows for filtering
   //flag expand all
-  protected isExpanded: boolean = false;
+  protected isExpanded = false;
   protected child = signal<ChildType>({} as ChildType);
 
   constructor(
@@ -55,10 +55,11 @@ export class RecordTableComponent implements OnInit {
     private _dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
   ) {
-    this.child = this.signalPregnancyTrackingService.globalSelectedChild;
-    this.recordsData = this._trackingService.records.value;
+    this.child.set(this.signalPregnancyTrackingService.globalSelectedChild());
     effect(() => {
-      if (this.child() != undefined) {
+      const records = this._trackingService.records.value();
+      if (records) {
+        this.recordsData.set(records);
         this.getRecords();
       }
     });
@@ -78,7 +79,10 @@ export class RecordTableComponent implements OnInit {
     this.rows.forEach((row) => (row.records = []));
 
     this.recordsData().forEach((record) => {
-      this.rows.find((r) => r.week >= record.week)!.records.push(record);
+      const row = this.rows.find((r) => r.week >= record.week);
+      if (row) {
+        row.records.push(record);
+      }
     });
 
     // Store the original rows structure after populating
@@ -96,7 +100,10 @@ export class RecordTableComponent implements OnInit {
 
   expandAll() {
     // this.expandedRows = this.products.reduce((acc, p) => (acc[p.id] = true) && acc, {});
-    this.expandedRows = this.rows.reduce((acc, r) => (acc[r.week] = true) && acc, {});
+    this.expandedRows = this.rows.reduce((acc, r) => {
+      acc[r.week] = true;
+      return acc;
+    }, {});
   }
 
   collapseAll() {
@@ -104,7 +111,7 @@ export class RecordTableComponent implements OnInit {
   }
 
   getLength(week: number) {
-    return this.rows.find((r) => r.week === week)!.records.length;
+    return this.rows.find((r) => r.week === week)?.records.length || 0;
   }
 
   editTracking(record_id: string) {

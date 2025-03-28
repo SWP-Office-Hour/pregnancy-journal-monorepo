@@ -19,5 +19,5 @@
       "@pregnancy-journal-monorepo/contract": ["./libs/contract/src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": ["node_modules", "tmp", "**/@fuse/**/*.*"]
 }

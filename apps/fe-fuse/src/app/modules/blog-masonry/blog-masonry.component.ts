@@ -1,7 +1,7 @@
 import { ChildV2Service } from '../../core/children/child.v2.service';
 
 import { CommonModule, DatePipe, NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { BlogResponseType, CategoryResponse, ChildType, Status } from '@pregnancy-journal-monorepo/contract';
 import { MenuItem } from 'primeng/api';
@@ -9,12 +9,6 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { PaginationComponent } from '../../common/pagination/pagination.component';
 import { AuthService } from '../../core/auth/auth.service';
 import { BlogMasonryService } from './blog-masonry.service';
-
-interface Post {
-  title: string;
-  date: Date;
-  image: string;
-}
 
 interface Category {
   name: string;
@@ -32,11 +26,11 @@ interface Tag {
   templateUrl: './blog-masonry.component.html',
   styleUrl: './blog-masonry.component.css',
 })
-export class BlogMasonryComponent implements OnInit {
+export class BlogMasonryComponent implements OnInit, OnDestroy {
   blogs: BlogResponseType[] = [];
   categories: CategoryResponse[] = [];
   items: MenuItem[] | undefined;
-  selectedCategory: string = '';
+  selectedCategory = '';
   recommendedBlogs: BlogResponseType[] = [];
   child: ChildType;
 
@@ -92,7 +86,6 @@ export class BlogMasonryComponent implements OnInit {
           this.recommendedBlogs = result.blogs;
           if (this.recommendedBlogs.length < 5) {
             // If not enough recommendations, get additional blogs
-            const totalBlogs = this.recommendedBlogs.length;
             this.recommendedBlogs = [...this.recommendedBlogs, ...this.blogs].slice(0, 5);
           }
 
@@ -118,7 +111,7 @@ export class BlogMasonryComponent implements OnInit {
   //   });
   // }
 
-  loadBlogs(categoryId: string = ''): void {
+  loadBlogs(categoryId = ''): void {
     this.blogService.getBlogs(categoryId, this.currentPage).subscribe((data) => {
       this.totalPages = data.total_page;
       this.blogs = data.blogs;
@@ -194,8 +187,9 @@ export class BlogMasonryComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  handleImageError(event: any) {
-    event.target.src = 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167';
+  handleImageError(event: Event): void {
+    const imgElement = event.target as HTMLImageElement;
+    imgElement.src = 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167';
   }
 
   handleImageErrorV2(event: Event): void {
@@ -210,10 +204,13 @@ export class BlogMasonryComponent implements OnInit {
     this.currentPage = page;
     this.loadBlogs(this.selectedCategory);
     // Scroll to top of the blog section for better UX
-    window.scrollTo({
-      top: document.querySelector('.blog-masonry-section')?.getBoundingClientRect().top + window.pageYOffset - 100,
-      behavior: 'smooth',
-    });
+    const blogSection = document.querySelector('.blog-masonry-section');
+    if (blogSection) {
+      window.scrollTo({
+        top: blogSection.getBoundingClientRect().top + window.pageYOffset - 100,
+        behavior: 'smooth',
+      });
+    }
   }
 
   private startTicker() {
@@ -227,19 +224,19 @@ export class BlogMasonryComponent implements OnInit {
 
   calculateReadingTime(content: string): number {
     // Remove HTML tags and replace &nbsp; with a space
-    let text = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
+    const text = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
 
     // Split into words by whitespace and filter out empty strings
-    let words = text.split(/\s+/).filter((word) => word.length > 0);
+    const words = text.split(/\s+/).filter((word) => word.length > 0);
 
     // Get the word count
-    let wordCount = words.length;
+    const wordCount = words.length;
 
     // Define reading speed (words per minute)
-    let readingSpeed = 200;
+    const readingSpeed = 200;
 
     // Calculate time in minutes
-    let time = wordCount / readingSpeed;
+    const time = wordCount / readingSpeed;
 
     // Round up to the nearest whole number
     return Math.ceil(time);

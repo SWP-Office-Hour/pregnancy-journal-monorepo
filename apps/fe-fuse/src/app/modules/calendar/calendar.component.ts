@@ -8,7 +8,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { ReminderColor, ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest } from '@pregnancy-journal-monorepo/contract';
+import {
+  ReminderColor,
+  ReminderCreateRequest,
+  ReminderResponse,
+  ReminderType,
+  ReminderUpdateRequest,
+  Status,
+} from '@pregnancy-journal-monorepo/contract';
 import { ButtonModule } from 'primeng/button';
 import { CalendarService } from './calendar.service';
 
@@ -48,13 +55,16 @@ export class CalendarComponent {
   weekDays: string[] = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];
   reminderArraySignal = signal<ReminderResponse[]>([]);
   status: Signal<ResourceStatus> = signal(ResourceStatus.Idle);
-  showReminderModal: boolean = false;
+  showReminderModal = false;
   newReminder: ReminderResponse = {
     title: '',
     content: '',
     remind_date: new Date(),
     color: ReminderColor.USER_CREATED_REMINDER_COLOR,
     type: ReminderType.USER_CREATED_REMINDER,
+    status: Status.ACTIVE,
+    visit_record_id: null,
+    reminder_id: '',
   };
   themes: Theme[] = [
     { title: 'Khám thai', color: 'FA8FCA' }, // Soft pink
@@ -64,9 +74,18 @@ export class CalendarComponent {
     { title: 'Xét nghiệm', color: 'F86666' }, //
   ];
   isEditMode = 0;
-  isHovering: boolean = false;
+  isHovering = false;
   // Add a property to track the reminder being edited
-  editingReminder: ReminderResponse = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_REMINDER };
+  editingReminder: ReminderResponse = {
+    title: '',
+    content: '',
+    remind_date: new Date(),
+    color: '',
+    type: ReminderType.USER_CREATED_REMINDER,
+    status: Status.ACTIVE,
+    visit_record_id: null,
+    reminder_id: '',
+  };
 
   constructor(private _calendarService: CalendarService) {
     this.reminderArraySignal = this._calendarService.reminderResource.value;
@@ -194,7 +213,9 @@ export class CalendarComponent {
         };
 
         // Add the event to our events array
-        this._calendarService.createReminder(eventCopy).subscribe(() => {});
+        this._calendarService.createReminder(eventCopy).subscribe(() => {
+          console.log('Reminder created');
+        });
       }
 
       // Close the modal
@@ -226,11 +247,25 @@ export class CalendarComponent {
     setTimeout(() => {
       this.newReminder = {
         title: '',
+        content: '',
         remind_date: new Date(),
         color: ReminderColor.USER_CREATED_REMINDER_COLOR,
+        type: ReminderType.USER_CREATED_REMINDER,
+        status: Status.ACTIVE,
+        visit_record_id: null,
+        reminder_id: '',
       };
       this.isEditMode = 0;
-      this.editingReminder = { title: '', content: '', remind_date: new Date(), color: '', type: ReminderType.USER_CREATED_REMINDER }; // Clear the reference to the edited event
+      this.editingReminder = {
+        title: '',
+        content: '',
+        remind_date: new Date(),
+        color: '',
+        type: ReminderType.USER_CREATED_REMINDER,
+        status: Status.ACTIVE,
+        visit_record_id: null,
+        reminder_id: '',
+      }; // Clear the reference to the edited event
     }, 300);
   }
 
@@ -272,7 +307,9 @@ export class CalendarComponent {
           color: draggedTheme.color,
           type: ReminderType.USER_CREATED_REMINDER,
         };
-        this._calendarService.createReminder(newEvent).subscribe(() => {});
+        this._calendarService.createReminder(newEvent).subscribe(() => {
+          console.log('Reminder created from theme');
+        });
       } else {
         transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
         // Update the date of the transferred event
@@ -299,8 +336,13 @@ export class CalendarComponent {
       // Create a new event from the theme
       const newEvent: ReminderResponse = {
         title: theme.title,
+        content: '',
         remind_date: new Date(targetDate),
         color: theme.color,
+        type: ReminderType.USER_CREATED_REMINDER,
+        status: Status.ACTIVE,
+        visit_record_id: null,
+        reminder_id: '',
       };
 
       // Add to events array
@@ -353,13 +395,19 @@ export class CalendarComponent {
       color: this.editingReminder.color,
     };
 
-    this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {});
+    this._calendarService.updateReminder(reminderUpdateRequest).subscribe(() => {
+      console.log('Reminder updated');
+    });
     //reset newEvent
     this.newReminder = {
       title: '',
       content: '',
       color: ReminderColor.USER_CREATED_REMINDER_COLOR,
       type: ReminderType.USER_CREATED_REMINDER,
+      status: Status.ACTIVE,
+      visit_record_id: null,
+      remind_date: new Date(),
+      reminder_id: '',
     };
     //close modal
     this.showReminderModal = false;
@@ -374,8 +422,14 @@ export class CalendarComponent {
       content: '',
       color: ReminderColor.USER_CREATED_REMINDER_COLOR,
       type: ReminderType.USER_CREATED_REMINDER,
+      status: Status.ACTIVE,
+      visit_record_id: null,
+      remind_date: new Date(),
+      reminder_id: '',
     };
-    this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {});
+    this._calendarService.deleteReminder(event.reminder_id).subscribe(() => {
+      console.log('Reminder deleted');
+    });
     //đóng modal
     this.showReminderModal = false;
   }

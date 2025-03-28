@@ -39,7 +39,7 @@ import { ImagePreviewComponent } from '../../../../common/image-preview/image-pr
 import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 
 @Component({
-  selector: 'tracking-form',
+  selector: 'app-tracking-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -67,10 +67,10 @@ export class TrackingFormComponent {
   selectedHospital: HospitalResponse | null = null;
   protected trackingForm: FormGroup;
   protected images: MediaResponse[];
-  protected hospitals: HospitalResponse[];
+  protected hospitals: HospitalResponse[] = [];
   protected metrics: MetricResponseType[];
-  protected selectedRecordData: RecordResponse;
-  protected week: number;
+  protected selectedRecordData: RecordResponse | null;
+  protected week: number | undefined;
   protected isDisabled = signal<boolean>(false);
   private report_messages = signal<string[]>([]);
 
@@ -91,17 +91,20 @@ export class TrackingFormComponent {
       doctor_name: ['', Validators.required],
       metrics: this._formBuilder.array([], [this.minMetricsValidator()]),
     });
-    this.hospitals = this._trackingService.hospitals.value();
+    this.hospitals = this._trackingService.hospitals.value() || [];
 
     if (this.selectedRecordData) {
       this.patchValue(this.selectedRecordData);
     } else {
-      this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
-      this.metrics.forEach((metric) => {
-        this.metricsFormArray.push(
-          this._formBuilder.control('0', metric.required ? [Validators.required, this.numericValidator()] : [this.numericValidator()]),
-        );
-      });
+      const metricsArr = this._trackingService.metrics.value();
+      if (metricsArr) {
+        this.metrics = metricsArr.filter((metric) => metric.status == Status.ACTIVE);
+        this.metrics.forEach((metric) => {
+          this.metricsFormArray.push(
+            this._formBuilder.control('0', metric.required ? [Validators.required, this.numericValidator()] : [this.numericValidator()]),
+          );
+        });
+      }
     }
   }
 
@@ -123,15 +126,18 @@ export class TrackingFormComponent {
       visit_doctor_date: DateTime.fromJSDate(new Date(value.visit_doctor_date)),
       next_visit_doctor_date: DateTime.fromJSDate(new Date(value.next_visit_doctor_date)),
     });
-    this.metrics = this._trackingService.metrics.value().filter((metric) => metric.status == Status.ACTIVE);
-    this.metrics.forEach((metric) => {
-      const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
-      this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
-    });
+    const metricsArr = this._trackingService.metrics.value();
+    if (metricsArr) {
+      this.metrics = metricsArr.filter((metric) => metric.status == Status.ACTIVE);
+      this.metrics.forEach((metric) => {
+        const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
+        this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
+      });
+    }
     const week = value.week;
     value.data.forEach((data) => {
       // Compare data value with standard value
-      const metric: MetricResponseType = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
+      const metric: MetricResponseType | undefined = this.metrics?.find((metric) => metric.metric_id === data.metric_id);
       if (metric) {
         this._trackingService
           .getStandardValue({
@@ -168,15 +174,21 @@ export class TrackingFormComponent {
 
   selectHospital(hospital: HospitalResponse): void {
     this.selectedHospital = hospital;
-    this.trackingForm.get('hospital').setValue(hospital.hospital_id);
+    this.trackingForm.get('hospital')?.setValue(hospital.hospital_id);
   }
 
-  visitDateChange(e: MatDatepickerInputEvent<any>) {
-    this.trackingForm.get('visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  visitDateChange(e: MatDatepickerInputEvent<DateTime>) {
+    const control = this.trackingForm.get('visit_doctor_date');
+    if (control && e.value) {
+      control.setValue(e.value.setLocale('vi-VN').plus({ hour: 7 }));
+    }
   }
 
-  nextVisitDateChange(e: MatDatepickerInputEvent<any>) {
-    this.trackingForm.get('next_visit_doctor_date')!.setValue((e.value as DateTime).setLocale('vi-VN').plus({ hour: 7 }));
+  nextVisitDateChange(e: MatDatepickerInputEvent<DateTime>) {
+    const control = this.trackingForm.get('next_visit_doctor_date');
+    if (control && e.value) {
+      control.setValue(e.value.setLocale('vi-VN').plus({ hour: 7 }));
+    }
   }
 
   deleteImg(id: string) {
@@ -188,6 +200,7 @@ export class TrackingFormComponent {
   }
 
   sharedRecord() {
+    if (!this.selectedRecordData) return '';
     return window.location.href.split('/').slice(0, 3).join('/') + '/record-view?record_id=' + this.selectedRecordData.visit_record_id;
   }
 
@@ -371,6 +384,7 @@ export class TrackingFormComponent {
   }
 
   deleteRecord() {
+    if (!this.selectedRecordData) return;
     this._trackingService.deleteRecord(this.selectedRecordData.visit_record_id).subscribe(() => {
       this.dialogRef.close();
       this.handleSubmitSuccess({

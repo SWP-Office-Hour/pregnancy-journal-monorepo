@@ -24,11 +24,15 @@
           'bg-green-200 text-green-800 dark:bg-green-500 dark:text-green-100': true,
         }"
         (click)="dueDatePicker.open()"
+        (keydown.enter)="dueDatePicker.open()"
+        tabindex="0"
+        role="button"
+        aria-label="Select date"
       >
         <mat-icon class="icon-size-5 text-current" [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
         <span class="text-md ml-2 font-medium">
-          @if (reminderForm.get('remind_date').value) {
-            {{ reminderForm.get('remind_date').value | date: 'longDate' }}
+          @if (reminderForm.get('remind_date')?.value) {
+            {{ reminderForm.get('remind_date')?.value | date: 'longDate' }}
           } @else {
             Not set
           }
