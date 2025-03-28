@@ -34,7 +34,6 @@ import { environment } from '../../../../environments/environment';
 @Component({
   selector: 'app-hospital-table',
   templateUrl: './hospital-table.component.html',
-  styleUrl: './hospital-table.component.css',
   animations: fuseAnimations,
   standalone: true,
   imports: [

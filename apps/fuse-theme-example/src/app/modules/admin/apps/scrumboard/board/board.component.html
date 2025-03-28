@@ -75,9 +75,9 @@
                     cdkDrag
                   >
                     <!-- Cover image -->
-                    @if (card.coverImage) {
+                    @if (card['coverImage']) {
                       <div class="-mx-5 -mt-5 mb-2">
-                        <img class="w-full object-cover" [src]="card.coverImage" />
+                        <img class="w-full object-cover" [src]="card['coverImage']" />
                       </div>
                     }
                     <!-- Title -->

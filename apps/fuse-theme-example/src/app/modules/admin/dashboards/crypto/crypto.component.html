@@ -114,13 +114,13 @@
                   @if (buyType.value === 'coin') {
                     <span class="mr-1">It will cost:</span>
                     <span class="text-normal font-mono font-medium">
-                      {{ buyAmount.value * data.prices[walletSelector.value] | currency: 'USD' : 'symbol' : '1.2-4' }}
+                      {{ +buyAmount.value * data.prices[walletSelector.value] | currency: 'USD' : 'symbol' : '1.2-4' }}
                     </span>
                   }
                   @if (buyType.value === 'usd') {
                     <span class="mr-1">You will receive:</span>
                     <span class="text-normal font-mono font-medium">
-                      {{ buyAmount.value / data.prices[walletSelector.value] | number: '1.2-6' }}
+                      {{ +buyAmount.value / data.prices[walletSelector.value] | number: '1.2-6' }}
                       {{ walletSelector.value | uppercase }}
                     </span>
                   }
@@ -147,13 +147,13 @@
                   @if (sellType.value === 'coin') {
                     <span class="mr-1">You will receive:</span>
                     <span class="text-normal font-mono font-medium">
-                      {{ sellAmount.value * data.prices[walletSelector.value] | currency: 'USD' : 'symbol' : '1.2-4' }}
+                      {{ +sellAmount.value * data.prices[walletSelector.value] | currency: 'USD' : 'symbol' : '1.2-4' }}
                     </span>
                   }
                   @if (sellType.value === 'usd') {
                     <span class="mr-1">You will sell:</span>
                     <span class="text-normal font-mono font-medium">
-                      {{ sellAmount.value / data.prices[walletSelector.value] | number: '1.2-6' }}
+                      {{ +sellAmount.value / data.prices[walletSelector.value] | number: '1.2-6' }}
                       {{ walletSelector.value | uppercase }}
                     </span>
                   }

@@ -106,6 +106,7 @@ export class Card implements Required<ICard> {
   description: string | null;
   labels: Label[];
   dueDate: string | null;
+  coverImage: string | null;
 
   /**
    * Constructor
@@ -119,6 +120,7 @@ export class Card implements Required<ICard> {
     this.description = card.description || null;
     this.labels = [];
     this.dueDate = card.dueDate || null;
+    this.coverImage = card.coverImage || null;
 
     // Labels
     if (card.labels) {

@@ -26,6 +26,7 @@ export interface ICard {
   description?: string | null;
   labels?: ILabel[];
   dueDate?: string | null;
+  coverImage?: string | null;
 }
 
 export interface IMember {
