@@ -1,4 +1,4 @@
-<div class="max-w-3/4 mx-auto flex min-w-0 flex-auto flex-col items-center py-8">
+<div class="max-w-9/10 mx-auto flex min-w-0 flex-auto flex-col items-center py-8">
   <!-- Header -->
   <section class="flex w-full flex-col bg-transparent">
     <!-- Time-sensitive Welcome Section -->
@@ -155,11 +155,29 @@
     </a>
   </section>
 
-  <!-- Pregnancy Week-->
-  <app-week-illustration [currentPregnancyWeek]="currentPregnancyWeek"></app-week-illustration>
+  <!-- HERO section -->
+  <section class="grid w-full min-w-0 grid-cols-3 gap-8">
+    <!-- Nhắc nhở-->
+    <div class="col-span-1 rounded-2xl border border-pink-200 bg-white/90 p-2 shadow-lg backdrop-blur-sm">
+      <app-home-reminder></app-home-reminder>
+    </div>
+
+    <!-- Pregnancy Week-->
+    <div class="col-span-2 rounded-2xl border border-pink-200 bg-white/90 p-2 shadow-lg backdrop-blur-sm">
+      <app-week-illustration [currentPregnancyWeek]="currentPregnancyWeek"></app-week-illustration>
+    </div>
+  </section>
+
+  <!-- Recommend Info Week-->
+  <!--  <div-->
+  <!--    class="col-span-2 flex flex-auto flex-col justify-between overflow-hidden rounded-2xl border border-pink-100 bg-white/90 p-6 shadow-lg backdrop-blur-sm"-->
+  <!--  >-->
+  <!--    <app-popular-tool></app-popular-tool>-->
+  <!--  </div>-->
+
   <!-- Tool-->
   <app-popular-tool></app-popular-tool>
 
   <!-- Recommend blogs-->
-  <!--  <app-recommended-blogs></app-recommended-blogs>-->
+  <app-recommended-blogs></app-recommended-blogs>
 </div>
