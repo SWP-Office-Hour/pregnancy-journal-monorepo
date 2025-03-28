@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { ReminderCreateRequest, ReminderResponse, ReminderType, ReminderUpdateRequest, Status } from '@pregnancy-journal-monorepo/contract';
+import { Child } from '../child/entities/child.entity';
 import { DatabaseService } from '../database/database.service';
 import { UsersService } from '../users/users.service';
 import { ReminderToSendMailEntity, UserWithReminder } from './entities/reminder.entity';
@@ -222,49 +223,13 @@ export class ReminderService {
     };
   }
 
-  // Search for reminders rồi group theo user để gửi email
-  // async searchAndMapRemindersByUser(): Promise<{ [userId: string]: ReminderToSendMailEntity[] }> {
-  //   const tomorrow = new Date();
-  //   tomorrow.setDate(tomorrow.getDate() + 1);
-  //
-  //   // Set time to midnight to compare only date part
-  //   tomorrow.setHours(0, 0, 0, 0);
-  //
-  //   // Calculate the end of tomorrow
-  //   const endOfTomorrow = new Date(tomorrow);
-  //   endOfTomorrow.setHours(23, 59, 59, 999);
-  //
-  //   // Fetch all reminders matching the criteria
-  //   const reminders = await this.databaseService.Reminder.findMany({
-  //     where: {
-  //       remind_date: {
-  //         gte: tomorrow,
-  //         lte: endOfTomorrow,
-  //       },
-  //     },
-  //     include: {
-  //       user: {
-  //         select: {
-  //           name: true,
-  //           email: true,
-  //         },
-  //       },
-  //     },
-  //     orderBy: {
-  //       remind_date: 'asc',
-  //     },
-  //   });
-  //
-  //   // Group reminders by user ID
-  //   const remindersByUser: { [userId: string]: ReminderToSendMailEntity[] } = {};
-  //
-  //   reminders.forEach((reminder) => {
-  //     if (!remindersByUser[reminder.user_id]) {
-  //       remindersByUser[reminder.user_id] = [];
-  //     }
-  //     remindersByUser[reminder.user_id].push(reminder);
-  //   });
-  //
-  //   return remindersByUser;
-  // }
+  async findReminderDueDateByChild(child: Child): Promise<ReminderResponse | null> {
+    return await this.databaseService.Reminder.findFirst({
+      where: {
+        remind_date: child.expected_birth_date,
+        user_id: child.user_id,
+        type: ReminderType.USER_DUE_DATE,
+      },
+    });
+  }
 }

@@ -6,6 +6,7 @@ import {
   Gender,
   LoginRequest,
   RegisterRequest,
+  ReminderType,
   Status,
   UserCreateRequestType,
   UserIncludeMembershipType,
@@ -197,6 +198,21 @@ export class UsersService {
         name: 'Con đầu lòng',
         expected_birth_date: new Date(data.expected_birth_date),
         gender: Gender.UNKNOWN,
+        user: {
+          connect: {
+            user_id: result.user_id,
+          },
+        },
+      },
+    });
+
+    await this.databaseService.Reminder.create({
+      data: {
+        title: 'Nhắc nhở ngày sinh',
+        content: 'Nhắc nhở bạn về việc tới ngày sinh sản',
+        remind_date: new Date(data.expected_birth_date),
+        type: ReminderType.USER_DUE_DATE,
+        status: Status.ACTIVE,
         user: {
           connect: {
             user_id: result.user_id,
