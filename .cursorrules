@@ -39,4 +39,3 @@ when refactoring existing code, keep jsdoc comments intact
 be concise and minimize extraneous prose.
 
 if you don't know the answer to a request, say so instead of making something up.
-
