@@ -30,9 +30,9 @@
   "extends": "../../tsconfig.base.json",
   "exclude": ["@fuse", "@fuse/**/*"],
   "angularCompilerOptions": {
-    "enableI18nLegacyMessageIdFormat": false
-    // "strictInjectionParameters": true,
-    // "strictInputAccessModifiers": true,
-    // "strictTemplates": true
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
   }
 }
