@@ -7,6 +7,7 @@ import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 import { environment } from '../../../../environments/environment';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
+import { PregnancyTrackingV2Service } from '../../../modules/customer/pregnancy-tracking/pregnancy-tracking-v2.service';
 import { SignalPregnancyTrackingService } from '../../../modules/customer/pregnancy-tracking/signal-pregnancy-tracking.service';
 
 @Component({
@@ -25,9 +26,12 @@ export class ChildrenProfileSelectorComponent implements OnInit {
     private http: HttpClient,
     private childV2Service: ChildV2Service,
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
+    private _trackingService: PregnancyTrackingV2Service,
   ) {
     effect(() => {
       this.signalPregnancyTrackingService.globalSelectedChild.set(this._selectedChild());
+      this._trackingService.records.reload();
+      this._trackingService.metricDataArrayResource.reload();
     });
   }
 

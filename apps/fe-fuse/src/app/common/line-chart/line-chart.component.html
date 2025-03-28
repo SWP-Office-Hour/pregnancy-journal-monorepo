@@ -1,8 +1,8 @@
 <div class="min-h-120 h-full overflow-hidden rounded-2xl bg-white shadow-lg">
-  <p-tabs [value]="metricIdArrayResource.value()[0].metricId" scrollable="true">
+  <p-tabs [value]="metricIdArrayResource()[0]?.metricId" scrollable="true">
     <p-tablist class="relative flex">
       <div class="flex">
-        @for (metric of metricIdArrayResource.value(); track $index) {
+        @for (metric of metricIdArrayResource(); track $index) {
           <p-tab (click)="changeMetric(metric.metricId)" [value]="metric.metricId">
             {{ getMetricTitle(metric.metricId) }}
           </p-tab>
@@ -10,7 +10,7 @@
       </div>
     </p-tablist>
     <p-tabpanels>
-      @for (metric of metricIdArrayResource.value(); track $index) {
+      @for (metric of metricIdArrayResource(); track $index) {
         <!-- Biểu đổ nè -->
         @if (metric.metricId == selectedMetricId()) {
           <div class="h-[300px] w-full sm:h-[400px]">
@@ -33,30 +33,30 @@
         }
 
         <!-- Phần cuối với các thông số tóm tắt -->
-        <!--                                <div class="border-t border-gray-100 bg-gray-50 p-4">-->
-        <!--                                  <div class="grid grid-cols-2 gap-4 md:grid-cols-4">-->
-        <!--                                    <div *ngFor="let series of metric.series; let i = index" class="flex flex-col">-->
-        <!--                                      <span class="text-xs text-gray-500">{{ series.name }}</span>-->
-        <!--                                      <div class="mt-1 flex items-center">-->
-        <!--                                        <span class="text-lg font-semibold" [ngStyle]="{ color: chartOptions.colors ? chartOptions.colors?.[i] : '#000' }">-->
-        <!--                                          {{ series.data[series.data.length - 1]?.y }}-->
-        <!--                                        </span>-->
-        <!--                                        <ng-container *ngIf="series.data.length > 1">-->
-        <!--                                          <div-->
-        <!--                                            class="ml-2 text-xs"-->
-        <!--                                            [class.text-green-500]="calculatePercentageChange(i).isPositive"-->
-        <!--                                            [class.text-red-500]="!calculatePercentageChange(i).isPositive"-->
-        <!--                                          >-->
-        <!--                                            <mat-icon class="align-middle text-xs" style="font-size: 16px; height: 16px; width: 16px">-->
-        <!--                                              {{ calculatePercentageChange(i).isPositive ? 'arrow_upward' : 'arrow_downward' }}-->
-        <!--                                            </mat-icon>-->
-        <!--                                            {{ calculatePercentageChange(i).value }}%-->
-        <!--                                          </div>-->
-        <!--                                        </ng-container>-->
-        <!--                                      </div>-->
-        <!--                                    </div>-->
-        <!--                                  </div>-->
-        <!--                                </div>-->
+        <!-- <div class="border-t border-gray-100 bg-gray-50 p-4">-->
+        <!--   <div class="grid grid-cols-2 gap-4 md:grid-cols-4">-->
+        <!--     <div *ngFor="let series of metric.series; let i = index" class="flex flex-col">-->
+        <!--       <span class="text-xs text-gray-500">{{ series.name }}</span>-->
+        <!--       <div class="mt-1 flex items-center">-->
+        <!--         <span class="text-lg font-semibold" [ngStyle]="{ color: chartOptions.colors ? chartOptions.colors?.[i] : '#000' }">-->
+        <!--           {{ series.data[series.data.length - 1]?.y }}-->
+        <!--         </span>-->
+        <!--         <ng-container *ngIf="series.data.length > 1">-->
+        <!--           <div-->
+        <!--             class="ml-2 text-xs"-->
+        <!--             [class.text-green-500]="calculatePercentageChange(i).isPositive"-->
+        <!--             [class.text-red-500]="!calculatePercentageChange(i).isPositive"-->
+        <!--           >-->
+        <!--             <mat-icon class="align-middle text-xs" style="font-size: 16px; height: 16px; width: 16px">-->
+        <!--               {{ calculatePercentageChange(i).isPositive ? 'arrow_upward' : 'arrow_downward' }}-->
+        <!--             </mat-icon>-->
+        <!--             {{ calculatePercentageChange(i).value }}%-->
+        <!--           </div>-->
+        <!--         </ng-container>-->
+        <!--       </div>-->
+        <!--     </div>-->
+        <!--   </div>-->
+        <!-- </div>-->
       }
     </p-tabpanels>
   </p-tabs>
