@@ -3,7 +3,7 @@
   <!--  VẾ TRÁI -->
   <div class="bg-card col-span-1 hidden lg:flex lg:items-center">
     <div class="flex flex-auto flex-col overflow-y-auto" style="scrollbar-width: none; -ms-overflow-style: none">
-      <app-tracking-mini-calendar [expectedDate]="child?.expected_birth_date"></app-tracking-mini-calendar>
+      <app-tracking-mini-calendar [expectedDate]="child.expected_birth_date"></app-tracking-mini-calendar>
     </div>
   </div>
 
@@ -33,11 +33,11 @@
             >
               <!-- Date & Week -->
               <div class="mb-2 flex items-center justify-between">
-                <span class="text-xs text-gray-500">{{ getNewestRecord().visit_doctor_date | date: 'fullDate' : undefined : 'vi-VN' }}</span>
+                <span class="text-xs text-gray-500">{{ getNewestRecord()?.visit_doctor_date | date: 'fullDate' : undefined : 'vi-VN' }}</span>
                 <span class="rounded-full bg-pink-500 px-2 py-0.5 text-xs font-semibold text-white">Theo dõi gần nhất</span>
               </div>
 
-              <h3 class="mb-3 text-lg font-bold text-pink-600">Tuần {{ getNewestRecord().week }}</h3>
+              <h3 class="mb-3 text-lg font-bold text-pink-600">Tuần {{ getNewestRecord()?.week }}</h3>
 
               <!-- Development Metrics -->
               <!--              <div class="mb-3 grid grid-cols-2 gap-2 text-center">-->

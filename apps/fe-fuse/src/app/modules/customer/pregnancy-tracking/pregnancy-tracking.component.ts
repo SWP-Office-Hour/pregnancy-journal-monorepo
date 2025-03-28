@@ -53,9 +53,17 @@ export class PregnancyTrackingComponent implements OnInit {
     private childService: ChildV2Service,
     private _trackingService: PregnancyTrackingV2Service,
   ) {
-    this.records = this._trackingService.records.value;
-    this.metricDataArrayResource = this._trackingService.metricDataArrayResource.value;
     effect(() => {
+      const recordsValue = this._trackingService.records.value();
+      if (recordsValue) {
+        this.records.set(recordsValue);
+      }
+
+      const metricData = this._trackingService.metricDataArrayResource.value();
+      if (metricData) {
+        this.metricDataArrayResource.set(metricData);
+      }
+
       if (this.records().length > 0) {
         this.recordsWithWarning.reload();
         this._trackingService.metricDataArrayResource.reload();

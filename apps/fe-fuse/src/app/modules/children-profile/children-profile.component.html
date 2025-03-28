@@ -19,7 +19,7 @@
   </div>
 
   <!-- Child profile carousel -->
-  <div class="card" *ngIf="childResource.value()?.length > 0">
+  <div class="card" *ngIf="(childResource.value() ?? []).length > 0">
     <div class="flex justify-center">
       <div class="w-full max-w-7xl">
         <p-carousel

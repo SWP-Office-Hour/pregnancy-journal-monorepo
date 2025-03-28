@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, effect, OnInit, resource, signal } from '@angular/core';
+import { Component, effect, resource, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
@@ -21,7 +21,7 @@ import { ReminderEditorComponent } from '../../calendar/reminder-editor/reminder
   providers: [ConfirmationService, MessageService],
   templateUrl: './home-reminder.component.html',
 })
-export class HomeReminderComponent implements OnInit {
+export class HomeReminderComponent {
   isLoading = true;
   hasMoreReminders = false;
   todayReminders = signal<ReminderResponse[]>([]);
@@ -30,7 +30,7 @@ export class HomeReminderComponent implements OnInit {
   allReminders: ReminderResponse[] = [];
 
   // Resource
-  reminderResource = resource<ReminderResponse[], {}>({
+  reminderResource = resource<ReminderResponse[], object>({
     loader: async ({ abortSignal }) => {
       this.isLoading = true;
       try {
@@ -63,13 +63,9 @@ export class HomeReminderComponent implements OnInit {
     private _httpClient: HttpClient,
   ) {
     effect(() => {
-      this.allReminders = this.reminderResource.value();
+      this.allReminders = this.reminderResource.value() ?? [];
       this.loadReminders();
     });
-  }
-
-  ngOnInit(): void {
-    // Initial data load happens automatically through the resource and effect
   }
 
   loadReminders(): void {

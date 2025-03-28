@@ -89,7 +89,7 @@
                   {{ getGreetingMessage() }}
                 </h2>
                 <h1 class="font-playful text-3xl tracking-wide text-white drop-shadow-md">
-                  {{ user.name }}! <span class="ml-2">{{ getTimeEmoji() }}</span>
+                  {{ user?.name }}! <span class="ml-2">{{ getTimeEmoji() }}</span>
                 </h1>
               </div>
 
@@ -110,7 +110,7 @@
     </div>
 
     <!-- Visit record Button - Enhanced Maternal Version -->
-    <a
+    <button
       (click)="createRecord()"
       class="maternal-checkup-btn group relative z-10 -mt-10 mb-4 flex w-full max-w-md cursor-pointer items-center justify-center self-center overflow-hidden rounded-full bg-gradient-to-r from-pink-400/90 via-purple-300/90 to-pink-400/90 px-6 py-4 text-center text-white shadow-lg transition-all duration-300 hover:bg-gradient-to-r hover:from-pink-500/90 hover:via-purple-400/90 hover:to-pink-500/90 hover:shadow-xl sm:mb-6"
     >
@@ -152,7 +152,7 @@
           <span class="block font-bold">Ghi lại ngày khám hôm nay</span>
         </span>
       </div>
-    </a>
+    </button>
   </section>
 
   <!-- HERO section -->

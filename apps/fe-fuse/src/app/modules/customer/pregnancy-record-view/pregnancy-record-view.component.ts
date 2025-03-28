@@ -13,7 +13,7 @@ import { PregnancyRecordViewService } from './pregnancy-record-view.service';
 })
 export class PregnancyRecordViewComponent implements OnInit {
   record$: Observable<RecordResponse>;
-  metrics: MetricResponseType[];
+  metricArray: MetricResponseType[];
   recordId: string;
   isLoading = true;
 
@@ -23,7 +23,7 @@ export class PregnancyRecordViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.recordId = this._route.snapshot.queryParamMap.get('record_id');
+    this.recordId = this._route.snapshot.queryParamMap.get('record_id') || '';
 
     if (this.recordId) {
       console.log('recordId', this.recordId);
@@ -39,7 +39,7 @@ export class PregnancyRecordViewComponent implements OnInit {
         .getMetric()
         .pipe(
           tap((metrics) => {
-            this.metrics = metrics.filter((metric) => metric.status == Status.ACTIVE);
+            this.metricArray = metrics.filter((metric) => metric.status == Status.ACTIVE);
           }),
         )
         .subscribe();
@@ -47,7 +47,7 @@ export class PregnancyRecordViewComponent implements OnInit {
   }
 
   getMetricValue(data: DataMetric[]) {
-    return this.metrics.map((metric) => {
+    return this.metricArray.map((metric) => {
       const active_data = data.find((d) => d.metric_id === metric.metric_id);
       return {
         ...metric,
