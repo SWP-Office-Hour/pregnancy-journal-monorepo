@@ -22,7 +22,7 @@ import { ChildV2Service } from '../../../core/children/child.v2.service';
 })
 export class PregnancyTrackingV2Service {
   public media: MediaResponse[] = [];
-  public selectedRecord: RecordResponse | null = null;
+  public selectedRecord: RecordResponse = null;
   public child: ChildType;
   public records = resource<RecordResponse[], []>({
     loader: async ({ abortSignal }) => {
@@ -39,7 +39,7 @@ export class PregnancyTrackingV2Service {
 
   public metricDataArrayResource = resource<{ options: LineChartOptions; metricId: string }[], []>({
     loader: async ({ abortSignal }) => {
-      const metricIds: string[] = [];
+      const metricIds = [];
       const records: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
         signal: abortSignal,
         headers: {
@@ -57,19 +57,16 @@ export class PregnancyTrackingV2Service {
         });
       });
 
-      const metricsArr = this.metrics.value();
-      if (metricsArr) {
-        metricsArr.forEach((metric) => {
-          if (!metricIds.includes(metric.metric_id) && metric.status != Status.INACTIVE) {
-            metricIds.push(metric.metric_id);
-          }
-        });
-      }
+      this.metrics.value().forEach((metric) => {
+        if (!metricIds.includes(metric.metric_id) && metric.status != Status.INACTIVE) {
+          metricIds.push(metric.metric_id);
+        }
+      });
 
       const dataAsPromises = metricIds.map(async (metricId) => {
         const userValue: Series = {
           name: 'Chỉ số của bạn',
-          data: (this.records.value() || []).map((record) => {
+          data: this.records.value().map((record) => {
             const data = record.data.find((value) => value.metric_id === metricId);
             return {
               x: record.week,
@@ -87,10 +84,10 @@ export class PregnancyTrackingV2Service {
 
         const standardValue: Series = {
           name: 'Chỉ số chuẩn',
-          data: (metricWithStandards.standardArray || []).map((standard) => {
+          data: metricWithStandards.standardArray.map((standard) => {
             return {
               x: standard.week,
-              y: standard.who_standard_value ?? 0,
+              y: standard.who_standard_value,
             };
           }),
         };
@@ -139,14 +136,10 @@ export class PregnancyTrackingV2Service {
   }
 
   getNewestRecord() {
-    const recordArray = this.records.value();
-    if (!recordArray || recordArray.length === 0) {
-      return null;
-    }
-    return recordArray.sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime())[0];
+    return this.records.value().sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime())[0];
   }
 
-  getStandardValue({ week, metric_id }: { metric_id: string; week: number }): Observable<Standard | undefined> {
+  getStandardValue({ week, metric_id }: { metric_id: string; week: number }): Observable<Standard> {
     return this._httpClient.get<Standard[]>(environment.apiUrl + 'standards/' + metric_id).pipe(
       map((res: Standard[]) => {
         res.sort((a, b) => b.week - a.week);
@@ -156,12 +149,7 @@ export class PregnancyTrackingV2Service {
   }
 
   getRecordDataByMetricId(metric_id: string) {
-    const recordArray = this.records.value();
-    if (!recordArray) {
-      return [];
-    }
-
-    return recordArray.map((record) => {
+    return this.records.value().map((record) => {
       const data = record.data.find((value) => value.metric_id === metric_id);
       return {
         week: record.week,
@@ -178,10 +166,7 @@ export class PregnancyTrackingV2Service {
   deleteRecord(record_id: string) {
     return this._httpClient.delete(environment.apiUrl + 'record/' + record_id).pipe(
       map((res) => {
-        const currentRecords = this.records.value();
-        if (currentRecords) {
-          this.records.set(currentRecords.filter((record) => record.visit_record_id !== record_id));
-        }
+        this.records.set(this.records.value().filter((record) => record.visit_record_id !== record_id));
         return res;
       }),
     );
@@ -202,10 +187,7 @@ export class PregnancyTrackingV2Service {
   updateRecord(pregnancy_data: RecordUpdateRequest) {
     return this._httpClient.patch<RecordResponse>(environment.apiUrl + 'record', pregnancy_data).pipe(
       map((res: RecordResponse) => {
-        const currentRecords = this.records.value();
-        if (currentRecords) {
-          this.records.value.set(currentRecords.map((record) => (record.visit_record_id === res.visit_record_id ? res : record)));
-        }
+        this.records.value.set(this.records.value().map((record) => (record.visit_record_id === res.visit_record_id ? res : record)));
         return res;
       }),
     );
@@ -228,13 +210,8 @@ export class PregnancyTrackingV2Service {
     if (record_id === '') {
       this.selectedRecord = null;
       this.media = [];
-      return;
     }
-
-    const records = this.records.value();
-    if (!records) return;
-
-    const record = records.find((record) => record.visit_record_id === record_id);
+    const record = this.records.value().find((record) => record.visit_record_id === record_id);
     if (record) {
       this.selectedRecord = record;
       this.media = [];
