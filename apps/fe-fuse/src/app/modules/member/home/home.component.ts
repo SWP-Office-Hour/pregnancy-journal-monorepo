@@ -31,6 +31,7 @@ import { WeekIllustrationComponent } from '../../../common/week-illustration/wee
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { UserService } from '../../../core/user/user.service';
 import { User } from '../../../core/user/user.types';
+import { HomeReminderComponent } from '../home-reminder/home-reminder.component';
 import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blogs.component';
 
 @Component({
@@ -64,8 +65,9 @@ import { RecommendedBlogsComponent } from '../recommended-blogs/recommended-blog
     ButtonModule,
     NgxSplideModule,
     PopularToolComponent,
-    RecommendedBlogsComponent,
     WeekIllustrationComponent,
+    HomeReminderComponent,
+    RecommendedBlogsComponent,
   ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './home.component.html',
@@ -116,7 +118,7 @@ export class HomeComponent {
     });
   }
 
-  //-------- Recommmend info week Block ----------
+  //-------- Recommend info week Block ----------
   private _expectedDate: Date = new Date();
   private _currentPregnancyWeek: number = 0;
   protected get currentPregnancyWeek(): number {

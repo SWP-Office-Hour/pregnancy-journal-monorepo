@@ -82,10 +82,18 @@ export class LineChartOptions {
 
   constructor(series: Series[]) {
     this.series = series;
-    this.colors = ['#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0'];
+    this.colors = ['#4361ee', '#fa3e8d', '#7209b7', '#f72585', '#4cc9f0'];
     this.chart = {
       height: 350,
       type: 'area',
+      dropShadow: {
+        enabled: true,
+        color: '#000',
+        top: 18,
+        left: 7,
+        blur: 10,
+        opacity: 0.2,
+      },
       toolbar: {
         show: false,
       },
@@ -107,7 +115,7 @@ export class LineChartOptions {
       },
     };
     this.dataLabels = {
-      enabled: false,
+      enabled: true,
     };
     this.stroke = {
       curve: 'smooth',

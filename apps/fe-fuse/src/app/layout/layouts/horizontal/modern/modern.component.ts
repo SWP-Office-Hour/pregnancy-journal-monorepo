@@ -10,7 +10,6 @@ import { NavigationService } from 'app/core/navigation/navigation.service';
 import { Navigation } from 'app/core/navigation/navigation.types';
 import { LanguagesComponent } from 'app/layout/common/languages/languages.component';
 import { NotificationsComponent } from 'app/layout/common/notifications/notifications.component';
-import { QuickChatComponent } from 'app/layout/common/quick-chat/quick-chat.component';
 // import { SearchComponent } from 'app/layout/common/search/search.component';
 // import { ShortcutsComponent } from 'app/layout/common/shortcuts/shortcuts.component';
 import { NgOptimizedImage } from '@angular/common';
@@ -42,7 +41,6 @@ import { HomeNoteComponent } from '../../../common/home-note/home-note.component
     NotificationsComponent,
     UserComponent,
     RouterOutlet,
-    QuickChatComponent,
     HomeNoteComponent,
     NgAutoAnimateDirective,
     ChildrenProfileSelectorComponent,
