@@ -39,12 +39,16 @@
         <!-- Mother Image Column -->
         <div class="mb-6 md:mb-0 md:w-1/3">
           <div class="overflow-hidden rounded-2xl border-2 border-pink-100 shadow-lg">
-            <img
-              class="w-full transition-transform duration-500 hover:scale-105"
-              [src]="'/images/fetal-growth/Female_View_' + countWeekString + '.jpg'"
-              [alt]="'mẹ tuần ' + countWeekString"
-              style="filter: drop-shadow(0 4px 6px rgba(236, 72, 153, 0.1))"
-            />
+            <splide [options]="splideOptions" [selectedSlideIndex]="countWeek" (onInit)="onSplideInit($event)">
+              <splide-slide *ngFor="let image of weekImageArray">
+                <img
+                  class="w-full transition-transform duration-500 hover:scale-105"
+                  [src]="image.src"
+                  [alt]="image.alt"
+                  style="filter: drop-shadow(0 4px 6px rgba(236, 72, 153, 0.1))"
+                />
+              </splide-slide>
+            </splide>
           </div>
 
           <!-- Optional: Size Comparison -->
