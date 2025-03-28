@@ -73,7 +73,11 @@ export class ChildService {
 
     const reminder = await this.reminderService.findReminderDueDateByChild(child);
     if (reminder) {
-      await this.reminderService.update({ ...reminder, remind_date: updateData.expected_birth_date });
+      await this.reminderService.update({
+        ...reminder,
+        remind_date: updateData.expected_birth_date,
+        content: `Ngày sinh dự kiến của bé là ngày ${child.expected_birth_date}`,
+      });
     }
 
     return child;
