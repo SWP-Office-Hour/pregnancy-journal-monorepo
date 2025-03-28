@@ -10,7 +10,7 @@
           <div
             class="relative mr-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-pink-300 to-pink-400 shadow-md transition-all duration-300 hover:scale-105"
           >
-            <span class="text-2xl font-bold text-white">{{ countWeek }}</span>
+            <span class="text-2xl font-bold text-white">{{ countWeekSignal() }}</span>
             <div
               class="absolute -right-1 -top-1 flex h-8 w-8 items-center justify-center rounded-full bg-purple-400 text-xs font-bold text-white shadow-sm"
             >
@@ -19,17 +19,17 @@
           </div>
           <div>
             <h2 class="bg-gradient-to-r from-pink-600 to-purple-500 bg-clip-text text-2xl font-bold text-transparent md:text-3xl">
-              Tuần thứ {{ countWeek }} thai kỳ
+              Tuần thứ {{ countWeekSignal() }} thai kỳ
             </h2>
-            <p class="mt-1 text-gray-600">Khoảng {{ (countWeek - 1) * 7 }} - {{ countWeek * 7 }} ngày</p>
+            <p class="mt-1 text-gray-600">Khoảng {{ (countWeekSignal() - 1) * 7 }} - {{ countWeekSignal() * 7 }} ngày</p>
           </div>
         </div>
 
         <div class="hidden flex-shrink-0 items-center md:flex">
           <span class="mr-3 rounded-full bg-pink-100 px-4 py-1.5 text-sm font-medium text-pink-600 shadow-sm">
-            <ng-container *ngIf="countWeek <= 13">Tam cá nguyệt 1</ng-container>
-            <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Tam cá nguyệt 2</ng-container>
-            <ng-container *ngIf="countWeek > 27">Tam cá nguyệt 3</ng-container>
+            <ng-container *ngIf="countWeekSignal() <= 13">Tam cá nguyệt 1</ng-container>
+            <ng-container *ngIf="countWeekSignal() > 13 && countWeekSignal() <= 27">Tam cá nguyệt 2</ng-container>
+            <ng-container *ngIf="countWeekSignal() > 27">Tam cá nguyệt 3</ng-container>
           </span>
         </div>
       </div>
@@ -39,7 +39,7 @@
         <!-- Mother Image Column -->
         <div class="mb-6 md:mb-0 md:w-1/3">
           <div class="overflow-hidden rounded-2xl border-2 border-pink-100 shadow-lg">
-            <splide [options]="splideOptions" [selectedSlideIndex]="countWeek" (onInit)="onSplideInit($event)">
+            <splide [options]="splideOptions" [selectedSlideIndex]="countWeekSignal()" (onInit)="onSplideInit($event)">
               <splide-slide *ngFor="let image of weekImageArray">
                 <img
                   class="w-full transition-transform duration-500 hover:scale-105"
@@ -55,16 +55,16 @@
           <div class="mt-4 rounded-xl bg-gradient-to-r from-pink-50 to-purple-50 p-3 text-center shadow-sm">
             <p class="text-sm text-gray-600">Bé có kích thước gần bằng</p>
             <p class="text-lg font-medium text-pink-600">
-              <ng-container *ngIf="countWeek === 8">Một quả nho</ng-container>
-              <ng-container *ngIf="countWeek === 12">Một quả chanh</ng-container>
-              <ng-container *ngIf="countWeek === 16">Một quả bơ</ng-container>
-              <ng-container *ngIf="countWeek === 20">Một quả chuối</ng-container>
-              <ng-container *ngIf="countWeek === 24">Một quả đu đủ</ng-container>
-              <ng-container *ngIf="countWeek === 28">Một quả dừa</ng-container>
-              <ng-container *ngIf="countWeek === 32">Một quả dưa hấu nhỏ</ng-container>
-              <ng-container *ngIf="countWeek === 36">Một bí ngô</ng-container>
-              <ng-container *ngIf="countWeek >= 38">Một em bé sơ sinh</ng-container>
-              <ng-container *ngIf="![8, 12, 16, 20, 24, 28, 32, 36, 38, 39, 40].includes(countWeek)">Đang phát triển</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 8">Một quả nho</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 12">Một quả chanh</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 16">Một quả bơ</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 20">Một quả chuối</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 24">Một quả đu đủ</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 28">Một quả dừa</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 32">Một quả dưa hấu nhỏ</ng-container>
+              <ng-container *ngIf="countWeekSignal() === 36">Một bí ngô</ng-container>
+              <ng-container *ngIf="countWeekSignal() >= 38">Một em bé sơ sinh</ng-container>
+              <ng-container *ngIf="![8, 12, 16, 20, 24, 28, 32, 36, 38, 39, 40].includes(countWeekSignal())">Đang phát triển</ng-container>
             </p>
           </div>
         </div>
@@ -121,9 +121,11 @@
                   </svg>
                 </div>
                 <span class="text-gray-600">
-                  <ng-container *ngIf="countWeek <= 13">Mẹ có thể cảm thấy mệt mỏi và buồn nôn vào buổi sáng</ng-container>
-                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Bụng bắt đầu to lên, mẹ có thể cảm nhận được bé đạp</ng-container>
-                  <ng-container *ngIf="countWeek > 27">Mẹ có thể khó ngủ và di chuyển khó khăn hơn</ng-container>
+                  <ng-container *ngIf="countWeekSignal() <= 13">Mẹ có thể cảm thấy mệt mỏi và buồn nôn vào buổi sáng</ng-container>
+                  <ng-container *ngIf="countWeekSignal() > 13 && countWeekSignal() <= 27"
+                    >Bụng bắt đầu to lên, mẹ có thể cảm nhận được bé đạp</ng-container
+                  >
+                  <ng-container *ngIf="countWeekSignal() > 27">Mẹ có thể khó ngủ và di chuyển khó khăn hơn</ng-container>
                 </span>
               </li>
             </ul>
@@ -143,18 +145,20 @@
               <div class="flex items-start rounded-lg bg-white/70 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                 <div class="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500">1</div>
                 <p class="text-gray-600">
-                  <ng-container *ngIf="countWeek <= 13">Uống vitamin tổng hợp cho bà bầu có chứa acid folic</ng-container>
-                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Đi khám thai định kỳ để theo dõi sức khỏe mẹ và bé</ng-container>
-                  <ng-container *ngIf="countWeek > 27">Chuẩn bị sẵn sàng cho ngày sinh, nghỉ ngơi nhiều hơn</ng-container>
+                  <ng-container *ngIf="countWeekSignal() <= 13">Uống vitamin tổng hợp cho bà bầu có chứa acid folic</ng-container>
+                  <ng-container *ngIf="countWeekSignal() > 13 && countWeekSignal() <= 27"
+                    >Đi khám thai định kỳ để theo dõi sức khỏe mẹ và bé</ng-container
+                  >
+                  <ng-container *ngIf="countWeekSignal() > 27">Chuẩn bị sẵn sàng cho ngày sinh, nghỉ ngơi nhiều hơn</ng-container>
                 </p>
               </div>
 
               <div class="flex items-start rounded-lg bg-white/70 p-3 transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
                 <div class="mr-3 flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-green-100 text-green-500">2</div>
                 <p class="text-gray-600">
-                  <ng-container *ngIf="countWeek <= 13">Nghỉ ngơi đầy đủ, tránh các thực phẩm không an toàn cho thai kỳ</ng-container>
-                  <ng-container *ngIf="countWeek > 13 && countWeek <= 27">Tập các bài tập nhẹ nhàng dành cho bà bầu</ng-container>
-                  <ng-container *ngIf="countWeek > 27">Theo dõi cử động của bé và các dấu hiệu chuyển dạ</ng-container>
+                  <ng-container *ngIf="countWeekSignal() <= 13">Nghỉ ngơi đầy đủ, tránh các thực phẩm không an toàn cho thai kỳ</ng-container>
+                  <ng-container *ngIf="countWeekSignal() > 13 && countWeekSignal() <= 27">Tập các bài tập nhẹ nhàng dành cho bà bầu</ng-container>
+                  <ng-container *ngIf="countWeekSignal() > 27">Theo dõi cử động của bé và các dấu hiệu chuyển dạ</ng-container>
                 </p>
               </div>
             </div>
@@ -166,7 +170,7 @@
       <div class="mt-6 flex justify-center space-x-4">
         <button
           (click)="previousStage()"
-          [disabled]="countWeek === 1"
+          [disabled]="countWeekSignal() === 1"
           class="flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-pink-600 shadow-sm transition-all duration-300 hover:bg-pink-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
         >
           <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -178,7 +182,7 @@
         <!-- Return to Current Week Button -->
         <button
           (click)="goToWeek()"
-          *ngIf="countWeek !== currentPregnancyWeek"
+          *ngIf="countWeekSignal() !== currentPregnancyWeek"
           class="flex items-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-4 py-2 text-sm font-medium text-white shadow-sm transition-all duration-300 hover:from-pink-500 hover:to-purple-500 hover:shadow-md"
         >
           Tuần hiện tại
@@ -186,7 +190,7 @@
 
         <button
           (click)="nextStage()"
-          [disabled]="countWeek === 40"
+          [disabled]="countWeekSignal() === 40"
           class="flex items-center rounded-full bg-white px-4 py-2 text-sm font-medium text-pink-600 shadow-sm transition-all duration-300 hover:bg-pink-50 hover:shadow-md disabled:cursor-not-allowed disabled:opacity-50"
         >
           Tuần sau
