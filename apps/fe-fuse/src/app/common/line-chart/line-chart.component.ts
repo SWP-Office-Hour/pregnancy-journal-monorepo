@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, resource, signal } from '@angular/core';
+import { Component, OnInit, signal, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MetricResponseType, MetricWithStandardResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
+import { MetricResponseType } from '@pregnancy-journal-monorepo/contract';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -19,28 +19,13 @@ import {
   ChartComponent,
 } from 'ng-apexcharts';
 import { TabsModule } from 'primeng/tabs';
-import { environment } from '../../../environments/environment';
 import { ChildV2Service } from '../../core/children/child.v2.service';
 import { PregnancyTrackingV2Service } from '../../modules/customer/pregnancy-tracking/pregnancy-tracking-v2.service';
 
-interface Series {
+export interface Series {
   name: string;
   data: { x: number; y: number }[];
 }
-
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  dataLabels: ApexDataLabels;
-  grid: ApexGrid;
-  stroke: ApexStroke;
-  tooltip: ApexTooltip;
-  legend: ApexLegend;
-  fill: ApexFill;
-  colors: string[];
-};
 
 @Component({
   selector: 'app-line-chart',
@@ -49,70 +34,11 @@ export type ChartOptions = {
   styleUrl: './line-chart.component.css',
 })
 export class LineChartComponent implements OnInit {
-  public chartOptions: Partial<ChartOptions>;
   child_id: string;
   title: string = 'Theo dõi chỉ số';
   metrics = signal<MetricResponseType[]>([]);
   selectedMetricId = signal<string>('');
-  metricIdArrayResource = resource<{ options: LineChartOptions; metricId: string }[], []>({
-    loader: async ({ abortSignal }) => {
-      const record: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
-        signal: abortSignal,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          child_id: this.child_id,
-        },
-      }).then((res) => res.json());
-
-      const metricIds: string[] = [];
-      record.data.forEach((r) => {
-        r.data.forEach((d) => {
-          if (!metricIds.includes(d.metric_id)) {
-            metricIds.push(d.metric_id);
-          }
-        });
-      });
-
-      const result = metricIds.map(async (metricId) => {
-        const userValue: Series = {
-          name: 'Chỉ số của bạn',
-          data: this._trackingService.records.value().map((record) => {
-            const data = record.data.find((value) => value.metric_id === metricId);
-            return {
-              x: record.week,
-              y: data ? Number(data.value) : 0,
-            };
-          }),
-        };
-
-        const metricWithStandards: MetricWithStandardResponseType = await fetch(environment.apiUrl + 'metrics/' + metricId, {
-          signal: abortSignal,
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-          },
-        }).then((res) => res.json());
-
-        const standardValue: Series = {
-          name: 'Chỉ số chuẩn',
-          data: metricWithStandards.standardArray.map((standard) => {
-            return {
-              x: standard.week,
-              y: standard.who_standard_value,
-            };
-          }),
-        };
-
-        const series = [standardValue, userValue];
-
-        return {
-          options: new LineChartOptions(series),
-          metricId,
-        };
-      });
-
-      return await Promise.all(result);
-    },
-  });
+  metricIdArrayResource: WritableSignal<{ options: LineChartOptions; metricId: string }[]>;
   protected readonly console = console;
 
   constructor(
@@ -123,6 +49,7 @@ export class LineChartComponent implements OnInit {
     this._childService.child$.subscribe((child) => {
       this.child_id = child.child_id;
     });
+    this.metricIdArrayResource = this._trackingService.metricDataArrayResource.value;
   }
 
   ngOnInit() {
@@ -140,7 +67,7 @@ export class LineChartComponent implements OnInit {
   }
 }
 
-class LineChartOptions {
+export class LineChartOptions {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;

@@ -5,13 +5,16 @@ import {
   HospitalResponse,
   MediaResponse,
   MetricResponseType,
+  MetricWithStandardResponseType,
   RecordCreateRequest,
   RecordResponse,
   RecordUpdateRequest,
   Standard,
+  Status,
 } from '@pregnancy-journal-monorepo/contract';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
+import { LineChartOptions, Series } from '../../../common/line-chart/line-chart.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 
 @Injectable({
@@ -31,6 +34,73 @@ export class PregnancyTrackingV2Service {
         },
       }).then((res) => res.json());
       return res.data.sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime());
+    },
+  });
+
+  public metricDataArrayResource = resource<{ options: LineChartOptions; metricId: string }[], []>({
+    loader: async ({ abortSignal }) => {
+      const metricIds = [];
+      const records: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
+        signal: abortSignal,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          child_id: this.child.child_id,
+        },
+      }).then((res) => {
+        return res.json();
+      });
+      records.data.forEach((record) => {
+        record.data.forEach((data) => {
+          if (!metricIds.includes(data.metric_id)) {
+            metricIds.push(data.metric_id);
+          }
+        });
+      });
+
+      this.metrics.value().forEach((metric) => {
+        if (!metricIds.includes(metric.metric_id) && metric.status != Status.INACTIVE) {
+          metricIds.push(metric.metric_id);
+        }
+      });
+
+      const dataAsPromises = metricIds.map(async (metricId) => {
+        const userValue: Series = {
+          name: 'Chỉ số của bạn',
+          data: this.records.value().map((record) => {
+            const data = record.data.find((value) => value.metric_id === metricId);
+            return {
+              x: record.week,
+              y: data ? Number(data.value) : 0,
+            };
+          }),
+        };
+
+        const metricWithStandards: MetricWithStandardResponseType = await fetch(environment.apiUrl + 'metrics/' + metricId, {
+          signal: abortSignal,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }).then((res) => res.json());
+
+        const standardValue: Series = {
+          name: 'Chỉ số chuẩn',
+          data: metricWithStandards.standardArray.map((standard) => {
+            return {
+              x: standard.week,
+              y: standard.who_standard_value,
+            };
+          }),
+        };
+
+        const series = [standardValue, userValue];
+
+        return {
+          options: new LineChartOptions(series),
+          metricId,
+        };
+      });
+
+      return await Promise.all(dataAsPromises);
     },
   });
 

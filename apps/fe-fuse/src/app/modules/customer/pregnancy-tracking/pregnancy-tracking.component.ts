@@ -7,7 +7,7 @@ import { NgAutoAnimateDirective } from 'ng-auto-animate';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { environment } from '../../../../environments/environment';
-import { LineChartComponent } from '../../../common/line-chart/line-chart.component';
+import { LineChartComponent, LineChartOptions } from '../../../common/line-chart/line-chart.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
 import { TrackingFormComponent } from './form/tracking-form.component';
 import { PregnancyTrackingV2Service } from './pregnancy-tracking-v2.service';
@@ -45,6 +45,8 @@ export class PregnancyTrackingComponent implements OnInit {
       return result.filter((x) => x !== null);
     },
   });
+  metricDataArrayResource = signal<{ options: LineChartOptions; metricId: string }[]>([]);
+
   private _dialog: MatDialog;
 
   constructor(
@@ -52,9 +54,11 @@ export class PregnancyTrackingComponent implements OnInit {
     private _trackingService: PregnancyTrackingV2Service,
   ) {
     this.records = this._trackingService.records.value;
+    this.metricDataArrayResource = this._trackingService.metricDataArrayResource.value;
     effect(() => {
       if (this.records().length > 0) {
         this.recordsWithWarning.reload();
+        this._trackingService.metricDataArrayResource.reload();
       }
     });
   }
