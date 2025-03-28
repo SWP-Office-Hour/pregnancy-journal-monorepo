@@ -19,6 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class AnalyticsComponent implements OnInit, OnDestroy {
   chartVisitors: ApexOptions;
+  chartVisitorsArray: { [key: string]: any[] };
   chartConversions: ApexOptions;
   chartImpressions: ApexOptions;
   chartVisits: ApexOptions;
@@ -129,6 +130,12 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
    * @private
    */
   private _prepareChartData(): void {
+    // Initialize chartVisitorsArray
+    this.chartVisitorsArray = {
+      'this-year': this.data.visitors.series,
+      'last-year': this.data.visitors.series,
+    };
+
     // Visitors
     this.chartVisitors = {
       chart: {
@@ -173,7 +180,7 @@ export class AnalyticsComponent implements OnInit, OnDestroy {
           },
         },
       },
-      series: this.data.visitors.series,
+      series: [],
       stroke: {
         width: 2,
       },

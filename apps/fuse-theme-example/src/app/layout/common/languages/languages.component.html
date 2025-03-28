@@ -6,10 +6,10 @@
 <!-- Language menu -->
 <mat-menu [xPosition]="'before'" #languages="matMenu">
   @for (lang of availableLangs; track trackByFn($index, lang)) {
-    <button mat-menu-item (click)="setActiveLang(lang.id)">
+    <button mat-menu-item (click)="setActiveLang(typeof lang === 'string' ? lang : lang.id)">
       <span class="flex items-center">
-        <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: lang.id }"></ng-container>
-        <span class="ml-3">{{ lang.label }}</span>
+        <ng-container *ngTemplateOutlet="flagImage; context: { $implicit: typeof lang === 'string' ? lang : lang.id }"></ng-container>
+        <span class="ml-3">{{ typeof lang === 'string' ? lang : lang.label }}</span>
       </span>
     </button>
   }

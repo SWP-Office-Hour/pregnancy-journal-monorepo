@@ -33,14 +33,16 @@ import { Subject, takeUntil } from 'rxjs';
   ],
 })
 export class ProjectComponent implements OnInit, OnDestroy {
-  chartGithubIssues: ApexOptions = {};
-  chartTaskDistribution: ApexOptions = {};
-  chartBudgetDistribution: ApexOptions = {};
-  chartWeeklyExpenses: ApexOptions = {};
-  chartMonthlyExpenses: ApexOptions = {};
-  chartYearlyExpenses: ApexOptions = {};
   data: any;
   selectedProject: string = 'ACME Corp. Backend App';
+  chartGithubIssues: ApexOptions;
+  chartGithubIssuesArray: { [key: string]: any[] };
+  chartTaskDistribution: ApexOptions;
+  chartTaskDistributionArray: { [key: string]: any[] };
+  chartBudgetDistribution: ApexOptions;
+  chartWeeklyExpenses: ApexOptions;
+  chartMonthlyExpenses: ApexOptions;
+  chartYearlyExpenses: ApexOptions;
   private _unsubscribeAll: Subject<any> = new Subject<any>();
 
   /**
@@ -141,7 +143,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
    * @private
    */
   private _prepareChartData(): void {
-    // Github issues
+    // Github Issues
+    this.chartGithubIssuesArray = {
+      'this-week': this.data.githubIssues.series,
+      'last-week': this.data.githubIssues.series,
+    };
+
     this.chartGithubIssues = {
       chart: {
         fontFamily: 'inherit',
@@ -157,16 +164,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
       },
       colors: ['#64748B', '#94A3B8'],
       dataLabels: {
-        enabled: true,
-        enabledOnSeries: [0],
-        background: {
-          borderWidth: 0,
-        },
+        enabled: false,
       },
       grid: {
         borderColor: 'var(--fuse-border)',
+        xaxis: {
+          lines: {
+            show: true,
+          },
+        },
+        yaxis: {
+          lines: {
+            show: false,
+          },
+        },
       },
-      labels: this.data.githubIssues.labels,
       legend: {
         show: false,
       },
@@ -175,7 +187,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
           columnWidth: '50%',
         },
       },
-      series: this.data.githubIssues.series,
+      series: [],
       states: {
         hover: {
           filter: {
@@ -184,7 +196,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
         },
       },
       stroke: {
-        width: [3, 0],
+        width: [3, 3],
       },
       tooltip: {
         followCursor: true,
@@ -195,8 +207,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
           show: false,
         },
         axisTicks: {
-          color: 'var(--fuse-border)',
+          show: false,
         },
+        categories: this.data.githubIssues.categories,
         labels: {
           style: {
             colors: 'var(--fuse-text-secondary)',
@@ -216,7 +229,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
       },
     };
 
-    // Task distribution
+    // Task Distribution
+    this.chartTaskDistributionArray = {
+      'this-week': this.data.taskDistribution.series,
+      'last-week': this.data.taskDistribution.series,
+    };
+
     this.chartTaskDistribution = {
       chart: {
         fontFamily: 'inherit',
@@ -244,7 +262,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
           },
         },
       },
-      series: this.data.taskDistribution.series,
+      series: [],
       states: {
         hover: {
           filter: {
