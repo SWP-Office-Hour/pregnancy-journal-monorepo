@@ -31,7 +31,7 @@ importers:
         version: 19.2.7(@angular/cdk@19.2.7(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(@angular/forms@19.2.4(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(@angular/platform-browser@19.2.4(@angular/animations@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(rxjs@7.8.2))(@angular/platform-browser@19.2.4(@angular/animations@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(rxjs@7.8.2)
       '@angular/material-luxon-adapter':
         specifier: ^19.2.7
-        version: 19.2.7(778619a9deb8d54582edd26f834eeab5)
+        version: 19.2.7(qg3kcmqyue6yjbmp7esnr2cl4a)
       '@angular/platform-browser':
         specifier: ^19.2.4
         version: 19.2.4(@angular/animations@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))
@@ -139,7 +139,7 @@ importers:
         version: 1.0.0
       axios:
         specifier: ^1.8.3
-        version: 1.8.3
+        version: 1.8.4
       chart.js:
         specifier: ^4.4.8
         version: 4.4.8
@@ -214,7 +214,7 @@ importers:
         version: 2.1.1
       primeng:
         specifier: ^19.0.10
-        version: 19.0.10(311a75c4d69ed37da0645d5d01db216f)
+        version: 19.0.10(oo5jxqr6uiyjfi3yj57x73xkke)
       quill:
         specifier: ^2.0.3
         version: 2.0.3
@@ -248,10 +248,10 @@ importers:
     devDependencies:
       '@analogjs/vite-plugin-angular':
         specifier: ~1.14.1
-        version: 1.14.1(10ae357470a5a0bb402d633d8e663740)
+        version: 1.14.1(6n2wl6r3vylga22qlyo6oiwjsy)
       '@analogjs/vitest-angular':
         specifier: ~1.14.1
-        version: 1.14.1(@analogjs/vite-plugin-angular@1.14.1(10ae357470a5a0bb402d633d8e663740))(@angular-devkit/architect@0.1902.5(chokidar@4.0.3))(vitest@3.0.8)
+        version: 1.14.1(@analogjs/vite-plugin-angular@1.14.1(6n2wl6r3vylga22qlyo6oiwjsy))(@angular-devkit/architect@0.1902.5(chokidar@4.0.3))(vitest@3.0.8)
       '@angular-devkit/architect':
         specifier: ^0.1902.5
         version: 0.1902.5(chokidar@4.0.3)
@@ -293,7 +293,7 @@ importers:
         version: 6.2.0(@nx/devkit@20.6.4(nx@20.6.4(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15))))(@nx/js@20.6.4(@babel/traverse@7.26.10)(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15))(nx@20.6.4(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15))))(@swc/helpers@0.5.15)(dotenv@16.4.7)(nx@20.6.4(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15)))(tslib@2.8.1)
       '@nx/angular':
         specifier: 20.6.4
-        version: 20.6.4(9d94945ca861ced03b7b6d6fe2ed720d)
+        version: 20.6.4(cfwucoof5taxkuc4kmghnbffxq)
       '@nx/cypress':
         specifier: 20.6.4
         version: 20.6.4(@babel/traverse@7.26.10)(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15))(@zkochan/js-yaml@0.0.7)(cypress@13.17.0)(eslint@9.22.0(jiti@2.4.2))(nx@20.6.4(@swc-node/register@1.10.10(@swc/core@1.11.9(@swc/helpers@0.5.15))(@swc/types@0.1.19)(typescript@5.8.2))(@swc/core@1.11.9(@swc/helpers@0.5.15)))(typescript@5.8.2)
@@ -5108,8 +5108,8 @@ packages:
     resolution: {integrity: sha512-mZzWRyJeJ0rtK7e1/6iYBUzmeXjzei+1h1IvbedyU0sB52++tU5AU6r6TLXpwNVR0ebXIpvTVW+9CpWNyc1n8w==}
     deprecated: Critical security vulnerability fixed in v0.21.1. For more information, see https://github.com/axios/axios/pull/3410
 
-  axios@1.8.3:
-    resolution: {integrity: sha512-iP4DebzoNlP/YN2dpwCgb8zoCmhtkajzS48JvwmkSkXvPI3DHc7m+XYL5tGnSlJtR6nImXZmdCuN5aP8dh1d8A==}
+  axios@1.8.4:
+    resolution: {integrity: sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -8090,6 +8090,10 @@ packages:
 
   mime-db@1.53.0:
     resolution: {integrity: sha512-oHlN/w+3MQ3rba9rqFr6V/ypF10LSkdwUysQL7GkXoTgIWeV+tcXGA852TBxH+gsh8UWoyhR1hKcoMJTuWflpg==}
+    engines: {node: '>= 0.6'}
+
+  mime-db@1.54.0:
+    resolution: {integrity: sha512-aU5EJuIN2WDemCcAp2vFBfp/m4EAhWJnUNSSw0ixs7/kXbd6Pg64EmwJkNdFhB8aWt1sH2CTXrLxo/iAGV3oPQ==}
     engines: {node: '>= 0.6'}
 
   mime-types@2.1.35:
@@ -11149,7 +11153,7 @@ snapshots:
       '@jridgewell/gen-mapping': 0.3.8
       '@jridgewell/trace-mapping': 0.3.25
 
-  '@analogjs/vite-plugin-angular@1.14.1(10ae357470a5a0bb402d633d8e663740)':
+  '@analogjs/vite-plugin-angular@1.14.1(6n2wl6r3vylga22qlyo6oiwjsy)':
     dependencies:
       ts-morph: 21.0.1
       vfile: 6.0.3
@@ -11157,9 +11161,9 @@ snapshots:
       '@angular-devkit/build-angular': 19.2.5(@angular/compiler-cli@19.2.4(@angular/compiler@19.2.4)(typescript@5.8.2))(@angular/compiler@19.2.4)(@rspack/core@1.2.2(@swc/helpers@0.5.15))(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(chokidar@4.0.3)(jest-environment-jsdom@29.7.0)(jest@29.7.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))(jiti@2.4.2)(karma@6.4.4)(lightningcss@1.29.2)(sass-embedded@1.85.1)(stylus@0.64.0)(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.29.2)(sass-embedded@1.85.1)(sass@1.85.1)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.0))(webpack-cli@6.0.1(webpack-dev-server@5.2.0)(webpack@5.98.0))(yaml@2.7.0)
       '@angular/build': 19.2.5(@angular/compiler-cli@19.2.4(@angular/compiler@19.2.4)(typescript@5.8.2))(@angular/compiler@19.2.4)(@types/node@22.13.10)(chokidar@4.0.3)(jiti@2.4.2)(karma@6.4.4)(less@4.2.2)(lightningcss@1.29.2)(postcss@8.5.3)(sass-embedded@1.85.1)(stylus@0.64.0)(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))(terser@5.39.0)(typescript@5.8.2)(yaml@2.7.0)
 
-  '@analogjs/vitest-angular@1.14.1(@analogjs/vite-plugin-angular@1.14.1(10ae357470a5a0bb402d633d8e663740))(@angular-devkit/architect@0.1902.5(chokidar@4.0.3))(vitest@3.0.8)':
+  '@analogjs/vitest-angular@1.14.1(@analogjs/vite-plugin-angular@1.14.1(6n2wl6r3vylga22qlyo6oiwjsy))(@angular-devkit/architect@0.1902.5(chokidar@4.0.3))(vitest@3.0.8)':
     dependencies:
-      '@analogjs/vite-plugin-angular': 1.14.1(10ae357470a5a0bb402d633d8e663740)
+      '@analogjs/vite-plugin-angular': 1.14.1(6n2wl6r3vylga22qlyo6oiwjsy)
       '@angular-devkit/architect': 0.1902.5(chokidar@4.0.3)
       vitest: 3.0.8(@types/node@22.13.10)(@vitest/ui@3.0.8)(jiti@2.4.2)(jsdom@26.0.0)(less@4.2.2)(lightningcss@1.29.2)(sass-embedded@1.85.1)(sass@1.85.1)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.0)
 
@@ -11574,7 +11578,7 @@ snapshots:
 
   '@angular/language-service@19.2.4': {}
 
-  '@angular/material-luxon-adapter@19.2.7(778619a9deb8d54582edd26f834eeab5)':
+  '@angular/material-luxon-adapter@19.2.7(qg3kcmqyue6yjbmp7esnr2cl4a)':
     dependencies:
       '@angular/core': 19.2.4(rxjs@7.8.2)(zone.js@0.15.0)
       '@angular/material': 19.2.7(@angular/cdk@19.2.7(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(@angular/forms@19.2.4(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(@angular/platform-browser@19.2.4(@angular/animations@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(rxjs@7.8.2))(@angular/platform-browser@19.2.4(@angular/animations@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0)))(rxjs@7.8.2)
@@ -14130,7 +14134,7 @@ snapshots:
       '@module-federation/third-party-dts-extractor': 0.10.0
       adm-zip: 0.5.16
       ansi-colors: 4.1.3
-      axios: 1.8.3
+      axios: 1.8.4
       chalk: 3.0.0
       fs-extra: 9.1.0
       isomorphic-ws: 5.0.0(ws@8.18.0)
@@ -14155,7 +14159,7 @@ snapshots:
       '@module-federation/third-party-dts-extractor': 0.9.1
       adm-zip: 0.5.16
       ansi-colors: 4.1.3
-      axios: 1.8.3
+      axios: 1.8.4
       chalk: 3.0.0
       fs-extra: 9.1.0
       isomorphic-ws: 5.0.0(ws@8.18.0)
@@ -14811,7 +14815,7 @@ snapshots:
     transitivePeerDependencies:
       - tslib
 
-  '@nx/angular@20.6.4(9d94945ca861ced03b7b6d6fe2ed720d)':
+  '@nx/angular@20.6.4(cfwucoof5taxkuc4kmghnbffxq)':
     dependencies:
       '@angular-devkit/build-angular': 19.2.5(@angular/compiler-cli@19.2.4(@angular/compiler@19.2.4)(typescript@5.8.2))(@angular/compiler@19.2.4)(@rspack/core@1.2.2(@swc/helpers@0.5.15))(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(chokidar@4.0.3)(jest-environment-jsdom@29.7.0)(jest@29.7.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))(jiti@2.4.2)(karma@6.4.4)(lightningcss@1.29.2)(sass-embedded@1.85.1)(stylus@0.64.0)(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.11.9(@swc/helpers@0.5.15))(@types/node@22.13.10)(typescript@5.8.2)))(typescript@5.8.2)(vite@6.2.3(@types/node@22.13.10)(jiti@2.4.2)(less@4.2.2)(lightningcss@1.29.2)(sass-embedded@1.85.1)(sass@1.85.1)(stylus@0.64.0)(terser@5.39.0)(yaml@2.7.0))(webpack-cli@6.0.1(webpack-dev-server@5.2.0)(webpack@5.98.0))(yaml@2.7.0)
       '@angular-devkit/core': 19.2.5(chokidar@4.0.3)
@@ -15563,7 +15567,7 @@ snapshots:
 
   '@payos/node@1.0.10':
     dependencies:
-      axios: 1.8.3
+      axios: 1.8.4
       crypto: 1.0.1
     transitivePeerDependencies:
       - debug
@@ -17440,7 +17444,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.8.3:
+  axios@1.8.4:
     dependencies:
       follow-redirects: 1.15.9(debug@4.4.0)
       form-data: 4.0.2
@@ -17984,7 +17988,7 @@ snapshots:
 
   compressible@2.0.18:
     dependencies:
-      mime-db: 1.53.0
+      mime-db: 1.54.0
 
   compression@1.8.0:
     dependencies:
@@ -21067,6 +21071,8 @@ snapshots:
 
   mime-db@1.53.0: {}
 
+  mime-db@1.54.0: {}
+
   mime-types@2.1.35:
     dependencies:
       mime-db: 1.52.0
@@ -21763,7 +21769,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.2
       '@zkochan/js-yaml': 0.0.7
-      axios: 1.8.3
+      axios: 1.8.4
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -22444,7 +22450,7 @@ snapshots:
 
   primelocale@2.1.1: {}
 
-  primeng@19.0.10(311a75c4d69ed37da0645d5d01db216f):
+  primeng@19.0.10(oo5jxqr6uiyjfi3yj57x73xkke):
     dependencies:
       '@angular/animations': 19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))
       '@angular/cdk': 19.2.7(@angular/common@19.2.4(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.4(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2)
