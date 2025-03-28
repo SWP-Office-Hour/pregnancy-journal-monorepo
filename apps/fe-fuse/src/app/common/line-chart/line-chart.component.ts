@@ -1,11 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, resource, signal, ViewChild } from '@angular/core';
+import { Component, OnInit, resource, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MetricResponseType, MetricWithStandardResponseType, RecordResponse } from '@pregnancy-journal-monorepo/contract';
-import { DateTime } from 'luxon';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -23,6 +22,11 @@ import { TabsModule } from 'primeng/tabs';
 import { environment } from '../../../environments/environment';
 import { ChildV2Service } from '../../core/children/child.v2.service';
 import { PregnancyTrackingV2Service } from '../../modules/customer/pregnancy-tracking/pregnancy-tracking-v2.service';
+
+interface Series {
+  name: string;
+  data: { x: number; y: number }[];
+}
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -45,21 +49,12 @@ export type ChartOptions = {
   styleUrl: './line-chart.component.css',
 })
 export class LineChartComponent implements OnInit {
-  @ViewChild('chart') chart: ChartComponent;
   public chartOptions: Partial<ChartOptions>;
-
   child_id: string;
-  selectedPeriod: string = '30 days';
-  periods = [
-    { label: '30 days', days: 30 },
-    { label: '3 months', days: 90 },
-    { label: '9 months', days: 270 },
-  ];
-
   title: string = 'Theo dõi chỉ số';
   metrics = signal<MetricResponseType[]>([]);
-  selectedMetric = signal<string>('');
-  metricIdArrayResource = resource<string[], []>({
+  selectedMetricId = signal<string>('');
+  metricIdArrayResource = resource<{ options: LineChartOptions; metricId: string }[], []>({
     loader: async ({ abortSignal }) => {
       const record: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
         signal: abortSignal,
@@ -77,66 +72,48 @@ export class LineChartComponent implements OnInit {
           }
         });
       });
-      console.log('metricIds', metricIds);
-      return metricIds;
+
+      const result = metricIds.map(async (metricId) => {
+        const userValue: Series = {
+          name: 'Chỉ số của bạn',
+          data: this._trackingService.records.value().map((record) => {
+            const data = record.data.find((value) => value.metric_id === metricId);
+            return {
+              x: record.week,
+              y: data ? Number(data.value) : 0,
+            };
+          }),
+        };
+
+        const metricWithStandards: MetricWithStandardResponseType = await fetch(environment.apiUrl + 'metrics/' + metricId, {
+          signal: abortSignal,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+        }).then((res) => res.json());
+
+        const standardValue: Series = {
+          name: 'Chỉ số chuẩn',
+          data: metricWithStandards.standardArray.map((standard) => {
+            return {
+              x: standard.week,
+              y: standard.who_standard_value,
+            };
+          }),
+        };
+
+        const series = [standardValue, userValue];
+
+        return {
+          options: new LineChartOptions(series),
+          metricId,
+        };
+      });
+
+      return await Promise.all(result);
     },
   });
-
-  multi_data = resource<
-    {
-      name: string;
-      data: { week: number; value: number }[];
-    }[],
-    []
-  >({
-    loader: async ({ abortSignal }) => {
-      const metricId = this.selectedMetric();
-      const userValue: {
-        name: string;
-        data: { week: number; value: number }[];
-      } = {
-        name: 'Chỉ số của bạn',
-        data: this._trackingService.records.value().map((record) => {
-          const data = record.data.find((value) => value.metric_id === metricId);
-          return {
-            week: record.week,
-            value: data ? Number(data.value) : 0,
-          };
-        }),
-      };
-
-      const metricWithStandards: MetricWithStandardResponseType = await fetch(environment.apiUrl + 'metrics/' + metricId, {
-        signal: abortSignal,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }).then((res) => res.json());
-
-      const standardValue: {
-        name: string;
-        data: { week: number; value: number }[];
-      } = {
-        name: 'Chỉ số chuẩn',
-        data: metricWithStandards.standardArray.map((standard) => {
-          return {
-            week: standard.week,
-            value: standard.who_standard_value,
-          };
-        }),
-      };
-
-      const series = [standardValue, userValue];
-      this.chartOptions.series = series.map((s) => ({
-        name: s.name,
-        data: s.data.map((d) => ({
-          x: d.week,
-          y: d.value,
-        })),
-      }));
-
-      return series;
-    },
-  });
+  protected readonly console = console;
 
   constructor(
     private _trackingService: PregnancyTrackingV2Service,
@@ -146,7 +123,10 @@ export class LineChartComponent implements OnInit {
     this._childService.child$.subscribe((child) => {
       this.child_id = child.child_id;
     });
-    this.initChartOptions();
+  }
+
+  ngOnInit() {
+    this.selectedMetricId.set(this.metrics()[0].metric_id);
   }
 
   getMetricTitle(metricId: string): string {
@@ -156,167 +136,126 @@ export class LineChartComponent implements OnInit {
 
   changeMetric(metricId: string) {
     console.log('changeMetric', metricId);
-    this.selectedMetric.set(metricId);
-    this.multi_data.reload();
+    this.selectedMetricId.set(metricId);
   }
+}
 
-  ngOnInit() {
-    // this.updateChartData();
-  }
+class LineChartOptions {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
+  dataLabels: ApexDataLabels;
+  grid: ApexGrid;
+  stroke: ApexStroke;
+  tooltip: ApexTooltip;
+  legend: ApexLegend;
+  fill: ApexFill;
+  colors: string[];
 
-  initChartOptions() {
-    this.chartOptions = {
-      series: [],
-      colors: ['#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0'],
-      chart: {
-        height: 350,
-        type: 'area',
-        toolbar: {
-          show: false,
-        },
-        zoom: {
-          enabled: false,
-        },
-        fontFamily: 'inherit',
-        animations: {
-          enabled: true,
-          speed: 800,
-          animateGradually: {
-            enabled: true,
-            delay: 150,
-          },
-          dynamicAnimation: {
-            enabled: true,
-            speed: 350,
-          },
-        },
+  constructor(series: Series[]) {
+    this.series = series;
+    this.colors = ['#4361ee', '#3a0ca3', '#7209b7', '#f72585', '#4cc9f0'];
+    this.chart = {
+      height: 350,
+      type: 'area',
+      toolbar: {
+        show: false,
       },
-      dataLabels: {
+      zoom: {
         enabled: false,
       },
-      stroke: {
-        curve: 'smooth',
-        width: 2,
-      },
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shadeIntensity: 1,
-          opacityFrom: 0.7,
-          opacityTo: 0.3,
-          stops: [0, 90, 100],
+      fontFamily: 'inherit',
+      animations: {
+        enabled: true,
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150,
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350,
         },
       },
+    };
+    this.dataLabels = {
+      enabled: false,
+    };
+    this.stroke = {
+      curve: 'smooth',
+      width: 2,
+    };
+    this.fill = {
+      type: 'gradient',
+      gradient: {
+        shadeIntensity: 1,
+        opacityFrom: 0.7,
+        opacityTo: 0.3,
+        stops: [0, 90, 100],
+      },
+    };
+    this.xaxis = {
+      type: 'numeric',
+      labels: {
+        formatter: function (val) {
+          return `Tuần ${Number(val).toFixed(0)}`;
+        },
+      },
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: true,
+      },
+    };
+    this.yaxis = {
+      labels: {
+        formatter: function (val) {
+          return val?.toFixed(0);
+        },
+      },
+      tickAmount: 5,
+    };
+    this.tooltip = {
+      x: {
+        formatter: function (val) {
+          return `Tuần ${Number(val).toFixed(0)}`;
+        },
+      },
+      y: {
+        formatter: function (val) {
+          return val?.toFixed(0);
+        },
+      },
+      theme: 'light',
+      shared: true,
+      intersect: false,
+    };
+    this.legend = {
+      position: 'top',
+      horizontalAlign: 'right',
+      offsetY: -10,
+    };
+    this.grid = {
+      borderColor: '#e0e0e0',
+      strokeDashArray: 5,
       xaxis: {
-        type: 'numeric',
-        labels: {
-          formatter: function (val) {
-            return `Tuần ${val}`;
-          },
-        },
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
+        lines: {
           show: true,
         },
       },
       yaxis: {
-        labels: {
-          formatter: function (val) {
-            return val?.toFixed(0);
-          },
-        },
-        tickAmount: 5,
-      },
-      tooltip: {
-        y: {
-          formatter: function (val) {
-            return val?.toFixed(0);
-          },
-        },
-        theme: 'light',
-        shared: true,
-        intersect: false,
-      },
-      legend: {
-        position: 'top',
-        horizontalAlign: 'right',
-        offsetY: -10,
-      },
-      grid: {
-        borderColor: '#e0e0e0',
-        strokeDashArray: 5,
-        xaxis: {
-          lines: {
-            show: true,
-          },
-        },
-        yaxis: {
-          lines: {
-            show: true,
-          },
-        },
-        padding: {
-          top: 0,
-          right: 10,
-          bottom: 0,
-          left: 10,
+        lines: {
+          show: true,
         },
       },
-    };
-  }
-
-  updateChartData() {
-    console.log('updateChartData', this.multi_data.value());
-    if (!this.multi_data.value() || this.multi_data.value().length === 0) {
-      return;
-    }
-
-    // Filter data based on selected period
-    this.chartOptions.series = this.multi_data.value().map((series) => ({
-      name: series.name,
-      data: series.data.map((d) => ({
-        x: d.week,
-        y: d.value,
-      })),
-    }));
-
-    console.log(this.chartOptions.series);
-  }
-
-  getStartWeekFromPeriod(): number {
-    const now = DateTime.now();
-    const period = this.periods.find((p) => p.label === this.selectedPeriod);
-    return now.minus({ days: period ? period.days : 30 }).weekNumber;
-  }
-
-  getStartDateFromPeriod(): DateTime {
-    const now = DateTime.now();
-    const period = this.periods.find((p) => p.label === this.selectedPeriod);
-    return now.minus({ days: period ? period.days : 30 });
-  }
-
-  changePeriod(period: string) {
-    this.selectedPeriod = period;
-    this.updateChartData();
-  }
-
-  calculatePercentageChange(seriesIndex: number): { value: string; isPositive: boolean } {
-    if (!this.multi_data || !this.multi_data[seriesIndex] || this.multi_data[seriesIndex].data.length < 2) {
-      return { value: '0', isPositive: true };
-    }
-
-    const data = this.multi_data[seriesIndex].data;
-    const currentValue = data[data.length - 1].value;
-    const previousValue = data[data.length - 2].value;
-
-    if (previousValue === 0) return { value: '0', isPositive: true };
-
-    const change = ((currentValue - previousValue) / previousValue) * 100;
-    return {
-      value: Math.abs(change).toFixed(1),
-      isPositive: change >= 0,
+      padding: {
+        top: 0,
+        right: 10,
+        bottom: 0,
+        left: 10,
+      },
     };
   }
 }
