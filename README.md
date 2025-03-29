@@ -1,5 +1,7 @@
 [![CD](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml/badge.svg)](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml)
 
+ERD Link: https://swp-office-hour.github.io
+
 # PregnancyJournal
 
 <a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
