@@ -118,7 +118,7 @@ export class RecordsService {
       next_visit_doctor_date: record.next_visit_doctor_date,
     });
 
-    const warnings = await this.getWarning(newRecord.visit_record_id);
+    const warnings = await this.getWarningMessageV2(newRecord.visit_record_id);
     console.log(warnings);
     const formatRecord = await this.getRecordById(newRecord.visit_record_id);
     return { ...formatRecord[0], warnings };
