@@ -750,70 +750,62 @@ export class UsersService {
   }
 
   async deleteUser(userId: string) {
-    const post = await this.postsService.getPostByUserId(userId);
-
-    if (post) {
-      for (const p of post) {
-        await this.postsService.remove(p.post_id);
+    // Delete all posts and their related records first
+    const posts = await this.postsService.getPostByUserId(userId);
+    if (posts && posts.length > 0) {
+      for (const post of posts) {
+        // This should delete related comments and reactions
+        await this.postsService.remove(post.post_id);
       }
     }
 
-    const payment = await this.paymentService.getPaymentByUserId(userId);
-
-    if (payment) {
-      await this.databaseService.Payment.deleteMany({
-        where: {
-          user_id: userId,
-        },
-      });
-    }
-
+    // Delete tokens
     await this.databaseService.Token.deleteMany({
-      where: {
-        user_id: userId,
-      },
+      where: { user_id: userId },
     });
 
-    const child = await this.childService.getAllChildren(userId);
+    // Delete reminders
+    await this.databaseService.Reminder.deleteMany({
+      where: { user_id: userId },
+    });
 
-    if (child) {
-      for (const c of child) {
-        await this.childService.deleteChild(c.child_id);
+    // Delete notes
+    await this.databaseService.Note.deleteMany({
+      where: { user_id: userId },
+    });
+
+    // Delete payment history
+    await this.databaseService.Payment.deleteMany({
+      where: { user_id: userId },
+    });
+
+    // Delete child records and their related records
+    const children = await this.childService.getAllChildren(userId);
+    if (children && children.length > 0) {
+      for (const child of children) {
+        // Delete visit records first (which will cascade to visit_record_metric and media)
+        await this.childService.deleteChild(child.child_id);
+
+        // Now delete the child
+        await this.databaseService.Child.delete({
+          where: { child_id: child.child_id },
+        });
       }
     }
 
-    const reminders = await this.databaseService.Reminder.findMany({
-      where: {
-        user_id: userId,
-      },
+    // Delete reactions that aren't handled by post deletion
+    await this.databaseService.Reaction.deleteMany({
+      where: { user_id: userId },
     });
 
-    if (reminders) {
-      await this.databaseService.Reminder.deleteMany({
-        where: {
-          user_id: userId,
-        },
-      });
-    }
-
-    const note = await this.databaseService.Note.findMany({
-      where: {
-        user_id: userId,
-      },
+    // Delete comments that aren't handled by post deletion
+    await this.databaseService.Comment.deleteMany({
+      where: { user_id: userId },
     });
 
-    if (note) {
-      await this.databaseService.Note.deleteMany({
-        where: {
-          user_id: userId,
-        },
-      });
-    }
-
+    // Finally delete the user
     return this.databaseService.User.delete({
-      where: {
-        user_id: userId,
-      },
+      where: { user_id: userId },
     });
   }
 }
