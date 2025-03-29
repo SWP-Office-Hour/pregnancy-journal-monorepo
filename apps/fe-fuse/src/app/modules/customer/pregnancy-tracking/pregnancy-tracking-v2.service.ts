@@ -36,11 +36,31 @@ export class PregnancyTrackingV2Service {
       return res.data.sort((a, b) => new Date(b.visit_doctor_date).getTime() - new Date(a.visit_doctor_date).getTime());
     },
   });
+  public hospitals = resource<HospitalResponse[], []>({
+    loader: async ({ abortSignal }) => {
+      return await fetch(environment.apiUrl + 'hospitals', {
+        signal: abortSignal,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }).then((res) => res.json());
+    },
+  });
+  public metrics = resource<MetricResponseType[], []>({
+    loader: async ({ abortSignal }) => {
+      return await fetch(environment.apiUrl + 'metrics/', {
+        signal: abortSignal,
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+      }).then((res) => res.json());
+    },
+  });
 
   public metricDataArrayResource = resource<{ options: LineChartOptions; metricId: string }[], []>({
     loader: async ({ abortSignal }) => {
       const metricIds = [];
-      const records: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
+      const { data }: { total: number; data: RecordResponse[] } = await fetch(environment.apiUrl + 'record', {
         signal: abortSignal,
         headers: {
           Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -49,7 +69,8 @@ export class PregnancyTrackingV2Service {
       }).then((res) => {
         return res.json();
       });
-      records.data.forEach((record) => {
+
+      data.forEach((record) => {
         record.data.forEach((data) => {
           if (!metricIds.includes(data.metric_id)) {
             metricIds.push(data.metric_id);
@@ -64,15 +85,19 @@ export class PregnancyTrackingV2Service {
       });
 
       const dataAsPromises = metricIds.map(async (metricId) => {
+        const userData: { x: number; y: number }[] = [];
+        this.records.value().forEach((record) => {
+          const data = record.data.find((value) => value.metric_id === metricId);
+          if (data && data.value != '0') {
+            userData.push({
+              x: record.week,
+              y: Number(data.value),
+            });
+          }
+        });
         const userValue: Series = {
           name: 'Chỉ số của bạn',
-          data: this.records.value().map((record) => {
-            const data = record.data.find((value) => value.metric_id === metricId);
-            return {
-              x: record.week,
-              y: data ? Number(data.value) : 0,
-            };
-          }),
+          data: userData,
         };
 
         const metricWithStandards: MetricWithStandardResponseType = await fetch(environment.apiUrl + 'metrics/' + metricId, {
@@ -101,28 +126,6 @@ export class PregnancyTrackingV2Service {
       });
 
       return await Promise.all(dataAsPromises);
-    },
-  });
-
-  public hospitals = resource<HospitalResponse[], []>({
-    loader: async ({ abortSignal }) => {
-      return await fetch(environment.apiUrl + 'hospitals', {
-        signal: abortSignal,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }).then((res) => res.json());
-    },
-  });
-
-  public metrics = resource<MetricResponseType[], []>({
-    loader: async ({ abortSignal }) => {
-      return await fetch(environment.apiUrl + 'metrics/', {
-        signal: abortSignal,
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-      }).then((res) => res.json());
     },
   });
 
