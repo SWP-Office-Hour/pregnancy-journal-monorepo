@@ -40,6 +40,7 @@ export class BlogsService {
 
   clearBlog() {
     this._blog = null;
+    this._media.set({ media_url: '' });
   }
 
   getBlogs() {
@@ -64,7 +65,7 @@ export class BlogsService {
   updateBlog(blog: BlogUpdateRequestType) {
     const updatedBlog: BlogUpdateRequestType = {
       ...blog,
-      blog_cover: this._media[0]?.media_url || '',
+      blog_cover: this._media()?.media_url || '',
     };
     return this._httpClient
       .patch<BlogResponseType>(environment.apiUrl + 'blogs', updatedBlog, {
