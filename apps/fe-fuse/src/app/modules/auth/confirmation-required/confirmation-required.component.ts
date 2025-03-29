@@ -57,6 +57,10 @@ export class AuthConfirmationRequiredComponent implements OnInit {
   protected districts: District[] = [];
   protected wards: Ward[] = [];
 
+  today: Date = new Date();
+  maxDate: Date = new Date();
+  minDate: Date = new Date();
+
   // Alerts
   protected alert: { type: FuseAlertType; message: string } = {
     type: 'success',
@@ -92,6 +96,9 @@ export class AuthConfirmationRequiredComponent implements OnInit {
       district: '',
       address: '',
     });
+
+    this.maxDate.setMonth(this.today.getMonth() + 9);
+    this.minDate.setMonth(this.today.getMonth() - 9);
 
     // Step 1: Basic Info Form
     this.basicInfoForm = this._formBuilder.group({

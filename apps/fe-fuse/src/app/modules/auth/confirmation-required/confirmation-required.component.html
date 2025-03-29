@@ -161,7 +161,7 @@
         <div class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Lựa chọn 1: Nhập trực tiếp</div>
         <mat-form-field class="w-full">
           <mat-label>Ngày sinh dự kiến</mat-label>
-          <input matInput [matDatepicker]="expected_birth_date" formControlName="expected_birth_date" readonly />
+          <input matInput [matDatepicker]="expected_birth_date" formControlName="expected_birth_date" readonly [min]="today" [max]="maxDate" />
           <mat-datepicker-toggle matSuffix [for]="expected_birth_date"></mat-datepicker-toggle>
           <mat-datepicker #expected_birth_date>
             <mat-datepicker-actions>
@@ -188,7 +188,7 @@
         <div class="mb-2 text-center text-xs text-pink-600">Mẹ muốn biết ngày dự sinh của bé?</div>
         <mat-form-field class="w-full">
           <mat-label>Ngày đầu tiên của kỳ kinh nguyệt cuối</mat-label>
-          <input matInput [matDatepicker]="last_period_date" formControlName="last_period_date" readonly />
+          <input matInput [matDatepicker]="last_period_date" formControlName="last_period_date" readonly [min]="minDate" [max]="today" />
           <mat-datepicker-toggle matSuffix [for]="last_period_date"></mat-datepicker-toggle>
           <mat-datepicker #last_period_date>
             <mat-datepicker-actions>
