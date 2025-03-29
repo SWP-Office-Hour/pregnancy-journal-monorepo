@@ -213,6 +213,7 @@ export class UsersService {
         remind_date: new Date(data.expected_birth_date),
         type: ReminderType.USER_DUE_DATE,
         status: Status.ACTIVE,
+        color: '#ec4899',
         user: {
           connect: {
             user_id: result.user_id,
