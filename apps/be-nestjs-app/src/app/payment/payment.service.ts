@@ -39,7 +39,7 @@ export class PaymentService {
     const membershipExisted = await this.userService.checkAccountMembership(user.user_id);
 
     if (membershipExisted) {
-      throw new NotFoundException('User already has a membership');
+      throw new NotFoundException('Bạn hiện tại đã có gói thành viên');
     }
 
     const payOsOrderCode = Number(new Date(Date.now()));
@@ -126,7 +126,7 @@ export class PaymentService {
     const membershipExisted = await this.userService.checkAccountMembership(user.user_id);
 
     if (membershipExisted) {
-      throw new NotFoundException('User already has a membership');
+      throw new NotFoundException('Bạn hiện tại đã có gói thành viên');
     }
 
     const payment = await this.databaseService.Payment.create({
