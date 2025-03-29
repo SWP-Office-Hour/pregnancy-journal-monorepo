@@ -1,143 +1,196 @@
-<!-- Maternal Blog Carousel -->
-<div class="relative overflow-hidden bg-gradient-to-r from-pink-50/30 to-purple-50/30">
-  <div class="relative h-[500px] w-full overflow-hidden rounded-[calc(2rem-4px)]">
-    <!-- Carousel slides with Angular ngForOf and ngClass -->
-    <div
-      *ngFor="let item of blogs; let i = index"
-      [ngClass]="{ 'pointer-events-none opacity-0': currentIndex !== i, 'opacity-100': currentIndex === i }"
-      class="absolute inset-0 h-full w-full transition-all duration-700"
-      [ngStyle]="{ 'z-index': currentIndex === i ? 20 : 10 }"
-    >
-      <!-- Image with maternal-friendly overlay gradient -->
-      <img
-        [src]="item.blog_cover"
-        [alt]="item.title"
-        class="h-full w-full scale-[1.02] object-cover object-center blur-[2px] transition-transform duration-700"
-        (error)="handleImageError($event)"
-      />
+<!-- Maternal Blog Recommendations Section -->
+@if (this.recommendedBlogs.length > 0) {
+  <div class="my-8 w-full overflow-hidden">
+    <!-- Section Header with Maternal Styling -->
+    <div class="mb-8 text-center">
+      <h2 class="relative mx-auto inline-block bg-gradient-to-r from-pink-500 to-purple-500 bg-clip-text text-3xl font-bold text-transparent">
+        Bài viết cho mẹ
+      </h2>
+      <div class="mx-auto mt-2 h-1 w-24 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></div>
+      <p class="mt-3 text-gray-600">Những bài viết được đề xuất đặc biệt cho hành trình làm mẹ của bạn</p>
+    </div>
 
-      <!-- Semi-transparent backdrop for better readability -->
-      <div class="absolute inset-0 bg-gradient-to-t from-pink-900/80 via-purple-800/60 to-transparent"></div>
-
-      <!-- Content container with improved layout -->
-      <div class="absolute inset-x-0 bottom-0 z-30 px-20 pb-12 pt-24">
-        <!-- "New" badge with maternal styling -->
-        <div
-          class="mb-4 inline-flex items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-5 py-1.5 shadow-lg"
-          [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
+    <!-- Blog Carousel -->
+    <div class="relative px-4">
+      <!-- Carousel Component -->
+      <splide
+        [options]="{
+          rewind: true,
+          isNavigation: false,
+          gap: 24,
+          focus: 'center',
+          pagination: true,
+          perPage: 4,
+          perMove: 1,
+          lazyLoad: 'nearby',
+        }"
+        class="maternal-carousel overflow-hidden"
+      >
+        <!-- Blog Cards -->
+        <splide-slide
+          *ngFor="let blog of recommendedBlogs; let i = index"
+          class="px-3 opacity-0"
+          [style]="{ animation: 'fadeInUp 0.8s ease-out forwards m', 'animation-delay': i * 0.1 + 's' }"
         >
-          <span class="text-sm font-semibold tracking-wide text-white">{{ item.category.title }}</span>
-        </div>
-
-        <!-- Title with maternal font and styling -->
-        <h1
-          class="mb-3 max-w-3xl text-4xl font-bold leading-tight text-white drop-shadow-md md:text-5xl"
-          [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
-        >
-          {{ item.title }}
-        </h1>
-
-        <!-- Summary with better readability -->
-        <p class="mb-6 max-w-2xl text-lg leading-relaxed text-pink-50 drop-shadow-md md:text-xl">
-          {{ item.summary }}
-        </p>
-
-        <!-- Meta information with maternal-friendly icons -->
-        <div class="flex flex-wrap items-center gap-6">
-          <div class="flex items-center gap-2 text-sm text-pink-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
-              <path
-                fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
-                clip-rule="evenodd"
-              />
-            </svg>
-            <span>{{ item.created_at | date: 'dd MMM, yyyy' }}</span>
-          </div>
-
-          <div class="flex items-center gap-2 text-sm text-pink-100">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-pink-200" viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
-            <span>{{ item.author }}</span>
-          </div>
-
-          <!-- Read more button -->
-          <button
-            class="group ml-auto flex items-center gap-2 rounded-full bg-white/20 px-5 py-2 backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-pink-600"
-            [ngStyle]="{ 'font-family': 'var(--font-playful)' }"
-            (click)="blog.click()"
-          >
-            <span class="text-sm font-medium text-white transition-colors group-hover:text-pink-600">Đọc tiếp</span>
-            <a [routerLink]="['/blog', item.blog_id]" hidden #blog></a>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-4 w-4 text-white transition-all group-hover:translate-x-1 group-hover:text-pink-600"
-              viewBox="0 0 20 20"
-              fill="currentColor"
+          <div class="h-full w-full pb-8 pt-4">
+            <div
+              class="group flex h-full w-full flex-col rounded-2xl border-2 border-pink-100 bg-gradient-to-b from-white to-pink-50/30 p-5 shadow-md backdrop-blur-sm transition-all duration-500 hover:-translate-y-2 hover:border-pink-300 hover:shadow-xl"
+              (click)="navigateToBlog(blog)"
             >
-              <path
-                fill-rule="evenodd"
-                d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                clip-rule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
+              <!-- Image Container with Maternal Styling -->
+              <div class="relative mb-4 overflow-hidden rounded-xl bg-gradient-to-b from-pink-100/80 to-pink-200/80 shadow-inner">
+                <!-- Category Badge -->
+                <div
+                  class="absolute left-3 top-3 z-10 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-pink-600 shadow-sm backdrop-blur-sm"
+                >
+                  {{ blog?.category?.title || 'Mẹ và Bé' }}
+                </div>
+
+                <!-- Heart Icon for 'Love' Effect -->
+                <div
+                  class="absolute -right-3 -top-3 z-10 flex h-10 w-10 -translate-y-1/2 translate-x-1/2 transform items-center justify-center opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100"
+                >
+                  <span class="flex h-8 w-8 animate-pulse items-center justify-center rounded-full bg-pink-100 text-pink-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path
+                        fill-rule="evenodd"
+                        d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
+
+                <!-- Blog Image -->
+                <img
+                  [src]="blog?.blog_cover || '/images/ui/placeholder/blog-placeholder.jpg'"
+                  [alt]="blog?.title"
+                  class="aspect-video h-48 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  (error)="handleImageError($event)"
+                />
+
+                <!-- Soft Gradient Overlay -->
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-pink-100/40 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                ></div>
+              </div>
+
+              <!-- Content with Maternal Typography -->
+              <div class="flex flex-grow flex-col">
+                <!-- Title with Gradient on Hover -->
+                <h3
+                  class="mb-2 line-clamp-2 text-lg font-bold text-gray-800 transition-colors duration-300 group-hover:bg-gradient-to-r group-hover:from-pink-600 group-hover:to-purple-600 group-hover:bg-clip-text group-hover:text-transparent"
+                >
+                  {{ blog?.title || 'Bài viết cho mẹ và bé' }}
+                </h3>
+
+                <!-- Description with Soft Gray -->
+                <p class="mb-4 line-clamp-3 flex-grow text-sm leading-relaxed text-gray-600">
+                  {{ blog?.summary || 'Thông tin hữu ích dành cho các mẹ trong thai kỳ và chăm sóc em bé.' }}
+                </p>
+
+                <!-- Footer with Publication Date and Read More -->
+                <div class="mt-auto flex items-center justify-between border-t border-pink-100 pt-3">
+                  <span class="flex items-center text-xs text-gray-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                      />
+                    </svg>
+                    {{ blog?.created_at | date: 'dd/MM/yyyy' }}
+                  </span>
+
+                  <span class="group flex items-center text-sm font-medium text-pink-600 transition-all group-hover:text-purple-600">
+                    <span>Đọc tiếp</span>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="ml-1 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </splide-slide>
+      </splide>
+
+      <!-- View All Link -->
+      <div class="mt-8 text-center">
+        <a
+          routerLink="/authenticated/blog"
+          class="group inline-flex items-center rounded-full bg-gradient-to-r from-pink-100 to-purple-100 px-6 py-2.5 font-medium text-pink-600 shadow-sm transition-all duration-300 hover:from-pink-200 hover:to-purple-200 hover:shadow-md"
+        >
+          <span>Xem tất cả bài viết</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </a>
       </div>
     </div>
+  </div>
+} @else {
+  <!-- Empty State with Maternal Styling -->
+  <div
+    class="my-10 w-full overflow-hidden rounded-3xl border-2 border-pink-100 bg-gradient-to-br from-pink-50/50 via-white to-purple-50/50 p-8 shadow-md"
+  >
+    <div class="flex flex-col items-center justify-center text-center">
+      <!-- Empty State Illustration -->
+      <div class="mb-6 flex h-28 w-28 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-purple-100 p-6 shadow-inner">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+          />
+        </svg>
+      </div>
 
-    <!-- Navigation controls -->
-    <div class="absolute inset-0 z-30 flex items-center justify-between px-4">
-      <!-- Previous button with maternal styling -->
-      <button
-        (click)="prevSlide()"
-        class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
-        aria-label="Previous slide"
+      <h3 class="mb-3 text-2xl font-bold text-pink-600">Chưa có bài viết đề xuất</h3>
+      <p class="mb-6 max-w-lg text-gray-600">
+        Chúng tôi đang chuẩn bị những bài viết phù hợp nhất với hành trình làm mẹ của bạn. Hãy quay lại sau nhé!
+      </p>
+
+      <!-- Call to Action -->
+      <a
+        routerLink="/authenticated/blog"
+        class="group flex items-center rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-6 py-2.5 font-medium text-white shadow-md transition-all duration-300 hover:from-pink-500 hover:to-purple-500 hover:shadow-lg"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+          class="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12"
+          viewBox="0 0 20 20"
+          fill="currentColor"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
+          <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
         </svg>
-      </button>
+        <span>Khám phá thư viện bài viết</span>
+      </a>
 
-      <!-- Next button with maternal styling -->
-      <button
-        (click)="nextSlide()"
-        class="group rounded-full bg-white/20 p-3 backdrop-blur-sm transition-all duration-300 hover:bg-white/80 hover:text-pink-600 hover:shadow-lg focus:outline-none"
-        aria-label="Next slide"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-6 w-6 text-white transition-colors group-hover:text-pink-600"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
-    </div>
-
-    <!-- Fix the dot indicators to use recommendedBlogs instead of carouselItems -->
-    <div class="absolute bottom-6 left-1/2 z-30 flex -translate-x-1/2 gap-3">
-      <button
-        *ngFor="let item of recommendedBlogs; let i = index"
-        (click)="goToSlide(i)"
-        [ngClass]="{
-          'w-6 bg-white': currentIndex === i,
-          'bg-white/50 hover:bg-white/70': currentIndex !== i,
-        }"
-        class="h-2 rounded-full transition-all duration-300 focus:outline-none"
-        [attr.aria-label]="'Go to slide ' + (i + 1)"
-      ></button>
+      <!-- Decorative Elements -->
+      <div class="absolute -bottom-6 -left-6 h-16 w-16 rounded-full bg-pink-100/30"></div>
+      <div class="absolute -right-6 -top-6 h-12 w-12 rounded-full bg-purple-100/30"></div>
     </div>
   </div>
-</div>
-<!--  </div>-->
-<!--  <div *ngIf="!recommendedBlogs || recommendedBlogs.length === 0" class="py-10 text-center text-gray-500">Không có bài viết nào để hiển thị</div>-->
+}
