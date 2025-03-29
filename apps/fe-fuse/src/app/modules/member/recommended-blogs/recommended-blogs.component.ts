@@ -1,5 +1,5 @@
 import { CommonModule, DatePipe } from '@angular/common';
-import { Component, effect, OnInit } from '@angular/core';
+import { Component, effect, OnInit, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { BlogResponseType, ChildType } from '@pregnancy-journal-monorepo/contract';
 import { NgxSplideModule } from 'ngx-splide';
@@ -15,16 +15,17 @@ import { BlogMasonryService } from '../../blog-masonry/blog-masonry.service';
 })
 export class RecommendedBlogsComponent implements OnInit {
   child: ChildType;
-  recommendedBlogs: BlogResponseType[] = [];
   isLoading = true;
-
+  recommendedBlogs = signal<BlogResponseType[]>([]);
   constructor(
     private blogService: BlogMasonryService,
     private router: Router,
     private childService: ChildV2Service,
   ) {
     effect(() => {
-      this.loadRecommendedBlogs();
+      if (this.child) {
+        this.loadRecommendedBlogs();
+      }
     });
   }
 
@@ -50,7 +51,7 @@ export class RecommendedBlogsComponent implements OnInit {
           // Get blog recommendations based on tags
           this.blogService.getBlogRecommendationByTagArray(tagIds).subscribe({
             next: (result) => {
-              this.recommendedBlogs = result.blogs || [];
+              this.recommendedBlogs.set(result.blogs);
               this.isLoading = false;
 
               // If we got fewer than 5 results, get additional general blogs
@@ -81,15 +82,15 @@ export class RecommendedBlogsComponent implements OnInit {
     // Fetch trending blogs as fallback
     this.blogService.getTrendBlogs().subscribe({
       next: (result) => {
-        if (!this.recommendedBlogs.length) {
-          this.recommendedBlogs = result.blogs.slice(0, 5);
+        if (!this.recommendedBlogs().length) {
+          this.recommendedBlogs.set(result.blogs);
         } else {
           // Add more blogs if we don't have enough, but avoid duplicates
-          const existingIds = new Set(this.recommendedBlogs.map((blog) => blog.blog_id));
+          const existingIds = new Set(this.recommendedBlogs().map((blog) => blog.blog_id));
           const additionalBlogs = result.blogs.filter((blog) => !existingIds.has(blog.blog_id));
 
           // Add enough to reach 5 total, or all available if less
-          this.recommendedBlogs = [...this.recommendedBlogs, ...additionalBlogs.slice(0, 5 - this.recommendedBlogs.length)];
+          this.recommendedBlogs.update((currentBlogs) => [...currentBlogs, ...additionalBlogs.slice(0, 5 - currentBlogs.length)]);
         }
         this.isLoading = false;
       },
@@ -99,7 +100,6 @@ export class RecommendedBlogsComponent implements OnInit {
       },
     });
   }
-
   navigateToBlog(blog: BlogResponseType): void {
     if (blog?.blog_id) {
       this.router.navigate(['/blog', blog.blog_id]);

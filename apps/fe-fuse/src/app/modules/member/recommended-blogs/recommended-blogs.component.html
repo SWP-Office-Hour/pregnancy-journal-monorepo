@@ -1,5 +1,5 @@
 <!-- Maternal Blog Recommendations Section -->
-@if (this.recommendedBlogs.length > 0) {
+@if (this.recommendedBlogs().length > 0) {
   <div class="my-8 w-full overflow-hidden">
     <!-- Section Header with Maternal Styling -->
     <div class="mb-8 text-center">
@@ -28,7 +28,7 @@
       >
         <!-- Blog Cards -->
         <splide-slide
-          *ngFor="let blog of recommendedBlogs; let i = index"
+          *ngFor="let blog of recommendedBlogs(); let i = index"
           class="px-3 opacity-0"
           [style]="{ animation: 'fadeInUp 0.8s ease-out forwards m', 'animation-delay': i * 0.1 + 's' }"
         >
@@ -63,7 +63,7 @@
 
                 <!-- Blog Image -->
                 <img
-                  [src]="blog?.blog_cover || '/images/ui/placeholder/blog-placeholder.jpg'"
+                  [src]="blog?.blog_cover"
                   [alt]="blog?.title"
                   class="aspect-video h-48 w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   (error)="handleImageError($event)"
