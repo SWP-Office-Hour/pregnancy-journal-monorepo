@@ -80,12 +80,9 @@ export class HomeComponent {
   child: ChildType;
   protected readonly Status = Status;
   protected user: User | null = null;
-  // public systemRemind: WritableSignal<SystemReminder | null> = signal(null);
 
   //----------- Constructor -------------
   constructor(
-    // private _recordService: PregnancyRecordService,
-    // private _httpClient: HttpClient,
     private _userService: UserService,
     private _childService: ChildV2Service,
     private router: Router,
@@ -109,11 +106,6 @@ export class HomeComponent {
         console.log('Selected child:', child);
         this._expectedDate = new Date(child.expected_birth_date);
         this.calculateCurrentPregnancyWeek();
-        // const remindForThisWeek = SystemReminders.find((item) => item.week === this._currentPregnancyWeek);
-        // if (remindForThisWeek) {
-        //   console.log('Remind for this week:', remindForThisWeek);
-        //   this.systemRemind.set(remindForThisWeek);
-        // }
       });
     });
   }
