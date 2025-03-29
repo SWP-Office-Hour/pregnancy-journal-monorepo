@@ -130,7 +130,7 @@ export class TrackingFormComponent {
     if (metricsArr) {
       this.metrics = metricsArr.filter((metric) => metric.status == Status.ACTIVE);
       this.metrics.forEach((metric) => {
-        const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || 0;
+        const filteredValue = value.data.find((data) => data.metric_id === metric.metric_id)?.value || '0';
         this.metricsFormArray.push(this._formBuilder.control(filteredValue, metric.required ? Validators.required : []));
       });
     }
