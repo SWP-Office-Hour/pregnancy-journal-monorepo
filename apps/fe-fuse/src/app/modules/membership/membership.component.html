@@ -1,74 +1,156 @@
-<div class="relative flex min-w-0 flex-auto flex-col overflow-hidden">
+<!-- membership.component.html -->
+<div class="relative flex min-w-0 flex-auto flex-col overflow-hidden bg-gradient-to-br from-pink-50 via-rose-50/50 to-purple-50">
   <!-- Header & Cards -->
-  <div class="relative overflow-hidden px-6 pb-12 pt-8 sm:px-16 sm:pb-24 sm:pt-20">
-    <!-- Background -->
-    <!-- prettier-ignore -->
-    <svg class="-z-1 absolute inset-0"
-         viewBox="0 0 960 540" width="100%" height="100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
-      <g class="opacity-40 text-gray-200 dark:text-gray-800" fill="none" stroke="currentColor" stroke-width="100">
-        <circle r="234" cx="196" cy="23"></circle>
-        <circle r="234" cx="790" cy="491"></circle>
-      </g>
-    </svg>
+  <div class="relative overflow-hidden px-6 pb-12 pt-12 sm:px-16 sm:pb-24 sm:pt-20">
+    <!-- Optional: Subtle background pattern or decoration -->
+    <!-- <img src="/images/ui/doodles/d9.svg" alt="" class="absolute -left-10 -top-10 z-0 h-48 w-48 opacity-10 rotate-12" /> -->
+    <!-- <img src="/images/ui/doodles/d5.svg" alt="" class="absolute -right-10 bottom-10 z-0 h-40 w-40 opacity-10 -rotate-12" /> -->
+
     <!-- Header -->
-    <div class="flex flex-col items-center">
-      <h2 class="text-xl font-semibold">GÓI THÀNH VIÊN</h2>
-      <div class="mt-1 text-center text-4xl font-extrabold leading-tight tracking-tight sm:text-7xl">
-        Nâng cấp đặc quyền và các dịch vụ chúng tôi cung cấp
+    <div class="relative z-10 mb-10 flex flex-col items-center sm:mb-16">
+      <h2
+        class="mb-2 inline-block rounded-full bg-gradient-to-r from-pink-400 to-purple-400 px-6 py-2 text-lg font-semibold tracking-wide text-white shadow-md"
+        style="font-family: var(--font-playful, sans-serif)"
+      >
+        GÓI THÀNH VIÊN
+      </h2>
+      <div
+        class="mt-2 max-w-3xl text-center text-4xl font-bold leading-tight tracking-tight text-gray-800 drop-shadow-sm sm:text-6xl"
+        style="font-family: var(--font-playful, sans-serif)"
+      >
+        Nâng cấp đặc quyền và dịch vụ
       </div>
-      <div class="text-secondary mt-3 text-center tracking-tight sm:text-2xl">
-        <div class="">Bắt đầu nhỏ và miễn phí, nâng cấp khi cần thiết.</div>
-        <div class="">Làm chủ mọi thứ.</div>
+      <div class="mt-4 max-w-xl text-center text-xl tracking-tight text-pink-700/80 sm:text-2xl" style="font-family: var(--font-text, sans-serif)">
+        <div class="">Bắt đầu miễn phí, nâng cấp khi bạn cần.</div>
+        <div class="">Làm chủ trải nghiệm của bạn.</div>
       </div>
     </div>
-    <p-toast />
-    <!-- Carousel-->
-    <div class="card">
-      <div class="mt-10 flex justify-center sm:mt-20">
-        <div class="w-full max-w-sm md:max-w-7xl">
-          <p-carousel [value]="membershipResource.value()!" [numVisible]="3" [numScroll]="1" [circular]="false" autoplayInterval="6000">
-            <ng-template #item let-membership>
-              <div style="margin: 2rem">
-                <div class="group relative">
-                  <fuse-card
-                    class="group-hover:ring-primary max-w-sm flex-col overflow-visible p-6 ring-2 ring-white transition duration-300 sm:px-10 sm:py-12 md:max-w-none"
+
+    <p-toast position="top-right" key="membershipToast" />
+
+    <!-- Carousel Container -->
+    <div class="relative z-10">
+      <div class="flex justify-center">
+        <!-- Adjust max-width as needed for responsiveness -->
+        <div class="w-full max-w-sm md:max-w-5xl lg:max-w-7xl">
+          <p-carousel
+            [value]="membershipResource.value()!"
+            [numVisible]="3"
+            [numScroll]="1"
+            [circular]="false"
+            [autoplayInterval]="6000"
+            [responsiveOptions]="[
+              { breakpoint: '1200px', numVisible: 3, numScroll: 1 },
+              { breakpoint: '992px', numVisible: 2, numScroll: 1 },
+              { breakpoint: '768px', numVisible: 1, numScroll: 1 },
+            ]"
+            styleClass="memberships-carousel"
+          >
+            <ng-template pTemplate="item" let-membership>
+              <!-- Added padding around the item for spacing -->
+              <div class="p-2 md:p-4">
+                <div class="group relative h-full">
+                  <!-- Replaced fuse-card with a standard div structure for easier styling consistency -->
+                  <!-- Added flex, flex-col, h-full for consistent card height if needed -->
+                  <div
+                    class="relative flex h-full flex-col overflow-hidden rounded-3xl bg-white p-6 shadow-lg shadow-pink-200/30 ring-1 ring-pink-100/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-pink-300/40 sm:p-8"
                   >
-                    <div
-                      class="absolute inset-x-0 -top-4 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                    >
-                      <div class="bg-primary text-on-primary flex h-8 items-center rounded-full px-8 text-center font-medium leading-none">
-                        GÓI THÀNH VIÊN
+                    <!-- Optional: Decorative accent inside the card -->
+                    <!-- <div class="absolute -right-4 -top-4 h-16 w-16 rotate-12 opacity-5"><img src="/images/ui/doodles/d7.svg" alt=""></div> -->
+
+                    <!-- "Most Popular" style Badge - Conditional example (remove if not needed) -->
+                    <!-- <div *ngIf="membership.popular"
+                         class="absolute inset-x-0 -top-4 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <div class="bg-gradient-to-r from-pink-400 to-purple-400 text-white flex h-8 items-center rounded-full px-6 text-center text-sm font-medium leading-none shadow-md">
+                        Phổ biến nhất
                       </div>
-                    </div>
-                    <div class="text-4xl font-bold leading-tight tracking-tight">{{ membership.title }}</div>
-                    <div class="bg-accent my-10 h-1 w-8 rounded"></div>
-                    <div class="flex items-baseline whitespace-nowrap">
-                      <div class="text-6xl font-semibold leading-tight tracking-tight">{{ membership.price | number: '1.0-0' : 'vi-VN' }} VNĐ</div>
-                    </div>
-                    <div class="text-secondary mt-2 flex flex-col"></div>
-                    <button
-                      class="fuse-mat-button-large mt-10 text-white"
-                      mat-flat-button
-                      [color]="'primary'"
-                      (click)="openDialog(membership.membership_id)"
-                    >
-                      MUA NGAY
-                    </button>
-                    <div class="mt-12 flex flex-col">
-                      <div class="font-semibold">Các đặc quyền khi mua gói:</div>
-                      <div class="mt-4 space-y-2">
-                        <div class="flex">
-                          <div class="ml-2 leading-5" style="width: 200px; height: 100px; overflow: hidden">{{ membership.description }}</div>
+                    </div> -->
+
+                    <!-- Card Content -->
+                    <div class="flex-grow">
+                      <!-- Title -->
+                      <div
+                        class="mb-3 text-3xl font-bold leading-tight tracking-tight text-gray-800"
+                        style="font-family: var(--font-playful, sans-serif)"
+                      >
+                        {{ membership.title }}
+                      </div>
+
+                      <!-- Divider -->
+                      <div class="my-6 h-1 w-10 rounded-full bg-gradient-to-r from-pink-300 to-purple-300"></div>
+
+                      <!-- Price -->
+                      <div class="flex items-baseline whitespace-nowrap">
+                        <div class="text-5xl font-semibold leading-tight tracking-tight text-gray-900">
+                          {{ membership.price | number: '1.0-0' : 'vi-VN' }}
+                        </div>
+                        <span class="ml-1.5 text-lg font-medium text-gray-500">VNĐ</span>
+                        <!-- Add /tháng or similar if applicable -->
+                        <!-- <span class="ml-1 text-base text-gray-400">/ tháng</span> -->
+                      </div>
+                      <!-- Optional: Secondary price info (e.g., per year) -->
+                      <!-- <div class="text-pink-500/80 mt-1 text-sm">Hoặc 1,000,000 VNĐ/năm</div> -->
+
+                      <!-- Features Section -->
+                      <div class="mt-8 flex flex-col">
+                        <div class="mb-3 font-semibold text-pink-700" style="font-family: var(--font-playful, sans-serif)">Đặc quyền nổi bật:</div>
+                        <!-- Using line-clamp for description -->
+                        <div class="space-y-2 text-base text-gray-600">
+                          <div class="flex items-start">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              class="mr-2 mt-1 h-4 w-4 shrink-0 text-pink-400"
+                              viewBox="0 0 20 20"
+                              fill="currentColor"
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                            <!-- Use line-clamp for better text handling -->
+                            <p class="line-clamp-4 leading-relaxed">
+                              {{ membership.description || 'Mô tả chi tiết về các lợi ích của gói thành viên này.' }}
+                            </p>
+                          </div>
+                          <!-- Add more static features or loop through an array if available -->
+                          <!-- <div class="flex items-start"> ... </div> -->
                         </div>
                       </div>
                     </div>
-                  </fuse-card>
+
+                    <!-- Action Button - Placed at the bottom -->
+                    <div class="mt-8 flex-shrink-0">
+                      <button
+                        class="w-full rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-8 py-3.5 text-base font-semibold text-white shadow-md transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-pink-300/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2"
+                        mat-flat-button
+                        (click)="openDialog(membership.membership_id)"
+                        style="font-family: var(--font-playful, sans-serif)"
+                      >
+                        MUA NGAY
+                      </button>
+                    </div>
+
+                    <!-- Decorative footer element -->
+                    <div class="absolute bottom-0 left-0 h-1 w-full bg-gradient-to-r from-pink-200 via-purple-200 to-transparent opacity-50"></div>
+                  </div>
                 </div>
               </div>
             </ng-template>
+
+            <!-- Custom indicators (optional, p-carousel has its own) -->
+            <!-- <ng-template pTemplate="indicators" let-items> ... </ng-template> -->
+
+            <!-- Custom header/footer (optional) -->
+            <!-- <ng-template pTemplate="header"> Custom Header </ng-template> -->
+            <!-- <ng-template pTemplate="footer"> Custom Footer </ng-template> -->
           </p-carousel>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Optional: Add a separator or another section below if needed -->
+  <!-- <div class="border-t border-pink-100 my-16"></div> -->
 </div>
