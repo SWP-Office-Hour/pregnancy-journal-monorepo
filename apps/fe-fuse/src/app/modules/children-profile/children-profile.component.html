@@ -118,12 +118,15 @@
                           <mat-icon class="mr-2 transition-transform group-hover:scale-110">edit</mat-icon>
                           <span class="font-medium">CHỈNH SỬA</span>
                         </button>
-
                         <button
                           class="group flex w-full items-center justify-center rounded-xl bg-red-500 px-5 py-3 text-white shadow-md transition-all hover:bg-red-600 hover:shadow-lg"
                           mat-flat-button
                           color="warn"
                           (click)="deleteChild(child)"
+                          [disabled]="childResource.value()?.length <= 1"
+                          [ngClass]="{
+                            '!bg-gray-500 text-gray-200': childResource.value()?.length <= 1,
+                          }"
                         >
                           <mat-icon class="mr-2 transition-transform group-hover:scale-110">delete</mat-icon>
                           <span class="font-medium">XÓA</span>
