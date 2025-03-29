@@ -6,7 +6,7 @@ import { ChartModule } from 'primeng/chart';
 @Component({
   selector: 'app-chart-combo',
   template: `<div class="card">
-    <div class="mb-4 text-2xl font-semibold">thống kê tiền và gói bán theo tháng</div>
+    <div class="mb-4 text-2xl font-semibold">Thống kê tiền và gói bán theo tháng</div>
     <p-chart type="line" [data]="data" [options]="options" class="h-80" />
   </div>`,
   standalone: true,

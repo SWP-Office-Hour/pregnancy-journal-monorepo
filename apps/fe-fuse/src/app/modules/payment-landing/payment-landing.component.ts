@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, Subject, takeUntil, takeWhile, tap, timer } from 'rxjs';
+import { environment } from '../../../environments/environment';
 import { AuthService } from '../../core/auth/auth.service';
 
 @Component({
@@ -12,7 +13,6 @@ import { AuthService } from '../../core/auth/auth.service';
 })
 export class PaymentLandingComponent implements OnInit, OnDestroy {
   countdown: number = 3;
-  payos_order_code: string;
   countdownMapping: any = {
     '=1': '# second',
     other: '# seconds',
@@ -30,7 +30,7 @@ export class PaymentLandingComponent implements OnInit, OnDestroy {
   ) {
     this._activeRoute.queryParams.subscribe((params) => {
       if (params['orderCode'] && params['status'] == 'PAID') {
-        this._http.patch(`http://localhost:3000/payments`, { payos_order_code: params['orderCode'] }).subscribe();
+        this._http.patch(`${{ environment }}payments`, { payos_order_code: params['orderCode'] }).subscribe();
       }
     });
   }
