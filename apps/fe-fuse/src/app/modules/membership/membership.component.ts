@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, Component, effect, resource, ViewEncapsulation
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
-import { FuseCardComponent } from '@fuse/components/card';
 import { Membership, Status } from '@pregnancy-journal-monorepo/contract';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
@@ -23,7 +22,7 @@ import { DialogComponent } from './dialog/dialog.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   providers: [MessageService],
-  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, FuseCardComponent, FuseCardComponent, ToastModule, DecimalPipe],
+  imports: [CarouselModule, MatButtonModule, MatIconModule, CardModule, ButtonModule, ToastModule, DecimalPipe],
 })
 export class MembershipComponent {
   yearlyBilling: boolean = true;

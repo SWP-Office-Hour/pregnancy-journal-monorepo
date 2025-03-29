@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialogClose, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../core/auth/auth.service';
 import { membershipService } from '../../../core/membership/membership.service';
@@ -8,7 +8,7 @@ import { membershipService } from '../../../core/membership/membership.service';
 @Component({
   selector: 'dialog-membership',
   templateUrl: './dialog.component.html',
-  imports: [MatButtonModule, MatDialogClose],
+  imports: [MatButtonModule, MatDialogClose, MatDialogTitle, MatDialogContent, MatDialogActions],
 })
 export class DialogComponent {
   private isLoading: boolean;

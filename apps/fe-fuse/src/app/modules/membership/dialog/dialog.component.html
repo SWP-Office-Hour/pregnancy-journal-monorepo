@@ -1,26 +1,48 @@
-<h1 mat-dialog-title style="font-size: 24px; font-weight: bold; color: #333; text-align: center; margin-bottom: 20px">Confirm Purchase</h1>
-<div mat-dialog-content style="font-size: 16px; color: #666; text-align: center; margin-bottom: 20px">Are you sure you want to buy ?</div>
-<div mat-dialog-actions style="display: flex; justify-content: center; gap: 10px">
-  <button mat-button class="dialog-button" (click)="onYesClick(data.membershipId)" [mat-dialog-close]="true">Yes</button>
-  <button mat-button class="dialog-button" (click)="onNoClick()">No</button>
+<!-- dialog.component.html -->
+
+<!--
+  Note: The overall dialog container (mat-dialog-container) appearance
+  (like background, padding, rounded corners) is often controlled globally
+  or by Angular Material's theme. You might need to adjust global styles
+  if the default container doesn't fit the aesthetic.
+-->
+
+<!-- Title -->
+<h1
+  mat-dialog-title
+  class="mb-4 text-center text-2xl font-bold text-pink-800/90 sm:text-3xl"
+  style="font-family: var(--font-playful, sans-serif), serif"
+>
+  Xác nhận Mua Gói
+</h1>
+
+<!-- Content -->
+<div mat-dialog-content class="mb-8 text-center text-lg text-gray-600" style="font-family: var(--font-playful, sans-serif), serif">
+  Bạn có chắc chắn muốn mua gói thành viên này không?
 </div>
 
-<style>
-  .dialog-button {
-    background-color: pink;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+<!-- Actions -->
+<div mat-dialog-actions class="flex justify-center gap-4 px-4 pb-4 sm:gap-6">
+  <!-- Yes Button (Primary Action) -->
+  <button
+    mat-flat-button
+    (click)="onYesClick(data.membershipId)"
+    [mat-dialog-close]="true"
+    class="rounded-full bg-gradient-to-r from-pink-500 to-purple-500 px-8 py-2.5 text-base font-semibold text-white shadow-md transition-all duration-300 hover:opacity-90 hover:shadow-lg hover:shadow-pink-300/50 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:ring-offset-2"
+    style="font-family: var(--font-playful, sans-serif), serif"
+  >
+    Xác nhận
+  </button>
 
-  .dialog-button:hover {
-    background-color: #ff69b4; /* Darker pink on hover */
-  }
-
-  .dialog-button:active {
-    background-color: #ff1493; /* Even darker pink on active */
-  }
-</style>
+  <!-- No Button (Secondary Action) -->
+  <button
+    mat-stroked-button
+    color="warn"
+    (click)="onNoClick()"
+    [mat-dialog-close]="false"
+    class="rounded-full border-pink-300 px-8 py-2.5 text-base font-semibold text-pink-600 shadow-sm transition-all duration-300 hover:border-pink-400 hover:bg-pink-50/50 hover:text-pink-700 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-1"
+    style="font-family: var(--font-playful, sans-serif), serif"
+  >
+    Hủy bỏ
+  </button>
+</div>
