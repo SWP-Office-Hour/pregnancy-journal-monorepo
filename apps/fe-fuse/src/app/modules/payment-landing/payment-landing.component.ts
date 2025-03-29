@@ -30,7 +30,7 @@ export class PaymentLandingComponent implements OnInit, OnDestroy {
   ) {
     this._activeRoute.queryParams.subscribe((params) => {
       if (params['orderCode'] && params['status'] == 'PAID') {
-        this._http.patch(`${{ environment }}payments`, { payos_order_code: params['orderCode'] }).subscribe();
+        this._http.patch(`${environment.apiUrl}payments`, { payos_order_code: params['orderCode'] }).subscribe();
       }
     });
   }
