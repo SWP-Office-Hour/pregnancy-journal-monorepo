@@ -49,7 +49,7 @@ export class ChildService {
         title: 'Ngày sinh dự kiến',
         content: `Ngày sinh dự kiến của bé`,
         remind_date: createChild.expected_birth_date,
-        color: '#ec4899',
+        color: 'ec4899',
         type: ReminderType.USER_DUE_DATE,
       },
       userId,
