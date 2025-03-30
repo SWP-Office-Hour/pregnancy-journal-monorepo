@@ -18,7 +18,6 @@ export class MediaController {
         throw new BadRequestException('No post_id or record_id provided');
       }
 
-      console.log(media);
       const { newMedias, deletedMedias } = await this.mediaService.updateWithRecordId({ media, record_id });
 
       if (deletedMedias.length === 0 && newMedias.length === 0) {

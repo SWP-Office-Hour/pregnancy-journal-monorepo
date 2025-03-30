@@ -39,7 +39,6 @@ export class UsersController {
         const users = await this.usersService.register(body);
         return { status: 201, body: users };
       } else {
-        console.log('Email is already registered');
         throw new ConflictException('Email is already registered');
       }
     });
