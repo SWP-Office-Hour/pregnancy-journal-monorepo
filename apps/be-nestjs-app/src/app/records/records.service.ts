@@ -365,7 +365,7 @@ export class RecordsService {
       const { value, value_extended } = metric;
       const standard = standards.find((s) => {
         // Find the last standard with week less than current week
-        return s.week <= week;
+        return s.week <= week && s.metric_id == metric.metric_id;
       });
 
       if (!standard) {
