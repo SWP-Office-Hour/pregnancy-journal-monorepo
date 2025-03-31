@@ -93,4 +93,9 @@ export class PregnancyTrackingComponent implements OnInit {
       },
     }).then((res) => res.json());
   }
+
+  getMetricTitle(metricId: string): string {
+    const metric = this._trackingService.metrics.value().find((metric) => metric.metric_id === metricId);
+    return metric ? metric.title : '';
+  }
 }
