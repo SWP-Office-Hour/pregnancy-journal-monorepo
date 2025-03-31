@@ -95,6 +95,8 @@ export class ChildService {
       },
     });
 
+    console.log('deleteRecord', deleteRecord);
+
     const reminder = await this.reminderService.findReminderDueDateByChild(child);
     if (reminder) {
       await this.reminderService.remove(reminder.reminder_id);
