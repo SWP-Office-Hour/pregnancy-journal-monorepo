@@ -194,6 +194,12 @@ export class MetricService {
 
   async remove(id: string) {
     const deleted = await this.findOne(id);
+    await this.databaseService.RecordMetric.deleteMany({
+      where: {
+        metric_id: id,
+      },
+    });
+
     await this.databaseService.Standard.deleteMany({
       where: {
         metric_id: id,
