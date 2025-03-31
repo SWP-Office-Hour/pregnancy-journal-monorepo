@@ -27,18 +27,20 @@
     </g>
   </svg>
 </div>
-<div class="flex h-screen w-full flex-col overflow-auto">
+<div class="flex w-full flex-col overflow-auto" style="scrollbar-width: none; -ms-overflow-style: none" id="custom-scrollbar">
   <!-- Tiêu đề/Điều hướng -->
-  <header class="inset-x-0 top-0 z-50 !text-white transition-all duration-300">
-    <nav class="flex w-full items-center justify-between p-4 !px-28" aria-label="Global">
+  <header class="sticky inset-x-0 top-0 z-50 bg-white/20 shadow-sm backdrop-blur-sm transition-all duration-300">
+    <nav class="mx-auto flex w-full max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
       <!-- Logo section (left) -->
-      <div class="px-auto flex">
-        <a routerLink="/" class="-m-1.5 flex items-center p-1.5">
+      <div class="flex items-center">
+        <a routerLink="/" class="group flex items-center space-x-2">
           <span class="sr-only">Pregnancy Journal</span>
           <!-- Logo nhỏ cho tất cả màn hình -->
-          <img class="h-12 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
+          <div class="rounded-full bg-white/80 p-1.5 shadow-sm transition-all group-hover:bg-white group-hover:shadow">
+            <img class="h-10 w-auto transform transition-transform group-hover:scale-105" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
+          </div>
           <!-- Logo chữ chỉ hiển thị trên màn hình lớn hơn -->
-          <div class="logo-font self-end text-4xl tracking-wider text-pink-500">
+          <div class="logo-font self-center text-3xl tracking-wider text-pink-600 transition-colors group-hover:text-pink-500">
             <i>Pregnancy Journal</i>
           </div>
         </a>
@@ -47,24 +49,40 @@
       <!-- Điều hướng máy tính để bàn -->
       @if (!isScreenSmall) {
         <!-- Navigation links (center) -->
-        <div class="flex items-center justify-center gap-x-8 text-xl">
-          <a routerLink="/blog" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> Blog </a>
-          <a routerLink="/features" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
+        <div class="flex items-center justify-center gap-x-2 md:gap-x-4">
+          <a
+            routerLink="/blog"
+            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
+          >
+            Blog
+          </a>
+          <a
+            routerLink="/features"
+            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
+          >
             Tính năng
           </a>
-          <a routerLink="/about" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
+          <a
+            routerLink="/about"
+            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
+          >
             Về chúng tôi
           </a>
-          <div class="px-2"></div>
         </div>
 
         <!-- Authentication links (right) -->
-        <div class="hidden items-center space-x-5 pr-10">
-          <a routerLink="/sign-in" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> </a>
+        <div class="flex items-center space-x-3">
+          <a
+            routerLink="/sign-in"
+            class="rounded-full border border-pink-200 bg-white/50 px-5 py-2 font-medium text-pink-600 transition-all hover:bg-white hover:shadow-sm"
+          >
+            Đăng nhập
+          </a>
           <a
             routerLink="/sign-up"
-            class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+            class="rounded-full bg-gradient-to-r from-pink-500 to-pink-400 px-5 py-2 font-medium text-white shadow transition-all hover:from-pink-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
           >
+            Đăng ký
           </a>
         </div>
       }
@@ -72,7 +90,7 @@
   </header>
 
   <!-- Nội dung chính -->
-  <main class="flex min-h-[calc(100vh-80px)] flex-auto flex-col" auto-animate>
+  <main class="flex flex-auto flex-col" auto-animate>
     <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
 
     <div class="px-30 h-full flex-grow py-10">
@@ -137,18 +155,24 @@
     <ng-content></ng-content>
   </main>
 
-  <!-- Chân trang giữ nguyên không thay đổi -->
   <!-- Chân trang -->
-  <footer class="flex justify-around bg-gray-900" aria-labelledby="footer-heading">
-    <div class="px-6 pb-8 pt-16 sm:pt-24 lg:px-8 lg:pt-32">
+  <footer
+    class="relative w-full overflow-hidden rounded-t-3xl bg-gradient-to-tr from-pink-50 via-rose-100 to-purple-100 shadow-lg"
+    aria-labelledby="footer-heading"
+  >
+    <!-- Decorative elements -->
+    <div class="absolute -right-20 -top-20 h-40 w-40 rounded-full bg-pink-200/30 opacity-50"></div>
+    <div class="absolute -left-10 top-40 h-20 w-20 rounded-full bg-purple-200/30 opacity-50"></div>
+
+    <div class="relative px-6 pb-10 pt-16 sm:pt-24 lg:px-8 lg:pt-28">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
-        <div class="space-y-8">
-          <img class="h-12" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
-          <p class="leading-6 text-gray-300">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
-          <div class="flex space-x-6">
-            <a href="#" class="text-gray-400 hover:text-gray-300">
+        <div class="space-y-6">
+          <img class="h-14 drop-shadow-sm" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
+          <p class="text-sm leading-6 text-pink-800/80">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
+          <div class="flex space-x-5">
+            <a href="#" class="rounded-full bg-white/70 p-2 text-pink-500 shadow-sm transition-all hover:bg-white hover:text-pink-600 hover:shadow">
               <span class="sr-only">Facebook</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
                   d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
@@ -156,9 +180,9 @@
                 />
               </svg>
             </a>
-            <a href="#" class="text-gray-400 hover:text-gray-300">
+            <a href="#" class="rounded-full bg-white/70 p-2 text-pink-500 shadow-sm transition-all hover:bg-white hover:text-pink-600 hover:shadow">
               <span class="sr-only">Instagram</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
                   d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z"
@@ -166,9 +190,9 @@
                 />
               </svg>
             </a>
-            <a href="#" class="text-gray-400 hover:text-gray-300">
+            <a href="#" class="rounded-full bg-white/70 p-2 text-pink-500 shadow-sm transition-all hover:bg-white hover:text-pink-600 hover:shadow">
               <span class="sr-only">YouTube</span>
-              <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
                   fill-rule="evenodd"
                   d="M19.812 5.418c.861.23 1.538.907 1.768 1.768C21.998 8.746 22 12 22 12s0 3.255-.418 4.814a2.504 2.504 0 0 1-1.768 1.768c-1.56.419-7.814.419-7.814.419s-6.255 0-7.814-.419a2.505 2.505 0 0 1-1.768-1.768C2 15.255 2 12 2 12s0-3.255.417-4.814a2.507 2.507 0 0 1 1.768-1.768C5.744 5 11.998 5 11.998 5s6.255 0 7.814.418ZM15.194 12 10 15V9l5.194 3Z"
@@ -178,68 +202,68 @@
             </a>
           </div>
         </div>
-        <div class="mt-16 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
+        <div class="mt-12 grid grid-cols-2 gap-8 xl:col-span-2 xl:mt-0">
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="font-semibold leading-6 text-white">Sản phẩm</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="font-medium leading-6 text-pink-700">Sản phẩm</h3>
+              <ul role="list" class="mt-5 space-y-3">
                 <li>
-                  <a routerLink="/features" class="leading-6 text-gray-300 hover:text-white">Tính năng</a>
+                  <a routerLink="/features" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Tính năng</a>
                 </li>
                 <li>
-                  <a routerLink="/pricing" class="leading-6 text-gray-300 hover:text-white">Bảng giá</a>
+                  <a routerLink="/pricing" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Bảng giá</a>
                 </li>
                 <li>
-                  <a routerLink="/help" class="leading-6 text-gray-300 hover:text-white">Trợ giúp</a>
+                  <a routerLink="/help" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Trợ giúp</a>
                 </li>
               </ul>
             </div>
-            <div class="mt-10 md:mt-0">
-              <h3 class="font-semibold leading-6 text-white">Công ty</h3>
-              <ul role="list" class="mt-6 space-y-4">
+            <div class="mt-8 md:mt-0">
+              <h3 class="font-medium leading-6 text-pink-700">Công ty</h3>
+              <ul role="list" class="mt-5 space-y-3">
                 <li>
-                  <a routerLink="/about" class="leading-6 text-gray-300 hover:text-white">Về chúng tôi</a>
+                  <a routerLink="/about" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Về chúng tôi</a>
                 </li>
                 <li>
-                  <a routerLink="/blog" class="leading-6 text-gray-300 hover:text-white">Blog</a>
+                  <a routerLink="/blog" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Blog</a>
                 </li>
                 <li>
-                  <a routerLink="/careers" class="leading-6 text-gray-300 hover:text-white">Tuyển dụng</a>
+                  <a routerLink="/careers" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Tuyển dụng</a>
                 </li>
               </ul>
             </div>
           </div>
           <div class="md:grid md:grid-cols-2 md:gap-8">
             <div>
-              <h3 class="font-semibold leading-6 text-white">Trợ giúp</h3>
-              <ul role="list" class="mt-6 space-y-4">
+              <h3 class="font-medium leading-6 text-pink-700">Trợ giúp</h3>
+              <ul role="list" class="mt-5 space-y-3">
                 <li>
-                  <a routerLink="/faq" class="leading-6 text-gray-300 hover:text-white">FAQ</a>
+                  <a routerLink="/faq" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">FAQ</a>
                 </li>
                 <li>
-                  <a routerLink="/contact" class="leading-6 text-gray-300 hover:text-white">Liên hệ</a>
+                  <a routerLink="/contact" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Liên hệ</a>
                 </li>
                 <li>
-                  <a routerLink="/support" class="leading-6 text-gray-300 hover:text-white">Hỗ trợ</a>
+                  <a routerLink="/support" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Hỗ trợ</a>
                 </li>
               </ul>
             </div>
-            <div class="mt-10 md:mt-0">
-              <h3 class="font-semibold leading-6 text-white">Pháp lý</h3>
-              <ul role="list" class="mt-6 space-y-4">
+            <div class="mt-8 md:mt-0">
+              <h3 class="font-medium leading-6 text-pink-700">Pháp lý</h3>
+              <ul role="list" class="mt-5 space-y-3">
                 <li>
-                  <a routerLink="/privacy" class="leading-6 text-gray-300 hover:text-white">Chính sách bảo mật</a>
+                  <a routerLink="/privacy" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Chính sách bảo mật</a>
                 </li>
                 <li>
-                  <a routerLink="/terms" class="leading-6 text-gray-300 hover:text-white">Điều khoản sử dụng</a>
+                  <a routerLink="/terms" class="text-sm leading-6 text-pink-600/90 transition-colors hover:text-pink-800">Điều khoản sử dụng</a>
                 </li>
               </ul>
             </div>
           </div>
         </div>
       </div>
-      <div class="mt-16 border-t border-white/10 pt-8 sm:mt-20 lg:mt-24">
-        <p class="text-xs leading-5 text-gray-400">&copy; {{ currentYear }} Pregnancy Journal. Tất cả các quyền được bảo lưu.</p>
+      <div class="mt-12 border-t border-pink-200/50 pt-6 sm:mt-16">
+        <p class="text-center text-xs leading-5 text-pink-600/80">&copy; {{ currentYear }} Pregnancy Journal. Tất cả các quyền được bảo lưu.</p>
       </div>
     </div>
   </footer>
