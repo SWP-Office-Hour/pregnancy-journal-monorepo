@@ -15,21 +15,23 @@
     </div>
   </div>
 
-  <div class="flex flex-col items-center justify-between space-y-6">
+  <div class="flex w-full flex-col items-center justify-between space-y-6">
     <!-- Reminders List with improved maternal styling -->
-    <div class="flex flex-grow flex-col space-y-6 overflow-y-auto rounded-lg bg-gradient-to-br from-white to-pink-50/20 px-4 py-2 shadow-inner">
+    <div
+      class="flex w-full flex-grow flex-col space-y-6 overflow-y-auto rounded-lg bg-gradient-to-br from-white to-pink-50/20 px-4 py-2 shadow-inner"
+    >
       <!-- Today's Reminders -->
       <div *ngIf="todayReminders().length > 0" class="transform transition-all duration-300 hover:translate-y-[-2px]">
         <h3 class="mb-3 text-sm font-medium text-pink-600">Hôm nay</h3>
         <div class="space-y-3">
           <div
             *ngFor="let reminder of todayReminders(); let i = index"
-            class="group relative flex items-center justify-between rounded-xl border-l-4 border-pink-500 bg-gradient-to-r from-pink-50/80 to-white p-4 shadow-sm transition-all hover:shadow-md hover:shadow-pink-200/20"
+            class="group relative flex items-center justify-between rounded-xl border-r-4 border-pink-500 bg-gradient-to-r from-pink-50/80 to-white p-4 shadow-sm transition-all hover:rounded-xl hover:shadow-md"
             [style]="'animation-delay: ' + i * 0.1 + 's'"
             style="animation: fadeInUp 0.5s ease-out both"
           >
-            <div class="flex items-center space-x-4">
-              <div class="shrink-0 rounded-full bg-pink-100 p-2.5 shadow-sm transition-all group-hover:bg-pink-200">
+            <div class="flex items-center">
+              <div class="mr-2 shrink-0 rounded-full bg-pink-100 p-2.5 shadow-sm transition-all group-hover:bg-pink-200">
                 <svg
                   *ngIf="reminder.type == ReminderType.USER_CREATED_REMINDER"
                   xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +81,7 @@
         <div class="space-y-3">
           <div
             *ngFor="let reminder of tomorrowReminders(); let i = index"
-            class="group relative flex items-center justify-between rounded-xl border-l-4 border-purple-400 bg-gradient-to-r from-purple-50/80 to-white p-4 shadow-sm transition-all hover:shadow-md hover:shadow-purple-200/20"
+            class="group relative flex items-center justify-between rounded-xl border-r-4 border-purple-400 bg-gradient-to-r from-purple-50/80 to-white p-4 shadow-sm transition-all hover:shadow-md hover:shadow-purple-200/20"
             [style]="'animation-delay: ' + (i * 0.1 + 0.3) + 's'"
             style="animation: fadeInUp 0.5s ease-out both"
           >
@@ -134,7 +136,7 @@
         <div class="space-y-3">
           <div
             *ngFor="let reminder of upcomingReminders(); let i = index"
-            class="group relative flex items-center justify-between rounded-xl border-l-4 border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-white p-4 shadow-sm transition-all hover:shadow-md hover:shadow-indigo-200/20"
+            class="group relative flex items-center justify-between rounded-xl border-r-4 border-indigo-400 bg-gradient-to-r from-indigo-50/80 to-white p-4 shadow-sm transition-all hover:shadow-md hover:shadow-indigo-200/20"
             [style]="'animation-delay: ' + (i * 0.1 + 0.6) + 's'"
             style="animation: fadeInUp 0.5s ease-out both"
           >
