@@ -189,12 +189,13 @@ export class BlogMasonryComponent implements OnInit, OnDestroy {
 
   handleImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
-    imgElement.src = 'https://images.unsplash.com/photo-1585829365295-ab7cd400c167';
+    imgElement.src = 'https://cdn.pixabay.com/photo/2021/10/07/21/55/pregnancy-6689868_960_720.png';
   }
 
   handleImageErrorV2(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
-    imgElement.src = 'https://images.unsplash.com/photo-1453728013993-6d66e9c9123a'; // placeholder image
+    imgElement.src =
+      'https://images.unsplash.com/photo-1493894473891-10fc1e5dbd22?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; // placeholder image
   }
 
   // Get paginated blog posts for the current page
