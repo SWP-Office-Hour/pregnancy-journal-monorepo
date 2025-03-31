@@ -35,14 +35,12 @@ export class PregnancyTrackingComponent implements OnInit {
       const result = await Promise.all(
         this.records().map(async (record) => {
           const warnings = await this.getWarningMessage(record.visit_record_id, abortSignal);
-          if (warnings.length > 0) {
-            return { record, warnings };
-          }
-          return null;
+          console.log(warnings);
+          return { record, warnings };
         }),
       );
       console.log(result);
-      return result.filter((x) => x !== null);
+      return result.filter((x) => x.warnings.length > 0);
     },
   });
   metricDataArrayResource = signal<{ options: LineChartOptions; metricId: string }[]>([]);
@@ -59,6 +57,8 @@ export class PregnancyTrackingComponent implements OnInit {
       if (this.records().length > 0) {
         this.recordsWithWarning.reload();
         this._trackingService.metricDataArrayResource.reload();
+      } else {
+        this.recordsWithWarning.value.set([]);
       }
     });
   }
