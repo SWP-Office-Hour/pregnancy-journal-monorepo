@@ -59,10 +59,10 @@
           Role
           <p-sortIcon field="role" />
         </th>
-        <th pSortableColumn="address" style="min-width: 12rem">
-          Address
-          <p-sortIcon field="address" />
-        </th>
+        <!--        <th pSortableColumn="address" style="min-width: 12rem">-->
+        <!--          Address-->
+        <!--          <p-sortIcon field="address" />-->
+        <!--        </th>-->
         <th style="min-width: 4rem">Action</th>
       </tr>
     </ng-template>
@@ -77,7 +77,7 @@
         <td>
           <p-tag [severity]="getSeverityRole(user.role)" [value]="convertRoleToReadable(user.role)" />
         </td>
-        <td>{{ user.province }}, {{ user.district }}, {{ user.ward }}, {{ user.address }}</td>
+        <!--        <td>{{ user.province }}, {{ user.district }}, {{ user.ward }}, {{ user.address }}</td>-->
         <td>
           <p-button (click)="editUser(user)" [outlined]="true" [rounded]="true" class="mr-2" icon="pi pi-pencil" />
           <!-- Reserved for future delete functionality -->
