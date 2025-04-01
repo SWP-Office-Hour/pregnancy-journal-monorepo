@@ -4,12 +4,60 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />
     <title>Nhắc nhở lịch hẹn</title>
     <style>
-      body { font-family: Arial, sans-serif; line-height: 1.6; color: #333333; max-width: 600px; margin: 0 auto; padding: 20px; } .header {
-      text-align: center; padding-bottom: 20px; border-bottom: 1px solid #eeeeee; } .greeting { font-size: 18px; margin: 20px 0; } .reminder-list {
-      margin: 25px 0; } .reminder-item { background-color: #f9f9f9; border-left: 4px solid #4a90e2; padding: 15px; margin-bottom: 15px; border-radius:
-      4px; } .reminder-title { font-weight: bold; font-size: 16px; color: #222222; margin-bottom: 5px; } .reminder-content { margin-bottom: 10px; }
-      .reminder-time { font-size: 14px; color: #666666; } .follow-up-meeting { border-left-color: #e74c3c; } .user-created-event { border-left-color:
-      #2ecc71; } .footer { margin-top: 30px; text-align: center; font-size: 12px; color: #999999; padding-top: 20px; border-top: 1px solid #eeeeee; }
+      body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        color: #333333;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .header {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eeeeee;
+      }
+      .greeting {
+        font-size: 18px;
+        margin: 20px 0;
+      }
+      .reminder-list {
+        margin: 25px 0;
+      }
+      .reminder-item {
+        background-color: #f9f9f9;
+        border-left: 4px solid #4a90e2;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+      }
+      .reminder-title {
+        font-weight: bold;
+        font-size: 16px;
+        color: #222222;
+        margin-bottom: 5px;
+      }
+      .reminder-content {
+        margin-bottom: 10px;
+      }
+      .reminder-time {
+        font-size: 14px;
+        color: #666666;
+      }
+      .follow-up-meeting {
+        border-left-color: #e74c3c;
+      }
+      .user-created-event {
+        border-left-color: #2ecc71;
+      }
+      .footer {
+        margin-top: 30px;
+        text-align: center;
+        font-size: 12px;
+        color: #999999;
+        padding-top: 20px;
+        border-top: 1px solid #eeeeee;
+      }
     </style>
   </head>
   <body>
@@ -18,30 +66,36 @@
     </div>
 
     <div class='greeting'>
-      Xin chào
-      {{name}},
+      <p>Hihi, mẹ bầu <strong>{{name}}</strong> xinh đẹp ơi!</p>
     </div>
-
-    <p>Đây là {{reminders.length}} sự kiện được lên lịch cho ngày mai:</p>
+    <p>Pregnancy Journal đã nhận được "nhiệm vụ" nhắc nhở {{reminders.length}} sự kiện từ mẹ và lưu lại cẩn thận rồi nè:</p>
 
     <div class='reminder-list'>
       {{#each reminders}}
         <div class='reminder-item {{type}}'>
-          <div class='reminder-title'>{{title}}</div>
+          <div class='reminder-title'>💖 <strong>Mẹ cần nhớ làm:</strong> {{title}}</div>
           <div class='reminder-content'>{{content}}</div>
           <div class='reminder-time'>
-            Thời gian:
+            ⏰
+            <strong>Vào lúc:</strong>
             {{remind_date}}
           </div>
         </div>
       {{/each}}
     </div>
 
-    <p>Vui lòng kiểm tra và chuẩn bị cho những sự kiện này.</p>
+    <p>Đừng lo lắng quên mất nha, Pregnancy Journal sẽ là người bạn đồng hành đáng tin cậy, nhắc mẹ đúng giờ luôn!</p>
+
+    <p>Giữ gìn sức khỏe và luôn nở nụ cười thật tươi nha mẹ bầu tuyệt vời!</p>
+
+    <p>
+      Yêu thương,<br />
+      Người bạn nhỏ Pregnancy Journal ✨
+    </p>
 
     <div class='footer'>
       <p>Email này được gửi tự động, vui lòng không trả lời.</p>
-      <p>© 2024 Medical App. Tất cả các quyền được bảo lưu.</p>
+      <p>© 2024 Pregnancy Journal. Tất cả các quyền được bảo lưu.</p>
     </div>
   </body>
 </html>
