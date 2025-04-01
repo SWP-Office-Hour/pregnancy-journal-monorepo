@@ -807,4 +807,16 @@ export class UsersService {
       where: { user_id: userId },
     });
   }
+
+  async getUserByChildId(childId: string) {
+    return await this.databaseService.User.findFirst({
+      where: {
+        child: {
+          some: {
+            child_id: childId,
+          },
+        },
+      },
+    });
+  }
 }

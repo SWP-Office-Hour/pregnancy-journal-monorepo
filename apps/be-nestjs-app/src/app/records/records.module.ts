@@ -6,6 +6,7 @@ import { MetricModule } from '../metric/metric.module';
 import { ReminderModule } from '../reminder/reminder.module';
 import { StandardModule } from '../standard/standard.module';
 import { TagModule } from '../tags/tag.module';
+import { UsersModule } from '../users/users.module';
 import { JwtUtilsModule } from '../utils/jwt/jwtUtils.module';
 import { TimeUtilsService } from '../utils/time/timeUtils.service';
 import { RecordsController } from './records.controller';
@@ -21,6 +22,7 @@ import { RecordsService } from './records.service';
     MediaModule,
     StandardModule,
     DatabaseModule,
+    forwardRef(() => UsersModule),
   ],
   controllers: [RecordsController],
   providers: [RecordsService, TimeUtilsService],
