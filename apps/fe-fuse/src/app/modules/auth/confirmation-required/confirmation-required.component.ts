@@ -244,7 +244,7 @@ export class AuthConfirmationRequiredComponent implements OnInit {
     this.birthInfoForm.disable();
 
     this._authService.signUp(this.confirmationForm.value).subscribe({
-      next: () => this._router.navigate(['']),
+      next: () => this._router.navigate(['home']),
       error: (error) => {
         this.confirmationForm.enable();
         this.basicInfoForm.enable();
