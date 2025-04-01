@@ -9,6 +9,8 @@ import { Toast } from 'primeng/toast';
 import { environment } from '../../../../environments/environment';
 import { LineChartComponent, LineChartOptions } from '../../../common/line-chart/line-chart.component';
 import { ChildV2Service } from '../../../core/children/child.v2.service';
+import { membershipService } from '../../../core/membership/membership.service';
+import { UserService } from '../../../core/user/user.service';
 import { TrackingFormComponent } from './form/tracking-form.component';
 import { PregnancyTrackingV2Service } from './pregnancy-tracking-v2.service';
 import { RecordTableComponent } from './record-table/record-table.component';
@@ -50,6 +52,8 @@ export class PregnancyTrackingComponent implements OnInit {
   constructor(
     private childService: ChildV2Service,
     private _trackingService: PregnancyTrackingV2Service,
+    private _userService: UserService,
+    private _membershipService: membershipService,
   ) {
     this.records = this._trackingService.records.value;
     this.metricDataArrayResource = this._trackingService.metricDataArrayResource.value;
@@ -76,12 +80,19 @@ export class PregnancyTrackingComponent implements OnInit {
 
   createRecord() {
     this._trackingService.SelectRecordData('');
-    const dialogRef = this._dialog.open(TrackingFormComponent, {
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this._trackingService.records.reload();
-      this._trackingService.closeForm();
+    this._userService.checkMember().subscribe((membership) => {
+      if (!membership) {
+        this._membershipService.buy_membership.set(true);
+        return;
+      } else {
+        const dialogRef = this._dialog.open(TrackingFormComponent, {
+          autoFocus: false,
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this._trackingService.records.reload();
+          this._trackingService.closeForm();
+        });
+      }
     });
   }
 
