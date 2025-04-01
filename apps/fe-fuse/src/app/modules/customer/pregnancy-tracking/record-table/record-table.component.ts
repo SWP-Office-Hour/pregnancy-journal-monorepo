@@ -10,6 +10,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { Ripple } from 'primeng/ripple';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
+import { membershipService } from '../../../../core/membership/membership.service';
+import { UserService } from '../../../../core/user/user.service';
 import { TrackingFormComponent } from '../form/tracking-form.component';
 import { PregnancyTrackingV2Service } from '../pregnancy-tracking-v2.service';
 import { SignalPregnancyTrackingService } from '../signal-pregnancy-tracking.service';
@@ -54,6 +56,8 @@ export class RecordTableComponent implements OnInit {
     private signalPregnancyTrackingService: SignalPregnancyTrackingService,
     private _dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+    private _userService: UserService,
+    private _membershipService: membershipService,
   ) {
     this.child = this.signalPregnancyTrackingService.globalSelectedChild;
     this.recordsData = this._trackingService.records.value;
@@ -171,12 +175,19 @@ export class RecordTableComponent implements OnInit {
 
   createRecord() {
     this._trackingService.SelectRecordData('');
-    const dialogRef = this._dialog.open(TrackingFormComponent, {
-      autoFocus: false,
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this._trackingService.records.reload();
-      this._trackingService.closeForm();
+    this._userService.checkMember().subscribe((isMember) => {
+      if (!isMember) {
+        this._membershipService.buy_membership.set(true);
+        return;
+      } else {
+        const dialogRef = this._dialog.open(TrackingFormComponent, {
+          autoFocus: false,
+        });
+        dialogRef.afterClosed().subscribe(() => {
+          this._trackingService.records.reload();
+          this._trackingService.closeForm();
+        });
+      }
     });
   }
 }
