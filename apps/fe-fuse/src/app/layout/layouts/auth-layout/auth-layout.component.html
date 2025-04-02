@@ -29,18 +29,16 @@
 </div>
 <div class="flex w-full flex-col overflow-auto" style="scrollbar-width: none; -ms-overflow-style: none" id="custom-scrollbar">
   <!-- Tiêu đề/Điều hướng -->
-  <header class="sticky inset-x-0 top-0 z-50 bg-white/20 shadow-sm backdrop-blur-sm transition-all duration-300">
-    <nav class="mx-auto flex w-full max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+  <header class="inset-x-0 top-0 z-50 !text-white transition-all duration-300">
+    <nav class="flex w-full items-center justify-between p-4 !px-28" aria-label="Global">
       <!-- Logo section (left) -->
-      <div class="flex items-center">
-        <a routerLink="/" class="group flex items-center space-x-2">
+      <div class="px-auto flex">
+        <a routerLink="/" class="-m-1.5 flex items-center p-1.5">
           <span class="sr-only">Pregnancy Journal</span>
           <!-- Logo nhỏ cho tất cả màn hình -->
-          <div class="rounded-full bg-white/80 p-1.5 shadow-sm transition-all group-hover:bg-white group-hover:shadow">
-            <img class="h-10 w-auto transform transition-transform group-hover:scale-105" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
-          </div>
+          <img class="h-12 w-auto" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
           <!-- Logo chữ chỉ hiển thị trên màn hình lớn hơn -->
-          <div class="logo-font self-center text-3xl tracking-wider text-pink-600 transition-colors group-hover:text-pink-500">
+          <div class="logo-font self-end text-4xl tracking-wider text-pink-500">
             <i>Pregnancy Journal</i>
           </div>
         </a>
@@ -49,40 +47,24 @@
       <!-- Điều hướng máy tính để bàn -->
       @if (!isScreenSmall) {
         <!-- Navigation links (center) -->
-        <div class="flex items-center justify-center gap-x-2 md:gap-x-4">
-          <a
-            routerLink="/blog"
-            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
-          >
-            Blog
-          </a>
-          <a
-            routerLink="/features"
-            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
-          >
+        <div class="flex items-center justify-center gap-x-8 text-xl">
+          <a routerLink="/blog" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> Blog </a>
+          <a routerLink="/features" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
             Tính năng
           </a>
-          <a
-            routerLink="/about"
-            class="rounded-full px-4 py-2 font-medium text-pink-700 transition-all hover:bg-white/80 hover:text-pink-600 hover:shadow-sm"
-          >
+          <a routerLink="/about" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500">
             Về chúng tôi
           </a>
+          <div class="px-2"></div>
         </div>
 
         <!-- Authentication links (right) -->
-        <div class="flex items-center space-x-3">
-          <a
-            routerLink="/sign-in"
-            class="rounded-full border border-pink-200 bg-white/50 px-5 py-2 font-medium text-pink-600 transition-all hover:bg-white hover:shadow-sm"
-          >
-            Đăng nhập
-          </a>
+        <div class="hidden items-center space-x-5 pr-10">
+          <a routerLink="/sign-in" class="rounded-md px-3 py-2 font-semibold leading-6 transition-colors hover:bg-pink-50 hover:text-pink-500"> </a>
           <a
             routerLink="/sign-up"
-            class="rounded-full bg-gradient-to-r from-pink-500 to-pink-400 px-5 py-2 font-medium text-white shadow transition-all hover:from-pink-600 hover:shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
+            class="rounded-lg bg-gradient-to-r from-pink-500 to-pink-400 px-4 py-2 font-semibold leading-6 text-white shadow transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2"
           >
-            Đăng ký
           </a>
         </div>
       }
@@ -93,7 +75,7 @@
   <main class="flex flex-auto flex-col" auto-animate>
     <!-- Thêm router-outlet để hiển thị đúng các tuyến đường con -->
 
-    <div class="px-30 h-full flex-grow py-10">
+    <div class="px-30 h-screen flex-grow py-10">
       <!-- Content -->
       <div class="bg-card grid grid-cols-2 gap-1 rounded-3xl py-8">
         <router-outlet class="hidden"></router-outlet>
@@ -167,9 +149,9 @@
     <div class="relative px-6 pb-10 pt-16 sm:pt-24 lg:px-8 lg:pt-28">
       <div class="xl:grid xl:grid-cols-3 xl:gap-8">
         <div class="space-y-6">
-          <img class="h-14 drop-shadow-sm" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
-          <p class="text-sm leading-6 text-pink-800/80">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
-          <div class="flex space-x-5">
+          <img class="h-14 content-center drop-shadow-sm" src="/images/logo/logo.svg" alt="Logo Pregnancy Journal" />
+          <p class="text-center text-sm leading-6 text-pink-800/80">Đồng hành cùng mẹ bầu trong hành trình làm mẹ tuyệt vời.</p>
+          <div class="flex justify-center space-x-5">
             <a href="#" class="rounded-full bg-white/70 p-2 text-pink-500 shadow-sm transition-all hover:bg-white hover:text-pink-600 hover:shadow">
               <span class="sr-only">Facebook</span>
               <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">

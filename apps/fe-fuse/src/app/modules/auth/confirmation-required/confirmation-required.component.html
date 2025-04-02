@@ -2,7 +2,7 @@
   <div class="mx-auto w-24">
     <img src="/images/logo/logo.svg" alt="logo" />
   </div>
-  <div class="mt-6 flex justify-center">
+  <div class="flex justify-center">
     <div class="flex items-center space-x-2">
       <span
         [ngClass]="{ 'bg-pink-500 text-white': step === 1, 'bg-gray-200': step !== 1 }"
@@ -29,7 +29,7 @@
     <fuse-alert *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'" class="mt-4">
       {{ alert.message }}
     </fuse-alert>
-    <form [formGroup]="basicInfoForm" class="space-y-5">
+    <form [formGroup]="basicInfoForm" class="">
       <div class="mt-5">
         <mat-form-field class="w-full">
           <mat-label>Họ và tên</mat-label>
@@ -59,7 +59,7 @@
     </form>
   </div>
   <div *ngIf="step === 2" class="mt-8">
-    <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Địa chỉ</div>
+    <div class="pb-3 text-center text-2xl font-extrabold leading-tight tracking-tight">Địa chỉ</div>
     <!-- Insert Step 2 form fields here -->
     <fuse-alert *ngIf="showAlert" [appearance]="'outline'" [showIcon]="false" [type]="alert.type" [@shake]="alert.type === 'error'" class="mt-4">
       {{ alert.message }}
@@ -129,7 +129,7 @@
     </form>
   </div>
   <div *ngIf="step === 3" class="mt-8">
-    <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Step 3: Thông tin sinh nở</div>
+    <div class="text-center text-2xl font-extrabold leading-tight tracking-tight">Thông tin sinh nở</div>
     <!-- Insert Step 3 form fields here -->
     <fuse-alert
       *ngIf="showBirthInfoAlert"
@@ -143,12 +143,12 @@
     <form [formGroup]="birthInfoForm" class="space-y-5">
       <div class="mb-4 mt-6 flex items-center justify-center">
         <div class="flex w-full flex-col items-center rounded-xl bg-pink-50 p-4 shadow-sm dark:bg-gray-800">
-          <img
-            src="/assets/images/baby-icon.svg"
-            alt="Baby"
-            class="mb-2 h-16 w-16 transform drop-shadow-md transition-transform duration-300 hover:scale-110"
-            onerror="this.src='/images/logo/logo.svg'; this.style.opacity=0.5;"
-          />
+          <!--          <img-->
+          <!--            src="/assets/images/baby-icon.svg"-->
+          <!--            alt="Baby"-->
+          <!--            class="mb-2 h-16 w-16 transform drop-shadow-md transition-transform duration-300 hover:scale-110"-->
+          <!--            onerror="this.src='/images/logo/logo.svg'; this.style.opacity=0.5;"-->
+          <!--          />-->
           <div class="text-center text-lg font-medium text-pink-700 dark:text-pink-300">Tính ngày dự sinh của bé yêu</div>
           <div class="mt-1 text-center text-xs text-gray-500">Hãy chọn một trong hai cách dưới đây</div>
         </div>
@@ -158,7 +158,7 @@
         [ngClass]="{ 'ring-2 ring-pink-300': birthInfoForm.get('expected_birth_date')?.value }"
         [hidden]="birthInfoForm.get('last_period_date')?.value"
       >
-        <div class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Lựa chọn 1: Nhập trực tiếp</div>
+        <div class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">Lựa chọn 1: Nhập trực tiếp</div>
         <mat-form-field class="w-full">
           <mat-label>Ngày sinh dự kiến</mat-label>
           <input matInput [matDatepicker]="expected_birth_date" formControlName="expected_birth_date" readonly [min]="today" [max]="maxDate" />
@@ -184,8 +184,8 @@
         [ngClass]="{ 'ring-2 ring-pink-300': birthInfoForm.get('last_period_date')?.value }"
         [hidden]="birthInfoForm.get('expected_birth_date')?.value"
       >
-        <div class="mb-2 text-sm font-medium text-gray-600 dark:text-gray-300">Lựa chọn 2: Tính từ kỳ kinh nguyệt</div>
-        <div class="mb-2 text-center text-xs text-pink-600">Mẹ muốn biết ngày dự sinh của bé?</div>
+        <div class="mb-2 text-lg font-medium text-gray-600 dark:text-gray-300">Lựa chọn 2: Tính từ kỳ kinh nguyệt</div>
+        <div class="mb-2 text-center text-xl text-pink-600">Mẹ muốn biết ngày dự sinh của bé?</div>
         <mat-form-field class="w-full">
           <mat-label>Ngày đầu tiên của kỳ kinh nguyệt cuối</mat-label>
           <input matInput [matDatepicker]="last_period_date" formControlName="last_period_date" readonly [min]="minDate" [max]="today" />
