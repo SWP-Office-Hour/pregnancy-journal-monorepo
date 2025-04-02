@@ -338,7 +338,7 @@
           <div
             *ngFor="let blog of blogs"
             (click)="blog_id.click()"
-            class="group relative flex flex-col justify-between overflow-hidden rounded-3xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            class="group relative flex flex-col overflow-hidden rounded-3xl bg-white shadow-md transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
           >
             <!-- Image with gentle overlay -->
             <div class="relative w-full overflow-hidden">
@@ -359,7 +359,7 @@
 
             <div class="w-full flex-grow">
               <!-- Content with softer padding and enhanced styling -->
-              <div class="flex flex-auto flex-col px-6 pt-6">
+              <div class="flex h-full flex-col justify-between px-6 pt-6">
                 <div class="flex flex-col">
                   <!-- Headline with more readable size -->
                   <h3 class="mb-3 line-clamp-2 font-sans text-2xl font-bold text-gray-800 group-hover:text-pink-600">
