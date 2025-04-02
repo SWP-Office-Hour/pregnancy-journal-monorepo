@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DataMetric, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
-import { Observable, tap } from 'rxjs';
+import { DataMetric, MediaResponse, MetricResponseType, RecordResponse, Status } from '@pregnancy-journal-monorepo/contract';
+import { map, Observable, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { PregnancyRecordViewService } from './pregnancy-record-view.service';
 
 @Component({
@@ -20,6 +22,7 @@ export class PregnancyRecordViewComponent implements OnInit {
   constructor(
     private _route: ActivatedRoute,
     private _recordViewService: PregnancyRecordViewService,
+    private _httpClient: HttpClient,
   ) {}
 
   ngOnInit(): void {
@@ -28,10 +31,20 @@ export class PregnancyRecordViewComponent implements OnInit {
     if (this.recordId) {
       console.log('recordId', this.recordId);
       this.record$ = this._recordViewService.getRecordById(this.recordId).pipe(
-        tap(() => {
+        map((record) => {
           this.isLoading = false;
-          console.log('loading', this.isLoading);
-          console.log('record', this.record$);
+          const media = [];
+          record.media.forEach((img) => {
+            this._httpClient.get(environment.apiUrl + 'media/' + img.media_id, {}).subscribe((res: { media: MediaResponse; imgLink: string }) => {
+              media.push({
+                media_id: res.media.media_id,
+                media_url: res.imgLink,
+              });
+            });
+          });
+
+          record.media = media;
+          return record;
         }),
       );
 
