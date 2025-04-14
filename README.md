@@ -1,6 +1,18 @@
 [![CD](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml/badge.svg)](https://github.com/SWP-Office-Hour/pregnancy-journal-monorepo/actions/workflows/cd.yml)
 
-ERD Link: https://swp-office-hour.github.io
+Context Diagram
+
+![Context_diagram.png](documents/Context_diagram.png)
+
+System Architecture Diagram
+
+![System_architecture_diagram_teacher_said_wrong_2.png](documents/System_architecture_diagram_teacher_said_wrong_2.png)
+
+CI/CD Pipeline Diagram
+
+![CICD_diagram_update.png](documents/CICD_diagram_update.png)
+
+> **ERD Link:** https://swp-office-hour.github.io
 
 # PregnancyJournal
 
